@@ -1,0 +1,73 @@
+.bottom_tab_bg{
+  margin-bottom: 44px;
+}
+.item{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  font: inherit;
+  padding-top: 2px;
+  box-sizing: border-box;
+  background: white;
+  font-size: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 38px;
+}
+.item .col{
+  text-align: center;
+  color: #aaa;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  list-style: none;
+  font-size: 10px;
+}
+.col p{
+  padding-top: 22px;
+}
+.col.current p{
+  color: #00a6e2;
+}
+.t1{
+  background: url("./images/tab1.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.current.t1{
+  background: url("./images/tab1h.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.t2{
+  background: url("./images/tab4.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.current.t2{
+  background: url("./images/tab4h.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.t3{
+  background: url("./images/tab2.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.current.t3{
+  background: url("./images/tab2h.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.t4{
+  background: url("./images/tab3.png") no-repeat top center;
+  background-size:auto 20px;
+}
+.current.t4{
+  background: url("./images/tab3h.png") no-repeat top center;
+  background-size:auto 20px;
+}

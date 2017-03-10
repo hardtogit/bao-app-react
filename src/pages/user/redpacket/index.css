@@ -1,0 +1,67 @@
+.bg {
+  background: #F1EFF5;
+  min-height:100vh;
+}
+.leftArrows {
+  width: 20px;
+  height: 50px;
+  left: 15px;
+  position: absolute;
+  top: 0;
+}
+
+.main {
+  overflow: hidden;
+}
+.main .moneyBg {
+  width: 100%;
+  height: 76px;
+  background: #F76360;
+  position: relative;
+}
+.main .moneyBg .division {
+  position: absolute;
+  width: 0;
+  height: 36px;
+  border-left: 1px solid #FF9F9E;
+  left: 50%;
+  top: 50%;
+  margin-top: -18px;
+}
+.main .moneyBg .redLeft {
+  width: 50%;
+  height: 60px;
+  float: left;
+  margin-top: 6px;
+}
+.main .moneyBg .redRight {
+  width: 50%;
+  float: left;
+  height: 60px;
+  margin-top: 6px;
+}
+.main .moneyBg p {
+  font-size: 12px;
+  width: 100%;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+}
+.main .moneyBg h2 {
+  font-size: 22px;
+  padding: 0;
+  margin: 0;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+}
+
+.main .noneRecord {
+  width: 100%;
+  margin-top: 40px;
+}
+.main .noneRecord img {
+  display: block;
+  margin: 0 auto;
+  width: 169px;
+}

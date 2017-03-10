@@ -1,0 +1,67 @@
+.root {
+  h 100%
+  pt 44
+  bg $bg
+}
+
+.form {
+  bg #fff
+  h 89
+  pl 15
+  mt 15
+  display: flex;
+  flex-direction: column;
+  border-top: $border
+  border-bottom: $border
+}
+
+.row {
+  flex 1
+  display: flex;
+  &:nth-child(1) {
+    border-bottom: $border
+  }
+  span {
+    display: inline-block;
+    h 100%
+    line-height: 43px
+  }
+  input {
+    border 0
+    ml 15
+    flex 1
+  }
+}
+
+.buttonWrap {
+  mt 20
+  display: flex;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex 1
+    h 44
+    margin: 0 15px
+    border-radius: 3px
+    bg $main
+    transition: all .5s ease-in-out
+    font-size: 16px
+    color #fff
+    border 0
+    &:disabled {
+      bg darken($main, 10%)
+      color darken(#fff, 15%)
+    }
+  }
+}
+
+.ensure {
+  p {
+    text-align: left;
+    mb 10
+    &:not(:nth-child(1)) {
+      color lighten(#000, 60%)
+    }
+  }
+}

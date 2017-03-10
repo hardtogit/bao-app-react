@@ -1,0 +1,108 @@
+.root {
+  h 100%
+  bg $bg
+  pt 44
+}
+
+.moneyWrap {
+  fs 16
+  bg #fff
+  padding 12px 15px 10px
+}
+
+.moneyTip {
+  ml 10
+  fs 12
+}
+
+.amount,
+.pay {
+  padding: 0 15px
+  border-top: $border
+  border-bottom: $border
+  h 45
+  display: flex;
+  bg #fff
+  font-size: 16px
+}
+
+.amount{
+  & > p {
+    display: flex;
+    align-items: center;
+  }
+  .inputWrapper {
+    display: flex;
+    flex 1
+    input {
+      flex 1
+      pl 15px
+      font-size: 16px
+      placeholder {
+        font-size: 16px
+        color #d2d2d2
+      }
+    }
+  }
+}
+
+.pay {
+  mt 20
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px
+  color $main
+  &::after {
+    content: ''
+    w 9
+    h 15
+    bgimg url(../../../../assets/images/arrow2.png) contain
+  }
+}
+
+.protocol {
+  mt 10
+  pl 15
+  font-size: 14px
+  color #888
+}
+
+.next {
+  margin 40px 15px 0
+  font-size: 18px
+  h 41
+  display: flex;
+  & > button {
+    flex 1
+    border 1px solid #09ace7
+    bg $main
+    color #fff
+    border-radius: 5px
+    transition: all .3s
+    &:disabled {
+      color #87dfff
+      bg #45c4f0
+    }
+  }
+}
+
+.status {
+  h 75
+  bg #fff
+  display: flex;
+  padding 0 15px
+  font-size: 12px
+  & > div {
+    flex 1
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    span:nth-child(2) {
+      mt 10
+      font-size: 18px
+    }
+  }
+  .colored {
+    color #ff7701
+  }
+}

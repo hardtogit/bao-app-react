@@ -1,0 +1,162 @@
+.bg{
+  background:#f0eff5;
+  width: 100%;
+  height: 100%;
+}
+.money{
+  background: #00a6e2;
+  position: relative;
+  margin-top:44px;
+}
+.clearfix:after{
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  padding: 10px 0;
+}
+.money div.left,.money div.right{
+  float: left;
+  width: 50%;
+  color: white;
+  list-style: none;
+  height: 55px;
+  text-align: center;
+}
+.money div p{
+  line-height: 30px;
+}
+.money div p:first-child{
+  font-size: 11px;
+}
+.money div p:last-child{
+  font-size: 20px;
+}
+.money span{
+  width: 1px;
+  height: 36px;
+  background: #4fd0ff;
+  position: absolute;
+  left: 50%;
+  top: 13px;
+}
+.analysis{
+  width: 100%;
+  padding:50px 15px;
+  background: white;
+  margin-top: 15px;
+  position: relative;
+}
+.total{
+  font-size: 11px;
+  color: #aaa;
+  left: 50%;
+  top: 125px;
+  display: inline-block;
+  width: 48px;
+  margin-left: -24px;
+  position: absolute;
+}
+.total_num{
+  font-size: 15px;
+  color: #000;
+  position: absolute;
+  padding: 0;
+  width: 100px;
+  margin-left: -50px;
+  top: 150px;
+  left: 50%;
+  text-align: center;
+}
+.name{
+  position: absolute;
+  top:15px;
+  font-size: 16px;
+  color: #000;
+}
+.money_detail{
+  list-style: none;
+  width: 100%;
+  margin-top: 20px;
+}
+.money_detail li{
+  width: 200px;
+  margin: 10px auto 0;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  position: relative;
+}
+.zh{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background: #4cafff;
+}
+.lq{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background: #763cff;
+}
+.dc{
+   width: 10px;
+   height: 10px;
+   border-radius: 5px;
+   display: inline-block;
+   position: absolute;
+   left: 0;
+   top: 5px;
+   background: #fa394c;
+ }
+.zt{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background: #ffaf32;
+}
+.zq{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background: #2ce4a6;
+}
+.m_m{
+  font-size: 12px;
+  color: #aaaaaa;
+  padding-left: 30px;
+}
+.m_i{
+  font-size: 12px;
+  color: #000;
+  float: right;
+}
+.lcj{
+  text-align: center;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 30px;
+}
+.lcj_m{
+  font-size: 18px;
+  color: #ff7701;
+  text-align: center;
+  margin-top: 5px;
+}

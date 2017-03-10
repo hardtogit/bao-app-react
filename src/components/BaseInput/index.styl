@@ -1,0 +1,74 @@
+.container {
+  bg #fff
+  bc #ddd
+  border-width 1px 0 1px 0
+  border-style solid
+
+  .wrap {
+    display flex
+    align-items center
+    border-width 0
+    ml 15
+  }
+
+  .left {
+    mr 10
+  }
+
+  .leftText {
+    color #000
+    fs 16
+    w 75
+    display block
+  }
+
+  .center {
+    flex 1
+    h 44
+    fs 16
+
+    input {
+      width 100%
+    }
+  }
+
+  .centerInput {
+    fs 16
+    padding 12px 0
+    border 0
+  }
+
+  .right {
+    display flex
+    align-items center
+    h 44
+  }
+
+  .rightIcon {
+    w 19
+    h 19
+    ml 3
+    mr 15
+  }
+
+  &.two {
+    border-bottom-width 0
+
+    .wrap {
+      border-bottom 1px solid #ddd
+    }
+  }
+
+  &.three {
+    border-top-width 0
+  }
+
+  &.four {
+    border-top-width 0
+    border-bottom-width 0
+
+    .wrap {
+      border-bottom 1px solid #ddd 
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.root {
+  h 100%
+  bg $bg
+  pt 44
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  h 234
+  margin 20px 15px 0
+  border-radius: 5px
+  bg #fff
+}
+.title {
+  bg #fbfbfb
+  h 60
+  display: flex;
+  align-items: center;
+  pl 20
+  font-size: 16px
+  color #aaa
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  margin 22px 20px 0
+  border-bottom: $border
+  h 95
+  pb 10
+  & > p {
+    mb 17
+    font-size: 16px
+  }
+  .input {
+    flex: 1
+    display: flex;
+    align-items: center;
+    & > span {
+      font-size: 24px
+      mr 11
+    }
+    .wrapper {
+      flex: 1
+      overflow: hidden;
+      input {
+        border 0
+        h 47
+        font-size: 50px
+        placeholder {
+          color rgb(94, 94, 94);
+        }
+      }
+    }
+  }
+}
+.footer {
+  padding 0 20px
+  flex: 1
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span {
+    &:nth-child(1) {
+      font-size: 14px
+      color #888
+    }
+    &:nth-child(2) {
+      font-size: 11px
+      color $main
+    }
+  }
+}
+
+.next {
+  margin 40px 15px 0
+  font-size: 18px
+  h 41
+  display: flex;
+  & > button {
+    flex 1
+    border 1px solid #09ace7
+    bg $main
+    color #fff
+    border-radius: 5px
+    transition: all .3s
+    &:disabled {
+      color #87dfff
+      bg #45c4f0
+    }
+  }
+}

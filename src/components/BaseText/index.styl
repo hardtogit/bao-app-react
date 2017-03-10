@@ -1,0 +1,62 @@
+.container {
+  bc #ddd
+  border-width 1px 0 1px 0
+  bg #fff
+  pl 15
+  h 44
+  border-style solid
+
+  .wrap {
+    display flex
+    align-items center
+    height 100%
+    pr 15
+  }
+
+  .leftText {
+    fs 16
+    display block
+    color #000
+  }
+
+  .content {
+    flex 1
+  }
+
+  .contentText {
+    color #888
+    text-align right
+    fs 14
+    display block
+  }
+
+  .right {
+    pl 7
+  }
+
+  .arrowIcon {
+    h 15
+    w 9
+  }
+
+  &.two {
+    border-bottom-width 0
+
+    .wrap {
+      border-bottom 1px solid #ddd
+    }
+  }
+
+  &.three {
+    border-top-width 0
+  }
+
+  &.four {
+    border-top-width 0
+    border-bottom-width 0
+
+    .wrap {
+      border-bottom 1px solid #ddd 
+    }
+  }
+}

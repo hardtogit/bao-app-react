@@ -1,0 +1,234 @@
+.root {
+  h 100%
+  bg $bg
+  pt 44
+}
+
+.title {
+  font-size: 14px
+  color #888
+  h 30
+  display flex
+  align-items center
+  pl 15
+}
+
+.status {
+  bg rgb(252,252,252)
+  h 100
+  padding 0 15px
+  display flex
+  & > div {
+    flex 1
+    display flex
+    flex-direction column
+    justify-content center
+    p {
+      &:nth-child(1) {
+        fs 14
+        color #888
+        span {
+          fs 10
+        }
+      }
+      &:nth-child(2) {
+        mt 20
+        fs 18
+      }
+    }
+  }
+}
+
+.expectIncome {
+  bg #fff
+  padding 0 0 0 15px
+  h 44
+  .wrap {
+    border-top 1px solid #ddd
+    display flex
+  }
+  .name {
+    color #888
+    line-height 44px
+  }
+  .profit {
+    color #ff7701
+    line-height 44px
+    flex 1
+    text-align right
+    padding-right 15px
+  }
+}
+
+.form {
+  bg #fff
+  display flex
+  flex-direction column
+  justify-content center
+  & > p {
+    fs 14
+    span {
+      fs 10
+    }
+  }
+}
+
+.inputWrapper {
+  mt 12
+  display flex
+  h 38
+  & > button {
+    w 38
+    border 1px solid #e5e5e5
+    color rgb(162,162,162)
+    fs 35
+    font-weight 100
+    bg #fff
+  }
+  & > div {
+    flex 1
+    display flex
+    margin 0 3px
+    & > input {
+      flex 1
+      border 1px solid $main
+      text-align center
+      vertical-align middle
+      font-size 18px
+      color #000
+    }
+  }
+}
+
+.coupon {
+  bg #fcfcfc
+  h 44
+  display flex
+  align-items center
+  justify-content space-between
+  & > span {
+    font-size 16px
+  }
+  & > div {
+    display flex
+    align-items center
+    div {
+      po r
+      h 25
+      bg rgb(117,205,161)
+      padding 0 12px
+      display flex
+      align-items center
+      justify-content space-between
+      color #fff
+      &::before,
+      &::after {
+        content ''
+        h 30
+        w 35
+        po a
+        bg #fcfcfc
+        border-radius: 100%
+      }
+      &::before {
+        top -3px
+        left -30px
+      }
+      &::after {
+        top -3px
+        right -30px
+      }
+    }
+    &::after {
+      content: ''
+      w 9
+      h 16
+      bgimg url(../../../../assets/images/arrow2.png) contain
+      ml 7
+      z-index: 2
+    }
+  }
+}
+
+.amount {
+  h 70
+  padding 0 15px
+  bg #fff
+  display flex
+  align-items center
+  justify-content space-between
+  border-bottom $border
+  border-top $border
+  margin-bottom 20px
+  span {
+    &:nth-child(1) {
+      color #888
+    }
+    &:nth-child(2) {
+      font-size: 25px
+      color #ff7701
+    }
+  }
+}
+
+.pay {
+  mt 20
+  h 45
+  border-top: $border
+  border-bottom: $border
+  bg #fff
+  padding 0 15px
+  fs 16
+  display flex
+  align-items center
+  justify-content space-between
+  &::after {
+    content: ''
+    w 9
+    h 16
+    bgimg url(../../../../assets/images/arrow2.png) contain
+  }
+}
+
+.protocol {
+  color #888
+  margin 10px 15px 0
+}
+
+.next {
+  margin 40px 15px
+  h 42
+  display: flex;
+  button {
+    flex 1
+    fs 18
+    color #fff
+    border 0
+    bg $main
+    border-radius 5px
+    transition all .3s
+    &:disabled {
+      bg lighten($main, 15%)
+      color rgba(255,255,255,.5)
+    }
+  }
+}
+
+.discountBar {
+  bg #fcfcfc
+  pl 15 
+  pr 15
+  mt 20
+}
+
+.discountBarTouch {
+  h 44
+  display flex
+  align-items center
+}
+
+.discountBarName {
+  flex 1
+  fs 16
+  color #888
+}

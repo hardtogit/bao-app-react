@@ -1,0 +1,68 @@
+.bg{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  padding-top: 44px;
+  overflow: auto;
+  .cavHead{
+     background-color: #ffffff;
+      display: flex;
+  }
+  .cavOne{
+    flex: 1;
+    height: 44px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 44px;
+    color: #626262;
+  }
+  .activeCav{
+    border-bottom: 3px solid #00a6e2;
+  }
+  .content{
+    margin-top: 20px;
+    &>div{
+      background-color: #ffffff;
+      padding-left: 15px;
+    }
+    .listBoxOne{
+      padding: 10px 0px 15px 0px;
+      border-bottom: 1px solid #efefef;
+      padding-right: 15px;
+      .listTitle{
+        display: inline-block;
+        font-size: 16px;
+        color: #000000;
+        span{
+          padding-left:10px;
+        }
+      }
+      .listAmount{
+        display: inline-block;
+        color: #aaa;
+        float: right;
+      }
+      .listDate{
+        display: inline-block;
+        font-size: 11px;
+        color: #aaa;
+        padding-top: 8px;
+      }
+      .listStatus{
+        display: inline-block;
+        float: right;
+        color: #f70;
+        font-size: 11px;
+        padding-top: 5px;
+      }
+    }
+  }
+  .hide{
+    display: none;
+  }
+  .block{
+    display: block;
+  }
+}

@@ -1,0 +1,47 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  h 100%
+  pt 44
+}
+
+.center {
+  bg $bg
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1
+  & > span {
+    mt 40
+    h 97
+    w 97
+    bg rgb(253, 95, 97)
+    border-radius: 100%
+    color #fff
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px
+    font-weight: 900;
+  }
+  .p1 {
+    mt 40
+    color: #000
+    font-size: 20px
+  }
+  .p2 {
+    font-size: 14px
+    color #888
+    mt 17
+  }
+  & > button {
+    margin 30px 15px 0
+    h 50
+    align-self: stretch;
+    border 0
+    color #fff
+    bg $main
+    border-radius: 5px
+    font-size: 18px
+  }
+}

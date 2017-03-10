@@ -1,0 +1,46 @@
+.root{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.scroll{
+  flex:1;
+  overflow-y:scroll;
+  &::-webkit-scrollbar {//滚动条
+    width:2px;
+  }
+  &::-webkit-scrollbar-track{//轨道
+  }
+  &::-webkit-scrollbar-thumb {//小块
+    border-radius:2px; 
+    background:#999999;
+  }
+  >div{
+    padding:10px 15px 10px 15px;
+    background:#fff;
+    p{
+      color: #888;
+      font-size: 12px;
+      line-height: 22px;
+    }
+    >h1{
+      font-size: 14px;
+      text-align: center;
+      margin: 30px 0 5px;
+    }
+    >h2{
+      font-size:12px;
+      color: #626262;
+      margin-top: 20px;
+    }
+  }
+}
+.title{
+  margin:8px 0px 8px 0px;
+}
+
+.sign{
+  >p{
+    margin:5px 0px 5px 0px;
+  }
+}

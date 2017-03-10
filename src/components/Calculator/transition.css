@@ -1,0 +1,72 @@
+:global .calculator-enter {
+  opacity: 0.01;
+}
+
+:global .calculator-enter-active {
+  opacity: 1;
+  transition: all .5s ease;
+}
+
+:global .calculator-leave {
+  opacity: 1;
+}
+
+:global .calculator-leave-active {
+  opacity: 0.01;
+  transition: all .3s ease;
+}
+
+:global .calculator-enter > div {
+  transform: translate3d(0, 15%, 0);
+}
+
+:global .calculator-enter-active > div {
+  transform: translate3d(0, 0, 0);
+  transition: all .5s ease;
+}
+
+:global .calculator-leave > div {
+  transform: translate3d(0, 0, 0);
+}
+
+:global .calculator-leave-active > div {
+  transform: translate3d(0, 15%, 0);
+  transition: all .3s ease;
+}
+
+
+:global .select-enter {
+  opacity: 0.01;
+}
+
+:global .select-enter-active {
+  opacity: 1;
+  transition: all .5s ease;
+}
+
+:global .select-leave {
+  opacity: 1;
+}
+
+:global .select-leave-active {
+  opacity: 0.01;
+  transition: all .3s ease;
+}
+
+:global .select-enter > div {
+  transform: scale(.75);
+}
+
+:global .select-enter-active > div {
+  transform: scale(1);
+  transition: all .5s ease;
+}
+
+:global .select-leave > div {
+  transform: scale(1);
+}
+
+:global .select-leave-active > div {
+  transform: scale(.75);
+  transition: all .3s ease;
+}

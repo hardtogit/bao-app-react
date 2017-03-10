@@ -1,0 +1,103 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.bg{
+    background: #F1EFF5;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    z-index: 1;
+    padding-top: 44px;
+}
+.addressBar{
+    background-color: #ffffff;
+    padding:15px;
+    position: relative;
+    border-bottom: 1px #EFEFEF solid;
+}
+.addressNews{
+  font-size: 16px;
+    color: #000000;
+    padding-right: 20px;
+}
+.commodityInfo{
+    margin-top: 15px;
+    padding-left: 15px;
+    background-color: #ffffff;
+}
+.infoOne{
+    padding: 15px 15px 15px 0px;
+    border-bottom: 1px #EFEFEF solid;
+    position: relative;
+}
+.infoOne span{
+    display: inline-block;
+    font-size: 16px;
+}
+.infoOne span:first-child{
+    text-align: left;
+    color: #888888;
+    position: absolute;
+    left: 0px;
+    top: 15px;
+}
+.commodityInfo .infoOne:last-child{
+    border-bottom: 0px;
+}
+.commodityInfo .infoOne .fontColor{
+    font-size: 16px;
+    color: #ff7700;
+}
+.clearfix:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+.infoOne span:nth-child(2){
+    float: right;
+    color: #000000;
+    margin-left: 80px;
+}
+.addressNews span{
+    display: inline-block;
+}
+.mgLeft{
+    margin-left: 8px;
+}
+.mgTop{
+    margin-top: 10px;
+}
+.jtIcon{
+   width: 10px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -10px;
+}
+.button{
+    width: calc(100% - 30px);
+    margin: 50px auto;
+    text-align: center;
+    background-color: #44A4E1;
+    padding: 10px 0px;
+    color: #ffffff;
+    border-radius: 5px;
+    display: block;
+    border: 0px;
+     outline: none;
+}
+.button img{
+    display: inline-block;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-top: -6px;
+}
+

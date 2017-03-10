@@ -1,0 +1,113 @@
+.root{
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  width: 100%;
+  background:rgb(245,245,245);
+}
+.selectDiv{
+  height:40px;
+  display:flex;
+  flex-direction:row;
+  border-bottom:1px solid #ddd;
+  >div{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff;
+    border-bottom:3px solid transparent;
+    >p{
+      font-size:16px;
+      color:#000;
+    }
+  }
+  div:nth-child(1){
+    border-bottom-color: #00a6e2;
+    >p{
+      color:#00a6e2;
+    }
+  }
+}
+.rateCell{
+  margin:10px 15px 10px 15px;
+  height:171px;
+  background:#fff;
+  >div:nth-child(1){
+    height:131px;
+    padding:0px 20px 0px 20px;
+    >div:nth-child(1){
+      height:50px;
+      border-bottom:1px solid #888;
+      display:flex;
+      flex-direction:row;
+      justify-content:space-between;
+      >p{
+        line-height:50px;
+        font-size:15px;
+        color:#111;
+      }
+      //圆圈
+      >div{
+        height:20px;
+        margin-top:15px;
+        width:20px;
+        border-radius:10px;
+        border: 1px solid #00a7e1;
+        background:transparent;
+      }
+      >img{
+        height:20px;
+        margin-top:15px;
+        width:20px;
+      }
+    }
+    >div:nth-child(2){
+      >p{
+        color:#888;
+        font-size:13px;
+      }
+      >p:nth-child(1){
+        margin-top: 18px;
+      }
+      >p:nth-child(2){
+        margin-top:10px;
+      }
+    }
+  }
+  >div:nth-child(2){
+    background:#feb178;
+    height:40px;
+    >p{
+      color:#fff;
+      margin-left: 20px;
+      line-height:40px;
+      font-size:13px;
+    }
+  }
+}
+.sure{
+  position: fixed;
+  bottom: 0px;
+  height:50px;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  >div{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#59c5ec;
+    >p{
+      font-size:16px;
+      color:#fff;
+    }
+  }
+  div:nth-child(1){
+    width:30%;
+  }
+  div:nth-child(2){
+    flex:1;
+    background:#00a7e1;
+  }
+}

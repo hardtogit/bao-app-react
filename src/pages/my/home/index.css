@@ -1,0 +1,193 @@
+.myContent{
+    padding-top: 50px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow:  auto;
+    margin-bottom: 40px;
+    -webkit-overflow-scrolling:touch;
+}
+.myContent::-webkit-scrollbar{
+  display: none;
+}
+.listTitle{
+    color: #000;
+}
+.header{
+    background: #fff;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 17px;
+    color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+body{
+    background: #F0EFF5;
+}
+.userAccount{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 15px;
+    z-index: 5;
+    background: #fff;
+    border-bottom: 1px solid #E4E4E4;
+    border-top: 1px solid #E4E4E4;
+    margin-top: 15px;
+}
+.headImg{
+    width: 55px;
+    float: left;
+}
+.headImg img{
+    width: 55px;
+    height: 55px;
+}
+.nameCenter{
+    float: left;
+    height: 55px;
+    margin-left: 15px;
+}
+.nameCenter p{
+    font-size: 20px;
+    color: #898989;
+    padding: 0;
+    margin: 0;
+    margin-top: 8px;
+    font-family: Hiragino Sans GB, Arial, Helvetica, "宋体", sans-serif;
+    font-weight: normal;
+}
+.nameCenter a{
+    font-size: 12px;
+    color: #00A6E2;
+    text-decoration: none;
+    padding: 0;
+    position: relative;
+    top: -8px;
+}
+.nameCenter a img{
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin-right: 8px;
+}
+.arrows{
+    position: relative;
+}
+.arrows:after,.arrows:before{
+    border: 10px solid transparent;
+    border-left: 10px solid #fff;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    right:0;
+    content: ' '
+}
+.arrows:before {
+    border-left-color: #B6B6B6;
+    right: -2px;
+}
+.rightArrows{
+    float: right;
+    margin-top: 20px;
+}
+
+.contents{
+    border-top: 1px solid #E4E4E4;
+    background: #fff;
+    margin-top: 15px;
+}
+.myProduct{
+    width: 100%;
+    height: 65px;
+    overflow: hidden;
+    border-bottom: 1px solid #E4E4E4;
+}
+.mpLeft{
+    width: 50%;
+    float: left;
+    padding-left: 15px;
+}
+.mpright{
+    float: left;
+    width: 50%;
+    padding:  0 15px;
+    position: relative;
+}
+.myProduct P{
+    height: 65px;
+    line-height: 65px;
+}
+.mpLeft p{
+    font-size: 20px;
+    color: #000;
+}
+.mpright p{
+    font-size: 14px;
+    color: #888888;
+}
+.mpright .rightArrows{
+    position: absolute;
+    height: 100%;
+    right: 15px;
+    top:2px;
+}
+.myProduct .mpFont1{
+    font-size: 14px;
+}
+.mpLeft img{
+    display: inline-block;
+    position: relative;
+    top: 18px;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+}
+.myList{
+    width: 50%;
+    float: left;
+    padding: 0 15px;
+}
+.myList a{
+    display:block;
+    height: 65px;
+}
+.myList img{
+    float: left;
+    margin-top: 16px;
+    width: 30px;
+}
+.myListText{
+    float: left;
+    height: 65px;
+    margin-left: 10px;
+}
+.myListText p{
+    height: 20px;
+    margin: 0;
+    padding: 0;
+}
+.listTitle{
+    font-size: 14px;
+    position: relative;
+    top: -10px;
+}
+.listColor{
+    font-size: 12px;
+    position: relative;
+    top: -10px;
+}
+.sign{
+    font-size: 14px;
+    color: #00a6e2;
+    float: right;
+    position: absolute;
+    right: 15px;
+}

@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bg $main
+  color #fff
+  padding-top 36px
+  & .lxYear{
+    margin-bottom 20px
+    color #69d7ff
+  }
+  & .textColor{
+    color #69d7ff
+  }
+  & .lxNum{
+    font-size 69px
+  }
+}
+.lxContent{
+  margin-bottom 30px
+  span{
+    display inline-block
+    font-size 12px
+    padding 0px 40px
+    border-right 1px #ffffff solid
+    &:first-child{
+      padding-left 0px
+    }
+    &:last-child{
+      border-right 0px
+      padding-right 0px
+    }
+    p{
+      text-align center
+      line-height 20px
+    }
+  }
+}

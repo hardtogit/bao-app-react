@@ -1,0 +1,50 @@
+.event {
+  po r
+  pl 11
+  h 59
+  .line {
+    position absolute
+    w 2
+    h 100%
+    bg #00a6e2
+    left -1px
+    top -100%
+  }
+  i {
+    po a
+    left -6.5px
+    top 0
+    w 11
+    h 11
+    border-radius 6px
+    bg #00a6e2
+    z-index 99
+  }
+  p {
+    &:nth-of-type(1) {
+      fs 16
+      color #00a6e2
+      po r
+      top -4px
+    }
+    &:nth-of-type(2) {
+      fs 11
+      color #aaa
+    }
+  }
+}
+
+.event:first-child {
+  .line {
+    bg transparent
+  }
+}
+
+.eventDisable {
+  .line {
+    bg #e5e5e5
+  }
+  i {
+    bg #e5e5e5
+  }
+}

@@ -1,0 +1,16 @@
+.root {
+  h 100%
+  w 100%
+  & > div {
+    w 33.33333333%
+    display: inline-block;
+    // margin 20px 0
+    border 1px solid #ddd
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h 100
+    }
+  }
+}
