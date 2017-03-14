@@ -12,13 +12,17 @@ class Index extends React.Component {
         super(props);
         this.state = {
             filterShow:false,
-            flag:0
+            flag:0,
+            init:false
         }
     }
     componentWillUnmount(){
     }
     componentDidMount=()=>{
         this.props.getList(this.state.flag);
+        this.setState({
+            init:true
+        })
     }
     filters=()=>{
         this.setState({
@@ -33,33 +37,46 @@ class Index extends React.Component {
         this.props.clearData();
         this.props.getList(flag);
     };
-    render() {
+    ScrollDom=()=>{
         const Height=document.body.clientHeight-44;
         const {
             listData,
             pending,
             end,
+        }=this.props;
+        return(<div className={styles.contentList} style={{height:Height}}>
+            <Scroll height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
+                    isLoading={pending} distance={5} endType={end}  nullDom={<img className={styles.errorImg} src={errorImg} />}>
+                {
+                    listData&&listData.map((item,i)=>{
+                        const {type_name,date,amount,status,way,desc,due_amount}=item;
+                        return(
+                            <div className={styles.item} key={i}>
+                                <p><span>{type_name}</span><span className={cs(way=='入账'?styles.in:"")}>¥{amount}</span></p>
+                                <p><span>{date}</span><span>待收金额{due_amount}</span></p>
+                                <p>备注:{desc}</p>
+                            </div>
+                        )
+                    })
+                }
+            </Scroll>
+        </div>)
+    }
+    render() {
+        const {
             pop
         }=this.props;
+        const {
+            init
+        }=this.state;
+        let Dom;
+        if (init){
+            Dom=this.ScrollDom();
+        }
         return (
             <div className={styles.bg}>
                 <NavBar onRight={this.filters} rightNode={<span>筛选</span>} onLeft={()=>{pop()}}>资产记录</NavBar>
-                <div className={styles.contentList} style={{height:Height}}>
-                    <Scroll height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
-                            isLoading={pending} distance={5} endType={end}  nullDom={<img className={styles.errorImg} src={errorImg} />}>
-                        {
-                            listData&&listData.map((item,i)=>{
-                                return(
-                                    <div className={styles.item} key={i}>
-                                        <p><span>项目还款</span><span className={cs(item.way=='入账'?styles.in:"")}>¥150.52</span></p>
-                                        <p><span>2017-02-12 10:20:11</span><span>待收金额215621.21</span></p>
-                                        <p>备注:7601号标第12期还款 利息+本金</p>
-                                    </div>
-                                )
-                            })
-                        }
-                    </Scroll>
-                </div>
+                {Dom}
                 <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
                     <ul>
                         <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag==1?styles.current:"")}>投资</li>

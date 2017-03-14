@@ -11,6 +11,7 @@ import {RATE} from '../../../../actions/actionTypes'
 import PayProcess from '../../payProcess'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
+import {Link} from 'react-router'
 
 class DepositBuy extends React.Component {
 
@@ -48,7 +49,11 @@ class DepositBuy extends React.Component {
     if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag) {
       this.getAvailableCouponsFlag = true
       // 获取可以使用的优惠券
-      this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId].month)
+       if (nextProps.params.id==5){
+           this.props.getAvailableCoupons(nextProps.new_deposit.month)
+       }else {
+           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId].month)
+       }
     }
 
     if (this.props.quantityLeftFetching == true && 
@@ -75,12 +80,20 @@ class DepositBuy extends React.Component {
 
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null
-    this.props.balancePay(this.state.depositId, this.state.quantity, password, coupon && coupon.id || '')
+    this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
   }
 
   // 修改购买份数
   changeQuantity = (value) => {
-    this.setState({quantity: Number(value)})
+    const {
+      params:{id}
+    }=this.props;
+    if (value>200&&id==5){
+        this.refs.tipbar.open('新手标购买金额不能超过一万！');
+        this.setState({quantity: Number(200)})
+    }else {
+        this.setState({quantity: Number(value)})
+    }
   }
 
   voucherIsAvailable = (voucher) => {
@@ -169,8 +182,8 @@ class DepositBuy extends React.Component {
 
   // 计算预期收益
   expectIncome = () => {
-    const detail = this.getCurrentMonth()
-    if (!detail) return ''
+    const detail = this.getCurrentMonth();
+    if (!detail&&this.props.params.id!=5) return ''
 
     let totalRate = detail.rate / 100
     if (this.props.useCoupon) {
@@ -179,7 +192,13 @@ class DepositBuy extends React.Component {
         totalRate += +coupon.rate / 100
       }
     }
-    return utils.padMoney(this.state.unitPrice*this.state.quantity*detail.month*totalRate/12)
+    if (this.props.params.id==5){
+        if (this.props.new_deposit.hasOwnProperty('month')){
+            return utils.padMoney(this.state.unitPrice*this.state.quantity*this.props.new_deposit.month*this.props.new_deposit.rate/100/12)
+        }
+    }else {
+        return utils.padMoney(this.state.unitPrice*this.state.quantity*detail.month*totalRate/12)
+    }
   }  
 
   // 确认支付
@@ -207,7 +226,7 @@ class DepositBuy extends React.Component {
     }
 
     const coupon = this.getCoupon()
-
+    const {params,rates,new_deposit}=this.props;
     if (! coupon || this.state.quantity < 1) {
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
@@ -222,12 +241,17 @@ class DepositBuy extends React.Component {
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
-
+      let String='';
+      if (params.id==5){
+         String=new_deposit.month;
+      }else {
+        String=this.props.rates.data.deposit[this.state.depositId].month;
+      }
       return (
         <div 
           className={styles.discountBarTouch}
           onClick={()=>{this.props.setUseCoupons(coupon);
-            this.props.push('/selectCoupon?product=定存&month=' + this.props.rates.data.deposit[this.state.depositId].month) }}>
+            this.props.push('/selectCoupon?product=定存&month=' + String) }}>
           <p className={styles.discountBarName}>暂无优惠可用</p>
         </div>
       )
@@ -283,19 +307,22 @@ class DepositBuy extends React.Component {
       new_deposit
     } = this.props;
       let depositData = {}
+      let String='';
     if (id!=5){
         if (deposit && deposit.length) {
-            depositData = this.getCurrentMonth()
+            depositData = this.getCurrentMonth();
+            String=depositData.month&&depositData.month+'个月'||'个月'
         }
     }else {
-        if (new_deposit){
+        if (new_deposit.hasOwnProperty('month')){
             depositData=new_deposit;
+            String='新手标';
         }
     }
     return (
       <div className={styles.root}>
         <NavBar onLeft={()=>{this.props.goBack()}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：定存宝-{depositData.month || ''}个月 年化利率（{depositData.rate || ''}%）</p>
+        <p className={styles.title}>购买产品：定存宝-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
             <p>单价<span>（元 / 份）</span></p>
@@ -309,7 +336,7 @@ class DepositBuy extends React.Component {
             
             <div className={styles.form}>
               <div className={styles.inputWrapper}>
-                <BuyInput value={this.state.quantity} onChange={this.changeQuantity} />
+                <BuyInput value={this.state.quantity} onChange={this.changeQuantity} id={this.props.params.id}/>
               </div>
             </div>
           </div>
@@ -339,7 +366,7 @@ class DepositBuy extends React.Component {
           inputValue={Number(utils.padMoney(this.getPayTotal()))}
           balancePayPending={this.props.depositBuyPending}
           balancePayData={this.props.depositBuyData} />
-        <p className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</p>
+        <p><Link to="/agreement" className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

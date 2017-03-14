@@ -24,6 +24,9 @@
     padding: 9px 0px;
     color: #666;
 }
+.indexCavli a{
+    color: #000000;
+}
 .indexCavli .cavContent{
     display: inline-block;
     width: 100%;

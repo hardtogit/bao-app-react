@@ -50,14 +50,21 @@ export default class BuyNumberInput extends React.Component {
 
   increaseHandle() {
     this.blur()
-    const value = Number(this.state.value)
+    const value = Number(this.state.value);
     if (!isNaN(value)) {
       this.changeHandle(util.accAdd(value, this.unit).toString())
     }
   }
 
   _changeHandle(value) {
-    this.setState({value})
+    const {
+      id
+    }=this.props;
+    if (value>200&&id==5){
+        this.setState({value:200});
+    }else {
+        this.setState({value})
+    }
     this.props.onChange && this.props.onChange(value || 0)
   }
 

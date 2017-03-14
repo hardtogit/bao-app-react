@@ -37,7 +37,7 @@ export default class SignModel extends React.PureComponent {
             API.sign().then((res)=>{
                 let data = res.response;
                 if(100==data.code){
-                    _this.props.callBackFun();
+                    _this.props.callBackFun(data);
                 }else{
                     _this.hide();
                 }

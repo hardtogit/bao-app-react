@@ -39,17 +39,18 @@ class Index extends React.Component {
 
                         {
                             listData&&listData.map((item,i)=>{
-                                const {apply,end_date,start_date,amount,status}=item;
+                                const {apply,end_date,start_date,amount,invest_money,type,status}=item;
                                 let sys;
                                 if (status=='已使用'){
                                     sys={color:'#7FCDA4'}
                                 }else {
                                     sys={color:'#888'}
-                                }
+                                };
+                                const String='投资'+invest_money+'即可使用'
                                 return(<div key={i}>
 									<Quan
-										title={amount+'抵用券'}
-										desc1="投资即可使用"
+										title={amount+'元'+type}
+										desc1={String}
 										desc2={apply}
 										status={<span style={sys}>{status}</span>}
 										from={start_date}

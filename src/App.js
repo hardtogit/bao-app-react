@@ -44,6 +44,7 @@ import PayWeb from './pages/finance/payWeb'
 import DepositIndex from './pages/finance/deposit/index'
 import DepositProduct from './pages/finance/deposit/product'
 import DepositBuy from './pages/finance/deposit/buy'
+import Agreement  from './pages/finance/deposit/agreement'
 import DepositInvestSuccess from './pages/finance/deposit/investSuccess'
 
 import CheckPhone from './pages/user/checkPhone/';
@@ -324,6 +325,7 @@ export default class App extends React.Component {
             <Route path="demand-product" component={DemandProduct}></Route>
             <Route path="deposit-product/:id" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="deposit-buy/:id" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess" component={DepositInvestSuccess}></Route>
             <Route path="demandIndex" component={DemandIndex}></Route>
             <Route path="directList" component={DirectList}></Route>

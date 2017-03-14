@@ -234,5 +234,8 @@ export default {
     },
     [actionTypes.REDEEM]:{
         apiFn:Fetch.redeem
+    },
+    [actionTypes.AUTH_COOKIE]:{
+        apiFn:Fetch.authCookie
     }
 }

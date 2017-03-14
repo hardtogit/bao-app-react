@@ -100,7 +100,7 @@ class Index extends React.Component{
                     <span>{productData.name}</span>
                 </div>
                 <div className={classNames(styles.clearfix,styles.infoOne)}>
-                    <span>金豆(个)</span>
+                    <span>点币</span>
                     <span className={styles.fontColor}>{productData.price}</span>
                 </div>
             </div>

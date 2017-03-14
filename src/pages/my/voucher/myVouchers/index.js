@@ -42,14 +42,16 @@ import wrap from '../../../../utils/pageWrapper'
 
                         {
                             listData&&listData.map((item,i)=>{
-                                const {apply,end_date,start_date,amount}=item;
+                                const {apply,end_date,start_date,amount,invest_money,type}=item;
+                                const String='投资'+invest_money+'即可使用'
                                 return(<div key={i}>
 									<Quan
-										title={amount+'抵用券'}
-										desc1="投资即可使用"
+										title={amount+'元'+type}
+										desc1={String}
 										desc2={apply}
 										from={start_date}
 										to={end_date}
+										endStyle={{backgroundColor:'rgb(125,206,159)'}}
 									/>
 								</div>)
                             })

@@ -29,6 +29,7 @@ import rateup from '../../../../../assets/images/my-index/rateup.png' //提升�
             profit_accumulate,
 			total
 		}=data;
+        sessionStorage.setItem('bao-demand',JSON.stringify(data));
 		return(
 			<div>
 			<div className={styles.m_h_title}>

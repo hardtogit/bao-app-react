@@ -28,20 +28,31 @@ class Index extends React.Component {
 		return (
 			<div className={classs.bg}>
 				<NavBar onLeft={goBack}>兑换记录</NavBar>
-				<div className={classs.coinMain} style={{"padding":"0 0 0 15px"}}>
+				<div className={classs.coinMain}>
                     <Scroll height={Height} fetch={this.props.getList}
                             isLoading={pending} distance={5} endType={end} >
                         {
                             listData&&listData.map((item,i)=>{
+                                const Data=new Date(parseInt(item.exchangeTime)*1000);
+                                const Year=Data.getFullYear();
+                                const Month=Data.getMonth()+1;
+                                const Day=Data.getDate();
+                                const Hours=Data.getHours();
+                                const Minutes=Data.getMinutes();
+                                const Seconds=Data.getSeconds();
                                 return(
-                                    <div key={i} className={classs.coinlist}>
-                                        <div className={classs.listleft}>
-                                            <h1>{item.name}</h1>
-                                            <p className={classs.potop}>{item.desc}</p>
-                                            <p>{item.date}</p>
-                                        </div>
-                                        <div className={classs.listright}>
-                                            <p>-{item.amount}点币</p>
+                                    <div key={i} className={classs.coinBox}>
+                                        <div className={classs.coinContent}>
+                                          <div className={classs.coinTitle}>
+                                              <span>{item.name}</span>
+                                              <span className={classs.consume}>-{item.coin}点币</span>
+                                          </div>
+                                            <div className={classs.coinAddress}>
+                                                {item.address}
+                                            </div>
+                                            <div className={classs.coinTime}>
+                                                {Year+'-'+Month+'-'+Day+' '+Hours+':'+Minutes+':'+Seconds}
+                                            </div>
                                         </div>
                                     </div>
                                 )

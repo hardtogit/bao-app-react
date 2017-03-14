@@ -12,63 +12,84 @@ import AutoSizeInfinite from '../../components/AutoSizeInfinite/'
 import Selectedimg from '../../assets/images/0k2.png'
 import unSelectimg from '../../assets/images/circle.png'
 import utils from '../../utils/utils'
+import nullJx from '../../assets/images/nojiaxi1.png'
+import nullDy from '../../assets/images/nodiyong.png'
 
 class RatesCell extends React.Component {
 
   renderVoucher(data, index) {
     const { selected } = this.props
+      const {amount,apply,end_date,start_date,id,invest_money,type}=data;
     return (
       <div className={styles.rateCell} key={index} style={{width:this.props.screenW}}>
         <div>
           <div>
-            <p>{data.rate}新手抵用券</p>
-            {selected.id == data.id ? <img src={Selectedimg} alt="选中"/> : 
+            <p>{amount+'元'+type}</p>
+            {selected.id == id ? <img src={Selectedimg} alt="选中"/> :
             <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />}
           </div>
           <div>
-            <p>投资即可使用</p>
-            <p>{data.apply}</p>
+            <p>投资{invest_money}即可使用</p>
+            <p>{apply}</p>
           </div>
         </div>
         <div style={{backgroundColor:'rgb(125,206,159)'}}>
-          <p>有效期{data.start_date}到{data.end_date}</p>
+          <p>有效期{start_date}到{end_date}</p>
         </div>
       </div>
     )
   }
 
   renderInterestRate(data, index) {
-    const { selected } = this.props
+    const { selected } = this.props;
+      const {amount,apply,end_date,start_date,id,invest_money,type}=data;
     return (
       <div className={styles.rateCell} key={index} style={{width:this.props.screenW}}>
         <div>
           <div>
-            <p>{data.rate}%加息券</p>
-            {selected.id == data.id ? <img src={Selectedimg} alt="选中"/> :
+            <p>{amount+'%'+type}</p>
+            {selected.id == id ? <img src={Selectedimg} alt="选中"/> :
             <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />}
           </div>
           <div>
-            <p>投资即可使用</p>
-            <p>{data.apply}</p>
+            <p>投资{invest_money}即可使用</p>
+            <p>{apply}</p>
           </div>
         </div>
         <div style={{backgroundColor:'#feb178'}}>
-          <p>有效期{data.start_date}到{data.end_date}</p>
+          <p>有效期{start_date}到{end_date}</p>
         </div>
       </div>
     )
   }
-
+  nullDom=(src)=>{
+    return(<img src={src} className={styles.nullImg}/>)
+  }
   render() {
     const { type } = this.props
     if (!this.props.datas) return null
-
+    let dy=[],
+          jx=[]
+      this.props.datas.map((data, index) => {
+          if (type == 1){
+              dy.push(this.renderVoucher(data, index))
+          }else {
+            jx.push(this.renderInterestRate(data,index))
+          }
+      })
+      // if (dy.length==0){
+      //    dy=this.nullDom(nullJx);
+      // }
+      // if (jx.length==0){
+      //    jx=this.nullDom(nullDy);
+      // }
     return(
-      <div>
-        { this.props.datas.map((data, index) => {
-            if (type == 1) return this.renderVoucher(data, index)
-            return this.renderInterestRate(data,index)
-          }) }
+      <div className={styles.listBox}>
+        {
+            dy
+        }{
+          jx
+      }
       </div>
     )
   }
@@ -136,14 +157,14 @@ class SelectCoupon extends React.Component{
 
         <div className={styles.selectDiv}>
           <div style={{borderBottomColor:this.state.selectID===1?'#00a6e2':'transparent'}} onClick={() => {this.changeType(1)}}>
-            <p style={{color:this.state.selectID===1?'#00a6e2':'#626262'}}>新手抵用券</p>
+            <p style={{color:this.state.selectID===1?'#00a6e2':'#626262'}}>抵用券</p>
           </div>
           <div style={{borderBottomColor:this.state.selectID===2?'#00a6e2':'transparent'}} onClick={() => {this.changeType(2)}}>
             <p style={{color:this.state.selectID===2?'#00a6e2':'#626262'}}>加息券</p>
           </div>
         </div>
         
-        <div style={{flex:1,overflowY:'scroll'}}>
+        <div style={{flex:1,overflowY:'scroll',position:'relative'}}>
           <RatesCell
             onSelect={this.selectHandle}
             datas={this.state.selectID == 1 ? this.props.vouchers : this.props.interestRates}

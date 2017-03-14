@@ -8,7 +8,16 @@ class Index extends Component{
     constructor(props){
         super(props);
         this.state={
-            money:sessionStorage.getItem('bao-reddem')
+            amount:'',
+            handling:'',
+            time:''
+        }
+    }
+    componentDidMount(){
+        const reddem=sessionStorage.getItem('bao-reddem');
+        if (reddem){
+            const reddemJson=JSON.parse(reddem);
+            this.setState(reddemJson)
         }
     }
     render(){
@@ -16,37 +25,42 @@ class Index extends Component{
             pop,
             push
         }=this.props;
+        const {
+            amount,
+            handling,
+            time
+        }=this.state;
         return(<div className={styles.bg}>
             <NavBar onLeft={pop}>赎回申请</NavBar>
             <div className={styles.content}>
                 <div className={styles.title}>
                     <span>赎回金额</span>
-                    <span className={styles.titleRight}>￥{this.state.money}</span>
+                    <span className={styles.titleRight}>￥{amount}</span>
                 </div>
                 <div className={styles.process}>
                  <ul className={styles.processUl}>
                      <li>
                          <span className={styles.processRoll}></span>
                          <span className={styles.verticalLine}></span>
-                         <p className={styles.processTitle}>赎回申请成功<span>（手续费0元）</span></p>
-                         <p className={styles.processTime}>2017-03-07 12:47:03</p>
+                         <p className={styles.processTitle}>赎回申请成功<span>（手续费{handling}元）</span></p>
+                         <p className={styles.processTime}>{time}</p>
                      </li>
                      <li>
                          <span className={styles.processRoll}></span>
                          <span className={styles.verticalLine}></span>
-                         <p className={styles.processTitle}>债权转让中......</p>
-                         <p className={styles.processTime}>2017-03-07 12:47:03</p>
+                         <p className={styles.processTitle}>赎回中...</p>
+                         <p className={styles.processTime}>{time}</p>
                      </li>
                      <li>
                          <span className={styles.processRoll}></span>
                          <span className={styles.verticalLine}></span>
-                         <p className={styles.processTitle}>债权转让成功！</p>
-                         <p className={styles.processTime}>2017-03-07 12:47:03</p>
+                         <p className={styles.processTitle}>赎回成功！</p>
+                         <p className={styles.processTime}>{time}</p>
                      </li>
                      <li>
                          <span className={styles.processRoll}></span>
                          <p className={styles.processTitle}>赎回到余额</p>
-                         <p className={styles.processTime}>预计 2017-03-07 12:47:03前到账</p>
+                         <p className={styles.processTime}>预计 {time}前到账</p>
                      </li>
                  </ul>
                 </div>

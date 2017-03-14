@@ -265,16 +265,20 @@ class FinancialIndex extends Component{
                  </span>
                  </li>
                  <li className={style.indexCavli}>
+                  <a href="https://static.bao.cn/static/web/zt/325_mobile/index.html">
                    <span className={classNames(style.cavContent,style.boder)}>
                  <img src={hj}/>
                  <span>互金会员</span>
                  </span>
+                  </a>
                  </li>
                  <li className={style.indexCavli}>
+                     <Link to="/find/inviteFriends">
                    <span className={style.cavContent}>
                  <img src={yq}/>
                  <span>邀请有礼</span>
                  </span>
+                     </Link>
                  </li>
                </ul>
               </div>

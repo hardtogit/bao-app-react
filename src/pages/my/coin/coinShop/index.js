@@ -28,7 +28,6 @@ class Index extends React.Component {
         this.props.productBar();
     }
 	componentDidMount() {
-
     }
 	componentWillUnmount() {}
     doSign=()=>{
@@ -111,6 +110,16 @@ class Index extends React.Component {
 
       </Box>)
     }
+    signSuccess=(data)=>{
+	    this.setState({
+            isSign:true,
+            coins:data.data.coins
+        });
+	    userInfo.isSign=true;
+	    userInfo.coins=data.data.coins;
+        sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
+        this.refs.SignModel.hide();
+    }
 	render() {
         let {coins,signNumbers,isSign,index} = this.state;
         const {
@@ -129,7 +138,7 @@ class Index extends React.Component {
 				        }
                         backgroundColor="#F76260"
                         onLeft={this.props.pop}>积分商城</NavBar>
-                <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={()=>{}}/>
+                <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>
                 {Dom}
 			</div>
 		)

@@ -8,7 +8,8 @@ import {push} from 'react-router-redux'
 import {goBack} from 'react-router-redux'
 import Alert from '../../../../../components/Dialog/alert';
 import Tipbar from '../../../../../components/Tipbar/index';
-import utils from '../../../../../utils/utils.js'
+import utils from '../../../../../utils/utils.js';
+import Loading from '../../../../../components/pageLoading'
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -16,6 +17,8 @@ class Index extends React.Component {
             money:'',
             disable:true,
 			pwd:'',
+            demand:'',
+            freeQuota:''
 		}
 	}
 	changeInput=(e)=>{
@@ -74,6 +77,15 @@ class Index extends React.Component {
 	openTipber=(message)=>{
         this.refs.tipbar.open(message)
 	}
+	componentDidMount(){
+       const demand=sessionStorage.getItem('bao-demand')
+    if (!demand){
+        this.props.load()
+	}else {
+    	const demandJson=JSON.parse(demand);
+    	this.setState({demand:demandJson.total,freeQuota:demandJson.freeQuota})
+	}
+	}
     componentWillReceiveProps(next){
         const {
             submitCode,
@@ -81,8 +93,12 @@ class Index extends React.Component {
 		}=next;
         if (submitCode){
         	if (submitCode.code==100){
+                sessionStorage.setItem('bao-reddem',JSON.stringify(submitCode.data));
+                let demover=JSON.parse(sessionStorage.getItem('bao-demand'));
+                    demover.total=parseFloat(demover.total)-this.state.money;
+                    demover.freeQuota>0&&demover.freeQuota--;
+                sessionStorage.setItem('bao-demand',JSON.stringify(demover))
                 push('/user/reddemSuccese');
-                sessionStorage.setItem('bao-reddem',this.state.money)
 			}else {
                 this.refs.tipbar.open('对不起密码错误')
 			}
@@ -91,28 +107,48 @@ class Index extends React.Component {
 	componentWillUnmount(){
     	this.props.clearData();
 	}
+	loadDom=()=>{
+		 return(<Loading/>)
+	}
+	loadEndDom=()=>{
+		let {
+            demand,
+            freeQuota
+		}=this.state;
+		if (!demand){
+			demand=this.props.datas.data.total;
+            freeQuota=this.props.datas.data.freeQuota;
+            sessionStorage.setItem('bao-demand',JSON.stringify(this.props.datas.data))
+		}
+		return(<div className={styles.demandContent}>
+			<div className={styles.reddemMain}>
+				<p>赎回到余额</p>
+				<p>赎回金额（元）</p>
+				<p><span>￥</span><input type="text" placeholder="请输入赎回金额"  value={this.state.money} onChange={this.changeInput}/></p>
+				<p>零钱宝资产{demand}元<label>本月还有{freeQuota}次免费赎回机会</label></p>
+			</div>
+			<p className={styles.reddemHint}>每月前5次免手续费，之后每次收取0.25%手续费</p>
+			<BaseButton
+				className="111"
+				disable={this.state.disable}
+				text="下一步"
+				onClick={this.show}
+			/>
+		</div>)
+	}
 	render() {
 		const {
-			pop
+			pop,
+            datas
 		}=this.props;
+		let Dom=this.loadDom();
+		if (this.state.demand||datas){
+			Dom=this.loadEndDom()
+		}
 		return (
 			<div className={styles.bg}>
 				<NavBar onLeft={pop}>零钱宝赎回</NavBar>
-				<div className={styles.demandContent}>
-					<div className={styles.reddemMain}>
-						<p>赎回到余额</p>
-						<p>赎回金额（元）</p>
-						<p><span>￥</span><input type="text" placeholder="请输入赎回金额"  value={this.state.money} onChange={this.changeInput}/></p>
-						<p>零钱宝资产0元<label>本月还有5次免费赎回机会</label></p>
-					</div>
-					<p className={styles.reddemHint}>每月前5次免手续费，之后每次收取0.25%手续费</p>
-					<BaseButton
-						className="111"
-						disable={this.state.disable}
-						text="下一步"
-						onClick={this.show}
-					/>
-				</div>
+				{Dom}
 				<Alert ref="alert"/>
 				<div className={styles.tipbar}>
 				<Tipbar ref='tipbar' />
@@ -122,7 +158,8 @@ class Index extends React.Component {
 	}
 }
 const datas=(state)=>({
-      submitCode:state.infodata.getIn(['REDEEM','data'])
+      submitCode:state.infodata.getIn(['REDEEM','data']),
+      datas:state.infodata.getIn(['DEMAND_ACCOUNT_DETAIL','data']),
 })
 const dispatchFn=(dispatch)=>({
 	  pop(){
@@ -145,6 +182,11 @@ const dispatchFn=(dispatch)=>({
     		type:'CLEAR_INFO_DATA',
             key:'REDEEM'
 		})
-	}
+	},
+    load(){
+        dispatch({
+            type:'DEMAND_ACCOUNT_DETAIL'
+        })
+    },
 })
 export  default connect(datas,dispatchFn)(wrap(Index))

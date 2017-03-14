@@ -8,7 +8,7 @@ const requests = (Fetch) => {
   // 我的刮刮卡-刮奖
   Fetch.scratch = (id) => { return Fetch('scratch', 'POST', {id: id}) }
   // 我的刮刮卡奖励列表
-  Fetch.scratchRewards = (data) => { return Fetch('scratch/rewards', 'GET', data) }
+  Fetch.scratchRewards = (page) => { return Fetch(`scratch/rewards?page=${page}`, 'GET') }
 }
 
 export default requests

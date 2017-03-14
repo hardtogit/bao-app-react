@@ -302,14 +302,14 @@ class PayProcess extends React.Component {
   renderBalanceContent (disable) {
     return (
       <div className={ disable ? styles.contentTextDisable : styles.contentText}>
-        {this.props.balance || ''}元
+        {this.props.balance&&this.props.balance+'元'|| ''}
         {disable ? <span className={styles.contentMark}> (余额不足)</span> : null}
       </div>
     )
   }
 
   renderRadio = (label, index) => {
-    const disable = ~this.state.disable.indexOf(index + 1)
+    const disable = ~this.state.disable.indexOf(index + 1);
     return (
       <div className={styles.Radio} key={index} onClick={() => {if(!disable) {this.selectPayWay(index)}}}>
         <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{label}</span>

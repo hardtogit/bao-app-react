@@ -17,7 +17,7 @@ class InvestSuccess extends React.Component {
     const data = this.props.depositBuyData && this.props.depositBuyData.data || {}
     return (
       <div className={styles.root}>
-        <NavBar>投资成功</NavBar>
+        <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
         <div className={styles.content}>
           <div className={styles.amount}>
             <span>投资金额</span>

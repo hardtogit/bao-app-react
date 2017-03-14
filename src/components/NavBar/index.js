@@ -36,7 +36,7 @@ export default class NavBar extends React.PureComponent {
         Object.assign(sty,bgs);
         return (
             <div className={styles.root} style={sty}>
-                <div className={leftNode ? null : styles.left} onClick={onLeft}>
+                <div className={styles.left} onClick={onLeft}>
                     {(leftNode || leftNode === null) ? leftNode : <img src={backIcon} height={20} width={10}/>}
                 </div>
                 <div className={styles.middle} onClick={onTitle}>
