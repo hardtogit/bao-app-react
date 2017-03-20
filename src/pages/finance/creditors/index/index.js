@@ -2,19 +2,13 @@
  * 债权
  */
 import React from 'react'
-import NavBar from '../../../../components/NavBar'
 import styles from './index.less'
 import * as actionTypes from '../../../../actions/actionTypes'
-import Fetch from '../../../../request/fetch'
 import {connect} from 'react-redux'
-import Infinite from 'react-infinite'
-import wrap from '../../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import Dimensions from 'react-dimensions'
 import Couponimg from '../../../../assets/images/coupon1.png'
-import NodataIMG from '../../../../assets/images/norecord.png'
 import CusDialog from '../../../../components/Dialog/alert.js'
-import AutoSizeInfinite from '../../../../components/AutoSizeInfinite/'
 import type_hongwu from '../../../../assets/images/type_hongwu.png'
 import type_danbao from '../../../../assets/images/type_danbao.png'
 import type_diya from '../../../../assets/images/type_diya.png'
@@ -58,7 +52,7 @@ class CreditorCell extends React.Component{
       activity,//活动名称
       rate,
       id,
-      number,//剩余份数
+      left_quantity,//剩余份数
       total_quantity,
       term:month,
       is_overdue,//是否已过投标期限
@@ -95,7 +89,7 @@ class CreditorCell extends React.Component{
                 <div className={styles.cellBody}>
                   <p>{rate}<span>%</span></p>
                   <p>{month}个月</p>
-                  <p>{number}份</p>
+                  <p>{left_quantity}份</p>
                   
                 </div>
                 <div className={styles.cellFoot}>
@@ -147,20 +141,51 @@ class TopGuide extends React.Component{
 }
 
 class CreditorList extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            init:false
+        }
+    }
   componentDidMount() {
-    this.props.nextPage();
     this.props.pageIndex();
-  } 
-  render(){  
-    const screenW=this.props.containerWidth
+    this.setState({init:true})
+  }
+  ScrollDom=()=>{
+      const screenW=this.props.containerWidth
+      const {
+          data,
+          pending,
+          pageEnd,
+          curPage,
+          nextPage
+      }=this.props;
+      return(<Scroll height={this.props.ListHeight} fetch={nextPage}
+                     isLoading={pending} distance={5} endType={pageEnd}
+                     nullDom={<div className={styles.nullBox}><img src={nozhaiquan}/></div>} endload={<div></div>}>
+          {
+              data && data.map((data,i) => (
+                  <CreditorCell key={i}
+                                data={data}
+                                onClick={() => this.props.push(`/creditorDetail/${data.id}`)}
+                                push={(path) => this.props.push(path)}
+                                passwordRef={this.refs.passWord}
+                                wrongRef={this.refs.wrong}
+                                screenW={screenW}
+                                postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                  />
+              ))}
+      </Scroll>)
+  }
+  render(){
     const{
-      data,
-      pending,
-      pageEnd,
-      curPage,
       is_login,
       userData,
-    }=this.props
+    }=this.props;
+    let Dom;
+    if (this.state.init){
+        Dom=this.ScrollDom();
+    }
     return(
       <div className={styles.root}>
         {
@@ -173,22 +198,7 @@ class CreditorList extends React.Component{
                   <TopGuide goRegist={() => this.props.push('/regist/')}></TopGuide>
                 }
                 <div className={styles.list}>
-                  <Scroll height={this.props.ListHeight} fetch={this.props.nextPage}
-                          isLoading={pending} distance={5} endType={pageEnd}
-                   nullDom={<div className={styles.nullBox}><img src={nozhaiquan}/></div>}>
-                    {
-                      this.props.data && this.props.data.map((data,i) => (
-                                <CreditorCell key={i}
-                                                  data={data}
-                                                  onClick={() => this.props.push(`/creditorDetail/${data.id}`)}
-                                                  push={(path) => this.props.push(path)}
-                                                  passwordRef={this.refs.passWord}
-                                                  wrongRef={this.refs.wrong}
-                                                  screenW={screenW}
-                                                  postPasswordAction={(value) => this.props.setAppointPassword(value)}
-                                                  />
-                ))}
-                  </Scroll>
+                    {Dom}
                 </div>
             </div>
           

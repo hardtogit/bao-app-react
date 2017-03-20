@@ -24,6 +24,7 @@ class DepositBuy extends React.Component {
       unitPrice: 1000, // 单价
       vouchers: [],
       interestRates: [],
+      pending:false
     }
   }
   componentWillMount(){
@@ -75,9 +76,13 @@ class DepositBuy extends React.Component {
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),
       })
     }
+       if (nextProps.depositBuyPending){
+           this.setState({
+               pending:true
+           })
+       }
 
   }
-
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null
     this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
@@ -288,7 +293,11 @@ class DepositBuy extends React.Component {
       )
     }
   }
-
+    changePending=()=>{
+    this.setState({
+      pending:false
+    })
+    }
   getCurrentMonth = () => {
     const { deposit } = this.props
     const depositId = this.state.depositId
@@ -364,8 +373,11 @@ class DepositBuy extends React.Component {
           balance={+this.props.user.balance}
           onRequestBalancePay={this.depositBuy}
           inputValue={Number(utils.padMoney(this.getPayTotal()))}
-          balancePayPending={this.props.depositBuyPending}
-          balancePayData={this.props.depositBuyData} />
+          balancePayPending={this.state.pending}
+          balancePayData={this.props.depositBuyData}
+          changePending={this.changePending}
+          clear={this.props.clearData}
+           money={utils.padMoney(this.getPayTotal())}/>
         <p><Link to="/agreement" className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
@@ -395,7 +407,7 @@ const mapStateToProps = (state, ownProps) => {
     depositBuyData: state.infodata.getIn([actionTypes.DEPOSIT_BUY, 'data']),
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
-    new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{}
+    new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
   }
 }
 
@@ -440,6 +452,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       type: actionTypes.SET_USE_COUPONS,
       selectedCoupon
     })
+  },
+  clearData(){
+      dispatch({
+          type:'CLEAR_INFO_DATA',
+           key:'DEPOSIT_BUY'
+      })
   }
 })
 

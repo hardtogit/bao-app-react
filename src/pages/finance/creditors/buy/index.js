@@ -94,18 +94,21 @@ class CreditorBuy extends React.Component{
               <p>{detail.price || ''}</p>
             </div>
             <div className={styles.infomationItem}>
-              <p>份数<span>(剩余{detail.left_quantity || ''})</span></p>
-              <BuyInput
-              containerStyle={{marginTop: 12}}
-              value={this.state.copies} 
-              onChange={this.changeCopies} />
+              <p>剩余<span>(份)</span></p>
+              <p>{detail.left_quantity || ''}</p>
             </div>
             <div className={cn(styles.infomationItem, styles.infomationItemRight)}>
               <p>预付利息<span>(元/份)</span></p>
               <p>{detail.prepaid_interest || ''}</p>
             </div>
           </div>
-
+          <div className={styles.buyInput}>
+            <p>份数<span>(最少买一份)</span></p>
+            <BuyInput
+                containerStyle={{marginTop: 12}}
+                value={this.state.copies}
+                onChange={this.changeCopies} />
+          </div>
           <div className={styles.expectIncome}>
             <div className={styles.wrap}>
               <p className={styles.name}>预期收益（元）</p>
@@ -130,7 +133,7 @@ class CreditorBuy extends React.Component{
             balancePayData={this.props.creditorsBuyData} />
 
           <div className={styles.payBtn}>
-            <p onClick={()=>this.props.go('/creditorProtocol/')}>《投资咨询及管理服务协议》及相关融资文件 </p>
+            <p onClick={()=>this.props.push('/creditorProtocol')}>《投资咨询及管理服务协议》及相关融资文件 </p>
           </div>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}

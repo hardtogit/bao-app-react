@@ -15,6 +15,8 @@ const requests = (Fetch) => {
   Fetch.transactionRecords = (page,type) => {return Fetch(`balance/records?page=${page}&type=${type}`, 'GET') }
   // 连连支付
   Fetch.authCookie = () => {return Fetch(`common/auth-cookie`, 'GET') }
+  //付款
+  Fetch.Pay =(money)=>{return Fetch(`pay?money=${money}`)}
   // 零钱宝
   Fetch.myDemand = () => { return Fetch('demand/account-detail', 'GET')}
   // 零钱宝记录

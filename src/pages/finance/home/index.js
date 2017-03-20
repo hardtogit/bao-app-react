@@ -9,12 +9,11 @@ import styles from './index.css'
 import classNames from 'classnames'
 //定存宝
 import DepositIndex from '../deposit/index'
-// 零钱宝
-import DemandIndex from '../demand/index'
 //直投项目
 import DirectInvestIndex from '../directInvest/index'
 //债权转让
-import CreditorsIndex from '../creditors/index' 
+import CreditorsIndex from '../creditors/index'
+import wrap from '../../../utils/pageWrapper'
 class financeIndex extends Component{
      constructor(props){
 		 super(props);
@@ -36,8 +35,7 @@ class financeIndex extends Component{
          this.setState({
              Index:proIndex
          });
-         proIndexs();
-
+         proIndexs(proIndex);
 	 }
 	 componentDidMount(){
 
@@ -45,7 +43,8 @@ class financeIndex extends Component{
 	 handleSelect(index,last){
 		 this.setState({
 			Index:index 
-		 })
+		 });
+         this.props.proIndexs(index);
 	 }
 	 render(){
 		 const{
@@ -93,11 +92,11 @@ const financeIndexInit=(state,own)=>({
 	  proIndex:state.global.getIn(['PRODUCT_INDEX'])
 })
 const financeIndexInitfn=(dispath,owb)=>({
-    proIndexs(){
+    proIndexs(index){
         dispath({
             type:'PRODUCT_INDEX',
-            index:0
+            index:index
         })
 	}
 })
-export default connect(financeIndexInit,financeIndexInitfn)(financeIndex)
+export default connect(financeIndexInit,financeIndexInitfn)(wrap(financeIndex))

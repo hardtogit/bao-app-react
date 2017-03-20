@@ -10,14 +10,16 @@ import {connect} from 'react-redux'
 import * as actionTypes from '../../../actions/actionTypes'
 import { Link} from 'react-router';
 import {goBack} from 'react-router-redux';
-let sending = false;
 let  guaImg;
 class Index extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             showCanvas:true,
-            index:0
+            index:0,
+            fetch:false,
+            cardResName:'',
+            cardResAmount:''
         }
     }
     componentWillMount=()=>{
@@ -31,6 +33,34 @@ class Index extends React.Component {
                 this.initCard();
         };
     };
+    componentWillReceiveProps(next){
+        const {fetch}=this.state,
+               {userCard}=next;
+        if (fetch){
+          this.pdCardRes(userCard);
+        }
+    }
+    pdCardRes=(data)=>{
+        if (data){
+            const dataRes=data.data;
+            if (data.code==100){
+                const {
+                    name,
+                    amount
+                }=dataRes;
+                this.setState({
+                    cardResName:name,
+                    cardResAmount:amount,
+                    fetch:false
+                })
+            }else {
+                this.setState({
+                    cardResName:'获取刮刮卡失败',
+                    fetch:false
+                })
+            }
+        }
+     }
     initCard=()=>{
         let bodyStyle = document.body.style;
         bodyStyle.mozUserSelect = "none";
@@ -49,6 +79,9 @@ class Index extends React.Component {
          * 检测刮开面积
          */
         let checkoutArea=()=>{
+            const {
+                fetch
+            }=this.state;
             let data=ctx.getImageData(0,0,w,h).data;
             for(var i=0,j=0;i<data.length;i+=4){
                 if(data[i] && data[i+1] && data[i+2] && data[i+3]){
@@ -56,13 +89,13 @@ class Index extends React.Component {
                 }
             }
             //刮层剩余80%的时候获取奖品信息
-            if(j<=w*h*0.9 && !sending){
+            if(j<=w*h*0.9 && !fetch){
 
             }
             //刮层剩余60%的时候清除浮层，显示奖品数据
-            if(j<=w*h*0.6 && !sending){
-                sending = true;
-                this.props.useCard(this.props.cardInfo.newCards[this.state.index].id);
+            if(j<=w*h*0.6 && !fetch){
+                    this.props.useCard(this.props.cardInfo.newCards[this.state.index].id);
+                    this.setState({fetch:true})
                 this.setState({
                     showCanvas:false,
                     index:this.state.index+1
@@ -115,17 +148,19 @@ class Index extends React.Component {
 
     useNext=()=>{
         this.setState({
-            showCanvas:true
+            showCanvas:true,
+            fetch:false,
+            cardResName:'',
+            cardResAmount:''
         });
     };
     render() {
-        let wards;
-        if(this.props.userCard && !sending){
-            wards = this.props.userCard;
-        }else{
-            wards = "";
-        }
+        const {
+            cardResName,
+            cardResAmount
+        }=this.state;
         const {cardInfo} = this.props;
+        console.log(cardInfo);
         return (
             <div className={styles.bg}>
                 <NavBar backgroundColor="transparent"
@@ -136,16 +171,11 @@ class Index extends React.Component {
                     <img className={styles.card_bg_img} src={bgImg} alt=""/>
                     <div className={styles.card_bg}>
                         <div id="card" className={styles.card}>
-                            <div className={cs(cardInfo.newCards.length<=0?styles.show:"",styles.no_card)}>
-                                <img src={scratchecard_cry} alt=""/>
-                                <h2>没有刮奖机会</h2>
-                                <p>每周五投资即可参与刮奖</p>
-                            </div>
                             {cardInfo.newCards.length>0 && this.state.showCanvas && <div id="have_card" className={styles.have_card}>
-                                <canvas id="guaCanvas" style={{width:283,height:142}}></canvas>
+                                <canvas id="guaCanvas" style={{width:283,height:142}} className={styles.guaBox}></canvas>
                             </div>}
                             <div className={styles.answer}>
-                                <h2>{wards}</h2>
+                                <h2>{cardResName}{cardResAmount}</h2>
                                 <button className={cs(cardInfo.newCards.length<=0?styles.show:"",styles.no_next)}>刮奖机会已用完</button>
                                 <button onClick={this.useNext} className={cs(cardInfo.newCards.length>0?styles.show:"",styles.next)}>刮下一张</button>
                             </div>
@@ -184,17 +214,10 @@ const detailModel = (data)=>{
  * 当前使用的刮刮卡 数据model
  * @param data
  */
-const useModel = (data)=>{
-    if(data&&data.code===100){
-        sending  = false;
-        return data.data.name.name+data.data.name.amount;
-    }
-    return false;
-};
 const mapStateToProps = (state, ownProps) => {
     return {
         cardInfo:detailModel(state.infodata.getIn([actionTypes.SCRATCHES_CARD_INFO, 'data'])),
-        userCard:useModel(state.infodata.getIn([actionTypes.SCRATCHES_CARD_USE, 'data']))
+        userCard:state.infodata.getIn([actionTypes.SCRATCHES_CARD_USE, 'data'])
     }
 };
 
@@ -205,6 +228,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         })
     },
     useCard(id){
+        console.log('fafaf')
         dispatch({
             type: actionTypes.SCRATCHES_CARD_USE,
             params:[id]

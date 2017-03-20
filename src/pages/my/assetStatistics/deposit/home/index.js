@@ -9,7 +9,7 @@ import managebag from '../../../../../assets/images/my-index/managebag.png' //�
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import dingicon from '../../../../../assets/images/my-index/dingicon.png' //列表时钟
 import Scroll from '../../../../../components/scroll/index'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import Util from "../../../../../utils/utils"
 import wrap from '../../../../../utils/pageWrapper'
  class Index extends React.Component {
@@ -75,7 +75,7 @@ import wrap from '../../../../../utils/pageWrapper'
 		  </div>)
 	}
 	buyDom=()=>{
-		return(<div>
+		return(<div onClick={()=>{this.props.push('/home/productIndex')}}>
 			<div className={styles.errorImg}><img src={explan} /></div>
 			<div className={styles.gobuy}>再次购买</div>
 		</div>)
@@ -105,7 +105,6 @@ import wrap from '../../../../../utils/pageWrapper'
 		  )
 	}
 	componentDidMount(){
-		console.log('我是1')
 		this.props.load();
 	}
      componentWillUnmount(){
@@ -171,6 +170,9 @@ const myDepositSummaryInitfn=(dispath,own)=>({
             key:'DEPOSIT_RECORD'
         })
     },
+	push(url){
+       dispath(push(url))
+	},
 	pop(){
     	dispath(goBack())
 	}

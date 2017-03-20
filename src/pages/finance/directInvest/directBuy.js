@@ -295,7 +295,7 @@ class DirectBuy extends React.Component {
             balancePayData={this.props.buyData} />
 
           <div className={styles.payBtn}>
-            <p onClick={()=>this.props.go('/directContract/')}>《借贷及担保服务协议》</p>
+            <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
           </div>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}

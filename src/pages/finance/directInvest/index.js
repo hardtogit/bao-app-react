@@ -220,8 +220,14 @@ class TopGuide extends React.Component{
 
 
 class DirectInvestList extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            init:false
+        }
+    }
     componentDidMount() {
-
+      this.setState({init:true})
     }
     setUserCardInfo=()=>{
         const {user} =this.props
@@ -244,17 +250,41 @@ class DirectInvestList extends React.Component{
             </div>
         )
     }
-    render(){
+    ScrollDom=()=>{
         const screenW=this.props.containerWidth
-        const{
-            data,
+        const {
             pending,
+            nextPage,
             pageEnd,
-            curPage,
+            data
+        }=this.props;
+        return(<Scroll height={this.props.ListHeight} fetch={nextPage}
+                       isLoading={pending} distance={5} endType={pageEnd} endload={<div></div>}>
+            {
+                data && data.map((data,i) => {
+                    return(
+                        <DirectInvestCell key={i}
+                                          data={data}
+                                          onClick={() => this.props.push(`/directInvestDetails/${data.id}`)}
+                                          push={(path) => this.props.push(path)}
+                                          passwordRef={this.refs.passWord}
+                                          wrongRef={this.refs.wrong}
+                                          screenW={screenW}
+                                          postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                        />
+                    )
+                })}
+        </Scroll>)
+    }
+    render(){
+        const{
             user,
             is_login,
-            userData
-        }=this.props
+        }=this.props;
+        let Dom;
+        if (this.state.init){
+            Dom=this.ScrollDom()
+        }
         return(
             <div className={styles.content}>
                 {
@@ -269,24 +299,7 @@ class DirectInvestList extends React.Component{
                             <TopGuide goRegist={() => this.props.push('/register')}></TopGuide>
                         }
                       <div className={styles.list}>
-                        <Scroll height={this.props.ListHeight} fetch={this.props.nextPage}
-                                isLoading={pending} distance={5} endType={pageEnd}>
-                            {
-                                this.props.data && this.props.data.map((data,i) => {
-                                    const name=encodeURI(data.name)
-                                   return(
-                                       <DirectInvestCell key={i}
-                                                         data={data}
-                                                         onClick={() => this.props.push(`/directInvestDetails/${data.id}`)}
-                                                         push={(path) => this.props.push(path)}
-                                                         passwordRef={this.refs.passWord}
-                                                         wrongRef={this.refs.wrong}
-                                                         screenW={screenW}
-                                                         postPasswordAction={(value) => this.props.setAppointPassword(value)}
-                                       />
-                                   )
-                                })}
-                        </Scroll>
+                          {Dom}
                       </div>
                     </div>
 

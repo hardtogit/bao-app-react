@@ -237,5 +237,8 @@ export default {
     },
     [actionTypes.AUTH_COOKIE]:{
         apiFn:Fetch.authCookie
+    },
+    [actionTypes.PAY]:{
+        apiFn:Fetch.Pay
     }
 }

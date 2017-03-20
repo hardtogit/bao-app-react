@@ -259,10 +259,12 @@ class FinancialIndex extends Component{
               <div className={style.indexCav}>
                <ul className={style.indexCavul}>
                  <li className={style.indexCavli}>
+                     <a href="https://www.bao.cn/special/gzbj/index.html">
                  <span className={style.cavContent}>
                  <img src={gz}/>
                  <span>国资控股</span>
                  </span>
+                     </a>
                  </li>
                  <li className={style.indexCavli}>
                   <a href="https://static.bao.cn/static/web/zt/325_mobile/index.html">

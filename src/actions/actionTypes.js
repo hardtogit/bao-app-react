@@ -169,3 +169,4 @@ export const VOUCHER_LIST='VOUCHER_LIST' //点币记录
 export const REDEEM='REDEEM'  //零钱包赎回
 export const INVOLVE_PROJECT_LIST='INVOLVE_PROJECT_LIST' //定存宝涉及项目
 export const AUTH_COOKIE='AUTH_COOKIE' // 发送cookie
+export const PAY='PAY'  //充值

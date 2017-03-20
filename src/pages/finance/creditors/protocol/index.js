@@ -9,7 +9,6 @@ class CProductContract extends React.Component{
     return (
       <div className={styles.root}>
         <NavBar title='理财' onLeft={()=>this.props.goBack()}></NavBar>
-        <div style={{height:44}}></div>
         <div className={styles.scroll}>
           <div>
             <p>宝点网（bao.cn）合同编号：</p>

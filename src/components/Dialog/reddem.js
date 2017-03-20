@@ -97,7 +97,7 @@ export default class ReddemDialog extends React.Component {
               placeholder={options.placeholder}
               onFocus={this.focusHandle}
               onBlur={this.blurHandle}
-              onChange={(e)=>{this.password=e.nativeEvent.target.value}} />
+              onChange={(e)=>{this.password=e.nativeEvent.target.value}} type="password"/>
           </div>
           {
            this.state.error ? <span className={styles.errorText}>{this.state.error}</span> : null

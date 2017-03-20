@@ -53,7 +53,7 @@ const Fetch = (url, type, data, headers) => {
     // return json format result in default
     fetch(ROOT_URL + url, options)
     .then((response) => {
-      return response.json()
+      return response.json();
       // const result = response.json()
       // if (result.code == '0000') {
       //   // 未登录

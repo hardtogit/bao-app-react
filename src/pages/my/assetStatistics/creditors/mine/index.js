@@ -4,7 +4,7 @@ import styles from './index.css'
 import Manage from '../../../../user/common/manage/index'
 import Loading from '../../../../../components/pageLoading'
 import Scroll from '../../../../../components/scroll/index'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import {Link} from 'react-router'
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import listicon1 from '../../../../../assets/images/my-index/listicon1.png' //管家标志
@@ -68,8 +68,16 @@ import {connect} from 'react-redux'
 			</Scroll>
 		</div>)
 	}
+	go=()=>{
+        const {
+            goBuy,
+            push
+        }=this.props;
+        goBuy();
+        push('/home/productIndex')
+	}
 	buyDom=()=>{
-		return(<Link to=""><div className={styles.gobuy}>再次购买</div></Link>)
+		return(<div className={styles.gobuy} onClick={this.go}>再次购买</div>)
 	}
 	loadDom=()=>{
 		return(<Loading/>)
@@ -152,6 +160,19 @@ const dispatch=(dispatch)=>({
             key:'MY_CREDITOR_LIST'
         })
     },
+    goBuy(){
+        dispatch({
+            type:'HOME_TAB_CAV',
+            index:1
+        })
+        dispatch({
+            type:'PRODUCT_INDEX',
+            index:2
+        })
+    },
+    push(url){
+      dispatch(push(url))
+	},
 	pop(){
     	dispatch(goBack())
 	}

@@ -22,7 +22,7 @@ class Index extends Component{
              Text1='投资金额无上限';
         if (id==5){
             Text='50';
-            Text1='每人限购3万元';
+            Text1='每人限购1万元';
         }
         return(
            <div className={styles.body}>

@@ -176,19 +176,6 @@
 	font-size:14px;
 	border-radius:5px;
 }
-.rechargeBox{
-	position: absolute;
-	left: 0px;
-	top: 100%;
-	width: 100%;
-	background-color: #f0eff5;
-	height: 100%;
-	transition: all .5s;
-	-moz-transition: all .5s;
-	-webkit-transition: all .5s;
-	-o-transition: all .5s;
-	padding-top: 44px;
-}
 .inputBox{
 	padding-top: 30px;
 }
@@ -211,8 +198,21 @@
 	margin-left: 8px;
 	width: calc(100% - 78px);
 }
+.rechargeBox{
+	position: absolute;
+	left: 0px;
+	top: 100%;
+	width: 100%;
+	background-color: #f0eff5;
+	height: 100%;
+	transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+	-o-transition: all .5s;
+	padding-top: 44px;
+}
 .rechargeTitle{
-   padding-left: 15px;
+	padding-left: 15px;
 }
 .recName{
 	margin-top: 20px;

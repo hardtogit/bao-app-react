@@ -57,7 +57,7 @@ class Index extends React.Component {
             push
 		}=this.props;
 		goBuy();
-		push('/home');
+		push('/home/productIndex');
 	}
 	//点击直投项目列表事件
     goDetail=(id)=>{

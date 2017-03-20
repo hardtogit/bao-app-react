@@ -55,6 +55,7 @@ import projectRecorde from './pages/my/assetStatistics/directInvest/projectRecor
 
 /*************************************************我的*****************************************************/
 import Recharge from './pages/my/assetStatistics/balance/charge/index' /*充值*/
+import Pay from './pages/finance/pay/index'
 import moneyLog from './pages/my/assetStatistics/balance/records/index'/*余额明细*/
 import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余额*/
 import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
@@ -313,7 +314,7 @@ export default class App extends React.Component {
               <Route path="findpasswordSetPassword" component={FindpasswordSetPassword}></Route>
               /*已完成*/
 
-
+            <Route path='pay/:id' component={Pay} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="BottomTabs" component={BottomTabs}></Route>
             <Route path="demand-Index" component={DemandIndex}></Route>

@@ -68,9 +68,6 @@ class Index extends React.Component {
                             }
                         </Scroll>
                     </div>
-					<div className={styles.noneRecord}>
-						<img src={noneRecord}/>
-					</div>
 				</div>
 				</div>
 			</div>

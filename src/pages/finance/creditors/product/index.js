@@ -152,17 +152,19 @@ class CreditorDetails extends React.Component{
       params: {
         id,
       }
-    } = this.props
+    } = this.props;
+
     const selectID =this.state.selectID
     return(
       <div className={styles.root}>
-        <NavBar title={data ? data.name : '产品详情'} onLeft={()=>this.props.goBack()}></NavBar>
-        <CusDialog ref='wrong'></CusDialog>
-        <div style={{height:44}}></div>
+          <NavBar onLeft={()=>this.props.goBack()}>
+              {data&&data.name||'产品详情'}
+          </NavBar>
         <div className={styles.scroll}>
-        { 
+        {
           data
           ?
+          <div>
             <div>
               <div className={styles.topDiv}>
                 <div className={styles.blueDiv}>
@@ -218,9 +220,11 @@ class CreditorDetails extends React.Component{
                   termFixed={true}
               />
             </div>
+          </div>
           :
           <Load></Load>
         }
+            <CusDialog ref='wrong'></CusDialog>
         </div>
       </div>
     )

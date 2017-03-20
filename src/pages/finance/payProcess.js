@@ -71,10 +71,12 @@ class PayProcess extends React.Component {
     }
 
     if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
-      const code = nextProps.balancePayData.code
-      const go = this.props.go
-      if (code == 100) {
+      const code = nextProps.balancePayData.code;
+      const pending=nextProps.balancePayPending;
+      const go = this.props.go;
+      if (code == 100&&pending) {
         // 支付成功
+          nextProps.changePending();
         switch(this.props.type) {
           case 'deposit': go('/depositInvestSuccess'); break;
           case 'directInvest': go('/directInvestSuccess'); break;
@@ -82,13 +84,17 @@ class PayProcess extends React.Component {
         }
         this.balancePayRedirectFlag = true
 
-      } else if  (code == 342) { // 输错5次密码
+      } else if  (code == 342&&pending) { // 输错5次密码
         this.openExceedErrorDialog(nextProps.balancePayData.data.minute)
         util.savePassErrorDate(this.props.user.username || '')
-      } else {
+          nextProps.changePending();
+          nextProps.clear()
+      } else if (pending){
         let message = '支付出错了'
         if (code == 343) message = '密码输入错误，请重新输入'
         this.openErrorDialog(message)
+          nextProps.changePending();
+          nextProps.clear()
       }
     }
   }
@@ -268,15 +274,14 @@ class PayProcess extends React.Component {
         }
       }
     })
-
     if (type == 'demand') {
-      return go(util.combineUrl('/PayWeb', {way: type, money: this.props.inputValue, chosen: chosen, sourceId: 2}))
+      return go(util.combineUrl(`/pay/${this.props.inputValue}`,{type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
     } else if (type == 'deposit') {
-      return go(util.combineUrl('/PayWeb', {way: type, productId: data.productId, quantity: data.quantity, type: chosen, couponId: data.couponId, sourceId: 3}))
+        return go(util.combineUrl(`/pay/${this.props.inputValue}`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
     } else if (type == 'creditors') {
-      return go(util.combineUrl('/PayWeb', {way: type, id: params.creditorsId, copies: params.copies, sourceId: 5}))
+      return go(util.combineUrl(`/pay/${data.id}`,{wap:'creditors',copies:data.copies,payPass:data.payPass&&data.payPass||'',type:2}))
     } else if (type == 'directInvest') {
-
+        return go(util.combineUrl(`/pay/${data.id}`,{wap:'directInvest',type:2,num:data.num,borrowPwd:data.borrowPwd&&data.borrowPwd||'',payPwd:'',couponId:data.couponId}))
     } else if (type == 'balance') {
 
     }

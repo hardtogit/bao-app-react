@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import fivestar from '../../../../../assets/images/my-index/balance.png' //圆形五角星
 import Loading from '../../../../../components/pageLoading/'
 import {Link} from 'react-router'
-import {goBack} from 'react-router-redux'
+import {push,goBack} from 'react-router-redux'
 import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
@@ -16,33 +16,32 @@ class Index extends React.Component {
             top:'100%',
 			recMoney:'',
 			disabled:true,
-            payTop:'100%',
 			submite:false,
-			url:''
 		}
 	}
 	componentDidMount() {
 		this.props.load();
 	}
-	componentWillUnmount() {}
+	componentWillUnmount() {
+		this.props.clearData();
+	}
     componentWillReceiveProps(next){
 		 const {
-             cookie
+             cookie,
+             push
 		 }=next;
 		 if (cookie){
              const {submite}=this.state;
              if (submite&&cookie.code==100){
                  this.setState({
                      submite:false,
-                     payTop:'0px',
-                     url:'https://yintong.com.cn/llpayh5/tpls/render.html'
-                 })
-             }else {
+                 });
+                 push(`/pay/${this.state.recMoney}`)
+             }else if (submite){
                  this.setState({
                      submite:false,
-                     url:''
                  })
-                 this.openTipbar('提交失败！')
+                 this.openTipbar('提交失败!')
              }
 		 }
 	}
@@ -129,23 +128,11 @@ class Index extends React.Component {
 		});
     	this.props.submit();
 	}
-    payDom=()=>{
-    	const {
-            payTop,
-            url
-		}=this.state
-    	return(<div className={styles.rechargeBox} style={{top:payTop}}>
-			<NavBar leftNode={<span className={styles.rechargeTitle}>关闭</span>}
-					style={BanckStyle}
-					onLeft={()=>{this.cancel({payTop:'100%'});this.setState({url:''})}}>充值</NavBar>
-			<iframe src={url} className={styles.iframe}></iframe>
-		</div>)
-	}
 	render() {
 		const {
 			balance,
-            pop,
-		}=this.props
+            pop
+		}=this.props;
 		let Dom;
 		if(balance){
 			Dom=this.loadEndDom(balance.data)
@@ -160,8 +147,6 @@ class Index extends React.Component {
                     Dom
 				}{
                 this.recharge()
-			}{
-                    	this.payDom()
 			}
 			</div>
 		)
@@ -189,6 +174,15 @@ const Rechargeinitfn=(dispath,own)=>({
 	   	dispath({
 	   		type:'AUTH_COOKIE',
 		})
-	  }
+	  },
+	 push(url){
+	   dispath(push(url))
+	 },
+	clearData(){
+	  	dispath({
+	  		type:'CLEAR_INFO_DATA',
+			key:'AUTH_COOKIE'
+		})
+	}
 })
 export default connect(Rechargeinit,Rechargeinitfn)(wrap(Index))
