@@ -12,19 +12,24 @@ import icon  from '../../../../assets/images/shopp-center/icon.png'
 import Loading from '../../../../components/pageLoading/index'
 import Scroll from '../../../../components/scroll/index'
 import wrap from '../../../../utils/pageWrapper'
-let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            signNumbers:userInfo.signNumbers,
-            coins:userInfo.coins,
-            isSign:userInfo.isSign,
+            signNumbers:'',
+            coins:'',
+            isSign:'',
             index:0,
             id:0
 		}
 	}
 	componentWillMount(){
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        this.setState({
+            signNumbers:userInfo.signNumbers,
+            coins:userInfo.coins,
+            isSign:userInfo.isSign,
+        })
         this.props.productBar();
     }
 	componentDidMount() {

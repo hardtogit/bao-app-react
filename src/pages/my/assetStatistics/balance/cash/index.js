@@ -13,8 +13,20 @@ class Index extends React.Component {
         super(props)
         this.state={
             val:'',
-            disabled:true
+            disabled:true,
+            money:'',
+            bank:'',
+            number:""
         }
+    }
+    componentDidMount(){
+       const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
+       const bank=JSON.parse(sessionStorage.getItem('bao-bank'))
+        this.setState({
+            money:user.balance,
+            bank:bank.name,
+            number:bank.number
+        })
     }
     onValid=()=>{
         const {
@@ -68,16 +80,28 @@ class Index extends React.Component {
     }
     change=(e)=>{
       const val=e.target.value,
-             reg=/^\d+(\.\d+)?$/,
+             reg=/^\d+(\.\d{1,2})?$/,
           tipbar=this.refs.tipbar;
       this.setState({
           val
       });
       if (!reg.test(val)){
-          tipbar.open('请输入正确的格式!')
+          tipbar.open('请输入正确的格式!');
+          this.setState({
+              disabled:true
+          })
       }else if (val<50){
+          this.setState({
+              disabled:true
+          })
           tipbar.open('金额必须大于50')
-      }else {
+      }else if (val>parseFloat(this.state.money)){
+          this.setState({
+              disabled:true
+          })
+          tipbar.open('超出余额！')
+      }
+      else {
           this.setState({
               disabled:false
           })
@@ -89,7 +113,10 @@ class Index extends React.Component {
         }=this.props;
         const {
             val,
-            disabled
+            disabled,
+            money,
+            bank,
+            number
         }=this.state;
         return (
             <div className={styles.bg}>
@@ -98,7 +125,7 @@ class Index extends React.Component {
                    <div className={styles.contentBox}>
                        <div className={styles.title}>
                            <span className={styles.cardLx}>储蓄卡</span>
-                           <span className={styles.card}>中国农业银行(5416)</span>
+                           <span className={styles.card}>{bank}({number})</span>
                        </div>
                        <div className={styles.withdrawalsInfo}>
                            <span>提现金额（元）</span>
@@ -109,7 +136,7 @@ class Index extends React.Component {
                            <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
-                           当前金额￥98,591,483.70
+                           当前金额￥{money}
                        </div>
                    </div>
                    <div className={styles.time}>
@@ -130,7 +157,9 @@ class Index extends React.Component {
     }
 }
 const Rechargeinit=(state,own)=>({
-      cashData:state.infodata.getIn(['CASH','data'])
+      cashData:state.infodata.getIn(['CASH','data']),
+      withdraw:state.infodata.getIn(['WITHDRAW','data']),
+     userinfo:state.infodata.getIn(['USER_INFO','data'])
 });
 const Rechargeinitfn=(dispath,own)=>({
      pop(){
@@ -141,6 +170,11 @@ const Rechargeinitfn=(dispath,own)=>({
              type:'CASH',
              params:[{amount,password}]
          })
+    },
+    get(){
+        dispath({
+            type:'WITHDRAW'
+        })
     },
     push(time,cash_amount){
         dispath(push(`/user/cashsuccess?time=${time}&cash_amount=${cash_amount}`))

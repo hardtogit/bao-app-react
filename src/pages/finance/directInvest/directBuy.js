@@ -1,19 +1,15 @@
 import React from 'react'
 import NavBar from '../../../components/NavBar'
 import styles from './directBuy.less'
-import Goodimg from '../../../assets/images/good.png'
 import * as actionTypes from '../../../actions/actionTypes'
-import Fetch from '../../../request/fetch'
 import {connect} from 'react-redux'
-import Infinite from 'react-infinite'
 import wrap from '../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import utils from '../../../utils/utils.js'
 import BuyInput from '../../../components/customInput'
 import Button from '../../../components/BaseButton'
-import BaseText from '../../../components/BaseText'
 import PayProcess from '../payProcess.js'
-
+import Tipbar from '../../../components/Tipbar'
 class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
@@ -79,6 +75,11 @@ class DirectBuy extends React.Component {
   }
 
   changeQuantity = (value) => {
+    if (value<=0){
+        this.refs.tipbar.open('购买份数必须为正整数!');
+    }else if (value>parseFloat(this.props.detail.left_quantity)){
+        this.refs.tipbar.open('剩余份数不足!');
+    }
     this.setState({quantity: Number(value)})
   }
 
@@ -301,8 +302,11 @@ class DirectBuy extends React.Component {
             containerStyle={{margin: '40px 15px 20px'}}
             text='确认支付' 
             disable={this.canPay() > 0 ? false : true}
-            onClick={this.onValid} />
+            onClick={this.onValid}
+            status={this.canPay() > 0 ? '' : 'disable'}
+          />
         </div>
+        <Tipbar ref="tipbar"/>
       </div>
     )
   }

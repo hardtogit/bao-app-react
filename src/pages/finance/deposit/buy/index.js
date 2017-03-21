@@ -24,7 +24,8 @@ class DepositBuy extends React.Component {
       unitPrice: 1000, // 单价
       vouchers: [],
       interestRates: [],
-      pending:false
+      pending:false,
+      couponsFetching:true,
     }
   }
   componentWillMount(){
@@ -41,7 +42,6 @@ class DepositBuy extends React.Component {
     }
   }
   componentDidMount() {
-    console.log(this.props)
     // this.focus()
     this.props.getDepositDetail(this.state.depositId)
   }
@@ -52,8 +52,10 @@ class DepositBuy extends React.Component {
       // 获取可以使用的优惠券
        if (nextProps.params.id==5){
            this.props.getAvailableCoupons(nextProps.new_deposit.month)
+       }else if (nextProps.params.id==1||nextProps.params.id==2){
+           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId-1].month)
        }else {
-           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId].month)
+           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId-2].month)
        }
     }
 
@@ -68,13 +70,15 @@ class DepositBuy extends React.Component {
               result.data.quantity : this.state.quantity : 1
       this.setState({quantity})      
     }
-
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
       this.hasSetCoupon = true
       this.setState({
         vouchers: nextProps.couponsData.data.filter(coupon => coupon.type === '抵用券'),
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),
       })
+        this.setState({
+            couponsFetching:false
+        })
     }
        if (nextProps.depositBuyPending){
            this.setState({
@@ -93,6 +97,11 @@ class DepositBuy extends React.Component {
     const {
       params:{id}
     }=this.props;
+    if (value<=0){
+        this.refs.tipbar.open('购买份数必须为正整数!');
+    }else if (value>parseFloat(this.props.quantityData.data.quantity)){
+        this.refs.tipbar.open('剩余份数不足!');
+    }
     if (value>200&&id==5){
         this.refs.tipbar.open('新手标购买金额不能超过一万！');
         this.setState({quantity: Number(200)})
@@ -171,8 +180,12 @@ class DepositBuy extends React.Component {
 
   // 能否支付
   canPay() {
-    return this.state.quantity && 
-      this.state.quantity <= (this.props.quantityData && this.props.quantityData.data.quantity || 0) ? true : false
+    const {
+        quantity,
+    }=this.state;
+    const {quantityData}=this.props;
+    return quantity &&
+    quantity <= (quantityData && quantityData.data.quantity || 0) ? true : false
   }
 
   // 获取支付费用
@@ -250,7 +263,7 @@ class DepositBuy extends React.Component {
       if (params.id==5){
          String=new_deposit.month;
       }else {
-        String=this.props.rates.data.deposit[this.state.depositId].month;
+        String=this.getCurrentMonth().month;
       }
       return (
         <div 
@@ -282,11 +295,12 @@ class DepositBuy extends React.Component {
           <div>{ couponText }</div>
         </div>
       ) : null
-
+      const String=this.getCurrentMonth().month;
       return (
         <div 
           className={styles.coupon} 
-          onClick={() => {this.props.setUseCoupons(this.props.useCoupon ? coupon : ''); this.props.push('/selectCoupon?product=定存&month=' + this.props.rates.data.deposit[this.state.depositId].month)}}>
+          onClick={() => {this.props.setUseCoupons(this.props.useCoupon ? coupon : '');
+          this.props.push('/selectCoupon?product=定存&month=' + String)}}>
           <span>使用优惠</span>
           {card}
         </div>
@@ -383,7 +397,8 @@ class DepositBuy extends React.Component {
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'
           disable={this.canPay() > 0 ? false : true}
-          onClick={this.onValid} />
+          onClick={this.onValid}
+          status={this.canPay() > 0 ? '' : 'disable'}/>
         <Tipbar ref='tipbar' />
       </div>
     )

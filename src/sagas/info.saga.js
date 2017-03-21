@@ -40,6 +40,9 @@ function* takeRequest (action) {
                type:'USER_INFO'
            })
        }
+       if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==100||response.code==301)){
+           sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
+       }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");

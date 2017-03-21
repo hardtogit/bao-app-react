@@ -42,12 +42,12 @@ class RatesCell extends React.Component {
 
   renderInterestRate(data, index) {
     const { selected } = this.props;
-      const {amount,apply,end_date,start_date,id,invest_money,type}=data;
+      const {rate,apply,end_date,start_date,id,invest_money,type}=data;
     return (
       <div className={styles.rateCell} key={index} style={{width:this.props.screenW}}>
         <div>
           <div>
-            <p>{amount+'%'+type}</p>
+            <p>{rate+'%'+type}</p>
             {selected.id == id ? <img src={Selectedimg} alt="选中"/> :
             <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />}
           </div>

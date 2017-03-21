@@ -252,5 +252,8 @@ export default {
     },
     [actionTypes.CASH]:{
         apiFn:Fetch.cash
+    },
+    [actionTypes.WITHDRAW]:{
+        apiFn:Fetch.withdraw
     }
 }

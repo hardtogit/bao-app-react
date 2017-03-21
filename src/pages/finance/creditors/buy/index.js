@@ -5,11 +5,9 @@ import {goBack, push} from 'react-router-redux'
 import cn from 'classnames'
 import NavBar from '../../../../components/NavBar'
 import Button from '../../../../components/BaseButton'
-import BaseText from '../../../../components/BaseText'
 import styles from './index.less'
 import wrap from '../../../../utils/pageWrapper'
 import BuyInput from '../../../../components/customInput'
-import ConfirmDialog from '../../../../components/Dialog/confirm.js'
 import Tipbar from '../../../../components/Tipbar'
 import PayProcess from '../../payProcess'
 import * as actionTypes from '../../../../actions/actionTypes'
@@ -42,6 +40,11 @@ class CreditorBuy extends React.Component{
   }
 
   changeCopies = (value) => {
+      if (value<=0){
+          this.refs.tipbar.open('购买份数必须为正整数!');
+      }else if (value>parseFloat(this.props.detail.left_quantity)){
+          this.refs.tipbar.open('剩余份数不足!');
+      }
     this.setState({copies: Number(value)})
   }
 
@@ -54,8 +57,7 @@ class CreditorBuy extends React.Component{
 
   canPay = () => {
     // if (utils.isPlainObject(this.props.detail)) return false
-    console.log()
-    return this.state.copies <= (this.props.detail.left_quantity || 0) ? true : false
+    return this.state.copies <= (this.props.detail.left_quantity || 0)&&this.state.copies>0 ? true : false
   }
 
   creditorBuy = (password, money) => {
@@ -138,8 +140,10 @@ class CreditorBuy extends React.Component{
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}
             text='确认支付' 
-            disable={this.canPay()}
-            onClick={this.onValid} />
+            disable={this.canPay() > 0 ? false : true}
+            onClick={this.onValid}
+            status={this.canPay() > 0 ? '' : 'disable'}/>
+          <Tipbar ref="tipbar"/>
         </div>
       </div>
     )

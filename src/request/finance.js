@@ -50,6 +50,8 @@ const requests = (Fetch) => {
   Fetch.payBack = (data) => { return Fetch('/common/pay-back', 'Post', data) }
   // 零钱宝赎回
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
+  // 提现
+    Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
 }
 
 export default requests

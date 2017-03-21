@@ -3,14 +3,15 @@ import NavBar from '../../../../components/NavBar/index';
 import {Link} from "react-router";
 import classs from './index.less'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import Loading from '../../../../components/pageLoading/index'
 import wrap from '../../../../utils/pageWrapper'
+import Alert from '../../../../components/Dialog/alert'
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			flag:false
+			flag:false,
 		}
 	}
 	componentWillMount(){
@@ -51,6 +52,24 @@ class Index extends React.Component {
 	loadDom=()=>{
 		return <Loading/>
 	}
+    vaold=()=>{
+        const {
+            infoData
+        }=this.props;
+        const productData=infoData&&infoData.data||JSON.parse(sessionStorage.getItem("bao-product"));
+		const {
+            id,
+            count
+		}=productData;
+		if (count==0){
+			this.refs.alert.show({
+                content:'对不起你兑换的物品数量不足!',
+                okText:'确定'
+			})
+		}else {
+			this.props.push(`/user/trueExchangeConfirm/${id}`)
+		}
+	}
 	loadEndDom=()=>{
 		const {
             infoData
@@ -63,7 +82,6 @@ class Index extends React.Component {
             price,
             value,
             description,
-            id
 		}=productData;
 		return (<div>
 			<NavBar backgroundColor="#F76260" onLeft={this.props.pop}>{name}</NavBar>
@@ -113,9 +131,9 @@ class Index extends React.Component {
 
 				</div>
 				</div>
-				<Link className={classs.buyBottom} to={`/user/trueExchangeConfirm/${id}`}>
+				<div className={classs.buyBottom} onClick={this.vaold}>
 					立即兑换
-				</Link>
+				</div>
 			</div>
 		</div>)
 	}
@@ -137,6 +155,7 @@ class Index extends React.Component {
 				{
                     Dom
 				}
+				<Alert ref="alert"/>
 			</div>
 		)
 	}
@@ -154,6 +173,9 @@ const dispatchFn=(dispatch)=>({
             params:[id]
 		})
 	  },
+	push(url){
+	  	dispatch(push(url))
+	},
     clearData(){
         dispatch({
             type:'CLEAR_INFO_DATA',

@@ -80,7 +80,7 @@ class RegisterSetPassword extends React.Component {
       }
       if (code==303){
           alert.show({
-              content: '对不起获取推荐码失败!',
+              content: '推荐码不存在!',
               okText: '确定',
           })
       }

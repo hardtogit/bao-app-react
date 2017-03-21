@@ -41,6 +41,9 @@ class Index extends React.Component {
     componentDidMount() {
         this.props.getInfo();
     }
+    componentWillUnmount(){
+        this.props.clear()
+    }
     componentWillReceiveProps=({info,setInfo})=>{
         if(info && !newInfo){
             if(this.state.open !=info.open
@@ -115,6 +118,9 @@ class Index extends React.Component {
         }
     };
     toggle=(flag,id)=>{//开关自动投标
+        if (!flag){
+           this.sure(0)
+        }
         this.setState({
             open:flag
         })
@@ -227,7 +233,7 @@ class Index extends React.Component {
         }
         this.checkButtonClickStatus(this.state.count,newCount,this.state.rate);
     };
-    sure=()=>{//提交
+    sure=(id)=>{//提交
         newInfo = true;
         this.props.BidSet([
             this.state.count,
@@ -237,7 +243,7 @@ class Index extends React.Component {
             this.state.rate,
             this.state.repaymentType,
             this.state.bidType,
-            1 //this.state.open
+            id //this.state.open
          ]);
     };
     render() {
@@ -305,7 +311,8 @@ class Index extends React.Component {
                         </ul>
                     </div>
                 </Box>
-                <button onClick={()=>{this.sure()}}  disabled={!this.state.buttonClickStatus} className={classnames(style.sure,this.state.open?'show':'hide')}>确认开启</button>
+                <button onClick={()=>{this.sure(1)}}  disabled={!this.state.buttonClickStatus}
+                        className={classnames(style.sure,this.state.open?'show':'hide')}>确认开启</button>
                 <Confirm ref="confirm"/>
                 <DurationSelect ref="durationSelect" from={this.state.start} to={this.state.end} callBackFun={this.durationChoose} items={
                 [1,3,6,12,24]
@@ -380,5 +387,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     push(url){
         dispatch(push(url))
     },
+    clear(){
+        dispatch({
+            type:"CLEAR_INFO_DATA",
+            key:'AUTO_BUY_INFO'
+        })
+    }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index)

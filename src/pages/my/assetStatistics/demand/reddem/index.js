@@ -25,7 +25,15 @@ class Index extends React.Component {
       const value = e.target.value,
             reg=/^\d+(\.\d{1,2})?$/;
        if (reg.test(value)){
-           this.set(value,false);
+       	 if (value>parseFloat(this.state.demand)){
+             this.openTipber('超出最大金额！');
+             this.set(value,true);
+		 }else if (value>0){
+       	  	 this.set(value,false)
+		  }else {
+              this.openTipber('金额必须大于0!');
+              this.set(value,true);
+		  }
 	   }else {
        	   this.openTipber('请输入正确的金额')
            this.set(value,true);
@@ -113,7 +121,8 @@ class Index extends React.Component {
 	loadEndDom=()=>{
 		let {
             demand,
-            freeQuota
+            freeQuota,
+            disable
 		}=this.state;
 		if (!demand){
 			demand=this.props.datas.data.total;
@@ -130,9 +139,10 @@ class Index extends React.Component {
 			<p className={styles.reddemHint}>每月前5次免手续费，之后每次收取0.25%手续费</p>
 			<BaseButton
 				className="111"
-				disable={this.state.disable}
+				disable={disable}
 				text="下一步"
 				onClick={this.show}
+				status={disable&&'disable'||''}
 			/>
 		</div>)
 	}
