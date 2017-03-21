@@ -58,7 +58,7 @@ class Index extends React.Component {
 					<h1>￥{balance}</h1>
 					<div className={styles.btnContent}>
 						<button className={styles.rechargeBtn} onClick={this.rechargeFn}>充值</button>
-						<button className={styles.depositBtn}>提现</button>
+						<button className={styles.depositBtn} onClick={()=>{this.props.push('/user/withdrawals')}}>提现</button>
 					</div>
 				</div>)
 	}

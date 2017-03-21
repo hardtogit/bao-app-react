@@ -12,6 +12,7 @@
 	overflow: auto;
 	z-index: 1;
 }
+
 .navLink{
 	color: #ffffff;
 }
@@ -104,6 +105,13 @@
 }
 .listBoxOne li .competitive{
 	color:#0BA9E3;
+}
+.listBoxOne .dyBox{
+	font-size: 9px;
+	color: #fff;
+	padding: 3px 5px;
+	margin-left: 15px;
+	border-radius: 2px;
 }
 .listBoxOne li .surplus{
 	color:#888888;

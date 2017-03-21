@@ -13,7 +13,6 @@ class Index extends Component{
        this.props.getInfo(id)
     }
     componentWillUnmount(){
-        console.log('fasfasfs')
         this.props.clearData()
     }
     loadDom=()=>{

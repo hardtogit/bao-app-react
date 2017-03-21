@@ -18,7 +18,6 @@ export default (state = defaultState, action) => {
             }
 
         case actionTypes.FETCH_INFO_DATA_SUCCESS:
-
           return state.withMutations(i => {
               i
                 .setIn([action.key, 'data'], action.data)

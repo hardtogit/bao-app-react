@@ -47,7 +47,7 @@ class Index extends React.Component {
         }=this.props;
         return(<Scroll height={ScrollHeight} fetch={getList}
 					   isLoading={pending} distance={5} endType={end}
-					   nullDom={<div><img src={explan} /></div>} endload={<div></div>}>
+					   nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listData&&listData.map((item,i)=>{
                     const {name,created,amount,status}=item;
@@ -77,7 +77,7 @@ class Index extends React.Component {
         }=this.props;
         return(<Scroll height={ScrollHeight} fetch={getListB}
 					   isLoading={pendingB} distance={5} endType={endB}
-					   nullDom={<div><img src={explan} /></div>} endload={<div></div>}>
+					   nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listDataB&&listDataB.map((item,i)=>{
                     const {name,created,amount,status}=item;

@@ -38,7 +38,7 @@ export default class AlertDialog extends React.Component {
         close:React.PropTypes.bool
 	}
 
-	show(options) {
+	show(options){
 		this.setState({options: options})
 		this.refs.dialog.show()
 	}

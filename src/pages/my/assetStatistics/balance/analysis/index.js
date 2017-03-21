@@ -2,7 +2,7 @@ import React from 'react'
 import NavBar from '../../../../../components/NavBar/index'
 import styles from './index.css';
 import ReactEcharts from 'echarts-for-react';
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import Util from "../../../../../utils/utils";
 import Loading from '../../../../../components/pageLoading/index'
 import {connect} from 'react-redux'
@@ -50,7 +50,8 @@ class Index extends React.Component {
     render() {
         const{
             moneyInfo,
-            pop
+            pop,
+            push
         } = this.props;
         let Dom;
         if(moneyInfo){
@@ -60,7 +61,7 @@ class Index extends React.Component {
         }
         return (
             <div className={styles.bg}>
-                <NavBar onLeft={pop}>资产分析</NavBar>
+                <NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/moneyLog')}}>资产分析</NavBar>
                 <Box>
                 {
                     Dom
@@ -146,6 +147,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     pop(){
         dispatch(goBack())
+    },
+    push(url){
+      dispatch(push(url))
     }
 });
 

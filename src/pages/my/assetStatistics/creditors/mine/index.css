@@ -12,6 +12,9 @@
 	overflow: auto;
 	z-index: 1;
 }
+.listBoxOne li:nth-child(1) .competitive{
+	color: #00a6e2;
+}
 .manageContent{
 	width:100%;
 }

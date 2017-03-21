@@ -24,10 +24,15 @@ class Index extends React.Component {
     //点击直投项目列表事件
     goProductDetail=(id)=>{
         const {
-            push
+            push,
+            type
         }=this.props;
         //跳转
-        push('/user/productInfo/'+id);
+        if (type<=3){
+            push('/user/productInfo/'+id);
+        }else {
+            push('/user/zqProductInfo/'+id);
+        }
     };
     loadDom=()=>{
         return(<Loading/>)
@@ -53,6 +58,31 @@ class Index extends React.Component {
                 {
                    this.props.type==1&&<p>昨日收益：{profit_yesterday}元</p>||null
                 }
+            </div>
+        </div>)
+    }
+    headDomB=()=>{
+        const {
+            name,
+            term,
+            rate,
+            hold_money,
+            profit_yesterday,
+            profit_accumulate
+        }=this.props.infoData2.data;
+        return(<div>
+            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id)}}>
+                <h2>{name}</h2>
+                <p><span>{term}个月</span><span>约定年化收益率{rate}%</span></p>
+                <img src={arrowRight}/>
+            </div>
+            <div className={styles.listBoxTwo}>
+                <p>{hold_money}</p>
+                <p>持有金额</p>
+                <p className={styles.profitBox}>
+                    <span className={styles.profitLeft}>昨日收益：{profit_yesterday}元</span>
+                    <span className={styles.profitRight}>累计收益：{profit_accumulate}元</span>
+                </p>
             </div>
         </div>)
     }
@@ -123,31 +153,79 @@ class Index extends React.Component {
             </ul>
         </div>)
     }
+    loadEndDomD=()=>{
+        const {
+            amount,
+            interest,
+            profit,
+            income,
+            periods,
+            account_arrival,
+            account_overdue,
+            next_periods
+        }=this.props.infoData2.data;
+        return(<div>
+            <ul className={styles.listBoxThree}>
+                <ul>
+                    <li>购买金额<p>{amount}</p></li>
+                    <li>折价收益<p>{profit}</p></li>
+                    <li>预付利息<p>{interest}</p></li>
+                    <li>到期获得<p>{income}</p></li>
+                </ul>
+                <li className={styles.Onetitle}>回款记录</li>
+                <ul>
+                    <li>当前期数<p>期数:{periods}</p></li>
+                    <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
+                    <li>已逾期<p className={styles.yellowColor}>{account_overdue}</p></li>
+                    <li>下期还款日<p className={styles.yellowColor}>{next_periods}</p></li>
+                </ul>
+            </ul>
+        </div>)
+    }
     //加载完资产详情页面后，发起请求
     componentDidMount(){
         const Id=this.props.id;
-        this.props.getInvestProductDetail(Id)
+        const{type,getInvestProductDetail,getZqProductDetail}=this.props;
+        if (type==4){
+            getZqProductDetail(Id)
+        }else {
+            getInvestProductDetail(Id)
+        }
+    }
+    dataN=()=>{
+        const {
+            infoData,
+            infoData2,
+            type
+        }=this.props;
+        if (type<=3){
+            return infoData
+        }else {
+            return infoData2
+        }
     }
     render() {
         const {
-            infoData,
             pop,
             id,
-            type
+            type,
         }=this.props;
         let Dom=this.loadDom(),
             headDom;
-        if (infoData){
-            console.log(infoData)
-            if (infoData.data.id==id){
+        const dataN=this.dataN();
+        if (dataN){
+            if (dataN.data.id==id){
                 headDom=this.headDom();
                 if (type==1){
                     Dom=this.loadEndDomA()
                 }else if (type==2){
                     Dom=this.loadEndDomB();
-                }else {
+                }else if (type==3){
                     Dom=this.loadEndDomC();
                 }
+            }else if (dataN.code==100&&type==4){
+                headDom=this.headDomB();
+                Dom=this.loadEndDomD();
             }
         }
         return (
@@ -168,7 +246,8 @@ class Index extends React.Component {
     }
 }
 const datas=(state)=>({
-    infoData:state.infodata.getIn(['DIRECT_INVEST_PROPERTY_DETAIL','data'])
+    infoData:state.infodata.getIn(['DIRECT_INVEST_PROPERTY_DETAIL','data']),
+    infoData2:state.infodata.getIn(['CREDITORS_PROPERTY_DETAIL','data'])
 });
 const dispatchFn=(dispatch,own)=>({
     getInvestProductDetail(Id){
@@ -182,6 +261,12 @@ const dispatchFn=(dispatch,own)=>({
     },
     push(url){
         dispatch(push(url))
+    },
+    getZqProductDetail(Id){
+        dispatch({
+            type:'CREDITORS_PROPERTY_DETAIL',
+            params:[Id]
+        })
     }
 });
 export default connect(datas,dispatchFn)(Index)

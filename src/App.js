@@ -61,6 +61,7 @@ import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余�
 import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
 import MyDCB from './pages/my/assetStatistics/deposit/home/index.js' /*我的定存宝*/
 import DepositRecords from './pages/my/assetStatistics/deposit/depositRecords/index' /*定存宝记录*/
+import zqRecords from './pages/my/assetStatistics/creditors/zqRecords/index' /*定存宝记录*/
 import Creditors from './pages/my/assetStatistics/creditors/mine/index' /*我的债权转让*/
 import CreditorsRecords from './pages/my/assetStatistics/creditors/records/index' /*我的债权记录*/
 import MyDemandIndex from './pages/my/assetStatistics/demand/mine/index' /*我的零钱宝*/
@@ -71,6 +72,7 @@ import MyDirectProjects from './pages/my/assetStatistics/directInvest/myDirectPr
 import PropertyDetail from './pages/my/assetStatistics/directInvest/propertyDetail/index' /*资产详情*/
 import CreditorRights from './pages/my/assetStatistics/directInvest/creditorRights/index' /*债权资产详情*/
 import HistoryRecord from './pages/my/assetStatistics/directInvest/historyRecord/index' /*历史记录资产详情*/
+import zqPropertyDetail from './pages/my/assetStatistics/creditors/zqPropertyDetail' /*债券历史记录资产详情*/
 import About from './pages/my/setting/about/index' //关于我们
 import VersionInfo from './pages/my/setting/versionInfo/index'//版本介绍
 import addAccrualIndex from './pages/my/interestRate/myInterestRates/index' /*加息券*/
@@ -152,12 +154,16 @@ import ruleRate from './pages/my/interestRate/rule'
 import ruleVoucher from './pages/my/voucher/rule'
 import securityPlan from './pages/my/assetStatistics/directInvest/securityPlan' /*直投安全保障计划*/
 import productInfo from './pages/my/assetStatistics/directInvest/productInfo'  /*直投产品信息*/
+import zqProductInfo from './pages/my/assetStatistics/creditors/productIndo/'  /*债券产品信息*/
 import SelectCoupon from './pages/finance/selectCoupon.js'
+import zqSecurityPlan from './pages/my/assetStatistics/creditors/securityPlan' /*债券产品信息*/
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
 
 import ComponentDemo from './components/ComponentDemos'
 import DemoPage from './components/ComponentDemos/page'
+import Withdrawals from './pages/my/assetStatistics/balance/cash/index' //提现
+import cashSuccess from './pages/my/assetStatistics/balance/success'  //提现成功
 //意见反馈
 import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
@@ -224,6 +230,7 @@ export default class App extends React.Component {
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
                   <Route path="moneyLog" component={moneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
+                  <Route path='zqRecords' component={zqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
                   <Route path='projectRecorde' component={projectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
@@ -231,6 +238,7 @@ export default class App extends React.Component {
                   <Route path='creditorRights/:id' component={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
                   <Route path='historyRecord/:id' component={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
                   <Route path="zq" component={Creditors} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权*/
+                  <Route path='zqPropertyDetail/:id' component={zqPropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="ztRecords" component={CreditorsRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权记录*/
                   <Route path="MyDemandIndex" component={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
                   <Route path="redPacket" component={redPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
@@ -287,13 +295,16 @@ export default class App extends React.Component {
                   <Route path="setting/siteEdit" component={siteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
                   /*已完成*/
 
-
+                  <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='withdrawals' components={Withdrawals} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="setting/feedback" component={FeedbackIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*意见反馈*/
 
                    <Route path="setting/Detail" component={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                    <Route path="setting/about" component={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                    <Route path='productInfo/:id' component={productInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>   /*直投产品信息*/
-                   <Route path='securityPlan/:id' component={securityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
+                  <Route path='zqProductInfo/:id' component={zqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqSecurityPlan/:id' component={zqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='securityPlan/:id' component={securityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>

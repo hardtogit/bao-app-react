@@ -160,7 +160,6 @@ class Index extends React.Component {
             cardResAmount
         }=this.state;
         const {cardInfo} = this.props;
-        console.log(cardInfo);
         return (
             <div className={styles.bg}>
                 <NavBar backgroundColor="transparent"
@@ -183,9 +182,8 @@ class Index extends React.Component {
                         <div className={styles.gg_b}>
                             <p className={styles.gg_line}></p>
                             <p className={styles.gg_info}>
-                                <Link to="/user/guaguaList">
                                     <span>您有{cardInfo.newCards.length}次刮奖机会</span>
-                                    <span>您已获得{cardInfo.rewardsTime}次奖励></span></Link></p>
+                                <Link to="/user/guaguaList"><span>您已获得{cardInfo.rewardsTime}次奖励></span></Link></p>
                         </div>
                     </div>
                 </Box>

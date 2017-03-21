@@ -34,16 +34,26 @@ class Index extends Component{
     nullCard=(username,data,Top)=>{
         const {
             reg,
-            code
+            code,
+            bankName,
+            Val,
+            icon
         }=this.state;
-        let name,number,icon;
-        if (data.code==101){
-           name=this.state.bankName;
-           number=this.state.Val;
-           icon=<img src={this.state.icon}/>
+        let name,number,iconN;
+        if (data.code==101||data.code==301){
+           name=bankName;
+           number=Val;
+           iconN=<img src={icon}/>
         }else {
-           name='请选择银行';
-           icon=<span className={styles.inputTitleC}>卡类型</span>;
+            name='请选择银行';
+            iconN=<span className={styles.inputTitleC}>卡类型</span>;
+        }
+        if (bankName!=''){
+            name=bankName;
+            iconN=<img src={icon}/>
+        }else {
+            name='请选择银行';
+            iconN=<span className={styles.inputTitleC}>卡类型</span>;
         }
         let style,bankfn;
         if (Top){
@@ -82,7 +92,7 @@ class Index extends Component{
                     </div>
                     <div className={styles.inputCh} onClick={this.showBank}>
                         {
-                            icon
+                            iconN
                         }
                         <span className={styles.inputContent}>{name}</span>
                         <span className={styles.inputJt}></span>
@@ -193,7 +203,7 @@ class Index extends Component{
         })
     }
     setS=(data)=>{
-        if (data.code==101){
+        if (data.code==101||data.code==301){
             this.setState({
                 code:data.data.code,
                 bankName:data.data.name,
@@ -227,11 +237,14 @@ class Index extends Component{
         const reg=/^\d/;
         this.setState({
             Val
-        })
-        if (reg.test(Val)&&Val.length==6){
-          this.verification(Val)
+        });
+        if (reg.test(Val)&&Val.length>=6){
+            const nVal=Val.substring(0,6);
+          this.verification(nVal)
         }else if (!reg.test(Val)||Val.length<6){
-
+          this.setState({
+              bankName:''
+          })
         }
         this.reg(Val,code)
     }
@@ -243,7 +256,7 @@ class Index extends Component{
                    bankName:data[i].name,
                    icon:data[i].icon,
                    code:data[i].code
-               })
+               });
                 break
             }
         }
@@ -271,7 +284,6 @@ class Index extends Component{
     componentDidMount(){
       const{
          user,
-         data,
          load,
          loadCard,
          bankList
@@ -283,11 +295,7 @@ class Index extends Component{
               this.Alert();
           }
       }
-      if(!data){
-          loadCard();
-      }else {
-          this.setS(data);
-      }
+        loadCard();
       if (!bankList){
           load('GET_BANK_LIST')
       }

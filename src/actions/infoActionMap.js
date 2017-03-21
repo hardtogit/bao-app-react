@@ -240,5 +240,17 @@ export default {
     },
     [actionTypes.PAY]:{
         apiFn:Fetch.Pay
+    },
+    [actionTypes.CREDITORS_PROPERTY_DETAIL]:{
+        apiFn:Fetch.creditorsPropertyDetail
+    },
+    [actionTypes.CREDITORS_PRODUCTINFO]:{
+        apiFn:Fetch.creditorsProductInfo
+    },
+    [actionTypes.CREDITORS_CONTRACT]:{
+        apiFn:Fetch.creditorsContract
+    },
+    [actionTypes.CASH]:{
+        apiFn:Fetch.cash
     }
 }

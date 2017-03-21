@@ -11,12 +11,14 @@ import gz from '../../assets/images/gz.png'
 import hj from '../../assets/images/hj.png'
 import yq from '../../assets/images/yq.png'
 import newHead from '../../assets/images/newHand.png'
+import noisAuth from '../../assets/images/realName.png'
 class FinancialIndex extends Component{
    constructor(props) {
      super(props)
      this.state={
        isInvest:true,
        flage:false,
+       isAuth:0,
        show:{display:'block'}
      }
    }
@@ -28,6 +30,9 @@ class FinancialIndex extends Component{
                    isInvest:false
                })
            }
+               this.setState({
+                   isAuth:user.isAuth
+               })
        }else {
            this.setState({
                flage:true
@@ -39,7 +44,6 @@ class FinancialIndex extends Component{
      this.setState({
        height:{height:Height+'px'}
      })
-       console.log(this.props);
      this.props.load();
    }
    listLoad=()=>{
@@ -63,10 +67,16 @@ class FinancialIndex extends Component{
        }
        </ul>)
    }
-   newList=()=>{
+   newList=(auth)=>{
        const Depot=this.depot('3月定存宝','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
        const newDep=this.newDep();
+       const isAuth=auth;
+       let rz;
+       if (isAuth==0){
+           rz=this.noisAuth();
+       }
        return(<ul className={style.productUl}>
+           {rz}
            {
                newDep
            }{
@@ -91,20 +101,27 @@ class FinancialIndex extends Component{
     }
    showList=()=>{
        const {
-           isInvest
+           isInvest,
        }=this.state;
        const login=sessionStorage.getItem("bao-auth");
        let Dom;
        if (login){
            if (!isInvest){
-               Dom=this.oldList()
+               Dom=this.oldList();
            }else {
-               Dom=this.newList();
+               Dom=this.newList(this.state.isAuth);
            }
        }else {
            Dom=this.noLogin();
        }
        return Dom
+   }
+   noisAuth=()=>{
+       return(<li className={style.headerLi}>
+           <Link to="/user/setting/identityAuth">
+               <img src={noisAuth} className={style.headerImg}/>
+           </Link>
+       </li>)
    }
    userInfo=()=>{
        const {
@@ -114,7 +131,7 @@ class FinancialIndex extends Component{
        if (userData.code==100){
            const isInvest=userData.data.isInvest;
            if (isInvest==0){
-               Dom=this.newList();
+               Dom=this.newList(userData.data.isAuth);
            }else {
                Dom=this.oldList();
            }
@@ -161,7 +178,7 @@ class FinancialIndex extends Component{
        </li>)
    }
    depot=(text,rate,fn,start=1000)=>{
-       return(<li className={style.productLi}  onClick={()=>{fn()}}>
+       return(<li className={style.productLi}  onClick={()=>{fn()}} >
            <p className={style.productTitle}>{text}</p>
            <div className={style.productContent}>
                <div className={style.productInterest}>
@@ -178,7 +195,7 @@ class FinancialIndex extends Component{
        </li>)
    }
    newDep=()=>{
-       return(<li className={style.xsBox}>
+       return(<li className={style.xsBox} >
            <div className={style.xsHeader}>
                        <span className={style.xsTitle}>
                           新手标

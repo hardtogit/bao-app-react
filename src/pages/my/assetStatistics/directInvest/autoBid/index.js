@@ -34,7 +34,7 @@ class Index extends React.Component {
             count:1,//投标次数
             balance:1,//单次投标份数
             start:1,//开始期限
-            end:36,//结束期限
+            end:24,//结束期限
             buttonClickStatus:true//确认开启是否能点击
         }
     }
@@ -81,10 +81,18 @@ class Index extends React.Component {
                     cancelText: '取消',
                     cancelCallback:this.showSuccess
                 })
-            }else{
-               this.showSuccess();
+            }else if (setInfo){
+                if (setInfo.code==100){
+                    this.showSuccess();
+                }else if(setInfo.code!=100){
+                        this.refs.alert.show({
+                            content: '自动投标开启失败',
+                            okText: '确定',
+                        })
+                }
             }
         }
+
     };
     showSuccess=()=>{
         this.refs.success.show({
@@ -244,6 +252,7 @@ class Index extends React.Component {
                 <NavBar onLeft={pop} rightNode={<Link style={{"color":"#fff"}} to="/user/autoBuyRule">规则</Link>}>自动投标</NavBar>
                 <Tipbar ref='tipbar' className={style.tips} />
                 <Success ref="success" />
+                <Alert ref="alert"/>
                 <Box className={classnames(this.state.error&&style.box_error||'')}> 
                     <div className={style.open}>
                         开启自动投标功能
@@ -297,10 +306,9 @@ class Index extends React.Component {
                     </div>
                 </Box>
                 <button onClick={()=>{this.sure()}}  disabled={!this.state.buttonClickStatus} className={classnames(style.sure,this.state.open?'show':'hide')}>确认开启</button>
-                <Alert ref="alert"/>
                 <Confirm ref="confirm"/>
                 <DurationSelect ref="durationSelect" from={this.state.start} to={this.state.end} callBackFun={this.durationChoose} items={
-                [1,3,6,12,24,36]
+                [1,3,6,12,24]
                 }/>
                 <SelectBox ref="bidType" callBackFun={this.bidTypeChoose} items={[
                 {
@@ -350,7 +358,7 @@ const infoModel = (data)=>{
 const mapStateToProps = (state, ownProps) => {
     return {
         info:infoModel(state.infodata.getIn(['AUTO_BUY_INFO','data'])),
-        setInfo:infoModel(state.infodata.getIn(['AUTO_BUY','data']))
+        setInfo:state.infodata.getIn(['AUTO_BUY','data'])
     }
 };
 

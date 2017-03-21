@@ -12,6 +12,7 @@ import {goBack,push} from 'react-router-redux'
 import classNames from 'classnames'
 import LoadList from '../../../components/scroll/config'
 import nullImg from '../../../assets/images/record.png'
+import IsAuth from '../../../components/isAuth'
 class Index extends Component{
     constructor(props){
         super(props)
@@ -262,8 +263,9 @@ class Index extends Component{
 
             <div className={styles.bottom}>
                 <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-                <button onClick={()=>{push('/directBuy/'+id)}}>马上买入</button>
+                <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
             </div>
+            <IsAuth ref="isAuth"/>
             <Calculator
                 ref="calculator"
                 unit="m"
@@ -275,6 +277,9 @@ class Index extends Component{
                 termFixed={true}
             />
         </div>)
+    }
+    purchase=(id,push)=>{
+        this.refs.isAuth.Verification('/directBuy/'+id,push)
     }
     loadDom=()=>{
         return(<Load/>)

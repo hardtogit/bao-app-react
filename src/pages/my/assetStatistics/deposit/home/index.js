@@ -60,7 +60,7 @@ import wrap from '../../../../../utils/pageWrapper'
 								{
                                      liDom
 								}
-								<p>还剩{surplus_days}</p>
+								<p>还剩{surplus_days}天</p>
 							</div>
 							<ul>
 								<li><p className={styles.orgFont}>{Util.padMoney(profit_accumulate)}</p><p>累计收益</p></li>

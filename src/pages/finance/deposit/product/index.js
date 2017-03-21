@@ -14,6 +14,7 @@ import project from '../../../../assets/images/project.png'
 import Loading from '../../../../components/pageLoading'
 import Header from '../../../../components/depositBanner'
 import DepTime from '../../../../components/depTime'
+import IsAuth from '../../../../components/isAuth'
 class ProductDetail extends React.Component {
 
   state = {
@@ -70,6 +71,7 @@ class ProductDetail extends React.Component {
       } = this.props;
       let rate = 0;
       let month = 0;
+      let qt=1000;
       if (id!=5){
           deposit.some((item, i) => {
               if (item.id == id) {
@@ -82,6 +84,7 @@ class ProductDetail extends React.Component {
       }else {
           rate=new_deposit.rate;
           month=new_deposit.month;
+          qt=50;
       }
       rate=parseFloat(rate).toFixed(2);
       const {
@@ -89,7 +92,7 @@ class ProductDetail extends React.Component {
           endTime
       }=this.Timer(month);
       const money=this.moneyFn(rate,month);
-      const bData=[{name:'起投金额',val:1000},{name:'锁定时间',val:month+'个月'}];
+      const bData=[{name:'起投金额',val:qt},{name:'锁定时间',val:month+'个月'}];
       return(
       <div>
           <Header rate={rate}  data={bData}/>
@@ -152,7 +155,7 @@ class ProductDetail extends React.Component {
           </div>
           <div className={styles.bottom}>
               <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-              <button onClick={()=>{push('/deposit-buy/'+id)}}>马上买入</button>
+              <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
           </div>
           <Calculator
               ref="calculator"
@@ -164,7 +167,11 @@ class ProductDetail extends React.Component {
               modalStyle={styles.modalStyle}
               modalBody={styles.modalBody}
           />
+          <IsAuth ref="isAuth"/>
       </div>)
+  }
+  purchase=(id,push)=>{
+      this.refs.isAuth.Verification('deposit-buy/'+id,push)
   }
   render() {
     const {

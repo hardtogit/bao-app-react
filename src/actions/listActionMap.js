@@ -90,5 +90,11 @@ export default {
     },
     [actionTypes.INVOLVE_PROJECT_LIST]:{
         apiFn:Fetch.involveProjectList
+    },
+    [actionTypes.CREDITORS_RECORDS]:{
+        apiFn:Fetch.creditorsRecords
+    },
+    [actionTypes.CREDITORS_RECORDS_HISTORY]:{
+        apiFn:Fetch.creditorsRecords
     }
 }

@@ -115,7 +115,7 @@ class Index extends React.Component {
             </p>
             <Days days={this.getDays(data.day)}></Days>
             <div className={styles.money_info}>
-                <p className={styles.title}>预计{this.state.year}月待回款（元）</p>
+                <p className={styles.title}>预计{this.state.month}月待回款（元）</p>
                 <p className={styles.title_n}><span>待收本金（元）</span><span>待回收益（元）</span></p>
                 <p className={styles.title_n}><span>{Utils.padMoney(data.profit_expire.amount)}</span><span>{Utils.padMoney(data.profit_expire.profit)}</span></p>
             </div>

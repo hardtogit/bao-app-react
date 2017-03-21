@@ -63,3 +63,14 @@
 	height:152px;
 	margin:0 auto;
 }
+.nullBox{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.nullBox img{
+	width: 161px;
+}

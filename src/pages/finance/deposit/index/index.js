@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.styl';
 import RadialBarChart from '../../../../components/RadialBarChart/';
-
+import IsAuth from '../../../../components/isAuth'
 import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import {Motion, spring, presets} from 'react-motion'
@@ -36,7 +36,7 @@ class DepositIndex extends React.Component {
   }
 
   buyHandle = () => {
-    this.props.push('/deposit-buy/' + this.props.rate[this.state.chosen].id)
+         this.refs.isAuth.Verification('/deposit-buy/' + this.props.rate[this.state.chosen].id,this.props.push);
   }
 
   render() {
@@ -85,6 +85,7 @@ class DepositIndex extends React.Component {
                </span>
            </div>
         </div>
+          <IsAuth ref="isAuth"/>
         {this.isFriday(serverTime) && this.state.showRedFriday && <RedFriday onClose={() => this.setState({showRedFriday: false})} href="https://www.bao.cn/zt/activity/scratch" />}
       </div>
     )

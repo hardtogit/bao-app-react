@@ -23,17 +23,17 @@ class Index extends React.Component {
       }
     };
     changeCard=(code)=>{
-        if(101==code){//101 没有提交过更换申请，到更换安全卡页面
             this.props.push("/user/setting/bankcardAdd");
-        }else{//301 有提交过跟换申请 到提交申请页面
-            this.props.push("/user/setting/securityCardChangeApply");
-        }
     };
     render() {
+        const {
+            push
+        }=this.props;
         return (
             <div className={styles.bg}>
                 {this.state.bindCard&&<NavBar  onLeft={this.props.pop}>安全卡</NavBar>}
-                {!this.state.bindCard&&<NavBar  onLeft={this.props.pop} rightNode={<Link style={{"fontSize":"14px","color":"#fff"}} to="/user/setting/add">添加</Link>}>安全卡</NavBar>}
+                {!this.state.bindCard&&<NavBar  onLeft={this.props.pop} rightNode={<span style={{"fontSize":"14px","color":"#fff"}}
+                                                                                    onClick={()=>{push('/user/setting/bankcardAdd')}}>添加</span>}>安全卡</NavBar>}
                 <Box>
                     <div className={styles.card_bg}>
                         <div className={cs(styles.card,{'hide':!this.state.bindCard})}>

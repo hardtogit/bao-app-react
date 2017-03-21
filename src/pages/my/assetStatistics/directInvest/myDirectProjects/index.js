@@ -11,6 +11,7 @@ import {goBack,push} from 'react-router-redux'
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import zhitouicon from '../../../../../assets/images/my-index/zhitouicon1.png' //提升收益
 import wrap from '../../../../../utils/pageWrapper'
+import classNames from 'classnames'
 
 class Index extends React.Component {
 	constructor(props) {
@@ -87,20 +88,23 @@ class Index extends React.Component {
 
                 {
                     listData&&listData.map((item,i)=>{
-                     const {name,stastus,amount,profit_expire,profit_arrival,
-						 profit_accumulate,now_duration,duration,surplus_days,id}=item;
-                     let Dom;
-                       if (stastus=='竞标中'){
-                       	Dom= <p className={styles.competitive}>{stastus}</p>
+                     const {name,status,amount,profit_expire,profit_arrival,
+						 profit_accumulate,now_duration,duration,surplus_days,id,coupon_text,coupon_type}=item;
+                     let Dom,dyDom;
+                       if (status=='竞标中'){
+                       	Dom= <p className={styles.competitive}>{status}</p>
 					   }else {
                        	Dom=<p className={styles.surplus}>剩余{surplus_days}天</p>
+					   }
+					   if (coupon_type){
+                       	 dyDom=<span className={styles.dyBox} style={coupon_type==1&&{background:'#feb278'}||{background:'#7acb9f'}}>{coupon_text}</span>
 					   }
 						return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
 						   <li>
 							   <img src={zhitouicon}/>{name}
 							   {Dom}
 							   </li>
-						   <li>持有金额<p>{amount}</p></li>
+						   <li>持有金额{dyDom}<p>{amount}</p></li>
 						   <li>到期收益<p>{profit_expire}</p></li>
 						   <li>已到账收益({now_duration}/{duration})<p>{profit_arrival}</p></li>
 						   <li>累计收益<p>{profit_accumulate}</p></li>

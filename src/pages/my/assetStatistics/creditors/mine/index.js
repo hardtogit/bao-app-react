@@ -44,11 +44,11 @@ import {connect} from 'react-redux'
 
                 {
                     listData&&listData.map((item,i)=>{
-                        const {name,stastus,amount,profit_expire,profit_arrival,
+                        const {name,status,amount,profit_expire,profit_arrival,
                             profit_accumulate,surplus_days,periods}=item;
                         let Dom;
-                        if (stastus=='竞标中'){
-                            Dom=<p className={styles.competitive}>{stastus}</p>
+                        if (status=='竞标中'){
+                            Dom=<p className={styles.competitive}>{status}</p>
                         }else{
                             Dom=<p className={styles.surplus}>剩余{surplus_days}天</p>
                         }
@@ -110,7 +110,8 @@ import {connect} from 'react-redux'
 	render() {
 		const {
             infoData,
-			pop
+			pop,
+            push
 		}=this.props;
 		const {
             height
@@ -129,7 +130,7 @@ import {connect} from 'react-redux'
 		}
 		return (
 			<div>
-				<NavBar onLeft={pop}>我的债权</NavBar>
+				<NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/zqRecords')}}>我的债权</NavBar>
 				<div className={styles.bg}>
 				{Dom}{listDom}{buyDom}
 				</div>

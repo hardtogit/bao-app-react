@@ -30,12 +30,12 @@
 }
 .redList .listTable .listLeft {
   float: left;
-  width: 60%;
+  width: 80%;
   text-align: left;
 }
 .redList .listTable .listRight {
   float: left;
-  width: 40%;
+  width: 20%;
   padding-right: 15px;
   text-align: right;
 }

@@ -8,10 +8,11 @@ export default class Quan extends React.Component {
 			price,
 			state,
             statusColor,
-            moneyColor
+            moneyColor,
+			click
 		} = this.props
 		return (
-			<div className={styles.redList}>
+			<div className={styles.redList} onClick={()=>{click&&click()}}>
 				<div className={styles.listTable}>
 					<div className={styles.listLeft}>
 						<h1>{title}</h1>

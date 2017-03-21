@@ -3,18 +3,16 @@ import React from 'react'
 import NavBar from '../../../../components/NavBar'
 import styles from './index.less'
 import * as actionTypes from '../../../../actions/actionTypes'
-import Fetch from '../../../../request/fetch'
 import {connect} from 'react-redux'
-import Infinite from 'react-infinite'
 import wrap from '../../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import Goodimg from '../../../../assets/images/good.png'
-import QuestionIMG from '../../../../assets/images/questionicon.png'
 import CusDialog from '../../../../components/Dialog/alert.js'
 import Load from '../../../../components/pageLoading'
 import DepTime from '../../../../components/depTime'
 import arrow2 from '../../../../assets/images/arrow2.png'
 import Calculator from '../../../../components/Calculator'
+import IsAuth from '../../../../components/isAuth'
 class BorrowPeople extends React.Component{
   render(){
     const {data} =this.props
@@ -118,32 +116,36 @@ class CreditorDetails extends React.Component{
     }
   }
   toBuy=()=>{
-    const is_login = true;
-    const {
-      is_overdue,//是否已过投标期限
-    } = this.props.data
-    const {
-      params: {
-        id,
+      const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+      const {
+        push,
+          params: {
+              id,
+          }
+      }=this.props;
+      if (bao.isAuth!=3){
+          this.refs.isAuth.Verification(`/creditorBuy/${id}`,push)
+      }else {
+          const is_login = true;
+          const {
+              is_overdue,
+          } = this.props.data
+          if (is_login) {
+              if (is_overdue) {
+                  //提示过期
+                  this.props.wrongRef.show({
+                      content:'投标时间已过',
+                      okText:'知道了'
+                  })
+              }else{
+                  //推送到购买页面
+                  push(`/creditorBuy/${id}`)
+              }
+          }else{
+              //跳转登录
+              push(`/login/`)
+          }
       }
-    } = this.props
-    // const is_overdue = true;
-
-    if (is_login) {
-      if (is_overdue) {
-        //提示过期
-        this.props.wrongRef.show({
-          content:'投标时间已过',
-          okText:'知道了'
-        })
-      }else{
-        //推送到购买页面
-        this.props.push(`/creditorBuy/${id}`)
-      }
-    }else{
-      //跳转登录
-      this.props.push(`/login/`)
-    }
   }
   render(){
     let {
@@ -224,6 +226,7 @@ class CreditorDetails extends React.Component{
           :
           <Load></Load>
         }
+        <IsAuth ref="isAuth"/>
             <CusDialog ref='wrong'></CusDialog>
         </div>
       </div>

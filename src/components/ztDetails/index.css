@@ -107,3 +107,13 @@
 .yellowColor{
     color: #f70 !important;
 }
+.profitBox{
+    padding: 0px 80px;
+    overflow: hidden;
+}
+.profitLeft{
+    float: left;
+}
+.profitRight{
+    float: right;
+}
