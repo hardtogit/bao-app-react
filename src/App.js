@@ -3,10 +3,8 @@ import {Router, Route, browserHistory, IndexRoute, Link, Redirect, IndexRedirect
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {syncHistoryWithStore, routerMiddleware,analyticsService} from 'react-router-redux';
-import createLogger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
-import Immutable from 'immutable'
 import 'babel-polyfill';
 import 'isomorphic-fetch';
 // import './css/onsen-css-components.css';
@@ -174,27 +172,10 @@ import findHome from './pages/find/home/index'
 import myIndex from './pages/my/home/index'
 // 工厂方法创建saga中间件
 const sagaMiddleware = createSagaMiddleware()
-const logger = createLogger({
-  collapsed: true,
-  stateTransformer(state) {
-    return Object.keys(state).reduce((acc, key) => {
-      if (Immutable.Iterable.isIterable(state[key])) {
-        acc[key] = state[key].toJS()
-      }else {
-        acc[key] = state[key]
-      }
-      return acc
-    }, {})
-  },
-  titleFormatter: ({type, key = ''}) => `action ${type}  ${key ? 'key:' : ''} ${key}`,
-  diff: true,
-})
-
 const store = createStore(reducer, applyMiddleware(
     thunk,
     sagaMiddleware,
-    routerMiddleware(browserHistory),
-    logger,
+    routerMiddleware(browserHistory)
 ))
 
 
