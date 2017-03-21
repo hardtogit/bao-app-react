@@ -19,7 +19,7 @@ class BasePasswordInput extends React.Component {
     this.innerClickFlag = false
     this.validateRu = this.validateRun
   }
-
+  static nameq = "BasePasswordInput";
   static propTypes = {
     className: React.PropTypes.string,
     noleftPadding: React.PropTypes.bool,     // 是否有左边内边距

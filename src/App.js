@@ -7,8 +7,6 @@ import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import 'isomorphic-fetch';
-// import './css/onsen-css-components.css';
-// import './css/onsenui.css';
 import './css/normalize.css';
 import './App.css';
 import reducer from './reducers';

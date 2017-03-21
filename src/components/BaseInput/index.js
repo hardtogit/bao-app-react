@@ -33,6 +33,8 @@ class BaseInput extends React.Component {
     this.validateRu = this.validateRun
   }
 
+  static nameq = "BaseInput";
+
   static propTypes = {
     className: React.PropTypes.string,
     label: React.PropTypes.string,

@@ -16,7 +16,7 @@ class BaseText extends React.Component {
 
     this.validateRu = this.validateRun
   }
-
+    static nameq = "BaseText";
   static propTypes = {
     className: React.PropTypes.string,
     defaultValue: React.PropTypes.string,   // 默认值

@@ -71,7 +71,7 @@ class ValidateForm extends React.Component {
     this.checkValid(true)
   }
 
-  renderBaseInput(child, index) {
+  renderBaseInput=(child, index)=>{
     let onChange = child.props.onChange,
         _this = this,
         innerClickFlag = false
@@ -85,7 +85,7 @@ class ValidateForm extends React.Component {
     return baseInput
   }
 
-  renderBaseText(child, index) {
+  renderBaseText=(child, index)=>{
     let onChange = child.props.onChange,
         _this = this
 
@@ -107,7 +107,7 @@ class ValidateForm extends React.Component {
     }, key: index})
   }*/
 
-  renderSubmitButton(child, index) {
+  renderSubmitButton=(child, index)=>{
     let _this = this
     return React.cloneElement(child, {
       disable: _this.state.valid ? false : true,
@@ -117,26 +117,24 @@ class ValidateForm extends React.Component {
   }
 
   render() {
-		var _this = this
-    this.regChild = []
+    this.regChild = [];
 		return (
 			<div className={this.props.className}>
         { /* TODO 之后再改 */ }
-				{this.props.children.map(function(child, index) {
-
-					const name = child.props.name
+				{this.props.children.map((child, index)=>{
+					const name = child.props.name;
           if (child.props.type == 'validateItem' && child.props.blurValidate != false) {
-            if (child.type.name == 'BaseInput') {
-              return _this.renderBaseInput(child, index)
-            } else if (child.type.name == 'BasePasswordInput') {
-              return  _this.renderBaseInput(child, index)
+            if (child.type.nameq == 'BaseInput') {
+              return this.renderBaseInput(child, index)
+            } else if (child.type.nameq == 'BasePasswordInput') {
+              return  this.renderBaseInput(child, index)
             }/*else if (child.type.name == 'radioGroup') {
               return _this.renderRadioGroup(child, index)
-            } */ else if (child.type.name == 'BaseText') {
-              return _this.renderBaseText(child, index)
+            } */ else if (child.type.nameq == 'BaseText') {
+              return this.renderBaseText(child, index)
             }
           } else  if (child.props.type == 'submit') {
-            return _this.renderSubmitButton(child, index)
+            return this.renderSubmitButton(child, index)
 					} else {
 						return child
 					}
