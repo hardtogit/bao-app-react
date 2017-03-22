@@ -11,6 +11,7 @@
     height: 100%;
     overflow: auto;
     z-index: 1;
+    padding-bottom: 44px;
 }
 .manageContent{
     margin-top:44px;
@@ -116,4 +117,15 @@
 }
 .profitRight{
     float: right;
+}
+.detailsButton{
+    position: fixed;
+    height: 44px;
+    left: 0px;
+    bottom: 0px;
+    background-color: #00a6e2;
+    color: #ffffff;
+    width: 100%;
+    line-height: 44px;
+    text-align: center;
 }

@@ -14,11 +14,7 @@ class Index extends Component{
                 加息券规则
             </NavBar>
             <div className={styles.body}>
-             <p>1、加息券仅能在直投项目和定存宝内使用。</p>
-              <p>2、债权转让的项目和自动投标不能使用加息券。</p>
-                <p>3、每个标加息券仅能使用一次。</p>
-                <p>4、加息券有效期3个月。</p>
-                <p>5、本规则解释权归宝点网最终所有，如有疑问，请拨打宝点网客服热线028-966180咨询。</p>
+                <iframe style={{"width":"100%","height":"100%","border":"none"}} src={location.hostname+"/mobile_api/static-page/interestRate-rule"}></iframe>
             </div>
         </div>)
     }

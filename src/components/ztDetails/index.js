@@ -209,9 +209,12 @@ class Index extends React.Component {
             pop,
             id,
             type,
+            infoData,
+            push
         }=this.props;
         let Dom=this.loadDom(),
-            headDom;
+            headDom,
+            button;
         const dataN=this.dataN();
         if (dataN){
             if (dataN.data.id==id){
@@ -228,6 +231,11 @@ class Index extends React.Component {
                 Dom=this.loadEndDomD();
             }
         }
+        if (infoData){
+            if (type==1&&infoData.data.isTransfer==1){
+                button=<div className={styles.detailsButton} onClick={()=>{push(`/user/zqTransfer/${id}`)}}>债权转让</div>
+            }
+        }
         return (
             <div>
                 <NavBar onLeft={pop}>资产详情</NavBar>
@@ -240,6 +248,9 @@ class Index extends React.Component {
                         Dom
                     }
                     </div>
+                    {
+                        button
+                    }
                 </div>
             </div>
         )

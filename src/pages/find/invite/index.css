@@ -11,6 +11,11 @@
 .hide{
 	display: none;
 }
+.inviContent .csImg{
+	width:266px;
+	display:block;
+	margin:36px auto 9px
+}
 .coinMain{
 	margin-bottom:50px;
 }

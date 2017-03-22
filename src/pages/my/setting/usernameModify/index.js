@@ -47,7 +47,7 @@ class Index extends React.Component {
 				ref='username'
 				placeholder='4~26位字符，支持中英文，数字，_和@'
 				defaultValue={username}
-				onChange={(usernames)=>{console.log(usernames);this.setState({usernames})}}
+				onChange={(usernames)=>{this.setState({usernames})}}
 				maxLength={26} />
 		</div>
 		<Confirm ref="confirm" />
@@ -217,7 +217,7 @@ const mapDispatchToProps = (dispatch) => ({
 	setUsernameRequest(name,Self){
 		dispatch({
 			type: SET_USERNAME,
-			name
+			params:[name]
 		});
 		Self.setState({
 			setting:true

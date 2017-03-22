@@ -160,6 +160,10 @@ import ComponentDemo from './components/ComponentDemos'
 import DemoPage from './components/ComponentDemos/page'
 import Withdrawals from './pages/my/assetStatistics/balance/cash/index' //提现
 import cashSuccess from './pages/my/assetStatistics/balance/success'  //提现成功
+import privacy from './pages/my/passport/agreement/privacy'
+import service from './pages/my/passport/agreement/service'
+import zqTransfer from './pages/my/assetStatistics/directInvest/zqTransfer'
+import zqTransferRule from './pages/my/assetStatistics/directInvest/rule/zqTransferRule'
 //意见反馈
 import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
@@ -214,6 +218,8 @@ export default class App extends React.Component {
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
                   <Route path='projectRecorde' component={projectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
+                  <Route path='zqTransferRule' component={zqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqTransfer/:id' component={zqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
                   <Route path='creditorRights/:id' component={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
                   <Route path='historyRecord/:id' component={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
@@ -298,7 +304,8 @@ export default class App extends React.Component {
               <Route path="login" component={Login}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
-
+              <Route path='privacy' components={privacy}></Route>
+              <Route path='service' components={service}></Route>
               <Route path="registerSuccess"  component={registerSuccess} />
               <Route path="registerSetPassword" component={RegisterSetPassword}></Route>
               <Route path="findpassword" component={Findpassword}></Route>

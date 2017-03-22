@@ -27,64 +27,64 @@ class RegisterSetPassword extends React.Component {
       }
   }
   componentDidMount() {
-    const {
-        mobile,
-        code
-    }=this.props;
-    if (mobile&&!code){
-      this.alert('/registerVerifyMobile')
-    }else if (!mobile||!code){
-      this.alert('/register')
-    }
-  }
-  alert(path){
-    this.refs.alert.show({
-      content: '请先进行手机号验证',
-      okText: '确定',
-      okCallback: () => {this.props.go(path)},
-    })
+     const {
+         mobile,
+         code
+     }=this.props;
+     if (mobile&&!code){
+       this.alert('/registerVerifyMobile')
+     }else if (!mobile||!code){
+       this.alert('/register')
+     }
+   }
+   alert(path){
+     this.refs.alert.show({
+       content: '请先进行手机号验证',
+       okText: '确定',
+       okCallback: () => {this.props.go(path)},
+     })
   }
   componentWillUnmount() {
     
   }
 
   componentWillReceiveProps({data}) {
-    if (data){
-      const code=data.code;
-      const alert=this.refs.alert;
+     if (data){
+       const code=data.code;
+       const alert=this.refs.alert;
       const init=this.state.init;
-      if (code==100&&init){
+       if (code==100&&init){
         this.setState({
-          init:false
-        });
-        this.props.userInfo();
-        this.props.go('/registerSuccess')
-      }
-      if (code==300){
-        alert.show({
-          content: '验证码错误',
-          okText: '确定',
-        })
-      }
-      if (code==301){
-        alert.show({
-          content: '验证码过期',
-          okText: '确定',
-        })
-      }
-      if (code==302){
-        alert.show({
-          content: '该手机号已被注册',
-          okText: '确定',
-        })
-      }
-      if (code==303){
-          alert.show({
-              content: '推荐码不存在!',
-              okText: '确定',
-          })
-      }
-    }
+           init:false
+         });
+         this.props.userInfo();
+         this.props.go('/registerSuccess')
+       }
+       if (code==300){
+         alert.show({
+           content: '验证码错误',
+           okText: '确定',
+         })
+       }
+       if (code==301){
+         alert.show({
+           content: '验证码过期',
+           okText: '确定',
+         })
+       }
+       if (code==302){
+         alert.show({
+           content: '该手机号已被注册',
+           okText: '确定',
+         })
+       }
+       if (code==303){
+           alert.show({
+               content: '推荐码不存在!',
+               okText: '确定',
+           })
+       }
+     }
   }  
 
   onValid = () => {
@@ -139,18 +139,22 @@ class RegisterSetPassword extends React.Component {
               text='注册'
               type='submit' />
         </ValidateForm>
+        <div className={styles.agreement}>
+          同意<span className={styles.agreementText} onClick={()=>{this.props.go('/privacy')}}>《宝点网隐私条例》</span>和
+          <span className={styles.agreementText} onClick={()=>{this.props.go('/service')}}>《宝点网服务协议》</span>
+        </div>
       </div>
     </div>)
   }
   render() {
     const {
         mobile,
-        code
-    }=this.props;
-    let Dom;
-    if (mobile&&code){
-      Dom=this.Dom()
-    }
+         code
+     }=this.props;
+     let Dom;
+     if (mobile&&code){
+       Dom=this.Dom()
+     }
     return (
       <div className={commonStyles.panel} style={{backgroundColor: '#fff', paddingTop: 0}}>
         <NavBar backgroundColor="#fff"

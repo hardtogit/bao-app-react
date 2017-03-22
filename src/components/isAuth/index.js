@@ -8,7 +8,7 @@ class Index extends Component{
         const baoAuth=sessionStorage.getItem("bao-user");
         if (baoAuth){
             const bao=JSON.parse(sessionStorage.getItem("bao-user"));
-            if (bao.isAuth==1){
+            if (bao.isAuth==0||bao.isAuth==1){
                 this.refs.alert.show({
                     title: '',
                     content: '为了您的账户安全，请先实名认证',

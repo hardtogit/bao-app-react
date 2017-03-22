@@ -14,7 +14,7 @@ class Index extends React.Component{
             <div>
                 <NavBar  onLeft={pop} backgroundColor={"#00a6e2"}>自动投标规则</NavBar>
                 <Box>
-                    <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}} src={API.requestUrl+"static-page/auto-bid"}></iframe>
+                    <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}} src={location.hostname+"/mobile_api/static-page/auto-bid"}></iframe>
                 </Box>
             </div>
 		)

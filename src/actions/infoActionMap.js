@@ -255,5 +255,8 @@ export default {
     },
     [actionTypes.WITHDRAW]:{
         apiFn:Fetch.withdraw
+    },
+    [actionTypes.DIRECT_INVEST_TRANSFER]:{
+        apiFn:Fetch.directInvestTransfer
     }
 }

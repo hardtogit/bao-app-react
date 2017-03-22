@@ -14,7 +14,6 @@ import erwei from '../../../assets/images/my-index/erwei.png' //二维码
 import QQ from '../../../assets/images/my-index/QQ.png' //QQ空间
 import weibo from '../../../assets/images/my-index/weibo.png' //新浪微博
 import investInfo from '../../../assets/images/investFriend.jpg'
-
 class Index extends React.Component {
     constructor(props) {
         super(props)
@@ -232,6 +231,102 @@ class Index extends React.Component {
             </div>
         )
     }
+    loadEndDom1=(datas)=>{
+        const data=datas.data;
+        return(<div>
+            <div className={styles.inveHead}>
+                <ul>
+                    <li>累计邀请好友</li>
+                    <li><span>{data.number}</span>位</li>
+                </ul>
+                <ul>
+                    <li>赚取佣金</li>
+                    <li><span>{Util.padMoney(data.amount)}</span>￥</li>
+                </ul>
+            </div>
+            <div className={styles.inviContent}>
+            <img src={caishen} className={styles.csImg}/>
+             <iframe src={location.hostname+'/mobile_api/static-page/invite'} style={{width:'100%',border:'0px'}} height={640}></iframe>
+            </div>
+            <div className={styles.foot}>
+                <p><img onClick={this.openCulator} src={count}/></p>
+                <p onClick={this.openShare}>邀请好友赚佣金</p>
+            </div>
+            <div className={styles.PopBox} style={this.state.modalShow1}>
+                <div className={styles.calculator}>
+                    <div className={styles.calOpacity}></div>
+                    <div className={styles.calContent}>
+                        <h1><span onClick={this.close}>×</span></h1>
+                        <h1><p>佣金计算器</p></h1>
+                        <div className={styles.calList}>
+                            <div className={styles.listMoney}>投资金额
+                                <span><input type="text" value={this.state.value} onChange={this.moneyChange} ref="moneyNum"/></span><label>元</label>
+                            </div>
+                            <div className={styles.listData}>投资期限
+                                <span><select ref="dataNum" onChange={this.dataChange}>
+										{this.state.data.map((num, i) => (<option key={i} value={num}>{num}</option>))}
+									</select></span>
+                                <label>个月</label>
+                            </div>
+                        </div>
+                        <div className={styles.calResult}>
+                            <ul>
+                                <li>你可获得佣金返现</li>
+                                <li>{this.state.rental}元</li>
+                            </ul>
+                            <ul>
+                                <li>好友可获得佣金返现</li>
+                                <li>{this.state.rental}元</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.PopBox} style={this.state.modalShow2}>
+                <div className={styles.calculator}>
+                    <div className={styles.calOpacity}></div>
+                    <div className={styles.calshare}>
+                        <p>分享到</p>
+                        <ul>
+                            <li>
+                                <a href={this.state.url.weibo} target='_blank'>
+                                    <img src={weibo}/>
+                                    <span>新浪微博</span>
+                                </a>
+                            </li>
+                            <li>
+                                <img src={erwei} onClick={this.showWx}/>
+                                <span>二维码</span>
+                            </li>
+                            <li>
+                                <a href={this.state.url.qzone} target='_blank'>
+                                    <img src={QQ}/>
+                                    <span>QQ空间</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <p className={styles.shareLink}>{data.url}</p>
+                        <p className={styles.shareText}>长按复制您的专属链接，直接粘贴邀请好友赢更多奖励</p>
+                        <h1 onClick={this.closeShare}>取消</h1>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.ewmBox} style={this.state.wx}>
+                <div className={styles.ewmBoxText}>
+                    <div className={styles.ewmBoxHeader}>
+                        <span>分享到微信朋友圈</span>
+                        <span className={styles.ewmClose}><h1 onClick={this.closeWx}>×</h1></span>
+                    </div>
+                    <img src={data.QrCode}/>
+                    <p className={styles.ewmBoxFooter}>
+                        打开微信，点击底部的“发现”，<br/>
+                        使用“扫一扫”即可将网页分享至朋友圈。
+                    </p>
+                </div>
+            </div>
+
+        </div>)
+    }
     render() {
         const {
             datas,
@@ -242,7 +337,7 @@ class Index extends React.Component {
         if(pending||pending==undefined){
             contentDom = this.loadingDom()
         }else{
-            contentDom= this.loadingEndDom(datas)
+            contentDom= this.loadEndDom1(datas)
         }
         return (
             <div className={styles.bg}>
