@@ -52,6 +52,8 @@
   margin-top:0;
 }
 .arrow_left{
+  width: 10px;
+  color: #ffffff;
   margin-top: 10px;
   float: right;
   margin-right: 15px;

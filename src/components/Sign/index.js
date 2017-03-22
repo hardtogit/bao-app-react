@@ -3,7 +3,7 @@ import Boron from '../../customized_node_modules/boron'
 import style from './index.less';
 import API from '../../request/fetch'
 
-import toptitle from './images/toptitle.png';
+import toptitle from './images/sign.jpg';
 import done from './images/done.png';
 import pen from './images/sign_pen.png';
 import close from './images/closex.png';
@@ -56,6 +56,11 @@ export default class SignModel extends React.PureComponent {
                         ||
                         <img className={style.t} src={toptitle} alt=""/>
                     }
+                    <div className={style.msBox}>
+                        <p>连续签到5天</p>
+                        <p>额外获得50点币</p>
+                        <hr/>
+                    </div>
                     <p className={style.info+" "+style.mt15}>您已累计签到 <span>{this.props.days}</span> 天</p>
                     <p className={style.info}>已获得点币 <span>{this.props.coin}</span></p>
                     <button onClick={()=>{this.doSign()}}>{this.props.sign&&"确定"||"点击签到"}</button>
