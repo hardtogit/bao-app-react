@@ -14,7 +14,7 @@ import commonStyles from '../../../../css/common.styl'
 import util from '../../../../utils/utils.js'
 import Alert from '../../../../components/Dialog/alert'
 import * as actionTypes from '../../../../actions/actionTypes'
-import {push} from 'react-router-redux'
+import {push,goBack} from 'react-router-redux'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
 
 class FindpasswordVerifyMobile extends React.Component {
@@ -79,7 +79,9 @@ class FindpasswordVerifyMobile extends React.Component {
     return (
       <div className={commonStyles.panel}>
         <NavBar
+          onLeft={this.props.pop}
           title='验证手机号码'
+
         />
         <ValidateForm 
           className={styles.formWrap}
@@ -133,6 +135,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
            ]
          })
        },
+    pop(){
+       dispatch(goBack())
+    },
        gxReders(data){
           dispatch({
               type:actionTypes.FOR_GET_PWD,

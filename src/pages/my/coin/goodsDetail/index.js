@@ -108,7 +108,6 @@ class Index extends React.Component {
 							  </span>
 							  <span>
 								  {value}
-								  <span className={classs.hr} style={{width:' calc(100% + 2px)'}}/>
 							  </span>
 						  </span>
 						<span className={classs.originalRight}>
