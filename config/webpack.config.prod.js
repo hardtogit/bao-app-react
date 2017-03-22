@@ -33,17 +33,12 @@ module.exports = {
     bail: true,
     // We generate sourcemaps in production. This is slow but gives good results.
     // You can exclude the *.map files from the build during deployment.
-    devtool: '#source-map',
+    devtool: 'source-map',
     // In production, we only want to load the polyfills and the app code.
-    entry: {
-        polyfills: require.resolve('./polyfills'),
-        app: paths.appIndexJs,
-        vendor: ['react',
-            'redux',
-            "react-redux",
-            "react-router",
-            "react-router-redux"]
-    },
+    entry: [
+        require.resolve('./polyfills'),
+        paths.appIndexJs
+    ],
     output: {
         // The build folder.
         path: paths.appBuild,
@@ -117,18 +112,18 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style","css!postcss"),
+                loader: 'style!css!postcss',
                 include: paths.appVendorCss,
             },
             // stylus
             {
                 test: /\.styl$/,
-                loader: ExtractTextPlugin.extract('style','css?modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!stylus')
+                loader: 'style!css?modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!stylus'
             },
             // less
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style','css?modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss!less')
+                loader: 'style!css?modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss!less'
             },
             // JSON is not enabled by default in Webpack but both Node and Browserify
             // allow it implicitly so we also enable it.
@@ -217,8 +212,7 @@ module.exports = {
                 minifyJS: true,
                 minifyCSS: true,
                 minifyURLs: true
-            },
-            chunksSortMode: 'dependency'
+            }
         }),
         // Makes some environment variables available to the JS code, for example:
         // if (process.env.NODE_ENV === 'production') { ... }. See `env.js`.
@@ -229,28 +223,15 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(),
         // Try to dedupe duplicated modules, if any:
         new webpack.optimize.DedupePlugin(),
-        // new webpack.optimize.DedupePlugin()
         // Minify the code.
         // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-        new ExtractTextPlugin('static/css/[name].[chunkhash:8].css', {
-            allChunks: true
-        }),
-        // 'vendor',
-        new webpack.optimize.CommonsChunkPlugin({
-            name:'vendor',
-            // 输出的公共资源名称
-            filename: 'static/js/[name].[chunkhash:8].js',
-            // 对所有entry实行这个规则
-            minChunks: Infinity
-        }),
+        new ExtractTextPlugin('static/css/[name].[contenthash:8].css'),
         new webpack.optimize.UglifyJsPlugin({
             comments: false,  //去掉注释
             compress: {
-                warnings: false,  //忽略警告
+                warnings: false,
                 drop_console: true  //移除console
-            },
-            // sourceMap: false,
-            mangle: false
+            }
         })
     ],
     // Some libraries import Node modules but don't use them in the browser.

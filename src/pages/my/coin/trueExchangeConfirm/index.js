@@ -46,6 +46,7 @@ class Index extends React.Component{
             if (code==300){
                 push('/user/exchangeFail')
             }else if (code==100){
+                console.log(data)
                 sessionStorage.setItem("bao-coin",JSON.stringify(data.coin));
                 setTimeout(()=>{push('/user/exchangeSuccess')},500)
             }

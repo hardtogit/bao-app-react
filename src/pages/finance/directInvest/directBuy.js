@@ -10,6 +10,7 @@ import BuyInput from '../../../components/customInput'
 import Button from '../../../components/BaseButton'
 import PayProcess from '../payProcess.js'
 import Tipbar from '../../../components/Tipbar'
+import SelectCoupon from '../selectCoupon'
 class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
@@ -18,7 +19,10 @@ class DirectBuy extends React.Component {
       unitPrice: 50, // 单价
       chosenPay: '',
       vouchers: [],
-      interestRates: [],      
+      interestRates: [],
+        top:'100%',
+        choose:'',
+        money:''
     }
 
     this.directInvestId = this.props.params.id
@@ -27,7 +31,7 @@ class DirectBuy extends React.Component {
 
   componentDidMount(){
     this.props.getDirectInvestDetail(this.directInvestId)
-    this.props.getAvailableCoupons()
+    this.props.getAvailableCoupons(this.props.params.month)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -151,8 +155,11 @@ class DirectBuy extends React.Component {
     return maxCoupon
   }
  
-  getPayTotal = () => {
-    const coupon = this.getCoupon()
+  getPayTotal = (type) => {
+    const coupon = this.getCoupon();
+      if (type){
+          return this.state.quantity * this.state.unitPrice
+      }
     if (this.props.useCoupon && coupon && coupon.type === '抵用券') {
       return this.state.quantity * this.state.unitPrice - Number(coupon.amount)
     } else {
@@ -208,8 +215,7 @@ class DirectBuy extends React.Component {
       return (
         <div 
           className={styles.discountBarTouch}
-          onClick={()=>{this.props.setUseCoupons(coupon);
-            this.props.push('/selectCoupon?product=直投') }}>
+          onClick={()=>{this.openDy()}}>
           <p className={styles.discountBarName}>暂无优惠可用</p>
         </div>
       )
@@ -239,19 +245,33 @@ class DirectBuy extends React.Component {
       return (
         <div 
           className={styles.coupon} 
-          onClick={() => {this.props.setUseCoupons(this.props.useCoupon ? coupon : ''); this.props.push('/selectCoupon?product=直投')}}>
+          onClick={() => {this.openDy()}}>
           <span>使用优惠</span>
           {card}
         </div>
       )
     }
   }
-
+    useDy=(amount)=>{
+        this.setState({
+            choose:amount
+        })
+    }
+  clickFn=()=>{
+        this.setState({
+            top:'100%'
+        })
+    }
+    openDy=()=>{
+        let money=this.getPayTotal(true);
+        this.setState({top:'0px',money})
+    }
   render(){
     const detail = this.props.detail
 
     return(
       <div className={styles.root}>
+        <div className={styles.bg}>
         <NavBar title='购买支付' onLeft={()=>this.props.goBack()}></NavBar>
         <div style={{height:44}}></div>
         <div className={styles.scroll}>
@@ -307,6 +327,10 @@ class DirectBuy extends React.Component {
           />
         </div>
         <Tipbar ref="tipbar"/>
+        </div>
+        <div className={styles.zg} style={{top:this.state.top}}>
+          <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}/>
+        </div>
       </div>
     )
   }
@@ -333,10 +357,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
       params: [id]
     })
   },
-  getAvailableCoupons() {
+  getAvailableCoupons(month) {
     dispatch({
       type: actionTypes.AVAILABLE_COUPONS,
-      params: ['直投']
+      params: ['直投',month]
     })
   },
   push(path){

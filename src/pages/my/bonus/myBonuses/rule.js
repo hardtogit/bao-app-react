@@ -13,7 +13,8 @@ class Index extends React.Component{
             <div>
                 <NavBar  onLeft={this.props.pop} backgroundColor={"#F76360"}>红包规则</NavBar>
                 <Box>
-                    <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}} src={location.hostname+"/mobile_api/static-page/bonus-rule"}></iframe>
+                    <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}}
+							src={`http://${location.hostname}/mobile_api/static-page/bonus-rule`}></iframe>
                 </Box>
             </div>
 		)

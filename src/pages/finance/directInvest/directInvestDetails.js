@@ -279,7 +279,8 @@ class Index extends Component{
         </div>)
     }
     purchase=(id,push)=>{
-        this.refs.isAuth.Verification('/directBuy/'+id,push)
+        const {term}=this.props.infoData.data
+        this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push)
     }
     loadDom=()=>{
         return(<Load/>)

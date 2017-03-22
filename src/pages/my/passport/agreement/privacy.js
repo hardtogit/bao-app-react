@@ -26,7 +26,7 @@ class Index extends Component{
                宝点网隐私条例
            </NavBar>
            <div className={styles.content}>
-               {this.state.init&& <iframe src={location.hostname+'/mobile_api/static-page/privacy-policy'} className={styles.ifr}></iframe>||''}
+               {this.state.init&& <iframe src={`http://${location.hostname}/mobile_api/static-page/privacy-policy`} className={styles.ifr}></iframe>||''}
            </div>
        </div>)
     }

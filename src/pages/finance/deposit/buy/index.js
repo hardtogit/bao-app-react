@@ -12,6 +12,7 @@ import PayProcess from '../../payProcess'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import {Link} from 'react-router'
+import SelectCoupon from '../../selectCoupon'
 
 class DepositBuy extends React.Component {
 
@@ -26,6 +27,9 @@ class DepositBuy extends React.Component {
       interestRates: [],
       pending:false,
       couponsFetching:true,
+      top:'100%',
+      choose:'',
+        money:''
     }
   }
   componentWillMount(){
@@ -189,8 +193,11 @@ class DepositBuy extends React.Component {
   }
 
   // 获取支付费用
-  getPayTotal = () => {
+  getPayTotal = (type) => {
     const coupon = this.getCoupon()
+      if (type){
+          return this.state.quantity * this.state.unitPrice
+      }
     if (this.props.useCoupon && coupon && coupon.type === '抵用券') {
       return this.state.quantity * this.state.unitPrice - Number(coupon.amount)
     } else {
@@ -243,7 +250,7 @@ class DepositBuy extends React.Component {
       )
     }
 
-    const coupon = this.getCoupon()
+    let coupon = this.getCoupon()
     const {params,rates,new_deposit}=this.props;
     if (! coupon || this.state.quantity < 1) {
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
@@ -268,13 +275,18 @@ class DepositBuy extends React.Component {
       return (
         <div 
           className={styles.discountBarTouch}
-          onClick={()=>{this.props.setUseCoupons(coupon);
-            this.props.push('/selectCoupon?product=定存&month=' + String) }}>
+          onClick={()=>{this.openDy()}}>
           <p className={styles.discountBarName}>暂无优惠可用</p>
         </div>
       )
     } else {
-      const couponText = coupon.type === '抵用券' ? `抵用券抵扣${coupon.amount || ''}元` : `加息券加息${coupon.rate || ''}%`
+      let couponText;
+      if (this.state.choose!=''){
+           coupon = this.getCoupon();
+          couponText = coupon.type === '抵用券' ? `抵用券抵扣${coupon.amount || ''}元` : `加息券加息${coupon.rate || ''}%`
+      }else {
+           couponText = coupon.type === '抵用券' ? `抵用券抵扣${coupon.amount || ''}元` : `加息券加息${coupon.rate || ''}%`
+      }
 
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
@@ -289,23 +301,24 @@ class DepositBuy extends React.Component {
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
-
       const card = this.props.useCoupon ? (
         <div>
           <div>{ couponText }</div>
         </div>
       ) : null
-      const String=this.getCurrentMonth().month;
       return (
         <div 
           className={styles.coupon} 
-          onClick={() => {this.props.setUseCoupons(this.props.useCoupon ? coupon : '');
-          this.props.push('/selectCoupon?product=定存&month=' + String)}}>
+          onClick={()=>{this.openDy()}}>
           <span>使用优惠</span>
           {card}
         </div>
       )
     }
+  }
+  openDy=()=>{
+      let money=this.getPayTotal(true);
+      this.setState({top:'0px',money})
   }
     changePending=()=>{
     this.setState({
@@ -322,7 +335,16 @@ class DepositBuy extends React.Component {
     }
     return ''
   }
-
+  clickFn=()=>{
+    this.setState({
+      top:'100%'
+    })
+  }
+  useDy=(amount)=>{
+    this.setState({
+        choose:amount
+    })
+  }
   render() {
     const {
       params: { id },
@@ -342,9 +364,11 @@ class DepositBuy extends React.Component {
             String='新手标';
         }
     }
+    console.log(this.state.money)
     return (
       <div className={styles.root}>
-        <NavBar onLeft={()=>{this.props.goBack()}}>购买支付</NavBar>
+        <div className={styles.bg}>
+        <NavBar onLeft={()=>{this.props.goBack()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
         <p className={styles.title}>购买产品：定存宝-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
@@ -400,6 +424,10 @@ class DepositBuy extends React.Component {
           onClick={this.onValid}
           status={this.canPay() > 0 ? '' : 'disable'}/>
         <Tipbar ref='tipbar' />
+        </div>
+        <div className={styles.zg} style={{top:this.state.top}}>
+           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}/>
+        </div>
       </div>
     )
   }

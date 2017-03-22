@@ -3,30 +3,32 @@ import React from 'react'
 import NavBar from '../../components/NavBar'
 import styles from './selectCoupon.less'
 import * as actionTypes from '../../actions/actionTypes'
-import Fetch from '../../request/fetch'
 import {connect} from 'react-redux'
 import wrap from '../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import Dimensions from 'react-dimensions'
-import AutoSizeInfinite from '../../components/AutoSizeInfinite/'
 import Selectedimg from '../../assets/images/0k2.png'
 import unSelectimg from '../../assets/images/circle.png'
 import utils from '../../utils/utils'
-import nullJx from '../../assets/images/nojiaxi1.png'
-import nullDy from '../../assets/images/nodiyong.png'
 
 class RatesCell extends React.Component {
 
   renderVoucher(data, index) {
-    const { selected } = this.props
+    const { selected ,money} = this.props;
       const {amount,apply,end_date,start_date,id,invest_money,type}=data;
+      let Dom;
+      if (money<parseFloat(invest_money)){
+        Dom=<span className={styles.noUse}>不可用</span>
+      }else {
+        Dom=selected.id == id ? <img src={Selectedimg} alt="选中"/> :
+            <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />
+      }
     return (
       <div className={styles.rateCell} key={index} style={{width:this.props.screenW}}>
         <div>
           <div>
             <p>{amount+'元'+type}</p>
-            {selected.id == id ? <img src={Selectedimg} alt="选中"/> :
-            <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />}
+              {Dom}
           </div>
           <div>
             <p>投资{invest_money}即可使用</p>
@@ -41,15 +43,21 @@ class RatesCell extends React.Component {
   }
 
   renderInterestRate(data, index) {
-    const { selected } = this.props;
+    const { selected,money} = this.props;
       const {rate,apply,end_date,start_date,id,invest_money,type}=data;
+      let Dom;
+      if (money<parseFloat(invest_money)){
+          Dom=<span className={styles.noUse}>不可用</span>
+      }else {
+          Dom=selected.id == id ? <img src={Selectedimg} alt="选中"/> :
+              <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />
+      }
     return (
       <div className={styles.rateCell} key={index} style={{width:this.props.screenW}}>
         <div>
           <div>
             <p>{rate+'%'+type}</p>
-            {selected.id == id ? <img src={Selectedimg} alt="选中"/> :
-            <img onClick={()=>{this.props.onSelect(data)}} src={unSelectimg} />}
+              {Dom}
           </div>
           <div>
             <p>投资{invest_money}即可使用</p>
@@ -77,12 +85,6 @@ class RatesCell extends React.Component {
             jx.push(this.renderInterestRate(data,index))
           }
       })
-      // if (dy.length==0){
-      //    dy=this.nullDom(nullJx);
-      // }
-      // if (jx.length==0){
-      //    jx=this.nullDom(nullDy);
-      // }
     return(
       <div className={styles.listBox}>
         {
@@ -120,7 +122,7 @@ class SelectCoupon extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
+
   }
 
   changeType=(ele)=>{
@@ -137,8 +139,9 @@ class SelectCoupon extends React.Component{
   }
 
   useCouponHandle = () => {
-    this.props.setUseCoupons(this.state.selectedCoupon, true)
-    this.props.goBack()
+    this.props.setUseCoupons(this.state.selectedCoupon, true);
+    this.props.useFn(this.state.selectedCoupon);
+    this.props.click();
   }
 
   unUseCouponHandle = () => {
@@ -148,11 +151,11 @@ class SelectCoupon extends React.Component{
   }
  
   render(){
-    const screenW=this.props.containerWidth
-
+     const {click,money}=this.props;
     return(
       <div className={styles.root}>
-        <NavBar title="选择优惠券" onLeft={()=>this.props.goBack()}></NavBar>
+        <NavBar title="选择优惠券"  leftNode={<span style={{paddingLeft:'15px'}}>关闭</span>}
+             onLeft={click}   style={{position:'absolute',left:'0px',top:'0px'}}></NavBar>
         <div style={{height:44}}></div>
 
         <div className={styles.selectDiv}>
@@ -169,6 +172,7 @@ class SelectCoupon extends React.Component{
             onSelect={this.selectHandle}
             datas={this.state.selectID == 1 ? this.props.vouchers : this.props.interestRates}
             type={this.state.selectID}
+            money={money}
             selected={this.state.selectedCoupon || ''} 
           />
         </div>

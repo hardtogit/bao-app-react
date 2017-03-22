@@ -29,7 +29,7 @@ class Index extends Component{
                 宝点网服务协议
             </NavBar>
             <div className={styles.content}>
-                {this.state.init&& <iframe src={location.hostname+'/mobile_api/static-page/service-agreement'} className={styles.ifr}></iframe>||''}
+                {this.state.init&& <iframe src={`http://${location.hostname}/mobile_api/static-page/service-agreement`} className={styles.ifr}></iframe>||''}
             </div>
         </div>)
     }

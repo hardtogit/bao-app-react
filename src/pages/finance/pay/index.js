@@ -13,10 +13,10 @@ import util from '../../../utils/utils'
 const hostName=location.hostname;
 `http://${hostName}/mobile_api/deposit/buy`
 const Urls={
-    deposit:`http://demo-wap.devbao.cn/mobile_api/deposit/buy`,
+    deposit:`http://${hostName}/mobile_api/deposit/buy`,
     pay:`http://${hostName}/mobile_api/pay?money=`,
-    directInvest:`http://demo-wap.devbao.cn/mobile_api/directInvest/buy/`,
-    creditors:`http://demo-wap.devbao.cn/mobile_api/creditors/pay-bond/`
+    directInvest:`http://${hostName}/mobile_api/directInvest/buy/`,
+    creditors:`http://${hostName}/mobile_api/creditors/pay-bond/`
 }
 class Index extends Component{
     constructor(porps){

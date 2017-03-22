@@ -151,7 +151,6 @@ import ruleVoucher from './pages/my/voucher/rule'
 import securityPlan from './pages/my/assetStatistics/directInvest/securityPlan' /*直投安全保障计划*/
 import productInfo from './pages/my/assetStatistics/directInvest/productInfo'  /*直投产品信息*/
 import zqProductInfo from './pages/my/assetStatistics/creditors/productIndo/'  /*债券产品信息*/
-import SelectCoupon from './pages/finance/selectCoupon.js'
 import zqSecurityPlan from './pages/my/assetStatistics/creditors/securityPlan' /*债券产品信息*/
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
@@ -329,7 +328,7 @@ export default class App extends React.Component {
             <Route path="demandIndex" component={DemandIndex}></Route>
             <Route path="directList" component={DirectList}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
-            <Route path="directBuy/:id" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directInvestSuccess" component={DirectInvestSuccess}></Route>
             <Route path="directContract" component={DirectContract}></Route>
             <Route path="creditorList" component={CreditorList}></Route>
@@ -355,7 +354,6 @@ export default class App extends React.Component {
             <Route path="invite" component={Invite}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
-            <Route path='selectCoupon' component={SelectCoupon}></Route>
             <Route path='demo' component={DemoPage}></Route>
             {Object.keys(ComponentDemo).map((key, i) => (
               <Route key={i} path={key} component={ComponentDemo[key]}></Route>

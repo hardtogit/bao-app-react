@@ -16,7 +16,8 @@ class Index extends React.Component{
             <div>
                 <NavBar backgroundColor={"#00b0e6"} onLeft={this.props.pop}>刮刮卡规则</NavBar>
                 <Box>
-               <iframe style={{"width":"100%","height":"100%","border":"none",}} src={location.hostname+"/mobile_api/static-page/scratcheCard-rule"}></iframe>
+               <iframe style={{"width":"100%","height":"100%","border":"none",}}
+                       src={`http://${location.hostname}/mobile_api/static-page/scratcheCard-rule`}></iframe>
                 </Box>
             </div>
         )

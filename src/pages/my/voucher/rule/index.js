@@ -17,7 +17,8 @@ class Index extends Component{
                 抵用券规则
             </NavBar>
             <div className={styles.body}>
-                <iframe style={{"width":"100%","height":"100%","border":"none",}} src={location.hostname+"/mobile_api/static-page/voucher-rule"}></iframe>
+                <iframe style={{"width":"100%","height":"100%","border":"none",}}
+                        src={`http://${location.hostname}/mobile_api/static-page/voucher-rule`}></iframe>
             </div>
         </div>)
     }
