@@ -120,13 +120,14 @@ class Index extends React.Component {
             isSign:true,
             coins:data.data.coins
         });
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
 	    userInfo.isSign=true;
 	    userInfo.coins=data.data.coins;
         sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
         this.refs.SignModel.hide();
     }
 	render() {
-        let {coins,signNumbers,isSign,index} = this.state;
+        let {coins,signNumbers,isSign} = this.state;
         const {
             barData,
         }=this.props;

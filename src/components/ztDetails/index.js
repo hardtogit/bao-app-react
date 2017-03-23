@@ -43,13 +43,13 @@ class Index extends React.Component {
             id,
             name,
             profit_yesterday,
-            profit_expire,
-            total_periods
+            total_periods,
+            rate
         }=this.props.infoData.data;
         return(<div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(id)}}>
                 <h2>{name}<span>({id})</span></h2>
-                <p><span>{total_periods}个月</span><span>约定年化收益率{profit_expire}%</span></p>
+                <p><span>{total_periods}个月</span><span>约定年化收益率{rate}%</span></p>
                 <img src={arrowRight}/>
             </div>
             <div className={styles.listBoxTwo}>

@@ -130,7 +130,7 @@ class IndexTabs extends React.Component {
                   <div>
                      <IndexLink to="/home" activeClassName={styles.activeIcon}>
                      <span className={styles.tabIcon}></span>
-                     <p>理财</p>
+                     <p>首页</p>
                      </IndexLink>
                   </div>
                     <div>

@@ -346,7 +346,6 @@ class DepositBuy extends React.Component {
             String='新手标';
         }
     }
-    console.log(this.state.money)
     return (
       <div className={styles.root}>
         <div className={styles.bg}>

@@ -17,6 +17,7 @@ class Index extends React.Component {
         }
     }
     componentWillUnmount(){
+        this.props.clearData();
     }
     componentDidMount=()=>{
         this.props.getList(this.state.flag);
