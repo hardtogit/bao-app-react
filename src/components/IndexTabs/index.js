@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {  Tabs } from 'react-tabs';
 import styles from './index.styl'
 import {connect} from 'react-redux'
 import {Link,IndexLink} from 'react-router'
