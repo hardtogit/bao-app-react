@@ -10,6 +10,7 @@ import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
+import IsAuth from '../../../../../components/isAuth'
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -124,9 +125,13 @@ class Index extends React.Component {
 			 </div>
 			<Tipbar ref='tipbar' />
 			<Alert ref="alert"/>
+			<IsAuth ref="isAuth"/>
 		</div>)
 	}
     rechargeFn=()=>{
+    	this.refs.isAuth.isbindSecurityCard(this.hasCard,this.props.push,'/user/setting/securityCard')
+	}
+	hasCard=()=>{
     	this.setState({
     		top:'0px'
 		})

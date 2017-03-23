@@ -5,7 +5,7 @@ import React,{Component} from 'react'
 import Alert from '../Dialog/alert'
 class Index extends Component{
     Verification(url,push){
-        const baoAuth=sessionStorage.getItem("bao-user");
+        const baoAuth=this.publickFn();
         if (baoAuth){
             const bao=JSON.parse(sessionStorage.getItem("bao-user"));
             if (bao.isAuth==0||bao.isAuth==1){
@@ -18,6 +18,33 @@ class Index extends Component{
                 })
             }else {
                 push(url)
+            }
+        }else {
+            push('/login')
+        }
+    }
+    publickFn=()=>{
+        const baoAuth=sessionStorage.getItem("bao-user");
+        if (baoAuth){
+            return true
+        }else {
+           return false
+        }
+    }
+    isbindSecurityCard(successFn,push,url){
+        const baoAuth=this.publickFn();
+        if (baoAuth){
+            const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+            if (!bao.isbindSecurityCard){
+                this.refs.alert.show({
+                    title: '',
+                    content: '对不起您还没有绑定安全卡',
+                    okText: '去绑定',
+                    cancel:'取消',
+                    okCallback: () => {push(url)},
+                })
+            }else {
+                successFn&&successFn()
             }
         }else {
             push('/login')

@@ -36,7 +36,6 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 		grade,
 	    isSign,
 		signNumbers,
-		continuityNumbers,
 		amount,
 		balance,
 		demand,
@@ -51,9 +50,10 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 		deposit,
         isBuyDemand
 		}=data;
+      console.log(deposit)
 		return(
 			<div>
-                <div className={styles.header}>账户 <span onClick={!isSign&&this.doSign} className={styles.sign}>{isSign&&'已签到'||'点击签到'}</span></div>
+                <div className={styles.header}>账户</div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
                 <div className={styles.userAccount}>
 					<div className={styles.headImg}><img src={avatar}/></div>
@@ -110,7 +110,7 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 								<img src={DepositTreasure}/>
 								<div className={styles.myListText}>
 									<p className={styles.listTitle}>定存宝</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{deposit==0&&'最高可高达9%'||'+'+deposit}</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{deposit==0&&'最高可高达13.80%'||'+'+deposit}</p>
 								</div>
 							</Link>
 						</div>

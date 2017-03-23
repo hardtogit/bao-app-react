@@ -16,7 +16,7 @@ import Scroll from '../../../../components/scroll/index.js'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
 import Loading from '../../../../components/pageLoading'
 import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
-
+import IsAuth from '../../../../components/isAuth'
 class CreditorCell extends React.Component{
   toBuy=(event)=>{
     event.stopPropagation()
@@ -37,7 +37,7 @@ class CreditorCell extends React.Component{
         })
       }else{
         //推送到购买页面
-        this.props.push(`/creditorBuy/${id}`)
+          this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush);
       }
     }else{
       //跳转登录
@@ -173,6 +173,8 @@ class CreditorList extends React.Component{
                                 wrongRef={this.refs.wrong}
                                 screenW={screenW}
                                 postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                                isAuth={this.refs.isAuth}
+                                isAuthPush={this.props.push}
                   />
               ))}
       </Scroll>)
@@ -205,6 +207,7 @@ class CreditorList extends React.Component{
         ||
         <Loading></Loading>
         }
+        <IsAuth ref="isAuth"/>
       </div>
     )
   }

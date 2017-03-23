@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import wrap from '../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import Dimensions from 'react-dimensions'
-import CircularProgress from '../../../customized_node_modules/circularProgress/'
+import IsAuth from '../../../components/isAuth'
 import Moment from 'moment'
 import Couponimg from '../../../assets/images/coupon1.png'
 import Coupon1 from '../../../assets/images/registerVoucher.png'
@@ -68,7 +68,7 @@ class DirectInvestCell extends React.Component{
                     })
                 }else{
                     //推送到购买页面
-                    this.props.push(`/directBuy/${id}`)
+                    this.props.isAuth.Verification(`/directBuy/${id}`,this.props.isAuthPush);
                 }
             }
         }else{
@@ -271,6 +271,8 @@ class DirectInvestList extends React.Component{
                                           wrongRef={this.refs.wrong}
                                           screenW={screenW}
                                           postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                                          isAuth={this.refs.isAuth}
+                                          isAuthPush={this.props.push}
                         />
                     )
                 })}
@@ -306,6 +308,7 @@ class DirectInvestList extends React.Component{
                     ||
                     <Loading></Loading>
                 }
+                <IsAuth ref="isAuth"/>
             </div>
         )
     }

@@ -10,7 +10,7 @@ const requests=(Fetch)=>{
         return Fetch(`mall/product-list?page=${page}&pageSize=${pageSize}${Tag}`, 'GET')
     },
     Fetch.shopProductBar=(activityId = 1)=>{
-        return Fetch(`activity/product-tag-list?activityId=${activityId}`, 'GET')
+        return Fetch(`mall/product-tag-list?activityId=${activityId}`, 'GET')
     }
     Fetch.commodityDetails=(id)=>{
         return Fetch(`mall/product-info?productId=${id}`,'GET')

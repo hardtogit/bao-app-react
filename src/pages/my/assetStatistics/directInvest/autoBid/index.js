@@ -62,7 +62,7 @@ class Index extends React.Component {
                     open:info.open,
                     bidType:info.type||1,//默认不限
                     repaymentType:info.repayment_type||1,//默认不限
-                    rate:Number(info.rate)||10.5,
+                    rate:(Number(info.rate)||10.5)+'%起',
                     maxRate:Number(info.maxRate),
                     minRate:Number(info.minRate),
                     rateInputStatus:false,//年化利率是否正在输入
@@ -82,7 +82,7 @@ class Index extends React.Component {
                     okText: '确定',
                     okCallback: () => {this.props.push('/user/recharge')},
                     cancelText: '取消',
-                    cancelCallback:this.showSuccess
+                    cancelCallback:()=>{}
                 })
             }else if (setInfo){
                 if (setInfo.code==100){
@@ -106,16 +106,17 @@ class Index extends React.Component {
             }
         });
     };
-    checkButtonClickStatus=(count,balance,rate)=>{//检测确认开启是否能点击
-        if(!/^[1-9]\d{0,1}$/.test(count) || !/^[1-9]\d*$/.test(balance) || !Util.checkNumber(rate)){
-            this.setState({
-                buttonClickStatus:false
-            })
-        }else{
-            this.setState({
-                buttonClickStatus:true
-            })
-        }
+    checkButtonClickStatus=(count,balance,rate)=>{
+        const rates=parseFloat(rate);
+       if (!/^[1-9]\d{0,1}$/.test(count)||!/^[0-9][1-9]$/.test(balance)||!(/^\d+(\.\d{1})?$/.test(rates) && rates<=this.state.maxRate && rates>=this.state.minRate)){
+           this.setState({
+               buttonClickStatus:false
+           })
+       }else {
+           this.setState({
+               buttonClickStatus:true
+           })
+       }
     };
     toggle=(flag,id)=>{//开关自动投标
         if (!flag){
@@ -142,17 +143,23 @@ class Index extends React.Component {
         })
     };
     minus=()=>{//收益率减少
-        if(this.state.rate-0.1>=this.state.minRate){
+        const rate=parseFloat(this.state.rate);
+        if(rate-0.1>=this.state.minRate){
             this.setState({
-                rate:+this.state.rate-0.1
+                rate:parseFloat(rate-0.1).toFixed(1)+'%起'
             })
+        }else {
+            this.showTips('年化收益率不能小于'+this.state.minRate);
         }
     };
     add=()=>{//收益增加
-        if(this.state.rate+0.1<=this.state.maxRate){
+        const rate=parseFloat(this.state.rate);
+        if(rate+0.1<=this.state.maxRate){
             this.setState({
-                rate:+this.state.rate+0.1
+                rate:+parseFloat(rate+0.1).toFixed(1)+'%起'
             })
+        }else {
+            this.showTips('年化收益率不能大于'+this.state.maxRate);
         }
     };
     addHoldStart=()=>{
@@ -172,23 +179,29 @@ class Index extends React.Component {
         clearInterval(touchLoop);
     };
     RateInputFoucs=(e)=>{
-        this.setState({
-            rateInputStatus:true
-        });
-        this.refs.rateInput.focus();
+        const rate=parseFloat(this.state.rate);
+         this.setState({
+             rate
+         })
     };
-    rateInputBlur=(e)=>{
+    rateInputChange=(e)=>{
         let newVal = e.target.value;
-        if(Util.checkNumber(newVal) && newVal<=this.state.maxRate && newVal>=this.state.minRate){//输入值符合范围
-            this.setState({
-                rate:newVal,
-                rateInputStatus:false
-            });
-        }else{
-            this.showTips("请输入"+this.state.minRate+"~"+this.state.maxRate+"之间的小数,保留二位小数!");
+        const reg=/^\d+(\.\d{1})?$/;
+        if(!(reg.test(newVal) && newVal<=this.state.maxRate && newVal>=this.state.minRate)){//输入值符合范围
+            this.showTips("请输入"+this.state.minRate+"~"+this.state.maxRate+"之间的小数,保留一位小数!");
         }
+        this.setState({
+            rate:newVal,
+            rateInputStatus:false
+        });
         this.checkButtonClickStatus(this.state.count,this.state.balance,newVal);
     };
+    rateInputBlur=()=>{
+        const rate=this.state.rate+'%起';
+        this.setState({
+            rate
+        })
+    }
     showTips= (tip)=>{
         this.setState({
             error:true
@@ -211,26 +224,22 @@ class Index extends React.Component {
     };
     countBlur=(e)=>{//投标次数失去焦点
         var newCount = e.target.value;
-        if(/^[1-9]\d{0,1}$/.test(newCount)){
-            this.setState({
-                count:newCount
-            })
-        }else{
-            this.refs.countInput.focus();
+        if(!/^[1-9]\d{0,1}$/.test(newCount)){
             this.showTips("请输入1~99次投标次数！");
         }
+        this.setState({
+            count:newCount
+        })
         this.checkButtonClickStatus(newCount,this.state.balance,this.state.rate);
     };
     timesBlur=(e)=>{
         var newCount = e.target.value;
-        if(/^[1-9]\d*$/.test(newCount)){
-            this.setState({
-                balance:newCount
-            })
-        }else{
-            this.refs.timesInput.focus();
+        if(!/^[0-9][1-9]$/.test(newCount)){
             this.showTips("请输入1~99次投标次数！");
         }
+        this.setState({
+            balance:newCount
+        })
         this.checkButtonClickStatus(this.state.count,newCount,this.state.rate);
     };
     sure=(id)=>{//提交
@@ -252,7 +261,7 @@ class Index extends React.Component {
         const repaymentTypes = ['不限','每月还息到期还本','每月等额还本息'];
         if(!info){
             return <Loading/>
-        }else
+        }
         return (
             <div>
                 <NavBar onLeft={pop} rightNode={<Link style={{"color":"#fff"}} to="/user/autoBuyRule">规则</Link>}>自动投标</NavBar>
@@ -268,12 +277,12 @@ class Index extends React.Component {
                         <ul className={style.times}>
                             <li>
                                 <span className={style.title}>投标次数</span>
-                                <input type="text" ref="countInput" defaultValue={this.state.count} onBlur={(e)=>{this.countBlur(e)}} placeholder="最多可设置99次" maxLength="2"/>
+                          <input type="text" ref="countInput" value={this.state.count} onChange={(e)=>{this.countBlur(e)}} placeholder="最多可设置99次" maxLength="2"/>
                                 <span className={style.desc}>次</span>
                             </li>
                             <li>
                                 <span className={style.title}>单次投标份数</span>
-                                <input type="number" ref="timesInput" defaultValue={this.state.balance} onBlur={(e)=>{this.timesBlur(e)}}/>
+                                <input type="number" ref="timesInput" value={this.state.balance} onChange={(e)=>{this.timesBlur(e)}}/>
                                 <span className={style.desc}>份</span>
                             </li>
                         </ul>
@@ -284,18 +293,23 @@ class Index extends React.Component {
                                 约定年化收益率
                             </p>
                             <div className={style.rate_box}>
-                                <div className={style.minus} onClick={()=>{this.minus()}} onTouchEnd={()=>{this.minusHoldEnd()}} onTouchStart={()=>{this.minusHoldStart()}}>
+                                <div className={style.minus}
+                                     onClick={()=>{this.minus()}}
+                                     onTouchEnd={()=>{this.minusHoldEnd()}}
+                                     onTouchStart={()=>{this.minusHoldStart()}}>
                                     <span></span>
                                 </div>
                                 <input type="text"
                                        ref="rateInput"
-                                       onBlur={(e)=>{this.rateInputBlur(e)}}
-                                       defaultValue={this.state.rate}
-                                       className={style.rate_input}/>
-                                <div className={style.add}  onClick={()=>{this.add()}} onTouchEnd={()=>{this.addHoldEnd()}} onTouchStart={()=>{this.addHoldStart()}}>
+                                       onChange={(e)=>{this.rateInputChange(e)}}
+                                       onBlur={this.rateInputBlur}
+                                       value={this.state.rate}
+                                       className={style.rate_input}
+                                       onFocus={this.RateInputFoucs}/>
+                                <div className={style.add}  onClick={()=>{this.add()}} onTouchEnd={()=>{this.addHoldEnd()}}
+                                     onTouchStart={()=>{this.addHoldStart()}}>
                                     <span></span><span></span>
                                 </div>
-                                <span onClick={(e)=>{this.RateInputFoucs(e)}} className={classnames(style.rateInput,!this.state.rateInputStatus?'show':'hide')}>{Util.padMoney(this.state.rate)+"%起"}</span>
                             </div>
                         </div>
                         <p className={style.rest_money}>约定年化收益率过高将有可能无法成交；当前系统参考约定年化收益率为{Util.padMoney(info.minRate)}%</p>
