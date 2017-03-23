@@ -166,6 +166,7 @@ import homeIndex from './pages/home/index'
 import productIndex from './pages/finance/home/index'
 import findHome from './pages/find/home/index'
 import myIndex from './pages/my/home/index'
+import shopCenterRule from './pages/my/coin/shopCenter/rule'
 // 工厂方法创建saga中间件
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
@@ -235,6 +236,7 @@ export default class App extends React.Component {
                   <Route path="coinsRule" component={CoinsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币规则*/
                   <Route path="goodsDetail/:id" component={goodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
                   <Route path="shopCenter" component={shopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
+                  <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
 
 

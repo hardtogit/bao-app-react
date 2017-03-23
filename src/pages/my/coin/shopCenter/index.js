@@ -6,6 +6,7 @@ import Item from "../../../../components/List/index";
 import classs from './index.less'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
+import rightPoint from  '../../../../assets/images/arrow2.png';
 let item = [
     {
         name:"兑换记录",
@@ -39,6 +40,12 @@ class Index extends React.Component {
                 <Box>
                     <div className={classs.box}>
                         <Item item={item}/>
+                    </div>
+                    <div className={classs.rule}>
+                        <Link to="/user/shopCenterRule">
+                     <span>查看点币使用规则</span>
+                        <img src={rightPoint}/>
+                        </Link>
                     </div>
                 </Box>
 			</div>

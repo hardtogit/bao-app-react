@@ -5,13 +5,14 @@ import {goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
 class Index extends Component{
     zhTime=(time)=>{
-        const DataN=new Date(time),
+        const DataN=new Date(parseInt(time)),
               year=DataN.getFullYear(),
               month=DataN.getMonth()+1,
               day=DataN.getDay(),
               min=DataN.getMinutes(),
               hours=DataN.getHours(),
               seconds=DataN.getSeconds();
+        console.log(DataN)
         return year+'年'+month+'月'+day+'日'+hours+'时'+min+'分'+seconds+'秒'
     }
     render(){

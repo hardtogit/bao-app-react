@@ -111,10 +111,7 @@ class SelectCoupon extends React.Component{
   }
 
   componentDidMount() {
-    if (!this.props.vouchers && !this.props.interestRates) { // 如果为空，去垃取数据
-      const params = utils.getParams()
-      this.props.getAvailableCoupons(params.product, params.month)
-    }
+
   }
 
   componentWillUnmount() {
@@ -206,13 +203,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch({
       type: actionTypes.SET_APPOINT_PASSWORD,
       payload:value
-    })
-  },
-
-  getAvailableCoupons(type, month) {
-    dispatch({
-      type: actionTypes.AVAILABLE_COUPONS,
-      params: [type, month]
     })
   },
 

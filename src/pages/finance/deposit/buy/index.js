@@ -75,7 +75,8 @@ class DepositBuy extends React.Component {
       this.setState({quantity})      
     }
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
-      this.hasSetCoupon = true
+      this.hasSetCoupon = true;
+
       this.setState({
         vouchers: nextProps.couponsData.data.filter(coupon => coupon.type === '抵用券'),
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),
@@ -91,6 +92,9 @@ class DepositBuy extends React.Component {
        }
 
   }
+    componentWillUnmount(){
+    this.props.clearDataInfo();
+    }
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null
     this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
@@ -156,8 +160,7 @@ class DepositBuy extends React.Component {
 
     // 选出面值最大的加息券
     if (this.state.interestRates.length > 0) {
-      maxInterestRate = this.state.interestRates[0]
-
+      maxInterestRate = this.state.interestRates[0];
       this.state.interestRates.forEach(ir => {
         if (Number(ir.rate) > Number(maxInterestRate.rate)) {
           maxInterestRate = ir
@@ -178,7 +181,6 @@ class DepositBuy extends React.Component {
     } else if (maxInterestRate) { // 没有抵用券
       maxCoupon = maxInterestRate
     }
-
     return maxCoupon
   }
 
@@ -482,6 +484,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
           type:'CLEAR_INFO_DATA',
            key:'DEPOSIT_BUY'
       })
+  },
+  clearDataInfo(){
+    dispatch({
+      type:'CLEAR_INFO_DATA',
+      key:'AVAILABLE_COUPONS'
+    })
   }
 })
 

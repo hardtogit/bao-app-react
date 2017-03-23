@@ -41,8 +41,8 @@ class DirectInvestCell extends React.Component{
             id,
             is_assign,//是否是约标
             is_overdue,//是否已过投标期限
+            term
         } = this.props.data
-
         // const is_assign = true;
 
         if (is_login) {
@@ -68,7 +68,7 @@ class DirectInvestCell extends React.Component{
                     })
                 }else{
                     //推送到购买页面
-                    this.props.isAuth.Verification(`/directBuy/${id}`,this.props.isAuthPush);
+                    this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush);
                 }
             }
         }else{

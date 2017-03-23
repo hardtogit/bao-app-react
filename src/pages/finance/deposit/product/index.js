@@ -171,7 +171,7 @@ class ProductDetail extends React.Component {
       </div>)
   }
   purchase=(id,push)=>{
-      this.refs.isAuth.Verification('deposit-buy/'+id,push)
+      this.refs.isAuth.Verification('/deposit-buy/'+id,push)
   }
   render() {
     const {
