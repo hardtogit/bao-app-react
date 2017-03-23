@@ -44,20 +44,20 @@ import {connect} from 'react-redux'
 
                 {
                     listData&&listData.map((item,i)=>{
-                        const {name,status,amount,profit_expire,profit_arrival,
-                            profit_accumulate,surplus_days,periods}=item;
+                        const {name,status,profit_expire,profit_arrival,
+                            profit_accumulate,surplus_days,periods,id,hold_money}=item;
                         let Dom;
                         if (status=='竞标中'){
                             Dom=<p className={styles.competitive}>{status}</p>
                         }else{
                             Dom=<p className={styles.surplus}>剩余{surplus_days}天</p>
                         }
-                        return(<ul key={i} className={styles.listBoxOne}>
+                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
 							<li>
 								<img src={listicon1}/>{name}
                                 {Dom}
 							</li>
-							<li>持有金额<p>{Util.padMoney(amount)}</p></li>
+							<li>持有金额<p>{Util.padMoney(hold_money)}</p></li>
 							<li>到期收益<p>{Util.padMoney(profit_expire)}</p></li>
 							<li>已到账收益({Util.padMoney(periods)})<p>{Util.padMoney(profit_arrival)}</p></li>
 							<li>累计收益<p>{Util.padMoney(profit_accumulate)}</p></li>
@@ -68,6 +68,13 @@ import {connect} from 'react-redux'
 			</Scroll>
 		</div>)
 	}
+     goDetail=(id)=>{
+         const {
+             push
+         }=this.props;
+         //跳转
+         push('/user/zqPropertyDetail/'+id);
+     }
 	go=()=>{
         const {
             goBuy,

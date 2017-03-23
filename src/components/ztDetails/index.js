@@ -73,7 +73,7 @@ class Index extends React.Component {
         return(<div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id)}}>
                 <h2>{name}</h2>
-                <p><span>{term}个月</span><span>约定年化收益率{rate}%</span></p>
+                <p><span>{term}个月</span><span>约定年化收益率{rate}</span></p>
                 <img src={arrowRight}/>
             </div>
             <div className={styles.listBoxTwo}>
