@@ -1,5 +1,5 @@
 import React from 'react'
-import { push, goBack } from 'react-router-redux'
+import { goBack } from 'react-router-redux'
 import styles from './index.styl'
 import NavBar from '../../../components/NavBar'
 import wrap from '../../../utils/pageWrapper'

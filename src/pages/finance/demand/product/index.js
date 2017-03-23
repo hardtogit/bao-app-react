@@ -88,7 +88,7 @@ class ProductDetail extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     rate: state.infodata.getIn([RATE, 'data']),
     detail: state.infodata.getIn([DEMAND_DETAIL, 'data']),

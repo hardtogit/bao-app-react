@@ -6,7 +6,6 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import NavBar from '../../../../components/NavBar'
 import styles from '../../deposit/investSuccess/index.styl'
 import TimeLine from '../../../../components/TimeLine'
-import Utils from '../../../../utils/utils.js'
 
 class InvestSuccess extends React.Component {
   constructor(props) {

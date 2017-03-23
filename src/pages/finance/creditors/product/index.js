@@ -150,10 +150,6 @@ class CreditorDetails extends React.Component{
   render(){
     let {
       data,
-      pending,
-      params: {
-        id,
-      }
     } = this.props;
 
     const selectID =this.state.selectID
@@ -233,7 +229,7 @@ class CreditorDetails extends React.Component{
     )
   }
 }
-const mapStateToProps = (state,ownProps)=>{
+const mapStateToProps = (state)=>{
     return{
       pending:state.infodata.getIn([actionTypes.FETCH_CREDITORS_DETAIL_DATA,'pending']),
       data:state.infodata.getIn([actionTypes.FETCH_CREDITORS_DETAIL_DATA,'data']) && state.infodata.getIn([actionTypes.FETCH_CREDITORS_DETAIL_DATA,'data']).data,

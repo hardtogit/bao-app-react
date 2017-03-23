@@ -6,7 +6,6 @@ import safeplan from '../../../../assets/images/safeplan.png'
 import arrowwhite from '../../../../assets/images/arrowwhite.png'
 import  { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import {padMoney} from '../../../../utils/utils'
 import {Motion, spring, presets} from 'react-motion'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 

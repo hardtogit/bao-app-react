@@ -83,21 +83,16 @@ class DirectInvestCell extends React.Component{
             type,//标类型
             activity,//活动名称
             rate,
-            id,
             left_quantity,//剩余份数
             total_quantity,
             term:month,
             status,//4 还款中 3复审中
             date,//开始时间
-            is_assign,//是否是约标
-            is_overdue,//是否已过投标期限
         } = this.props.data
         const nowDate =Date.parse(new Date()); //当前时间戳
         const beginDate=Date.parse(new Date(date)); //格式时间戳
         const percent=((1-left_quantity/total_quantity)*100).toFixed(0);
         const{
-            pageEnd,
-            goBack,
             onClick,
         } = this.props
         // const activity = 'haha'

@@ -229,13 +229,6 @@ class DirectBuy extends React.Component {
       const unavailableVouchers = vouchers.filter(this.voucherIsNotAvailable).map(voucher => {
         return Object.assign({}, voucher, { status: 'unavailable' })
       })
-
-      vouchers = availableVouchers.concat(unavailableVouchers)
-
-      const interestRates = this.state.interestRates.sort((a, b) => {
-        return Number(b.rate) - Number(a.rate)
-      })
-
       const card = this.props.useCoupon ? (
         <div>
           <div>{ couponText }</div>

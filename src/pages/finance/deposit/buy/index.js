@@ -251,27 +251,9 @@ class DepositBuy extends React.Component {
     }
 
     let coupon = this.getCoupon()
-    const {params,rates,new_deposit}=this.props;
     if (! coupon || this.state.quantity < 1) {
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
-      const availableVouchers = vouchers.filter(this.voucherIsAvailable)
-
-      const unavailableVouchers = vouchers.filter(this.voucherIsNotAvailable).map(voucher => {
-        return Object.assign({}, voucher, { status: 'unavailable' })
-      })
-
-      vouchers = availableVouchers.concat(unavailableVouchers)
-
-      const interestRates = this.state.interestRates.sort((a, b) => {
-        return Number(b.rate) - Number(a.rate)
-      })
-      let String='';
-      if (params.id==5){
-         String=new_deposit.month;
-      }else {
-        String=this.getCurrentMonth().month;
-      }
       return (
         <div 
           className={styles.discountBarTouch}

@@ -2,7 +2,7 @@ import React from 'react'
 import NavBar from '../../../../components/NavBar'
 import styles from './index.less'
 import {connect} from 'react-redux'
-import {goBack, push} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 
 class CProductContract extends React.Component{
   render() {

@@ -52,7 +52,7 @@ class DemandRedeem extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     myDemand: state.infodata.getIn([actionTypes.DEMAND_ACCOUNT_DETAIL, 'data']) && state.infodata.getIn([actionTypes.DEMAND_ACCOUNT_DETAIL, 'data']).data || {}
   }

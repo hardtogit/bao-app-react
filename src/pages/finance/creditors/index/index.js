@@ -51,15 +51,10 @@ class CreditorCell extends React.Component{
       type,//标类型
       activity,//活动名称
       rate,
-      id,
       left_quantity,//剩余份数
-      total_quantity,
       term:month,
-      is_overdue,//是否已过投标期限
     } = this.props.data
     const{
-      pageEnd,
-      goBack,
       onClick,
     } = this.props
     return(

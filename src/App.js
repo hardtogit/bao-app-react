@@ -37,14 +37,12 @@ import ChangePayPwd from './pages/user/changePayPwd/index'
 import PayWeb from './pages/finance/payWeb'
 
 
-import DepositIndex from './pages/finance/deposit/index'
 import DepositProduct from './pages/finance/deposit/product'
 import DepositBuy from './pages/finance/deposit/buy'
 import Agreement  from './pages/finance/deposit/agreement'
 import DepositInvestSuccess from './pages/finance/deposit/investSuccess'
 
 import CheckPhone from './pages/user/checkPhone/';
-import SetPayPwd from './pages/user/setPayPwd/';
 import ChangeLoginPwd from './pages/user/changeLoginPwd/';
 import ChangeUserName from './pages/user/changeUserName/';
 import projectRecorde from './pages/my/assetStatistics/directInvest/projectRecords/index'
@@ -115,12 +113,9 @@ import findMessage from './pages/find/messages/index' //消息
 import messageDetail from './pages/find/messageDetail/index' //消息详情
 import announceMent from './pages/find/announcement/index' //公告
 import Invite from './pages/find/invite/index'
-//测试
-import Tabs from './components/Tabs'
 
 // 我的模块
 import UserHome from './pages/my/home/index';/*账户中心*/
-import MembershipPrivileges from './pages/my/setting/membershipPrivileges'
 import Setting from './pages/my/setting/index'
 import UserNameModify from './pages/my/setting/usernameModify'
 import SecurityCenter from './pages/my/setting/securityCenter'

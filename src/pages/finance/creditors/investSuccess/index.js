@@ -49,13 +49,13 @@ class InvestSuccess extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     creditorsData: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'data'])
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   push(path) {
     dispatch(push(path))
   },
