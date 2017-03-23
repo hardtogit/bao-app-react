@@ -4,7 +4,7 @@
 import React from 'react' //兑换失败
 import NavBar from '../../../../components/NavBar/'
 import { connect } from 'react-redux'
-import { push, goBack } from 'react-router-redux'
+import { push} from 'react-router-redux'
 import BaseButton from '../../../../components/BaseButton/index'
 import wrap from '../../../../utils/pageWrapper'
 import styles from './index.css'

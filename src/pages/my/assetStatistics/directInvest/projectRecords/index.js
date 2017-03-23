@@ -7,7 +7,6 @@ import Scroll from '../../../../../components/scroll/index'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
 
-import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 
 
 

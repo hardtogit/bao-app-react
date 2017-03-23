@@ -8,7 +8,6 @@ import Box from  "../../../../components/ContentBox/index"
 import styles from './index.css'
 import img1 from  "../../../../assets/images/safe1.png";
 import img2 from  "../../../../assets/images/safe2.png";
-import bank from  "../../../../assets/images/bank-logos/1bj.png"
 import * as actionTypes from '../../../../actions/actionTypes'
 class Index extends React.Component {
     constructor(props) {
@@ -65,13 +64,13 @@ const cardModel=(data)=>{
         return false;
     }
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         CardInfo:cardModel(state.infodata.getIn([actionTypes.SAFE_CARD_INFO, 'data']))
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     bankInfo(){
         dispatch({
             type: actionTypes.SAFE_CARD_INFO

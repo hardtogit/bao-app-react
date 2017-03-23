@@ -152,7 +152,7 @@ class TradePasswordModify extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
     pending: state.infodata.getIn([TRADE_PASSWORD_MODIFY, 'pending']),

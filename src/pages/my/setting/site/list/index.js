@@ -9,7 +9,6 @@ import Confirm from '../../../../../components/Dialog/confirm';
 import {Link} from "react-router";
 import style from './index.css'
 import classnames from 'classnames';
-import arrow from '../../../../../assets/images/arrow2.png';
 import nullIcon from '../../../../../assets/images/record.png';
 let delId = 0;
 class Index extends React.Component {
@@ -157,7 +156,7 @@ const delModel = (data)=>{
             status:false
         };
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		address:siteModel(state.infodata.getIn(['SITE_LIST','data'])),
         set:state.infodata.getIn(['SITE_SET_DEFAULT','data']),
@@ -165,7 +164,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
 	getAddress(){
 		dispatch({
 			type:"SITE_LIST"

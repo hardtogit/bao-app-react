@@ -1,13 +1,11 @@
 import React from 'react'
 import NavBar from '../../../../components/NavBar/'
 import styles from './index.css'
-import Record from '../../../../components/record/index'
 import {Link} from 'react-router';
 import { connect } from 'react-redux'
 import classNames from "classnames/index"
-import { push, goBack } from 'react-router-redux'
+import {goBack } from 'react-router-redux'
 import Scroll from '../../../../components/scroll/index'
-import noneRecord from '../../../../assets/images/my-index/nojilu_03.png' // 没有记录
 import utils from '../../../../utils/utils'
 import wrap from '../../../../utils/pageWrapper'
 class Index extends React.Component {
@@ -88,7 +86,7 @@ const infoModel = (data)=>{
         }
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		listData:state.listdata.getIn(['BONUS_LOG','data']),
 		pending:state.listdata.getIn(['BONUS_LOG','pending']),
@@ -96,7 +94,7 @@ const mapStateToProps = (state, ownProps) => {
         bonusInfo:infoModel(state.infodata.getIn(['BONUS_INFO','data']))
 	}
 };
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
 	goBack() {
 		dispatch(goBack())
 	},

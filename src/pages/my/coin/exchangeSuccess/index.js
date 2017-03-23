@@ -4,9 +4,8 @@
 import React from 'react' //兑换成功
 import NavBar from '../../../../components/NavBar/'
 import { connect } from 'react-redux'
-import { push, goBack } from 'react-router-redux'
+import { push } from 'react-router-redux'
 import styles from './index.css'
-import wrap from '../../../../utils/pageWrapper'
 import BaseButton from '../../../../components/BaseButton/index'
 import success from '../../../../assets/images/shopp-center/success.png'
 class Index extends React.Component{

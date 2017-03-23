@@ -1,12 +1,12 @@
 import React from 'react'
 import NavBar from '../../../../components/NavBar/index'
 import Box from '../../../../components/ContentBox/index'
-import {push, goBack} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 import {connect} from 'react-redux';
 import styles from './index.css'
 import Item from "../../../../components/List/index";
 import rightPoint from  '../../../../assets/images/arrow2.png';
-import downPoint from  "../../../../assets/images/chooseproduct.png";
+
 let item = [
     {
         name:"微信公众号",

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import NavBar from '../../../../components/NavBar/';
 import {connect} from 'react-redux';
-import {push, goBack} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 import Box from '../../../../components/ContentBox/index';
 class Index extends React.Component{
 	constructor(props){

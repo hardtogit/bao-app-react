@@ -1,7 +1,7 @@
 import React from 'react' //点币记录
 import NavBar from '../../../../components/NavBar/'
 import { connect } from 'react-redux'
-import { push, goBack } from 'react-router-redux'
+import {goBack } from 'react-router-redux'
 import Scroll from '../../../../components/scroll/index'
 import classs from '../coinShop/index.less'
 import wrap from '../../../../utils/pageWrapper'
@@ -57,14 +57,14 @@ class Index extends React.Component {
 		)
 	}
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         listData:state.listdata.getIn(['COIN_LOG','data']),
         pending:state.listdata.getIn(['COIN_LOG','pending']),
         end:state.listdata.getIn(['COIN_LOG','pageEnd'])
     }
 };
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
 	goBack() {
 		dispatch(goBack())
 	},

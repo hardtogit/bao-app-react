@@ -1,7 +1,6 @@
 import React from 'react' //收货地址首页
 import { connect } from 'react-redux'
 import {push, goBack} from 'react-router-redux'
-import Tappable from 'react-tappable';
 import Tipbar from '../../../../../components/Tipbar/index'
 import NavBar from '../../../../../components/NavBar/index';
 import Box from '../../../../../components/ContentBox/index';
@@ -376,14 +375,14 @@ const infoModel = (data)=>{
         return false;
     }
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         info:infoModel(state.infodata.getIn(['AUTO_BUY_INFO','data'])),
         setInfo:state.infodata.getIn(['AUTO_BUY','data'])
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     getInfo(){
         dispatch({
             type:"AUTO_BUY_INFO"

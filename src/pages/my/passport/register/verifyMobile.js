@@ -5,7 +5,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { push, goBack } from 'react-router-redux'
 import BaseInput from '../../../../components/BaseInput'
-import BaseText from '../../../../components/BaseText'
 import Button        from '../../../../components/BaseButton'
 import NavBar from '../../../../components/NavBar'
 import ValidateForm  from '../../../../components/BaseValidateForm'
@@ -85,9 +84,6 @@ class RegisterVerifyMobile extends React.Component {
     goVerifyCode(mobile)
   }
   Dom(){
-    const {
-        mobile
-    }=this.props;
     return(<div>
       <div className={commonStyles.content}>
         <span className={commonStyles.markTitle}>验证码已发送，请填写</span>
@@ -143,7 +139,7 @@ class RegisterVerifyMobile extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const my = state.infodata
   return {
     mobile:my.getIn(['REGISTER_NUM','mobile']),
@@ -151,7 +147,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   savenum(code){
     dispatch({
       type:actionTypes.REGISTER_NUM,

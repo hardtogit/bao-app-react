@@ -7,7 +7,6 @@ import Iconfrend from '../../../assets/images/licaiicon.png'
 import Tab from "../../../components/BottomTabs";
 import styles from './index.css'
 import classNames from 'classnames'
-import {push} from 'react-router-redux'
 import Loading from '../../../components/pageLoading'
 class findHome extends Component{
     componentDidMount(){

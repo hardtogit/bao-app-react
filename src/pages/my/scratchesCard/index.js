@@ -5,7 +5,6 @@ import styles from './index.css'
 import cs from 'classnames';
 import bgImg from "../../../assets/images/scratchebg.jpg";
 import gua from "../../../assets/images/gua.png";
-import scratchecard_cry from "../../../assets/images/scratchecard_cry.png";
 import {connect} from 'react-redux'
 import * as actionTypes from '../../../actions/actionTypes'
 import { Link} from 'react-router';
@@ -212,14 +211,14 @@ const detailModel = (data)=>{
  * 当前使用的刮刮卡 数据model
  * @param data
  */
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         cardInfo:detailModel(state.infodata.getIn([actionTypes.SCRATCHES_CARD_INFO, 'data'])),
         userCard:state.infodata.getIn([actionTypes.SCRATCHES_CARD_USE, 'data'])
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     detail(){
         dispatch({
             type: actionTypes.SCRATCHES_CARD_INFO

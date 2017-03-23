@@ -92,7 +92,7 @@ class Index extends React.Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         listData:state.listdata.getIn(['FETCH_MONEY_LOG','data']),
         pending:state.listdata.getIn(['FETCH_MONEY_LOG','pending']),
@@ -100,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     getList(type){
         dispatch({
             type:'FETCH_MONEY_LOG',

@@ -7,8 +7,6 @@ import Loading from '../../../../../components/pageLoading'
 import {Link} from 'react-router'
 import {goBack,push} from 'react-router-redux'
 import wrap from '../../../../../utils/pageWrapper'
-import managebag from '../../../../../assets/images/my-index/managebag.png' //背景图片
-import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import rateup from '../../../../../assets/images/my-index/rateup.png' //提升收益
 
 
@@ -90,11 +88,11 @@ import rateup from '../../../../../assets/images/my-index/rateup.png' //提升�
 		)
 	}
 }
-const MyDemandIndexinit=(state,own)=>({
+const MyDemandIndexinit=(state)=>({
 	  datas:state.infodata.getIn(['DEMAND_ACCOUNT_DETAIL','data']),
 	  rates:state.infodata.getIn(['RATE','data'])
 });
-const MyDemandIndexinitfn=(dispath,own)=>({
+const MyDemandIndexinitfn=(dispath)=>({
     load(){
         dispath({
             type:'DEMAND_ACCOUNT_DETAIL'

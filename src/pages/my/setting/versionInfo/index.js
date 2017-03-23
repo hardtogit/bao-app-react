@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../../../../components/NavBar/index'
 import styles from './index.css'
-import {push, goBack} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 import {connect} from 'react-redux';
 import Box from "../../../../components/ContentBox/index"
 import img1 from  "../../../../assets/images/about1.png";

@@ -120,7 +120,7 @@ class FindpasswordSetPassword extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
        data:state.infodata.getIn(['FOR_GET_PWD','data']),
        code:state.infodata.getIn(['FIND_PWD_SET','data'])&&state.infodata.getIn(['FIND_PWD_SET','data']).code||false,
@@ -128,7 +128,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
       send(data){
            dispatch({
              type:actionTypes.FIND_PWD_SET,

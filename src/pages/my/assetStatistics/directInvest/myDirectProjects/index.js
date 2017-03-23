@@ -11,7 +11,6 @@ import {goBack,push} from 'react-router-redux'
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import zhitouicon from '../../../../../assets/images/my-index/zhitouicon1.png' //提升收益
 import wrap from '../../../../../utils/pageWrapper'
-import classNames from 'classnames'
 
 class Index extends React.Component {
 	constructor(props) {

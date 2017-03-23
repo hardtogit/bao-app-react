@@ -7,7 +7,7 @@ import juan from '../../../../assets/images/juan.png'
 import {Link} from 'react-router'
 import Alert from '../../../../components/Dialog/alert'
 import {connect} from 'react-redux'
-import {goBack,push} from 'react-router-redux'
+import {push} from 'react-router-redux'
 
 class Index extends Component{
     componentDidMount(){

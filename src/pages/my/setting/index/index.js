@@ -173,7 +173,7 @@ const siteModel=(data)=>{
         }
     }
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		user:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
 		code:state.infodata.getIn(['LOGIN_OUT','data'])&&state.infodata.getIn(['LOGIN_OUT','data']).code||false,
@@ -181,7 +181,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
 	load(){
 		dispatch({
 			type:"USER_INFO_WITH_LOGIN"

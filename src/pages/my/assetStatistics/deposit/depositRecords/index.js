@@ -3,7 +3,6 @@ import NavBar from '../../../../../components/NavBar'
 import styles from './index.css'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
-import Loading from '../../../../../components/pageLoading/index'
 import Record from '../../../../user/common/record/index'
 import Scroll from '../../../../../components/scroll/index'
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
@@ -134,7 +133,7 @@ class Index extends React.Component {
 		)
 	}
 }
-const myDepositSummaryInit=(state,own)=>({
+const myDepositSummaryInit=(state)=>({
 	listData:state.listdata.getIn(['DEPOSIT_RECORD_RS','data']),
 	pending:state.listdata.getIn(['DEPOSIT_RECORD_RS','pending']),
 	end:state.listdata.getIn(['DEPOSIT_RECORD_RS','pageEnd']),
@@ -142,7 +141,7 @@ const myDepositSummaryInit=(state,own)=>({
     pendingB:state.listdata.getIn(['DEPOSIT_RECORD_HISTORY','pending']),
     endB:state.listdata.getIn(['DEPOSIT_RECORD_HISTORY','pageEnd'])
 });
-const myDepositSummaryInitfn=(dispath,own)=>({
+const myDepositSummaryInitfn=(dispath)=>({
 	getList(){
         dispath({
             type:'DEPOSIT_RECORD_RS',

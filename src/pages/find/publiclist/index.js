@@ -17,7 +17,7 @@ class Publiclist extends Component{
               {
                   
                   this.props.listData.map((item,i)=>{
-                      const {title,content,description,date,msgKey,id,type,is_read}=item
+                      const {title,content,date,type,is_read}=item
                       return(
                           <div className={style.massageList} key={i}>
                             <div className={style.massageOne}>

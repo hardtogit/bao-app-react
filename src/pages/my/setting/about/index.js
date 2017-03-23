@@ -1,5 +1,5 @@
 import React from 'react'
-import {push, goBack} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 import {connect} from 'react-redux';
 import NavBar from '../../../../components/NavBar/index'
 import styles from './index.css'

@@ -10,7 +10,6 @@ import Button        from '../../../../components/BaseButton'
 import NavBar from '../../../../components/NavBar'
 import ValidateForm  from '../../../../components/BaseValidateForm'
 import Tipbar from '../../../../components/Tipbar'
-import ConfirmDialog from '../../../../components/Dialog/confirm'
 import styles from './index.styl'
 import commonStyles from '../../../../css/common.styl'
 import util from '../../../../utils/utils.js'
@@ -170,7 +169,7 @@ class RegisterSetPassword extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const my = state.infodata
   return {
     mobile:my.getIn(['REGISTER_NUM','mobile']),
@@ -179,7 +178,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   goBack() {
     dispatch(goBack())
   },

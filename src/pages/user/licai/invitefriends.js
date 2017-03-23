@@ -6,7 +6,6 @@ import {Link} from 'react-router'
 import Box from '../../../components/ContentBox/index'
 import Util from '../../../utils/utils'
 import Loaders from '../../../customized_node_modules/halogen'
-import caishen from '../../../assets/images/my-index/yaoqing.jpg' //财神图片
 import count from '../../../assets/images/my-index/jisuan_03.png' //计算器
 import erwei from '../../../assets/images/my-index/erwei.png' //二维码
 import QQ from '../../../assets/images/my-index/QQ.png' //QQ空间

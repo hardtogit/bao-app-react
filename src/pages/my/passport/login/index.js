@@ -136,7 +136,7 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         pending: state.infodata.getIn([actionTypes.USER_LOGIN_FLOW, 'pending']),
         loginCode:state.infodata.getIn([actionTypes.USER_LOGIN_FLOW,'data']) && state.infodata.getIn([actionTypes.USER_LOGIN_FLOW,'data']).code || 0,
@@ -144,7 +144,7 @@ const mapStateToProps = (state, ownProps) => {
         loginOut:state.global.getIn([actionTypes.LOGIN_OUT_PATH])
     }
 };
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     doLogin(user) {
         dispatch({
             type:actionTypes.USER_LOGIN_FLOW,

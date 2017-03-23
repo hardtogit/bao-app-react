@@ -3,13 +3,11 @@
  */
 import React from 'react'
 import { connect } from 'react-redux'
-import cn from 'classnames'
 import BaseText from '../../../../components/BaseText'
 import NavBar from '../../../../components/NavBar/index'
 import Page from '../../../../components/Page'
 import commonStyles from '../../../../css/common.styl'
 import utils from '../../../../utils/utils.js'
-import {USER_INFO} from '../../../../actions/actionTypes'
 import {push, goBack} from 'react-router-redux'
 import Loading from '../../../../components/pageLoading'
 class SecurityCenter extends React.Component {

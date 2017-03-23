@@ -3,8 +3,6 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
 import Sign from '../../../components/Sign/index'
-import {push, goBack} from 'react-router-redux'
-
 
 import styles from './index.css'
 

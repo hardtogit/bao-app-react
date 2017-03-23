@@ -145,7 +145,7 @@ class Index extends React.Component {
         )
     }
 }
-const detailModel = (data,state)=>{
+const detailModel = (data)=>{
     if(data && data.code===100){
         for(let i in data.data){
             return data.data[i];
@@ -153,13 +153,13 @@ const detailModel = (data,state)=>{
     }
     return false;
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         info:detailModel(state.infodata.getIn([actionTypes.CALENDAR, 'data']),state)
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     detail(params){
         dispatch({
             type: actionTypes.CALENDAR,

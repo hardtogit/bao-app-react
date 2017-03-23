@@ -37,7 +37,7 @@ class Index extends React.Component {
             money:val,
             okCallback:()=>{this.send()} ,
             cancelCallback: () => {
-                //this.props.navigator.push({id: 'TradePasswordForget'})
+
             }
         })
     }
@@ -156,12 +156,12 @@ class Index extends React.Component {
         )
     }
 }
-const Rechargeinit=(state,own)=>({
+const Rechargeinit=(state)=>({
       cashData:state.infodata.getIn(['CASH','data']),
       withdraw:state.infodata.getIn(['WITHDRAW','data']),
      userinfo:state.infodata.getIn(['USER_INFO','data'])
 });
-const Rechargeinitfn=(dispath,own)=>({
+const Rechargeinitfn=(dispath)=>({
      pop(){
          dispath(goBack());
      },

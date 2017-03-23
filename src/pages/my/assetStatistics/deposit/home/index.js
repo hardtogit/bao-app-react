@@ -5,7 +5,6 @@ import Manage from '../../../../user/common/manage/index'
 import {connect} from 'react-redux'
 import Loading from '../../../../../components/pageLoading'
 import {Link} from 'react-router'
-import managebag from '../../../../../assets/images/my-index/managebag.png' //背景图片
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
 import dingicon from '../../../../../assets/images/my-index/dingicon.png' //列表时钟
 import Scroll from '../../../../../components/scroll/index'

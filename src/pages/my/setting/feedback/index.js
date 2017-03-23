@@ -115,11 +115,11 @@ class feedbackIndex extends Component{
             ) 
     }
 }
-const feedbackIndexInit=(state,own)=>({
+const feedbackIndexInit=(state)=>({
     pending:state.infodata.getIn(['FEED_BACK','pending']),
     code:state.infodata.getIn(['FEED_BACK','data'])&&state.infodata.getIn(['FEED_BACK','data']).code||false
 })
-const  feedbackIndexInitfn=(dispatch,own)=>({
+const  feedbackIndexInitfn=(dispatch)=>({
     send(data){
          dispatch({
              type:'FEED_BACK',

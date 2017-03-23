@@ -169,7 +169,7 @@ class VerifyMobile extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
     regCode:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data'])&&state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data']).code||'',
@@ -178,7 +178,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     load(){
       dispatch({
         type:'USER_INFO_WITH_LOGIN'

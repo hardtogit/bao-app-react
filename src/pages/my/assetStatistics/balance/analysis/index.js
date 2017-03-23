@@ -71,7 +71,7 @@ class Index extends React.Component {
         )
     }
 }
-const moneyModel =(data,ownProps)=>{
+const moneyModel =(data)=>{
     let money = {
         info:[
             {
@@ -133,13 +133,13 @@ const moneyModel =(data,ownProps)=>{
     }else
         return false;
 };
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         moneyInfo:moneyModel(state.infodata.getIn([actionTypes.MONEY_INFO, 'data']))
     }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     info(){
         dispatch({
             type: actionTypes.MONEY_INFO
