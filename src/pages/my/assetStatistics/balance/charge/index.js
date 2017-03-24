@@ -27,8 +27,12 @@ class Index extends React.Component {
 		}
 	}
 	componentDidMount() {
+        window.closeFn=this.closeFn();
 		this.props.load();
 	}
+    closeFn=()=>{
+        this.setState({payTop:'100%'})
+    }
 	componentWillUnmount() {
 		this.props.clearData();
 	}
@@ -137,7 +141,7 @@ class Index extends React.Component {
 	}
 	pay=()=>{
     	return(<div className={styles.rechargeBox} style={{top:this.state.payTop}}>
-			<Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+			<Pay url={this.state.url} closeFn={this.closeFn}/>
 		</div>)
 	}
     rechargeFn=()=>{

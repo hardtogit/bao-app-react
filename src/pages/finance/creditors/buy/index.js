@@ -26,11 +26,11 @@ class CreditorBuy extends React.Component{
         payTop:'100%',
         url:''
     }
-
     this.creditorsId = this.props.params.id
   }
 
   componentDidMount() {
+    window.closeFn=this.closeFn();
     this.props.getCreditorDetail(this.creditorsId)
   }
 
@@ -101,6 +101,9 @@ class CreditorBuy extends React.Component{
             payTop:'0px'
         })
     }
+  closeFn=()=>{
+      this.setState({payTop:'100%'})
+  }
   render(){
     const detail = this.props.detail
     return(
@@ -168,7 +171,7 @@ class CreditorBuy extends React.Component{
         </div>
         </div>
         <div className={styles.zg} style={{top:this.state.payTop}}>
-          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+          <Pay url={this.state.url} closeFn={this.closeFn}/>
         </div>
       </div>
     )
