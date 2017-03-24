@@ -107,7 +107,7 @@ class Index extends React.Component {
     };
     checkButtonClickStatus=(count,balance,rate)=>{
         const rates=parseFloat(rate);
-       if (!/^[1-9]\d{0,1}$/.test(count)||!/^[0-9][1-9]$/.test(balance)||!(/^\d+(\.\d{1})?$/.test(rates) && rates<=this.state.maxRate && rates>=this.state.minRate)){
+       if (!/^[1-9]\d{0,1}$/.test(count)||!/^[0-9]*[1-9][0-9]*$/.test(balance)||!(/^\d+(\.\d{1})?$/.test(rates) && rates<=this.state.maxRate && rates>=this.state.minRate)){
            this.setState({
                buttonClickStatus:false
            })
@@ -233,8 +233,8 @@ class Index extends React.Component {
     };
     timesBlur=(e)=>{
         var newCount = e.target.value;
-        if(!/^[0-9][1-9]$/.test(newCount)){
-            this.showTips("请输入1~99次投标次数！");
+        if(!/^[0-9]*[1-9][0-9]*$/.test(newCount)){
+            this.showTips("投标次数至少为一份！");
         }
         this.setState({
             balance:newCount

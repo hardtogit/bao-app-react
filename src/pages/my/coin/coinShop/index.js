@@ -75,6 +75,8 @@ class Index extends React.Component {
                                             <Link to={`/user/goodsDetail/${id}`}>
                                                 <img className={classs.products_img} src={cover} alt={name}/>
                                                 <p className={classs.name}>{name}</p>
+                                            </Link>
+                                            <Link to={`/user/trueExchangeConfirm/${id}`}>
                                                 <p className={classs.money}><img src={icon} /><span>{price}</span></p>
                                             </Link>
                                         </div>)

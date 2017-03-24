@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import arrowRight from '../../../../assets/images/arrow2.png'
 import styles from './index.css'
 import Loading from '../../../../components/pageLoading/index'
+import Alert from '../../../../components/Dialog/alert'
 import loadGif from '../../../../components/LoadingButton/images/default.gif'
 class Index extends React.Component{
     constructor(props){
@@ -108,6 +109,7 @@ class Index extends React.Component{
             <button className={styles.button} onClick={this.submit} disabled={flag}>
                 {!flag&&'确认兑换'||<span><img src={loadGif}/>兑换中</span>}
             </button>
+            <Alert ref="alert"/>
         </div>)
     }
     submit=()=>{
@@ -115,13 +117,30 @@ class Index extends React.Component{
             address:{
                 data
             },
-            infoData
+            infoData,
+            push
         }=this.props;
         const productData=infoData&&infoData.data||JSON.parse(sessionStorage.getItem("bao-product"));
-        this.setState({
-            flag:true
-        });
-        this.props.send(productData.id,data[0].id)
+        if (productData.count<=0){
+            this.refs.alert.show({
+                content:'对不起你兑换的物品数量不足!',
+                okText:'确定'
+            })
+        }else {
+           if (productData.tagId!=22&&data.length==0){
+               this.refs.alert.show({
+                   content:'请添加收货地址!',
+                   okText:'去添加',
+                   cancel:'取消',
+                   okCallback:()=>{push('/user/setting/siteAdd')}
+               })
+           }else {
+               this.setState({
+                   flag:true
+               });
+               this.props.send(productData.id,data[0].id)
+           }
+        }
     }
     hasAddress=()=>{
         const {

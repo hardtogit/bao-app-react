@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import * as actionTypes from '../../../actions/actionTypes'
 import { Link} from 'react-router';
 import {goBack} from 'react-router-redux';
+import cry from '../../../assets/images/cry.png'
 let  guaImg;
 class Index extends React.Component {
     constructor(props) {
@@ -174,7 +175,11 @@ class Index extends React.Component {
                             </div>}
                             <div className={styles.answer}>
                                 <h2>{cardResName}{cardResAmount}</h2>
-                                <button className={cs(cardInfo.newCards.length<=0?styles.show:"",styles.no_next)}>刮奖机会已用完</button>
+                                <div className={cs(cardInfo.newCards.length<=0?styles.show:"",styles.nullCard)}>
+                                    <img src={cry}/>
+                                    <h2 className={styles.noChoose}>没有刮奖机会</h2>
+                                    <p>每周五投资即可参与刮奖!</p>
+                                </div>
                                 <button onClick={this.useNext} className={cs(cardInfo.newCards.length>0?styles.show:"",styles.next)}>刮下一张</button>
                             </div>
                         </div>

@@ -15,6 +15,33 @@
   top: 0;
   z-index: 2;
 }
+.nullCard{
+  display: none;
+  width: 284px;
+  height: 142px;
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  background: url("../../../assets/images/gg_nochance.png") no-repeat;
+  background-size: 100% 100%;
+}
+.nullCard img{
+  display: block;
+  width: 45px;
+  margin: 20px auto;
+}
+.nullCard>.noChoose{
+  font-size: 25px;
+  color: #775d54;
+  text-align: center;
+  padding-top: 0px;
+}
+.nullCard p{
+  font-size: 13px;
+  color: #775d54;
+  text-align: center;
+  padding-top: 8px;
+}
 .box{
   top:0;
 }
