@@ -158,6 +158,7 @@ import privacy from './pages/my/passport/agreement/privacy'
 import service from './pages/my/passport/agreement/service'
 import zqTransfer from './pages/my/assetStatistics/directInvest/zqTransfer'
 import zqTransferRule from './pages/my/assetStatistics/directInvest/rule/zqTransferRule'
+import inviteSuccess from './pages/my/inviteSuccess/index'
 //意见反馈
 import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
@@ -297,6 +298,7 @@ export default class App extends React.Component {
                   <Route path="messagedetail" component={messageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
               /*已完成*/
+              <Route path='/invite/success' component={inviteSuccess}/>
               <Route path="login" component={Login}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
