@@ -27,6 +27,7 @@ class Index extends React.Component {
 		}
 	}
 	componentDidMount() {
+		console.log('fafafafa')
         window.closeFn=this.closeFn;
 		this.props.load();
 	}
