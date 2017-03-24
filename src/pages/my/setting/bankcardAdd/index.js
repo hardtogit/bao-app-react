@@ -246,7 +246,23 @@ class Index extends Component{
               bankName:''
           })
         }
-        this.reg(Val,code)
+        if (!this.props.user.data.isbindSecurityCard){
+            this.regNull(Val)
+        }else {
+            this.reg(Val,code)
+        }
+    }
+    regNull=(val)=>{
+        const  reg=/^(\d{16}|\d{19})$/;
+        if (reg.test(val)){
+            this.setState({
+                reg:true
+            })
+        }else {
+            this.setState({
+                reg:false
+            })
+        }
     }
     verification=(val)=>{
         const {bankList:{data}}=this.props;
@@ -370,6 +386,9 @@ class Index extends Component{
           }
       }
     }
+    componentWillUnmount(){
+        this.props.clearData();
+    }
     render(){
        const{
          user,
@@ -475,6 +494,12 @@ const bankcardAddInitfn=(dispath,own)=>({
     },
     pop(){
         dispath(goBack())
+    },
+    clearData(){
+        dispath({
+            type:'CLEAR_INFO_DATA',
+            key:'SEND_SEC_CARD'
+        })
     }
 })
 export default connect(bankcardAddInit,bankcardAddInitfn)(Index)

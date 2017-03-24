@@ -11,6 +11,7 @@ import Button from '../../../components/BaseButton'
 import PayProcess from '../payProcess.js'
 import Tipbar from '../../../components/Tipbar'
 import SelectCoupon from '../selectCoupon'
+import IsAuth from '../../../components/isAuth'
 class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
@@ -68,16 +69,18 @@ class DirectBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-    let coupon = this.state.useCoupon&&this.getCoupon()||null
-    // 调用支付流程
-    this.refs.payProcess.open({
-      id: this.directInvestId,
-      num: this.state.quantity,
-      couponId: coupon && coupon.id || '',
-      borrowPwd: this.borrowPwd
-    })
+      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
   }
-
+    successsFn=()=>{
+        let coupon = this.state.useCoupon&&this.getCoupon()||null
+        // 调用支付流程
+        this.refs.payProcess.open({
+            id: this.directInvestId,
+            num: this.state.quantity,
+            couponId: coupon && coupon.id || '',
+            borrowPwd: this.borrowPwd
+        })
+    }
   changeQuantity = (value) => {
     if (value<=0){
         this.refs.tipbar.open('购买份数必须为正整数!');
@@ -332,6 +335,7 @@ class DirectBuy extends React.Component {
           />
         </div>
         <Tipbar ref="tipbar"/>
+          <IsAuth ref="isAuth"/>
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}

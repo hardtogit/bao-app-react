@@ -13,6 +13,7 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import {Link} from 'react-router'
 import SelectCoupon from '../../selectCoupon'
+import IsAuth from '../../../../components/isAuth/index'
 
 class DepositBuy extends React.Component {
 
@@ -231,17 +232,20 @@ class DepositBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-      let coupon = this.state.useCoupon&&this.getCoupon()||null
-    const curMonth = this.getCurrentMonth()
-    // 调用支付流程
-    this.refs.payProcess.open({
-      productId: this.state.depositId,
-      quantity: this.state.quantity,
-      couponId: coupon && coupon.id || '',
-      month: curMonth && curMonth.month || ''
-    })
-  }
+      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
 
+  }
+   successsFn=()=>{
+       let coupon = this.state.useCoupon&&this.getCoupon()||null
+       const curMonth = this.getCurrentMonth()
+       // 调用支付流程
+       this.refs.payProcess.open({
+           productId: this.state.depositId,
+           quantity: this.state.quantity,
+           couponId: coupon && coupon.id || '',
+           month: curMonth && curMonth.month || ''
+       })
+   }
   renderDiscountBar = () => {
     // 还未加载完抵用券和加息券，渲染占位View
     if (this.state.couponsFetching) {
@@ -419,6 +423,7 @@ class DepositBuy extends React.Component {
           onClick={this.onValid}
           status={this.canPay() > 0 ? '' : 'disable'}/>
         <Tipbar ref='tipbar' />
+         <IsAuth ref="isAuth"/>
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
            <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}

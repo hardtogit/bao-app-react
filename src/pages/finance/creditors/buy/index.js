@@ -12,7 +12,7 @@ import Tipbar from '../../../../components/Tipbar'
 import PayProcess from '../../payProcess'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
-
+import IsAuth from '../../../../components/isAuth'
 class CreditorBuy extends React.Component{
   constructor(props) {
     super(props)
@@ -49,12 +49,14 @@ class CreditorBuy extends React.Component{
   }
 
   onValid = () => {
-    this.refs.payProcess.open({
-      id: this.creditorsId,
-      copies: this.state.copies
-    })
+      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
   }
-
+    successsFn=()=>{
+        this.refs.payProcess.open({
+            id: this.creditorsId,
+            copies: this.state.copies
+        })
+     }
   canPay = () => {
     // if (utils.isPlainObject(this.props.detail)) return false
     return this.state.copies <= (this.props.detail.left_quantity || 0)&&this.state.copies>0 ? true : false
@@ -144,6 +146,7 @@ class CreditorBuy extends React.Component{
             onClick={this.onValid}
             status={this.canPay() > 0 ? '' : 'disable'}/>
           <Tipbar ref="tipbar"/>
+          <IsAuth ref="isAuth"/>
         </div>
       </div>
     )
