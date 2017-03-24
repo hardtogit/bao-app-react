@@ -255,38 +255,37 @@ class PayProcess extends React.Component {
       return go('/BankcardAdd', {redirectTo: 'PayWeb', data, type})
     }
 
-    // 京东 或 连连支付
-    this.refs.confirm.show({
-      content: '确定支付已完成?',
-      okText: '已完成',
-      cancelText: '取消',
-      okCallback: (close) => {
-        if (type == 'demand') {
-          navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDemand'}])
-        } else if ( type == 'deposit' ) {
-          navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'DepositHome'}])
-        } else if ( type == 'directInvest' ) {
-          navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDirectProjects'}])
-        } else if ( type == 'creditors' ) {
-          navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyCreditorTransfer'}])
-        } else if ( type == 'balance' ) {
-          navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyBalance'}])
-        }
-      }
-    })
-    if (type == 'demand') {
-      return go(util.combineUrl(`/pay/${this.props.inputValue}`,{type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
-    } else if (type == 'deposit') {
-      console.log(data)
-      console.log(data.quantity,data.couponId)
-        return go(util.combineUrl(`/pay/deposit`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
-    } else if (type == 'creditors') {
-      return go(util.combineUrl(`/pay/${data.id}`,{wap:'creditors',copies:data.copies,payPass:data.payPass&&data.payPass||'',type:2}))
-    } else if (type == 'directInvest') {
-        return go(util.combineUrl(`/pay/${data.id}`,{wap:'directInvest',type:2,num:data.num,borrowPwd:data.borrowPwd&&data.borrowPwd||'',payPwd:'',couponId:data.couponId}))
-    } else if (type == 'balance') {
-
-    }
+    // // 京东 或 连连支付
+    // this.refs.confirm.show({
+    //   content: '确定支付已完成?',
+    //   okText: '已完成',
+    //   cancelText: '取消',
+    //   okCallback: (close) => {
+    //     if (type == 'demand') {
+    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDemand'}])
+    //     } else if ( type == 'deposit' ) {
+    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'DepositHome'}])
+    //     } else if ( type == 'directInvest' ) {
+    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDirectProjects'}])
+    //     } else if ( type == 'creditors' ) {
+    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyCreditorTransfer'}])
+    //     } else if ( type == 'balance' ) {
+    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyBalance'}])
+    //     }
+    //   }
+    // })
+    // if (type == 'demand') {
+    //   return go(util.combineUrl(`/pay/${this.props.inputValue}`,{type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
+    // } else if (type == 'deposit') {
+    //     return go(util.combineUrl(`/pay/deposit`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
+    // } else if (type == 'creditors') {
+    //   return go(util.combineUrl(`/pay/${data.id}`,{wap:'creditors',copies:data.copies,payPass:data.payPass&&data.payPass||'',type:2}))
+    // } else if (type == 'directInvest') {
+    //     return go(util.combineUrl(`/pay/${data.id}`,{wap:'directInvest',type:2,num:data.num,borrowPwd:data.borrowPwd&&data.borrowPwd||'',payPwd:'',couponId:data.couponId}))
+    // } else if (type == 'balance') {
+    //
+    // }
+      this.props.overPay(this.props.inputValue,data);
   }
 
   // @params data 支付方式 1:京东支付  2:连连支付  3:余额支付

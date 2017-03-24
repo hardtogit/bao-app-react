@@ -308,7 +308,6 @@ export default class App extends React.Component {
               <Route path="findpasswordSetPassword" component={FindpasswordSetPassword}></Route>
               /*已完成*/
 
-            <Route path='pay/:id' component={Pay} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="BottomTabs" component={BottomTabs}></Route>
             <Route path="demand-Index" component={DemandIndex}></Route>

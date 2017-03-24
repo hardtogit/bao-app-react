@@ -12,6 +12,9 @@ import PayProcess from '../payProcess.js'
 import Tipbar from '../../../components/Tipbar'
 import SelectCoupon from '../selectCoupon'
 import IsAuth from '../../../components/isAuth'
+import Pay from '../../../pages/finance/pay/index'
+import util from '../../../utils/utils'
+const hostName=location.hostname;
 class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
@@ -24,7 +27,9 @@ class DirectBuy extends React.Component {
         top:'100%',
         choose:'',
         money:'',
-       useCoupon:true
+       useCoupon:true,
+        payTop:'100%',
+        url:''
     }
 
     this.directInvestId = this.props.params.id
@@ -183,7 +188,21 @@ class DirectBuy extends React.Component {
     }
     return utils.padMoney(this.state.unitPrice*this.state.quantity*detail.term*totalRate/12)
   }
-
+    overPay=(val,data)=>{
+        const{
+                id,
+                num,
+                couponId,
+                borrowPwd
+            }=data,
+            payPwd='',
+            type=2;
+        const url=util.combineUrl(`https://${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
+        this.setState({
+            url,
+            payTop:'0px'
+        })
+    }
   selectPayHandle = (payWay) => {
     this.setState({chosenPay: payWay})
   }
@@ -316,6 +335,7 @@ class DirectBuy extends React.Component {
             ref='payProcess' 
             type='directInvest'
             go={this.props.push}
+            overPay={this.overPay}
             user={this.props.user}
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.directInvestBuy}
@@ -341,6 +361,9 @@ class DirectBuy extends React.Component {
           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}
                         nullCoupon={this.nullCoupon}
                         useCoupon={this.useCoupon}/>
+        </div>
+        <div className={styles.zg} style={{top:this.state.payTop}}>
+          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
         </div>
       </div>
     )

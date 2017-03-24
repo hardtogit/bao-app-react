@@ -220,7 +220,6 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			)

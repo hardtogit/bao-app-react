@@ -14,7 +14,9 @@ import utils from '../../../../utils/utils'
 import {Link} from 'react-router'
 import SelectCoupon from '../../selectCoupon'
 import IsAuth from '../../../../components/isAuth/index'
-
+import Pay from '../../../../pages/finance/pay/index'
+import util from '../../../../utils/utils'
+const hostName=location.hostname;
 class DepositBuy extends React.Component {
 
   constructor(props) {
@@ -31,7 +33,9 @@ class DepositBuy extends React.Component {
       top:'100%',
       choose:'',
         money:'',
-        useCoupon:true
+        useCoupon:true,
+        payTop:'100%',
+        url:''
     }
   }
   componentWillMount(){
@@ -345,6 +349,20 @@ class DepositBuy extends React.Component {
             useCoupon:true
         })
     }
+    overPay=(val,data)=>{
+        const{
+            productId,
+            quantity,
+            couponId
+        }=data,
+        password='',
+        type=2;
+        const url=util.combineUrl(`https://${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+        this.setState({
+            url,
+            payTop:'0px'
+        })
+    }
   render() {
     const {
       params: { id },
@@ -406,6 +424,7 @@ class DepositBuy extends React.Component {
           ref='payProcess'
           type='deposit'
           go={this.props.push}
+          overPay={this.overPay}
           user={this.props.user}
           balance={+this.props.user.balance}
           onRequestBalancePay={this.depositBuy}
@@ -430,6 +449,9 @@ class DepositBuy extends React.Component {
                          nullCoupon={this.nullCoupon}
                          useCoupon={this.useCoupon}/>
         </div>
+          <div className={styles.zg} style={{top:this.state.payTop}}>
+             <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+          </div>
       </div>
     )
   }

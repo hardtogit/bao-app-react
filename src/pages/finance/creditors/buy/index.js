@@ -13,13 +13,18 @@ import PayProcess from '../../payProcess'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import IsAuth from '../../../../components/isAuth'
+import Pay from '../../../../pages/finance/pay/index'
+import util from '../../../../utils/utils'
+const hostName=location.hostname;
 class CreditorBuy extends React.Component{
   constructor(props) {
     super(props)
 
     this.state = {
       copies: 200,
-      chosenPay: ''
+      chosenPay: '',
+        payTop:'100%',
+        url:''
     }
 
     this.creditorsId = this.props.params.id
@@ -31,7 +36,6 @@ class CreditorBuy extends React.Component{
 
   componentWillReceiveProps(nextProps) {
     if (!utils.isPlainObject(nextProps.detail)) {
-      
       const copies = nextProps.detail.left_quantity ?
           nextProps.detail.left_quantity < this.state.copies ?
           nextProps.detail.left_quantity : this.state.copies : 1  
@@ -84,11 +88,24 @@ class CreditorBuy extends React.Component{
     let moneyOut = +this.state.copies * +detail.prepaid_interest //预付利息
     return utils.padMoney(moneyIn + moneyByCut - moneyOut)
   }
-
+    overPay=(val,data)=>{
+        const{
+                id,
+                copies
+            }=data,
+            payPass='',
+            type=2;
+        const url=util.combineUrl(`https://${hostName}/mobile_api/creditors/pay-bond/${id}`,{copies,payPass,type})
+        this.setState({
+            url,
+            payTop:'0px'
+        })
+    }
   render(){
     const detail = this.props.detail
     return(
       <div className={styles.root}>
+        <div className={styles.bg}>
         <NavBar title='购买支付' onLeft={()=>this.props.goBack()}></NavBar>
         <div style={{height:44}}></div>
         <div className={styles.scroll}>
@@ -130,6 +147,7 @@ class CreditorBuy extends React.Component{
             type='creditors'
             go={this.props.push}
             user={this.props.user}
+            overPay={this.overPay}
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.creditorBuy}
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
@@ -147,6 +165,10 @@ class CreditorBuy extends React.Component{
             status={this.canPay() > 0 ? '' : 'disable'}/>
           <Tipbar ref="tipbar"/>
           <IsAuth ref="isAuth"/>
+        </div>
+        </div>
+        <div className={styles.zg} style={{top:this.state.payTop}}>
+          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
         </div>
       </div>
     )

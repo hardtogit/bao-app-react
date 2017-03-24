@@ -19,7 +19,8 @@ class Index extends React.Component {
             index:0,
             fetch:false,
             cardResName:'',
-            cardResAmount:''
+            cardResAmount:'',
+            guaBtn:false
         }
     }
     componentWillMount=()=>{
@@ -52,11 +53,17 @@ class Index extends React.Component {
                     cardResName:name,
                     cardResAmount:amount,
                     fetch:false
+                });
+                this.setState({
+                    gua:true
                 })
             }else {
                 this.setState({
                     cardResName:'获取刮刮卡失败',
                     fetch:false
+                })
+                this.setState({
+                    gua:true
                 })
             }
         }
@@ -94,13 +101,21 @@ class Index extends React.Component {
             }
             //刮层剩余60%的时候清除浮层，显示奖品数据
             if(j<=w*h*0.6 && !fetch){
-                    this.props.useCard(this.props.cardInfo.newCards[this.state.index].id);
-                    this.setState({fetch:true})
-                this.setState({
-                    showCanvas:false,
-                    index:this.state.index+1
-                });
-                ctx.clearRect(0,0,w,h);
+                 const Len=this.props.cardInfo.newCards.length;
+                      this.props.useCard(this.props.cardInfo.newCards[this.state.index].id);
+                      this.setState({fetch:true})
+                      this.setState({
+                          showCanvas:false,
+                          index:this.state.index+1
+                      });
+                      if (Len<=parseInt(this.state.index+1)){
+                          this.setState({
+                              guaBtn:true
+                          })
+                      }else {
+                          ctx.clearRect(0,0,w,h);
+                      }
+
                 return true;
             }
             return false;
@@ -157,9 +172,15 @@ class Index extends React.Component {
     render() {
         const {
             cardResName,
-            cardResAmount
+            cardResAmount,
+            guaBtn,
+            index
         }=this.state;
         const {cardInfo} = this.props;
+        let num=cardInfo.newCards.length;
+        if (index!=0){
+            num=cardInfo.newCards.length-index;
+        }
         return (
             <div className={styles.bg}>
                 <NavBar backgroundColor="transparent"
@@ -180,13 +201,15 @@ class Index extends React.Component {
                                     <h2 className={styles.noChoose}>没有刮奖机会</h2>
                                     <p>每周五投资即可参与刮奖!</p>
                                 </div>
-                                <button onClick={this.useNext} className={cs(cardInfo.newCards.length>0?styles.show:"",styles.next)}>刮下一张</button>
+                                <button onClick={this.useNext} className={cs(cardInfo.newCards.length>0?styles.show:"",styles.next)}
+                                disabled={guaBtn}>刮下一张</button>
+
                             </div>
                         </div>
                         <div className={styles.gg_b}>
                             <p className={styles.gg_line}></p>
                             <p className={styles.gg_info}>
-                                    <span>您有{cardInfo.newCards.length}次刮奖机会</span>
+                                    <span>您有{num}次刮奖机会</span>
                                 <Link to="/user/guaguaList"><span>您已获得{cardInfo.rewardsTime}次奖励></span></Link></p>
                         </div>
                     </div>
@@ -230,7 +253,6 @@ const mapDispatchToProps = (dispatch) => ({
         })
     },
     useCard(id){
-        console.log('fafaf')
         dispatch({
             type: actionTypes.SCRATCHES_CARD_USE,
             params:[id]

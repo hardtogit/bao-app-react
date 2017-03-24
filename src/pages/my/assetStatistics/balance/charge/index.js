@@ -11,6 +11,9 @@ import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
 import IsAuth from '../../../../../components/isAuth'
+import Pay from '../../../../../pages/finance/pay/index'
+import util from '../../../../../utils/utils'
+const hostName=location.hostname;
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -19,6 +22,8 @@ class Index extends React.Component {
 			recMoney:'',
 			disabled:true,
 			submite:false,
+            payTop:'100%',
+			url:''
 		}
 	}
 	componentDidMount() {
@@ -30,15 +35,17 @@ class Index extends React.Component {
     componentWillReceiveProps(next){
 		 const {
              cookie,
-             push
 		 }=next;
 		 if (cookie){
              const {submite}=this.state;
+             const money=this.state.recMoney;
+             const type=2;
              if (submite&&cookie.code==100){
                  this.setState({
                      submite:false,
+                     payTop:'0px',
+                     url:util.combineUrl(`https://${hostName}/mobile_api/pay`,{money,type})
                  });
-                 push(`/pay/${this.state.recMoney}`)
              }else if (submite){
                  this.setState({
                      submite:false,
@@ -128,6 +135,11 @@ class Index extends React.Component {
 			<IsAuth ref="isAuth"/>
 		</div>)
 	}
+	pay=()=>{
+    	return(<div className={styles.rechargeBox} style={{top:this.state.payTop}}>
+			<Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+		</div>)
+	}
     rechargeFn=()=>{
     	this.refs.isAuth.isbindSecurityCard(this.hasCard,this.props.push,'/user/setting/securityCard')
 	}
@@ -164,6 +176,8 @@ class Index extends React.Component {
                     Dom
 				}{
                 this.recharge()
+			}{
+                this.pay()
 			}
 			</div>
 		)

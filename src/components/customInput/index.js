@@ -37,7 +37,6 @@ export default class BuyNumberInput extends React.Component {
     ]),   // 初始值
     containerStyle: React.PropTypes.object
   }
-
   decreaseHandle() {
     this.blur()
     if (this.state.value) {
