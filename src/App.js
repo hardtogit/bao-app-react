@@ -175,7 +175,7 @@ const store = createStore(reducer, applyMiddleware(
     sagaMiddleware,
     routerMiddleware(browserHistory)
 ))
-window.document.domain="devbao.cn";
+
 
 // 启动rootsaga
 sagaMiddleware.run(rootSaga)
