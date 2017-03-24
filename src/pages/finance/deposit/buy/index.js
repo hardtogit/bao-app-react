@@ -29,7 +29,8 @@ class DepositBuy extends React.Component {
       couponsFetching:true,
       top:'100%',
       choose:'',
-        money:''
+        money:'',
+        useCoupon:true
     }
   }
   componentWillMount(){
@@ -230,9 +231,8 @@ class DepositBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-    let coupon = this.state.useCoupon ? this.getCoupon() : null
+      let coupon = this.state.useCoupon&&this.getCoupon()||null
     const curMonth = this.getCurrentMonth()
-
     // 调用支付流程
     this.refs.payProcess.open({
       productId: this.state.depositId,
@@ -285,7 +285,7 @@ class DepositBuy extends React.Component {
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
-      const card = this.props.useCoupon ? (
+      const card = this.state.useCoupon&&this.props.useCoupon ? (
         <div>
           <div>{ couponText }</div>
         </div>
@@ -329,6 +329,18 @@ class DepositBuy extends React.Component {
         choose:amount
     })
   }
+    nullCoupon=()=>{
+        this.setState({
+            top:'100%',
+            useCoupon:false
+        })
+    }
+    useCoupon=()=>{
+        this.setState({
+            top:'100%',
+            useCoupon:true
+        })
+    }
   render() {
     const {
       params: { id },
@@ -409,7 +421,9 @@ class DepositBuy extends React.Component {
         <Tipbar ref='tipbar' />
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
-           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}/>
+           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}
+                         nullCoupon={this.nullCoupon}
+                         useCoupon={this.useCoupon}/>
         </div>
       </div>
     )

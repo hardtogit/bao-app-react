@@ -22,7 +22,8 @@ class DirectBuy extends React.Component {
       interestRates: [],
         top:'100%',
         choose:'',
-        money:''
+        money:'',
+       useCoupon:true
     }
 
     this.directInvestId = this.props.params.id
@@ -67,8 +68,7 @@ class DirectBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-    let coupon = this.state.useCoupon ? this.getCoupon() : null
-
+    let coupon = this.state.useCoupon&&this.getCoupon()||null
     // 调用支付流程
     this.refs.payProcess.open({
       id: this.directInvestId,
@@ -229,7 +229,7 @@ class DirectBuy extends React.Component {
       const unavailableVouchers = vouchers.filter(this.voucherIsNotAvailable).map(voucher => {
         return Object.assign({}, voucher, { status: 'unavailable' })
       })
-      const card = this.props.useCoupon ? (
+      const card = this.state.useCoupon&&this.props.useCoupon ? (
         <div>
           <div>{ couponText }</div>
         </div>
@@ -258,6 +258,18 @@ class DirectBuy extends React.Component {
     openDy=()=>{
         let money=this.getPayTotal(true);
         this.setState({top:'0px',money})
+    }
+    nullCoupon=()=>{
+        this.setState({
+            top:'100%',
+            useCoupon:false
+        })
+    }
+    useCoupon=()=>{
+        this.setState({
+            top:'100%',
+            useCoupon:true
+        })
     }
   render(){
     const detail = this.props.detail
@@ -322,7 +334,9 @@ class DirectBuy extends React.Component {
         <Tipbar ref="tipbar"/>
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
-          <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}/>
+          <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}
+                        nullCoupon={this.nullCoupon}
+                        useCoupon={this.useCoupon}/>
         </div>
       </div>
     )

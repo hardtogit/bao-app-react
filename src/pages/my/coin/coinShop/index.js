@@ -35,6 +35,11 @@ class Index extends React.Component {
 	componentDidMount() {
     }
 	componentWillUnmount() {}
+    componentWillReceiveProps(next){
+	    if (next.barData){
+
+        }
+    }
     doSign=()=>{
         this.refs.SignModel.show();
     };
@@ -70,8 +75,9 @@ class Index extends React.Component {
                         >
                                 {
                                     nlistData&&nlistData.map((item,i)=>{
-                                        const {id,name,cover,price}=item;
+                                        const {id,name,cover,price,count}=item;
                                         return(<div className={classs.productBox} key={i}>
+                                            {count==0&&<div className={classs.dhOver}></div>||null}
                                             <Link to={`/user/goodsDetail/${id}`}>
                                                 <img className={classs.products_img} src={cover} alt={name}/>
                                                 <p className={classs.name}>{name}</p>
@@ -102,7 +108,7 @@ class Index extends React.Component {
               <span  className={classs.sign} onClick={!this.state.isSign&&this.doSign}>{this.state.isSign&&'已签到'||'签到'}</span>
           </div>
           <div className={classs.items}>
-              <ul>
+              <ul ref="ul">
                   <li className={index==0&&classs.active||null} onClick={()=>{this.changeBar(0)}}>全部</li>
                   {
                       data&&data.map(({id,name},i)=>(

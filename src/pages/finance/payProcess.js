@@ -277,7 +277,9 @@ class PayProcess extends React.Component {
     if (type == 'demand') {
       return go(util.combineUrl(`/pay/${this.props.inputValue}`,{type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
     } else if (type == 'deposit') {
-        return go(util.combineUrl(`/pay/${this.props.inputValue}`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
+      console.log(data)
+      console.log(data.quantity,data.couponId)
+        return go(util.combineUrl(`/pay/deposit`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
     } else if (type == 'creditors') {
       return go(util.combineUrl(`/pay/${data.id}`,{wap:'creditors',copies:data.copies,payPass:data.payPass&&data.payPass||'',type:2}))
     } else if (type == 'directInvest') {

@@ -139,6 +139,7 @@ class SelectCoupon extends React.Component{
     this.props.setUseCoupons(this.state.selectedCoupon, true);
     this.props.useFn(this.state.selectedCoupon);
     this.props.click();
+    this.props.useCoupon();
   }
 
   unUseCouponHandle = () => {
@@ -146,7 +147,10 @@ class SelectCoupon extends React.Component{
     this.props.setUseCoupons('', false)
     this.props.goBack()
   }
- 
+  nullCoupon =()=>{
+     this.props.nullCoupon()
+      this.props.useFn(null);
+  }
   render(){
      const {click,money}=this.props;
     return(
@@ -176,7 +180,7 @@ class SelectCoupon extends React.Component{
 
         <div style={{height:50}}></div>
         <div className={styles.sure}>
-          <div onClick={this.unUseCouponHandle}>
+          <div onClick={this.nullCoupon}>
             <p>不使用优惠</p>
           </div>
           <div onClick={this.useCouponHandle}>

@@ -248,7 +248,7 @@ class Index extends React.Component {
             this.state.balance,
             this.state.start,
             this.state.end,
-            this.state.rate,
+            parseFloat(this.state.rate),
             this.state.repaymentType,
             this.state.bidType,
             id //this.state.open
