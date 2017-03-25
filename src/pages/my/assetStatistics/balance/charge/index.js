@@ -48,7 +48,7 @@ class Index extends React.Component {
                  this.setState({
                      submite:false,
                      payTop:'0px',
-                     url:util.combineUrl(`https://www.baidu.com/`)
+                     url:util.combineUrl(`http://${hostName}/mobile_api/pay`,{money,type})
                  });
              }else if (submite){
                  this.setState({
