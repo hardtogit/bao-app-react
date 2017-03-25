@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import LoadList from '../../../components/scroll/config'
 import nullImg from '../../../assets/images/record.png'
 import IsAuth from '../../../components/isAuth'
+import setUrl from '../../../components/setUrl'
 class Index extends Component{
     constructor(props){
         super(props)
@@ -280,7 +281,10 @@ class Index extends Component{
     }
     purchase=(id,push)=>{
         const {term}=this.props.infoData.data
-        this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push)
+        this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+    }
+    succsseFn=(url)=>{
+        setUrl.setUrl(url)
     }
     loadDom=()=>{
         return(<Load/>)

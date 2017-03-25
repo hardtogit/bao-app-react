@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import fivestar from '../../../../../assets/images/my-index/balance.png' //圆形五角星
 import Loading from '../../../../../components/pageLoading/'
 import {Link} from 'react-router'
-import {push,go} from 'react-router-redux'
+import {push,goBack} from 'react-router-redux'
 import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
@@ -163,7 +163,11 @@ class Index extends React.Component {
 	}
 	pop=()=>{
     	const time=this.refs.pay.getTime();
-    	this.props.pop(-time)
+        if (time!=1){
+        	this.props.push('/home/myIndex')
+		}else {
+        	this.props.pop()
+		}
 	}
 	render() {
 		const {
@@ -205,8 +209,8 @@ const Rechargeinitfn=(dispath,own)=>({
 			  type:"USER_INFO_WITH_LOGIN"
 		  })
 	   },
-	   pop(time){
-	   	dispath(go(time))
+	   pop(){
+	   	dispath(goBack())
 	   },
 	  submit(){
 	   	dispath({

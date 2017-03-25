@@ -7,14 +7,6 @@
 import React,{Component,PropTypes} from 'react';
 import NavBar from '../../../components/NavBar'
 import styles from './index.less'
-const hostName=location.hostname;
-`http://${hostName}/mobile_api/deposit/buy`
-const Urls={
-    deposit:`http://${hostName}/mobile_api/deposit/buy`,
-    pay:`http://${hostName}/mobile_api/pay?money=`,
-    directInvest:`http://${hostName}/mobile_api/directInvest/buy/`,
-    creditors:`http://${hostName}/mobile_api/creditors/pay-bond/`
-}
 class Index extends Component{
     constructor(props){
         super(props);

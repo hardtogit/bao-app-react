@@ -4,7 +4,7 @@
 import React,{Component} from 'react'
 import Alert from '../Dialog/alert'
 class Index extends Component{
-    Verification(url,push){
+    Verification(url,push,success,urlN){
         const baoAuth=this.publickFn();
         if (baoAuth){
             const bao=JSON.parse(sessionStorage.getItem("bao-user"));
@@ -17,7 +17,12 @@ class Index extends Component{
                     okCallback: () => {push('/user/setting/identityAuth')},
                 })
             }else {
-                push(url)
+                push(url);
+                if (urlN){
+                    success(urlN);
+                }else {
+                    success();
+                }
             }
         }else {
             push('/login')

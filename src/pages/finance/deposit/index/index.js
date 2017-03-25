@@ -10,6 +10,7 @@ import classnames from 'classnames'
 import moment from 'moment'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 import bx from '../../../../assets/images/safe-icon.png'
+import setUrl from '../../../../components/setUrl'
 class DepositIndex extends React.Component {
   state = {
       // 默认选中第二个定存期限
@@ -36,9 +37,11 @@ class DepositIndex extends React.Component {
   }
 
   buyHandle = () => {
-         this.refs.isAuth.Verification('/deposit-buy/' + this.props.rate[this.state.chosen].id,this.props.push);
+         this.refs.isAuth.Verification('/deposit-buy/' + this.props.rate[this.state.chosen].id,this.props.push,this.succsseFn);
   }
-
+  succsseFn=()=>{
+      setUrl.setUrl('/home/productIndex')
+  }
   render() {
     const {
       rate,
