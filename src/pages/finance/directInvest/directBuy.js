@@ -14,6 +14,7 @@ import SelectCoupon from '../selectCoupon'
 import IsAuth from '../../../components/isAuth'
 import Pay from '../../../pages/finance/pay/index'
 import util from '../../../utils/utils'
+import setUrl from '../../../components/setUrl'
 const hostName=location.hostname;
 class DirectBuy extends React.Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class DirectBuy extends React.Component {
   componentDidMount(){
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)
+    this.props.getUse(this.props.params.id)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -235,7 +237,6 @@ class DirectBuy extends React.Component {
       })
 
       vouchers = availableVouchers.concat(unavailableVouchers)
-
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
@@ -248,6 +249,7 @@ class DirectBuy extends React.Component {
         </div>
       )
     } else {
+        const {use}=this.props;
       const couponText = coupon.type === '抵用券' ? `抵用券抵扣${coupon.amount || ''}元` : `加息券加息${coupon.rate || ''}%`
 
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
@@ -257,6 +259,15 @@ class DirectBuy extends React.Component {
       const unavailableVouchers = vouchers.filter(this.voucherIsNotAvailable).map(voucher => {
         return Object.assign({}, voucher, { status: 'unavailable' })
       })
+      if (use){
+          if (use.code==100&&use.data.is){
+              return (<div
+                  className={styles.coupon}
+                 >
+                  <span>{use.data.name}</span>
+              </div>)
+          }
+      }
       const card = this.state.useCoupon&&this.props.useCoupon ? (
         <div>
           <div>{ couponText }</div>
@@ -304,13 +315,21 @@ class DirectBuy extends React.Component {
             select
         })
     }
+    pop=()=>{
+        const time=this.refs.pay.getTime();
+        if (time!=1){
+            this.props.push(setUrl.getUrl())
+        }else {
+            this.props.goBack()
+        }
+    }
   render(){
     const detail = this.props.detail
 
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar title='购买支付' onLeft={()=>this.props.goBack()}></NavBar>
+        <NavBar title='购买支付' onLeft={this.pop}></NavBar>
         <div style={{height:44}}></div>
         <div className={styles.scroll}>
           <div className={styles.infomation}>
@@ -375,7 +394,7 @@ class DirectBuy extends React.Component {
                         useCoupon={this.useCoupon}/>
         </div>
         <div className={styles.zg} style={{top:this.state.payTop}}>
-          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}} ref="pay"/>
         </div>
       </div>
     )
@@ -393,7 +412,8 @@ const mapStateToProps = (state,ownProps)=>{
       buyPending: state.infodata.getIn([actionTypes.DIRECTINVEST_BUY, 'pending']),
       buyData: state.infodata.getIn([actionTypes.DIRECTINVEST_BUY, 'data']),
       selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
-      useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon'])
+      useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
+      use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data'])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -407,6 +427,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     dispatch({
       type: actionTypes.AVAILABLE_COUPONS,
       params: ['直投',month]
+    })
+  },
+  getUse(id){
+    dispatch({
+        type: actionTypes.DIRECT_INVEST_COUPON,
+        params: [id]
     })
   },
   push(path){

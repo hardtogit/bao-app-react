@@ -258,5 +258,8 @@ export default {
     },
     [actionTypes.DIRECT_INVEST_TRANSFER]:{
         apiFn:Fetch.directInvestTransfer
+    },
+    [actionTypes.DIRECT_INVEST_COUPON]:{
+        apiFn:Fetch.directInvestCoupon
     }
 }

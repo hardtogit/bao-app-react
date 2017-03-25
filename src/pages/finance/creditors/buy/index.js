@@ -15,6 +15,7 @@ import utils from '../../../../utils/utils'
 import IsAuth from '../../../../components/isAuth'
 import Pay from '../../../../pages/finance/pay/index'
 import util from '../../../../utils/utils'
+import setUrl from '../../../../components/setUrl'
 const hostName=location.hostname;
 class CreditorBuy extends React.Component{
   constructor(props) {
@@ -115,12 +116,20 @@ class CreditorBuy extends React.Component{
             select
         })
     }
+    pop=()=>{
+        const time=this.refs.pay.getTime();
+        if (time!=1){
+            this.props.push(setUrl.getUrl())
+        }else {
+            this.props.goBack()
+        }
+    }
   render(){
     const detail = this.props.detail
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar title='购买支付' onLeft={()=>this.props.goBack()}></NavBar>
+        <NavBar title='购买支付' onLeft={this.pop}></NavBar>
         <div style={{height:44}}></div>
         <div className={styles.scroll}>
           <div className={styles.infomation}>
@@ -183,7 +192,7 @@ class CreditorBuy extends React.Component{
         </div>
         </div>
         <div className={styles.zg} style={{top:this.state.payTop}}>
-          <Pay url={this.state.url} closeFn={this.closeFn}/>
+          <Pay url={this.state.url} closeFn={this.closeFn} ref="pay"/>
         </div>
       </div>
     )

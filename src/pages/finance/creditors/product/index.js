@@ -13,6 +13,7 @@ import DepTime from '../../../../components/depTime'
 import arrow2 from '../../../../assets/images/arrow2.png'
 import Calculator from '../../../../components/Calculator'
 import IsAuth from '../../../../components/isAuth'
+import setUrl from '../../../../components/setUrl'
 class BorrowPeople extends React.Component{
   render(){
     const {data} =this.props
@@ -124,7 +125,7 @@ class CreditorDetails extends React.Component{
           }
       }=this.props;
       if (bao.isAuth!=3){
-          this.refs.isAuth.Verification(`/creditorBuy/${id}`,push)
+          this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
       }else {
           const is_login = true;
           const {
@@ -140,6 +141,7 @@ class CreditorDetails extends React.Component{
               }else{
                   //推送到购买页面
                   push(`/creditorBuy/${id}`)
+                  this.succsseFn(this.props.location.pathname)
               }
           }else{
               //跳转登录
@@ -147,6 +149,9 @@ class CreditorDetails extends React.Component{
           }
       }
   }
+    succsseFn=(url)=>{
+        setUrl.setUrl(url)
+    }
   render(){
     let {
       data,

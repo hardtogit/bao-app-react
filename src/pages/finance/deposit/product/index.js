@@ -15,6 +15,7 @@ import Loading from '../../../../components/pageLoading'
 import Header from '../../../../components/depositBanner'
 import DepTime from '../../../../components/depTime'
 import IsAuth from '../../../../components/isAuth'
+import setUrl from '../../../../components/setUrl'
 class ProductDetail extends React.Component {
 
   state = {
@@ -171,8 +172,12 @@ class ProductDetail extends React.Component {
       </div>)
   }
   purchase=(id,push)=>{
-      this.refs.isAuth.Verification('/deposit-buy/'+id,push)
+      console.log(this.props)
+      this.refs.isAuth.Verification('/deposit-buy/'+id,push,this.succsseFn,this.props.location.pathname)
   }
+  succsseFn=(url)=>{
+        setUrl.setUrl(url)
+    }
   render() {
     const {
         datas,

@@ -16,6 +16,7 @@ import SelectCoupon from '../../selectCoupon'
 import IsAuth from '../../../../components/isAuth/index'
 import Pay from '../../../../pages/finance/pay/index'
 import util from '../../../../utils/utils'
+import setUrl from '../../../../components/setUrl'
 const hostName=location.hostname;
 class DepositBuy extends React.Component {
 
@@ -390,6 +391,14 @@ class DepositBuy extends React.Component {
             select
         })
     }
+    pop=()=>{
+        const time=this.refs.pay.getTime();
+        if (time!=1){
+            this.props.push(setUrl.getUrl())
+        }else {
+            this.props.goBack();
+        }
+    }
   render() {
     const {
       params: { id },
@@ -412,7 +421,7 @@ class DepositBuy extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar onLeft={()=>{this.props.goBack()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
+        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
         <p className={styles.title}>购买产品：定存宝-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
@@ -478,7 +487,7 @@ class DepositBuy extends React.Component {
                          useCoupon={this.useCoupon}/>
         </div>
           <div className={styles.zg} style={{top:this.state.payTop}}>
-             <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}}/>
+             <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}} ref="pay"/>
           </div>
       </div>
     )
