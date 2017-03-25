@@ -35,7 +35,9 @@ class DepositBuy extends React.Component {
         money:'',
         useCoupon:true,
         payTop:'100%',
-        url:''
+        url:'',
+       sy:'',
+        select:1
     }
   }
   componentWillMount(){
@@ -102,7 +104,11 @@ class DepositBuy extends React.Component {
     this.props.clearDataInfo();
     }
   depositBuy = (password, money) => {
-    let coupon = this.props.useCoupon ? this.getCoupon() : null
+    let coupon = this.props.useCoupon ? this.getCoupon() : null;
+    const {useCoupon}=this.state;
+    if (!useCoupon){
+        coupon.id='';
+    }
     this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
   }
 
@@ -202,10 +208,18 @@ class DepositBuy extends React.Component {
 
   // 获取支付费用
   getPayTotal = (type) => {
-    const coupon = this.getCoupon()
+    const coupon = this.getCoupon();
+    const {useCoupon}=this.state;
       if (type){
           return this.state.quantity * this.state.unitPrice
+      }else if (type=='null'){
+          return this.state.quantity * this.state.unitPrice
       }
+  if (useCoupon&& coupon && coupon.type === '抵用券'){
+      return this.state.quantity * this.state.unitPrice - Number(coupon.amount)
+  }else {
+      return this.state.quantity * this.state.unitPrice
+  }
     if (this.props.useCoupon && coupon && coupon.type === '抵用券') {
       return this.state.quantity * this.state.unitPrice - Number(coupon.amount)
     } else {
@@ -216,9 +230,12 @@ class DepositBuy extends React.Component {
   // 计算预期收益
   expectIncome = () => {
     const detail = this.getCurrentMonth();
+    const {useCoupon}=this.state;
     if (!detail&&this.props.params.id!=5) return ''
-
     let totalRate = detail.rate / 100
+    if (!useCoupon){
+        return utils.padMoney(this.state.unitPrice*this.state.quantity*detail.month*totalRate/12)
+    }
     if (this.props.useCoupon) {
       const coupon = this.props.selectedCoupon || this.getMaxCoupon()
       if (coupon && coupon.type==='加息券' && +coupon.rate>=0 && +detail.rate>=0){
@@ -236,7 +253,12 @@ class DepositBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+        const {select}=this.state;
+        if (select==1){
+            this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+        }else {
+            this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+        }
 
   }
    successsFn=()=>{
@@ -340,7 +362,7 @@ class DepositBuy extends React.Component {
     nullCoupon=()=>{
         this.setState({
             top:'100%',
-            useCoupon:false
+            useCoupon:false,
         })
     }
     useCoupon=()=>{
@@ -357,10 +379,15 @@ class DepositBuy extends React.Component {
         }=data,
         password='',
         type=2;
-        const url=util.combineUrl(`https://demo-react.devbao.cn/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+        const url=util.combineUrl(`https://${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
         this.setState({
             url,
             payTop:'0px'
+        })
+    }
+    getChoose=(select)=>{
+        this.setState({
+            select
         })
     }
   render() {
@@ -409,7 +436,7 @@ class DepositBuy extends React.Component {
         <div className={styles.expectIncome}>
           <div className={styles.wrap}>
             <p className={styles.name}>预期收益（元）</p>
-            <p className={styles.profit}>{this.expectIncome(this.state.quantity)}</p>
+            <p className={styles.profit}>{this.expectIncome()}</p>
           </div>
         </div>
 
@@ -424,6 +451,7 @@ class DepositBuy extends React.Component {
           ref='payProcess'
           type='deposit'
           go={this.props.push}
+          getChoose={this.getChoose}
           overPay={this.overPay}
           user={this.props.user}
           balance={+this.props.user.balance}

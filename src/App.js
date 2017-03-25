@@ -184,7 +184,6 @@ sagaMiddleware.run(rootSaga)
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO})
 store.dispatch({type:SAFE_CARD_INFO})
-
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)
 export default class App extends React.Component {

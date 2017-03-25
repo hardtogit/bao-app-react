@@ -58,7 +58,7 @@ class TradePasswordSet extends React.Component {
         okCallback:()=>{this.props.push('/user/setting/identityAuth')},
       })
     }
-    if (data.data.isSetTradePassword){
+    if (data.data.isSetTradePassword&&this.state.init){
       alert.show({
         title: '你已经设置过密码',
         okText: '返回',

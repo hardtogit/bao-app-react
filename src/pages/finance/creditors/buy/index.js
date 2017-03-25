@@ -24,7 +24,8 @@ class CreditorBuy extends React.Component{
       copies: 200,
       chosenPay: '',
         payTop:'100%',
-        url:''
+        url:'',
+        select:1
     }
     this.creditorsId = this.props.params.id
   }
@@ -53,7 +54,12 @@ class CreditorBuy extends React.Component{
   }
 
   onValid = () => {
-      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+      const {select}=this.state;
+      if (select==1){
+          this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+      }else {
+          this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+      }
   }
     successsFn=()=>{
         this.refs.payProcess.open({
@@ -104,6 +110,11 @@ class CreditorBuy extends React.Component{
   closeFn=()=>{
       this.setState({payTop:'100%'})
   }
+    getChoose=(select)=>{
+        this.setState({
+            select
+        })
+    }
   render(){
     const detail = this.props.detail
     return(
@@ -148,6 +159,7 @@ class CreditorBuy extends React.Component{
           <PayProcess 
             ref='payProcess' 
             type='creditors'
+            getChoose={this.getChoose}
             go={this.props.push}
             user={this.props.user}
             overPay={this.overPay}

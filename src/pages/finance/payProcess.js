@@ -184,6 +184,7 @@ class PayProcess extends React.Component {
   selectPayWay(index) {
     if (index + 1 == this.state.chosen) return false
     this.setState({chosen: index + 1})
+      this.props.getChoose(index + 1)
   }
 
   gotoPay = () => {

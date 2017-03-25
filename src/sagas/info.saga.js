@@ -39,6 +39,9 @@ function* takeRequest (action) {
            yield put({
                type:'USER_INFO'
            })
+           yield put({
+               type:'SAFE_CARD_INFO'
+           })
        }
        if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==100||response.code==301)){
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));

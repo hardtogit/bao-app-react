@@ -50,6 +50,25 @@ class Index extends Component{
             push('/login')
         }
     }
+    isSecurityCard(successFn,push,url){
+        const baoAuth=this.publickFn();
+        if (baoAuth){
+            const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+            if (!bao.isSetTradePassword){
+                this.refs.alert.show({
+                    title: '',
+                    content: '对不起您还没有设置交易密码',
+                    okText: '设置',
+                    cancel:'取消',
+                    okCallback: () => {push(url)},
+                })
+            }else {
+                successFn&&successFn()
+            }
+        }else {
+            push('/login')
+        }
+    }
     render(){
         return(<div>
             <Alert ref="alert"/>

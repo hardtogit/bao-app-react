@@ -29,7 +29,8 @@ class DirectBuy extends React.Component {
         money:'',
        useCoupon:true,
         payTop:'100%',
-        url:''
+        url:'',
+        select:1
     }
 
     this.directInvestId = this.props.params.id
@@ -74,7 +75,12 @@ class DirectBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-      this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+      const {select}=this.state;
+      if (select==1){
+          this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+      }else {
+          this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+      }
   }
     successsFn=()=>{
         let coupon = this.state.useCoupon&&this.getCoupon()||null
@@ -293,6 +299,11 @@ class DirectBuy extends React.Component {
             useCoupon:true
         })
     }
+    getChoose=(select)=>{
+        this.setState({
+            select
+        })
+    }
   render(){
     const detail = this.props.detail
 
@@ -335,6 +346,7 @@ class DirectBuy extends React.Component {
             ref='payProcess' 
             type='directInvest'
             go={this.props.push}
+            getChoose={this.getChoose}
             overPay={this.overPay}
             user={this.props.user}
             balance={this.props.user.balance || 0}

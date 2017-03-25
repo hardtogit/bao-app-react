@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import fivestar from '../../../../../assets/images/my-index/balance.png' //圆形五角星
 import Loading from '../../../../../components/pageLoading/'
 import {Link} from 'react-router'
-import {push,goBack} from 'react-router-redux'
+import {push,go} from 'react-router-redux'
 import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
@@ -31,7 +31,7 @@ class Index extends React.Component {
 		this.props.load();
 	}
     closeFn=()=>{
-        this.setState({payTop:'100%'})
+        this.setState({payTop:'100%',url:''})
     }
 	componentWillUnmount() {
 		this.props.clearData();
@@ -48,7 +48,7 @@ class Index extends React.Component {
                  this.setState({
                      submite:false,
                      payTop:'0px',
-                     url:util.combineUrl(`https://${hostName}/mobile_api/pay`,{money,type})
+                     url:util.combineUrl(`https://www.baidu.com/`)
                  });
              }else if (submite){
                  this.setState({
@@ -141,7 +141,7 @@ class Index extends React.Component {
 	}
 	pay=()=>{
     	return(<div className={styles.rechargeBox} style={{top:this.state.payTop}}>
-			<Pay url={this.state.url} closeFn={this.closeFn}/>
+			<Pay url={this.state.url} closeFn={this.closeFn} ref="pay"/>
 		</div>)
 	}
     rechargeFn=()=>{
@@ -161,10 +161,13 @@ class Index extends React.Component {
 		});
     	this.props.submit();
 	}
+	pop=()=>{
+    	const time=this.refs.pay.getTime();
+    	this.props.pop(-time)
+	}
 	render() {
 		const {
 			balance,
-            pop
 		}=this.props;
 		let Dom;
 		if(balance){
@@ -174,7 +177,7 @@ class Index extends React.Component {
 		}
 		return (
 			<div className={styles.bg}>
-				<NavBar onLeft={pop}
+				<NavBar onLeft={this.pop}
 					rightNode={<Link className={styles.detail} to={`/user/moneyLog`}>余额明细</Link>} style={BanckStyle}>我的余额</NavBar>
 				{
                     Dom
@@ -202,8 +205,8 @@ const Rechargeinitfn=(dispath,own)=>({
 			  type:"USER_INFO_WITH_LOGIN"
 		  })
 	   },
-	   pop(){
-	   	dispath(goBack())
+	   pop(time){
+	   	dispath(go(time))
 	   },
 	  submit(){
 	   	dispath({
