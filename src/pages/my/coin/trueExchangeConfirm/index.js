@@ -47,11 +47,13 @@ class Index extends React.Component{
             if (code==300){
                 push('/user/exchangeFail')
             }else if (code==100){
-                console.log(data)
                 sessionStorage.setItem("bao-coin",JSON.stringify(data.coin));
                 setTimeout(()=>{push('/user/exchangeSuccess')},500)
             }
         }
+    }
+    componentWillUnmount(){
+     this.props.clearData();
     }
     dataInspect=()=>{
         const infoDate=sessionStorage.getItem("bao-product");
@@ -241,6 +243,12 @@ const dispatchFn=(dispatch)=>({
         dispatch({
             type:'PRODUCT_EXCHANGE',
             params:[productId,addressId]
+        })
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'PRODUCT_EXCHANGE'
         })
     }
 });

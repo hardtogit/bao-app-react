@@ -4,7 +4,7 @@ import Box from '../../../../components/ContentBox/index'
 import {Link} from "react-router";
 import classs from './index.less'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {push} from 'react-router-redux'
 import Sign from '../../../../components/Sign/index'
 import shoppCenter from '../../../../assets/images/shopp-center/shoppCenter.png'
 import coinTotal from '../../../../assets/images/shopp-center/total.png'
@@ -151,7 +151,7 @@ class Index extends React.Component {
 				            </Link>
 				        }
                         backgroundColor="#F76260"
-                        onLeft={this.props.pop}>积分商城</NavBar>
+                        onLeft={()=>{this.props.push('/home/myIndex')}}>积分商城</NavBar>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>
                 {Dom}
 			</div>
@@ -171,13 +171,13 @@ const datas=(state)=>({
       }
 });
 const dispatchFn=(dispatch)=>({
-	  pop(){
-	  	dispatch(goBack())
-	  },
       productBar(){
          dispatch({
              type:'SHOP_PRODUCT_BAR'
          })
+      },
+      push(url){
+        dispatch(push(url))
       },
       getList(key,id){
 	      dispatch({

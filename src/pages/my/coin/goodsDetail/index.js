@@ -12,6 +12,7 @@ class Index extends React.Component {
 		super(props);
 		this.state={
 			flag:false,
+			dj:JSON.parse(sessionStorage.getItem("bao-user")).grade
 		}
 	}
 	componentWillMount(){
@@ -98,7 +99,7 @@ class Index extends React.Component {
 								点币
 							</span>
 						<span>
-								至尊优惠价
+							{this.state.dj}
 							</span>
 					</p>
 					<p className={classs.originalPrice}>
