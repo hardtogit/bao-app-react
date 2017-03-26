@@ -138,7 +138,11 @@ class Index extends React.Component{
                this.setState({
                    flag:true
                });
-               this.props.send(productData.id,data[0].id)
+               if (productData.tagId==22){
+                   this.props.send(productData.id)
+               }else {
+                   this.props.send(productData.id,data[0].id)
+               }
            }
         }
     }
