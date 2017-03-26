@@ -17,34 +17,50 @@ import Coupon1 from '../../../../assets/images/registerVoucher.png'
 import Loading from '../../../../components/pageLoading'
 import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
 import IsAuth from '../../../../components/isAuth'
+import setUrl from '../../../../components/setUrl'
 class CreditorCell extends React.Component{
   toBuy=(event)=>{
     event.stopPropagation()
-    const is_login = true;
-    const {
-      id,
-      is_overdue,//是否已过投标期限
-    } = this.props.data
-
-    // const is_overdue = true;
-
-    if (is_login) {
-      if (is_overdue) {
-        //提示过期
-        this.props.wrongRef.show({
-          content:'投标时间已过',
-          okText:'知道了'
-        })
-      }else{
-        //推送到购买页面
-          this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush);
-      }
-    }else{
-      //跳转登录
-      this.props.push(`/login/`)
-    }
+    this.yz(this.qgSuccess)
   }
+  qgSuccess=()=>{
+      const {
+          id
+      }=this.props.data
+      this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+  }
+  yz=(success)=>{
+      const is_login = true;
+      const {
+          is_overdue,//是否已过投标期限
+      } = this.props.data
 
+      // const is_overdue = true;
+
+      if (is_login) {
+          if (is_overdue) {
+              //提示过期
+              this.props.wrongRef.show({
+                  content:'投标时间已过',
+                  okText:'知道了'
+              })
+          }else{
+              success()
+          }
+      }else{
+          //跳转登录
+          this.props.push(`/login/`)
+      }
+  }
+    succsseFn=()=>{
+        setUrl.setUrl('/home/productIndex')
+    }
+    clickYz=()=>{
+        const{
+            onClick,
+        } = this.props;
+        this.yz(onClick)
+    }
   render(){
     const {
       name:title,
@@ -59,7 +75,7 @@ class CreditorCell extends React.Component{
     } = this.props
     return(
         <div className={styles.cell} style={{width:this.props.screenW}}>
-          <div onClick={onClick}>
+          <div onClick={this.clickYz}>
             <div className={styles.cellHead}>
               <div>
                 <p>{title}</p>

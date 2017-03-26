@@ -18,6 +18,7 @@ import PassWord from '../../../components/Dialog/reddem.js'
 import type_hongwu from '../../../assets/images/type_hongwu.png'
 import type_danbao from '../../../assets/images/type_danbao.png'
 import type_diya from '../../../assets/images/type_diya.png'
+import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
     appoint = (value) => {
         this.props.postPasswordAction(value)
@@ -35,13 +36,21 @@ class DirectInvestCell extends React.Component{
     }
 
     toBuy=(event)=>{
-        event.stopPropagation()
-        const is_login = true;
+        event.stopPropagation();
+        this.yz(this.qgSuccess)
+    }
+    qgSuccess=()=>{
         const {
             id,
+            term
+        }=this.props.data;
+        this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+    }
+    yz=(success)=>{
+        const is_login = true;
+        const {
             is_assign,//是否是约标
             is_overdue,//是否已过投标期限
-            term
         } = this.props.data
         // const is_assign = true;
 
@@ -68,7 +77,7 @@ class DirectInvestCell extends React.Component{
                     })
                 }else{
                     //推送到购买页面
-                    this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush);
+                    success();
                 }
             }
         }else{
@@ -76,7 +85,15 @@ class DirectInvestCell extends React.Component{
             this.props.push(`/login/`)
         }
     }
-
+    succsseFn=()=>{
+        setUrl.setUrl('/home/productIndex')
+    }
+    clickYz=()=>{
+        const{
+            onClick,
+        } = this.props;
+        this.yz(onClick)
+    }
     render(){
         const {
             name:title,
@@ -92,13 +109,10 @@ class DirectInvestCell extends React.Component{
         const nowDate =Date.parse(new Date()); //当前时间戳
         const beginDate=Date.parse(new Date(date)); //格式时间戳
         const percent=((1-left_quantity/total_quantity)*100).toFixed(0);
-        const{
-            onClick,
-        } = this.props
         // const activity = 'haha'
         return(
             <div className={styles.cell} style={{width:this.props.screenW}}>
-              <div onClick={onClick}>
+              <div onClick={this.clickYz}>
                 <div className={styles.cellHead}>
                   <div>
                     <p>{title}</p>

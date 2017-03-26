@@ -55,7 +55,7 @@ class DepositBuy extends React.Component {
     }
   }
   componentDidMount() {
-    // this.focus()
+      window['closeFn']=this.closeFn;
     this.props.getDepositDetail(this.state.depositId)
   }
 
@@ -399,6 +399,9 @@ class DepositBuy extends React.Component {
             this.props.goBack();
         }
     }
+    closeFn=()=>{
+        this.setState({payTop:'100%',url:''})
+    }
   render() {
     const {
       params: { id },
@@ -487,7 +490,7 @@ class DepositBuy extends React.Component {
                          useCoupon={this.useCoupon}/>
         </div>
           <div className={styles.zg} style={{top:this.state.payTop}}>
-             <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}} ref="pay"/>
+             <Pay url={this.state.url} closeFn={this.closeFn} ref="pay"/>
           </div>
       </div>
     )

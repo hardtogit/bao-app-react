@@ -136,10 +136,15 @@ class SelectCoupon extends React.Component{
   }
 
   useCouponHandle = () => {
-    this.props.setUseCoupons(this.state.selectedCoupon, true);
-    this.props.useFn(this.state.selectedCoupon);
+    const {selectedCoupon}=this.state;
+    this.props.setUseCoupons(selectedCoupon, true);
+    this.props.useFn(selectedCoupon);
     this.props.click();
-    this.props.useCoupon();
+    if (selectedCoupon.type=='加息券'){
+        this.props.useCoupon(selectedCoupon.rate);
+    }else {
+        this.props.useCoupon();
+    }
   }
 
   unUseCouponHandle = () => {

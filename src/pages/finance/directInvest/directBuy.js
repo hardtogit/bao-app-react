@@ -31,7 +31,10 @@ class DirectBuy extends React.Component {
        useCoupon:true,
         payTop:'100%',
         url:'',
-        select:1
+        select:1,
+        rate:false,
+        init:true,
+        pending:false
     }
 
     this.directInvestId = this.props.params.id
@@ -39,32 +42,44 @@ class DirectBuy extends React.Component {
   }
 
   componentDidMount(){
+      window['closeFn']=this.closeFn;
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)
     this.props.getUse(this.props.params.id)
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (!utils.isPlainObject(this.props.detail)) {
       const quantity = this.props.detail.left_quantity ?
           this.props.detail.left_quantity < this.state.quantity ?
           this.props.detail.left_quantity : this.state.quantity : 1
-      this.setState({quantity})    
+      this.setState({quantity})
     }
 
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
-      this.hasSetCoupon = true
+      this.hasSetCoupon = true;
       this.setState({
         vouchers: nextProps.couponsData.data.filter(coupon => coupon.type === '抵用券'),
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),
       })
     }
-
+      if (nextProps.buyPending){
+          this.setState({
+              pending:true
+          })
+      }
   }
-
+    changePending=()=>{
+        this.setState({
+            pending:false
+        })
+    }
   directInvestBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null
+      const {useCoupon}=this.state;
+    if (!useCoupon){
+        coupon.id=''
+    }
     this.props.balancePay(this.directInvestId, this.state.quantity, password, this.borrowPwd, coupon && coupon.id || '')
   }
 
@@ -129,7 +144,6 @@ class DirectBuy extends React.Component {
     // const quantity = 
     const payTotal = Number(this.state.quantity * this.state.unitPrice)
     let maxVoucher, maxInterestRate, maxCoupon
-
     // 选出面值最大的抵用券
     if (this.state.vouchers.length > 0) {
       const availableVouchers = this.state.vouchers.filter(this.voucherIsAvailable)
@@ -173,7 +187,11 @@ class DirectBuy extends React.Component {
  
   getPayTotal = (type) => {
     const coupon = this.getCoupon();
+    const {useCoupon}=this.state;
       if (type){
+          return this.state.quantity * this.state.unitPrice
+      }
+      if (!useCoupon){
           return this.state.quantity * this.state.unitPrice
       }
     if (this.props.useCoupon && coupon && coupon.type === '抵用券') {
@@ -185,9 +203,21 @@ class DirectBuy extends React.Component {
 
   // 计算预期收益
   expectIncome = () => {
-    const detail = this.props.detail
+    let detail = this.props.detail;
+    const {rate}=this.state;
     if (utils.isPlainObject(detail)) return ''
-    let totalRate = detail.rate / 100
+    let totalRate = detail.rate / 100;
+    const jxRate=this.getMaxCoupon();
+      if (rate!=0){
+          const rateN=parseFloat(rate)/100;
+          totalRate=totalRate+rateN;
+      }
+      if (jxRate){
+          if (jxRate.type=="加息券"&&typeof(rate)=='boolean'){
+              const rateN=parseFloat(jxRate.rate)/100;
+              totalRate=totalRate+rateN;
+          }
+      }
     if (this.props.useCoupon) {
       const coupon = this.props.selectedCoupon || this.getMaxCoupon()
       if (coupon && coupon.type==='加息券' && +coupon.rate>=0 && +detail.directRate>=0){
@@ -214,7 +244,6 @@ class DirectBuy extends React.Component {
   selectPayHandle = (payWay) => {
     this.setState({chosenPay: payWay})
   }
-
   renderDiscountBar = () => {
     // 还未加载完抵用券和加息券，渲染占位View
     if (this.state.couponsFetching) {
@@ -226,7 +255,6 @@ class DirectBuy extends React.Component {
     }
 
     const coupon = this.getCoupon()
-
     if (! coupon || this.state.quantity < 1) {
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
@@ -273,7 +301,6 @@ class DirectBuy extends React.Component {
           <div>{ couponText }</div>
         </div>
       ) : null
-
       return (
         <div 
           className={styles.coupon} 
@@ -301,14 +328,24 @@ class DirectBuy extends React.Component {
     nullCoupon=()=>{
         this.setState({
             top:'100%',
-            useCoupon:false
+            useCoupon:false,
+            rate:0,
         })
     }
-    useCoupon=()=>{
+    useCoupon=(rate)=>{
         this.setState({
             top:'100%',
             useCoupon:true
         })
+        if (rate){
+            this.setState({
+                rate
+            })
+        }else {
+            this.setState({
+                rate:0
+            })
+        }
     }
     getChoose=(select)=>{
         this.setState({
@@ -322,6 +359,9 @@ class DirectBuy extends React.Component {
         }else {
             this.props.goBack()
         }
+    }
+    closeFn=()=>{
+        this.setState({payTop:'100%',url:''})
     }
   render(){
     const detail = this.props.detail
@@ -371,8 +411,9 @@ class DirectBuy extends React.Component {
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.directInvestBuy}
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
-            balancePayPending={this.props.buyPending}
-            balancePayData={this.props.buyData} />
+            balancePayPending={this.state.pending}
+            balancePayData={this.props.buyData}
+            changePending={this.changePending}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
@@ -394,7 +435,7 @@ class DirectBuy extends React.Component {
                         useCoupon={this.useCoupon}/>
         </div>
         <div className={styles.zg} style={{top:this.state.payTop}}>
-          <Pay url={this.state.url} closeFn={()=>{this.setState({payTop:'100%'})}} ref="pay"/>
+          <Pay url={this.state.url} closeFn={this.closeFn} ref="pay"/>
         </div>
       </div>
     )

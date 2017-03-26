@@ -54,7 +54,7 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+       console.log(nextProps.balancePayData);
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
       // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
       //   this._onSelectPay(chosen)

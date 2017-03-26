@@ -32,7 +32,7 @@ class CreditorBuy extends React.Component{
   }
 
   componentDidMount() {
-    window.closeFn=this.closeFn();
+    window['closeFn']=this.closeFn;
     this.props.getCreditorDetail(this.creditorsId)
   }
 
@@ -109,7 +109,7 @@ class CreditorBuy extends React.Component{
         })
     }
   closeFn=()=>{
-      this.setState({payTop:'100%'})
+      this.setState({payTop:'100%',url:''})
   }
     getChoose=(select)=>{
         this.setState({
