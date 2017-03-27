@@ -316,19 +316,29 @@ class DepositBuy extends React.Component {
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
-      const card = this.state.useCoupon&&this.props.useCoupon ? (
-        <div>
-          <div>{ couponText }</div>
-        </div>
-      ) : null
-      return (
-        <div 
-          className={styles.coupon} 
-          onClick={()=>{this.openDy()}}>
-          <span>使用优惠</span>
-          {card}
-        </div>
-      )
+        console.log(this.props)
+      if (this.props.params.id==5){
+          return (
+              <div
+                  className={styles.coupon}>
+                  <span>新手标不能使用优惠券</span>
+              </div>
+          )
+      }else {
+          const card = this.state.useCoupon&&this.props.useCoupon ? (
+              <div>
+                  <div>{ couponText }</div>
+              </div>
+          ) : null
+          return (
+              <div
+                  className={styles.coupon}
+                  onClick={()=>{this.openDy()}}>
+                  <span>使用优惠</span>
+                  {card}
+              </div>
+          )
+      }
     }
   }
   openDy=()=>{
