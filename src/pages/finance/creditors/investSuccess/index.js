@@ -12,7 +12,12 @@ class InvestSuccess extends React.Component {
   constructor(props) {
     super(props)
   }
-
+    componentDidMount(){
+        this.props.getUser();
+    }
+    componentWillUnmount(){
+        this.props.clearData();
+    }
   render() {
     const data = this.props.creditorsData && this.props.creditorsData.data || {}
     return (
@@ -59,7 +64,17 @@ const mapDispatchToProps = (dispatch) => ({
   push(path) {
     dispatch(push(path))
   },
-
+    getUser(){
+        dispatch({
+            type:'USER_INFO'
+        })
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CREDITORS_BUY'
+        })
+    },
   goBack() {
     dispatch(goBack())
   }

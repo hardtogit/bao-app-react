@@ -2,16 +2,10 @@
  * 支付流程
  */
 import React from 'react'
-import _ from 'lodash'
-import { connect } from 'react-redux'
-import { push, goBack } from 'react-router-redux'
-import ActionSheet from '../../components/Dialog/actionSheet'
-import * as actionTypes from '../../actions/actionTypes'
 import ConfirmDialog from '../../components/Dialog/confirm'
 import ReddemDialog from '../../components/Dialog/reddem'
 import LoadingDialog from '../../components/Dialog/loading'
 import util from '../../utils/utils'
-import Fetch from '../../request/fetch.js'
 import styles from './payProcess.styl'
 import cn from 'classnames'
 

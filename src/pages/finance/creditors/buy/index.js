@@ -187,7 +187,8 @@ class CreditorBuy extends React.Component{
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
             balancePayPending={this.state.pending}
             balancePayData={this.props.creditorsBuyData}
-            changePending={this.changePending}/>
+            changePending={this.changePending}
+            clear={this.props.clear}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
@@ -243,7 +244,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   goBack() {
     dispatch(goBack())
-  }
+  },
+    clear(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CREDITORS_BUY'
+        })
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(CreditorBuy))

@@ -69,6 +69,9 @@ class DirectBuy extends React.Component {
           })
       }
   }
+    componentWillUnmount(){
+
+    }
     changePending=()=>{
         this.setState({
             pending:false
@@ -77,7 +80,7 @@ class DirectBuy extends React.Component {
   directInvestBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null
       const {useCoupon}=this.state;
-    if (!useCoupon){
+    if (!useCoupon&&coupon){
         coupon.id=''
     }
     this.props.balancePay(this.directInvestId, this.state.quantity, password, this.borrowPwd, coupon && coupon.id || '')
@@ -106,7 +109,7 @@ class DirectBuy extends React.Component {
         const {use}=this.props;
         if (use){
             if (use.code==100){
-                if (use.data.is){
+                if (use.data.is&&coupon){
                     coupon.id=''
                 }
             }
@@ -423,7 +426,8 @@ class DirectBuy extends React.Component {
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
             balancePayPending={this.state.pending}
             balancePayData={this.props.buyData}
-            changePending={this.changePending}/>
+            changePending={this.changePending}
+            clear={this.props.clear}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
@@ -503,13 +507,19 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         couponId
       }]
     })
-  },  
+  },
   setUseCoupons(selectedCoupon) {
     dispatch({
       type: actionTypes.SET_USE_COUPONS,
       selectedCoupon
     })
-  }
+  },
+    clear(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'DIRECTINVEST_BUY'
+        })
+    }
 })
 
 export default (connect(mapStateToProps, mapDispatchToProps)(wrap(DirectBuy)))

@@ -107,7 +107,7 @@ class DepositBuy extends React.Component {
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;
     const {useCoupon}=this.state;
-    if (useCoupon&&coupon){
+    if (!useCoupon&&coupon){
         coupon.id='';
     }
     this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
