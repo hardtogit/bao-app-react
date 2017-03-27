@@ -1,0 +1,139 @@
+.modal {
+  po a
+  top 0
+  bottom 0
+  left 0
+  right 0
+  bg rgba(0,0,0,.7)
+  z-index: 800
+}
+
+.container {
+  mt 30%
+  h 100%
+  w 100%
+  bg $bg
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .cross {
+    h 40
+    w 40
+    bg transparent
+    align-self: flex-end;
+    .crossLine {
+      w 2
+      h 40%
+      bg #aaa
+    }
+  }
+}
+
+.p1 {
+  font-size: 15px
+}
+
+.p2 {
+  font-size: 35px
+  color #ff7701
+  mt 15
+}
+
+.form {
+  bg #fff
+  mt 10
+  h 90
+  align-self: stretch;
+  padding 0 15px
+  display: flex;
+  flex-direction: column;
+  border-top: $border
+  border-bottom: $border
+  .row {
+    flex: 1
+    display: flex;
+    span {
+      display: flex;
+      align-items: center;
+      &:nth-child(1) {
+        mr 15
+      }
+    }
+    input {
+      font-size: 14px
+      flex 1
+      color $main
+    }
+  }
+  .border {
+    h 1
+    bg #ddd
+  }
+}
+
+.p3 {
+  margin 15px
+  font-size: 14px
+  color #888
+  text-align: left;
+  align-self: stretch;
+}
+
+.selectRoot {
+  po a
+  top 0
+  left 0
+  right 0
+  bottom 0
+  display: flex;
+  bg rgba(0,0,0,.3)
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  bg #fff
+  border-radius: 5px
+  w 70%
+  .row {
+    h 60
+    display: flex;
+    align-items: center;
+    border-top: $border
+    padding 0 30px
+    justify-content: space-between;
+    &:nth-child(1) {
+      border 0
+    }
+    &.active {
+      color $main
+    }
+  }
+}
+
+$buttonSize = 28px
+$inActiveColor = #444
+$activeColor = $main
+.radioButton {
+  bg transparent
+  h $buttonSize
+  w $buttonSize
+  border 1px solid $inActiveColor
+  border-radius: 100%
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &::before {
+    content: ''
+    bg $inActiveColor
+    border-radius: 100%
+    h $buttonSize * 0.3
+    w $buttonSize * 0.3
+  }
+  &.active {
+    border-color: $activeColor
+    &::before {
+      bg $activeColor
+    }
+  }
+}

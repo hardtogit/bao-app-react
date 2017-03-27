@@ -1,0 +1,207 @@
+.open{
+  position: relative;
+  background: white;
+  border-top:1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 15px;
+  color: #444;
+  .switch{
+    display: inline-block;
+    float: right;
+    margin-top: 4px;
+  }
+}
+.content{
+  margin-top: 15px;
+  .times{
+    background:white;
+    width: 100%;
+    padding-left: 15px;
+    li{
+      position: relative;
+      left: 0;
+      top:0;
+      width: 100%;
+      list-style: none;
+      height: 44px;
+      line-height: 44px;
+      &:first-child{
+        border-bottom: 1px solid #ddd;
+      };
+      span{
+        display: inline-block;
+        &.desc{
+          position: absolute;
+          right: 15px;
+        }
+      };
+      input{
+        display: inline-block;
+        padding: 0 15px;
+        height: 42px;
+        width: 50%;
+        position: absolute;
+        left: 35%;
+        top: 0;
+        border:none;
+      }
+    }
+  }
+  .rest_money{
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 22px;
+    font-size: 14px;
+    color: #888;
+    span{
+      color: #f70;
+    }
+  };
+  .rate{
+    background: white;
+    padding-left: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    .duration{
+      position: relative;
+      left: 0;
+      top:0;
+      width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      height: 44px;
+      line-height: 44px;
+      border-bottom: 1px solid #ddd;
+      img{
+        position: absolute;
+        right: 15px;
+        top:10px;
+        width: 15px;
+      };
+      span{
+        position: absolute;
+        right: 35px;
+        color: #f70;
+        font-size:14px;
+      }
+    }
+    .rate_label{
+      margin-top: 23px;
+      margin-bottom: 10px
+    };
+    .rate_box{
+      position: relative;
+      left: 0;
+      top:0;
+      padding-right: 15px;
+      padding-bottom: 23px;
+      display:flex;
+      .minus{
+        min-width: 45px;
+        width: 45px;
+        height: 45px;
+        border:1px solid #ddd;
+        box-sizing: border-box;
+        span{
+          display: inline-block;
+          height: 1px;
+          background: #ddd;
+          width: 20px;
+          margin-top: 21px;
+          margin-left: 10px;
+        };
+      }
+      input{
+        width: 100%;
+        margin: 0 15px;
+        height: 45px;
+        display: inline-block;
+        text-align: center;
+      };
+      .rateInput{
+        position: absolute;
+        width: 50%;
+        left: 50%;
+        border: none;
+        height: 40px;
+        top: 2px;
+        margin: 0 0 0 -25%;
+        text-align: center;
+        line-height: 40px;
+        background: white;
+      }
+      .add{
+        min-width: 45px;
+        width: 45px;
+        height: 45px;
+        border:1px solid #ddd;
+        box-sizing: border-box;
+        span{
+          display: inline-block;
+          height: 1px;
+          background: #ddd;
+          width:20px;
+          margin-top: 21px;
+          margin-left: 10px;
+
+          &:last-child{
+            position: relative;
+            top: -25px;
+            transform: rotate(90deg);
+          }
+        }
+      };
+    }
+  }
+  .types{
+    background: white;
+    padding-left: 15px;
+    margin-bottom: 60px;
+    li{
+      height: 44px;
+      line-height: 44px;
+      width: 100%;
+      color: #000;
+      font-size: 16px;
+      list-style: none;
+      &:first-child{
+        border-bottom: 1px solid #ddd;
+      };
+      span{
+        float: right;
+        margin-right: 15px;
+        color: #888;
+        img{
+          display: inline-block;
+          width: 15px;
+          vertical-align:middle;
+        }
+      }
+    }
+  }
+}
+.sure{
+  position:fixed;
+  bottom:0;
+  border: none;
+  color: white;
+  width: 100%;
+  height: 50px;
+  z-index: 1;
+  padding: 0 8px;
+  font-weight: 400;
+  font-size: 18px;
+  background: #00a6e2;
+  &:disabled{
+    opacity: .4;
+    pointer-events: none;
+  }
+}
+.tips{
+  position: relative;
+}
+.box_error{
+  top:90px;
+}

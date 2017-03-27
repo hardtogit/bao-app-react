@@ -1,0 +1,69 @@
+.root {
+  h 100%
+  pt 44
+}
+
+.p1 {
+  color #888
+  mt 15
+  pl 15
+}
+
+.p2 {
+  font-size: 20px
+  color $red
+  text-align: center;
+  mt 20
+}
+
+.input {
+  h 44
+  border: $border
+  border-left: 0
+  border-right: 0
+  mt 15
+  bg #fff
+  display: flex;
+  font-size: 14px
+  span {
+    flex 90
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  input {
+    border none
+    flex 175
+  }
+  button {
+    flex 110
+    bg $main
+    border 0
+    color #fff
+    transition: all .5s ease
+    &:disabled {
+      bg lighten($main, 30%)
+    }
+  }
+}
+
+.buttonWrap {
+  margin 20px 15px 0
+  display: flex;
+  button {
+    flex 1
+    bg $main
+    border-radius: 3px
+    border 0
+    h 44
+    color #fff
+    transition: all .5s ease
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:disabled {
+      color darken(#fff, 10%)
+      bg lighten($main, 30%)
+    }
+  }
+}

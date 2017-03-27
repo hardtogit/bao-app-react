@@ -1,0 +1,68 @@
+.manage{
+	width: 100%;
+	background: #00A6E2;
+	padding:0 15px;
+	color: #fff;
+	position:relative;
+	margin-top: 44px;
+}
+.manage img{
+	display: block;
+	width:100%;
+	position:absolute;
+	bottom: 0;
+	left:0;
+}
+.manTop{
+	border-bottom: 1px solid #80CAFF;
+	overflow: hidden;
+	height:100px;
+	padding-top: 10px;
+	position:relative;
+	z-index: 10;
+}
+.manListFloat{
+	float: left;
+	width:50%;
+	height:100%;
+	padding:0 15px;
+}
+.manListFloat:nth-child(1){
+	border-right: 1px solid #80CAFF;
+}
+.manListFloat p{
+	font-size: 12px;
+	margin-top: 20px;
+}
+.manListFloat h1{
+	font-size: 24px;
+	margin:0;
+	padding:0;
+	font-weight: normal;
+	margin-top:15px;
+}
+.manListFloat h1 span{
+	font-size:12px;
+	position: relative;
+	top: -15px;
+}
+.manBottom{
+	position:relative;
+	z-index:10;
+	padding:15px;
+}
+.manBottom p{
+	font-size:12px;
+}
+.manBottom h1{
+	font-size:36px;
+	font-weight:normal;
+	margin:0;
+	padding:0;
+	margin-top:15px;
+}
+.manBottom h1 span{
+	font-size:18px;
+	position:relative;
+	top:-20px;
+}

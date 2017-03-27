@@ -1,0 +1,71 @@
+.bg{
+    background: #fff;
+    min-height: 100vh;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+.coinMain{
+    width: 100%;
+}
+.coinText{
+    width: 100%;
+    text-align: center;
+}
+.coinText img{
+    margin-top: 55px;
+}
+.coinText h1{
+    font-size: 16px;
+    color: #181818;
+}
+.coinText h2{
+    font-size: 28px;
+    color: #000;
+    margin-top: 20px;
+}
+.coinText p{
+    font-size: 16px;
+    color: #626262;
+    margin-top: 10px;
+}
+.noneCoin{
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #626262;
+    margin-top: 55px;
+}
+.coinlist{
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+}
+.listleft{
+    top:12px;
+    position: absolute;
+}
+.listleft p{
+    font-size: 12px;
+    color: #aaa;
+}
+.potop{
+    position: relative;
+    top: -8px;
+}
+.listleft h1{
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+}
+.listright{
+    float: right;
+    padding-right: 15px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.listright p{
+    font-size: 18px;
+    color: #000;
+}

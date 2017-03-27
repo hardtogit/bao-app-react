@@ -1,0 +1,161 @@
+.Content{
+  position: absolute;
+  height:100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow:auto;
+  width: 100%;
+    left: 0px;
+    top: 0px;
+}
+.header {
+  background: $main
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pb 36
+
+  .safeplan {
+    font-size: 12px
+    color: #abeeff
+    mt: 42
+    display: flex
+    align-items: center
+
+    &::after {
+      content: ''
+      triangle 6px 12px right #abeeff
+      ml 6
+    }
+
+    & > img {
+      mr 8
+    }
+  }
+
+  .rate {
+    po r
+    mt 20
+    w 286
+    h 144
+    overflow: hidden;
+    bgimg url(../../../../assets/images/huoproduct.png) contain
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: #fff
+
+    .chart {
+      po a
+    }
+
+    p {
+      &:nth-child(1) {
+        font-size: 12px
+      }
+      &:nth-child(2) {
+        font-size: 60px
+        line-height: 0.7
+        mt 20
+
+        span {
+          font-size: 15px
+        }
+      }
+    }
+  }
+
+  .detail {
+    color: #fff
+    display: flex;
+    align-items: center;
+    font-size: 15px
+    mt 42
+    img {
+      ml 5
+    }
+  }
+}
+
+.content {
+  bg #fff
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // .voucher {
+  //   mt 47
+  //   color: #888
+  //   font-size: 14px
+  //   span {
+  //     &:nth-child(1) {
+  //       color: #7acba0
+  //     }
+  //     &:nth-child(2) {
+  //       color: #feb178
+  //     }
+  //   }
+  // }
+
+  .newUser {
+    mt 30
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      &:nth-child(1) {
+        display: flex;
+        align-items: center;
+        font-size: 14px
+        color #626262
+        span {
+          color #ff7700
+        }
+        &::before {
+          content: ''
+          h 1
+          w 15
+          bg #626262
+          mr 5
+        }
+        &::after {
+          content: ''
+          h 1
+          w 15
+          bg #626262
+          ml 5
+        }
+      }
+      &:nth-child(2) {
+        mt 12
+        font-size: 17px
+        color #ff7700
+        display: flex;
+        align-items: center;
+        &::after {
+          content: ''
+          ml 5
+          w 8
+          h 14
+          bgimg url(../../../../assets/images/harrow.png) contain
+        }
+      }
+    }
+  }
+
+  .buyButton {
+    mt 46
+    w 243
+    h 50
+    border: 0
+    border-radius: 23px
+    background: #ff7522
+    color: #fff
+    font-size: 20px
+  }
+  .desc {
+    color: #aaa
+    font-size: 15px
+    mt 40
+  }
+}

@@ -1,0 +1,38 @@
+import React from 'react' //抵用券首页
+import NavBar from '../../../components/NavBar'
+import styles from '../addaccrual/index.css'
+import Quan from '../common/jiaxi/index'
+
+import nonePast from '../../../assets/images/my-index/nojuan.png' // 没有抵用券
+
+
+
+export default class Index extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+
+		}
+	}
+	componentDidMount() {}
+	componentWillUnmount() {}
+	render() {
+		return (
+			<div className={styles.bg}>
+				<NavBar>我的抵用券</NavBar>
+				<div className={styles.content}>
+					<Quan
+						title="200抵用券"
+						desc1="投资即可使用"
+						desc2="适用于定存宝/直投项目"
+						from="2016-09-14"
+						to="2016-12-14"
+						/>
+					<div className={styles.pastDue}><span>过期抵用券></span></div>
+
+					<div className={styles.nonePast}><img src={nonePast} width={169} height={152}/></div>
+				</div>
+			</div>
+		)
+	}
+}

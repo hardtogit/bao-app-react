@@ -1,0 +1,28 @@
+.swiperPagination{
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    -webkit-transform:translate(-50%,0);
+    -moz-transform:translate(-50%,0);
+    -transform:translate(-50%,0);
+    -o-transform:translate(-50%,0)
+}
+.swiperPagination .swipeSlider{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius:50%;
+    background-color: #fff;
+    margin-left: 12px; 
+}
+.swiperPagination .swipeSlider.active{
+    background-color: #de3031;
+}
+.swiperPagination .swipeSlider:first-child{
+    margin-left: 0px;
+}
+.swipeBox img {
+    display: inline-block;
+    width: 100%;
+    float: left;
+}

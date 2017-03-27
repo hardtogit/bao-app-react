@@ -1,0 +1,162 @@
+.root {
+  h 100%
+  bg $bg
+  po r
+}
+.header {
+  mt 44
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h 150
+  bg $main
+  color #fff
+  p {
+    &:nth-of-type(1) {
+      mt 15
+      font-size: 11px
+    }
+    &:nth-of-type(2) {
+      mt 20
+      line-height: 0.7
+      font-size: 60px
+      span {
+        font-size: 18px
+      }
+    }
+    &:nth-of-type(3) {
+      mt 24
+      font-size: 14px
+    }
+  }
+}
+
+.newUser {
+  h 45
+  bg #59c5ec
+  color: #fff
+  font-size: 18px
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  padding 0 15px
+  h 44
+  display: flex;
+  align-items: center;
+  font-size: 14px
+  span {
+    &:nth-of-type(1) {
+      flex: 183
+      color: #aaa
+    }
+    &:nth-of-type(2) {
+      flex: 270
+    }
+    &:nth-of-type(3) {
+      flex: 238
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      color $main
+    }
+  }
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  &::after {
+    content: ''
+    bgimg url(../../../../assets/images/notice.png)
+    w 15
+    h 15
+    ml 6
+  }
+}
+
+.desc {
+  h 122
+  mt 20
+  border-top: $border
+  display: flex;
+  flex-direction: column;
+  .title {
+    h 44
+    padding 0 15px
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px
+    bg #fff
+    img {
+      transition: all .5s ease
+    }
+  }
+  .detail,
+  .detailHide {
+    padding: 0 15px
+    display: flex;
+    font-size: 12px
+    line-height: 18px
+    color #aaa
+    align-items: center;
+    bg #fff
+    overflow: hidden;
+    transition: all .5s ease
+  }
+  .detail {
+    h 75
+    border-top: $border
+    border-bottom: $border
+  }
+  .detailHide {
+    h 0
+    border-bottom: $border
+  }
+}
+
+.moreDetail {
+  mt 34
+  font-size: 16px
+  color $main
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > img {
+    w 8
+    h 16
+    ml 5
+  }
+}
+
+.bottom {
+  position: fixed;
+  left 0
+  right 0
+  bottom 0
+  h 50
+  display: flex;
+  .calculator {
+    w 50
+    bg $minor
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::before {
+      h 70%
+      w 50%
+      content: ''
+      bgimg url(../../../../assets/images/calculator.png) contain
+    }
+  }
+  button {
+    flex: 1
+    font-size: 18px
+    color #fff
+    bg $main
+    border 0
+  }
+}

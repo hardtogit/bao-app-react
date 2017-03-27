@@ -1,0 +1,43 @@
+.financeIndex{
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    left: 0px;
+    top: 0px;
+    
+}
+.tabList{
+    display: flex;
+    width: 100%;
+    flex-wrap:wrap-reverse;
+    padding-top: 8px;
+    background-color: #00a6e2;
+    padding-bottom: 8px; 
+    position: relative;
+    z-index: 99;
+}
+.tab{
+    display: flex;
+    color: #fff;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+}
+.financeIndex .cavOne{
+    padding-top: 12px;
+    font-size:12px;
+    padding-bottom: 3px;
+}
+.financeIndex .action .cavOne{
+    font-size: 16px;
+    border-bottom: 1px solid #fff;
+}
+.bg{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: -1;
+}

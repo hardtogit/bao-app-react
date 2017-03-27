@@ -1,0 +1,252 @@
+::-webkit-scrollbar
+{
+    width: 0px;
+    height: 0px;
+    background-color: #ffffff;
+}
+.financialIndexContent{
+    background-color:#f0eff5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.headerImg{
+    width: 100%;
+}
+.indexCav .indexCavul{
+    display: block;
+    background-color: #fff;
+}
+.indexCav .indexCavli{
+    display: inline-block;
+    width: 33.3%;
+    padding: 9px 0px;
+    color: #666;
+}
+.indexCavli a{
+    color: #000000;
+}
+.indexCavli .cavContent{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.cavContent img{
+    display: inline-block;
+    width: 15px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 3px;
+}
+.boder{
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5; 
+}
+.productList{
+    width: 100%;
+    margin-bottom: 45px;
+}
+.productUl{
+    display: block;
+}
+.productUl .productLi{
+    display: block;
+    margin-top: 15px;
+    padding: 0px 0px 15px 15px;
+    background-color: #fff;
+}
+.xsBox{
+    display: block;
+    margin-top: 15px;
+    background-color: #fff;
+    padding-left:15px;
+}
+.headerLi{
+    display: block;
+    margin-top: 15px;
+    background-color: #fff;
+}
+.xsHeader{
+    font-size: 16px;
+    color: #000000;
+    border-bottom: 1px #e5e5e5 solid;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.xsText{
+    font-size: 12px;
+    color: #888888;
+    float: right;
+    margin-right: 15px;
+    margin-top: 3px;
+}
+.xsContent{
+    position: relative;
+}
+.xsIcon{
+    background-color: #75a6ed;
+    position:absolute;
+    font-size: 10px;
+    padding: 5px 10px;
+    top: 0px;
+    right: 15px;
+    color: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.mgl{
+    margin-left: -15px;
+    text-align: center;
+}
+.tzText{
+    padding-bottom: 15px;
+    font-size: 14px;
+    color: #666;
+}
+.textColor{
+    color: #f70;
+}
+.tzButtom{
+    width: 240px;
+    height: 45px;
+    border-radius: 45px;
+    font-size: 22px;
+    color: #fff;
+    background: #F70;
+    line-height: 45px;
+    display: inline-block;
+    margin-bottom: 27px;
+}
+.borderBox{
+    padding-right: 13px;
+    border-right: 1px #DDDDDD solid;
+}
+.mgls{
+    margin-left: 13px;
+}
+.xsProduct{
+    padding-top: 37px;
+    padding-bottom: 37px;
+    color: #ff7700;
+    font-size: 52px;
+}
+.Percentage{
+    display: inline-block;
+    font-size: 20px;
+    vertical-align: bottom;
+    padding-bottom: 10px;
+    margin-left: 3px;
+}
+.productLi .productTitle{
+    padding: 10px 0px;
+    border-bottom: 1px #e5e5e5 solid;
+    font-size: 16px;
+    color: #030303; 
+}
+.productLi .productContent{
+    width: 100%;
+}
+.productContent>div{
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+ }
+.productContent .productInterest{
+    padding: 15px 0px;
+}
+.productIm{
+   box-sizing: border-box; 
+   border-right: 1px solid #e5e5e5; 
+}
+ .productIt{
+    font-size: 30px;
+    color: #f70;
+}
+.productContent  .productIp{
+    font-size: 14px;
+    color:#f70; 
+}
+.productContent .productItext{
+    font-size: 12px;
+    color: #aaa;
+    padding: 5px 0px;
+}
+.productTz {
+    padding: 15px 0px;
+}
+.productSe{
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+.productTz>p{
+    padding-left: 15px;
+}
+.productTz .productMs{
+    font-size: 14px;
+    color: #666;
+    vertical-align:bottom;
+    margin-top: 15px;
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.Pop{
+    width: 100%;
+    background-color:#282828;
+    padding: 8px 15px;
+}
+.Pop>span{
+    vertical-align: middle;
+     color: #fff;
+}
+.close{
+    color: #fff;
+    font-size: 18px;
+}
+.tb{
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background: url('../../assets/images/tb.jpg') no-repeat center center;
+    margin-left: 8px;
+    background-size: 100% 100%;
+    border-radius: 50%;
+}
+.text{
+     margin-left: 5px;
+     font-size: 14px;
+}
+.openApp{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #00a6e2;
+    color: #fff;
+    vertical-align: middle;
+    float: right;
+    border-radius: 4px;
+}
+.loadingBox{
+    width: 100%;
+    height: 221px;
+    position: relative;
+}
+.loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+      -webkit-transform:translate3d(-50%,-50%,0);
+    -moz-transform:translate3d(-50%,-50%,0);
+    transform:translate3d(-50%,-50%,0);
+    -o-transform:translate3d(-50%,-50%,0);
+}
+.loadingText{
+    font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+    color: #666;
+    display: inline-block;
+    width: 100%;
+}

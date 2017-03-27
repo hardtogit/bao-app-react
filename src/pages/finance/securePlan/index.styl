@@ -1,0 +1,78 @@
+.root {
+  bg $bg
+  h 100%
+  pt 44
+  w 100%
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.banner {
+  w 100%
+  mt 15
+}
+
+.plan,
+.control {
+  bg #fff
+  mt 15
+  padding: 15px
+  color #999
+  border-top: $border
+  border-bottom: $border
+  font-size: 12px
+  line-height: 18px
+  & > h1 {
+    font-size: 18px
+    color #000
+    margin 0
+  }
+}
+
+.plan > p{
+  mt 15
+}
+
+.control {
+  pr 0
+  & > div {
+    padding 10px 15px 10px 0
+    border-top: $border
+    display: flex;
+    align-items: center;
+    & > p {
+      flex 1
+    }
+    &:nth-child(2) {
+      border 0
+    }
+    &:nth-child(2)::before {
+      content: ''
+      h 26
+      w 26
+      bgimg url(../../../assets/images/safe11.png) contain
+      mr 10
+    }
+    &:nth-child(3)::before {
+      content: ''
+      h 26
+      w 26
+      bgimg url(../../../assets/images/safe22.png) contain
+      mr 10
+    }
+    &:nth-child(4)::before {
+      content: ''
+      h 26
+      w 26
+      bgimg url(../../../assets/images/safe3.png) contain
+      mr 10
+    }
+    &:nth-child(5)::before {
+      content: ''
+      h 26
+      w 26
+      bgimg url(../../../assets/images/demand/law.png) contain
+      mr 10
+    }
+  }
+}

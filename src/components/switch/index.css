@@ -1,0 +1,27 @@
+.bg{
+  position: relative;
+  width: 64px;
+  height: 34px;
+  border-radius:17px;
+  background: white;
+  border:2px solid #e6e6e6;
+}
+.bg .button{
+  transition:All .5s ease-in-out;
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border:1px solid #E6E6E6;
+  background: white;
+}
+.bg.open{
+  background: #00a6e2;
+  border:2px solid #00a6e2;
+}
+.bg.open .button{
+  transition:All .5s ease-in-out;
+  left:30px;
+}

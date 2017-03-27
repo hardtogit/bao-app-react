@@ -1,0 +1,169 @@
+.modal {
+	br 5
+	bg #fff
+	pt 1
+	position relative
+}
+
+.title {
+	pt 30
+	text-align center
+	color #000
+	fs 17
+}
+.close{
+	position absolute
+	left 0px
+	top 0px
+	padding 10px 5px
+	.closeIcon{
+		width 15px
+	}
+}
+.content {
+	mt 15
+	mb 25
+	pl 20
+	pr 20
+	text-align center
+}
+
+.contentWrap {
+	text-align left
+	line-height 20px
+	color #888
+	display inline-block
+}
+
+.bottom {
+	border-top 1px solid #cfcfcf
+	h 42
+	display flex
+	span{
+		flex:1
+		text-align center
+		line-height 42px
+		color #00a6e2
+		fs 17
+		&:nth-of-type(1){
+			border-right 1px #cfcfcf solid
+		}
+	}
+}
+
+.okBtn {
+    color #00a6e2
+    fs 17
+    flex 1
+    bg transparent
+    line-height 42px
+    text-align center
+    display block
+}
+
+.cancelBtn {
+    color #a0a0a0
+    fs 17
+    flex 1
+    bg transparent
+    line-height 42px
+    text-align center
+    display block
+    border-right 1px solid #cfcfcf
+}
+
+.reddemModal {
+	position: relative
+
+    .deleteIconWrap {
+		position absolute
+		top 10px
+		left 10px
+		w 30
+		h 30
+		display block
+    }
+
+	.deleteIcon {
+		w 20
+		h 20
+		mt 5
+		ml 5
+	}
+
+	.money {
+     	color #ff7700
+     	fs 28
+    }
+
+	.inputWrap {
+		margin 0 15px 20px
+		border-width 1px
+		border-style solid
+		bc #00a6e2
+		h 42
+		w 275
+		display flex
+		.input{
+			flex 1
+			outline none
+		}
+	}
+
+
+	.errorText {
+		dispaly block
+		color #ff7700
+		mt 10
+		padding 0 15px
+	}
+
+	.detailText {
+		padding 0 15px 15px
+	}
+}
+.successDialog {
+	bg transparent
+}
+
+.successModal {
+  bg rgba(0,0,0,.7)
+  br 10
+  w 122
+  h 122
+  text-align center
+}
+
+.successIcon {
+  w 50
+  h 38
+  mt 28
+}
+
+.successTitle {
+  text-align center
+  fs 16
+  mt 14
+  color #fff
+  display block
+}
+
+.asList {
+
+	& > li {
+		display block
+		h 50
+		text-align center
+		fs 16
+		line-height 50px
+	}
+}
+
+.selectItem {
+	fs 20
+	color #00a6e2
+}
+
+.disableItem {
+	color #ddd
+}

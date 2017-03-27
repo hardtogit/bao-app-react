@@ -1,0 +1,216 @@
+.mebConent{
+    height: 100%;
+}
+.bannerBox{
+    background-color: #042533;
+    padding: 8px 15px 0px 15px;
+    position: relative;
+}
+.bannerBox .bannerImg{
+    position: relative;
+    width:100%;
+    z-index: 99; 
+}
+.bannerBox .bottomBg{
+    position: absolute;
+    height: 5em;
+    width: 100%;
+    background-color:#0f526f;
+    left: 0px;
+    bottom: 0px; 
+}
+.bannerBox .privilege_bg_bar{
+    position: absolute;
+    left: 0px;
+    bottom: 5em;
+    width: 100%;
+}
+.userCav{
+    width: 100%;
+    position: relative;
+    margin-top: -3px;
+}
+.userCav .cavImg{
+    width: 100%;
+}
+.vipBox{
+    width: 100%;
+    background-color:#0f526f;
+    padding: 12px 15px; 
+}
+.userCavList{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.userCavList .userCavLi{
+    display: inline-block;
+    width: 33.3%;
+    height: 100%;
+     position: relative;
+}
+.vipBox .sliderVip{
+    background-color: #fff;
+    border-radius: 8px;
+    height: 371px;
+    padding: 12px 15px;
+}
+.userCavLi .jtBox{
+    display: none;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 50%;
+    bottom: -5px;
+    margin-left: -12px;   
+}
+.userCavList .action .jtBox{
+    display: inline-block;
+}
+.userCavLi .jtBox:before{
+     content: "";
+    display: inline-block;
+    border-width:10px; 
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+}
+.vipBox .vipBanner{
+    background-color: #9773d2;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    padding: 7px 10px;
+}
+.vipBox .vipProject{
+    width: 100%;
+}
+.vipProjectul .vipProjectli{
+     margin-top: 7px;
+    display: inline-block;
+    width: 33.3%;
+    position: relative;
+}
+.vipProjectul .vipProjectClick{
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    width: calc(100% - 12px);
+    z-index: 999;
+}
+
+.vipProjectul .vipProjectli .vipProjectImg{
+    display: inline-block;
+    text-align: center;
+    padding-bottom: 40px;
+    width: calc(100% - 12px);
+}
+.vipProjectli .vipProjectImg img{
+    margin-top: 12px;
+    height: 38px;
+}
+.vipProjectul .vipProjectlifs{
+   text-align: left;
+}
+.vipProjectul .vipProjectliend{
+   text-align: right;
+}
+.vipProjectliend .vipProjectClick{
+    right: 0px;
+}
+.vipProjectlited .vipProjectClick{
+   left: 50%;
+    -webkit-transform: translate3d(-50%,0px,0px);
+    -moz-transform: translate3d(-50%,0px,0px);
+    -ms-transform: translate3d(-50%,0px,0px);
+    -o-transform: translate3d(-50%,0px,0px);
+    transform: translate3d(-50%,0px,0px);
+}
+.vipProjectul .vipProjectlited{
+   text-align: center;
+}
+.vipProjectul .liText{
+    position: absolute;
+    bottom: 12px;
+    color: #fff;
+    font-size: 12px;
+    width: calc(100% - 12px);
+    text-align: center;
+}
+.vipProject .vipProjectlifs .liText{
+    left: 0px;
+}
+.vipProject .vipProjectlited .liText{
+    left: 50%;
+    -webkit-transform: translate3d(-50%,0px,0px);
+    -moz-transform: translate3d(-50%,0px,0px);
+    -ms-transform: translate3d(-50%,0px,0px);
+    -o-transform: translate3d(-50%,0px,0px);
+    transform: translate3d(-50%,0px,0px);
+}
+.vipProject .vipProjectliend .liText{
+    right: 0px;
+}
+.popBox{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    z-index: 999;
+    transition: all  linear .3s;
+    -moz-transition:all  linear .3s;
+    -webkit-transition:all  linear .3s;
+    -o-transition:all  linear .3s;
+}
+.popBox .popZg{
+    background-color: #000;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+}
+.popBox .popBoxContent{
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    width: 80%;
+    background-color: #fff;
+    -webkit-transform: translate3d(-50%,0px,0px);
+    -moz-transform: translate3d(-50%,0px,0px);
+    -ms-transform: translate3d(-50%,0px,0px);
+    -o-transform: translate3d(-50%,0px,0px);
+    transform: translate3d(-50%,0px,0px);
+}
+.popBoxContent .popBoxContentImg{
+    text-align: center;
+    padding-top:40px;
+    padding-bottom: 30px;
+    background-color:#ffb275; 
+}
+.popBoxContent .popBoxContentfooter{
+    text-align: center;
+}
+.popBoxContent .popBoxContentfooter p{
+    font-size: 14px;
+    padding-top:15px;
+
+}
+.popBoxContent .popBoxContentfooter .flageImg{
+    width: 30px;
+    padding: 15px;
+}
+.popBoxContent .closeFlage{
+    display: inline-block;
+    width: 48px;
+    position: absolute;
+    left: 50%;
+    bottom: -88px;
+    margin-left: -24px;
+}
+.popBoxContent .closeFlage img{
+   width: 100%;
+}

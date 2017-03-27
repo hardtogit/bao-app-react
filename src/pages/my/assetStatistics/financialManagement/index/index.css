@@ -1,0 +1,522 @@
+.bg{
+	background:#F0EFF5;
+	min-height: 100vh;
+}
+*{
+	padding:0;
+	margin:0;
+}
+.show{
+	display: block;
+}
+.hide{
+	display: none;
+}
+.coinMain{
+	margin-bottom:50px;
+	margin-top:44px;
+}
+.coincontent{
+	background: #F76360;
+	color:#fff;
+	height:160px;
+}
+.cointop{
+	height:80px;
+	padding-left: 15px;
+	overflow: hidden;
+}
+.cointop p{
+	font-size:11px; 
+	margin-top:10px;
+	padding-left: 10px;
+}
+.cointop p img{
+	width: 14px;
+	height:14px;
+	position:relative;
+	left:5px;
+	top: 2px;
+}
+.cointop h1{
+	font-size:28px;
+	padding-left: 10px;
+	padding-bottom: 4px;
+	margin: 0;
+	border-bottom: 1px solid #FF9C9B;
+	margin-top:10px;
+	font-weight: normal;
+}
+.conibotton{
+	width:100%;
+	overflow:hidden;
+	padding:0 15px;
+}
+.conibotton ul{
+	float: left;
+	width:50%;
+	list-style: none;
+}
+.conibotton ul li{
+	padding-left:15px;
+	height:25px;
+}
+.bottitle{
+	font-size:11px;
+	margin-top:15px;
+}
+.bottitle span{
+	position: relative;
+	left:8px;
+	padding:3px 8px;
+	background:#FF9190;
+	border-radius: 3px
+}
+.bottext{
+	font-size:24px;
+}
+.footer{
+	position:fixed;
+	left:0;
+	bottom: 0;
+	height:50px;
+	background:#F76160;
+	text-align: center;
+	line-height: 50px;
+	width:100%;
+	color:#fff;
+	font-size:18px;
+}
+.errorImg{
+	width:100%;
+}
+.errorImg img{
+	display: block;
+	margin:0 auto;
+	width:160px;
+	height:148px;
+	margin-top:35px;
+}
+
+.conilist{
+	width: 100%;
+	margin-top: 15px;
+	height: 115px;
+	background: #fff;
+	padding: 0 15px;
+	box-sizing: border;
+	border-top: 1px solid #E0E0E1;
+	border-bottom: 1px solid #E0E0E1;
+}
+.conilist ul{
+	width: 100%;
+	overflow: hidden;
+	list-style: none;
+}
+.conilist ul li{
+	float: left;
+	width: 50%;
+}
+.listtitle{
+	height: 50px;
+	border-bottom: 1px solid #E7E7E7;
+	margin-bottom: 10px; 
+}
+.listtitle li img{
+	margin: 0;
+	padding: 0;
+	width: 36px;
+	position: relative;
+	top: 10px;
+	padding-right: 10px;
+}
+.listtitle li:last-child{
+	margin-top: 16px;
+}
+.listleft{
+	text-align: left;
+}
+.listright{
+	text-align: right;
+}
+.listtxt li{
+	line-height: 25px;
+}
+/*=================================邀请好友=================*/
+.inveHead{
+	width:100%;
+	background:#F76260;
+	height:86px;
+	border-radius:0 0 15px 15px;
+	overflow:hidden;
+}
+.inveHead ul{
+	width:50%;
+	float:left;
+	list-style:none;
+	box-sizing: border-box;
+	height:86px;
+	border-left:1px solid #F49593;
+}
+.inveHead ul li{
+	text-align:center;
+	font-size:12px;
+	color:#fff;
+}
+.inveHead ul li span{
+	font-size:27px;
+}
+.inveHead ul li:first-child{
+	margin-top:20px;
+}
+.inveHead ul li:last-child{
+	margin-top:10px;
+}
+.inviContent{
+	width:100%;
+}
+.caishenImg{
+	width:100%;
+}
+.caishenImg img{
+	display:block;
+	width:266px;
+	height:241px;
+	margin:36px auto 9px;
+}
+.inviContent h1{
+	font-size:17px;
+	font-weight:normal;
+	color:#464646;
+	text-align:center;
+	margin:0;
+	padding:0;
+}
+.inviContent .recommend_code{
+	font-size:12px;
+	color:#7D7D7D;
+	margin-top: 6px;
+	text-align:center;
+}
+.btn{
+	width:100%;
+	padding:0 15px;
+}
+.inviContent button{
+	width:100%;
+	background:#F76260;
+	height:44px;
+	border:none;
+	font-size:16px;
+	color:#fff;
+	border-radius:5px;
+	margin-top:12px;
+	margin-bottom:10px;
+}
+.foot{
+	height:50px;
+	position:fixed;
+	left:0;
+	bottom:0;
+	width:100%;
+	background:#F76360;
+	overflow:hidden;
+}
+.foot p{
+	float:left;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+}
+.foot p:first-child{
+	width:15%;
+	background:#FF9D9C;
+}
+.foot p:first-child img{
+	display:block;
+	margin:0 auto;
+	margin-top: 10px;
+
+}
+.foot p:last-child{
+	width:85%;
+	font-size:18px;
+	color:#fff;
+}
+/*================弹框*/
+.calculator{
+	width: 100%;
+	min-height: 100vh;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.calOpacity{
+	background: #000;
+	height: 100vh;
+	opacity: .5;
+} 
+.calContent{
+	background: #F0EFF5;
+	height: 300px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.calContent h1{
+	margin: 0;
+	width: 100%;
+	padding: 0 15px;
+	overflow: hidden;
+	box-sizing: border-box;
+	font-weight: normal;
+}
+.calContent h1 span{
+	float: right;
+	font-size: 30px;
+	color: #938A8B;
+}
+.calContent h1 p{
+	text-align: center;
+	font-size: 15px;
+	color: #000;
+	margin: 12px 0 20px 0;
+}
+.calList{
+	width: 100%;
+	padding: 0 15px;
+	background: #fff;
+	border-top: 1px solid #E4E4E4;
+	border-bottom: 1px solid #E4E4E4;
+}
+.calList div{
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+	color: #000;
+}
+.calList div span{
+	padding-left: 15px;
+	color: #25B3E6;
+	font-size: 14px;
+}
+.calList div input{
+	color: #25B3E6;
+	width: 120px;
+	height: 34px;
+	border: none;
+}
+.calList div select{
+	color: #25B3E6;
+	width: 120px;
+	height: 24px;
+	position: relative;
+	top: -2px;
+}
+.calList div label{
+	float: right;
+}
+
+.listMoney{
+	border-bottom: 1px solid #E4E4E4;
+}
+.calResult{
+	width: 100%;
+	overflow: hidden;
+}
+.calResult ul{
+	width: 50%;
+	float: left;
+	list-style: none;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+.calResult ul li:first-child{
+	font-size: 14px;
+	color: #888888;
+	margin-top: 20px;
+}
+.calResult ul li:last-child{
+	font-size: 17px;
+	color: #FF7A07;
+	margin-top: 20px;
+}
+.calshare{
+	background: #fff;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+}
+.calshare p{
+	text-align: center;
+	font-size: 12px;
+	color: #A9ACAF;
+	width: 240px;
+	margin: 0 auto;
+	margin-top: 12px;
+	line-height: 16px;
+}
+.calshare ul{
+	width: 240px;
+	margin: 0 auto;
+	overflow: hidden;
+	list-style: none;
+	margin-top: 12px;
+}
+.calshare .shareText{
+	margin-bottom: 60px;
+}
+.calshare ul li{
+	width: 80px;
+	float: left;
+	text-align: center;
+}
+.calshare ul li img{
+	width: 45px;
+	height: 45px;
+}
+.calshare ul li span{
+	display: inline-block;
+	font-size: 12px;
+	color: #484848;
+}
+.calshare .shareLink{
+	background: #EEEFF0;
+	padding: 12px 5px;
+	font-size: 12px;
+	border-radius: 5px;
+	word-wrap: break-word;
+	word-break:break-all;
+	text-align: left;
+}
+.calshare h1{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	height: 42px;
+	border-top: 1px solid #E4E4E4;
+	font-size:18px;
+	margin: 0;
+	text-align: center;
+	line-height: 42px;
+	font-weight: normal;
+	color: #454545;
+}
+
+/*===================================理财记录*/
+.manbg{
+	background:#F0EFF5;
+	min-height:100vh;
+}
+.manage{
+	width:100%;
+	margin-top:88px;
+	overflow:hidden;
+}
+.manageNav{
+	width:100%;
+	overflow:hidden;
+	list-style:none;
+	background:#fff;
+	border-bottom:1px solid #DDDDDD;
+	position:fixed;
+	top:44px;
+}
+.manageNav li{
+	float:left;
+	width:33.33%;
+	text-align:center;
+	background:#fff;
+	height: 44px;
+	line-height:44px;
+	border-bottom: 2px solid #fff;
+	font-size:16px;
+	color:#626262;
+}
+.manageNav .borLi{
+	border-bottom: 2px solid #F76160;
+	color:#F76160;
+}
+.manageNav .norLi{
+	border-bottom: 2px solid #fff;
+	color:#626262;
+}
+.PopBox{
+	position: fixed;
+	left: 0px;
+	bottom:-100%;
+	width: 100%;
+	height: 100%;
+	transition: all  linear .2s;
+	-moz-transition:all  linear .2s;
+	-webkit-transition:all  linear .2s;
+	-o-transition:all  linear .2s; 
+}
+.ewmBox{
+	position: fixed;
+	left: 0%;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	-webkit-transform:translate3d(0px,-50%,0);
+	-moz-transform:translate3d(0px,-50%,0);
+	-o-transform:translate3d(0px,-50%,0);
+	transform:translate3d(0px,-50%,0);
+	display: none;
+	transition: all .2s linear 0s;
+	-moz-transition:all .2s linear 0s;
+	-webkit-transition:all .2s linear 0s;
+	-o-transition:all .2s linear 0s;
+}
+.ewmBox .ewmClose{
+	float: right;
+	color: #999;
+	font-weight: bolder;
+	font-size: 12px;
+	margin-top: -6px;
+}
+.ewmBox .ewmClose h1{
+	margin: 0px;
+	padding: 0px;
+}
+@media screen and (max-width: 385px) {
+	.ewmBox .ewmBoxHeader{
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+}
+   .ewmBox .ewmBoxText{
+	display: inline-block;
+	min-width: 240px;
+	background-color: #fff;
+	border: solid 1px #d8d8d8;
+	padding: 8px 12px;
+}
+}
+@media screen and (min-width: 386px) {
+	.ewmBox .ewmBoxHeader{
+	text-align: left;
+	font-size: 14px;
+	font-weight: bold;
+}
+  .ewmBox .ewmBoxText{
+	display: inline-block;
+	width: 65%;
+	background-color: #fff;
+	border: solid 1px #d8d8d8;
+	padding: 8px 12px;
+}
+}
+
+.ewmBox img{
+	width: 100%;
+}
+.ewmBox .ewmBoxFooter{
+	text-align: left;
+	font-size: 12px;
+	line-height: 18px;
+	color: #666;
+}

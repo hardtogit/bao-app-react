@@ -1,0 +1,157 @@
+.root{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  background:rgb(245,245,245);
+}
+.bg{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.zg{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  background-color:red;
+  transition: all .5s;
+  -moz-transition: all .5s;	/* Firefox 4 */
+  -webkit-transition: all .5s;	/* Safari 和 Chrome */
+  -o-transition: all .5s;	/* Opera */
+  z-index: 9999;
+}
+.scroll{
+  flex:1;
+  overflow-y:scroll;
+  &::-webkit-scrollbar {//滚动条
+    width:0px;
+  }
+  &::-webkit-scrollbar-track{//轨道
+  }
+  &::-webkit-scrollbar-thumb {//小块
+    border-radius:2px; 
+    background:#999999;
+  }
+}
+.buyInput{
+  clear: both;
+  background-color: #ffffff;
+  padding:15px;
+  p{
+    color: #898989;
+    font-size: 16px;
+    span{
+      font-size: 12px;
+      margin-left: 8px;
+    }
+  }
+}
+.infomation{
+  background:#fff;
+  padding:15px 15px 15px 15px;
+  display:flex;
+}
+
+.infomationItem {
+  flex:1;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+
+  p:first-child {
+    color:#898989;
+    font-size: 16px;
+    >span{
+      font-size:12px;
+      margin-left: 8px;
+    }
+  }
+
+  p:nth-child(2){
+    margin-top:10px;
+    font-size: 18px;
+    color:#000;
+  }
+
+  &Left {
+    text-align: left
+  }
+
+  &Right {
+    text-align: right
+  }
+}
+
+.buyDiv{
+  padding:17px 15px 15px 15px;
+  background:#fff;
+  color:#000;
+  font-size:16px;
+
+  .buyTip {
+    font-size:12px;
+  }
+}
+.expectIncome {
+  background-color: #fff;
+  padding: 0 0 0 15px;
+  height: 44;
+  .wrap {
+    border-top: 1px solid #ddd;
+    display: flex;
+  }
+  .name {
+    color: #888;
+    line-height: 44px;
+  }
+  .profit {
+    color: #ff7701;
+    line-height: 44px;
+    flex: 1;
+    text-align: right;
+    padding-right: 15px;
+  }
+}
+.payMoney{
+  border-bottom: 1px solid #eee;
+  margin-top: 20px;
+  background:#fff;
+  padding:15px 15px 35px 15px;
+  display:flex;
+  margin-bottom: 20px;
+
+  >p:nth-child(1){
+    line-height: 20px;
+    font-size: 14px;
+    color:#898989;
+    flex: 1;
+  }
+  
+  >p:nth-child(2){
+    font-size: 25px;
+    color: #ff7701;
+  }
+}
+.payBtn{
+  padding:10px 15px 0px 15px;
+  background:rgb(245,245,245);
+  >p{
+    color:#888;
+    font-size:14;
+  }
+  >div{
+    margin-top:30px;
+    height:54px;
+    border-radius:3px;
+    background:rgb(73,167,222);
+    line-height:50px;
+    font-size:16px;
+    color:#fff;
+    text-align:center;
+  }
+}

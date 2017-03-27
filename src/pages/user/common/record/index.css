@@ -1,0 +1,47 @@
+.redList {
+  background: #fff;
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  margin-top: 15px;
+  padding: 0 0 0 15px;
+}
+.redList .listTable {
+  border-bottom: 1px solid #DDDDDD;
+  overflow: hidden;
+}
+.redList .listTable h1 {
+  font-size: 16px;
+  color: #000;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom:5px;
+}
+.redList .listTable p {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.redList .listTable span {
+  font-size: 14px;
+  color: #aaa;
+}
+.redList .listTable .listLeft {
+  float: left;
+  width: 80%;
+  text-align: left;
+}
+.redList .listTable .listRight {
+  float: left;
+  width: 20%;
+  padding-right: 15px;
+  text-align: right;
+}
+.redList .listTable .noActivate {
+  color: #F76260;
+}
+.redList .listTable:last-child {
+  border: none;
+}

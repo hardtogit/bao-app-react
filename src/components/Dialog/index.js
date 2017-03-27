@@ -1,0 +1,31 @@
+import React from 'react'
+import Boron from '../../customized_node_modules/boron'
+
+/**
+  弹出模态对话框 多种动画可选 例子见example
+*/
+
+export default class Dialog extends React.PureComponent {
+  static propTypes = {
+    mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal'])
+  }
+
+  static defaultProps = {
+    mode: 'ScaleModal'
+  }
+
+  toggle = () => this.refs.modal.toggle()
+
+  show = () => this.refs.modal.show()
+
+  hide = () => this.refs.modal.hide()
+
+  render() {
+    const Modal = Boron[this.props.mode]
+    return (
+      <Modal
+        ref="modal"
+      >{this.props.children}</Modal>
+    )
+  }
+}
