@@ -72,6 +72,9 @@ class TradePasswordSet extends React.Component {
         okCallback: this.props.pop,
       })
      this.props.success();
+      let user=JSON.parse(sessionStorage.getItem('bao-user'));
+      user.isSetTradePassword=true;
+        sessionStorage.setItem('bao-user',JSON.stringify(user));
       this.setState({
         init:false
       })

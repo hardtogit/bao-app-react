@@ -571,6 +571,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       type:'CLEAR_INFO_DATA',
       key:'AVAILABLE_COUPONS'
     })
+      dispatch({
+          type:'CLEAR_CONPONS',
+      })
   }
 })
 

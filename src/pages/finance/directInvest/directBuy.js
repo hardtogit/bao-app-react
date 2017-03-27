@@ -93,9 +93,11 @@ class DirectBuy extends React.Component {
   // 确认支付
   onValid = () => {
       const {select}=this.state;
+      console.log('fasfas')
       if (select==1){
           this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
       }else {
+          console.log('fasfas')
           this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
       }
   }
@@ -373,7 +375,7 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail
-
+     console.log(this.props)
     return(
       <div className={styles.root}>
         <div className={styles.bg}>

@@ -42,13 +42,18 @@ class IdentityAuth extends React.Component {
       this.alert()
     }
     if (code === 100&&this.state.init) {
-      this.props.authSuccess(this.state.name, this.state.id)
+      this.props.authSuccess(this.state.name, this.state.id);
+      let user=JSON.parse(sessionStorage.getItem('bao-user'));
       if (path!=''&&reg){
          pathGo=path;
          setReg()
       } else {
          pathGo='/user/setting'
       }
+      user.card=this.state.id;
+      user.isAuth=2;
+
+        sessionStorage.setItem('bao-user',JSON.stringify(user))
       this.refs.success.show({
         text: '认证成功',
         callback: () => {this.props.replace(pathGo)},
@@ -77,6 +82,9 @@ class IdentityAuth extends React.Component {
       })
     }
   }
+    componentDidUpdate(){
+    this.props.clearData()
+    }
   alert(){
     const alertn=this.refs.alert;
     alertn.show({
@@ -234,7 +242,13 @@ const mapDispatchToProps = (dispatch) => ({
           isAuth:2
       }
     })
-  }
+  },
+    clearData(){
+        dispatch({
+            type: 'CLEAR_INFO_DATA',
+            key:'IDENTITY_AUTH',
+        })
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IdentityAuth)

@@ -338,6 +338,7 @@ class Index extends Component{
       if (senddata){
           if (senddata.code==101&&this.state.sendInit&&!sendpending){
               this.props.sendBank(this.state);
+              let user = JSON.parse(sessionStorage.getItem('bao-user'));
               alert.show({
                   content: '申请安全卡成功',
                   okText: '确定',
@@ -346,6 +347,8 @@ class Index extends Component{
               this.setState({
                   sendInit:false
               })
+              user.isbindSecurityCard=true;
+              sessionStorage.setItem('bao-user',JSON.stringify(user))
           }
           if (senddata.code==102&&!sendpending){
               alert.show({

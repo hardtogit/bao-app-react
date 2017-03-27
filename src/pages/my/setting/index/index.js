@@ -209,6 +209,10 @@ const mapDispatchToProps = (dispatch) => ({
             type:'CLEAR_INFO_DATA',
             key:'USER_INFO_WITH_LOGIN'
         })
+		dispatch({
+			type:'CLEAR_INFO_DATA',
+			key:'LOGIN_OUT'
+		})
 	},
 	getAddress(){
 		dispatch({

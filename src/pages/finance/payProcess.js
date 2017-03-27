@@ -147,7 +147,7 @@ class PayProcess extends React.Component {
       okText: '忘记密码',
       cancelText: '取消',
       okCallback: () => {
-        this.props.go('/TradePasswordForget')
+        this.props.go('/user/setting/tradePasswordForget')
       }
     })
   }  
@@ -221,7 +221,7 @@ class PayProcess extends React.Component {
         title: '安全提示',
         content: '　投资需要设置交易密码,立即去设置？',
         okCallback: (close) => {
-          go('/TradePasswordSet', {redirectTo: 'Buy'})
+          go('/user/setting/TradePasswordSet', {redirectTo: 'Buy'})
           close()
         }
       })
@@ -233,7 +233,7 @@ class PayProcess extends React.Component {
         title: '安全提示',
         content: '您的交易密码和登录密码一致，为了您的账户安全，请重置交易密码',
         okCallback: (close) => {
-          go('/TradePasswordForget', {redirectTo: 'Buy'})
+          go('/user/setting/tradePasswordForget', {redirectTo: 'Buy'})
           close()
         }
       })
@@ -248,12 +248,12 @@ class PayProcess extends React.Component {
     const chosen = this.state.chosen
     if (!user.isAuth) {
       // 如果没有实名认证，跳转认证页面
-      return go('/Auth')
+      return go('/user/setting/identityAuth')
     }
     
     if (!user.isbindSecurityCard) {
       // 如果没有绑定安全卡，跳到绑卡页面
-      return go('/BankcardAdd', {redirectTo: 'PayWeb', data, type})
+      return go('/user/setting/bankcardAdd', {redirectTo: 'PayWeb', data, type})
     }
 
     // // 京东 或 连连支付
@@ -291,7 +291,7 @@ class PayProcess extends React.Component {
 
   // @params data 支付方式 1:京东支付  2:连连支付  3:余额支付
   open(data = {}) { 
-    const user = this.props.user
+    const user = JSON.parse(sessionStorage.getItem('bao-user'));
     const go = this.props.go
     // 京东支付 或者 连连支付
     if (this.state.chosen == 2) {

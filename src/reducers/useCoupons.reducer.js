@@ -20,6 +20,12 @@ export default (state = defaultState, action) => {
       })
       
       break;
+      case actionTypes.CLEAR_CONPONS:
+       return  state.withMutations(i => {
+            i.setIn(['coupons', 'selectedCoupon'],null)
+           i.setIn(['coupons', 'useCoupon'], true)
+       })
+          break;
     default:
       return state
   }
