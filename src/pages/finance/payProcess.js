@@ -131,8 +131,8 @@ class PayProcess extends React.Component {
       okText: '忘记密码',
       cancelText: '重试',
       okCallback: (close) => {
-        go('/TradePasswordForget')
-        close()
+        go('/user/setting/tradePasswordForget')
+        close&&close()
       },
       cancelCallback: () => {
         this.gotoPay()
