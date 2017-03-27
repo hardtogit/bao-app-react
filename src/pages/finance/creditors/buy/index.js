@@ -190,7 +190,7 @@ class CreditorBuy extends React.Component{
             changePending={this.changePending}/>
 
           <div className={styles.payBtn}>
-            <p onClick={()=>this.props.push('/creditorProtocol')}>《投资咨询及管理服务协议》及相关融资文件 </p>
+            <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
           </div>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}

@@ -43,7 +43,8 @@ function* takeRequest (action) {
                type:'SAFE_CARD_INFO'
            })
        }
-       if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==100||response.code==301)){
+       if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==101||response.code==301)){
+           console.log('fsafafasfa')
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
        }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
