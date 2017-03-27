@@ -169,7 +169,8 @@ import findHome from './pages/find/home/index'
 import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
 // 工厂方法创建saga中间件
-document.domain = 'devbao.cn';
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
     thunk,
