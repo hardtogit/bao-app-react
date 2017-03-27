@@ -100,7 +100,15 @@ class DirectBuy extends React.Component {
       }
   }
     successsFn=()=>{
-        let coupon = this.state.useCoupon&&this.getCoupon()||null
+        let coupon = this.state.useCoupon&&this.getCoupon()||null;
+        const {use}=this.props;
+        if (use){
+            if (use.code==100){
+                if (use.data.is){
+                    coupon.id=''
+                }
+            }
+        }
         // 调用支付流程
         this.refs.payProcess.open({
             id: this.directInvestId,

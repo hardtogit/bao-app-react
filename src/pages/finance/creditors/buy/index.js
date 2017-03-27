@@ -26,7 +26,8 @@ class CreditorBuy extends React.Component{
       chosenPay: '',
         payTop:'100%',
         url:'',
-        select:1
+        select:1,
+        pending:false
     }
     this.creditorsId = this.props.params.id
   }
@@ -43,8 +44,17 @@ class CreditorBuy extends React.Component{
           nextProps.detail.left_quantity : this.state.copies : 1  
       this.setState({copies})
     }
+      if (nextProps.creditorsBuyPending){
+          this.setState({
+              pending:true
+          })
+      }
   }
-
+    changePending=()=>{
+        this.setState({
+            pending:false
+        })
+    }
   changeCopies = (value) => {
       if (value<=0){
           this.refs.tipbar.open('购买份数必须为正整数!');
@@ -175,8 +185,9 @@ class CreditorBuy extends React.Component{
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.creditorBuy}
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
-            balancePayPending={this.props.creditorsBuyPending}
-            balancePayData={this.props.creditorsBuyData} />
+            balancePayPending={this.state.pending}
+            balancePayData={this.props.creditorsBuyData}
+            changePending={this.changePending}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/creditorProtocol')}>《投资咨询及管理服务协议》及相关融资文件 </p>
