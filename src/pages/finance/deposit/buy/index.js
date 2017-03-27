@@ -107,7 +107,7 @@ class DepositBuy extends React.Component {
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;
     const {useCoupon}=this.state;
-    if (!useCoupon){
+    if (useCoupon&&coupon){
         coupon.id='';
     }
     this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
@@ -265,6 +265,9 @@ class DepositBuy extends React.Component {
    successsFn=()=>{
        let coupon = this.state.useCoupon&&this.getCoupon()||null
        const curMonth = this.getCurrentMonth()
+       if (this.props.params.id==5&&coupon){
+           coupon.id=''
+       }
        // 调用支付流程
        this.refs.payProcess.open({
            productId: this.state.depositId,
@@ -282,8 +285,15 @@ class DepositBuy extends React.Component {
         </div>
       )
     }
-
-    let coupon = this.getCoupon()
+      if(this.props.params.id==5){
+          return (
+              <div
+                  className={styles.coupon}>
+                  <span>新手标不能使用优惠券</span>
+              </div>
+          )
+      }
+      let coupon = this.getCoupon()
     if (! coupon || this.state.quantity < 1) {
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
@@ -316,15 +326,6 @@ class DepositBuy extends React.Component {
       const interestRates = this.state.interestRates.sort((a, b) => {
         return Number(b.rate) - Number(a.rate)
       })
-        console.log(this.props)
-      if (this.props.params.id==5){
-          return (
-              <div
-                  className={styles.coupon}>
-                  <span>新手标不能使用优惠券</span>
-              </div>
-          )
-      }else {
           const card = this.state.useCoupon&&this.props.useCoupon ? (
               <div>
                   <div>{ couponText }</div>
@@ -339,7 +340,6 @@ class DepositBuy extends React.Component {
               </div>
           )
       }
-    }
   }
   openDy=()=>{
       let money=this.getPayTotal(true);
@@ -410,6 +410,11 @@ class DepositBuy extends React.Component {
         }
     }
     closeFn=()=>{
+        if (this.props.params.id==5){
+            let user=JSON.parse(sessionStorage.getItem('bao-user'));
+            user.isInvest=1;
+            sessionStorage.setItem('bao-user',JSON.stringify(user));
+        }
         this.setState({payTop:'100%',url:''})
     }
   render() {

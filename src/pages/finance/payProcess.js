@@ -76,6 +76,9 @@ class PayProcess extends React.Component {
       const go = this.props.go;
       if (code == 100&&pending) {
         // 支付成功
+          let user=JSON.parse(sessionStorage.getItem('bao-user'));
+              user.isInvest=1;
+          sessionStorage.setItem('bao-user',JSON.stringify(user));
           nextProps.changePending();
         switch(this.props.type) {
           case 'deposit': go('/depositInvestSuccess'); break;
