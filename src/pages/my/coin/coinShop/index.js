@@ -108,6 +108,7 @@ class Index extends React.Component {
               <span  className={classs.sign} onClick={!this.state.isSign&&this.doSign}>{this.state.isSign&&'已签到'||'签到'}</span>
           </div>
           <div className={classs.items}>
+              <div className={classs.scrollBar}>
               <ul ref="ul">
                   <li className={index==0&&classs.active||null} onClick={()=>{this.changeBar(0)}}>全部</li>
                   {
@@ -116,6 +117,7 @@ class Index extends React.Component {
                       ))
                   }
               </ul>
+              </div>
           </div>
               {
                   Dom
