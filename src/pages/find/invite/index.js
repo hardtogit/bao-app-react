@@ -233,6 +233,7 @@ class Index extends React.Component {
     }
     loadEndDom1=(datas)=>{
         const data=datas.data;
+       const {code}=data
         return(<div>
             <div className={styles.inveHead}>
                 <ul>
@@ -246,7 +247,7 @@ class Index extends React.Component {
             </div>
             <div className={styles.inviContent}>
             <img src={caishen} className={styles.csImg}/>
-             <iframe src={`http://${location.hostname}/mobile_api/static-page/invite`} style={{width:'100%',border:'0px'}} height={640}></iframe>
+             <iframe src={`http://${location.hostname}/mobile_api/static-page/invite?code=${code}`} style={{width:'100%',border:'0px'}} height={640}></iframe>
             </div>
             <div className={styles.foot}>
                 <p><img onClick={this.openCulator} src={count}/></p>
