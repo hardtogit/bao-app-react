@@ -56,6 +56,7 @@ class VerifyCard extends React.Component {
   }
   alert=()=>{
     const alert=this.refs.alert;
+    console.log(alert)
     alert.show({
       content: '您还未设置交易密码',
       okText: '返回',
@@ -63,6 +64,7 @@ class VerifyCard extends React.Component {
     })
   };
   componentWillReceiveProps({data,code,pending}){
+      const alert=this.refs.alert;
     if (!data.data.isSetTradePassword){
       this.alert()
     }

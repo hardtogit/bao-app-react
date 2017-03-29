@@ -102,7 +102,7 @@ class FindpasswordVerifyMobile extends React.Component {
             name='captcha'
             label='验证码'
             type='validateItem'
-            right={<VerifyCode onClick={this.sendVerifyCode} containerStyle={{height: 44}} />}
+            right={<VerifyCode onClick={this.sendVerifyCode} containerStyle={{height: 44}} init={true}/>}
             reg={{ required: {message: '验证码不能为空'},
                    captcha: {message: '请输入正确的验证码'}}}
             borderType='three' />
@@ -130,7 +130,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
            type:actionTypes.VERIFY_CAPTCHA,
            params:[{
              mobile,
-             type:1
+             type:3
            }
            ]
          })
