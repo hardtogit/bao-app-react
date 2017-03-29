@@ -12,7 +12,9 @@ class VerifyCode extends React.Component {
 		super(props)
 		this.state = {
 	      active: true,
-	      count: 0
+	      count: 0,
+		 text:'发送验证码',
+	     time:0
 		}
 		this.exitTime = ''
 	}
@@ -35,11 +37,11 @@ class VerifyCode extends React.Component {
 	}
 
 	tick() {
-	    const count = this.state.count
+	    const {count,time} = this.state;
 	    if (count > 0) {
 	      this.setState({count: count-1})
 	    } else {
-	      this.setState({active: true})
+	      this.setState({active: true,time:time+1})
 	      clearInterval(this.interval)
 	    }
   	}
@@ -84,10 +86,15 @@ class VerifyCode extends React.Component {
 	}
 
   	renderActiveStatus() {
-	    const label = this.props.label;
+	    const {label,init} = this.props;
+	    const {text,time}=this.state;
+	    let Stext=label;
+	    if (init&&time==0){
+	    	Stext=text
+		}
 	    return 	(
 	    	<div className={cn(styles.verifyCode, this.props.className)} style={this.props.containerStyle} onClick={this.handleClick.bind(this)}>
-				<span className={styles.text} style={this.props.textStyle}>{this.props.label}</span>
+				<span className={styles.text} style={this.props.textStyle}>{Stext}</span>
 			</div>
 		)
   	}

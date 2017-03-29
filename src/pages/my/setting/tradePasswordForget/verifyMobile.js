@@ -14,7 +14,7 @@ import commonStyles from '../../../../css/common.styl'
 import util from '../../../../utils/utils.js'
 import Loading from '../../../../components/pageLoading'
 import Alert from '../../../../components/Dialog/alert'
-import {push,replace} from 'react-router-redux'
+import {push,replace,goBack} from 'react-router-redux'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
 class VerifyMobile extends React.Component {
     constructor(props) {
@@ -145,7 +145,8 @@ class VerifyMobile extends React.Component {
   render() {
     const {
         data,
-        idCard
+        idCard,
+        pop
     }=this.props;
     let Dom;
     if (data){
@@ -159,7 +160,7 @@ class VerifyMobile extends React.Component {
       <div className={commonStyles.panel}>
         <NavBar
           title='验证手机号码'
-        />
+         onLeft={pop}/>
         {
           Dom
         }
@@ -183,6 +184,9 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch({
         type:'USER_INFO_WITH_LOGIN'
       })
+    },
+    pop(){
+      dispatch(goBack())
     },
     push(path){
       dispatch(push(path))
