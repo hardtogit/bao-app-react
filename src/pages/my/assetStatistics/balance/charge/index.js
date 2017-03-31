@@ -13,7 +13,7 @@ import Alert from '../../../../../components/Dialog/alert'
 import IsAuth from '../../../../../components/isAuth'
 import Pay from '../../../../../pages/finance/pay/index'
 import util from '../../../../../utils/utils'
-const hostName=location.hostname;
+const hostName=window.location.origin;
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -48,7 +48,7 @@ class Index extends React.Component {
                  this.setState({
                      submite:false,
                      payTop:'0px',
-                     url:util.combineUrl(`http://${hostName}/mobile_api/pay`,{money,type})
+                     url:util.combineUrl(`${hostName}/mobile_api/pay`,{money,type})
                  });
              }else if (submite){
                  this.setState({
