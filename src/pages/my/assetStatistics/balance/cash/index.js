@@ -8,6 +8,7 @@ import ReddemDialog from '../../../../../components/Dialog/reddem'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
 import utils from '../../../../../utils/utils'
+import wrap from '../../../../../utils/pageWrapper'
 class Index extends React.Component {
     constructor(props) {
         super(props)
@@ -181,4 +182,4 @@ const Rechargeinitfn=(dispath)=>({
         dispath(push(`/user/cashsuccess?time=${time}&cash_amount=${cash_amount}`))
     }
 });
-export default connect(Rechargeinit,Rechargeinitfn)(Index)
+export default connect(Rechargeinit,Rechargeinitfn)(wrap(Index))

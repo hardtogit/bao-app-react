@@ -131,9 +131,9 @@ class Index extends React.Component {
 
 				</div>
 				</div>
-				<div className={classs.buyBottom} onClick={this.vaold}>
-					立即兑换
-				</div>
+			</div>
+			<div className={classs.buyBottom} onClick={this.vaold}>
+				立即兑换
 			</div>
 		</div>)
 	}
@@ -183,4 +183,4 @@ const dispatchFn=(dispatch)=>({
         })
     }
 });
-export default connect(datas,dispatchFn)(wrap(Index))
+export default connect(datas,dispatchFn)(Index)

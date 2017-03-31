@@ -4,12 +4,12 @@
   right: 0;
   bottom: 0;
   left: 0;
+  height: auto;
   overflow-y: scroll;
   margin-top: -1px;
   padding: 0;
   margin-bottom: -1px;
   width: auto;
-  height: auto;
   -webkit-overflow-scrolling:touch;
 }
 .box::-webkit-scrollbar{

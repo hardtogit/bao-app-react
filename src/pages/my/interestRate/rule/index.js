@@ -9,7 +9,7 @@ import styles from './index.less'
 
 class Index extends Component{
     render(){
-        return(<div>
+        return(<div className={styles.bg}>
             <NavBar onLeft={this.props.pop}>
                 加息券规则
             </NavBar>

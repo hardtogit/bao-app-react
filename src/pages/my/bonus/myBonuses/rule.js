@@ -4,13 +4,14 @@ import NavBar from '../../../../components/NavBar/';
 import {connect} from 'react-redux';
 import {goBack} from 'react-router-redux'
 import Box from '../../../../components/ContentBox/index';
+import style from './index.css'
 class Index extends React.Component{
 	constructor(props){
 		super(props);
 	}
 	render(){
 		return(
-            <div>
+            <div className={style.bg}>
                 <NavBar  onLeft={this.props.pop} backgroundColor={"#F76360"}>红包规则</NavBar>
                 <Box>
                     <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}}

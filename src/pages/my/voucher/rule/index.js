@@ -12,7 +12,7 @@ import styles from '../../interestRate/rule/index.less'
 
 class Index extends Component{
     render(){
-        return(<div>
+        return(<div className={styles.bg}>
             <NavBar onLeft={this.props.pop}>
                 抵用券规则
             </NavBar>

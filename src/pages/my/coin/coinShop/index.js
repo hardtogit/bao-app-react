@@ -11,7 +11,6 @@ import coinTotal from '../../../../assets/images/shopp-center/total.png'
 import icon  from '../../../../assets/images/shopp-center/icon.png'
 import Loading from '../../../../components/pageLoading/index'
 import Scroll from '../../../../components/scroll/index'
-import wrap from '../../../../utils/pageWrapper'
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
@@ -193,4 +192,4 @@ const dispatchFn=(dispatch)=>({
           })
       }
 });
-export default connect(datas,dispatchFn)(wrap(Index))
+export default connect(datas,dispatchFn)(Index)
