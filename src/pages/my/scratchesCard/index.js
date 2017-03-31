@@ -76,6 +76,7 @@ class Index extends React.Component {
         let h = 152;
         let mousedown = false;
         let canvas = document.getElementById("guaCanvas");
+        let Box =document.getElementById('box');
         if(!canvas)
             return false;
         let card = document.getElementById("card");
@@ -123,8 +124,10 @@ class Index extends React.Component {
         /**
          * 按下事件
          */
+        let scrollTop;
         let eventDown = (e)=>{
             e.preventDefault();
+            scrollTop=Box.scrollTop;
             mousedown=true;
         };
         /**
@@ -145,7 +148,7 @@ class Index extends React.Component {
                     e=e.changedTouches[e.changedTouches.length-1];
                 }
                 let x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;
-                let y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+                let y = (e.clientY + scrollTop || e.pageY) - offsetY || 0;
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath();
                 ctx.arc(x,y,15 , 0, Math.PI * 2);//绘制圆点
@@ -174,7 +177,8 @@ class Index extends React.Component {
             cardResName,
             cardResAmount,
             guaBtn,
-            index
+            index,
+            over
         }=this.state;
         const {cardInfo} = this.props;
         let num=cardInfo.newCards.length;
@@ -187,7 +191,7 @@ class Index extends React.Component {
                         rightNode={<Link className={styles.rightNode} to="/user/scratchesRule">规则</Link>}
                         onLeft={this.props.pop}
                 >我的刮刮卡</NavBar>
-                <Box className={styles.box}>
+                <Box className={styles.box}  id="box">
                     <img className={styles.card_bg_img} src={bgImg} alt=""/>
                     <div className={styles.card_bg}>
                         <div id="card" className={styles.card}>

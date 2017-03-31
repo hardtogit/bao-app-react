@@ -14,7 +14,7 @@ class Index extends React.Component{
                 <NavBar backgroundColor={"#00b0e6"}>点币规则</NavBar>
                 <Box>
                     <iframe style={{"width":"100%","height":"100%","border":"none"}}
-                            src={`http://${location.hostname}/mobile_api/static-page/coin-rule`}></iframe>
+                            src={`${window.location.origin}/mobile_api/static-page/coin-rule`}></iframe>
                 </Box>
             </div>
         )

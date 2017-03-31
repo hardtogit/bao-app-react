@@ -10,7 +10,6 @@ import dingicon from '../../../../../assets/images/my-index/dingicon.png' //列�
 import Scroll from '../../../../../components/scroll/index'
 import {goBack,push} from 'react-router-redux'
 import Util from "../../../../../utils/utils"
-import wrap from '../../../../../utils/pageWrapper'
  class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -75,7 +74,6 @@ import wrap from '../../../../../utils/pageWrapper'
 	}
 	buyDom=()=>{
 		return(<div onClick={()=>{this.props.push('/home/productIndex')}}>
-			<div className={styles.errorImg}><img src={explan} /></div>
 			<div className={styles.gobuy}>再次购买</div>
 		</div>)
 	}
@@ -130,7 +128,7 @@ import wrap from '../../../../../utils/pageWrapper'
             listDom=this.ScrollDom()
 		}
 		return (
-			<div>
+			<div className={styles.bg}>
 				<NavBar onLeft={pop} rightNode={<Link to="/user/dcbRecords" style={{color:'#fff'}}>记录</Link>}>我的定存宝</NavBar>
 				<div className={styles.bg}>
 				{
@@ -176,4 +174,4 @@ const myDepositSummaryInitfn=(dispath,own)=>({
     	dispath(goBack())
 	}
 })
-export default connect(myDepositSummaryInit,myDepositSummaryInitfn)(wrap(Index))
+export default connect(myDepositSummaryInit,myDepositSummaryInitfn)(Index)

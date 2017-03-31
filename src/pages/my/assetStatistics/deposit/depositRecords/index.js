@@ -107,9 +107,9 @@ class Index extends React.Component {
 			ListDomB=this.listB();
 		}
 		return (
-			<div>
+			<div className={styles.bg}>
 				<NavBar onLeft={this.props.pop}>定存宝记录</NavBar>
-				<div className={styles.bg}>
+				<div>
 				<ul className={styles.tabmenu}>
 					<li><a className={this.state.flag?styles.borderBlue:styles.borderWhite} onClick={()=>{this.toggle(1)}}> 待回款项目</a></li>
 					<li><a className={!this.state.flag?styles.borderBlue:styles.borderWhite} onClick={()=>{this.toggle(2)}}> 历史资产</a></li>

@@ -75,15 +75,14 @@ class PageTransition extends React.Component {
         transitionGroup
     }=this.state;
     return (
-      <div>
       <ReactCSSTransitionGroup
         transitionName={transitionGroup}
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
+        style={{position:'absolute',left:'0px',top:'0px',height:'100%',width:'100%'}}
       >
         {React.cloneElement(children || <div />, { key: pathname })}
       </ReactCSSTransitionGroup>
-      </div>
     )
   }
 }

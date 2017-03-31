@@ -5,13 +5,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { push, goBack } from 'react-router-redux'
-import config from '../../../config'
+// import config from '../../../config'
 import NavBar from '../../components/NavBar'
 import utils from '../../utils/utils.js'
 import commonStyles from '../../css/common.styl'
 
 const {width, height} = utils.dimension()
-const ROOT_URL =  config.requestUrl + 'common/pay-excess'
+const ROOT_URL =  window.location.origin + 'common/pay-excess'
+
 
 class PayWeb extends React.Component {
   constructor(props) {

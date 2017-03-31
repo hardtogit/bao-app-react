@@ -7,7 +7,6 @@ import style from './index.css'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Success from '../../../../../components/Dialog/success'
 import Util from '../../../../../utils/utils'
-import wrap from '../../../../../utils/pageWrapper'
 class Index extends React.Component {
 	constructor(props) {
 		super(props)
@@ -103,4 +102,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         })
     }
 });
-export default connect(mapStateToProps, mapDispatchToProps)(wrap(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

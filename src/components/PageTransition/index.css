@@ -45,7 +45,6 @@
   opacity: 0.01;
   transform: translate3d(-100%, 0, 0);
 }
-
 /*:global .example-enter {
   opacity: 0.01;
   transition: opacity .5s ease-in;

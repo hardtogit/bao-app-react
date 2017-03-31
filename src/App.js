@@ -357,7 +357,7 @@ export default class App extends React.Component {
             {Object.keys(ComponentDemo).map((key, i) => (
               <Route key={i} path={key} component={ComponentDemo[key]}></Route>
             ))}
-            
+
           </Route>
             <Redirect from='/*' to='/' />
         </Router>

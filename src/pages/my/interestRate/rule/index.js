@@ -9,13 +9,13 @@ import styles from './index.less'
 
 class Index extends Component{
     render(){
-        return(<div>
+        return(<div className={styles.bg}>
             <NavBar onLeft={this.props.pop}>
                 加息券规则
             </NavBar>
             <div className={styles.body}>
                 <iframe style={{"width":"100%","height":"100%","border":"none"}}
-                        src={`http://${location.hostname}/mobile_api/static-page/interestRate-rule`}></iframe>
+                        src={`${window.location.origin}/mobile_api/static-page/interestRate-rule`}></iframe>
             </div>
         </div>)
     }
