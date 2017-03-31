@@ -15,7 +15,7 @@ import IsAuth from '../../../components/isAuth'
 import Pay from '../../../pages/finance/pay/index'
 import util from '../../../utils/utils'
 import setUrl from '../../../components/setUrl'
-const hostName=location.hostname;
+const hostName=window.location.origin;
 class DirectBuy extends React.Component {
   constructor(props) {
     super(props)

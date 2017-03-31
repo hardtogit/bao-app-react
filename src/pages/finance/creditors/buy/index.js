@@ -16,7 +16,7 @@ import IsAuth from '../../../../components/isAuth'
 import Pay from '../../../../pages/finance/pay/index'
 import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
-const hostName=location.hostname;
+const hostName=window.location.origin;
 class CreditorBuy extends React.Component{
   constructor(props) {
     super(props)
@@ -112,7 +112,7 @@ class CreditorBuy extends React.Component{
             }=data,
             payPass='',
             type=2;
-        const url=util.combineUrl(`${window.location.origin}/mobile_api/creditors/pay-bond/${id}`,{copies,payPass,type})
+        const url=util.combineUrl(`${hostName}/mobile_api/creditors/pay-bond/${id}`,{copies,payPass,type})
         this.setState({
             url,
             payTop:'0px'

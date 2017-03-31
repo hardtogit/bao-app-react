@@ -17,7 +17,7 @@ import IsAuth from '../../../../components/isAuth/index'
 import Pay from '../../../../pages/finance/pay/index'
 import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
-const hostName=location.hostname;
+const hostName=window.location.origin;
 class DepositBuy extends React.Component {
 
   constructor(props) {
@@ -390,7 +390,7 @@ class DepositBuy extends React.Component {
         }=data,
         password='',
         type=2;
-        const url=util.combineUrl(`https://${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+        const url=util.combineUrl(`${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
         this.setState({
             url,
             payTop:'0px'
