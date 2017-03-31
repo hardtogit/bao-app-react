@@ -11,7 +11,7 @@ class Index extends Component{
         return(<div className={styles.bg}>
              <NavBar onLeft={this.props.pop}>点币使用规则</NavBar>
             <div className={styles.body}>
-           <iframe src={`http://${location.hostname}/mobile_api/static-page/coin-rule`} className={styles.ifr}></iframe>
+           <iframe src={`${window.location.origin}/mobile_api/static-page/coin-rule`} className={styles.ifr}></iframe>
             </div>
         </div>)
     }

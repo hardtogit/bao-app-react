@@ -23,7 +23,7 @@ class Index extends Component{
             <NavBar onLeft={this.props.pop}>债权转让规则</NavBar>
             <div className={styles.body}>
                 {
-                    this.state.init&&<iframe className={styles.ifr} src={`http://${location.hostname}/mobile_api/static-page/creditorTransfer-rule`}></iframe>||''
+                    this.state.init&&<iframe className={styles.ifr} src={`${window.location.origin}/mobile_api/static-page/creditorTransfer-rule`}></iframe>||''
                 }
             </div>
         </div>)

@@ -14,7 +14,7 @@ class Index extends React.Component{
                 <NavBar  onLeft={this.props.pop} backgroundColor={"#F76260"}>活动说明</NavBar>
                 <Box>
                     <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}}
-							src={`http://${location.hostname}/mobile_api/static-page/invite-rule`}></iframe>
+							src={`${window.location.origin}/mobile_api/static-page/invite-rule`}></iframe>
                 </Box>
             </div>
 		)
