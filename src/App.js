@@ -168,9 +168,10 @@ import productIndex from './pages/finance/home/index'
 import findHome from './pages/find/home/index'
 import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
+import WeChat from './pages/WeChat'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -301,6 +302,7 @@ export default class App extends React.Component {
               /*已完成*/
               <Route path='/invite/success' component={inviteSuccess}/>
               <Route path="login" component={Login}></Route>
+              <Route path='weChat' component={WeChat}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
               <Route path='privacy' components={privacy}></Route>
