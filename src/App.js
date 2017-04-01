@@ -347,7 +347,7 @@ export default class App extends React.Component {
             <Route path="pastAccrule" component={pastAccrule}></Route>
 
             <Route path="financiaIndex" component={financiaIndex}></Route>
-          
+
             <Route path="financiaRecords" component={financiaRecords}></Route>
             <Route path="Analysis" component={Analysis}></Route>
             <Route path="invite" component={Invite}></Route>

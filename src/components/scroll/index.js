@@ -14,7 +14,8 @@ class Scroll extends Component{
            initLoad:PropTypes.object,
            distance:PropTypes.number,
            nullDom:PropTypes.element,
-           fsDom:PropTypes.element
+           fsDom:PropTypes.element,
+        titleChild:PropTypes.element
     }
     static defaultProps={
            height:400,
@@ -39,7 +40,8 @@ class Scroll extends Component{
           listzg:{
               display:'block'
           },
-         nullDom:Config.nullDom()
+         nullDom:Config.nullDom(),
+        titleChild:<div></div>
     }
     constructor(props){
         super(props)
@@ -120,11 +122,11 @@ class Scroll extends Component{
                }
     }
     render(){
-        const {children,loading,height,style,fetch,endType,endload,listLoad,listzg,initLoad,nullDom} = this.props,
+        const {children,loading,height,style,fetch,endType,endload,listLoad,listzg,initLoad,nullDom,titleChild} = this.props,
             {initLoading}=this.state,
          listArry=[];
-         style.height=height,
-         React.Children.map(children,(child,i)=>{
+         style.height=height;
+             children&&children.map((child,i)=>{
               listArry.push(React.cloneElement(child))
             });
          let loadType,
@@ -147,6 +149,7 @@ class Scroll extends Component{
             <div style={style} ref='scrollBox'>
               <div ref='listBox'>
               <div>
+                  {titleChild}
               {
                   ListDom
               }
