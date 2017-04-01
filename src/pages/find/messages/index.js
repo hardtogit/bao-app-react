@@ -65,15 +65,13 @@ class findMessage extends Component{
         const Height=document.body.clientHeight-44;
         return(<Scroll height={Height} fetch={()=>{this.props.getList(1)}}
                        isLoading={pending} distance={20} endType={end}
+                       titleChild={oneDom}
                 >
-            <div key={1}>
-                {oneDom}
             {
                 listData&&listData.map((item,i)=>{
                    return(this.oneDom(item,i))
                 })
             }
-            </div>
         </Scroll>)
     }
     render(){

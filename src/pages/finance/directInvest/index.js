@@ -265,9 +265,10 @@ class DirectInvestList extends React.Component{
             pending,
             nextPage,
             pageEnd,
-            data
+            data,
+            ListHeight
         }=this.props;
-        return(<Scroll height={this.props.ListHeight} fetch={nextPage}
+        return(<Scroll height={ListHeight} fetch={nextPage}
                        isLoading={pending} distance={5} endType={pageEnd} endload={<div></div>}>
             {
                 data && data.map((data,i) => {
