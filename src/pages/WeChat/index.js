@@ -50,7 +50,7 @@ class Index extends Component{
             window.location.herf=`${window.location.hostname}/static-page/wechat-bind`
         }else {
             this.setState({
-                login:true
+                login:1
             })
             this.props.get()
         }
@@ -61,8 +61,8 @@ class Index extends Component{
         return(<div className={style.bg}>
             <NavBar onLeft={pop}>{text[login]}</NavBar>
             <div className={style.body}>
-                <div className={cns(style.imgBox,login&&style.block||style.hide)}></div>
-                <div className={cns(style.failBox,login&&style.hide||style.block)}>
+                <div className={cns(style.imgBox,login==1&&style.block||style.hide)}></div>
+                <div className={cns(style.failBox,login==1&&style.hide||style.block)}>
                     <div className={style.failIcon}></div>
                 </div>
                 <div className={style.content}>
@@ -73,7 +73,7 @@ class Index extends Component{
                   </button>
                 </div>
             </div>
-            <div className={cns(style.zg,login&&style.block||style.hide)} >
+            <div className={cns(style.zg,login==1&&style.block||style.hide)} >
               <div className={style.bgColor}></div>
                 <Loading Text={'登陆授权中'} textColor={'#fff'}/>
             </div>
