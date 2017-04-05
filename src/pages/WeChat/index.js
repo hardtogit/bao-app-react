@@ -12,7 +12,10 @@ class Index extends Component{
     constructor(porps){
         super(porps)
         this.state={
-            login:true
+            login:1,
+            text:['成功开启','未授权','开启失败'],
+            text1:['您已成功开启免登陆模式','您还未授权','您开启免登陆模式失败'],
+            text2:['查看我的账户','去授权','重新登录']
         }
     }
     componentDidMount(){
@@ -31,33 +34,42 @@ class Index extends Component{
             sessionStorage.setItem('bao-auth',true);
                getAll();
                push('/home/myIndex');
+        }else if(code==301) {
+            this.setState({
+                login:2
+            })
         }else {
             this.setState({
-                login:false
+                login:3
             })
         }
     }
     send=()=>{
-        this.setState({
-            login:true
-        })
-        this.props.get()
+        const {login}=this.state;
+        if (login==2){
+            window.location.herf=`${window.location.hostname}/static-page/wechat-bind`
+        }else {
+            this.setState({
+                login:true
+            })
+            this.props.get()
+        }
     }
     render(){
-        const {login}=this.state;
+        const {login,text,text1,text2}=this.state;
         const {pop}=this.props;
         return(<div className={style.bg}>
-            <NavBar onLeft={pop}>{login&&'成功开启'||'开启失败'}</NavBar>
+            <NavBar onLeft={pop}>{text[login]}</NavBar>
             <div className={style.body}>
                 <div className={cns(style.imgBox,login&&style.block||style.hide)}></div>
                 <div className={cns(style.failBox,login&&style.hide||style.block)}>
                     <div className={style.failIcon}></div>
                 </div>
                 <div className={style.content}>
-                  <h1>{login&&'您已成功开启免登陆模式'||'您开启免登陆模式失败'}</h1>
+                  <h1>{text1[login]}</h1>
                   <p>点击走进宝点-我的账户，光速查看昨天收益</p>
                   <button onClick={this.send}>
-                      {login&&'查看我的账户'||'重新登录'}
+                      {text2[login]}
                   </button>
                 </div>
             </div>
