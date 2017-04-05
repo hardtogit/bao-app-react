@@ -7,7 +7,14 @@ import style from './index.less'
 import Loading from '../../components/pageLoading'
 import {goBack,push} from 'react-router-redux'
 import {connect} from 'react-redux'
+import cns from 'classnames'
 class Index extends Component{
+    constructor(porps){
+        super(porps)
+        this.state={
+            login:true
+        }
+    }
     componentDidMount(){
         const {push,get}=this.props;
         const ua = window.navigator.userAgent.toLowerCase();
@@ -17,21 +24,45 @@ class Index extends Component{
             push('/home')
         }
     }
+    componentWillReceiveProps(next){
+        const {wechat,getAll,push}=next;
+        const code=wechat&&wechat.code;
+        if (code==100){
+            console.log('fasfsfa')
+            sessionStorage.setItem('bao-user',true);
+            getAll();
+            push('/home/myIndex')
+        }else {
+            this.setState({
+                login:false
+            })
+        }
+    }
+    send=()=>{
+        this.setState({
+            login:true
+        })
+        this.props.get()
+    }
     render(){
+        const {login}=this.state;
         const {pop}=this.props;
         return(<div className={style.bg}>
-            <NavBar onLeft={pop}>成功开启</NavBar>
+            <NavBar onLeft={pop}>{login&&'成功开启'||'开启失败'}</NavBar>
             <div className={style.body}>
-                <div className={style.imgBox}></div>
+                <div className={cns(style.imgBox,login&&style.block||style.hide)}></div>
+                <div className={cns(style.failBox,login&&style.hide||style.block)}>
+                    <div className={style.failIcon}></div>
+                </div>
                 <div className={style.content}>
-                  <h1>您已成功开启免登陆模式</h1>
+                  <h1>{login&&'您已成功开启免登陆模式'||'您开启免登陆模式失败'}</h1>
                   <p>点击走进宝点-我的账户，光速查看昨天收益</p>
-                  <button>
-                      查看我的账户
+                  <button onClick={this.send}>
+                      {login&&'查看我的账户'||'重新登录'}
                   </button>
                 </div>
             </div>
-            <div className={style.zg}>
+            <div className={cns(style.zg,login&&style.block||style.hide)} >
               <div className={style.bgColor}></div>
                 <Loading Text={'登陆授权中'} textColor={'#fff'}/>
             </div>
@@ -39,7 +70,7 @@ class Index extends Component{
     }
 }
 const data=(state)=>({
-      news:state.infodata.getIn(['WE_CHAT','data'])
+    wechat:state.infodata.getIn(['WE_CHAT','data'])
 })
 const dispatchFn=(dispatch)=>({
      push(url){
@@ -51,6 +82,17 @@ const dispatchFn=(dispatch)=>({
     get(){
         dispatch({
             type:'WE_CHAT'
+        })
+    },
+    getAll(){
+        dispatch({
+            type:'RATE'
+        });
+        dispatch({
+            type:'USER_INFO'
+        });
+        dispatch({
+            type:'SAFE_CARD_INFO'
         })
     }
 })
