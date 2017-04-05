@@ -27,12 +27,10 @@ class Index extends Component{
     componentWillReceiveProps(next){
         const {wechat,getAll,push}=next;
         const code=wechat&&wechat.code;
-        console.log('fsafszfaafsf')
         if (code==100){
-            console.log('fasfsfa')
-            sessionStorage.setItem('bao-user',true);
-            getAll();
-            push('/home/myIndex')
+            sessionStorage.setItem('bao-auth',true);
+               getAll();
+               push('/home/myIndex');
         }else {
             this.setState({
                 login:false
