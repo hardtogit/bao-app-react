@@ -12,7 +12,7 @@ class Index extends Component{
     constructor(porps){
         super(porps)
         this.state={
-            login:1,
+            login:0,
             text:['成功开启','未授权','开启失败'],
             text1:['您已成功开启免登陆模式','您还未授权','您开启免登陆模式失败'],
             text2:['查看我的账户','去授权','重新登录']
@@ -37,24 +37,21 @@ class Index extends Component{
         }else if(code==301) {
             alert('1')
             this.setState({
-                login:2
+                login:1
             })
         }else {
             this.setState({
-                login:3
+                login:2
             })
         }
     }
     send=()=>{
         const {login}=this.state;
         alert(login);
-        alert(`${window.location.hostname}/static-page/wechat-bind`)
-        if (login==2){
+        alert(`${window.location.origin}/static-page/wechat-bind`)
+        if (login==1){
             window.location.herf=`${window.location.origin}/static-page/wechat-bind`
         }else {
-            this.setState({
-                login:1
-            })
             this.props.get()
         }
     }
@@ -65,8 +62,8 @@ class Index extends Component{
         return(<div className={style.bg}>
             <NavBar onLeft={pop}>{text[login]}</NavBar>
             <div className={style.body}>
-                <div className={cns(style.imgBox,login==1&&style.block||style.hide)}></div>
-                <div className={cns(style.failBox,login==1&&style.hide||style.block)}>
+                <div className={cns(style.imgBox,login==0&&style.block||style.hide)}></div>
+                <div className={cns(style.failBox,login==0&&style.hide||style.block)}>
                     <div className={style.failIcon}></div>
                 </div>
                 <div className={style.content}>
@@ -77,7 +74,7 @@ class Index extends Component{
                   </button>
                 </div>
             </div>
-            <div className={cns(style.zg,login==1&&style.block||style.hide)} >
+            <div className={cns(style.zg,login==0&&style.block||style.hide)} >
               <div className={style.bgColor}></div>
                 <Loading Text={'登陆授权中'} textColor={'#fff'}/>
             </div>
