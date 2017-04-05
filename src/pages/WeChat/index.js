@@ -50,7 +50,7 @@ class Index extends Component{
         alert(login);
         alert(`${window.location.hostname}/static-page/wechat-bind`)
         if (login==2){
-            window.location.herf=`${window.location.hostname}/static-page/wechat-bind`
+            window.location.herf=`${window.location.origin}/static-page/wechat-bind`
         }else {
             this.setState({
                 login:1
@@ -61,6 +61,7 @@ class Index extends Component{
     render(){
         const {login,text,text1,text2}=this.state;
         const {pop}=this.props;
+        alert(text[login])
         return(<div className={style.bg}>
             <NavBar onLeft={pop}>{text[login]}</NavBar>
             <div className={style.body}>
