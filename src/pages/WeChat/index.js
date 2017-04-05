@@ -35,6 +35,7 @@ class Index extends Component{
                getAll();
                push('/home/myIndex');
         }else if(code==301) {
+            alert('1')
             this.setState({
                 login:2
             })
@@ -46,6 +47,8 @@ class Index extends Component{
     }
     send=()=>{
         const {login}=this.state;
+        alert(login);
+        alert(`${window.location.hostname}/static-page/wechat-bind`)
         if (login==2){
             window.location.herf=`${window.location.hostname}/static-page/wechat-bind`
         }else {
