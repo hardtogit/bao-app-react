@@ -35,7 +35,6 @@ class Index extends Component{
                getAll();
                push('/home/myIndex');
         }else if(code==301) {
-            console.log(wechat)
             this.setState({
                 login:1
             })
@@ -48,7 +47,7 @@ class Index extends Component{
     send=()=>{
         const {login}=this.state;
         if (login==1){
-            window.location.href=`${window.location.origin}/static-page/wechat-bind`
+            window.location.href=this.props.wechat.data.url;
         }else {
             this.props.get()
         }
