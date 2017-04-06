@@ -41,7 +41,7 @@ class Scroll extends Component{
               display:'block'
           },
          nullDom:Config.nullDom(),
-        titleChild:<div></div>
+        titleChild:null
     }
     constructor(props){
         super(props)
@@ -140,7 +140,7 @@ class Scroll extends Component{
           }else if (listArry!=0){
             loadType=endload
           }
-          if (listArry.length==0){
+          if (listArry.length==0&&!titleChild){
               ListDom=nullDom;
           }else {
               ListDom=listArry;

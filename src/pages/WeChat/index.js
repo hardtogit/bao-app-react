@@ -35,6 +35,7 @@ class Index extends Component{
                getAll();
                push('/home/myIndex');
         }else if(code==301) {
+            console.log(wechat)
             this.setState({
                 login:1
             })

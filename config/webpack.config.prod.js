@@ -230,7 +230,7 @@ module.exports = {
             comments: false,  //去掉注释
             compress: {
                 warnings: false,
-                drop_console: true  //移除console
+                drop_console: false  //移除console
             }
         })
     ],

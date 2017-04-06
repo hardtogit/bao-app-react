@@ -8,6 +8,7 @@ import * as infoSagas from './info.saga'
 const combineSagas = (...groups) => {
   let arr = []
   groups.forEach(group => {
+    console.log(group)
     if (typeof group !== 'object') {
       throw new TypeError('sagas to be combined must be Object or Array')
     }
