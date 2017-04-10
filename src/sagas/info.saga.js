@@ -36,6 +36,7 @@ function* takeRequest (action) {
         }
        if (action.type==actionTypes.USER_LOGIN_FLOW&&response.code==100){
            sessionStorage.setItem("bao-auth", true);
+           sessionStorage.removeItem('bao-sc');
            yield put({
                type:'USER_INFO'
            })

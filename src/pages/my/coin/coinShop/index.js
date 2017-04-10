@@ -24,20 +24,28 @@ class Index extends React.Component {
 	}
 	componentWillMount(){
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-        this.setState({
-            signNumbers:userInfo.signNumbers,
-            coins:userInfo.coins,
-            isSign:userInfo.isSign,
-        })
+        if (userInfo){
+            this.set(userInfo);
+        }else {
+            this.props.getUser();
+        }
         this.props.productBar();
     }
 	componentDidMount() {
     }
 	componentWillUnmount() {}
     componentWillReceiveProps(next){
-	    if (next.barData){
-
+        const {user}=next;
+        if (user){
+            user.code==100&&this.set(user.data);
         }
+    }
+    set=(userInfo)=>{
+        this.setState({
+            signNumbers:userInfo.signNumbers,
+            coins:userInfo.coins,
+            isSign:userInfo.isSign,
+        })
     }
     doSign=()=>{
         this.refs.SignModel.show();
@@ -135,14 +143,20 @@ class Index extends React.Component {
         sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
         this.refs.SignModel.hide();
     }
-	render() {
+    qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
+	    return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
+    }
+	render() {
+        let {coins} = this.state;
         const {
             barData,
         }=this.props;
-        let Dom=this.loadDom();
-        if (barData){
+        let Dom=this.loadDom(),
+            qdDom;
+        if (barData&&coins){
             Dom=this.loadEndDom();
+            qdDom=this.qdDom();
         }
 		return (
 			<div className={classs.bg} >
@@ -153,7 +167,7 @@ class Index extends React.Component {
 				        }
                         backgroundColor="#F76260"
                         onLeft={()=>{this.props.push('/home/myIndex')}}>积分商城</NavBar>
-                <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>
+                {qdDom}
                 {Dom}
 			</div>
 		)
@@ -169,7 +183,8 @@ const datas=(state)=>({
       },
       end(key){
           return state.listdata.getIn([key,'pageEnd'])
-      }
+      },
+      user:state.infodata.getIn(['USER_INFO','data'])
 });
 const dispatchFn=(dispatch)=>({
       productBar(){
@@ -190,6 +205,11 @@ const dispatchFn=(dispatch)=>({
                   id
               ]
           })
+      },
+      getUser(){
+        dispatch({
+            type:'USER_INFO'
+        })
       }
 });
 export default connect(datas,dispatchFn)(Index)
