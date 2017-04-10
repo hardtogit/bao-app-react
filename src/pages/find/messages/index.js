@@ -43,8 +43,8 @@ class findMessage extends Component{
                         }
 
                     </div>
-                    <div className={styles.massageBody}>
-                        {content}
+                    <div className={styles.massageBody} dangerouslySetInnerHTML={{__html:content}}>
+
                     </div>
                     <div className={styles.massagefooter}>
                         {date}
