@@ -1,9 +1,11 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 import NavBar from '../../../components/NavBar'
 import IconMessage from '../../../assets/images/messicon.png'
 import Iconfrend from '../../../assets/images/licaiicon.png'
+import IconJf from '../../../assets/images/jfsc.png'
 import Tab from "../../../components/BottomTabs";
 import styles from './index.css'
 import classNames from 'classnames'
@@ -14,6 +16,16 @@ class findHome extends Component{
     } 
     loadingDom(){
         return(<Loading/>)
+    }
+    go=()=>{
+        const user=sessionStorage.getItem('bao-auth'),
+            {push}=this.props;
+        if (user){
+            push('/user/coinShop');
+        }else {
+            sessionStorage.setItem('bao-sc',true);
+            push('/login');
+        }
     }
     loadingEndDom(massegeNum,activeList){  
         const massegeNums=massegeNum.data;
@@ -48,6 +60,15 @@ class findHome extends Component{
                 </span>
                 <span className={styles.glyphiconChevronRight}></span>
                 </Link>
+                </li>
+                <li className={classNames(styles.cavLi,styles.changeTop)} onClick={this.go}>
+                <span>
+                 <img src={IconJf} className={styles.cavIcon}/>
+                </span>
+                        <span className={styles.changeLeft}>
+                 积分商城换好礼
+                </span>
+                        <span className={styles.glyphiconChevronRight}></span>
                 </li>
             </ul>
             {
@@ -115,6 +136,9 @@ const findeActiveIninfn=(dispatch,own)=>({
            dispatch({
                type:'FETCH_ACTIVE_MASSAGE'
            })
-      }
+      },
+    push(url){
+          dispatch(push(url))
+    }
 })
 export default connect(findeActiveInin,findeActiveIninfn)(findHome)

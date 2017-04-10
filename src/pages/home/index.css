@@ -228,6 +228,11 @@
     float: right;
     border-radius: 4px;
 }
+@media screen and (max-width: 320px) {
+    .openApp {
+        margin-right: -14px;
+    }
+}
 .loadingBox{
     width: 100%;
     height: 221px;

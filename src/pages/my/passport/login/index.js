@@ -146,10 +146,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
     doLogin(user) {
+        const url=sessionStorage.getItem('bao-sc')&&'/user/coinShop'||'/home';
         dispatch({
             type:actionTypes.USER_LOGIN_FLOW,
             params:[user],
-            go: '/home',
+            go: url,
         })
     },
     isLogin(user){

@@ -261,5 +261,8 @@ export default {
     },
     [actionTypes.DIRECT_INVEST_COUPON]:{
         apiFn:Fetch.directInvestCoupon
+    },
+    [actionTypes.WE_CHAT]:{
+        apiFn:Fetch.WeChat
     }
 }

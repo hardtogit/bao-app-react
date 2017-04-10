@@ -49,7 +49,6 @@ import projectRecorde from './pages/my/assetStatistics/directInvest/projectRecor
 
 /*************************************************我的*****************************************************/
 import Recharge from './pages/my/assetStatistics/balance/charge/index' /*充值*/
-import Pay from './pages/finance/pay/index'
 import moneyLog from './pages/my/assetStatistics/balance/records/index'/*余额明细*/
 import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余额*/
 import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
@@ -105,7 +104,6 @@ import CalendarMonths from './pages/my/calendar/timeList/index' /*回款日历�
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
 import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
-import creditorsIndex from './pages/finance/creditors/index'
 import BottomTabs from './components/BottomTabs';
 //发现模块
 import findIndex from './pages/find'
@@ -150,8 +148,6 @@ import zqSecurityPlan from './pages/my/assetStatistics/creditors/securityPlan' /
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
 
-import ComponentDemo from './components/ComponentDemos'
-import DemoPage from './components/ComponentDemos/page'
 import Withdrawals from './pages/my/assetStatistics/balance/cash/index' //提现
 import cashSuccess from './pages/my/assetStatistics/balance/success'  //提现成功
 import privacy from './pages/my/passport/agreement/privacy'
@@ -168,6 +164,7 @@ import productIndex from './pages/finance/home/index'
 import findHome from './pages/find/home/index'
 import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
+import WeChat from './pages/WeChat'
 // 工厂方法创建saga中间件
 const a=window.location.href.split('.')[1]+'.cn';
 document.domain = a;
@@ -301,6 +298,7 @@ export default class App extends React.Component {
               /*已完成*/
               <Route path='/invite/success' component={inviteSuccess}/>
               <Route path="login" component={Login}></Route>
+              <Route path='weChat' component={WeChat}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
               <Route path='privacy' components={privacy}></Route>
@@ -353,11 +351,6 @@ export default class App extends React.Component {
             <Route path="invite" component={Invite}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
-            <Route path='demo' component={DemoPage}></Route>
-            {Object.keys(ComponentDemo).map((key, i) => (
-              <Route key={i} path={key} component={ComponentDemo[key]}></Route>
-            ))}
-
           </Route>
             <Redirect from='/*' to='/' />
         </Router>
