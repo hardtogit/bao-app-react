@@ -63,6 +63,5 @@ const requests = (Fetch) => {
   Fetch.siteAdd=(...data)=>{return Fetch('address/create','POST',{mobile:data[0],realname:data[1],address:data[2]})}
   //编辑地址
   Fetch.siteEdit=(...data)=>{return Fetch('address/update','POST',{id:data[0],mobile:data[1],realname:data[2],address:data[3]})}
-  Fetch.WeChat=()=>{return Fetch('wechat/account-sync','GET')}
 };
 export default requests

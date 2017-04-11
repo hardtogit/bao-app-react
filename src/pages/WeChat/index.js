@@ -41,23 +41,19 @@ class Index extends Component{
                }else {
                    push('/home/myIndex');
                }
-        }else if(code==301) {
+        }else{
             this.setState({
                 login:1
             })
             if (type){
                 push('/login')
             }
-        }else {
-            this.setState({
-                login:2
-            })
         }
     }
     send=()=>{
         const {login}=this.state;
         if (login==1){
-            window.location.href=this.props.wechat.data.url;
+            window.location.href='http://api.bao.cn/static-page/wechat-bind';
         }else {
             this.setState({
                 login:0
@@ -113,7 +109,7 @@ class Index extends Component{
     }
 }
 const data=(state)=>({
-    wechat:state.infodata.getIn(['WE_CHAT','data'])
+    wechat:state.infodata.getIn(['USER_INFO','data'])
 })
 const dispatchFn=(dispatch)=>({
      push(url){
@@ -124,15 +120,12 @@ const dispatchFn=(dispatch)=>({
     },
     get(){
         dispatch({
-            type:'WE_CHAT'
-        })
+            type:'USER_INFO'
+        });
     },
     getAll(){
         dispatch({
             type:'RATE'
-        });
-        dispatch({
-            type:'USER_INFO'
         });
         dispatch({
             type:'SAFE_CARD_INFO'
