@@ -108,7 +108,7 @@ class Index extends Component{
                 data
             }
         }=this.props,
-            {amount,months_left,transfer_collection_interest,name}=data,
+            {amount,months_left,transfer_collection_interest,name,account_overdue}=data,
             {val,disabled,money}=this.state;
         return(<div>
             <div className={styles.content}>
@@ -166,9 +166,9 @@ class Index extends Component{
                         <span className={styles.label}>转让待收利息<span>（元）</span></span>
                         <span className={styles.textR}>{transfer_collection_interest}</span>
                     </div>
-                    <div className={styles.describeOne} onClick={this.alert}>
+                    <div className={styles.describeOne}>
                         <span className={styles.label}>扣除抵用券面额<span>（元）</span></span>
-                        <span className={styles.textR}>1.00</span>
+                        <span className={styles.textR}>{account_overdue}</span>
                     </div>
                     <div className={styles.describeOne}>
                         <span className={styles.label}>实际到账金额<span>（元）</span></span>
