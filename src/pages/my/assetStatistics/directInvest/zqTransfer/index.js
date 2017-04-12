@@ -81,7 +81,7 @@ class Index extends Component{
        this.props.send(id,money)
     }
     componentWillReceiveProps=(next)=>{
-        const {resDate,clear,push}=next;
+        const {resDate,push}=next;
         if (resDate){
             if (resDate.code==300){
                 this.refs.alert.show({
@@ -91,10 +91,13 @@ class Index extends Component{
             }else if (resDate.code==100){
                 this.refs.success.show({
                     text: '转让成功',
-                    callback: () => {clear();push('/user/projectRecorde')},
+                    callback: () => {push('/user/projectRecorde')},
                 })
             }
         }
+    }
+    componentWillUnmount(){
+        this.props.clear();
     }
     loadDom=()=>{
         return(<Load/>)
@@ -221,8 +224,9 @@ const dispatchFn=(dispatch)=>({
           })
     },
     clear(){
+        console.log('qingle ')
         dispatch({
-            type:'CLEAR_USER_INFO',
+            type:'CLEAR_INFO_DATA',
             key:'DIRECT_INVEST_TRANSFER'
         })
     },

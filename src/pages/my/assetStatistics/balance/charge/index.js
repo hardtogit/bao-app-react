@@ -75,7 +75,7 @@ class Index extends React.Component {
 		 const {
 			balance 
 		 }=data
-          return(<div className={styles.recharge}>
+          return(<div className={classNames(styles.recharge,styles.Boxing)}>
 					<img src={fivestar}/>
 					<p>我的余额</p>
 					<h1>￥{balance}</h1>

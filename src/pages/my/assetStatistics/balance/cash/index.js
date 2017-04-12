@@ -35,7 +35,7 @@ class Index extends React.Component {
             val
         }=this.state;
         this.refs.reddem.show({
-            title: '购买',
+            title: '提现',
             money:val,
             okCallback:()=>{this.send()} ,
             cancelCallback: () => {
