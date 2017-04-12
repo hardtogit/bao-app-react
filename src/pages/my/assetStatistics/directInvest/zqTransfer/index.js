@@ -81,7 +81,7 @@ class Index extends Component{
        this.props.send(id,money)
     }
     componentWillReceiveProps=(next)=>{
-        const {resDate,clear,push}=next;
+        const {resDate,push}=next;
         if (resDate){
             if (resDate.code==300){
                 this.refs.alert.show({
@@ -91,10 +91,13 @@ class Index extends Component{
             }else if (resDate.code==100){
                 this.refs.success.show({
                     text: '转让成功',
-                    callback: () => {clear();push('/user/projectRecorde')},
+                    callback: () => {push('/user/projectRecorde')},
                 })
             }
         }
+    }
+    componentWillUnmount(){
+        this.props.clear();
     }
     loadDom=()=>{
         return(<Load/>)
@@ -105,7 +108,7 @@ class Index extends Component{
                 data
             }
         }=this.props,
-            {amount,months_left,transfer_collection_interest,name,account_overdue}=data,
+            {amount,months_left,transfer_collection_interest,name}=data,
             {val,disabled,money}=this.state;
         return(<div>
             <div className={styles.content}>
@@ -163,9 +166,9 @@ class Index extends Component{
                         <span className={styles.label}>转让待收利息<span>（元）</span></span>
                         <span className={styles.textR}>{transfer_collection_interest}</span>
                     </div>
-                    <div className={styles.describeOne}>
+                    <div className={styles.describeOne} onClick={this.alert}>
                         <span className={styles.label}>扣除抵用券面额<span>（元）</span></span>
-                        <span className={styles.textR}>{account_overdue}</span>
+                        <span className={styles.textR}>1.00</span>
                     </div>
                     <div className={styles.describeOne}>
                         <span className={styles.label}>实际到账金额<span>（元）</span></span>
@@ -221,8 +224,9 @@ const dispatchFn=(dispatch)=>({
           })
     },
     clear(){
+        console.log('qingle ')
         dispatch({
-            type:'CLEAR_USER_INFO',
+            type:'CLEAR_INFO_DATA',
             key:'DIRECT_INVEST_TRANSFER'
         })
     },
