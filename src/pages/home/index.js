@@ -18,7 +18,7 @@ class FinancialIndex extends Component{
        isInvest:true,
        flage:false,
        isAuth:0,
-       show:{display:'block'}
+       show:{display:'block'},
      }
    }
    componentWillMount(){
@@ -43,7 +43,22 @@ class FinancialIndex extends Component{
      this.setState({
        height:{height:Height+'px'}
      })
-     this.props.load();
+     const {
+         location:{
+             query:{
+                 auth
+             }
+         }
+     }=this.props;
+     if (auth){
+         this.getLogin(auth)
+     }else {
+         this.props.load();
+     }
+
+   }
+   getLogin=(auth)=>{
+       this.props.login(auth)
    }
    listLoad=()=>{
        const Loading=Loaders['BeatLoader']
@@ -230,13 +245,18 @@ class FinancialIndex extends Component{
     render(){
       const{
         show,
-        flage
+        flage,
       }=this.state,
       user=sessionStorage.getItem('bao-auth');
       const {
         pending,
         banner,
-        userData
+        userData,
+        location:{
+          query:{
+                  auth
+           }
+        }
       }=this.props;
       let bannerDom,
           bodyDom;
@@ -245,19 +265,25 @@ class FinancialIndex extends Component{
        }else{
          bannerDom=this.loadingDom();
        }
-       if (user){
-           if (!flage){
-               bodyDom=this.showList();
-           }else {
-               if (userData){
-                   bodyDom=this.userInfo();
+           if (user){
+               if (!flage){
+                   bodyDom=this.showList();
                }else {
-                   bodyDom=this.newDep();
+                   if (userData){
+                       bodyDom=this.userInfo();
+                   }else {
+                       bodyDom=this.newDep();
+                   }
+               }
+           }else {
+               if (auth){
+                   if (userData){
+                       bodyDom=this.newList(userData.data.isAuth)
+                   }
+               }else {
+                   bodyDom=this.noLogin();
                }
            }
-       }else {
-           bodyDom=this.noLogin();
-       }
         return(
             <div className={style.financialIndexContent}>
                 <div className={style.Pop} style={show}>
@@ -339,6 +365,10 @@ const financialIndexInitfn=(dispath,own)=>({
     },
      push(url){
          dispath(push(url))
-     }
+     },
+    login(auth){
+         dispath({type:'USER_LOGIN_FLOW',params:[{auth}]})
+    }
 })
+
 export default connect(financialIndexInit,financialIndexInitfn)(FinancialIndex)
