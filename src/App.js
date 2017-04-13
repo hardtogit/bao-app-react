@@ -13,7 +13,7 @@ import reducer from './reducers';
 import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
-import { RATE, USER_INFO,SAFE_CARD_INFO} from './actions/actionTypes'
+import { RATE, USER_INFO,SAFE_CARD_INFO,LOGIN_OUT} from './actions/actionTypes'
 import SafePlan from './pages/finance/securePlan'
 
 import DemandIndex from './pages/finance/demand/index'
@@ -181,7 +181,7 @@ sagaMiddleware.run(rootSaga)
 
 // 应用初始化时即请求全局数据
 store.dispatch({type: RATE})
-store.dispatch({type: USER_INFO})
+store.dispatch({type: USER_INFO,lx:'init'})
 store.dispatch({type:SAFE_CARD_INFO})
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)

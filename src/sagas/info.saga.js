@@ -28,8 +28,10 @@ function* takeRequest (action) {
     const {response, error} = yield call(actionMap[action.type].apiFn, ...args);
     if (response) {
        if(action.type==actionTypes.USER_INFO&&response.code!='0000'){
-           sessionStorage.setItem("bao-user",JSON.stringify(response.data));
-           sessionStorage.setItem("bao-auth", true); 
+           if (!action.hasOwnProperty('lx')){
+               sessionStorage.setItem("bao-user",JSON.stringify(response.data));
+               sessionStorage.setItem("bao-auth", true);
+           }
        }
         if(action.type==actionTypes.USER_INFO_WITH_LOGIN){
             sessionStorage.setItem("bao-user",JSON.stringify(response.data));
@@ -45,14 +47,15 @@ function* takeRequest (action) {
            })
        }
        if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==101||response.code==301)){
-           console.log('fsafafasfa')
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
        }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
+           console.log('fsafasf')
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
        }
        if (action.go && response.code == 100) {
+           console.log('fsafa')
          yield put(push(action.go))
        }
         if(action.id){//当组件会发送多次相同的请求是，根据id避免陷入循环

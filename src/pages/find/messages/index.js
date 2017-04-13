@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import classNames from 'classnames'
 import Scroll from '../../../components/scroll'
 import styles from './index.css'
-import {Link} from 'react-router'
 import {goBack,push} from 'react-router-redux'
 class findMessage extends Component{
     constructor(props){
@@ -16,7 +15,7 @@ class findMessage extends Component{
     }
     componentWillUnmount(){  
       this.props.clearData('FETCH_MY_MASSAGE_S');
-        this.props.clearData('GET_NOTICE');
+      this.props.clearData('GET_NOTICE');
     }
     oneDom=(item,key,right)=>{
         const {title,content,description,date,msgKey,id,type,is_read}=item;
