@@ -53,7 +53,9 @@ class Login extends React.Component {
             }
         }
     }
-
+    componentWillUnmount(){
+        sessionStorage.removeItem('bao-sc')
+    }
     onValid = () => {
         const {
             backUrl

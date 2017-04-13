@@ -11,7 +11,6 @@ import gz from '../../assets/images/gz.png'
 import hj from '../../assets/images/hj.png'
 import yq from '../../assets/images/yq.png'
 import newHead from '../../assets/images/newHand.png'
-import noisAuth from '../../assets/images/realName.png'
 class FinancialIndex extends Component{
    constructor(props) {
      super(props)
@@ -232,7 +231,8 @@ class FinancialIndex extends Component{
       const{
         show,
         flage
-      }=this.state;
+      }=this.state,
+      user=sessionStorage.getItem('bao-auth');
       const {
         pending,
         banner,
@@ -245,14 +245,18 @@ class FinancialIndex extends Component{
        }else{
          bannerDom=this.loadingDom();
        }
-       if (!flage){
-           bodyDom=this.showList();
+       if (user){
+           if (!flage){
+               bodyDom=this.showList();
+           }else {
+               if (userData){
+                   bodyDom=this.userInfo();
+               }else {
+                   bodyDom=this.newDep();
+               }
+           }
        }else {
-          if (userData){
-              bodyDom=this.userInfo();
-          }else {
-              bodyDom=this.listLoad();
-          }
+           bodyDom=this.noLogin();
        }
         return(
             <div className={style.financialIndexContent}>

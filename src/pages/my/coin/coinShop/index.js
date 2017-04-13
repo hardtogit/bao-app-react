@@ -154,7 +154,7 @@ class Index extends React.Component {
         }=this.props;
         let Dom=this.loadDom(),
             qdDom;
-        if (barData&&coins){
+        if (barData&&(coins||coins==0)){
             Dom=this.loadEndDom();
             qdDom=this.qdDom();
         }

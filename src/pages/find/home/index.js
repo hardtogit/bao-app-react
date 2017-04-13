@@ -28,8 +28,9 @@ class findHome extends Component{
         }
     }
     loadingEndDom(massegeNum,activeList){  
-        const massegeNums=massegeNum.data;
-        let  massage;
+        const massegeNums=massegeNum.data,
+              user=sessionStorage.getItem('bao-user');
+        let  massage
         if(massegeNums){
             if (massegeNums.msg_count+massegeNums.notice_count!=0){
                 massage=<span className={styles.newsNum}>{parseInt(massegeNums.msg_count+massegeNums.notice_count)}</span>
@@ -46,7 +47,7 @@ class findHome extends Component{
                 <span className={styles.changeLeft}>
                  消息动态
                 </span>
-                {massegeNums&&massegeNums.has_new_activity!=0&&massage}
+                {user&&massegeNums&&massegeNums.has_new_activity!=0&&massage}
                 <span className={styles.glyphiconChevronRight}></span>
                 </Link>
                 </li>
@@ -133,9 +134,9 @@ const findeActiveIninfn=(dispatch,own)=>({
           dispatch({
                type:'FETCH_ACTIVE_LIST'
            })
-           dispatch({
-               type:'FETCH_ACTIVE_MASSAGE'
-           })
+              dispatch({
+                  type:'FETCH_ACTIVE_MASSAGE'
+              })
       },
     push(url){
           dispatch(push(url))

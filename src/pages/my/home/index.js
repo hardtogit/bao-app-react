@@ -48,7 +48,6 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 		deposit,
         isBuyDemand
 		}=data;
-      console.log(deposit)
 		return(
 			<div>
                 <div className={styles.header}>账户</div>
