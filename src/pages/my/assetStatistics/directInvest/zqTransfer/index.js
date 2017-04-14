@@ -61,9 +61,10 @@ class Index extends Component{
             })
         }
         else {
+            const fs=parseFloat(infoData.data.amount)/50;
             this.setState({
                 disabled:false,
-                money:val-1+parseFloat(infoData.data.transfer_collection_interest)
+                money:(val-1)*fs+parseFloat(infoData.data.transfer_collection_interest)
             })
         }
 
@@ -108,7 +109,7 @@ class Index extends Component{
                 data
             }
         }=this.props,
-            {amount,months_left,transfer_collection_interest,name,account_overdue}=data,
+            {amount,months_left,transfer_collection_interest,name}=data,
             {val,disabled,money}=this.state;
         return(<div>
             <div className={styles.content}>
