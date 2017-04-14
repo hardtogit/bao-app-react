@@ -77,8 +77,8 @@ class Index extends Component{
                 id
             }
         }=this.props,
-        {money}=this.state;
-       this.props.send(id,money)
+        {val}=this.state;
+       this.props.send(id,val)
     }
     componentWillReceiveProps=(next)=>{
         const {resDate,push}=next;
@@ -160,15 +160,11 @@ class Index extends Component{
                 <div className={styles.describeList}>
                     <div className={styles.describeOne} onClick={this.alert}>
                         <span className={styles.label}>手续费<span>（元）</span></span>
-                        <span className={styles.textR}>1.00</span>
+                        <span className={styles.textR}>{parseFloat(amount*0.02).toFixed(2)}</span>
                     </div>
                     <div className={styles.describeOne}>
                         <span className={styles.label}>转让待收利息<span>（元）</span></span>
                         <span className={styles.textR}>{transfer_collection_interest}</span>
-                    </div>
-                    <div className={styles.describeOne}>
-                        <span className={styles.label}>扣除抵用券面额<span>（元）</span></span>
-                        <span className={styles.textR}>{account_overdue}</span>
                     </div>
                     <div className={styles.describeOne}>
                         <span className={styles.label}>实际到账金额<span>（元）</span></span>
