@@ -213,6 +213,7 @@ const mapDispatchToProps = (dispatch) => ({
 			type:'CLEAR_INFO_DATA',
 			key:'LOGIN_OUT'
 		})
+        sessionStorage.removeItem('bao-bank');
 	},
 	getAddress(){
 		dispatch({

@@ -47,10 +47,12 @@ function* takeRequest (action) {
            })
        }
        if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==101||response.code==301)){
+           console.log('fsafasfsa')
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
+       }else if (action.type==actionTypes.SAFE_CARD_INFO){
+           sessionStorage.removeItem('bao-bank');
        }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
-           console.log('fsafasf')
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
        }
