@@ -11,6 +11,7 @@ import gz from '../../assets/images/gz.png'
 import hj from '../../assets/images/hj.png'
 import yq from '../../assets/images/yq.png'
 import newHead from '../../assets/images/newHand.png'
+import noisAuth from '../../assets/images/realName.png'
 class FinancialIndex extends Component{
    constructor(props) {
      super(props)
@@ -51,7 +52,11 @@ class FinancialIndex extends Component{
          }
      }=this.props;
      if (auth){
-         this.getLogin(auth)
+         let sendAuth=auth;
+         if (auth.indexOf('?("')==0){
+             sendAuth=auth.split('?("')[1].split('")')[0];
+         }
+         this.getLogin(sendAuth)
      }else {
          this.props.load();
      }
@@ -367,7 +372,7 @@ const financialIndexInitfn=(dispath,own)=>({
          dispath(push(url))
      },
     login(auth){
-         dispath({type:'USER_LOGIN_FLOW',params:[{auth}]})
+         dispath({type:'USER_INFO',params:[auth]})
     }
 })
 

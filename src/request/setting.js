@@ -8,7 +8,7 @@ const requests = (Fetch) => {
   // 正在执行的活动
   Fetch.checkActivity = () => { return Fetch('/activities/current', 'GET')}
   // 获取用户信息
-  Fetch.getUserInfo = () => { return Fetch('user/info', 'GET')}
+  Fetch.getUserInfo = (auth) => {if (auth){return Fetch(`user/info?auth=${auth}`, 'GET')}else {return Fetch(`user/info`, 'GET')}}
   // 设置用户名
   Fetch.setUsername = (username) => { return Fetch('user/set-username', 'POST', {username: username})}
   // 身份认证
