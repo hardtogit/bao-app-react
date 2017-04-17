@@ -52,7 +52,11 @@ class FinancialIndex extends Component{
          }
      }=this.props;
      if (auth){
-         this.getLogin(auth)
+         let sendAuth=auth;
+         if (auth.indexOf('?("')==0){
+             sendAuth=auth.split('?("')[1].split('")')[0];
+         }
+         this.getLogin(sendAuth)
      }else {
          this.props.load();
      }
@@ -368,7 +372,7 @@ const financialIndexInitfn=(dispath,own)=>({
          dispath(push(url))
      },
     login(auth){
-         dispath({type:'USER_LOGIN_FLOW',params:[{auth}]})
+         dispath({type:'USER_INFO',params:[auth]})
     }
 })
 
