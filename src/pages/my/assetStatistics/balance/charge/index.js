@@ -59,13 +59,18 @@ class Index extends React.Component {
 		 }
 	}
     money=(balance)=>{
+    	const baoBank=sessionStorage.getItem('bao-bank');
     	if (parseFloat(balance)<50){
     		this.refs.alert.show({
                 content:'对不起余额不足！',
                 okText:'确定'
 			})
 		}else {
-            this.props.push('/user/withdrawals')
+    		if (baoBank!=null){
+                this.props.push('/user/withdrawals')
+			}else {
+                this.props.push('/user/setting/securityCard')
+			}
 		}
 	}
 	loadDom(){
