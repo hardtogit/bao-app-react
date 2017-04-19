@@ -16,9 +16,27 @@ class Index extends React.Component{
 
         }
     }
-
+    push=()=>{
+        const {
+            location:{
+                query
+            },
+            push}=this.props;
+        if (query.hasOwnProperty('banck')){
+            window.location.href=query.banck
+        }else {
+            push()
+        }
+    }
     render(){
-
+        const {
+         location:{
+            query
+        }}=this.props;
+        let text='您的点币不足'
+        if (query.hasOwnProperty('banck')){
+            text='哎呀，出错了请稍后再来兑换'
+        }
         return(
             <div className={styles.leftArrow}>
                 <NavBar>兑换失败</NavBar>
@@ -26,8 +44,8 @@ class Index extends React.Component{
                     <div className={styles.content}>
                         <div className={styles.imgWrapper}><img src={failure}/></div>
                         <p>兑换失败</p>
-                        <p className={styles.textGrey}>您的点币不足</p>
-                        <BaseButton text={'兑换失败'} disable={false} onClick={()=>{this.props.push()}} className={styles.button}/>
+                        <p className={styles.textGrey}>{text}</p>
+                        <BaseButton text={'兑换失败'} disable={false} onClick={this.push} className={styles.button}/>
                     </div>
                 </div>
             </div>

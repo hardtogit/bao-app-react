@@ -78,6 +78,7 @@ import CoinsRule from './pages/my/coin/rules/index' /*点币规则*/
 import shopCenter from './pages/my/coin/shopCenter/index' /*商城中心*/
 import goodsDetail from './pages/my/coin/goodsDetail/index' /*商品详情*/
 import trueExchangeConfirm from './pages/my/coin/trueExchangeConfirm/index' /*确认兑换*/
+import activeConfirm from './pages/my/coin/activeConfirm'
 import ExchangeSuccess from './pages/my/coin/exchangeSuccess/index' /*兑换成功*/
 import ExchangeFail from './pages/my/coin/exchangeFail/index' /*兑换失败*/
 import Vouchers from './pages/my/voucher/myVouchers/index' /*抵用券*/
@@ -166,8 +167,8 @@ import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import WeChat from './pages/WeChat'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -237,8 +238,7 @@ export default class App extends React.Component {
                   <Route path="shopCenter" component={shopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
-
-
+                  <Route path="activeConfirm" component={activeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="trueExchangeConfirm/:id" component={trueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="exchangeSuccess" component={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
                   <Route path="exchangeFail" component={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
