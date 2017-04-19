@@ -90,17 +90,14 @@ class Index extends React.Component{
             address:{
                 data
             },
-            infoData,
+            location:{
+                query:{
+                    id
+                }
+            },
             push
         }=this.props;
-        const productData=infoData&&infoData.data||JSON.parse(sessionStorage.getItem("bao-product"));
-        if (productData.count<=0){
-            this.refs.alert.show({
-                content:'对不起你兑换的物品数量不足!',
-                okText:'确定'
-            })
-        }else {
-            if (productData.tagId!=22&&data.length==0){
+            if (data.length==0){
                 this.refs.alert.show({
                     content:'请添加收货地址!',
                     okText:'去添加',
@@ -111,14 +108,9 @@ class Index extends React.Component{
                 this.setState({
                     flag:true
                 });
-                if (productData.tagId==22){
-                    this.props.send(productData.id)
-                }else {
-                    this.props.send(productData.id,data[0].id)
-                }
+                this.props.send(id,data[0].id)
             }
         }
-    }
     hasAddress=()=>{
         const {
             address:{
@@ -184,7 +176,7 @@ class Index extends React.Component{
 }
 const datas=(state)=>({
     address:state.infodata.getIn(['SITE_LIST','data']),
-    submiteData:state.infodata.getIn(['PRODUCT_EXCHANGE','data'])
+    submiteData:state.infodata.getIn(['ACTIVE_EXCHANGE','data'])
 });
 const dispatchFn=(dispatch)=>({
     pop(){
@@ -198,10 +190,10 @@ const dispatchFn=(dispatch)=>({
             type:"SITE_LIST"
         })
     },
-    send(productId,addressId){
+    send(productGroup,addressId){
         dispatch({
-            type:'PRODUCT_EXCHANGE',
-            params:[productId,addressId]
+            type:'ACTIVE_EXCHANGE',
+            params:[{activityId:3,productGroup,addressId}]
         })
     },
     clearData(){
