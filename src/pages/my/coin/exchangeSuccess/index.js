@@ -38,9 +38,6 @@ class Index extends React.Component{
     }
     render(){
         const {
-            push
-        }=this.props;
-        const {
             location:{
                 query
             }}=this.props;
