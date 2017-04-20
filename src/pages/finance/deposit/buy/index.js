@@ -38,13 +38,15 @@ class DepositBuy extends React.Component {
         payTop:'100%',
         url:'',
        sy:'',
-        select:1
+        select:1,
+        type:0,
     }
   }
   componentWillMount(){
     const {
         params: {
             id,
+            type
         },
     }=this.props;
     if (id==5){
@@ -53,6 +55,9 @@ class DepositBuy extends React.Component {
           quantity:200
       })
     }
+    this.setState({
+        type
+    })
   }
   componentDidMount() {
       window['closeFn']=this.closeFn;
@@ -423,6 +428,7 @@ class DepositBuy extends React.Component {
       deposit,
       new_deposit
     } = this.props;
+    const {type}=this.state;
       let depositData = {}
       let String='';
     if (id!=5){
@@ -440,7 +446,7 @@ class DepositBuy extends React.Component {
       <div className={styles.root}>
         <div className={styles.bg}>
         <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：定存宝-{String} 年化利率（{depositData.rate || ''}%）</p>
+        <p className={styles.title}>购买产品：定存宝{type==0&&'A'||'B'}计划-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
             <p>单价<span>（元 / 份）</span></p>

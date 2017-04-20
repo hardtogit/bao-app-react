@@ -210,6 +210,7 @@ export default class App extends React.Component {
                   <Route path="moneyLog" component={moneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={zqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
                   <Route path='projectRecorde' component={projectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
@@ -318,8 +319,8 @@ export default class App extends React.Component {
             <Route path="demand-redeem" component={DemandRedeem}></Route>
             <Route path="demand-buy" component={DemandBuy}></Route>
             <Route path="demand-product" component={DemandProduct}></Route>
-            <Route path="deposit-product/:id" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="deposit-buy/:id" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path="deposit-product(/:id(/:type))" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="deposit-buy(/:id(/:type))" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess" component={DepositInvestSuccess}></Route>
             <Route path="demandIndex" component={DemandIndex}></Route>

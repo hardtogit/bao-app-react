@@ -69,8 +69,8 @@ class FinancialIndex extends Component{
        </div>)
    }
    oldList=()=>{
-       const Depot=this.depot('3月定存宝','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex')});
-       const Depot1=this.depot('12月定存宝','13.80',()=>{this.change(0,2);this.props.push('/home/productIndex')})
+       const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex')});
+       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(1,1);this.props.push('/home/productIndex')},50);
        return(<ul className={style.productUl}>
            {
@@ -83,7 +83,8 @@ class FinancialIndex extends Component{
        </ul>)
    }
    newList=(auth)=>{
-       const Depot=this.depot('3月定存宝','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
+       const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
+       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
        const newDep=this.newDep();
        const isAuth=auth;
        let rz;
@@ -96,11 +97,14 @@ class FinancialIndex extends Component{
                newDep
            }{
            Depot
+       }{
+           Depot1
        }
        </ul>)
    }
     noLogin=()=>{
-        const Depot=this.depot('3月定存宝','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
+        const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
+        const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
         const newDep=this.newDep();
         const noImg=this.newImg();
        return(<ul className={style.productUl}>
@@ -111,6 +115,8 @@ class FinancialIndex extends Component{
                newDep
            }{
            Depot
+       }{
+           Depot1
        }
        </ul>)
     }
@@ -192,7 +198,7 @@ class FinancialIndex extends Component{
            </Link>
        </li>)
    }
-   depot=(text,rate,fn,start=1000)=>{
+   depot=(text,rate,fn,start=1000,type=1)=>{
        return(<li className={style.productLi}  onClick={()=>{fn()}} >
            <p className={style.productTitle}>{text}</p>
            <div className={style.productContent}>
@@ -204,7 +210,7 @@ class FinancialIndex extends Component{
                </div>
                <div className={style.productTz}>
                    <p className={style.productSe}>起投<span className={style.productIp}>{start}</span>元</p>
-                   <p className={style.productMs}>到期还本付息</p>
+                   <p className={style.productMs}>{type==1&&'到期还本付息'||<span><span>每月还息</span><span style={{paddingLeft:'8px'}}>到期还本</span></span>}</p>
                </div>
            </div>
        </li>)

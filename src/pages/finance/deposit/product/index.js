@@ -19,11 +19,16 @@ import setUrl from '../../../../components/setUrl'
 class ProductDetail extends React.Component {
 
   state = {
-    descActive: false
+    descActive: false,
+    type:0
   }
-
+  componentWillMount(){
+      this.setState({
+          type:this.props.params.type
+      })
+  }
   componentDidMount() {
-    this.props.get(this.props.params.id)
+    this.props.get(this.props.params.id);
   }
   loading(){
       return(<Loading/>)
@@ -70,6 +75,7 @@ class ProductDetail extends React.Component {
               id,
           },
       } = this.props;
+      const {type}=this.state;
       let rate = 0;
       let month = 0;
       let qt=1000;
@@ -98,7 +104,7 @@ class ProductDetail extends React.Component {
       <div>
           <Header rate={rate}  data={bData}/>
           <div className={styles.timeBox}>
-          <DepTime startTime={startTime} endTime={endTime}/>
+          <DepTime startTime={startTime} endTime={endTime} type={type}/>
           </div>
           <div className={styles.depositBox}>
               <div className={styles.profit}>
@@ -183,6 +189,9 @@ class ProductDetail extends React.Component {
         datas,
         pop
     }=this.props;
+    const {
+        type
+    }=this.state;
     let Dom;
     if (!datas){
         Dom=this.loading()
@@ -191,7 +200,7 @@ class ProductDetail extends React.Component {
     }
     return (
       <div className={styles.root}>
-        <NavBar onLeft={pop}>定存宝详情</NavBar>
+        <NavBar onLeft={pop}>{type==0&&'定存宝A计划详情'||'定存宝B计划详情'}</NavBar>
           {
               Dom
           }
