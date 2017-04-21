@@ -60,7 +60,8 @@ function* takeRequest (action) {
            sessionStorage.removeItem("bao-user");
        }
        if (action.type==actionTypes.AUTH_COOKIE&&response.code==100&&action.lx=='set'){
-           sessionStorage.setItem("bao-auth-str",JSON.stringify(response.data.auth));
+           const auth=response.data.auth;
+           sessionStorage.setItem("bao-auth-str",auth);
        }
        if (action.go && response.code == 100) {
          yield put(push(action.go))
