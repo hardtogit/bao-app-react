@@ -3,7 +3,6 @@
  */
 const setAuthUrl=(url)=>{
      var auth=sessionStorage.getItem('bao-auth-str')
-    console.log(auth,'fsafasfasfas')
      if (auth){
          window.location.href=url+'?baoAuth='+auth;
      }else {

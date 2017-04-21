@@ -200,10 +200,10 @@ export default class App extends React.Component {
                   <Route path='myIndex' component={myIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
               </Route>
               <Route path='/productList' component={ProductList}/>
-              <Route path="user" component={User} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}>
+              <Route path="user" component={User} >
                   <IndexRedirect to="index" />
-                  <Route path="index" component={UserHome} ></Route>/*首页*/
-                  <Route path='analysis' component={Analysis}></Route>/*资产分析*/
+                  <Route path="index" component={UserHome} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*首页*/
+                  <Route path='analysis' component={Analysis} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/
                   <Route path="calendarMonths/:year/:month" component={CalendarMonths} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历日期选择*/
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
@@ -238,7 +238,7 @@ export default class App extends React.Component {
                   <Route path="shopCenter" component={shopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
-                  <Route path="activeConfirm" component={activeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
+                  <Route path="activeConfirm" component={activeConfirm} />/*点币商城确认兑换*/
                   <Route path="trueExchangeConfirm/:id" component={trueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="exchangeSuccess" component={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
                   <Route path="exchangeFail" component={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
