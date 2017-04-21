@@ -12,6 +12,7 @@ import hj from '../../assets/images/hj.png'
 import yq from '../../assets/images/yq.png'
 import newHead from '../../assets/images/newHand.png'
 import noisAuth from '../../assets/images/realName.png'
+import setAuthUrl from '../../components/setAuthUrl/index'
 class FinancialIndex extends Component{
    constructor(props) {
      super(props)
@@ -179,7 +180,7 @@ class FinancialIndex extends Component{
          <Swiper className={style.swiperBg}>
                  {
                      datas.data.map(({img,url},i)=>(
-                         <div key={i} className='banner-box'><a href={url}><img src={img} className='banner-img'/></a></div>
+                         <div key={i} className='banner-box'><span onClick={()=>{setAuthUrl(url)}}><img src={img} className='banner-img'/></span></div>
                      ))
                  }
               </Swiper>
