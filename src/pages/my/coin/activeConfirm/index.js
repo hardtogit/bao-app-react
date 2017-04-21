@@ -40,10 +40,10 @@ class Index extends React.Component{
                 },
                 push
             }=next;
-            if (code==300){
-                push(`/user/exchangeFail${search}`)
-            }else if (code==100){
+            if (code==100){
                 push(`/user/exchangeSuccess${search}`)
+            }else {
+                push(`/user/exchangeFail${search}`)
             }
         }
     }
@@ -199,7 +199,7 @@ const dispatchFn=(dispatch)=>({
     clearData(){
         dispatch({
             type:'CLEAR_INFO_DATA',
-            key:'PRODUCT_EXCHANGE'
+            key:'ACTIVE_EXCHANGE'
         })
     }
 });
