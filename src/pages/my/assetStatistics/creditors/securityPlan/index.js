@@ -206,18 +206,15 @@ const OldContract=(data)=>{
 const NewContract=(data)=>{
     const {
         contract_number,date,first_real_name,first_card,first_username,
-        second_real_name,second_card,second_username,providers,connect_address,
-        purpose,term_months,profit_unit,term_start_date,term_end_date,repayment_start_date,
-        repayment_end_date,bond_value,transferee_principal,repay_amount_month,transfer_fee,
-        transfer_date,expiration_date
+        second_real_name,second_card,second_username,
+        purpose,term_start_date,term_end_date,repayment_start_date,
+        repayment_end_date,bond_value,transferee_principal,
+        transfer_date,expiration_date,company_address,company_contact,company_name,bond_value_cny,
+        transferee_principal_cny,has_rate,brokerage_rate,brokerage_type,
     }=data;
     const strDate=zhDate(date),
         termStrDate=zhDate(term_start_date),
-        termStrDateEnd=zhDate(term_end_date),
-        repaymentStrDate=zhDate(repayment_start_date),
-        repaymentStrDateEnd=zhDate(repayment_end_date),
-        transferStrdate=zhDate(transfer_date),
-        expirationStrDate=zhDate(expiration_date);
+        termStrDateEnd=zhDate(term_end_date);
     return(<div className={styles.content}>
         <h1 className={styles.newTitle}>
             债权转让协议
@@ -243,13 +240,13 @@ const NewContract=(data)=>{
                 宝点网用户名：{second_username}
             </p>
             <p className={styles.text}>
-                丙方（居间平台服务商）：成都伟品信息技术服务有限公司
+                丙方（居间平台服务商）：{company_name}
             </p>
             <p className={styles.text}>
-                住所地：成都市锦江区新光华街7号航天科技大厦38层1号
+                住所地：{company_address}
             </p>
             <p className={styles.text}>
-                联系电话：
+                联系电话：{company_contact}
             </p>
             <p className={styles.text}>
                 鉴于居间平台服务商是一家合法成立并有效存续的有限公司，系（互联网域名bao.cn，宝点网）的运营管理人，向网站注册用户提供咨询、信息及各种委托服务等居间服务；
@@ -260,18 +257,15 @@ const NewContract=(data)=>{
                     第一章   债权转让
                 </h3>
                 <p className={styles.text1}>
-                    第一条：甲方将其享有的债权通过宝点网网络平台向受证人转让， 债权的总额为人民币              （大写人民币           圆整 ），该债权的具体的情况详见本协议附件（债权清单）。
+                    第一条：甲方将其享有的债权通过宝点网网络平台向受证人转让， 债权的总额为人民币{bond_value}（大写人民币{bond_value_cny}），该债权的具体的情况详见本协议附件（债权清单）。
                 </p>
                 <p className={styles.text1}>
-                    第二条 ：转让的债权，其期限起始日为       年    月     日 ，到期日为     年   月   日 。如乙方实际支付债权转让价款日与本协议约定不一致的，
+                    第二条 ：转让的债权，其期限起始日为{termStrDate}，到期日为{termStrDateEnd}。如乙方实际支付债权转让价款日与本协议约定不一致的，
                     起始日为乙方实际支付债权转让价款之日。
                 </p>
                 <p className={styles.text1}>
-                    第一条：甲方将其享有的债权通过宝点网网络平台向受证人转让， 债权的总额为人民币              （大写人民币           圆整 ），该债权的具体的情况详见本协议附件（债权清单）。
-                </p>
-                <p className={styles.text1}>
-                    第三条：甲方所转让债权的预期年化利率为     ％。乙方向甲方支付转让价款人民币        （大写人民币                圆整），乙方受让的债权比例为总债权的      ，
-                    其受让的债权所对应的借款本息金额 = 乙方债权受让比例x截止起始日按照借款合同约定甲方享有的债权总额。
+                    第三条：甲方所转让债权的预期年化利率为{purpose}％。乙方向甲方支付转让价款人民币{transferee_principal}（大写人民币  {transferee_principal_cny}），乙方受让的债权比
+                    例为总债权的{has_rate}%，其受让的债权所对应的借款本息金额 = 乙方债权受让比例x截止起始日按照借款合同约定甲方享有的债权总额。
                 </p>
                 <p className={styles.text1}>
                     第四条：因甲、乙双方就本次债权转让事宜不直接当面接触，系在丙方网络平台上撮合成交的，为保证交易资金安全。
@@ -279,7 +273,7 @@ const NewContract=(data)=>{
                 </p>
                 <p className={styles.text1}>
                     第五条：丙方为甲乙双方债权转让提供信息咨询及其它居间撮合服务。服务商为甲方债权转让提供了多项居间服务，
-                    有鉴于此，丙方按照              的标准向甲方收取服务费（以下简称“服务费”），收取方式为                。
+                    有鉴于此，丙方按照{brokerage_rate}%的标准向甲方收取服务费（以下简称“服务费”），收取方式为{brokerage_type}。
                 </p>
                 <p className={styles.text1}>
                     第六条 债权转让后，甲方仍负有对债权清单项下借款本息进行管理及催收的义务，并通过丙方网络平台将乙方受让债权对应的借款本金及收益支付给乙方。
@@ -417,19 +411,19 @@ const NewContract=(data)=>{
                     甲方（转让人）：{first_real_name}
                 </p>
                 <p className={styles.text1}>
-                    日期： 2017年  月    日
+                    日期:{strDate}
                 </p>
                 <p className={styles.text1}>
                     乙方（受让人）：{second_real_name}
                 </p>
                 <p className={styles.text1}>
-                    日期： 2017年  月    日
+                    日期：{strDate}
                 </p>
                 <p className={styles.text1}>
-                    丙方（服务商）：成都伟品信息技术服务有限公司
+                    丙方（服务商）：{company_name}
                 </p>
                 <p className={styles.text1}>
-                    日期： 2017年  月    日
+                    日期：{strDate}
                 </p>
             </div>
         </div>
@@ -455,6 +449,9 @@ class Index extends Component{
                 data
             }
         }=this.props;
+        if (data.version==1){
+            return <OldContract {...data}/>
+        }
         return(<NewContract {...data}/>)
     }
     render(){
