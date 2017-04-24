@@ -70,21 +70,23 @@ class FinancialIndex extends Component{
    }
    oldList=()=>{
        const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex')});
-       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
-       const Depot2=this.depot('3月标直投','11.80',()=>{this.change(1,1);this.props.push('/home/productIndex')},50);
+       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+       const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50);
        return(<ul className={style.productUl}>
            {
-               Depot
-           }{
            Depot1
-       }{
+       }
+           {
+               Depot
+           }
+       {
            Depot2
        }
        </ul>)
    }
    newList=(auth)=>{
        const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
-       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
+       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
        const newDep=this.newDep();
        const isAuth=auth;
        let rz;
@@ -96,15 +98,15 @@ class FinancialIndex extends Component{
            {
                newDep
            }{
-           Depot
-       }{
            Depot1
+       }{
+           Depot
        }
        </ul>)
    }
     noLogin=()=>{
         const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
-        const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(0,2);this.props.push('/home/productIndex')},1000,2)
+        const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
         const newDep=this.newDep();
         const noImg=this.newImg();
        return(<ul className={style.productUl}>
@@ -114,10 +116,10 @@ class FinancialIndex extends Component{
            {
                newDep
            }{
-           Depot
-       }{
            Depot1
-       }
+       }{
+               Depot
+           }
        </ul>)
     }
    showList=()=>{
