@@ -37,7 +37,8 @@ class Index extends React.Component {
                     <ul className={styles.money_detail}>
                         <li><span className={styles.zh}></span><span className={styles.m_m}>账户余额</span><span className={styles.m_i}>{data.balance_total}</span></li>
                         <li><span className={styles.lq}></span><span className={styles.m_m}>零钱宝</span><span className={styles.m_i}>{data.info[1].value}</span></li>
-                        <li><span className={styles.dc}></span><span className={styles.m_m}>定存宝待收本息</span><span className={styles.m_i}>{data.info[2].value}</span></li>
+                        <li><span className={styles.dc}></span><span className={styles.m_m}>定存宝A计划待收本息</span><span className={styles.m_i}>{data.info[2].value}</span></li>
+                        <li><span className={styles.dc1}></span><span className={styles.m_m}>定存宝B计划待收本息</span><span className={styles.m_i}>{data.info[5].value}</span></li>
                         <li><span className={styles.zt}></span><span className={styles.m_m}>直投项目待收本息</span><span className={styles.m_i}>{data.info[3].value}</span></li>
                         <li><span className={styles.zq}></span><span className={styles.m_m}>债权转让待收本息</span><span className={styles.m_i}>{data.info[4].value}</span></li>
                     </ul>
@@ -81,13 +82,16 @@ const moneyModel =(data)=>{
                 name: "零钱宝",
                 value: 0
             }, {
-                name: "定存宝待收本息",
+                name: "定存宝A计划待收本息",
                 value: 0
             }, {
                 name: "直投项目待收本息",
                 value: 0
             }, {
                 name: "债权转让待收本息",
+                value: 0
+            },{
+                name: "定存宝B计划待收本息",
                 value: 0
             }
         ],
@@ -99,9 +103,11 @@ const moneyModel =(data)=>{
         money.info[2].value = data.data.deposit_total;
         money.info[3].value = data.data.directInvest_total;
         money.info[4].value = data.data.creditors_total;
+        money.info[5].value = data.data.creditors_total;
         money.total_money = Util.padMoney(data.data.asset_total);
         money.balance_total =  Util.padMoney(data.data.balance_total);
         money.profit_total = Util.padMoney(data.data.profit_total);
+        money.privilege_total = Util.padMoney(data.data.privilege_total);
         money.privilege_total = Util.padMoney(data.data.privilege_total);
         money.getOtion = ()=> {
             return {
@@ -113,7 +119,8 @@ const moneyModel =(data)=>{
                     "#763cff",
                     "#fa394c",
                     "#ffaf32",
-                    "#2ce4a6"
+                    "#2ce4a6",
+                    "#ff660a"
                 ],
                 series: [{
                     name: '资产分析',

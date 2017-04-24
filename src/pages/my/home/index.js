@@ -20,6 +20,7 @@ import someCoins from '../../../assets/images/my-index/12.png' // 点币
 import interest from '../../../assets/images/my-index/13.png' // 加息券
 import toUse from '../../../assets/images/my-index/14.png' // 抵用券
 import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
+import DepositTreasureB from '../../../assets/images/my-index/16.png'
  class Index extends React.Component{
 	constructor(props) {
         super(props);
@@ -103,11 +104,31 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 							</Link>
 						</div>
 						<div className={styles.myList}  style={{"borderLeft":"1px solid #E4E4E4"}}>
+							<Link to={`/user/autoBuy`}>
+								<img src={directMail}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>自动投标</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>省时省心</p>
+								</div>
+							</Link>
+						</div>
+					</div>
+					<div className={styles.myProduct}>
+						<div className={styles.myList}>
+							<Link to="/user/zq">
+								<img src={DepositTreasureB}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>定存宝B</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'每月还息  到期还本'||'+'+creditors}</p>
+								</div>
+							</Link>
+						</div>
+						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
 							<Link to='/user/dcb'>
 								<img src={DepositTreasure}/>
 								<div className={styles.myListText}>
-									<p className={styles.listTitle}>定存宝</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{deposit==0&&'最高可高达13.80%'||'+'+deposit}</p>
+									<p className={styles.listTitle}>定存宝A</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{deposit==0&&'到期还本付息'||'+'+deposit}</p>
 								</div>
 							</Link>
 						</div>
@@ -134,15 +155,6 @@ import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 					</div>
 
 					<div className={styles.myProduct}>
-						<div className={styles.myList} style={{"borderRight":"1px solid #E4E4E4"}}>
-							<Link to={`/user/autoBuy`}>
-								<img src={directMail}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>自动投标</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>省时省心</p>
-								</div>
-							</Link>
-						</div>
                         {
                             isBuyDemand!=0 &&
                             <div className={styles.myList}>

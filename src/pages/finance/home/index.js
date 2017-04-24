@@ -20,8 +20,10 @@ class financeIndex extends Component{
 		 this.state={
 			 titleCav:[
 			 {
-				 title:'定存宝',
+				 title:'定存宝A',
 			 },{
+                     title:'定存宝B',
+                 },{
 				 title:'直投项目'
 			 },{
 				 title:'债权转让'
