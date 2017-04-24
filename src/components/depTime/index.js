@@ -11,7 +11,7 @@ class Index extends Component{
     static propTypes={
           startTime:PropTypes.string,
           endTime:PropTypes.string,
-          type:PropTypes.number,
+          type:PropTypes.string,
           lx:PropTypes.number,
           Grade:PropTypes.string,
           repayment:PropTypes.string,
@@ -19,10 +19,10 @@ class Index extends Component{
     static defaultProps={
         startTime:'20170214',
         endTime:'20170214',
-        type:0,
+        type:'A',
         lx:2,
         Grade:'A',
-        repayment:'每月还息 到期还'
+        repayment:'每月还息 到期还本'
     }
     constructor(props){
         super(props)
@@ -57,7 +57,7 @@ class Index extends Component{
 
                               </span>
                                 <span className={styles.locking}>
-                                    {type==0&&<img src={locking}/>||<img src={Interest}/>}
+                                    {type=='A'&&<img src={locking}/>||<img src={Interest}/>}
                              </span>
                                 <span className={styles.hx}>
 
@@ -82,7 +82,7 @@ class Index extends Component{
                             <li>
                                 <p>
                                     {
-                                        type==0&&'锁定期'||repayment
+                                        type=='A'&&'锁定期'||repayment
                                     }
                                 </p>
                             </li>

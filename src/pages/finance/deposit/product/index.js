@@ -20,7 +20,7 @@ class ProductDetail extends React.Component {
 
   state = {
     descActive: false,
-    type:0
+    type:'A'
   }
   componentWillMount(){
       this.setState({
@@ -80,14 +80,8 @@ class ProductDetail extends React.Component {
       let month = 0;
       let qt=1000;
       if (id!=5){
-          deposit.some((item, i) => {
-              if (item.id == id) {
-                  rate = +item.rate
-                  month = +item.month
-                  return true
-              }
-              return false
-          })
+          rate = deposit[id].rate;
+          month = deposit[id].month;
       }else {
           rate=new_deposit.rate;
           month=new_deposit.month;
@@ -200,7 +194,7 @@ class ProductDetail extends React.Component {
     }
     return (
       <div className={styles.root}>
-        <NavBar onLeft={pop}>{type==0&&'定存宝A计划详情'||'定存宝B计划详情'}</NavBar>
+        <NavBar onLeft={pop}>{type=='A'&&'定存宝A计划详情'||'定存宝B计划详情'}</NavBar>
           {
               Dom
           }

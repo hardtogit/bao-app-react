@@ -6,11 +6,15 @@ import style from './index.less'
 class Index extends Component{
     static propTypes={
          type:PropTypes.string,
-        interestArry:PropTypes.array
+        interestArry:PropTypes.array,
+        go:PropTypes.func,
+        goBuy:PropTypes.func
     };
     static defaultProps={
         type:'A',
-        interestArry:['12.10','12.80','13.80']
+        interestArry:['12.10','12.80','13.80'],
+        go:()=>{},
+        goBuy:()=>{}
     };
     constructor(props){
         super(props);
@@ -18,10 +22,17 @@ class Index extends Component{
           month:['3','6','12']
         }
     }
+    stop=(e)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+    goBuy=(i)=>{
+        this.props.goBuy(i)
+    }
     oneDom=(i,interest,month)=>{
-        const {type}=this.props;
+        const {type,go}=this.props;
         return(
-            <li className={style.depositli} key={i}>
+            <li className={style.depositli} key={i} onClick={()=>{go(parseInt(i))}}>
                 <p className={style.title}>定存宝{type}计划{month}<span>洪武</span></p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
@@ -44,7 +55,7 @@ class Index extends Component{
                         </p>
                     </div>
                     <div className={style.btnBox}>
-                        <button className={style.buyBtn}>
+                        <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i))}}>
                             买入
                         </button>
                     </div>

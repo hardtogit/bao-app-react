@@ -6,11 +6,12 @@ import List from '../../../../components/depositList/index'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 class DepositIndex extends React.Component {
       render(){
+          const {push}=this.props;
           return(<div>
                <p className={styles.title}>
                    您当前有<span>4张抵用券</span>和<span>1张加息券</span>未使用
                </p>
-              <List/>
+              <List go={(index)=>{push(`/deposit-product/${index}/A`)}}  goBuy={(index)=>{push(`/deposit-buy/${index}/A`)}}/>
           </div>)
       }
 }
