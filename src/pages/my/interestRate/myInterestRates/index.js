@@ -49,7 +49,7 @@ import wrap from '../../../../utils/pageWrapper'
                             	const {apply,end_date,start_date,rate}=item;
                                return(<div key={i}>
 								   <Quan
-									   title={rate+'%加息劵'}
+									   title={rate+'%加息券'}
 									   desc1="投资即可使用"
 									   desc2={apply}
 									   from={start_date}
