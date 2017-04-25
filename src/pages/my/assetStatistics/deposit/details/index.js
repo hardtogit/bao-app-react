@@ -13,7 +13,7 @@ class Index extends Component{
             }
         }=this.props;
         return(<div>
-            <Details id={id} type={1}/>
+            <Details id={id} type={5}/>
         </div>)
     }
 }

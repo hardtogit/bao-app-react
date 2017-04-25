@@ -50,7 +50,7 @@ class Index extends React.Component {
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(id)}}>
                 <h2>{name}<span>({id})</span></h2>
                 <p><span>{total_periods}个月</span><span>约定年化收益率{rate}%</span></p>
-                <img src={arrowRight}/>
+                {this.props.type==5&&''||<img src={arrowRight}/>}
             </div>
             <div className={styles.listBoxTwo}>
                 <p>{profit_accumulate}</p>
@@ -104,6 +104,7 @@ class Index extends React.Component {
         return (
             <div>
                 <ul className={styles.listBoxThree}>
+                    <li className={styles.Onetitle}>购买信息</li>
                     <ul>
                         <li>购买金额<p>{amount}</p></li>
                         <li>到期获得<p>{profit_expire_arrival}</p></li>
@@ -153,6 +154,42 @@ class Index extends React.Component {
             </ul>
         </div>)
     }
+    loadEndDomE=()=>{
+        const {
+            infoData:{
+                data
+            },
+        }=this.props;
+        const {
+            account_arrival,
+            account_overdue,
+            amount,
+            refund_periods,
+            profit_expire_arrival,
+            total_periods,
+            refund_date,
+        }=data;
+        return (
+            <div>
+                <ul className={styles.listBoxThree}>
+                    <li className={styles.Onetitle}>购买信息</li>
+                    <ul>
+                        <li>购买金额<p>{amount}</p></li>
+                        <li>到期获得<p>{profit_expire_arrival}</p></li>
+                        <li>产品到期日<p>{profit_expire_arrival}</p></li>
+                        <li>产品气息日<p>{profit_expire_arrival}</p></li>
+                    </ul>
+                    <li className={styles.Onetitle}>回款记录</li>
+                    <ul>
+                        <li>当前期数<p>期数：{refund_periods}/{total_periods}</p></li>
+                        <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
+                        <li>下期还款日<p className={styles.yellowColor}>{refund_date}</p></li>
+                    </ul>
+                    <li className={styles.Onetitle}>产品合同</li>
+                </ul>
+            </div>
+        )
+    }
     loadEndDomD=()=>{
         const {
             amount,
@@ -166,6 +203,7 @@ class Index extends React.Component {
         }=this.props.infoData2.data;
         return(<div>
             <ul className={styles.listBoxThree}>
+                <li className={styles.Onetitle}>购买信息</li>
                 <ul>
                     <li>购买金额<p>{amount}</p></li>
                     <li>折价收益<p>{profit}</p></li>
@@ -200,8 +238,10 @@ class Index extends React.Component {
         }=this.props;
         if (type<=3){
             return infoData
-        }else {
+        }else if (type==4){
             return infoData2
+        }else {
+            return infoData
         }
     }
     render() {
@@ -225,6 +265,9 @@ class Index extends React.Component {
                     Dom=this.loadEndDomB();
                 }else if (type==3){
                     Dom=this.loadEndDomC();
+                }else if (type==5){
+                    console.log('fsafasfsafa')
+                    Dom=this.loadEndDomE()
                 }
             }else if (dataN.code==100&&type==4){
                 headDom=this.headDomB();
