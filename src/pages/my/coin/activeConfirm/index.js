@@ -41,6 +41,7 @@ class Index extends React.Component{
                     code,
                 }
             }=next;
+            console.log(code);
             if (code==100){
                 push(`/user/exchangeSuccess${search}`)
             }else {

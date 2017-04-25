@@ -24,7 +24,7 @@ const OldContract=(data)=>{
         second_real_name,second_card,second_username,providers,connect_address,
         purpose,term_months,profit_unit,term_start_date,term_end_date,repayment_start_date,
         repayment_end_date,bond_value,transferee_principal,repay_amount_month,transfer_fee,
-        transfer_date,expiration_date
+        transfer_date,expiration_date,penalty
     }=data;
     const strDate=zhDate(date),
         termStrDate=zhDate(term_start_date),
@@ -207,14 +207,14 @@ const NewContract=(data)=>{
     const {
         contract_number,date,first_real_name,first_card,first_username,
         second_real_name,second_card,second_username,
-        purpose,term_start_date,term_end_date,repayment_start_date,
-        repayment_end_date,bond_value,transferee_principal,
-        transfer_date,expiration_date,company_address,company_contact,company_name,bond_value_cny,
-        transferee_principal_cny,has_rate,brokerage_rate,brokerage_type,
+        purpose,term_start_date,term_end_date,
+        bond_value,transferee_principal,
+        transfer_date,company_address,company_contact,company_name,bond_value_cny,
+        transferee_principal_cny,has_rate,brokerage_rate,brokerage_type,penalty
     }=data;
     const strDate=zhDate(date),
-        termStrDate=zhDate(term_start_date),
-        termStrDateEnd=zhDate(term_end_date);
+        termStrDateEnd=zhDate(term_end_date),
+        transferStrdate=zhDate(transfer_date);
     return(<div className={styles.content}>
         <h1 className={styles.newTitle}>
             债权转让协议
@@ -260,7 +260,7 @@ const NewContract=(data)=>{
                     第一条 甲方将其享有的债权通过宝点网网络平台向受证人转让， 债权的总额为人民币{bond_value}（大写人民币{bond_value_cny}），该债权的具体的情况详见本协议附件（债权清单）。
                 </p>
                 <p className={styles.text1}>
-                    第二条  转让的债权，其期限起始日为{termStrDate}，到期日为{termStrDateEnd}。如乙方实际支付债权转让价款日与本协议约定不一致的，
+                    第二条  转让的债权，其期限起始日为{transferStrdate}，到期日为{termStrDateEnd}。如乙方实际支付债权转让价款日与本协议约定不一致的，
                     起始日为乙方实际支付债权转让价款之日。
                 </p>
                 <p className={styles.text1}>
@@ -356,7 +356,7 @@ const NewContract=(data)=>{
                     第十二条 甲、乙双方均应遵守本协议的约定，任何一方对本协议构成违约给对方造成实际损失的，均应承担违约赔偿责任。
                 </p>
                 <p className={styles.text1}>
-                    第十三条 若甲方未能按本协议约定的时间将本协议项下借款本息或回购价款通过丙方划付直乙方，则视为甲方违约，甲方必须自逾期之日起按日向乙方支付应付未付款项     的违约金，
+                    第十三条 若甲方未能按本协议约定的时间将本协议项下借款本息或回购价款通过丙方划付直乙方，则视为甲方违约，甲方必须自逾期之日起按日向乙方支付应付未付款项 {penalty}的违约金，
                     直至甲方付清所有应付款项为止。
                 </p>
             </div>

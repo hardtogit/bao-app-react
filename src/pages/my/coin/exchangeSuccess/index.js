@@ -41,10 +41,12 @@ class Index extends React.Component{
             location:{
                 query
             }}=this.props;
-        let Dom=<div><p className={styles.textGrey}>您成功兑换<span>{}</span></p>
-            <p className={styles.textGrey}>剩余点币<span className={styles.coinCount}>{this.state.coin}</span></p></div>
-        if (query.hasOwnProperty('active')){
-            Dom= <p className={styles.textGrey}>你成功兑换{query.name}</p>
+        let Dom;
+        if (query.hasOwnProperty('banck')){
+            Dom=null;
+        }else {
+            Dom=<div><p className={styles.textGrey}>您成功兑换<span>{}</span></p>
+                <p className={styles.textGrey}>剩余点币<span className={styles.coinCount}>{this.state.coin}</span></p></div>;
         }
         return(
             <div className={styles.leftArrow}>
