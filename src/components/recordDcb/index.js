@@ -12,14 +12,16 @@ class Index extends Component {
            title:PropTypes.array,
            data:PropTypes.array,
         pending:PropTypes.array,
-        end:PropTypes.array
+        end:PropTypes.array,
+        click:PropTypes.func
     }
     static defaultProps={
         fetch:[()=>{},()=>{}],
         title:[' 待回款项目',' 历史资产'],
         data:[[],[]],
         pending:[true,true],
-        end:[false,false]
+        end:[false,false],
+        click:()=>{}
     }
     constructor(props) {
         super(props);
@@ -42,8 +44,8 @@ class Index extends Component {
                 data&&data.map((item,i)=>{
                     const {name,created,amount,status}=item;
                     return(
+                        <div onClick={()=>{this.props.click(i)}}  key = {i}>
                         <Record
-                            key = {i}
                             title={name}
                             data={created}
                             price={amount}
@@ -51,6 +53,7 @@ class Index extends Component {
                             moneyColor={"#aaa"}
                             statusColor={"#f70"}
                         />
+                        </div>
                     )
                 })
             }

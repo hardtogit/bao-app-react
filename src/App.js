@@ -55,6 +55,7 @@ import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充
 import MyDCB from './pages/my/assetStatistics/deposit/home/index.js' /*我的定存宝*/
 import MyDCBB from './pages/my/assetStatistics/deposit/planb/index.js'
 import DepositRecords from './pages/my/assetStatistics/deposit/depositRecords/index' /*定存宝记录*/
+import DepositRecordsB from './pages/my/assetStatistics/deposit/depositRecords/planB' /*定存宝记录*/
 import zqRecords from './pages/my/assetStatistics/creditors/zqRecords/index' /*定存宝记录*/
 import Creditors from './pages/my/assetStatistics/creditors/mine/index' /*我的债权转让*/
 import CreditorsRecords from './pages/my/assetStatistics/creditors/records/index' /*我的债权记录*/
@@ -67,6 +68,7 @@ import PropertyDetail from './pages/my/assetStatistics/directInvest/propertyDeta
 import CreditorRights from './pages/my/assetStatistics/directInvest/creditorRights/index' /*债权资产详情*/
 import HistoryRecord from './pages/my/assetStatistics/directInvest/historyRecord/index' /*历史记录资产详情*/
 import zqPropertyDetail from './pages/my/assetStatistics/creditors/zqPropertyDetail' /*债券历史记录资产详情*/
+import detailsDcb from './pages/my/assetStatistics/deposit/details'
 import About from './pages/my/setting/about/index' //关于我们
 import VersionInfo from './pages/my/setting/versionInfo/index'//版本介绍
 import addAccrualIndex from './pages/my/interestRate/myInterestRates/index' /*加息券*/
@@ -214,10 +216,12 @@ export default class App extends React.Component {
                   <Route path='zqRecords' component={zqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
                   <Route path='projectRecorde' component={projectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
                   <Route path='zqTransferRule' component={zqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqTransfer/:id' component={zqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="detailsDcb/:id" component={detailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
                   <Route path='creditorRights/:id' component={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
                   <Route path='historyRecord/:id' component={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>

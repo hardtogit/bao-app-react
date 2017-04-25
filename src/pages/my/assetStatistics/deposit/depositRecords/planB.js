@@ -5,19 +5,22 @@ import React from 'react' //我的定存宝
 import NavBar from '../../../../../components/NavBar'
 import styles from './index.css'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import RecordDcb from '../../../../../components/recordDcb'
 class Index extends React.Component {
     componentWillUnmount=()=>{
         this.props.clearData('DEPOSIT_RECORD_RS');
         this.props.clearData('DEPOSIT_RECORD_HISTORY');
     }
+    click=(i)=>{
+     this.props.push('/user/detailsDcb/11800')
+    }
     render() {
         const {getList,getListB,listData,listDataB,pending,pendingB,end,endB}=this.props;
         return (
             <div className={styles.bg}>
-                <NavBar onLeft={this.props.pop}>定存宝记录</NavBar>
-                <RecordDcb fetch={[getList,getListB]} data={[listData,listDataB]} pending={[pending,pendingB]} end={[end,endB]}/>
+                <NavBar onLeft={this.props.pop}>定存宝B计划记录</NavBar>
+                <RecordDcb fetch={[getList,getListB]} data={[listData,listDataB]} pending={[pending,pendingB]} end={[end,endB]} click={this.click}/>
             </div>
         )
     }
@@ -42,6 +45,9 @@ const myDepositSummaryInitfn=(dispath)=>({
             type:'DEPOSIT_RECORD_HISTORY',
             params:[2]
         })
+    },
+    push(url){
+      dispath(push(url))
     },
     pop(){
         dispath(goBack())

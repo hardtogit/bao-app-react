@@ -13,7 +13,7 @@ class Index extends React.Component {
     	const {getList,getListB,listData,listDataB,pending,pendingB,end,endB}=this.props;
 		return (
 			<div className={styles.bg}>
-				<NavBar onLeft={this.props.pop}>定存宝记录</NavBar>
+				<NavBar onLeft={this.props.pop}>定存宝A计划记录</NavBar>
               <RecordDcb fetch={[getList,getListB]} data={[listData,listDataB]} pending={[pending,pendingB]} end={[end,endB]}/>
 			</div>
 		)

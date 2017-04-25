@@ -56,7 +56,7 @@ class Index extends React.Component {
         }
         return (
             <div className={styles.bg}>
-                <NavBar onLeft={pop} rightNode={<Link to="/user/dcbRecords" style={{color:'#fff'}}>记录</Link>}>我的定存宝B计划</NavBar>
+                <NavBar onLeft={pop} rightNode={<Link to="/user/dcbRecordsB" style={{color:'#fff'}}>记录</Link>}>我的定存宝B计划</NavBar>
                 {
                     Dom
                 }{
