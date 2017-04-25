@@ -34,7 +34,7 @@ import wrap from '../../../../utils/pageWrapper'
 		return (
 			<div>
 				<NavBar onLeft={pop}
-						rightNode={<Link to="/user/ruleRate" className={styles.rightBox}>加息劵规则</Link>}>
+						rightNode={<Link to="/user/ruleRate" className={styles.rightBox}>加息券规则</Link>}>
 					我的加息券
 				</NavBar>
 				<div className={styles.bg}>
