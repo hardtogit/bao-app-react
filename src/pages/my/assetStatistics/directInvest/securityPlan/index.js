@@ -417,10 +417,14 @@ const NewContract=(data)=>{
         sponsor,username,loan_detail,identity,userphone
         ,contact,borrow_use,amount_cny,start_date,end_date,overdue,penalty
     }=data;
-    const strDate=zhDate(date),
-           startDate=zhDate(start_date),
-           endDate=zhDate(end_date);
-    console.log(data);
+    let startDate,endDate;
+    if (start_date!=''){
+        startDate=zhDate(start_date)
+    }
+    if (end_date!=''){
+        endDate=zhDate(end_date);
+    }
+    const strDate=zhDate(date);
     return(<div className={styles.content}>
          <h1 className={styles.newTitle}>借款合同</h1>
         <p className={classNames(styles.text,styles.textRight)}>合同编号:{number}</p>
