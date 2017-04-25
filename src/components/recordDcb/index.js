@@ -2,7 +2,6 @@
  * Created by Administrator on 2017/4/25.
  */
 import React,{Component,PropTypes}from 'react' //我的定存宝
-import NavBar from '../NavBar'
 import styles from './index.less'
 import Record from '../../pages/user/common/record/index'
 import Scroll from '../scroll/index'
@@ -23,7 +22,7 @@ class Index extends Component {
         end:[false,false]
     }
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             flag: 0
         }
