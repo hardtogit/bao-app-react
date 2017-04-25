@@ -214,6 +214,7 @@ const mapDispatchToProps = (dispatch) => ({
 			key:'LOGIN_OUT'
 		})
         sessionStorage.removeItem('bao-bank');
+        sessionStorage.removeItem('bao-auth-str');
 	},
 	getAddress(){
 		dispatch({

@@ -24,10 +24,30 @@ class Index extends React.Component{
            coin
        })
    }
+    push=()=>{
+        const {
+            location:{
+                query
+            },
+            push}=this.props;
+        if (query.hasOwnProperty('banck')){
+            window.location.href=query.banck
+        }else {
+            push('/user/coinShop')
+        }
+    }
     render(){
         const {
-            push
-        }=this.props;
+            location:{
+                query
+            }}=this.props;
+        let Dom;
+        if (query.hasOwnProperty('banck')){
+            Dom=null;
+        }else {
+            Dom=<div><p className={styles.textGrey}>您成功兑换<span>{}</span></p>
+                <p className={styles.textGrey}>剩余点币<span className={styles.coinCount}>{this.state.coin}</span></p></div>;
+        }
         return(
             <div className={styles.leftArrow}>
                 <NavBar>兑换成功</NavBar>
@@ -35,9 +55,8 @@ class Index extends React.Component{
                     <div className={styles.content}>
                         <div className={styles.imgWrapper}><img src={success}/></div>
                         <p>兑换成功</p>
-                        <p className={styles.textGrey}>您成功兑换<span>{}</span></p>
-                        <p className={styles.textGrey}>剩余点币<span className={styles.coinCount}>{this.state.coin}</span></p>
-                        <BaseButton text={'兑换成功'} disable={false} onClick={()=>push('/user/coinShop')} className={styles.button}/>
+                        {Dom}
+                        <BaseButton text={'兑换成功'} disable={false} onClick={this.push} className={styles.button}/>
                     </div>
                 </div>
             </div>

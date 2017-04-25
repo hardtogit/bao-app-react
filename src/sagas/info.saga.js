@@ -45,6 +45,10 @@ function* takeRequest (action) {
            yield put({
                type:'SAFE_CARD_INFO'
            })
+           yield put({
+               type:'AUTH_COOKIE',
+               lx:'set'
+           })
        }
        if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==101||response.code==301)){
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
@@ -55,8 +59,11 @@ function* takeRequest (action) {
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
        }
+       if (action.type==actionTypes.AUTH_COOKIE&&response.code==100&&action.lx=='set'){
+           const auth=response.data.auth;
+           sessionStorage.setItem("bao-auth-str",auth);
+       }
        if (action.go && response.code == 100) {
-           console.log('fsafa')
          yield put(push(action.go))
        }
         if(action.id){//当组件会发送多次相同的请求是，根据id避免陷入循环

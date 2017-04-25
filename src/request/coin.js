@@ -3,7 +3,8 @@ const requests = (Fetch) => {
   Fetch.myCoins = () => { return Fetch('coin/detail', 'GET') }
   // 点币记录
   Fetch.coinRecords = (page) => { return Fetch(`coin/list?page=${page}`, 'GET') }
-
+  //活动兑换
+  Fetch.activeExchange=(data)=>{return Fetch('activity/award-exchange-batch','POST',data)}
 }
 
 export default requests
