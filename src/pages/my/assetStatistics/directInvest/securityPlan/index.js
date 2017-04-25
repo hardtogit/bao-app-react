@@ -479,7 +479,7 @@ const NewContract=(data)=>{
             </p>
             <div className={styles.tableBox}>
                 <p  className={classNames(styles.text,styles.pd)}>
-                    第一条：出借人详情如下表所示:
+                    第一条 出借人详情如下表所示:
                 </p>
                 <table>
                     <thead>
@@ -537,11 +537,11 @@ const NewContract=(data)=>{
                 </table>
             </div>
             <p  className={classNames(styles.text1,styles.pd1)}>
-                第二条：乙方的借款用途为：{borrow_use}，
+                第二条  乙方的借款用途为：{borrow_use}，
                 借款金额为：{amount}（大写：人民币{amount_cny}），借款利率：{percent}%，还款方式：{repayment}，借款期限为：{startDate}到{endDate}止。
             </p>
             <p  className={styles.text1}>
-                第三条：借款、还款的支付方式
+                第三条 借款、还款的支付方式
             </p>
             <p className={styles.text1}>
                 1、甲方、乙方就借款事宜未面洽，系经丙方经营的宝点网网络平台撮合达成借贷交易，为保证交易资金安全。
@@ -627,7 +627,7 @@ const NewContract=(data)=>{
                 5、丙方应对甲方和乙方的信息及本合同内容保密；如任何一方违约，或因相关权力部门要求（包括但不限于法院、仲裁机构、金融监管机构等），丙方有权披露。
             </p>
             <p className={styles.text1}>
-                第七条：债权的转让
+                第七条 债权的转让
             </p>
             <p className={styles.text1}>
                 1、 甲方、乙方一致同意，本合同项下甲方对乙方的债权可以部分或全部向第三方转让。该转让仅使债权人发生变更，对本合同中的借款金额、借款期限、年利率、还款方式等相关事项均不产生影响。
@@ -638,7 +638,7 @@ const NewContract=(data)=>{
                 对上述任一通知方式乙方均认可其效力，并承诺继续按本合同的约定偿还借款本息。
             </p>
             <p className={styles.text1}>
-                第七条 违约责任
+                第八条 违约责任
             </p>
             <p className={styles.text1}>
                 1、 在本合同有效期内，任何一方未履行本合同项下的任何义务，均构成违约，应按法律规定及本合同的约定对守约方承担违约责任。
@@ -684,13 +684,13 @@ const NewContract=(data)=>{
                 （11）出现其他有可能导致甲方权益受到损害的情形。
             </p>
             <p className={styles.text1}>
-                第八条 鉴于本合同各方均是通过丙方网络平台电子合同签署系统进行签署的，甲、 乙双方在此确认，本合同的签订地为丙方所在地即成都市锦江区。
+                第九条 鉴于本合同各方均是通过丙方网络平台电子合同签署系统进行签署的，甲、 乙双方在此确认，本合同的签订地为丙方所在地即成都市锦江区。
             </p>
             <p className={styles.text1}>
-                第九条 本合同项下的任何争议，应由各方友好协商解决，若协商不成，各方在合同签订地即丙方所在地的人民法院提起诉讼。
+                第十条 本合同项下的任何争议，应由各方友好协商解决，若协商不成，各方在合同签订地即丙方所在地的人民法院提起诉讼。
             </p>
             <p className={styles.text1}>
-                第十条 本合同采用电子文本形式制成，经各方通过宝点网网络平台电子合同签署系统在线点击确认签署后生效，合同各方均认可本合同的真实性，并认可该形式之合同的法律效力。
+                第十一条 本合同采用电子文本形式制成，经各方通过宝点网网络平台电子合同签署系统在线点击确认签署后生效，合同各方均认可本合同的真实性，并认可该形式之合同的法律效力。
             </p>
             <div className={styles.autoGraph}>
                 <p>
