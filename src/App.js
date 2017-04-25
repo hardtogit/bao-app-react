@@ -53,6 +53,7 @@ import moneyLog from './pages/my/assetStatistics/balance/records/index'/*余额�
 import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余额*/
 import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
 import MyDCB from './pages/my/assetStatistics/deposit/home/index.js' /*我的定存宝*/
+import MyDCBB from './pages/my/assetStatistics/deposit/planb/index.js'
 import DepositRecords from './pages/my/assetStatistics/deposit/depositRecords/index' /*定存宝记录*/
 import zqRecords from './pages/my/assetStatistics/creditors/zqRecords/index' /*定存宝记录*/
 import Creditors from './pages/my/assetStatistics/creditors/mine/index' /*我的债权转让*/
@@ -209,6 +210,7 @@ export default class App extends React.Component {
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
                   <Route path="moneyLog" component={moneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
+                  <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={zqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

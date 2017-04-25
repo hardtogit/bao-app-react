@@ -70,10 +70,8 @@ class DepositBuy extends React.Component {
       // 获取可以使用的优惠券
        if (nextProps.params.id==5){
            this.props.getAvailableCoupons(nextProps.new_deposit.month)
-       }else if (nextProps.params.id==1||nextProps.params.id==2){
-           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId-1].month)
        }else {
-           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId-2].month)
+           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId].month)
        }
     }
 
@@ -358,12 +356,7 @@ class DepositBuy extends React.Component {
   getCurrentMonth = () => {
     const { deposit } = this.props
     const depositId = this.state.depositId
-    for (var i = 0 ; i < deposit.length; i++) {
-      if (deposit[i].id == depositId) {
-        return deposit[i]
-      }
-    }
-    return ''
+      return deposit[depositId];
   }
   clickFn=()=>{
     this.setState({
@@ -446,7 +439,7 @@ class DepositBuy extends React.Component {
       <div className={styles.root}>
         <div className={styles.bg}>
         <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：定存宝{type==0&&'A'||'B'}计划-{String} 年化利率（{depositData.rate || ''}%）</p>
+        <p className={styles.title}>购买产品：定存宝{type=='A'&&'A'||'B'}计划-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
             <p>单价<span>（元 / 份）</span></p>

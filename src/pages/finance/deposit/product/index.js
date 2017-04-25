@@ -73,6 +73,7 @@ class ProductDetail extends React.Component {
           new_deposit,
           params: {
               id,
+              type:lx
           },
       } = this.props;
       const {type}=this.state;
@@ -156,7 +157,7 @@ class ProductDetail extends React.Component {
           </div>
           <div className={styles.bottom}>
               <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-              <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
+              <button onClick={()=>{this.purchase(id,lx,push)}}>马上买入</button>
           </div>
           <Calculator
               ref="calculator"
@@ -171,9 +172,8 @@ class ProductDetail extends React.Component {
           <IsAuth ref="isAuth"/>
       </div>)
   }
-  purchase=(id,push)=>{
-      console.log(this.props)
-      this.refs.isAuth.Verification('/deposit-buy/'+id,push,this.succsseFn,this.props.location.pathname)
+  purchase=(id,lx,push)=>{
+      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}`,push,this.succsseFn,this.props.location.pathname)
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)

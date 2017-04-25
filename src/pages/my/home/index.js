@@ -115,7 +115,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 					</div>
 					<div className={styles.myProduct}>
 						<div className={styles.myList}>
-							<Link to="/user/zq">
+							<Link to="/user/dcbB">
 								<img src={DepositTreasureB}/>
 								<div className={styles.myListText}>
 									<p className={styles.listTitle}>定存宝B</p>
