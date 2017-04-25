@@ -23,6 +23,9 @@ class Index extends React.Component {
         proIndexs();
         push('/home/productIndex');
     }
+    listClick=(id)=>{
+        console.log(id)
+    }
     loadEndDom=(datas)=>{
         const {
             getList,
@@ -30,7 +33,7 @@ class Index extends React.Component {
             end,
             listData
         }=this.props;
-        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData}/>)
+        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData} click={this.listClick}/>)
     }
     componentDidMount(){
         this.props.load();

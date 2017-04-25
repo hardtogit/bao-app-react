@@ -14,14 +14,16 @@ class Index extends Component {
         fetch:PropTypes.func,
         data:PropTypes.array,
         pending:PropTypes.bool,
-        end:PropTypes.bool
+        end:PropTypes.bool,
+        click:PropTypes.func
     }
     static defaultProps={
        banner:{},
       fetch:()=>{},
       data:[],
       pending:true,
-      end:false
+      end:false,
+      click:()=>{}
     }
     constructor(props) {
         super(props)
@@ -41,7 +43,8 @@ class Index extends Component {
             fetch,
             pending,
             end,
-            data
+            data,
+            click
         }=this.props;
         const {
             height
@@ -63,7 +66,7 @@ class Index extends Component {
                         }else if (coupon_type==2){
                             liDom=<span className={styles.dyBox}>{coupon_text}</span>
                         }
-                        return(<div className={styles.manageList} key={i}>
+                        return(<div className={styles.manageList} key={i} onClick={()=>{click(i)}}>
                             <div className={styles.listtitle}>
                                 <img src={dingicon}/>{name}
                                 {
