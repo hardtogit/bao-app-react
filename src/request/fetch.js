@@ -13,7 +13,7 @@ import bonus from './bonus'
 import scratcheCard from './scratcheCard.js'
 import shopping from './shopping'
 
-const ROOT_URL = ''
+const ROOT_URL = '/'
 
 const transferObjectToFormat = (o) => {
   let result = []
