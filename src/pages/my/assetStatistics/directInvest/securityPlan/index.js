@@ -694,7 +694,7 @@ const NewContract=(data)=>{
             </p>
             <div className={styles.autoGraph}>
                 <p>
-                    甲方（出借人）：
+                    甲方（出借人）：详见本合同第一条
                 </p>
                 <p>
                     乙方（借款人）：{real_name}
