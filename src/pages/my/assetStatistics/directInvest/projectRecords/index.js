@@ -6,10 +6,6 @@ import classNames from 'classnames'
 import Scroll from '../../../../../components/scroll/index'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
-
-
-
-
  class Index extends React.Component {
 	constructor(props) {
 		super(props)

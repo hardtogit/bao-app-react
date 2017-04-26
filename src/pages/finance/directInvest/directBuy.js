@@ -378,7 +378,6 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail
-     console.log(this.props)
     return(
       <div className={styles.root}>
         <div className={styles.bg}>

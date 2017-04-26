@@ -50,7 +50,7 @@ class Index extends React.Component {
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(id)}}>
                 <h2>{name}<span>({id})</span></h2>
                 <p><span>{total_periods}个月</span><span>约定年化收益率{rate}%</span></p>
-                {this.props.type==5&&''||<img src={arrowRight}/>}
+                {this.props.type!=5&&<img src={arrowRight}/>||null}
             </div>
             <div className={styles.listBoxTwo}>
                 <p>{profit_accumulate}</p>
@@ -159,6 +159,7 @@ class Index extends React.Component {
             infoData:{
                 data
             },
+            push
         }=this.props;
         const {
             account_arrival,
@@ -177,7 +178,7 @@ class Index extends React.Component {
                         <li>购买金额<p>{amount}</p></li>
                         <li>到期获得<p>{profit_expire_arrival}</p></li>
                         <li>产品到期日<p>{profit_expire_arrival}</p></li>
-                        <li>产品气息日<p>{profit_expire_arrival}</p></li>
+                        <li>产品起息日<p>{profit_expire_arrival}</p></li>
                     </ul>
                     <li className={styles.Onetitle}>回款记录</li>
                     <ul>
@@ -185,7 +186,10 @@ class Index extends React.Component {
                         <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{refund_date}</p></li>
                     </ul>
-                    <li className={styles.Onetitle}>产品合同</li>
+                    <li style={{height:'40px'}}></li>
+                    <ul>
+                       <li onClick={()=>{push('')}}>产品合同 <span className={styles.arrowRight}></span></li>
+                    </ul>
                 </ul>
             </div>
         )
@@ -266,7 +270,6 @@ class Index extends React.Component {
                 }else if (type==3){
                     Dom=this.loadEndDomC();
                 }else if (type==5){
-                    console.log('fsafasfsafa')
                     Dom=this.loadEndDomE()
                 }
             }else if (dataN.code==100&&type==4){

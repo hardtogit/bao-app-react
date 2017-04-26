@@ -146,6 +146,7 @@ import guaList  from './pages/my/scratchesCard/guaList'
 import ruleRate from './pages/my/interestRate/rule'
 import ruleVoucher from './pages/my/voucher/rule'
 import securityPlan from './pages/my/assetStatistics/directInvest/securityPlan' /*直投安全保障计划*/
+import dcbContract from './pages/my/assetStatistics/deposit/contract/index'
 import productInfo from './pages/my/assetStatistics/directInvest/productInfo'  /*直投产品信息*/
 import zqProductInfo from './pages/my/assetStatistics/creditors/productIndo/'  /*债券产品信息*/
 import zqSecurityPlan from './pages/my/assetStatistics/creditors/securityPlan' /*债券产品信息*/
@@ -293,6 +294,7 @@ export default class App extends React.Component {
                   <Route path='zqProductInfo/:id' component={zqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqSecurityPlan/:id' component={zqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
                   <Route path='securityPlan/:id' component={securityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
+                  <Route path='dcbContract/:id' component={dcbContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
