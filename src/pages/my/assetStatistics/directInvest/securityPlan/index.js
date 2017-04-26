@@ -694,16 +694,15 @@ const NewContract=(data)=>{
             </p>
             <div className={styles.autoGraph}>
                 <p>
-                    甲方（债权人）：
+                    甲方（出借人）：
                 </p>
                 <p>
-                    乙方（债务人）：{real_name}
+                    乙方（借款人）：{real_name}
                 </p>
                 <p>
-                    丙方（担保人）：{sponsor}
+                    丙方（居间平台服务商）：{providers}
                 </p>
                 <p>
-                    丁方（平台服务方）：{providers}
                     <img src={seal} />
                 </p>
                 <p>
