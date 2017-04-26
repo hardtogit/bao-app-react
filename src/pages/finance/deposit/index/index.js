@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
+//import type_hongwu from '../../../assets/images/type_hongwu.png'
 class DepositIndex extends React.Component {
       render(){
           const {push}=this.props;

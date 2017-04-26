@@ -45,7 +45,7 @@ class Index extends Component{
                         </p>
                     </div>
                 </div>
-                <div className={style.msBox}>
+                <div className={style.msBox} style={{paddingTop:'0px'}}>
                     <div className={style.interest}>
                         <p className={style.msText}>
                             年利率
@@ -54,11 +54,9 @@ class Index extends Component{
                             期限
                         </p>
                     </div>
-                    <div className={style.btnBox}>
                         <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i))}}>
                             买入
                         </button>
-                    </div>
                 </div>
             </li>
         )
