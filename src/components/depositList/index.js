@@ -3,6 +3,7 @@
  */
 import React,{Component,PropTypes} from 'react'
 import style from './index.less'
+import type_hongwu from '../../assets/images/type_hongwu.png'
 class Index extends Component{
     static propTypes={
          type:PropTypes.string,
@@ -33,7 +34,7 @@ class Index extends Component{
         const {type,go}=this.props;
         return(
             <li className={style.depositli} key={i} onClick={()=>{go(parseInt(i))}}>
-                <p className={style.title}>定存宝{type}计划{month}<span>洪武</span></p>
+                <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={type_hongwu}/></span></p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
                         <p className={style.interestText}>
@@ -43,20 +44,20 @@ class Index extends Component{
                         <p>
                             {month}个月
                         </p>
-                    </div>
-                </div>
-                <div className={style.msBox} style={{paddingTop:'0px'}}>
-                    <div className={style.interest}>
-                        <p className={style.msText}>
-                            年利率
-                        </p>
-                        <p className={style.msText}>
-                            期限
-                        </p>
-                    </div>
                         <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i))}}>
                             买入
                         </button>
+                    </div>
+                </div>
+                <div className={style.msBox} style={{paddingTop:'0px'}}>
+                    <div className={style.interest} style={{width:'100%'}}>
+                        <p className={style.msText} style={{width:'37%'}}>
+                            年利率
+                        </p>
+                        <p className={style.msText}>
+                            {type=='A'&&'期限'||'每月还息 到期还本'}
+                        </p>
+                    </div>
                 </div>
             </li>
         )
