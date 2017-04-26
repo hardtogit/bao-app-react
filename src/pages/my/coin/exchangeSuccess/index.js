@@ -42,8 +42,10 @@ class Index extends React.Component{
                 query
             }}=this.props;
         let Dom;
+        let Text='兑换成功';
         if (query.hasOwnProperty('banck')){
             Dom=null;
+            Text='确定'
         }else {
             Dom=<div><p className={styles.textGrey}>您成功兑换<span>{}</span></p>
                 <p className={styles.textGrey}>剩余点币<span className={styles.coinCount}>{this.state.coin}</span></p></div>;
@@ -56,7 +58,7 @@ class Index extends React.Component{
                         <div className={styles.imgWrapper}><img src={success}/></div>
                         <p>兑换成功</p>
                         {Dom}
-                        <BaseButton text={'兑换成功'} disable={false} onClick={this.push} className={styles.button}/>
+                        <BaseButton text={Text} disable={false} onClick={this.push} className={styles.button}/>
                     </div>
                 </div>
             </div>
