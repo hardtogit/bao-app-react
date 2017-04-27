@@ -22,7 +22,7 @@ import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
     constructor(props){
         super(props)
-        this.state={id:'',term:''}
+        this.state={id:'',term:'',pwd:''}
     }
     appoint = (fn,value) => {
         const {
@@ -31,30 +31,19 @@ class DirectInvestCell extends React.Component{
         }=this.props.data;
         this.setState({
             id,
-            term
+            term,
+            pwd:value
         },()=>{
             this.props.postPasswordAction(value);
             this.props.sendAssign(id,value);
         })
-        // Fetch.verifyAssign(this.props.data.id,[{password:value}]).then(result => {
-        //     if (result.code === 100 ) {
-        //         //输入约标密码成功
-        //         this.props.push(`/directBuy/${this.props.data.id}`)
-        //     }else{
-        //         fn();
-        //         this.props.wrongRef.show({
-        //             content:'请输入正确的约标密码',
-        //             okText:'知道了'
-        //         })
-        //     }
-        // }).catch(error => console.log(error))
     }
     componentWillReceiveProps(props){
             const {verifyAssign}=props;
-            const {id,term}=this.state;
+            const {id,term,pwd}=this.state;
             if (verifyAssign){
                 if (verifyAssign.code==100&&id!=''){
-                    this.props.push(`/directBuy/${id}/${term}`)
+                    this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
                 }else if (verifyAssign.code!=100){
                     this.props.passwordRef.hide()
                     this.props.wrongRef.show({

@@ -83,7 +83,7 @@ class DirectBuy extends React.Component {
     if (!useCoupon&&coupon){
         coupon.id=''
     }
-    this.props.balancePay(this.directInvestId, this.state.quantity, password, this.borrowPwd, coupon && coupon.id || '')
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,this.props.location.state, coupon && coupon.id || '')
   }
 
   // 能否支付
