@@ -28,9 +28,7 @@ class Index extends React.Component{
             }=this.props.params;
             this.props.getInfo(id);
         }
-        if (!address){
-            this.props.getAddress();
-        }
+        this.props.getAddress();
     }
     componentWillReceiveProps(next){
         const {
