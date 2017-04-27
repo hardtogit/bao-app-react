@@ -20,21 +20,50 @@ import type_danbao from '../../../assets/images/type_danbao.png'
 import type_diya from '../../../assets/images/type_diya.png'
 import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
-    appoint = (value) => {
-        this.props.postPasswordAction(value)
-        Fetch.verifyAssign(this.props.data.id,value).then(result => {
-            if (result.code === 100 ) {
-                //输入约标密码成功
-                this.props.push(`/directBuy/${this.props.data.id}`)
-            }else{
-                this.props.wrongRef.show({
-                    content:'请输入正确的约标密码',
-                    okText:'知道了'
-                })
-            }
-        }).catch(error => console.log(error))
+    constructor(props){
+        super(props)
+        this.state={id:'',term:''}
     }
-
+    appoint = (fn,value) => {
+        const {
+            id,
+            term
+        }=this.props.data;
+        this.setState({
+            id,
+            term
+        },()=>{
+            this.props.postPasswordAction(value);
+            this.props.sendAssign(id,value);
+        })
+        // Fetch.verifyAssign(this.props.data.id,[{password:value}]).then(result => {
+        //     if (result.code === 100 ) {
+        //         //输入约标密码成功
+        //         this.props.push(`/directBuy/${this.props.data.id}`)
+        //     }else{
+        //         fn();
+        //         this.props.wrongRef.show({
+        //             content:'请输入正确的约标密码',
+        //             okText:'知道了'
+        //         })
+        //     }
+        // }).catch(error => console.log(error))
+    }
+    componentWillReceiveProps(props){
+            const {verifyAssign}=props;
+            const {id,term}=this.state;
+            if (verifyAssign){
+                if (verifyAssign.code==100&&id!=''){
+                    this.props.push(`/directBuy/${id}/${term}`)
+                }else if (verifyAssign.code!=100){
+                    this.props.passwordRef.hide()
+                    this.props.wrongRef.show({
+                        content:'请输入正确的约标密码',
+                        okText:'知道了'
+                    })
+                }
+            }
+    }
     toBuy=(event)=>{
         event.stopPropagation();
         this.yz(this.qgSuccess)
@@ -281,12 +310,17 @@ class DirectInvestList extends React.Component{
                                           wrongRef={this.refs.wrong}
                                           screenW={screenW}
                                           postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                                          sendAssign={this.props.sendAssign}
                                           isAuth={this.refs.isAuth}
                                           isAuthPush={this.props.push}
+                                          verifyAssign={this.props.verifyAssign}
                         />
                     )
                 })}
         </Scroll>)
+    }
+    componentWillUnmount(){
+          this.props.clearData();
     }
     render(){
         const{
@@ -325,7 +359,8 @@ class DirectInvestList extends React.Component{
 }
 const mapStateToProps = (state,ownProps) => {
     const key = actionTypes.FETCH_DIRECTLIST_DATA
-    const userData = state.infodata.getIn([actionTypes.USER_INFO, 'data'])
+    const userData = state.infodata.getIn([actionTypes.USER_INFO, 'data']);
+    const verifyAssign=state.infodata.getIn([actionTypes.VERIFY_ASSIGN,'data']);
     const user = (userData.code == 100) ? userData.data : {}
     const is_login = (userData.code == 100) ? true : false
     let ListHeight= is_login ? document.body.clientHeight-88 : document.body.clientHeight-88-78
@@ -341,6 +376,7 @@ const mapStateToProps = (state,ownProps) => {
         userData,
         is_login,
         ListHeight,
+        verifyAssign,
         appointPassword:state.finance.getIn(['appointPassword','passWord']),
         pending: state.listdata.getIn([key, 'pending']),
         data: state.listdata.getIn([key, 'data']),
@@ -367,6 +403,18 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     goBack() {
         dispatch(goBack())
     },
+    sendAssign(id,pwd){
+        dispatch({
+            type:actionTypes.VERIFY_ASSIGN,
+            params:[{id:id,password:pwd}]
+        })
+    },
+    clearData(){
+        dispatch({
+            type:actionTypes.CLEAR_INFO_DATA,
+            key:actionTypes.VERIFY_ASSIGN
+        })
+    }
 })
 
 export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(wrap(DirectInvestList)))

@@ -264,5 +264,8 @@ export default {
     },
     [actionTypes.ACTIVE_EXCHANGE]:{
         apiFn:Fetch.activeExchange
+    },
+    [actionTypes.VERIFY_ASSIGN]:{
+        apiFn:Fetch.verifyAssign
     }
 }
