@@ -43,6 +43,7 @@ class DirectInvestCell extends React.Component{
             const {id,term,pwd}=this.state;
             if (verifyAssign){
                 if (verifyAssign.code==100&&id!=''){
+                    this.succsseFn();
                     this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
                 }else if (verifyAssign.code!=100){
                     this.props.passwordRef.hide()
