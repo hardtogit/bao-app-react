@@ -4,9 +4,9 @@
 const setAuthUrl=(url)=>{
      var auth=sessionStorage.getItem('bao-auth-str')
      if (auth){
-         window.location.href=url+'?baoAuth='+auth;
+         window.location.href=url+'?bao-auth='+auth;
      }else {
-         window.location.href=url
+         window.location.href=url;
      }
 }
 

@@ -16,7 +16,6 @@ import styles  from './index.styl'
 import commonStyles from '../../../../css/common.styl'
 import util from '../../../../utils/utils.js'
 import * as actionTypes from '../../../../actions/actionTypes'
-
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -62,10 +61,10 @@ class Login extends React.Component {
         }=this.state;
         const data  = this.refs.form.getValue();
         if (backUrl!=''){
-            this.props.isLogin({username:data.username,password:util.md5(data.password)})
+            this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
             window.location.href=backUrl
         }else {
-            this.props.doLogin({username:data.username,password:util.md5(data.password)})
+            this.props.doLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
         }
     };
 

@@ -83,7 +83,7 @@ class DirectBuy extends React.Component {
     if (!useCoupon&&coupon){
         coupon.id=''
     }
-    this.props.balancePay(this.directInvestId, this.state.quantity, password, this.borrowPwd, coupon && coupon.id || '')
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,this.props.location.state, coupon && coupon.id || '')
   }
 
   // 能否支付
@@ -96,11 +96,9 @@ class DirectBuy extends React.Component {
   // 确认支付
   onValid = () => {
       const {select}=this.state;
-      console.log('fasfas')
       if (select==1){
           this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
       }else {
-          console.log('fasfas')
           this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
       }
   }
@@ -244,11 +242,11 @@ class DirectBuy extends React.Component {
                 id,
                 num,
                 couponId,
-                borrowPwd
             }=data,
             payPwd='',
             type=2;
-        const url=util.combineUrl(`https://${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
+        const borrowPwd=this.props.location.state;
+        const url=util.combineUrl(`${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
         this.setState({
             url,
             payTop:'0px'

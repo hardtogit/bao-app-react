@@ -35,7 +35,7 @@ const requests = (Fetch) => {
   // 所有可用加息券
   Fetch.availableInterestRates = () => { return Fetch(`interestRateSecurities/list?type=0&pageSize=${BIG_PAGE_SIZE}`, 'GET') }
   // 验证约标密码
-  Fetch.verifyAssign = (id, data) => { return Fetch(`directInvest/buy-verify/${id}`, 'POST', data) }
+  Fetch.verifyAssign = (data) => { return Fetch(`directInvest/buy-verify/${data.id}`, 'POST', data) }
   // 可用优惠券
   Fetch.availableCoupons = (product, month) => { return Fetch(`voucher/coupons?product=${product}&month=${month}`, 'GET') }
   // 轮播图
