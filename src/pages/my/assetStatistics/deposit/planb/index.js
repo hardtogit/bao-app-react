@@ -24,7 +24,8 @@ class Index extends React.Component {
         push('/home/productIndex');
     }
     listClick=(id)=>{
-        console.log(id)
+       const {push}=this.props;
+       push('/user/detailsDcb/11800')
     }
     loadEndDom=(datas)=>{
         const {

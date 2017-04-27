@@ -159,6 +159,7 @@ class Index extends React.Component {
             infoData:{
                 data
             },
+                id,
             push
         }=this.props;
         const {
@@ -188,7 +189,7 @@ class Index extends React.Component {
                     </ul>
                     <li style={{height:'40px'}}></li>
                     <ul>
-                       <li onClick={()=>{push('')}}>产品合同 <span className={styles.arrowRight}></span></li>
+                       <li onClick={()=>{push(`/user/dcbContract/${id}`)}}>产品合同 <span className={styles.arrowRight}></span></li>
                     </ul>
                 </ul>
             </div>
