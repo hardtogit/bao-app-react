@@ -4,9 +4,10 @@
 /**
  * Created by wangdongfang on 17/3/15.
  */
-import React,{Component,PropTypes} from 'react';
+import React,{Component} from 'react';
 import NavBar from '../../../components/NavBar'
 import styles from './index.less'
+import PropTypes from 'prop-types'
 class Index extends Component{
     constructor(props){
         super(props);

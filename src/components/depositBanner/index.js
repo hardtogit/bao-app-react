@@ -1,9 +1,9 @@
 /**
  * Created by wangdongfang on 17/2/14.
  */
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class Index extends Component{
     static propTypes={
         rate:PropTypes.string,

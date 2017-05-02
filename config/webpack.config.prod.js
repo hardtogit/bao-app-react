@@ -24,7 +24,7 @@ if (!publicPath.endsWith('/')) {
     // If we don't do this, file assets will get incorrect paths.
     publicPath += '/';
 }
-
+var routeComponentRegex = /\/routes\/([^\/]+\/?[^\/]+).js$/
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
@@ -91,6 +91,17 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 include: paths.appSrc,
                 loader: 'babel',
+                query: require('./babel.prod')
+            },
+            {
+                test:/\.(js|jsx)$/,
+                include: paths.route,
+                loader: 'bundle?lazy'
+            },
+            {
+                test:/\.(js|jsx)$/,
+                include: paths.route,
+                loader:'babel',
                 query: require('./babel.prod')
             },
             // The notation here is somewhat confusing.

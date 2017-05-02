@@ -6,7 +6,7 @@
 import React from 'react'
 import cn from 'classnames'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class Tipbar extends React.Component {
 	constructor (props) {
 		super(props)
@@ -17,7 +17,7 @@ class Tipbar extends React.Component {
 	}
 
 	static propTypes = {
-		text: React.PropTypes.string,     // 显示文本
+		text: PropTypes.string,     // 显示文本
 	}
 
 	// componentWillReceiveProps(nextProps) {

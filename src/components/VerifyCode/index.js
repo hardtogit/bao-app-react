@@ -6,7 +6,7 @@ import React from 'react'
 import cn from 'classnames'
 import lodash from 'lodash'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class VerifyCode extends React.Component {
 	constructor(props) {
 		super(props)
@@ -20,14 +20,14 @@ class VerifyCode extends React.Component {
 	}
 
 	static propTypes = {
-	    label: React.PropTypes.string,      // 文本
-	    countdown: React.PropTypes.number,  // 倒计时时长
-	    format: React.PropTypes.string,     // 验证码显示文本
-	    onClick: React.PropTypes.func,       // 点击事件
-	    containerStyle: React.PropTypes.object, 
-		containerDisableStyle: React.PropTypes.object,
-		textStyle: React.PropTypes.object,
-	    textDisableStyle: React.PropTypes.object,
+	    label: PropTypes.string,      // 文本
+	    countdown: PropTypes.number,  // 倒计时时长
+	    format: PropTypes.string,     // 验证码显示文本
+	    onClick: PropTypes.func,       // 点击事件
+	    containerStyle: PropTypes.object,
+		containerDisableStyle: PropTypes.object,
+		textStyle: PropTypes.object,
+	    textDisableStyle: PropTypes.object,
 	}
 
 	static defaultProps = {

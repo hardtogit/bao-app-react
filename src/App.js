@@ -165,11 +165,9 @@ import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
 // 主页
 import homeIndex from './pages/home/index'
-import productIndex from './pages/finance/home/index'
-import findHome from './pages/find/home/index'
-import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import WeChat from './pages/WeChat'
+import RouteComponent from './pages/routeComponent'
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
 // document.domain = a;
@@ -180,10 +178,8 @@ const store = createStore(reducer, applyMiddleware(
     routerMiddleware(browserHistory)
 ))
 
-
 // 启动rootsaga
 sagaMiddleware.run(rootSaga)
-
 // 应用初始化时即请求全局数据
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO,lx:'init'})
@@ -199,9 +195,9 @@ export default class App extends React.Component {
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
-                  <Route path='productIndex' component={productIndex}/>
-                  <Route path='findIndex' component={findHome}/>
-                  <Route path='myIndex' component={myIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='productIndex' component={RouteComponent.ProductIndex}/>
+                  <Route path='findIndex' component={RouteComponent.FindHome}/>
+                  <Route path='myIndex' component={RouteComponent.MyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}>

@@ -1,12 +1,13 @@
 /**
  * Created by wangdongfang on 17/2/14.
  */
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import styles from './index.styl'
 import start from '../../assets/images/lxStart.png'
 import locking from '../../assets/images/lxSd.png'
 import arrival from '../../assets/images/lxArrival.png'
 import Interest from '../../assets/images/Interest.png'
+import PropTypes from 'prop-types'
 class Index extends Component{
     static propTypes={
           startTime:PropTypes.string,

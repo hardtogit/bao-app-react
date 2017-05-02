@@ -36,5 +36,6 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   ownNodeModules: resolveApp('node_modules'),
   recharts: resolveApp('node_modules/recharts/src'),
-  nodePaths: nodePaths
+  nodePaths: nodePaths,
+  route:resolveApp('src/pages/routes')
 };

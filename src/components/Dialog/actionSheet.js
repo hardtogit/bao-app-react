@@ -1,7 +1,7 @@
 import React from 'react'
 import Boron from '../../customized_node_modules/boron'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 export default class ActionSheet extends React.Component {
 	constructor(props) {
 		super(props)
@@ -12,16 +12,16 @@ export default class ActionSheet extends React.Component {
 	}
 
 	static propTypes = {
-		options: React.PropTypes.array.isRequired,
-		visible: React.PropTypes.bool.isRequired,
-		disable: React.PropTypes.oneOfType([
-		    React.PropTypes.string,
-		    React.PropTypes.number,
-		    React.PropTypes.array,
+		options: PropTypes.array.isRequired,
+		visible: PropTypes.bool.isRequired,
+		disable: PropTypes.oneOfType([
+		    PropTypes.string,
+		    PropTypes.number,
+		    PropTypes.array,
 	    ]),
-	    //modalWillClose: React.PropTypes.func.isRequired,
-	    onSelectPay: React.PropTypes.func,
-	    onClose: React.PropTypes.func
+	    //modalWillClose: PropTypes.func.isRequired,
+	    onSelectPay: PropTypes.func,
+	    onClose: PropTypes.func
 	}
 
   	static defaultProps = {

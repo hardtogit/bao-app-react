@@ -7,7 +7,7 @@ import _ from 'lodash'
 import cn from 'classnames'
 import validate from './validate'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 // limit the type of input
 const checkRegs = {
   // 整数或者保留两位小数点的数字
@@ -36,21 +36,21 @@ class BaseInput extends React.Component {
   static nameq = "BaseInput";
 
   static propTypes = {
-    className: React.PropTypes.string,
-    label: React.PropTypes.string,
-    right: React.PropTypes.element,
-    name: React.PropTypes.string,
-    maxValue: React.PropTypes.number,
-    reg: React.PropTypes.object,
-    format: React.PropTypes.string,
-    onInvalid: React.PropTypes.func,
-    borderType: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    noleftPadding: React.PropTypes.bool,     // 是否有左边内边距
-    containerStyle: React.PropTypes.object,
-    wrapStyle: React.PropTypes.object,
-    leftTextStyle: React.PropTypes.object,
-    icon:React.PropTypes.element
+    className: PropTypes.string,
+    label: PropTypes.string,
+    right: PropTypes.element,
+    name: PropTypes.string,
+    maxValue: PropTypes.number,
+    reg: PropTypes.object,
+    format: PropTypes.string,
+    onInvalid: PropTypes.func,
+    borderType: PropTypes.string,
+    placeholder: PropTypes.string,
+    noleftPadding: PropTypes.bool,     // 是否有左边内边距
+    containerStyle: PropTypes.object,
+    wrapStyle: PropTypes.object,
+    leftTextStyle: PropTypes.object,
+    icon:PropTypes.element
   }
 
   setValue(value) {

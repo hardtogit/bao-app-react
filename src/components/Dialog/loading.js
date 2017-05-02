@@ -8,12 +8,12 @@ import Boron from '../../customized_node_modules/boron'
 import Dialog from './index'
 import helper from './helper.js'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class Loading extends React.Component {
 
 	static propTypes = {
-		text: React.PropTypes.string,
-    mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal'])
+		text: PropTypes.string,
+    mode: PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal'])
 	}
 
   constructor(props) {

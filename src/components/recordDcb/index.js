@@ -1,11 +1,12 @@
 /**
  * Created by Administrator on 2017/4/25.
  */
-import React,{Component,PropTypes}from 'react' //我的定存宝
+import React,{Component}from 'react' //我的定存宝
 import styles from './index.less'
 import Record from '../../pages/user/common/record/index'
 import Scroll from '../scroll/index'
 import explan from '../../assets/images/my-index/nojilu_03.png' //没有记录
+import PropTypes from 'prop-types'
 class Index extends Component {
     static PropTypes={
            fetch:PropTypes.array,

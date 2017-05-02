@@ -6,24 +6,25 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import cn from 'classnames'
 import './transition.css'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 export default class Calculator extends React.Component {
 
   static propTypes = {
-    unit: React.PropTypes.oneOf(['d', 'm', 'day', 'month']).isRequired,
-    rate: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    unit: PropTypes.oneOf(['d', 'm', 'day', 'month']).isRequired,
+    rate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
-    term: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    term: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
-    amount: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
-    termFixed: React.PropTypes.bool,
-    rateMap: React.PropTypes.array,
+    termFixed: PropTypes.bool,
+    rateMap: PropTypes.array,
   }
 
   state = {

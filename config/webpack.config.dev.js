@@ -6,7 +6,6 @@ var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var WatchMissingNodeModulesPlugin = require('../scripts/utils/WatchMissingNodeModulesPlugin');
 var paths = require('./paths');
 var env = require('./env');
-
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -53,7 +52,8 @@ module.exports = {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
     // In development, we always serve from the root. This makes config easier.
-    publicPath: '/'
+    publicPath: '/',
+    chunkFilename:'static/js/[id].js'
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -95,9 +95,21 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: [paths.appSrc, paths.recharts],
+        exclude:paths.route,
         loader: 'babel',
-        query: require('./babel.dev')
+        query:require('./babel.dev')
       },
+        {
+            test:/\.(js|jsx)$/,
+            include:paths.route,
+            loader: 'babel',
+            query:require('./babel.dev')
+        },
+        {
+            test:/\.(js|jsx)$/,
+            include: paths.route,
+            loader:'bundle?lazy',
+        },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
       // "style" loader turns CSS into JS modules that inject <style> tags.

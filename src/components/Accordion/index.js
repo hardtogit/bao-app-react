@@ -5,7 +5,7 @@
 import React from 'react'
 import styles from './index.styl'
 import cn from 'classnames'
-
+import PropTypes from 'prop-types'
 class BDAccordion extends React.Component {
   constructor(props) {
     super(props)
@@ -15,12 +15,12 @@ class BDAccordion extends React.Component {
   }
 
   static propTypes = {
-    titleText: React.PropTypes.string.isRequired, // 标题
-    contentText: React.PropTypes.string.isRequired, // 内容
-    titleTextStyle: React.PropTypes.object, // 标题样式
-    contentTextStyle: React.PropTypes.object, // 内容样式
-    titleBarStyle: React.PropTypes.object, // 标题栏样式
-    imageStyle: React.PropTypes.object, // 右边图片样式
+    titleText: PropTypes.string.isRequired, // 标题
+    contentText: PropTypes.string.isRequired, // 内容
+    titleTextStyle: PropTypes.object, // 标题样式
+    contentTextStyle: PropTypes.object, // 内容样式
+    titleBarStyle: PropTypes.object, // 标题栏样式
+    imageStyle: PropTypes.object, // 右边图片样式
   }
 
   onChange = () => {

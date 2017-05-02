@@ -3,12 +3,12 @@ import {
   RadialBarChart,
   RadialBar,
 } from '../../customized_node_modules/recharts/src'
-
+import PropTypes from 'prop-types'
 export default class CustomizedRadialBarChart extends React.PureComponent {
 
   static propTypes = {
-    rate: React.PropTypes.number,
-    max: React.PropTypes.number,
+    rate: PropTypes.number,
+    max: PropTypes.number,
   }
 
   static defaultProps = {

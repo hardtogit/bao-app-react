@@ -7,6 +7,7 @@ import Dialog from './index'
 import helper from './helper.js'
 import styles from './index.styl'
 import close from '../../assets/images/calclose.png'
+import PropTypes from 'prop-types'
 export default class AlertDialog extends React.Component {
 	constructor(props) {
 		super(props)
@@ -25,17 +26,17 @@ export default class AlertDialog extends React.Component {
 	}
 
 	static propTypes = {
-		title: React.PropTypes.string,             // 标题
-		content: React.PropTypes.oneOfType([       // 内容
-			React.PropTypes.string,
-			React.PropTypes.element
+		title: PropTypes.string,             // 标题
+		content: PropTypes.oneOfType([       // 内容
+			PropTypes.string,
+			PropTypes.element
 		]),
-		okText: React.PropTypes.string,             // 按钮文本
-        cancel:React.PropTypes.string,              // 取消文本
-		okCallback: React.PropTypes.func,           // 确定回调
-        cancelCallback:React.PropTypes.func,
-        closeFn:React.PropTypes.func,
-        close:React.PropTypes.bool
+		okText: PropTypes.string,             // 按钮文本
+        cancel:PropTypes.string,              // 取消文本
+		okCallback: PropTypes.func,           // 确定回调
+        cancelCallback:PropTypes.func,
+        closeFn:PropTypes.func,
+        close:PropTypes.bool
 	}
 
 	show(options){

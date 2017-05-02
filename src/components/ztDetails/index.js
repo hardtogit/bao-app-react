@@ -1,11 +1,12 @@
 
-import React,{PropTypes} from 'react'//资产详情
+import React from 'react'//资产详情
 import NavBar from '../NavBar'
 import styles from './index.css'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
 import arrowRight from '../../assets/images/arrow2.png' //没有记录
 import Loading from '../pageLoading'
+import PropTypes from 'prop-types'
 class Index extends React.Component {
     static PropTypes={
         type:PropTypes.number,

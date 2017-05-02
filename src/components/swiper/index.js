@@ -1,7 +1,8 @@
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import Swiper from 'swipe-js-iso'
 import styles from './index.css'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 class ReactSwiper extends Component{
       static propTypes={
       swipeOptions: PropTypes.shape({

@@ -1,9 +1,10 @@
 /**
  * Created by Administrator on 2017/4/24.
  */
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import style from './index.less'
 import type_hongwu from '../../assets/images/type_hongwu.png'
+import PropTypes from 'prop-types'
 class Index extends Component{
     static propTypes={
          type:PropTypes.string,

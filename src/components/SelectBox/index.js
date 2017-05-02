@@ -2,15 +2,15 @@ import React from 'react'
 import Boron from '../../customized_node_modules/boron'
 import style from './index.less';
 import cs from 'classnames';
-
+import PropTypes from 'prop-types'
 export default class SelectBox extends React.PureComponent {
     constructor(props){
         super(props);
     }
     static propTypes = {
-        mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
-        items:React.PropTypes.arrayOf(React.PropTypes.object),//数据列表 [{text,color,canClick}])
-        callBackFun:React.PropTypes.func.isRequired
+        mode: PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
+        items:PropTypes.arrayOf(PropTypes.object),//数据列表 [{text,color,canClick}])
+        callBackFun:PropTypes.func.isRequired
     };
     static defaultProps = {
         mode: 'FlyModal',

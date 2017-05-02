@@ -8,7 +8,7 @@ import LoadingDialog from '../../components/Dialog/loading'
 import util from '../../utils/utils'
 import styles from './payProcess.styl'
 import cn from 'classnames'
-
+import PropTypes from 'prop-types'
 class PayProcess extends React.Component {
   constructor(props) {
     super(props)
@@ -22,11 +22,11 @@ class PayProcess extends React.Component {
   }
 
   static propTypes = {
-    type: React.PropTypes.string, // demand deposit creditors directInvest
-    inputValue: React.PropTypes.number, // 初始购买金额
-    onClose: React.PropTypes.func, //
-    type: React.PropTypes.string,  // type 类型 ‘demand’ 'deposit' 'directInvest' 'creditors'
-    go: React.PropTypes.func, // go 路由跳转
+    type: PropTypes.string, // demand deposit creditors directInvest
+    inputValue: PropTypes.number, // 初始购买金额
+    onClose: PropTypes.func, //
+    type: PropTypes.string,  // type 类型 ‘demand’ 'deposit' 'directInvest' 'creditors'
+    go: PropTypes.func, // go 路由跳转
   }
 
   // 余额支付序列号

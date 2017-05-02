@@ -1,13 +1,14 @@
 /**
  * Created by Administrator on 2017/4/25.
  */
-import React,{Component,PropTypes}from 'react' //我的定存宝
+import React,{Component}from 'react' //我的定存宝
 import styles from './index.less'
 import Manage from '../../pages/user/common/manage/index'
 import explan from '../../assets/images/my-index/nojilu_03.png' //没有记录
 import dingicon from '../../assets/images/my-index/dingicon.png' //列表时钟
 import Scroll from '../scroll/index'
 import Util from "../../utils/utils"
+import PropTypes from 'prop-types'
 class Index extends Component {
     static PropTypes={
         banner:PropTypes.object,
