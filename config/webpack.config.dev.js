@@ -101,14 +101,14 @@ module.exports = {
       },
         {
             test:/\.(js|jsx)$/,
-            include:paths.route,
-            loader: 'babel',
-            query:require('./babel.dev')
+            include: paths.route,
+            loader:'bundle?lazy',
         },
         {
             test:/\.(js|jsx)$/,
-            include: paths.route,
-            loader:'bundle?lazy',
+            include:paths.route,
+            loader: 'babel',
+            query:require('./babel.dev')
         },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.

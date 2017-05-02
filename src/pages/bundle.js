@@ -11,9 +11,7 @@ class Index extends Component{
         this.load(this.props);
     }
     load=(props)=>{
-        console.log(props.load)
         props.load((mod)=>{
-            console.log(mod,'你大爷')
             this.setState({
                 mod: mod.default ? mod.default : mod
             })
@@ -26,7 +24,7 @@ class Index extends Component{
     }
     render(){
         if (!this.state.mod){
-            return <div>fsafas</div>
+            return false
         }else {
             return this.props.children(this.state.mod);
         }

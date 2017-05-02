@@ -24,8 +24,6 @@ import DemandRedeem from './pages/finance/demand/redeem'
 import DemandBuy from './pages/finance/demand/buy'
 import DemandProduct from './pages/finance/demand/product'
 import DirectList from './pages/finance/directInvest'
-import DirectInvestDetails from './pages/finance/directInvest/directInvestDetails.js'
-import DirectBuy from './pages/finance/directInvest/directBuy.js'
 import DirectInvestSuccess from './pages/finance/directInvest/inviteSuccess'
 import DirectContract from './pages/finance/directInvest/directProductContract.js'
 import CreditorList from './pages/finance/creditors/index/'
@@ -35,35 +33,22 @@ import CreditorProtocol from './pages/finance/creditors/protocol/'
 import CreditorInvestSuccess from './pages/finance/creditors/investSuccess/'
 import ChangePayPwd from './pages/user/changePayPwd/index'
 import PayWeb from './pages/finance/payWeb'
-
-
-import DepositProduct from './pages/finance/deposit/product'
-import DepositBuy from './pages/finance/deposit/buy'
 import Agreement  from './pages/finance/deposit/agreement'
 import DepositInvestSuccess from './pages/finance/deposit/investSuccess'
 
 import CheckPhone from './pages/user/checkPhone/';
 import ChangeLoginPwd from './pages/user/changeLoginPwd/';
 import ChangeUserName from './pages/user/changeUserName/';
-import projectRecorde from './pages/my/assetStatistics/directInvest/projectRecords/index'
 
 /*************************************************我的*****************************************************/
-import Recharge from './pages/my/assetStatistics/balance/charge/index' /*充值*/
-import moneyLog from './pages/my/assetStatistics/balance/records/index'/*余额明细*/
 import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余额*/
 import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
-import MyDCB from './pages/my/assetStatistics/deposit/home/index.js' /*我的定存宝*/
-import MyDCBB from './pages/my/assetStatistics/deposit/planb/index.js'
-import DepositRecords from './pages/my/assetStatistics/deposit/depositRecords/index' /*定存宝记录*/
-import DepositRecordsB from './pages/my/assetStatistics/deposit/depositRecords/planB' /*定存宝记录*/
-import zqRecords from './pages/my/assetStatistics/creditors/zqRecords/index' /*定存宝记录*/
 import Creditors from './pages/my/assetStatistics/creditors/mine/index' /*我的债权转让*/
 import CreditorsRecords from './pages/my/assetStatistics/creditors/records/index' /*我的债权记录*/
 import MyDemandIndex from './pages/my/assetStatistics/demand/mine/index' /*我的零钱宝*/
 import MyDemandRecords from './pages/my/assetStatistics/demand/records/index' /*我的零钱宝记录*/
 import DemandReddem from './pages/my/assetStatistics/demand/reddem/index' /*零钱宝赎回*/
 import reddemSuccese from './pages/my/assetStatistics/demand/redemptionRequest/index' /*零钱宝成功*/
-import MyDirectProjects from './pages/my/assetStatistics/directInvest/myDirectProjects/index' /*我的直投*/
 import PropertyDetail from './pages/my/assetStatistics/directInvest/propertyDetail/index' /*资产详情*/
 import CreditorRights from './pages/my/assetStatistics/directInvest/creditorRights/index' /*债权资产详情*/
 import HistoryRecord from './pages/my/assetStatistics/directInvest/historyRecord/index' /*历史记录资产详情*/
@@ -71,10 +56,7 @@ import zqPropertyDetail from './pages/my/assetStatistics/creditors/zqPropertyDet
 import detailsDcb from './pages/my/assetStatistics/deposit/details'
 import About from './pages/my/setting/about/index' //关于我们
 import VersionInfo from './pages/my/setting/versionInfo/index'//版本介绍
-import addAccrualIndex from './pages/my/interestRate/myInterestRates/index' /*加息券*/
 import pastAccrule from './pages/my/interestRate/overdue/index' /*过期加息券*/
-import Analysis from './pages/my/assetStatistics/balance/analysis/index' /*资产分析*/
-import coinShop from './pages/my/coin/coinShop/index' /*点币*/
 import CoinsRecord from './pages/my/coin/records/index' /*点币获得记录*/
 import ExchangeList from './pages/my/coin/exchangeList/index' /*点币兑换记录*/
 import CoinsRule from './pages/my/coin/rules/index' /*点币规则*/
@@ -101,10 +83,7 @@ import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//
 
 import inviteFriends from './pages/find/invite/index' /*邀请好友*/
 import inviteFriendsRule from './pages/find/invite/rule' /*邀请好友规则*/
-import ScratchesCard from './pages/my/scratchesCard/index' /*刮刮卡*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
-import Calendar from './pages/my/calendar/index/index' /*回款日历*/
-import CalendarMonths from './pages/my/calendar/timeList/index' /*回款日历日期选择*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
 import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
@@ -117,7 +96,6 @@ import announceMent from './pages/find/announcement/index' //公告
 import Invite from './pages/find/invite/index'
 
 // 我的模块
-import UserHome from './pages/my/home/index';/*账户中心*/
 import Setting from './pages/my/setting/index'
 import UserNameModify from './pages/my/setting/usernameModify'
 import SecurityCenter from './pages/my/setting/securityCenter'
@@ -158,16 +136,20 @@ import cashSuccess from './pages/my/assetStatistics/balance/success'  //提现�
 import privacy from './pages/my/passport/agreement/privacy'
 import service from './pages/my/passport/agreement/service'
 import zqTransfer from './pages/my/assetStatistics/directInvest/zqTransfer'
-import zqTransferRule from './pages/my/assetStatistics/directInvest/rule/zqTransferRule'
 import inviteSuccess from './pages/my/inviteSuccess/index'
 //意见反馈
 import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
 // 主页
 import homeIndex from './pages/home/index'
+import findHome from './pages/find/home/index'
+import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import WeChat from './pages/WeChat'
-import RouteComponent from './pages/routeComponent'
+import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,
+DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,AddAccrualIndex,CoinShop} from './pages/routeComponent/userComponent'
+import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
+import {ProductIndex} from './pages/routeComponent/homeComponent'
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
 // document.domain = a;
@@ -195,28 +177,26 @@ export default class App extends React.Component {
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
-                  <Route path='productIndex' component={RouteComponent.ProductIndex}/>
-                  <Route path='findIndex' component={RouteComponent.FindHome}/>
-                  <Route path='myIndex' component={RouteComponent.MyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='productIndex' component={ProductIndex}/>
+                  <Route path='findIndex' component={findHome}/>
+                  <Route path='myIndex' component={myIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}>
-                  <IndexRedirect to="index" />
-                  <Route path="index" component={UserHome} ></Route>/*首页*/
                   <Route path='analysis' component={Analysis}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/
                   <Route path="calendarMonths/:year/:month" component={CalendarMonths} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历日期选择*/
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
-                  <Route path="moneyLog" component={moneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
+                  <Route path="moneyLog" component={MoneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
-                  <Route path='zqRecords' component={zqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqRecords' component={ZqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
-                  <Route path='projectRecorde' component={projectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
-                  <Route path='zqTransferRule' component={zqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='projectRecorde' component={ProjectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
+                  <Route path='zqTransferRule' component={ZqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqTransfer/:id' component={zqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="detailsDcb/:id" component={detailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
@@ -228,14 +208,14 @@ export default class App extends React.Component {
                   <Route path="MyDemandIndex" component={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
                   <Route path="redPacket" component={redPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
                   <Route path="redPacketRule" component={redPacketRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
-                  <Route path="addRate" component={addAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
+                  <Route path="addRate" component={AddAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
                   <Route path="addRateUsed" component={pastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
                   <Route path="scratchesCard" component={ScratchesCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
                   <Route path='guaguaList' component={guaList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="scratchesRule" component={ScratchesRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*刮刮卡规则*/
                   <Route path="vouchers" component={Vouchers} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的抵用券*/
                   <Route path="vouchersPast" component={VouchersPast} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期抵用券*/
-                  <Route path="coinShop" component={coinShop} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币*/
+                  <Route path="coinShop" component={CoinShop} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币*/
                   <Route path="coinsRecord" component={CoinsRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币记录*/
                   <Route path="coinsRule" component={CoinsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币规则*/
                   <Route path="goodsDetail/:id" component={goodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
@@ -346,7 +326,6 @@ export default class App extends React.Component {
             <Route path="depositDetails" component={depositDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
             <Route path="planDetails/:id" component={planDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
             <Route path="Verify" component={Verify}></Route>
-            <Route path="addAccrualIndex" component={addAccrualIndex}></Route>
             <Route path="pastAccrule" component={pastAccrule}></Route>
 
             <Route path="financiaIndex" component={financiaIndex}></Route>
