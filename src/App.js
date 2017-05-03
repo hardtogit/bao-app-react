@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, browserHistory, IndexRoute, Link, Redirect, IndexRedirect} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {syncHistoryWithStore, routerMiddleware,analyticsService} from 'react-router-redux';
@@ -13,17 +13,12 @@ import reducer from './reducers';
 import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
-import { RATE, USER_INFO,SAFE_CARD_INFO,LOGIN_OUT} from './actions/actionTypes'
-import SafePlan from './pages/finance/securePlan'
-
-import DemandIndex from './pages/finance/demand/index'
-import InvestSuccess from './pages/finance/demand/investSuccess'
+import { RATE, USER_INFO,SAFE_CARD_INFO} from './actions/actionTypes'
 import RelatedProjects from './pages/finance/demand/relatedProjects'
 import DemandInvestFail from './pages/finance/demand/investFail'
 import DemandRedeem from './pages/finance/demand/redeem'
 import DemandBuy from './pages/finance/demand/buy'
 import DemandProduct from './pages/finance/demand/product'
-import DirectList from './pages/finance/directInvest'
 import DirectInvestSuccess from './pages/finance/directInvest/inviteSuccess'
 import DirectContract from './pages/finance/directInvest/directProductContract.js'
 import CreditorList from './pages/finance/creditors/index/'
@@ -60,8 +55,6 @@ import pastAccrule from './pages/my/interestRate/overdue/index' /*过期加息�
 import CoinsRecord from './pages/my/coin/records/index' /*点币获得记录*/
 import ExchangeList from './pages/my/coin/exchangeList/index' /*点币兑换记录*/
 import CoinsRule from './pages/my/coin/rules/index' /*点币规则*/
-import shopCenter from './pages/my/coin/shopCenter/index' /*商城中心*/
-import goodsDetail from './pages/my/coin/goodsDetail/index' /*商品详情*/
 import trueExchangeConfirm from './pages/my/coin/trueExchangeConfirm/index' /*确认兑换*/
 import activeConfirm from './pages/my/coin/activeConfirm'
 import ExchangeSuccess from './pages/my/coin/exchangeSuccess/index' /*兑换成功*/
@@ -81,18 +74,13 @@ import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
 
-import inviteFriends from './pages/find/invite/index' /*邀请好友*/
 import inviteFriendsRule from './pages/find/invite/rule' /*邀请好友规则*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
 import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
-import BottomTabs from './components/BottomTabs';
 //发现模块
 import findIndex from './pages/find'
-import findMessage from './pages/find/messages/index' //消息
-import messageDetail from './pages/find/messageDetail/index' //消息详情
-import announceMent from './pages/find/announcement/index' //公告
 import Invite from './pages/find/invite/index'
 
 // 我的模块
@@ -109,25 +97,13 @@ import  MobileBindNew from './pages/my/setting/mobileBind/new'
 import MobileBindModify from './pages/my/setting/mobileBindModify'
 import Problems from './pages/my/setting/problems'
 import IdentityAuth from './pages/my/setting/identityAuth'
-import Login from './pages/my/passport/login'
-import Register from './pages/my/passport/register'
-import RegisterVerifyMobile from './pages/my/passport/register/verifyMobile'
-import RegisterSetPassword from './pages/my/passport/register/setPassword'
-import registerSuccess from './pages/my/passport/register/registerSuccess'
-import Findpassword from './pages/my/passport/findPassword/'
-import FindpasswordSetPassword from './pages/my/passport/findPassword/setPassword'
 import User from './pages/my/index'
 import IndexTab from './components/IndexTabs'
 import bankcardAddIndex from './pages/my/setting/bankcardAdd/index'
 import tradePasswordNew from './pages/my/setting/tradePasswordSet/new'
-import guaList  from './pages/my/scratchesCard/guaList'
 import ruleRate from './pages/my/interestRate/rule'
 import ruleVoucher from './pages/my/voucher/rule'
-import securityPlan from './pages/my/assetStatistics/directInvest/securityPlan' /*直投安全保障计划*/
 import dcbContract from './pages/my/assetStatistics/deposit/contract/index'
-import productInfo from './pages/my/assetStatistics/directInvest/productInfo'  /*直投产品信息*/
-import zqProductInfo from './pages/my/assetStatistics/creditors/productIndo/'  /*债券产品信息*/
-import zqSecurityPlan from './pages/my/assetStatistics/creditors/securityPlan' /*债券产品信息*/
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
 
@@ -142,14 +118,14 @@ import FeedbackIndex from './pages/my/setting/feedback'
 import ProductList from './pages/active/productList'
 // 主页
 import homeIndex from './pages/home/index'
-import findHome from './pages/find/home/index'
-import myIndex from './pages/my/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
-import WeChat from './pages/WeChat'
-import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,
-DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,AddAccrualIndex,CoinShop} from './pages/routeComponent/userComponent'
+import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,ProductInfo,
+ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,AddAccrualIndex,CoinShop} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
-import {ProductIndex} from './pages/routeComponent/homeComponent'
+import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
+import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
+import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan}
+from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
 // document.domain = a;
@@ -164,8 +140,8 @@ const store = createStore(reducer, applyMiddleware(
 sagaMiddleware.run(rootSaga)
 // 应用初始化时即请求全局数据
 store.dispatch({type: RATE})
-store.dispatch({type: USER_INFO,lx:'init'})
-store.dispatch({type:SAFE_CARD_INFO})
+store.dispatch({type: USER_INFO,lx:'init'});
+store.dispatch({type:SAFE_CARD_INFO});
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)
 export default class App extends React.Component {
@@ -178,8 +154,8 @@ export default class App extends React.Component {
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
                   <Route path='productIndex' component={ProductIndex}/>
-                  <Route path='findIndex' component={findHome}/>
-                  <Route path='myIndex' component={myIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='findIndex' component={FindHome}/>
+                  <Route path='myIndex' component={MyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}>
@@ -211,15 +187,15 @@ export default class App extends React.Component {
                   <Route path="addRate" component={AddAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
                   <Route path="addRateUsed" component={pastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
                   <Route path="scratchesCard" component={ScratchesCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
-                  <Route path='guaguaList' component={guaList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='guaguaList' component={GuaList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="scratchesRule" component={ScratchesRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*刮刮卡规则*/
                   <Route path="vouchers" component={Vouchers} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的抵用券*/
                   <Route path="vouchersPast" component={VouchersPast} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期抵用券*/
                   <Route path="coinShop" component={CoinShop} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币*/
                   <Route path="coinsRecord" component={CoinsRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币记录*/
                   <Route path="coinsRule" component={CoinsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币规则*/
-                  <Route path="goodsDetail/:id" component={goodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
-                  <Route path="shopCenter" component={shopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
+                  <Route path="goodsDetail/:id" component={GoodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
+                  <Route path="shopCenter" component={ShopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
                   <Route path="activeConfirm" component={activeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
@@ -266,38 +242,34 @@ export default class App extends React.Component {
 
                    <Route path="setting/Detail" component={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                    <Route path="setting/about" component={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                   <Route path='productInfo/:id' component={productInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>   /*直投产品信息*/
-                  <Route path='zqProductInfo/:id' component={zqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='zqSecurityPlan/:id' component={zqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
-                  <Route path='securityPlan/:id' component={securityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
+                   <Route path='productInfo/:id' component={ProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>   /*直投产品信息*/
+                  <Route path='zqProductInfo/:id' component={ZqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqSecurityPlan/:id' component={ZqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='securityPlan/:id' component={SecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
                   <Route path='dcbContract/:id' component={dcbContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
-                  <Route path="message" component={findMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteFriends" component={inviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="message" component={FindMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriendsRule" component={inviteFriendsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="announcement" component={announceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messagedetail" component={messageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
               /*已完成*/
-              <Route path='/invite/success' component={inviteSuccess}/>
               <Route path="login" component={Login}></Route>
               <Route path='weChat' component={WeChat}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
               <Route path='privacy' components={privacy}></Route>
               <Route path='service' components={service}></Route>
-              <Route path="registerSuccess"  component={registerSuccess} />
+              <Route path="registerSuccess"  component={RegisterSuccess} />
               <Route path="registerSetPassword" component={RegisterSetPassword}></Route>
               <Route path="findpassword" component={Findpassword}></Route>
               <Route path="findpasswordSetPassword" component={FindpasswordSetPassword}></Route>
               /*已完成*/
 
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="BottomTabs" component={BottomTabs}></Route>
-            <Route path="demand-Index" component={DemandIndex}></Route>
-            <Route path="demand-invest-success" component={InvestSuccess}></Route>
             <Route path="demand-related-projects/:id" component={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-invest-fail" component={DemandInvestFail}></Route>
             <Route path="demand-redeem" component={DemandRedeem}></Route>
@@ -307,8 +279,6 @@ export default class App extends React.Component {
             <Route path="deposit-buy(/:id(/:type))" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess" component={DepositInvestSuccess}></Route>
-            <Route path="demandIndex" component={DemandIndex}></Route>
-            <Route path="directList" component={DirectList}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directInvestSuccess" component={DirectInvestSuccess}></Route>

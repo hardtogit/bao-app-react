@@ -18,6 +18,13 @@ import zqTransferRule from '../routes/user/zqTransferRule'
 import scratchesCard from '../routes/user/scratchesCard'
 import addAccrualIndex from '../routes/user/addAccrualIndex'
 import coinShop from '../routes/user/coinShop'
+import guaList from '../routes/user/guaList'
+import goodsDetail from '../routes/user/goodsDetail'
+import shopCenter from '../routes/user/shopCenter'
+import securityPlan from '../routes/user/securityPlan'
+import zqSecurityPlan from '../routes/user/zqSecurityPlan'
+import productInfo from '../routes/user/productInfo'
+import zqProductInfo from '../routes/user/zqProductInfo'
 import Bundle from '../bundle'
 export const Analysis=(props)=>{
     return<Bundle load={analysis}>
@@ -97,6 +104,41 @@ export const  AddAccrualIndex=(props)=>{
 export const  CoinShop=(props)=>{
     return<Bundle load={coinShop}>
         {(CoinShop)=><CoinShop {...props}/>}
+    </Bundle>
+};
+export const  GuaList=(props)=>{
+    return<Bundle load={guaList}>
+        {(GuaList)=><GuaList {...props}/>}
+    </Bundle>
+};
+export const  GoodsDetail=(props)=>{
+    return<Bundle load={goodsDetail}>
+        {(GoodsDetail)=><GoodsDetail {...props}/>}
+    </Bundle>
+};
+export const  ShopCenter=(props)=>{
+    return<Bundle load={shopCenter}>
+        {(ShopCenter)=><ShopCenter {...props}/>}
+    </Bundle>
+};
+export const  SecurityPlan=(props)=>{
+    return<Bundle load={securityPlan}>
+        {(SecurityPlan)=><SecurityPlan {...props}/>}
+    </Bundle>
+};
+export const  ZqSecurityPlan=(props)=>{
+    return<Bundle load={zqSecurityPlan}>
+        {(ZqSecurityPlan)=><ZqSecurityPlan {...props}/>}
+    </Bundle>
+};
+export const  ProductInfo=(props)=>{
+    return<Bundle load={productInfo}>
+        {(ProductInfo)=><ProductInfo {...props}/>}
+    </Bundle>
+};
+export const  ZqProductInfo=(props)=>{
+    return<Bundle load={zqProductInfo}>
+        {(ZqProductInfo)=><ZqProductInfo {...props}/>}
     </Bundle>
 };
 

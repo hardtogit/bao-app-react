@@ -24,7 +24,6 @@ if (!publicPath.endsWith('/')) {
     // If we don't do this, file assets will get incorrect paths.
     publicPath += '/';
 }
-var routeComponentRegex = /\/routes\/([^\/]+\/?[^\/]+).js$/
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
