@@ -16,7 +16,6 @@ class Index extends Component{
             code,
             data
         }=this.props;
-         console.log(mobile,code,data)
         if (!mobile){
          this.alert('/register')
         }else if (!code){

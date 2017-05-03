@@ -21,6 +21,12 @@ class FinancialIndex extends Component{
        flage:false,
        isAuth:0,
        show:{display:'block'},
+       title:'',
+       rate:'',
+       depositbs:false,
+       depositb:false,
+       rateA:'',
+      xsRate:''
      }
    }
    componentWillMount(){
@@ -42,6 +48,8 @@ class FinancialIndex extends Component{
    }
    componentDidMount(){
      const Height=this.getHeight();
+     const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
+      const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
      this.setState({
        height:{height:Height+'px'}
      })
@@ -50,14 +58,72 @@ class FinancialIndex extends Component{
              query:{
                  auth
              }
-         }
+         },
+         load,
+         getListB,
+         getDeposit
      }=this.props;
      if (auth){
          this.getLogin(auth)
      }else {
-         this.props.load();
+        load();
      }
-
+       if (depositbs==null){
+         getListB()
+       }else {
+           const {title,rate}=this.getMessage(depositbs.list);
+           this.setState({
+               depositbs:true,
+               title,
+               rate
+           })
+       }
+       if (depositb==null){
+           getDeposit();
+       }else {
+           const {rateA,xsRate}=this.getMessageA(depositb)
+           this.setState({
+               depositb:true,
+               rateA,
+               xsRate
+           })
+       }
+   }
+    componentWillReceiveProps(next){
+       const {depositbs,depositb}=this.state;
+       const {depositbs:ndbs,deposit}=next;
+       if (!depositbs&&ndbs){
+           if (ndbs.code==100){
+               const {title,rate}=this.getMessage(ndbs.data.list);
+               this.setState({
+                   depositbs:false,
+                   title,
+                   rate
+               })
+           }
+       }
+       if (!depositb&&deposit){
+           if (deposit.code==100){
+               const {rateA,xsRate}=this.getMessageA(deposit.data)
+               this.setState({
+                   depositb:true,
+                   rateA,
+                   xsRate
+               })
+           }
+       }
+    }
+   getMessageA=(depositb)=>{
+        const xsRate=depositb.new_deposit.rate;
+        const rateA=depositb.deposit[0].rate;
+       return{xsRate,rateA}
+   }
+   getMessage=(depositbs)=>{
+       for (let i=1;i<depositbs.length;i++){
+           if (depositbs[i].month=='6'){
+               return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
+           }
+       }
    }
    getLogin=(auth)=>{
        this.props.login(auth)
@@ -70,8 +136,10 @@ class FinancialIndex extends Component{
        </div>)
    }
    oldList=()=>{
-       const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex')});
-       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+        const {rate,title}=this.state;
+        const {rateA}=this.state;
+       const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex')});
+       const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50);
        return(<ul className={style.productUl}>
            {
@@ -86,8 +154,10 @@ class FinancialIndex extends Component{
        </ul>)
    }
    newList=(auth)=>{
-       const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
-       const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+       const {rate,title}=this.state;
+       const {rateA}=this.state;
+       const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
+       const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
        const newDep=this.newDep();
        const isAuth=auth;
        let rz;
@@ -106,8 +176,10 @@ class FinancialIndex extends Component{
        </ul>)
    }
     noLogin=()=>{
-        const Depot=this.depot('3月期定存宝A计划','12.10',()=>{this.change(0,0);this.props.push('/home/productIndex');});
-        const Depot1=this.depot('6月期定存宝B计划','12.50',()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+        const {rate,title}=this.state;
+        const {rateA}=this.state;
+        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
+        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
         const newDep=this.newDep();
         const noImg=this.newImg();
        return(<ul className={style.productUl}>
@@ -133,7 +205,7 @@ class FinancialIndex extends Component{
            if (!isInvest){
                Dom=this.oldList();
            }else {
-               Dom=this.newList(this.state.isAuth);
+               Dom=this.newList(this.state.isAuth,);
            }
        }else {
            Dom=this.noLogin();
@@ -219,6 +291,7 @@ class FinancialIndex extends Component{
        </li>)
    }
    newDep=()=>{
+       const {xsRate}=this.state;
        return(<li className={style.xsBox} >
            <div className={style.xsHeader}>
                        <span className={style.xsTitle}>
@@ -233,7 +306,7 @@ class FinancialIndex extends Component{
                    新手专享
                </div>
                <p className={Classnames(style.mgl,style.xsProduct)}>
-                   12.10<span className={style.Percentage}>%</span>
+                   {xsRate}<span className={style.Percentage}>%</span>
                </p>
                <p className={classNames(style.mgl,style.tzText)}>
                           <span className={style.borderBox}>
@@ -257,7 +330,9 @@ class FinancialIndex extends Component{
         show,
         flage,
       }=this.state,
-      user=sessionStorage.getItem('bao-auth');
+      user=sessionStorage.getItem('bao-auth'),
+      depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")),
+      depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
       const {
         pending,
         banner,
@@ -275,6 +350,7 @@ class FinancialIndex extends Component{
        }else{
          bannerDom=this.loadingDom();
        }
+       if(depositbs&&depositb){
            if (user){
                if (!flage){
                    bodyDom=this.showList();
@@ -288,12 +364,13 @@ class FinancialIndex extends Component{
            }else {
                if (auth){
                    if (userData){
-                       bodyDom=this.newList(userData.data.isAuth)
+                       bodyDom=this.newList(userData.data.isAuth,)
                    }
                }else {
                    bodyDom=this.noLogin();
                }
            }
+       }
         return(
             <div className={style.financialIndexContent}>
                 <div className={style.Pop} style={show}>
@@ -353,7 +430,9 @@ class FinancialIndex extends Component{
 const  financialIndexInit=(state,own)=>({
   pending:state.infodata.getIn(['BANNER_LIST','pending']),
   banner:state.infodata.getIn(['BANNER_LIST','data']),
-  userData:state.infodata.getIn(['USER_INFO','data'])
+  userData:state.infodata.getIn(['USER_INFO','data']),
+  depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
+  deposit:state.infodata.getIn(['RATE','data'])
 })
 const financialIndexInitfn=(dispath,own)=>({
       load(){
@@ -378,6 +457,16 @@ const financialIndexInitfn=(dispath,own)=>({
      },
     login(auth){
          dispath({type:'USER_LOGIN_FLOW',params:[{auth}]})
+    },
+    getListB(){
+        dispath({
+            type:'DEPOSITBS_PLANB'
+        })
+    },
+    getDeposit(){
+       dispath({
+           type:'RATE'
+       })
     }
 })
 

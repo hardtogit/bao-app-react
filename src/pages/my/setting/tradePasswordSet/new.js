@@ -152,7 +152,6 @@ class TradePasswordSet extends React.Component {
         else{
             Dom=this.loadDom()
         }
-        console.log(idCard)
         return (
             <Page>
                 <div className={commonStyles.panel}>

@@ -52,6 +52,9 @@ const requests = (Fetch) => {
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
     Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+    Fetch.depositbs=()=>{return Fetch('api/depositbs','GET')}
+    Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/${id}`,'GET')}
+    Fetch.depositbsInvest=(id)=>{return Fetch(`api/depositbs/invest/${id}`,'GET')}
 }
 
 export default requests

@@ -23,7 +23,6 @@ class Index extends React.Component {
     componentDidMount(){
        const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
        const bank=JSON.parse(sessionStorage.getItem('bao-bank'));
-       console.log(bank)
         this.setState({
             money:user.balance,
             bank:bank.name,

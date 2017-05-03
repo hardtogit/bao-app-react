@@ -28,7 +28,12 @@ class ProductDetail extends React.Component {
       })
   }
   componentDidMount() {
-    this.props.get(this.props.params.id);
+      const {params:{type},getList}=this.props;
+      const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
+     if (type=='B'&&depositbs==null){
+         getList();
+     }
+    this.props.get(this.props.params.productId);
   }
   loading(){
       return(<Loading/>)
@@ -36,6 +41,10 @@ class ProductDetail extends React.Component {
   Timer=(monthN)=>{
       const {
           datas,
+          params:{
+              id,
+              type
+          }
       }=this.props;
       const {
           currentTime
@@ -47,7 +56,7 @@ class ProductDetail extends React.Component {
           month=time.getMonth()+1,
           date=time.getDate();
           startTime=year+'年'+month+'月'+date+'日';
-          month=month+monthN;
+          month=month+parseInt(monthN);
           if (month>12){
               month=month-12;
               year=year+1;
@@ -65,7 +74,7 @@ class ProductDetail extends React.Component {
       }
       return money
   }
-  loadEnd=()=>{
+  loadEnd=(depositbs)=>{
       const {
           push,
           deposit,
@@ -80,9 +89,13 @@ class ProductDetail extends React.Component {
       let rate = 0;
       let month = 0;
       let qt=1000;
+      let depositN=deposit;
+      if (lx=='B'){
+           depositN=depositbs
+      }
       if (id!=5){
-          rate = deposit[id].rate;
-          month = deposit[id].month;
+          rate = depositN[id].rate;
+          month = depositN[id].month;
       }else {
           rate=new_deposit.rate;
           month=new_deposit.month;
@@ -92,7 +105,7 @@ class ProductDetail extends React.Component {
       const {
           startTime,
           endTime
-      }=this.Timer(month);
+      }=this.Timer(month,depositN);
       const money=this.moneyFn(rate,month);
       const bData=[{name:'起投金额',val:qt},{name:'锁定时间',val:month+'个月'}];
       return(
@@ -173,7 +186,7 @@ class ProductDetail extends React.Component {
       </div>)
   }
   purchase=(id,lx,push)=>{
-      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}`,push,this.succsseFn,this.props.location.pathname)
+      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`,push,this.succsseFn,this.props.location.pathname)
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)
@@ -181,16 +194,22 @@ class ProductDetail extends React.Component {
   render() {
     const {
         datas,
-        pop
+        pop,
+        params:{type:lx}
     }=this.props;
     const {
         type
     }=this.state;
-    let Dom;
-    if (!datas){
-        Dom=this.loading()
+    let Dom=this.loading();
+    if (lx=='A'){
+        if (datas){
+            Dom=this.loadEnd()
+        }
     }else {
-        Dom=this.loadEnd()
+        const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
+        if (datas&&depositbs){
+            Dom=this.loadEnd(depositbs.list)
+        }
     }
     return (
       <div className={styles.root}>
@@ -229,6 +248,11 @@ const mapDispatchToProps = (dispatch) => ({
 
     })
   },
+    getList(){
+        dispatch({
+            type:'DEPOSITBS_PLANB'
+        })
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(ProductDetail))

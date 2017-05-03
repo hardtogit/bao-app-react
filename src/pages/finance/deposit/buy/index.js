@@ -19,11 +19,11 @@ import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
 const hostName=window.location.origin;
 class DepositBuy extends React.Component {
-
-  constructor(props) {
+    constructor(props) {
     super(props)
     this.state = {
       depositId: this.props.params.id,
+      productId:this.props.params.productId,
       inputValue: 10000,
       quantity: 10,  // 购买数量
       unitPrice: 1000, // 单价
@@ -61,7 +61,12 @@ class DepositBuy extends React.Component {
   }
   componentDidMount() {
       window['closeFn']=this.closeFn;
-    this.props.getDepositDetail(this.state.depositId)
+      const {type}=this.props.params;
+      if (type=='A'){
+          this.props.getDepositDetail(this.state.productId)
+      }else {
+          this.props.getDepositds(this.state.productId)
+      }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,9 +88,20 @@ class DepositBuy extends React.Component {
       const result = nextProps.quantityData
       const quantity = result && result.data && result.data.quantity ?
               result.data.quantity < this.state.quantity ?
-              result.data.quantity : this.state.quantity : 1
+              result.data.quantity : this.state.quantity:0;
       this.setState({quantity})      
     }
+      if (this.props.quantityDataBLeftFetching == true &&
+          nextProps.quantityDataBLeftFetching == false &&
+          nextProps.quantityDataB &&
+          nextProps.quantityDataB.code == 100) {
+          // 获取到定存宝详情数据 并设置默认购买份数
+          const result = nextProps.quantityDataB;
+          const quantity = result && result.data && result.data.quantity ?
+              result.data.quantity < this.state.quantity ?
+                  result.data.quantity : this.state.quantity:0;
+          this.setState({quantity})
+      }
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
       this.hasSetCoupon = true;
 
@@ -119,11 +135,14 @@ class DepositBuy extends React.Component {
   // 修改购买份数
   changeQuantity = (value) => {
     const {
-      params:{id}
+      params:{id,type},
+      quantityData,
+      quantityDataB
     }=this.props;
+    const data=type=='A'&&quantityData||quantityDataB
     if (value<=0){
         this.refs.tipbar.open('购买份数必须为正整数!');
-    }else if (value>parseFloat(this.props.quantityData.data.quantity)){
+    }else if (value>parseFloat(data.data.quantity)){
         this.refs.tipbar.open('剩余份数不足!');
     }
     if (value>200&&id==5){
@@ -202,12 +221,18 @@ class DepositBuy extends React.Component {
 
   // 能否支付
   canPay() {
+        const {params:{type}}=this.props;
     const {
         quantity,
     }=this.state;
-    const {quantityData}=this.props;
-    return quantity &&
-    quantity <= (quantityData && quantityData.data.quantity || 0) ? true : false
+    const {quantityData,quantityDataB}=this.props;
+    if (type=='A'){
+        return quantity &&
+        quantity <= (quantityData && quantityData.data.quantity || 0) ? true : false
+    }else {
+        return quantity &&
+        quantity <= (quantityDataB && quantityDataB.data.quantity || 0) ? true : false
+    }
   }
 
   // 获取支付费用
@@ -354,9 +379,14 @@ class DepositBuy extends React.Component {
     })
     }
   getCurrentMonth = () => {
-    const { deposit } = this.props
-    const depositId = this.state.depositId
-      return deposit[depositId];
+    const { deposit,params:{type,id}} = this.props;
+      const depositId = this.state.depositId;
+    if (type=='A'){
+        return deposit[depositId];
+    }else {
+        const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")).list;
+        return depositbs[id];
+    }
   }
   clickFn=()=>{
     this.setState({
@@ -417,24 +447,46 @@ class DepositBuy extends React.Component {
     }
   render() {
     const {
-      params: { id },
+      params: { id ,type:lx},
       deposit,
-      new_deposit
+      new_deposit,
+      quantityData,
+      quantityDataB
     } = this.props;
     const {type}=this.state;
       let depositData = {}
       let String='';
-    if (id!=5){
-        if (deposit && deposit.length) {
-            depositData = this.getCurrentMonth();
-            String=depositData.month&&depositData.month+'个月'||'个月'
-        }
-    }else {
-        if (new_deposit.hasOwnProperty('month')){
-            depositData=new_deposit;
-            String='新手标';
-        }
-    }
+      let quantity;
+      if (lx=='A'){
+          if (id!=5){
+              if (deposit && deposit.length) {
+                  depositData = this.getCurrentMonth();
+                  String=depositData.month&&depositData.month+'个月'||'个月'
+              }
+          }else {
+              if (new_deposit.hasOwnProperty('month')){
+                  depositData=new_deposit;
+                  String='新手标';
+              }
+          }
+          if (quantityData){
+              if (quantityData.code==100){
+                 quantity=quantityData.data.quantity
+                  console.log(quantity,'fafas')
+              }
+          }
+      }else {
+          const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
+          if (depositbs){
+              depositData = this.getCurrentMonth();
+              String=depositData.month&&depositData.month+'个月'||'个月'
+          }
+          if (quantityDataB){
+              if (quantityDataB.code==100){
+                  quantity=quantityDataB.data.quantity
+              }
+          }
+      }
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
@@ -446,10 +498,7 @@ class DepositBuy extends React.Component {
             <p>{this.state.unitPrice}.00</p>
           </div>
           <div>
-            <p>份数<span>（剩余{
-                this.props.quantityData &&
-                this.props.quantityData.code == 100 &&
-                this.props.quantityData.data.quantity || '' }份）</span></p>
+            <p>份数<span>（剩余{quantity}份）</span></p>
             
             <div className={styles.form}>
               <div className={styles.inputWrapper}>
@@ -516,11 +565,15 @@ const mapStateToProps = (state, ownProps) => {
   const user = userData && userData.data ? userData.data : {}  
   const quantityLeftFetching = state.infodata.getIn([actionTypes.DEPOSIT_DETAIL, 'pending'])
   const quantityData = state.infodata.getIn([actionTypes.DEPOSIT_DETAIL, 'data'])
+  const quantityDataB= state.infodata.getIn([actionTypes.DEPOSITBS_DETAILS, 'data'])
+  const quantityDataBLeftFetching = state.infodata.getIn([actionTypes.DEPOSITBS_DETAILS, 'pending'])
   return {
     deposit: state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.deposit || [],
     user,
     quantityLeftFetching,
     quantityData,
+    quantityDataB,
+    quantityDataBLeftFetching,
     couponsFetching: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'pending']),
     couponsData: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'data']),
     rates: state.infodata.getIn([RATE, 'data']),
@@ -579,6 +632,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
           type:'CLEAR_INFO_DATA',
            key:'DEPOSIT_BUY'
       })
+  },
+  getDepositds(id){
+    dispatch({
+        type:'DEPOSITBS_DETAILS',
+        params:[id]
+    })
   },
   clearDataInfo(){
     dispatch({

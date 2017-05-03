@@ -13,7 +13,7 @@ import reducer from './reducers';
 import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
-import { RATE, USER_INFO,SAFE_CARD_INFO} from './actions/actionTypes'
+import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB} from './actions/actionTypes'
 import RelatedProjects from './pages/finance/demand/relatedProjects'
 import DemandInvestFail from './pages/finance/demand/investFail'
 import DemandRedeem from './pages/finance/demand/redeem'
@@ -142,6 +142,7 @@ sagaMiddleware.run(rootSaga)
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO,lx:'init'});
 store.dispatch({type:SAFE_CARD_INFO});
+store.dispatch({type:DEPOSITBS_PLANB});
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)
 export default class App extends React.Component {
@@ -275,8 +276,8 @@ export default class App extends React.Component {
             <Route path="demand-redeem" component={DemandRedeem}></Route>
             <Route path="demand-buy" component={DemandBuy}></Route>
             <Route path="demand-product" component={DemandProduct}></Route>
-            <Route path="deposit-product(/:id(/:type))" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="deposit-buy(/:id(/:type))" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>

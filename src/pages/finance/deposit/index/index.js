@@ -4,16 +4,30 @@ import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
-//import type_hongwu from '../../../assets/images/type_hongwu.png'
+import Loading from '../../../../components/pageLoading'
 class DepositIndex extends React.Component {
+    componentDidMount(){
+        const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
+        if (deposit==null){
+            this.props.getList();
+        }
+    }
+    loadDom=()=>{
+        return <Loading/>
+    }
+    loadEndDom=(deposit)=>{
+        const {push}=this.props;
+        return(<div style={{marginTop:'10px'}}>
+            <List go={(index,id)=>{push(`/deposit-product/${index}/A/${id}`)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit.deposit}/>
+        </div>)
+    }
       render(){
-          const {push}=this.props;
-          return(<div>
-               <p className={styles.title}>
-                   您当前有<span>4张抵用券</span>和<span>1张加息券</span>未使用
-               </p>
-              <List go={(index)=>{push(`/deposit-product/${index}/A`)}}  goBuy={(index)=>{push(`/deposit-buy/${index}/A`)}}/>
-          </div>)
+          const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
+          let Dom=this.loadDom();
+          if (deposit){
+              Dom=this.loadEndDom(deposit)
+          }
+          return Dom
       }
 }
 const mapStateToProps = (state) => {
@@ -37,6 +51,11 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch({
             type:'PRODUCT_INDEX_PAGE',
             index:1
+        })
+    },
+    getList(){
+        dispatch({
+            type:'RATE'
         })
     }
 })

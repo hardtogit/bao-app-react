@@ -55,6 +55,9 @@ function* takeRequest (action) {
        }else if (action.type==actionTypes.SAFE_CARD_INFO){
            sessionStorage.removeItem('bao-bank');
        }
+       if (action.type==actionTypes.DEPOSITBS_PLANB&&response.code==100){
+           sessionStorage.setItem("bao-depositbs",JSON.stringify(response.data));
+       }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
@@ -62,6 +65,9 @@ function* takeRequest (action) {
        if (action.type==actionTypes.AUTH_COOKIE&&response.code==100&&action.lx=='set'){
            const auth=response.data.auth;
            sessionStorage.setItem("bao-auth-str",auth);
+       }
+       if (action.type==actionTypes.RATE&&response.code==100){
+           sessionStorage.setItem("bao-deposit",JSON.stringify(response.data));
        }
        if (action.go && response.code == 100) {
          yield put(push(action.go))

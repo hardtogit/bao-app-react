@@ -46,7 +46,11 @@ export default class BuyNumberInput extends React.Component {
       }
     }
   }
-
+    componentWillReceiveProps(next){
+    this.setState({
+        value:next.value
+    })
+    }
   increaseHandle() {
     this.blur()
     const value = Number(this.state.value);
@@ -104,7 +108,7 @@ export default class BuyNumberInput extends React.Component {
   }
 
   render() {
-    const value = this.state.isFocus ? this.state.value : this.state.value + this.label
+    const value = this.state.isFocus ? this.state.value : this.state.value + this.label;
     return (
       <div className={styles.container} style={this.props.containerStyle}>
         <span className={styles.opeBtnWrap} onClick={this.decreaseHandle.bind(this)}>

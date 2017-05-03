@@ -267,5 +267,14 @@ export default {
     },
     [actionTypes.VERIFY_ASSIGN]:{
         apiFn:Fetch.verifyAssign
+    },
+    [actionTypes.DEPOSITBS_PLANB]:{
+        apiFn:Fetch.depositbs
+    },
+    [actionTypes.DEPOSITBS_DETAILS]:{
+        apiFn:Fetch.depositbsDetails
+    },
+    [actionTypes.DEPOSITBS_INVEST]:{
+        apiFn:Fetch.depositbsInvest
     }
 }

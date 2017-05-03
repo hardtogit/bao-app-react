@@ -157,7 +157,7 @@ class Index extends React.Component {
     }
     loadEndDomE=()=>{
         const {
-            infoData:{
+            infoDate3:{
                 data
             },
                 id,
@@ -229,9 +229,11 @@ class Index extends React.Component {
     //加载完资产详情页面后，发起请求
     componentDidMount(){
         const Id=this.props.id;
-        const{type,getInvestProductDetail,getZqProductDetail}=this.props;
+        const{type,getInvestProductDetail,getZqProductDetail,getDepositbs}=this.props;
         if (type==4){
             getZqProductDetail(Id)
+        }else if (type==5){
+            getDepositbs(Id)
         }else {
             getInvestProductDetail(Id)
         }
@@ -240,6 +242,7 @@ class Index extends React.Component {
         const {
             infoData,
             infoData2,
+            infoDate3,
             type
         }=this.props;
         if (type<=3){
@@ -247,7 +250,7 @@ class Index extends React.Component {
         }else if (type==4){
             return infoData2
         }else {
-            return infoData
+            return infoDate3
         }
     }
     render() {
@@ -276,8 +279,7 @@ class Index extends React.Component {
                 }
             }else if (dataN.code==100&&type==4){
                 headDom=this.headDomB();
-                Dom=this.loadEndDomD();
-            }
+                Dom=this.loadEndDomD();}
         }
         if (infoData){
             if (type==1&&infoData.data.isTransfer==1){
@@ -306,7 +308,8 @@ class Index extends React.Component {
 }
 const datas=(state)=>({
     infoData:state.infodata.getIn(['DIRECT_INVEST_PROPERTY_DETAIL','data']),
-    infoData2:state.infodata.getIn(['CREDITORS_PROPERTY_DETAIL','data'])
+    infoData2:state.infodata.getIn(['CREDITORS_PROPERTY_DETAIL','data']),
+    infoDate3:state.infodata.getIn(['DEPOSITBS_INVEST','data'])
 });
 const dispatchFn=(dispatch,own)=>({
     getInvestProductDetail(Id){
@@ -324,6 +327,12 @@ const dispatchFn=(dispatch,own)=>({
     getZqProductDetail(Id){
         dispatch({
             type:'CREDITORS_PROPERTY_DETAIL',
+            params:[Id]
+        })
+    },
+    getDepositbs(Id){
+        dispatch({
+            type:'DEPOSITBS_INVEST',
             params:[Id]
         })
     }

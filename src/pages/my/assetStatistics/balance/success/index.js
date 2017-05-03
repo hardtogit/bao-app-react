@@ -12,7 +12,6 @@ class Index extends Component{
               min=DataN.getMinutes(),
               hours=DataN.getHours(),
               seconds=DataN.getSeconds();
-        console.log(DataN)
         return year+'年'+month+'月'+day+'日'+hours+'时'+min+'分'+seconds+'秒'
     }
     render(){

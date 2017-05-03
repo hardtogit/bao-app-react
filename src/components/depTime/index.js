@@ -99,7 +99,7 @@ class Index extends Component{
                               产品类型
                           </span>
                             <span className={styles.dbType}>
-                                {this.state.lx[lx-1]}
+                                抵押标
                             </span>
                         </p>
                         <p>

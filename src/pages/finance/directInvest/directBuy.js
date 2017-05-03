@@ -58,7 +58,6 @@ class DirectBuy extends React.Component {
 
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
       this.hasSetCoupon = true;
-      console.log( nextProps.couponsData.data,'wohaoa ')
       this.setState({
         vouchers: nextProps.couponsData.data.filter(coupon => coupon.type === '抵用券'),
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),

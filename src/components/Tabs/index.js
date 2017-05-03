@@ -47,7 +47,6 @@ import UserIndex from '../../pages/my/home/index'
     this.setState({
       Index:index
     })
-    console.log('Selected tab: ' + index + ', Last tab: ' + last);
   }
 
   render() {
