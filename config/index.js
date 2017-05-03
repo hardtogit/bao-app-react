@@ -11,5 +11,7 @@ const config = {
      //requestUrl:'react.51.devbao.cn/mobile_api/' //zzzz
 	// requestUrl: 'http://51-api.dev.vdai.cn/',//开发环境测试
      // requestUrl:'http://api.51.devbao.cn/' //51接口
+   //requestUrl: 'https://staging-react.devbao.cn/',//外网测试
+    //requestUrl: 'http://zhaosigui.api.baod.com/',//外网测试
 };
 module.exports = config;

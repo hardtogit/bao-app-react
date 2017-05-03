@@ -10,6 +10,7 @@ import Tab from "../../../components/BottomTabs";
 import styles from './index.css'
 import classNames from 'classnames'
 import Loading from '../../../components/pageLoading'
+import setAuthUrl from '../../../components/setAuthUrl/index'
 class findHome extends Component{
     componentDidMount(){
       this.props.load();
@@ -76,14 +77,14 @@ class findHome extends Component{
              activeList&&activeList.data.map(({title,img,url},i)=>{
                   return(
                       <div className={styles.activeBox} key={i}>
-                        <a href={url} className={styles.activeHref}>
+                        <span  className={styles.activeHref} onClick={()=>{setAuthUrl(url)}}>
                         <p className={styles.activeTitle}>
                          {title}
                         </p>
                         <div className={styles.activeImg}>
                         <img src={img}/>
                         </div>
-                        </a>
+                        </span>
                        </div>
                   )
               }) 

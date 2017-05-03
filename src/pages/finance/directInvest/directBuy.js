@@ -58,6 +58,7 @@ class DirectBuy extends React.Component {
 
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
       this.hasSetCoupon = true;
+      console.log( nextProps.couponsData.data,'wohaoa ')
       this.setState({
         vouchers: nextProps.couponsData.data.filter(coupon => coupon.type === '抵用券'),
         interestRates: nextProps.couponsData.data.filter(coupon => coupon.type === '加息券'),
@@ -70,7 +71,7 @@ class DirectBuy extends React.Component {
       }
   }
     componentWillUnmount(){
-
+        this.props.clearData()
     }
     changePending=()=>{
         this.setState({
@@ -83,7 +84,7 @@ class DirectBuy extends React.Component {
     if (!useCoupon&&coupon){
         coupon.id=''
     }
-    this.props.balancePay(this.directInvestId, this.state.quantity, password, this.borrowPwd, coupon && coupon.id || '')
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,this.props.location.state, coupon && coupon.id || '')
   }
 
   // 能否支付
@@ -96,11 +97,9 @@ class DirectBuy extends React.Component {
   // 确认支付
   onValid = () => {
       const {select}=this.state;
-      console.log('fasfas')
       if (select==1){
           this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
       }else {
-          console.log('fasfas')
           this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
       }
   }
@@ -143,9 +142,10 @@ class DirectBuy extends React.Component {
 
   // 获取用户将要使用的优惠券
   getCoupon = () => {
+
     // 1. 用户选择的、可用的优惠券
     if (this.props.selectedCoupon && (this.props.selectedCoupon.type === '抵用券' && this.voucherIsAvailable(this.props.selectedCoupon) || this.props.selectedCoupon.type === '加息券')) {
-      return  this.props.selectedCoupon
+        return  this.props.selectedCoupon
     } else {
     // 2. 可用的、最优惠的优惠券
       return this.getMaxCoupon()
@@ -244,11 +244,11 @@ class DirectBuy extends React.Component {
                 id,
                 num,
                 couponId,
-                borrowPwd
             }=data,
             payPwd='',
             type=2;
-        const url=util.combineUrl(`https://${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
+        const borrowPwd=this.props.location.state;
+        const url=util.combineUrl(`${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
         this.setState({
             url,
             payTop:'0px'
@@ -517,6 +517,15 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'DIRECTINVEST_BUY'
+        })
+    },
+    clearData(){
+         dispatch({
+             type:'CLEAR_CONPONS'
+         })
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'AVAILABLE_COUPONS'
         })
     }
 })

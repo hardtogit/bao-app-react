@@ -31,19 +31,28 @@ class Index extends React.Component{
             submiteData,
             location:{
                 search
-            }
+            },
+            address,
+            push
         }=next;
         if(submiteData){
             const {
                 submiteData:{
                     code,
-                },
-                push
+                }
             }=next;
-            if (code==300){
-                push(`/user/exchangeFail${search}`)
-            }else if (code==100){
+            console.log(code);
+            if (code==100){
                 push(`/user/exchangeSuccess${search}`)
+            }else {
+                push(`/user/exchangeFail${search}`)
+            }
+        }
+        if (address){
+            if (address.code!=100){
+                push('/login')
+            }else {
+                sessionStorage.setItem("bao-auth",true);
             }
         }
     }
@@ -159,7 +168,9 @@ class Index extends React.Component{
         }=this.props;
         let Dom=this.loadDom();
         if (address){
-            Dom=this.loadEndDom();
+            if (address.code==100){
+                Dom=this.loadEndDom();
+            }
         }
         return(
             <div>
@@ -199,7 +210,7 @@ const dispatchFn=(dispatch)=>({
     clearData(){
         dispatch({
             type:'CLEAR_INFO_DATA',
-            key:'PRODUCT_EXCHANGE'
+            key:'ACTIVE_EXCHANGE'
         })
     }
 });

@@ -36,7 +36,7 @@ class Index extends React.Component {
         if(add){
             this.refs.success.show({
                 text: '添加地址成功',
-                callback: () => {this.props.push('/user/setting/siteList');}
+                callback: () => {this.props.pop();}
             });
         }
     };

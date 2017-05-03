@@ -52,7 +52,7 @@ import nonePast from '../../../../assets/images/record.png' // 没有加息券
 								 }
                                 return(<div key={i}>
 									<Quan
-										title={rate+'%加息劵'}
+										title={rate+'%加息券'}
 										desc1="投资即可使用"
 										desc2={apply}
 										status={<span style={sys}>{status}</span>}
