@@ -76,6 +76,7 @@ class PayProcess extends React.Component {
             }else {
                 nextProps.clear();
                 clearDataResult();
+                nextProps.changePending();
                 this.refs.loading.hide();
                 this.openErrorDialog('支付出错了')
             }

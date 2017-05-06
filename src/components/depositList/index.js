@@ -42,7 +42,8 @@ class Index extends Component{
         const {type}=this.props;
         return(
             <li className={style.depositli} key={i} onClick={()=>{this.go(i,id)}}>
-                <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={type_hongwu}/></span></p>
+                <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={danbao}/></span>
+                    </p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
                         <p className={style.interestText}>
@@ -81,7 +82,8 @@ class Index extends Component{
         const {type}=this.props;
         return(
             <li className={style.depositli} key={i} onClick={()=>{this.go(i,id,soldOut,isBuy)}}>
-                <p className={style.title}>{title}{month}<span className={style.hongwu}><img src={isFriday&&type_hongwu||danbao}/></span></p>
+                <p className={style.title}>{title}{month}<span className={style.hongwu}><img src={danbao}/></span>
+                    {isFriday&&<span className={style.hongwu} style={{marginRight:'10px'}}><img src={type_hongwu}/></span>||null}</p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
                         <p className={style.interestText}>

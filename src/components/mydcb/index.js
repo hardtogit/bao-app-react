@@ -163,7 +163,7 @@ class Index extends Component {
                 <div className={styles.m_h_title}>
                     <Manage
                         titleLeft={`昨日收益`}
-                        titleRight={`昨日收益`}
+                        titleRight={`累计收益`}
                         priceLeft={Util.padMoney(profit_yesterday)}
                         priceRight={Util.padMoney(profit_accumulate)}
                         titleBottom={'待收本息（利息部分'+Util.padMoney(revenue)+')'}

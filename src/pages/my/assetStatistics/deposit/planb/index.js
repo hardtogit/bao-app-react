@@ -14,8 +14,9 @@ class Index extends React.Component {
         return(<Loading/>)
     }
     buyDom=()=>{
+        const {listData}=this.props;
         return(<div onClick={()=>{this.goPlanB()}}>
-            <div className={styles.gobuy}>再次购买</div>
+            <div className={styles.gobuy}>{listData.size==0?'立即购买':'再次购买'}</div>
         </div>)
     }
     goPlanB=()=>{
@@ -45,13 +46,16 @@ class Index extends React.Component {
     render() {
         const {
             datas,
-            pop
+            pop,
+            listData
         }=this.props;
         let Dom,
             buyDom;
         if(datas){
             Dom=this.loadEndDom(datas);
-            buyDom=this.buyDom()
+            if (listData){
+                buyDom=this.buyDom()
+            }
         }else{
             Dom=this.loadDom()
         }

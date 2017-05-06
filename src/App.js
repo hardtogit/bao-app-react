@@ -124,8 +124,8 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -294,7 +294,7 @@ export default class App extends React.Component {
             <Route path="ChangeUserName" component={ChangeUserName}></Route>
             <Route path="payWeb" component={PayWeb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositDetails" component={depositDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
-            <Route path="planDetails/:id" component={planDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
+            <Route path="planDetails/:id/:type" component={planDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
             <Route path="Verify" component={Verify}></Route>
             <Route path="pastAccrule" component={pastAccrule}></Route>
 

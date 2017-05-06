@@ -162,7 +162,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                                     <img src={looseChange}/>
                                     <div className={styles.myListText}>
                                         <p className={styles.listTitle}>零钱宝</p>
-                                        <p className={styles.listColor} style={{"color":"#F19149"}}>{demand==0&&'立即转入'||'+'+demand}</p>
+                                        <p className={styles.listColor} style={{"color":"#F19149"}}>{demand==0&&'查看详情'||'+'+demand}</p>
                                     </div>
                                 </Link>
                             </div>

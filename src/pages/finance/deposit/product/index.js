@@ -169,7 +169,7 @@ class ProductDetail extends React.Component {
                          定存宝详情
                      </span>
                   </li>
-                  <li onClick={()=>{push('/planDetails/'+id)}}>
+                  <li onClick={()=>{push('/planDetails/'+id+'/'+this.props.params.type)}}>
                       <span>
                       <img src={details}/>
                   </span>

@@ -68,26 +68,27 @@ export default class BuyNumberInput extends React.Component {
     }else {
         this.setState({value})
     }
-    this.props.onChange && this.props.onChange(value || 0)
+    this.props.onChange && this.props.onChange(value)
   }
 
   changeHandle = (value) => {
+      const val=parseInt(value);
     if (this.props.minValue && value < this.props.minValue) {
-      return this._changeHandle(this.props.minValue)
+      return this._changeHandle(parseInt(value))
     }
 
-    if (!value)
-      return this._changeHandle('')
-
-    if (value == 0)
+    if (isNaN(val)){
+        return this._changeHandle('')
+    }
+    if (val == 0)
       return this._changeHandle(0)
 
     if (this.props.type == 'number' && (/^\d*$/.test(value) || /^\d+\.\d{0,1}$/.test(value))) {
-      return this._changeHandle(value)
+      return this._changeHandle(val)
     }
 
-    if (util.checkInteger(value))
-      return this._changeHandle(value)
+    if (util.checkInteger(val))
+      return this._changeHandle(val)
 
     this.setState({value: this.state.value})
   }

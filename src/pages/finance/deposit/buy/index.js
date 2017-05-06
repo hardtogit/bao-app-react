@@ -476,7 +476,6 @@ class DepositBuy extends React.Component {
             buyTime
         })
        setTimeout(()=>{
-            console.log(buyTime,'fsafsa')
             if (buyTime>3){
                 this.setState({
                     buyTime:0
