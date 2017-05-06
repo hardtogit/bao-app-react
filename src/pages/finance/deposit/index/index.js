@@ -18,7 +18,7 @@ class DepositIndex extends React.Component {
     loadEndDom=(deposit)=>{
         const {push}=this.props;
         return(<div style={{marginTop:'10px'}}>
-            <List go={(index,id)=>{push(`/deposit-product/${index}/A/${id}`)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit.deposit}/>
+            <List go={(index,id)=>{push(`/deposit-product/${index}/A/${id}`)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
         </div>)
     }
       render(){

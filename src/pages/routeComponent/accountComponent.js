@@ -11,6 +11,7 @@ import registerSetPassword from '../routes/account/registerSetPassword'
 import findpassword from '../routes/account/findpassword'
 import findpasswordSetPassword from '../routes/account/findpasswordSetPassword'
 import safePlan from '../routes/account/safePlan'
+import agreement from '../routes/account/agreement'
 import Bundle from '../bundle'
 export const Login=(props)=>{
     return<Bundle load={login}>
@@ -55,5 +56,10 @@ export const FindpasswordSetPassword=(props)=>{
 export const SafePlan=(props)=>{
     return<Bundle load={safePlan}>
         {(SafePlan)=><SafePlan {...props}/>}
+    </Bundle>
+};
+export const Agreement=(props)=>{
+    return<Bundle load={agreement}>
+        {(Agreement)=><Agreement {...props}/>}
     </Bundle>
 };

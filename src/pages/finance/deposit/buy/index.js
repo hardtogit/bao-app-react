@@ -587,7 +587,7 @@ class DepositBuy extends React.Component {
           depositbsBuyResultData={depositbsBuyResultData}
           time={this.state.buyTime}
           clearDataResult={clearDataResult}/>
-        <p><Link to="/agreement" className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
+        <p><Link to={`/agreement/${id}/${lx}`} className={styles.protocol}>《借款合同》</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

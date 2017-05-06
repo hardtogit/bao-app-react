@@ -37,12 +37,13 @@ class Index extends Component{
     goBuy=(i,id,soldOut,isBuy)=>{
         this.props.goBuy(i,id,soldOut,isBuy)
     }
-    oneDomA=(i,interest)=>{
+    oneDomA=(i,interest,isFriday)=>{
         const {month,rate,id}=interest;
         const {type}=this.props;
         return(
             <li className={style.depositli} key={i} onClick={()=>{this.go(i,id)}}>
                 <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={danbao}/></span>
+                    {isFriday&&<span className={style.hongwu} style={{marginRight:'10px'}}><img src={type_hongwu}/></span>||null}
                     </p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
@@ -115,8 +116,8 @@ class Index extends Component{
         const {type,data}=this.props;
         return(<ul className={style.depositUl}>
             {
-                type=='A'&&data.map((item,i)=>(
-                    this.oneDomA(i,item)
+                type=='A'&&data.deposit.map((item,i)=>(
+                    this.oneDomA(i,item,data.isFriday)
                 ))|| data.list.map((item,i)=>(
                     this.oneDomB(i,item,data.isFriday)
                 ))

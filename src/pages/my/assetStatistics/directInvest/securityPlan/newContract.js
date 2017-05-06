@@ -329,9 +329,18 @@ class NewContract extends Component{
         }=this.props;
        const {idCard,mobile,realName,userName,idCardType}=userInfo;
        const {address,companyName,phone}=companyInfo;
-       const {endTime,money,number,rate,type,moneyCapital,startTime}=productInfo;
-       const startStrTime=zhDateB(startTime);
-       const endStrTime=zhDateB(endTime);
+       const {endTime,money,number,rate,type,moneyCapital,startTime,overdue,penalty}=productInfo;
+        let startStrTime,endStrTime;
+       if (startTime==''){
+           startStrTime=''
+       }else {
+           startStrTime=zhDateB(startTime);
+       }
+       if (endTime==''){
+           endStrTime=''
+       }else {
+           endStrTime=zhDateB(endTime);
+       }
         return(<div className={styles.content}>
             <h1 className={styles.newTitle}>借款合同</h1>
             <p className={classNames(styles.text,styles.textRight)}>合同编号:{number}</p>
@@ -549,11 +558,11 @@ class NewContract extends Component{
                     1、 在本合同有效期内，任何一方未履行本合同项下的任何义务，均构成违约，应按法律规定及本合同的约定对守约方承担违约责任。
                 </p>
                 <p className={styles.text1}>
-                    2、若乙方未按本合同的约定按期向甲方偿付借款本息，除应继续履行偿付义务外，每迟延一天，还应按应付未付金额的  2%   向甲方支付违约金。
+                    2、若乙方未按本合同的约定按期向甲方偿付借款本息，除应继续履行偿付义务外，每迟延一天，还应按应付未付金额的{overdue}向甲方支付违约金。
                 </p>
                 <p className={styles.text1}>
                     3、乙方有下列情形之一的，视为乙方违约，甲方有权提前解除本合同，乙方需在甲方要求解除合同后三日内一次性支付包括但不限于剩余本金、应付未付的利息和其他费用（包括但不限于法院或仲裁机构费用、律师费、执行费、评估费、鉴定费、拍卖费、保管费、手续费及相关人员的差旅费等），
-                    并按照全部借款金额的  30  %向甲方支付违约金；构成犯罪的，甲方有权向国家机关报案，追究其刑事责任。
+                    并按照全部借款金额的{penalty}%向甲方支付违约金；构成犯罪的，甲方有权向国家机关报案，追究其刑事责任。
                 </p>
                 <p className={styles.text1}>
                     （1）乙方擅自改变本合同规定的借款用途或逾期还款15日以上；
