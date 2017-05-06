@@ -35,30 +35,53 @@ class Index extends Component {
             flag
         })
     }
-    list=(data,fetch,pending,end)=>{
+    lessTen=(num)=>{
+        if (num<10){
+            return '0'+num
+        }else {
+            return num
+        }
+    }
+    timer=(date)=>{
+        const time=new Date(parseInt(date)*1000)
+        let year=time.getFullYear(),
+         month=this.lessTen(time.getMonth()+1),
+         day= this.lessTen(time.getDate()),
+         hours=this.lessTen(time.getHours()),
+         min =this.lessTen(time.getMinutes()),
+         seconds=this.lessTen(time.getSeconds());
+        return year+'-'+month+'-'+day+' '+hours+':'+min+':'+seconds
+    }
+    list=(data,fetch,pending,end,flag)=>{
         const BodyHeight=document.body.clientHeight,
             ScrollHeight=BodyHeight-95;
-        return(<Scroll height={ScrollHeight} fetch={fetch}
-                       isLoading={pending} distance={5} endType={end}
-                       nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
-            {
-                data&&data.map((item,i)=>{
-                    const {name,created,amount,status}=item;
-                    return(
-                        <div onClick={()=>{this.props.click(i)}}  key = {i}>
-                        <Record
-                            title={name}
-                            data={created}
-                            price={amount}
-                            state={status}
-                            moneyColor={"#aaa"}
-                            statusColor={"#f70"}
-                        />
-                        </div>
-                    )
-                })
-            }
-        </Scroll>)
+        const {type}=this.props;
+        if (flag){
+            return(<Scroll height={ScrollHeight} fetch={fetch}
+                           isLoading={pending} distance={5} endType={end}
+                           nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
+                {
+                    data&&data.map((item,i)=>{
+                        let {name,created,amount,status,id}=item;
+                        created=this.timer(created)
+                        return(
+                            <div onClick={()=>{this.props.click(id)}}  key = {i}>
+                                <Record
+                                    title={name}
+                                    data={created}
+                                    price={amount}
+                                    state={status}
+                                    moneyColor={"#aaa"}
+                                    statusColor={"#f70"}
+                                />
+                            </div>
+                        )
+                    })
+                }
+            </Scroll>)
+        }else {
+            return false
+        }
     }
     render() {
         const {title,data,fetch,pending,end}=this.props;
@@ -75,7 +98,7 @@ class Index extends Component {
                         <div className={styles.tablist}>
                             {title.map((item,i)=>(
                                 <div className={flag==i&&styles.show||styles.hide} key={i}>
-                                    {this.list(data[i],fetch[i],pending[i],end[i])}
+                                    {this.list(data[i],fetch[i],pending[i],end[i],flag==i)}
                                 </div>
                             ))}
                         </div>

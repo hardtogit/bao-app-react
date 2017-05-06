@@ -30,7 +30,6 @@ const Fetch = (url, type, data, headers) => {
     }
     let _headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      "bao-auth":'hdj',
     }
 
     options.headers = Object.assign({

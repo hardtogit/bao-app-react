@@ -28,12 +28,17 @@ class ProductDetail extends React.Component {
       })
   }
   componentDidMount() {
-      const {params:{type},getList}=this.props;
+      const {params:{type,productId},getList,get,getB}=this.props;
       const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
-     if (type=='B'&&depositbs==null){
-         getList();
+     if (type=='B'){
+         getB(productId);
+         if (depositbs==null){
+             getList();
+         }
      }
-    this.props.get(this.props.params.productId);
+     if (type=='A'){
+         get(productId)
+     }
   }
   loading(){
       return(<Loading/>)
@@ -41,14 +46,19 @@ class ProductDetail extends React.Component {
   Timer=(monthN)=>{
       const {
           datas,
+          datasB,
           params:{
               id,
               type
           }
       }=this.props;
+      let data=datas;
+      if (type=='B'){
+          data=datasB
+      }
       const {
           currentTime
-      }=datas.data;
+      }=data.data;
       let startTime,
           endTime,
           time=new Date(parseInt(currentTime)*1000),
@@ -74,11 +84,12 @@ class ProductDetail extends React.Component {
       }
       return money
   }
-  loadEnd=(depositbs)=>{
+  loadEnd=(depositbs,isbuy,num)=>{
       const {
           push,
           deposit,
           datas,
+          datasB,
           new_deposit,
           params: {
               id,
@@ -90,8 +101,10 @@ class ProductDetail extends React.Component {
       let month = 0;
       let qt=1000;
       let depositN=deposit;
+      let periods=datas;
       if (lx=='B'){
-           depositN=depositbs
+           depositN=depositbs;
+          periods=datasB
       }
       if (id!=5){
           rate = depositN[id].rate;
@@ -108,6 +121,15 @@ class ProductDetail extends React.Component {
       }=this.Timer(month,depositN);
       const money=this.moneyFn(rate,month);
       const bData=[{name:'起投金额',val:qt},{name:'锁定时间',val:month+'个月'}];
+      let text='马上买入';
+      let flag=false
+      if (isbuy&&num==0){
+          text='售罄'
+          flag=true
+      }else if (!isbuy){
+          text='未开始'
+          flag=true
+      }
       return(
       <div>
           <Header rate={rate}  data={bData}/>
@@ -155,7 +177,7 @@ class ProductDetail extends React.Component {
                         计划详情
                    </span>
                   </li>
-                  <li onClick={()=>{push('/demand-related-projects/'+datas.data.periods)}}>
+                  <li onClick={()=>{push('/demand-related-projects/'+periods.data.periods+'/'+lx)}}>
                    <span>
                       <img src={project}/>
                   </span>
@@ -166,11 +188,11 @@ class ProductDetail extends React.Component {
               </ul>
           </div>
           <div className={classNames(styles.depositBox,styles.pdAll1)}>
-              累计加入{datas.data.total}人
+              累计加入{periods.data.total}人
           </div>
           <div className={styles.bottom}>
               <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-              <button onClick={()=>{this.purchase(id,lx,push)}}>马上买入</button>
+              <button onClick={()=>{this.purchase(id,lx,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
           </div>
           <Calculator
               ref="calculator"
@@ -195,7 +217,8 @@ class ProductDetail extends React.Component {
     const {
         datas,
         pop,
-        params:{type:lx}
+        datasB,
+        params:{type:lx,id}
     }=this.props;
     const {
         type
@@ -203,17 +226,17 @@ class ProductDetail extends React.Component {
     let Dom=this.loading();
     if (lx=='A'){
         if (datas){
-            Dom=this.loadEnd()
+            Dom=this.loadEnd('',true,datas.data.quantity)
         }
     }else {
         const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
-        if (datas&&depositbs){
-            Dom=this.loadEnd(depositbs.list)
+        if (datasB&&depositbs){
+            Dom=this.loadEnd(depositbs.list,depositbs.list[id].isBuy,datasB.data.remain)
         }
     }
     return (
       <div className={styles.root}>
-        <NavBar onLeft={pop}>{type=='A'&&'定存宝A计划详情'||'定存宝B计划详情'}</NavBar>
+        <NavBar onLeft={pop}>{type=='A'&&(id==5&&'新手标计划详情'||'定存宝A计划详情')||'定存宝B计划详情'}</NavBar>
           {
               Dom
           }
@@ -229,7 +252,8 @@ const mapStateToProps = (state) => {
     // 累计加入人数
     total: state.infodata.getIn([DEPOSIT_DETAIL, 'data']) && state.infodata.getIn([DEPOSIT_DETAIL, 'data']).data.total || 0,
     userInfoCode: state.infodata.getIn([USER_INFO, 'data']) && state.infodata.getIn([USER_INFO, 'data']).code || 0,
-    datas:state.infodata.getIn(['DEPOSIT_DETAILS','data'])
+    datas:state.infodata.getIn(['DEPOSIT_DETAILS','data']),
+    datasB:state.infodata.getIn(['DEPOSITBS_DETAILS','data'])
   }
 }
 
@@ -248,6 +272,12 @@ const mapDispatchToProps = (dispatch) => ({
 
     })
   },
+    getB(id){
+      dispatch({
+          type:'DEPOSITBS_DETAILS',
+          params:[id]
+      })
+    },
     getList(){
         dispatch({
             type:'DEPOSITBS_PLANB'

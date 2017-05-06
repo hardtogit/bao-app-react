@@ -27,11 +27,16 @@ class RelatedProjects extends React.Component {
           data,
           nextPage,
           params:{
-              id
+              id,
+              type
           }
       } = this.props;
+      let  lx=1;
+      if (type=='B'){
+          lx=2;
+      }
     return(
-      <Scroll height={Sheight} fetch={()=>{nextPage(id)}}
+      <Scroll height={Sheight} fetch={()=>{nextPage(id,lx)}}
                    isLoading={pending} distance={20} endType={pageEnd} endload={<div></div>}>
         {
             data&&data.map((item,i)=>{
@@ -104,10 +109,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  nextPage(id) {
+  nextPage(id,type) {
     dispatch({
       type: actionTypes.INVOLVE_PROJECT_LIST,
-       params:[id]
+       params:[id,type]
     })
   },
    push(fn){

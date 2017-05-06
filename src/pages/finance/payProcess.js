@@ -48,6 +48,7 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+      const {go,depositbs,clearDataResult} = this.props;
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
       // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
       //   this._onSelectPay(chosen)
@@ -60,13 +61,30 @@ class PayProcess extends React.Component {
     if (nextProps.balancePayPending) {
       this.refs.loading.show('支付中...')
     } else {
-      this.refs.loading.hide()
+      if (this.props.type!='depositB'){
+          this.refs.loading.hide()
+      }
+    }
+    if (nextProps.balancePayData&&nextProps.depositbsBuyResultData){
+        const code = nextProps.balancePayData.code;
+        if (code==100&&nextProps.depositbsBuyResultData.data.status==1){
+            go('/depositInvestSuccess/B');
+            nextProps.clear();
+        }else {
+            if (this.props.time<=3){
+                depositbs(nextProps.balancePayData)
+            }else {
+                nextProps.clear();
+                clearDataResult();
+                this.refs.loading.hide();
+                this.openErrorDialog('支付出错了')
+            }
+        }
     }
 
     if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
       const code = nextProps.balancePayData.code;
       const pending=nextProps.balancePayPending;
-      const go = this.props.go;
       if (code == 100&&pending) {
         // 支付成功
           let user=JSON.parse(sessionStorage.getItem('bao-user'));
@@ -74,9 +92,10 @@ class PayProcess extends React.Component {
           sessionStorage.setItem('bao-user',JSON.stringify(user));
           nextProps.changePending();
         switch(this.props.type) {
-          case 'deposit': go('/depositInvestSuccess'); break;
-          case 'directInvest': go('/directInvestSuccess'); break;
-          case 'creditors': go('/creditorInvestSuccess'); break;
+          case 'depositA': go('/depositInvestSuccess/A'); break;
+          case 'directInvest': go('/directInvestSuccess/A'); break;
+          case 'creditors': go('/creditorInvestSuccess/A'); break;
+          case 'depositB':depositbs(nextProps.balancePayData) ; break;
         }
         this.balancePayRedirectFlag = true
 

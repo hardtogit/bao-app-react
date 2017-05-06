@@ -31,11 +31,11 @@ class Index extends Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
     }
-    go=(i,id)=>{
-       this.props.go(i,id);
+    go=(i,id,soldOut,isBuy)=>{
+       this.props.go(i,id,soldOut,isBuy);
     }
-    goBuy=(i,id)=>{
-        this.props.goBuy(i,id)
+    goBuy=(i,id,soldOut,isBuy)=>{
+        this.props.goBuy(i,id,soldOut,isBuy)
     }
     oneDomA=(i,interest)=>{
         const {month,rate,id}=interest;
@@ -70,11 +70,17 @@ class Index extends Component{
             </li>
         )
     }
-    oneDomB=(i,item,isFriday,isBuy)=>{
-       const {title,rate,month,id}=item;
+    oneDomB=(i,item,isFriday)=>{
+       const {title,rate,month,id,soldOut,isBuy}=item;
+       let text='买入';
+       if (isBuy&&soldOut==0){
+           text='已售完'
+       }else if (!isBuy){
+           text='未开始'
+       }
         const {type}=this.props;
         return(
-            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id)}}>
+            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id,soldOut,isBuy)}}>
                 <p className={style.title}>{title}{month}<span className={style.hongwu}><img src={isFriday&&type_hongwu||danbao}/></span></p>
                 <div className={style.msBox}>
                     <div className={style.interest}>
@@ -85,9 +91,9 @@ class Index extends Component{
                         <p>
                             {month}个月
                         </p>
-                        <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
-                            {isBuy&&'买入'||'售罄'}
-                        </button>
+                        {text=='买入'&&<button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id,soldOut,isBuy)}}>
+                            {text}
+                        </button>||<span className={style.buyText}>{text}</span>}
                     </div>
                 </div>
                 <div className={style.msBox} style={{paddingTop:'0px'}}>
@@ -110,7 +116,7 @@ class Index extends Component{
                 type=='A'&&data.map((item,i)=>(
                     this.oneDomA(i,item)
                 ))|| data.list.map((item,i)=>(
-                    this.oneDomB(i,item,data.isFriday,data.isBuy)
+                    this.oneDomB(i,item,data.isFriday)
                 ))
             }
         </ul>)

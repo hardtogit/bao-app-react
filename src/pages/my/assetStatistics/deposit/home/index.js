@@ -22,7 +22,10 @@ import Mydcb from '../../../../../components/mydcb'
 			end,
             listData
 		}=this.props;
-        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData}/>)
+        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData} click={this.listClick}/>)
+	}
+	listClick=(id)=>{
+		this.props.push(`/user/detailDcb/${id}`)
 	}
 	componentDidMount(){
 		this.props.load();

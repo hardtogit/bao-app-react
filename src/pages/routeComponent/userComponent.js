@@ -22,9 +22,15 @@ import guaList from '../routes/user/guaList'
 import goodsDetail from '../routes/user/goodsDetail'
 import shopCenter from '../routes/user/shopCenter'
 import securityPlan from '../routes/user/securityPlan'
+import dcbContract from '../routes/user/dcbContract'
 import zqSecurityPlan from '../routes/user/zqSecurityPlan'
 import productInfo from '../routes/user/productInfo'
 import zqProductInfo from '../routes/user/zqProductInfo'
+import dcContract from '../routes/user/dcContract'
+import detailsDcb from '../routes/user/detailsDcb'
+import detailsDc from '../routes/user/detailsDc'
+import propertyDetail from '../routes/user/propertyDetail'
+import zqPropertyDetail from '../routes/user/zqPropertyDetail'
 import Bundle from '../bundle'
 export const Analysis=(props)=>{
     return<Bundle load={analysis}>
@@ -139,6 +145,36 @@ export const  ProductInfo=(props)=>{
 export const  ZqProductInfo=(props)=>{
     return<Bundle load={zqProductInfo}>
         {(ZqProductInfo)=><ZqProductInfo {...props}/>}
+    </Bundle>
+};
+export const  DcbContract=(props)=>{
+    return<Bundle load={dcbContract}>
+        {(DcbContract)=><DcbContract {...props}/>}
+    </Bundle>
+};
+export const  DcContract=(props)=>{
+    return<Bundle load={dcContract}>
+        {(DcContract)=><DcContract {...props}/>}
+    </Bundle>
+};
+export const  DetailsDcb=(props)=>{
+    return<Bundle load={detailsDcb}>
+        {(DetailsDcb)=><DetailsDcb {...props}/>}
+    </Bundle>
+};
+export const  DetailsDc=(props)=>{
+    return<Bundle load={detailsDc}>
+        {(DetailsDc)=><DetailsDc {...props}/>}
+    </Bundle>
+};
+export const  PropertyDetail=(props)=>{
+    return<Bundle load={propertyDetail}>
+        {(PropertyDetail)=><PropertyDetail {...props}/>}
+    </Bundle>
+};
+export const  ZqPropertyDetail=(props)=>{
+    return<Bundle load={zqPropertyDetail}>
+        {(ZqPropertyDetail)=><ZqPropertyDetail {...props}/>}
     </Bundle>
 };
 

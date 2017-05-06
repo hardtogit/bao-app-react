@@ -96,5 +96,14 @@ export default {
     },
     [actionTypes.CREDITORS_RECORDS_HISTORY]:{
         apiFn:Fetch.creditorsRecords
+    },
+    [actionTypes.DEPOSITBS_ACCOUNTCAPITALLIST]:{
+        apiFn:Fetch.depositbsAccountCapitalList
+    },
+    [actionTypes.DEPOSITBS_ACCOUNTCAPITALLIST_HISTORY]:{
+        apiFn:Fetch.depositbsAccountCapitalList
+    },
+    [actionTypes.DEPOSITBS_ACCOUNTCAPITALLIST_NOW]:{
+        apiFn:Fetch.depositbsAccountCapitalList
     }
 }

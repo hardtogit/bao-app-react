@@ -44,11 +44,8 @@ import MyDemandIndex from './pages/my/assetStatistics/demand/mine/index' /*我�
 import MyDemandRecords from './pages/my/assetStatistics/demand/records/index' /*我的零钱宝记录*/
 import DemandReddem from './pages/my/assetStatistics/demand/reddem/index' /*零钱宝赎回*/
 import reddemSuccese from './pages/my/assetStatistics/demand/redemptionRequest/index' /*零钱宝成功*/
-import PropertyDetail from './pages/my/assetStatistics/directInvest/propertyDetail/index' /*资产详情*/
 import CreditorRights from './pages/my/assetStatistics/directInvest/creditorRights/index' /*债权资产详情*/
 import HistoryRecord from './pages/my/assetStatistics/directInvest/historyRecord/index' /*历史记录资产详情*/
-import zqPropertyDetail from './pages/my/assetStatistics/creditors/zqPropertyDetail' /*债券历史记录资产详情*/
-import detailsDcb from './pages/my/assetStatistics/deposit/details'
 import About from './pages/my/setting/about/index' //关于我们
 import VersionInfo from './pages/my/setting/versionInfo/index'//版本介绍
 import pastAccrule from './pages/my/interestRate/overdue/index' /*过期加息券*/
@@ -103,7 +100,6 @@ import bankcardAddIndex from './pages/my/setting/bankcardAdd/index'
 import tradePasswordNew from './pages/my/setting/tradePasswordSet/new'
 import ruleRate from './pages/my/interestRate/rule'
 import ruleVoucher from './pages/my/voucher/rule'
-import dcbContract from './pages/my/assetStatistics/deposit/contract/index'
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
 
@@ -119,8 +115,9 @@ import ProductList from './pages/active/productList'
 // 主页
 import homeIndex from './pages/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
-import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,ProductInfo,
-ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,AddAccrualIndex,CoinShop} from './pages/routeComponent/userComponent'
+import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,
+ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,
+AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
@@ -175,12 +172,13 @@ export default class App extends React.Component {
                   <Route path='projectRecorde' component={ProjectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
                   <Route path='zqTransferRule' component={ZqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqTransfer/:id' component={zqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="detailsDcb/:id" component={detailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="detailDcb/:id" component={DetailsDc} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="detailsDcb/:id" component={DetailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
                   <Route path='creditorRights/:id' component={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
                   <Route path='historyRecord/:id' component={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
                   <Route path="zq" component={Creditors} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权*/
-                  <Route path='zqPropertyDetail/:id' component={zqPropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqPropertyDetail/:id' component={ZqPropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="ztRecords" component={CreditorsRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权记录*/
                   <Route path="MyDemandIndex" component={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
                   <Route path="redPacket" component={redPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
@@ -247,7 +245,8 @@ export default class App extends React.Component {
                   <Route path='zqProductInfo/:id' component={ZqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqSecurityPlan/:id' component={ZqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
                   <Route path='securityPlan/:id' component={SecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
-                  <Route path='dcbContract/:id' component={dcbContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
+                  <Route path='dcContract/:id' component={DcContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path='dcbContract/:id' component={DcbContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
@@ -271,7 +270,7 @@ export default class App extends React.Component {
               /*已完成*/
 
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="demand-related-projects/:id" component={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="demand-related-projects/:id/:type" component={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-invest-fail" component={DemandInvestFail}></Route>
             <Route path="demand-redeem" component={DemandRedeem}></Route>
             <Route path="demand-buy" component={DemandBuy}></Route>
@@ -279,7 +278,7 @@ export default class App extends React.Component {
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path="depositInvestSuccess" component={DepositInvestSuccess}></Route>
+            <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directInvestSuccess" component={DirectInvestSuccess}></Route>

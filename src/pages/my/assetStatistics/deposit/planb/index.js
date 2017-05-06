@@ -25,7 +25,7 @@ class Index extends React.Component {
     }
     listClick=(id)=>{
        const {push}=this.props;
-       push('/user/detailsDcb/11800')
+       push(`/user/detailsDcb/${id}`)
     }
     loadEndDom=(datas)=>{
         const {
@@ -34,7 +34,7 @@ class Index extends React.Component {
             end,
             listData
         }=this.props;
-        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData} click={this.listClick}/>)
+        return(<Mydcb banner={datas.data} fetch={getList} pending={pending} end={end} data={listData} click={this.listClick} type="B"/>)
     }
     componentDidMount(){
         this.props.load();
@@ -68,27 +68,27 @@ class Index extends React.Component {
     }
 }
 const myDepositSummaryInit=(state,own)=>({
-    datas:state.infodata.getIn(['MY_DEPOSIT_SUMMARY','data']),
-    listData:state.listdata.getIn(['DEPOSIT_RECORD','data']),
-    pending:state.listdata.getIn(['DEPOSIT_RECORD','pending']),
-    end:state.listdata.getIn(['DEPOSIT_RECORD','pageEnd'])
+    datas:state.infodata.getIn(['DEPOSITBS_ACCOUNTCAPITALINFO','data']),
+    listData:state.listdata.getIn(['DEPOSITBS_ACCOUNTCAPITALLIST','data']),
+    pending:state.listdata.getIn(['DEPOSITBS_ACCOUNTCAPITALLIST','pending']),
+    end:state.listdata.getIn(['DEPOSITBS_ACCOUNTCAPITALLIST','pageEnd'])
 });
 const myDepositSummaryInitfn=(dispath,own)=>({
     load(){
         dispath({
-            type:'MY_DEPOSIT_SUMMARY'
+            type:'DEPOSITBS_ACCOUNTCAPITALINFO'
         })
     },
     getList(){
         dispath({
-            type:'DEPOSIT_RECORD',
-            params:[1]
+            type:'DEPOSITBS_ACCOUNTCAPITALLIST',
+            params:[0]
         })
     },
     clearData(){
         dispath({
             type:'CLEAR_DATA',
-            key:'DEPOSIT_RECORD'
+            key:'DEPOSITBS_ACCOUNTCAPITALLIST'
         })
     },
     push(url){

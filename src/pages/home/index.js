@@ -26,7 +26,8 @@ class FinancialIndex extends Component{
        depositbs:false,
        depositb:false,
        rateA:'',
-      xsRate:''
+      xsRate:'',
+      xsId:''
      }
    }
    componentWillMount(){
@@ -81,11 +82,12 @@ class FinancialIndex extends Component{
        if (depositb==null){
            getDeposit();
        }else {
-           const {rateA,xsRate}=this.getMessageA(depositb)
+           const {rateA,xsRate,xsId}=this.getMessageA(depositb)
            this.setState({
                depositb:true,
                rateA,
-               xsRate
+               xsRate,
+               xsId
            })
        }
    }
@@ -104,22 +106,24 @@ class FinancialIndex extends Component{
        }
        if (!depositb&&deposit){
            if (deposit.code==100){
-               const {rateA,xsRate}=this.getMessageA(deposit.data)
+               const {rateA,xsRate,xsId}=this.getMessageA(deposit.data)
                this.setState({
                    depositb:true,
                    rateA,
-                   xsRate
+                   xsRate,
+                   xsId
                })
            }
        }
     }
    getMessageA=(depositb)=>{
         const xsRate=depositb.new_deposit.rate;
+        const xsId=depositb.new_deposit.id;
         const rateA=depositb.deposit[0].rate;
-       return{xsRate,rateA}
+       return{xsRate,rateA,xsId}
    }
    getMessage=(depositbs)=>{
-       for (let i=1;i<depositbs.length;i++){
+       for (let i=0;i<depositbs.length;i++){
            if (depositbs[i].month=='6'){
                return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
            }
@@ -291,7 +295,7 @@ class FinancialIndex extends Component{
        </li>)
    }
    newDep=()=>{
-       const {xsRate}=this.state;
+       const {xsRate,xsId}=this.state;
        return(<li className={style.xsBox} >
            <div className={style.xsHeader}>
                        <span className={style.xsTitle}>
@@ -318,7 +322,7 @@ class FinancialIndex extends Component{
                           </span>
                </p>
                <p className={Classnames(style.mgl)}>
-                   <Link className={style.tzButtom} to="/deposit-product/5/A">
+                   <Link className={style.tzButtom} to={`/deposit-product/5/A/${xsId}`}>
                        立即投资
                    </Link>
                </p>

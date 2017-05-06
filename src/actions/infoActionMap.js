@@ -276,5 +276,20 @@ export default {
     },
     [actionTypes.DEPOSITBS_INVEST]:{
         apiFn:Fetch.depositbsInvest
+    },
+    [actionTypes.DEPOSITBS_ACCOUNTCAPITALINFO]:{
+        apiFn:Fetch.depositbsAccountCapitalInfo
+    },
+    [actionTypes.DEPOSITBS_BUY]:{
+        apiFn:Fetch.depositbsBuy
+    },
+    [actionTypes.DEPOSITBS_BUYRESULT]:{
+        apiFn:Fetch.depositbsBuyResult
+    },
+    [actionTypes.DEPOSITBS_CONTRACT]:{
+        apiFn:Fetch.depositbsContract
+    },
+    [actionTypes.DEPOSITA_SINVEST]:{
+        apiFn:Fetch.depositasInvest
     }
 }

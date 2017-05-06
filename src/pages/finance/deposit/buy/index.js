@@ -40,6 +40,7 @@ class DepositBuy extends React.Component {
        sy:'',
         select:1,
         type:0,
+        buyTime:0
     }
   }
   componentWillMount(){
@@ -97,9 +98,9 @@ class DepositBuy extends React.Component {
           nextProps.quantityDataB.code == 100) {
           // 获取到定存宝详情数据 并设置默认购买份数
           const result = nextProps.quantityDataB;
-          const quantity = result && result.data && result.data.quantity ?
-              result.data.quantity < this.state.quantity ?
-                  result.data.quantity : this.state.quantity:0;
+          const quantity = result && result.data && result.data.remain ?
+              result.data.remain < this.state.quantity ?
+                  result.data.remain : this.state.quantity:0;
           this.setState({quantity})
       }
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
@@ -118,6 +119,11 @@ class DepositBuy extends React.Component {
                pending:true
            })
        }
+       if (nextProps.depositbsBuyPending){
+           this.setState({
+               pending:true
+           })
+       }
 
   }
     componentWillUnmount(){
@@ -125,11 +131,16 @@ class DepositBuy extends React.Component {
     }
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;
-    const {useCoupon}=this.state;
+    const {useCoupon,depositId,quantity}=this.state;
+    const {params:{type,productId},balancePay,balancePayB}=this.props;
     if (!useCoupon&&coupon){
         coupon.id='';
     }
-    this.props.balancePay(this.state.depositId, this.state.quantity, utils.md5(password), coupon && coupon.id || '')
+    if (type=='A'){
+        balancePay(productId,quantity, utils.md5(password), coupon && coupon.id || '')
+    }else {
+        balancePayB(productId,quantity,utils.md5(password),coupon && coupon.id || '')
+    }
   }
 
   // 修改购买份数
@@ -230,8 +241,13 @@ class DepositBuy extends React.Component {
         return quantity &&
         quantity <= (quantityData && quantityData.data.quantity || 0) ? true : false
     }else {
+        if (quantityDataB){
+            if (!quantityDataB.data.isBuy){
+                return false
+            }
+        }
         return quantity &&
-        quantity <= (quantityDataB && quantityDataB.data.quantity || 0) ? true : false
+        quantity <= (quantityDataB && quantityDataB.data.remain|| 0) ? true : false
     }
   }
 
@@ -379,9 +395,12 @@ class DepositBuy extends React.Component {
     })
     }
   getCurrentMonth = () => {
-    const { deposit,params:{type,id}} = this.props;
+    const { deposit,params:{type,id},newDeposit} = this.props;
       const depositId = this.state.depositId;
     if (type=='A'){
+        if (id==5){
+            return newDeposit
+        }
         return deposit[depositId];
     }else {
         const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")).list;
@@ -412,13 +431,18 @@ class DepositBuy extends React.Component {
     }
     overPay=(val,data)=>{
         const{
-            productId,
             quantity,
             couponId
         }=data,
         password='',
-        type=2;
-        const url=util.combineUrl(`${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+        type=2,
+        {type:lx,productId}=this.props.params;
+        let url;
+       if (lx=='B'){
+           url=util.combineUrl(`${hostName}/mobile_api/api/depositbs/buy`,{productId,num:quantity,password,type,couponId})
+       }else {
+           url=util.combineUrl(`${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+       }
         this.setState({
             url,
             payTop:'0px'
@@ -445,34 +469,57 @@ class DepositBuy extends React.Component {
         }
         this.setState({payTop:'100%',url:''})
     }
+    depositbsBuy=(data)=>{
+        let {buyTime}=this.state;
+        buyTime++;
+        this.setState({
+            buyTime
+        })
+       setTimeout(()=>{
+            console.log(buyTime,'fsafsa')
+            if (buyTime>3){
+                this.setState({
+                    buyTime:0
+                })
+            }else {
+                this.props.depositbsBuyResult(data.data.msgId);
+            }
+       },500)
+    }
   render() {
     const {
       params: { id ,type:lx},
       deposit,
       new_deposit,
       quantityData,
-      quantityDataB
+      quantityDataB,
+      depositbsBuy,
+      depositbsBuyResultData,
+      clearDataResult
     } = this.props;
     const {type}=this.state;
       let depositData = {}
       let String='';
       let quantity;
+      let sy;
       if (lx=='A'){
           if (id!=5){
               if (deposit && deposit.length) {
                   depositData = this.getCurrentMonth();
                   String=depositData.month&&depositData.month+'个月'||'个月'
+                  sy=this.expectIncome();
               }
           }else {
               if (new_deposit.hasOwnProperty('month')){
                   depositData=new_deposit;
                   String='新手标';
+                  sy=this.expectIncome();
               }
           }
           if (quantityData){
               if (quantityData.code==100){
                  quantity=quantityData.data.quantity
-                  console.log(quantity,'fafas')
+                  sy=this.expectIncome();
               }
           }
       }else {
@@ -483,7 +530,7 @@ class DepositBuy extends React.Component {
           }
           if (quantityDataB){
               if (quantityDataB.code==100){
-                  quantity=quantityDataB.data.quantity
+                  quantity=quantityDataB.data.remain
               }
           }
       }
@@ -511,7 +558,7 @@ class DepositBuy extends React.Component {
         <div className={styles.expectIncome}>
           <div className={styles.wrap}>
             <p className={styles.name}>预期收益（元）</p>
-            <p className={styles.profit}>{this.expectIncome()}</p>
+            <p className={styles.profit}>{sy}</p>
           </div>
         </div>
 
@@ -524,7 +571,7 @@ class DepositBuy extends React.Component {
         </div>
         <PayProcess
           ref='payProcess'
-          type='deposit'
+          type={`deposit${lx}`}
           go={this.props.push}
           getChoose={this.getChoose}
           overPay={this.overPay}
@@ -533,10 +580,14 @@ class DepositBuy extends React.Component {
           onRequestBalancePay={this.depositBuy}
           inputValue={Number(utils.padMoney(this.getPayTotal()))}
           balancePayPending={this.state.pending}
-          balancePayData={this.props.depositBuyData}
+          balancePayData={lx=='A'&&this.props.depositBuyData||depositbsBuy}
           changePending={this.changePending}
-          clear={this.props.clearData}
-           money={utils.padMoney(this.getPayTotal())}/>
+          clear={()=>{lx=='A'&&this.props.clearData('DEPOSIT_BUY')||this.props.clearData('DEPOSITBS_BUY')}}
+           money={utils.padMoney(this.getPayTotal())}
+          depositbs={this.depositbsBuy}
+          depositbsBuyResultData={depositbsBuyResultData}
+          time={this.state.buyTime}
+          clearDataResult={clearDataResult}/>
         <p><Link to="/agreement" className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
@@ -569,6 +620,7 @@ const mapStateToProps = (state, ownProps) => {
   const quantityDataBLeftFetching = state.infodata.getIn([actionTypes.DEPOSITBS_DETAILS, 'pending'])
   return {
     deposit: state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.deposit || [],
+    newDeposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit || [],
     user,
     quantityLeftFetching,
     quantityData,
@@ -582,6 +634,9 @@ const mapStateToProps = (state, ownProps) => {
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
+    depositbsBuy:state.infodata.getIn(['DEPOSITBS_BUY','data']),
+    depositbsBuyPending:state.infodata.getIn(['DEPOSITBS_BUY','pending']),
+    depositbsBuyResultData:state.infodata.getIn(['DEPOSITBS_BUYRESULT','data'])
   }
 }
 
@@ -620,22 +675,39 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       }]
     })
   },
-
+    balancePayB(productId, num, password, couponId) {
+        dispatch({
+            type: actionTypes.DEPOSITBS_BUY,
+            params: [
+                productId,
+                num,
+                couponId,
+                password,
+                3
+            ]
+        })
+    },
   setUseCoupons(selectedCoupon) {
     dispatch({
       type: actionTypes.SET_USE_COUPONS,
       selectedCoupon
     })
   },
-  clearData(){
+  clearData(key){
       dispatch({
           type:'CLEAR_INFO_DATA',
-           key:'DEPOSIT_BUY'
+           key
       })
   },
   getDepositds(id){
     dispatch({
         type:'DEPOSITBS_DETAILS',
+        params:[id]
+    })
+  },
+  depositbsBuyResult(id){
+    dispatch({
+        type:'DEPOSITBS_BUYRESULT',
         params:[id]
     })
   },
@@ -646,6 +718,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     })
       dispatch({
           type:'CLEAR_CONPONS',
+      })
+  },
+  clearDataResult(){
+      dispatch({
+          type:'CLEAR_INFO_DATA',
+          key:'DEPOSITBS_BUYRESULT'
       })
   }
 })

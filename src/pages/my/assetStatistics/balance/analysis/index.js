@@ -98,17 +98,17 @@ const moneyModel =(data)=>{
         total_money:0
     }
     if(data && 100===data.code){
-        money.info[0].value = data.data.balance_total;
-        money.info[1].value = data.data.demand_total;
-        money.info[2].value = data.data.deposit_total;
-        money.info[3].value = data.data.directInvest_total;
-        money.info[4].value = data.data.creditors_total;
-        money.info[5].value = data.data.creditors_total;
-        money.total_money = Util.padMoney(data.data.asset_total);
-        money.balance_total =  Util.padMoney(data.data.balance_total);
-        money.profit_total = Util.padMoney(data.data.profit_total);
-        money.privilege_total = Util.padMoney(data.data.privilege_total);
-        money.privilege_total = Util.padMoney(data.data.privilege_total);
+        money.info[0].value = data.data.money;
+        money.info[1].value = data.data.demand;
+        money.info[2].value = data.data.dingcun;
+        money.info[3].value = data.data.borrow;
+        money.info[4].value = data.data.transfer;
+        money.info[5].value = data.data.dingcunB;
+        money.total_money = Util.padMoney(data.data.userSum);
+        money.balance_total =  Util.padMoney(data.data.money);
+        money.profit_total = Util.padMoney(data.data.history);
+        money.privilege_total = Util.padMoney(data.data.financialHistory);
+        money.privilege_total = Util.padMoney(data.data.financialHistory);
         money.getOtion = ()=> {
             return {
                 tooltip: {

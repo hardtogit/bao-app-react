@@ -3,19 +3,21 @@
  */
 import React from 'react';
 import styles from '../index/index.styl';
+import Alert from '../../../../components/Dialog/alert'
 import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
+import cns from 'classnames'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 import Loading from '../../../../components/pageLoading'
 import Couponimg from '../../../../assets/images/coupon1.png'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
 class DepositIndex extends React.Component {
+    state={
+        depositbs:''
+    }
     componentDidMount(){
-        const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
-        if (depositbs==null){
-            this.props.getList();
-        }
+        this.props.getList();
     }
     loadDom=()=>{
         return <Loading/>
@@ -23,6 +25,7 @@ class DepositIndex extends React.Component {
     bannerDom=()=>{
         const {push}=this.props;
         const user=sessionStorage.getItem("bao-auth");
+        const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
         if (!user){
             return <div className={styles.xsBox} onClick={()=>{push('/register')}}>
                 <img src={Couponimg} className={styles.bg}/>
@@ -37,16 +40,56 @@ class DepositIndex extends React.Component {
                 </div>
             </div>
         }else {
-            return <p className={styles.title}>
-                您当前有<span>4张抵用券</span>和<span>1张加息券</span>未使用
-            </p>
+            let {voucher,interestRateSecurities}=userInfo;
+            if (!voucher&&!interestRateSecurities){
+                return false
+            }else {
+                return <p className={cns(styles.title,styles.pdTitle)}>
+                    您当前有{voucher&&<span>{voucher}张抵用券</span>||null}{(interestRateSecurities&&voucher)&&'和'||null}{interestRateSecurities&&<span>{interestRateSecurities}张加息券</span>||null}未使用
+                </p>
+            }
         }
     }
+    alert=(content)=>{
+        this.refs.alert.show({
+            title: '',
+            content:content,
+            okText:'知道了',
+        })
+    }
+    go=(index,id,soldOut,isBuy)=>{
+        let text;
+        if (!isBuy){
+            text='产品购买未开始！'
+        }
+        else if (!soldOut){
+            text='产品已售罄！'
+        }
+        if (text){
+            this.alert(text);
+            return false
+        }
+        this.props.push(`/deposit-product/${index}/B/${id}`)
+    }
+    goBuy=(index,id,soldOut,isBuy)=>{
+        let text;
+        if (!isBuy){
+            text='产品购买未开始！'
+        }
+        else if (!soldOut){
+            text='产品已售罄！'
+        }
+        if (text){
+            this.alert(text);
+            return false
+        }
+        this.props.push(`/deposit-buy/${index}/B/${id}`)
+    }
     loadEndDom=(depositbs)=>{
-        const {push}=this.props;
-        return(<div>
+        return(<div className={styles.planb}>
             {this.bannerDom()}
-            <List type={'B'} go={(index,id)=>{push(`/deposit-product/${index}/B/${id}`)}} goBuy={(index,id)=>{push(`/deposit-buy/${index}/B/${id}`)}} data={depositbs}/>
+            <List type={'B'} go={this.go} goBuy={this.goBuy} data={depositbs}/>
+            <Alert ref="alert"/>
         </div>)
     }
     render(){
