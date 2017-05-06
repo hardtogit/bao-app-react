@@ -61,6 +61,7 @@ const requests = (Fetch) => {
   Fetch.depositbsBuyResult=(id)=>{return Fetch(`api/depositbs/buyResult/${id}`,'GET')}
   Fetch.depositbsContract=(id)=>{return Fetch(`api/depositbs/contract/${id}`,'GET')}
   Fetch.depositasInvest=(id)=>{return Fetch(`api/depositas/invest/${id}`,'GET')}
+  Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
 }
 
 export default requests

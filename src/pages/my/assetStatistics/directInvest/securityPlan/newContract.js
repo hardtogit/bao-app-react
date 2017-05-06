@@ -12,6 +12,13 @@ const zhDate=(date)=>{
         day=standardDate.getDate();
     return year+'年'+month+'月'+day+'日';
 }
+const zhDateB=(date)=>{
+    const standardDate=new Date(parseInt(date)*1000),
+        year=standardDate.getFullYear(),
+        month=standardDate.getMonth()+1,
+        day=standardDate.getDate();
+    return year+'年'+month+'月'+day+'日';
+}
 class NewContract extends Component{
     loadEndA=()=>{
         const {
@@ -322,44 +329,42 @@ class NewContract extends Component{
         }=this.props;
        const {idCard,mobile,realName,userName,idCardType}=userInfo;
        const {address,companyName,phone}=companyInfo;
-       const {endTime,money,number,rate,type,moneyCapital}=productInfo;
+       const {endTime,money,number,rate,type,moneyCapital,startTime}=productInfo;
+       const startStrTime=zhDateB(startTime);
+       const endStrTime=zhDateB(endTime);
         return(<div className={styles.content}>
             <h1 className={styles.newTitle}>借款合同</h1>
             <p className={classNames(styles.text,styles.textRight)}>合同编号:{number}</p>
             <p className={styles.text}>
-                本借款合同（ 下称“本合同” ）由以下各方于{strDate}签署：
-            </p>
-            <p className={styles.text}>
-                甲方（出借人）：
-                <br/>详见本合同第一条
+                本借款合同（ 下称“本合同” ）由以下各方于{startStrTime}签署：
             </p>
             <div className={styles.masterNews}>
-                <p className={styles.text}>
-                    乙方（借款人）：
-                </p>
-                <p className={styles.text}>
+            <p className={styles.text}>
+                甲方（出借人）：
+            </p>
+            <p className={styles.text}>
                     姓名：{realName}
-                </p>
-                <p className={styles.text}>
+            </p>
+            <p className={styles.text}>
                     证件类型：{cardType[idCardType]}
-                </p>
-                <p className={styles.text}>
+            </p>
+            <p className={styles.text}>
                     证件证号：{idCard}
-                </p>
+            </p>
                 <p className={styles.text}>
                     宝点网用户名：{userName}
                 </p>
                 <p className={styles.text}>
                     联系方式：{mobile}
                 </p>
+            </div>
+            <div className={styles.masterNews}>
+                <p className={styles.text}>
+                    乙方（借款人）：
+                </p>
                 <p className={styles.text}>
                     丙方（居间平台服务商）：{companyName}
-                </p>
-                <p className={styles.text}>
-                    联系方式：{address}
-                </p>
-                <p className={styles.text}>
-                    联系电话：{phone}
+                    <img src={seal} className={styles.chapter}/>
                 </p>
                 <p className={classNames(styles.text,styles.pd1)}>
                     鉴于:
@@ -368,12 +373,15 @@ class NewContract extends Component{
                     1、居间平台服务商是一家合法成立并有效存续的有限公司，系（互联网域名bao.cn，宝点网）的运营管理人，向网站注册用户提供咨询、信息及各种委托服务等居间服务。
                 </p>
                 <p className={styles.text1}>
-                    2、出借人有出借资金进行投资需求，借款人因生产经营或消费所需，有借款需求。双方均已阅读并同意遵守宝点网的《注册合同》，注册成为宝点网的用户，
-                    并认可宝点网通过网站公开发布关于注册用户的各种规则。
+                    2、出借人有出借资金进行投资需求，借款人因生产经营或消费所需，有借款需求。双方均已阅读并同意遵守宝点网的《注册合同》，
+                    注册成为宝点网的用户，并认可宝点网通过网站公开发布关于注册用户的各种规则。
                 </p>
                 <p className={styles.text1}>
                     3、出借人和借款人同意通过居间服务人的服务，以电子合同的形式达成本借款合同，本借款合同的内容经双方充分阅读且知晓每一条款的含义，
                     是双方真实意思表示，并认可该形式之合同的法律效力。
+                </p>
+                <p  className={styles.text1}>
+                    据此，出借人与借款人，在居间服务人的撮合下，就借款事宜达成以下合同：
                 </p>
                 <div className={styles.tableBox}>
                     <p  className={classNames(styles.text,styles.pd)}>
@@ -401,31 +409,31 @@ class NewContract extends Component{
                         </thead>
                         <tbody>
                         {
-                            list.map(({userName,investMoney,real_name,percent,term},i)=>(
+                            list.map(({userName,investMoney,realName,month,rate},i)=>(
                                 <tr key={i}>
                                     <td>
                                         {
-                                            username
+                                            userName
                                         }
                                     </td>
                                     <td>
                                         {
-                                            real_name
+                                            realName
                                         }
                                     </td>
                                     <td>
                                         {
-                                            amount
+                                            investMoney
                                         }
                                     </td>
                                     <td>
                                         {
-                                            term
+                                            month
                                         }
                                     </td>
                                     <td>
                                         {
-                                            percent
+                                            rate
                                         }
                                     </td>
                                 </tr>
@@ -435,8 +443,7 @@ class NewContract extends Component{
                     </table>
                 </div>
                 <p  className={classNames(styles.text1,styles.pd1)}>
-                    第二条  乙方的借款用途为：{borrow_use}，
-                    借款金额为：{money}（大写：人民币{moneyCapital}），借款利率：{rate}%，还款方式：{type==1?'先息后本':'等额本息'}，借款期限为：{startDate}到{endDate}止。
+                    第二条 借款金额为：{money}（大写：人民币{moneyCapital}），借款利率：{rate}%，借款期限为：{startStrTime}到{endStrTime}止。
                 </p>
                 <p  className={styles.text1}>
                     第三条 借款、还款的支付方式
@@ -528,8 +535,8 @@ class NewContract extends Component{
                     第七条 债权的转让
                 </p>
                 <p className={styles.text1}>
-                    1、 甲方、乙方一致同意，本合同项下甲方对乙方的债权可以部分或全部向第三方转让。该转让仅使债权人发生变更，对本合同中的借款金额、借款期限、年利率、还款方式等相关事项均不产生影响。
-                    乙方仍应按本合同的约定将应还本息存入其银行帐户，由第三方支付平台进行代扣，再由丙方根据届时债权转让的情况将乙方还款转入新债权人的帐户。
+                    1、 甲方、乙方一致同意，本合同项下甲方对乙方的债权可以部分或全部向第三方转让。该转让仅使债权人发生变更，对本合同中的借款金额、借款期限、年利率、还款方式等相关事项均不产生影响。乙方仍应按本合同的约定将应还本息存入其银行帐户，
+                    由第三方支付平台进行代扣，再由丙方根据届时债权转让的情况将乙方还款转入新债权人的帐户。
                 </p>
                 <p className={styles.text1}>
                     2、甲方、乙方一致同意由丙方将前述债权转让相关事宜通知乙方。丙方可采用手机短信、电子邮件、宝点网网络平台站内信件等方式向乙方发送债权转让通知，
@@ -542,11 +549,11 @@ class NewContract extends Component{
                     1、 在本合同有效期内，任何一方未履行本合同项下的任何义务，均构成违约，应按法律规定及本合同的约定对守约方承担违约责任。
                 </p>
                 <p className={styles.text1}>
-                    2、若乙方未按本合同的约定按期向甲方偿付借款本息，除应继续履行偿付义务外，每迟延一天，还应按应付未付金额的 {overdue}% 向甲方支付滞纳金。
+                    2、若乙方未按本合同的约定按期向甲方偿付借款本息，除应继续履行偿付义务外，每迟延一天，还应按应付未付金额的  2%   向甲方支付违约金。
                 </p>
                 <p className={styles.text1}>
                     3、乙方有下列情形之一的，视为乙方违约，甲方有权提前解除本合同，乙方需在甲方要求解除合同后三日内一次性支付包括但不限于剩余本金、应付未付的利息和其他费用（包括但不限于法院或仲裁机构费用、律师费、执行费、评估费、鉴定费、拍卖费、保管费、手续费及相关人员的差旅费等），
-                    并按照全部借款金额的{penalty}%向甲方支付违约金；构成犯罪的，甲方有权向国家机关报案，追究其刑事责任。
+                    并按照全部借款金额的  30  %向甲方支付违约金；构成犯罪的，甲方有权向国家机关报案，追究其刑事责任。
                 </p>
                 <p className={styles.text1}>
                     （1）乙方擅自改变本合同规定的借款用途或逾期还款15日以上；
@@ -590,23 +597,6 @@ class NewContract extends Component{
                 <p className={styles.text1}>
                     第十一条 本合同采用电子文本形式制成，经各方通过宝点网网络平台电子合同签署系统在线点击确认签署后生效，合同各方均认可本合同的真实性，并认可该形式之合同的法律效力。
                 </p>
-                <div className={styles.autoGraph}>
-                    <p>
-                        甲方（出借人）：详见本合同第一条
-                    </p>
-                    <p>
-                        乙方（借款人）：{real_name}
-                    </p>
-                    <p>
-                        丙方（居间平台服务商）：{providers}
-                    </p>
-                    <p>
-                        <img src={seal} />
-                    </p>
-                    <p>
-                        合同签署日期：{strDate}
-                    </p>
-                </div>
             </div>
         </div>)
     }

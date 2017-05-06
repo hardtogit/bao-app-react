@@ -291,5 +291,8 @@ export default {
     },
     [actionTypes.DEPOSITA_SINVEST]:{
         apiFn:Fetch.depositasInvest
+    },
+    [actionTypes.DEPOSITAS_CONTRACT]:{
+        apiFn:Fetch.depositasContract
     }
 }
