@@ -47,7 +47,8 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 		voucher,
 		coins,
 		deposit,
-        isBuyDemand
+        isBuyDemand,
+        depositb
 		}=data;
 		return(
 			<div>
@@ -119,7 +120,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 								<img src={DepositTreasureB}/>
 								<div className={styles.myListText}>
 									<p className={styles.listTitle}>定存宝B</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'每月还息  到期还本'||'+'+creditors}</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{depositb==0&&'每月还息  到期还本'||'+'+depositb}</p>
 								</div>
 							</Link>
 						</div>
