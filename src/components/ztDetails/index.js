@@ -220,7 +220,7 @@ class Index extends React.Component {
                     </ul>
                     {type==5&&<li className={styles.Onetitle}>回款记录</li>||''}
                     {type==5&&<ul>
-                        <li>当前期数<p>期数：{currentPeriod}/{month}</p></li>
+                        <li>当前期数<p>期数：{currentPeriod}</p></li>
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>
                     </ul>||''}

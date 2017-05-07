@@ -325,7 +325,7 @@ class PayProcess extends React.Component {
   renderBalanceContent (disable) {
     return (
       <div className={ disable ? styles.contentTextDisable : styles.contentText}>
-        {this.props.balance&&this.props.balance+'元'|| ''}
+        {!isNaN(this.props.balance)&&this.props.balance+'元'|| ''}
         {disable ? <span className={styles.contentMark}> (余额不足)</span> : null}
       </div>
     )
