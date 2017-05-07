@@ -6,6 +6,8 @@ import List from '../../../../components/depositList/index'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 import cns from 'classnames'
 import Loading from '../../../../components/pageLoading'
+import Couponimg from '../../../../assets/images/coupon1.png'
+import Coupon1 from '../../../../assets/images/registerVoucher.png'
 class DepositIndex extends React.Component {
     componentDidMount(){
         const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
