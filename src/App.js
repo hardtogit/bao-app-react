@@ -172,7 +172,7 @@ export default class App extends React.Component {
                   <Route path='zqTransferRule' component={ZqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqTransfer/:id' component={zqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="detailDcb/:id" component={DetailsDc} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="detailsDcb/:id" component={DetailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="detailsDcb/:id/:type" component={DetailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
                   <Route path='creditorRights/:id' component={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
                   <Route path='historyRecord/:id' component={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>

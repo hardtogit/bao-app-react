@@ -12,8 +12,8 @@ class Index extends React.Component {
         this.props.clearData('DEPOSITBS_ACCOUNTCAPITALLIST_NOW');
         this.props.clearData('DEPOSITBS_ACCOUNTCAPITALLIST_HISTORY');
     }
-    click=(id)=>{
-     this.props.push(`/user/detailsDcb/${id}`)
+    click=(id,flag)=>{
+     this.props.push(`/user/detailsDcb/${id}/${flag}`)
     }
     render() {
         const {getList,getListB,listData,listDataB,pending,pendingB,end,endB}=this.props;

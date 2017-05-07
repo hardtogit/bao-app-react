@@ -52,7 +52,7 @@ class Index extends Component {
          seconds=this.lessTen(time.getSeconds());
         return year+'-'+month+'-'+day+' '+hours+':'+min+':'+seconds
     }
-    list=(data,fetch,pending,end,flag)=>{
+    list=(data,fetch,pending,end,flag,index)=>{
         const BodyHeight=document.body.clientHeight,
             ScrollHeight=BodyHeight-95;
         const {type}=this.props;
@@ -65,7 +65,7 @@ class Index extends Component {
                         let {name,created,amount,status,id}=item;
                         created=this.timer(created)
                         return(
-                            <div onClick={()=>{this.props.click(id)}}  key = {i}>
+                            <div onClick={()=>{this.props.click(id,index)}}  key = {i}>
                                 <Record
                                     title={name}
                                     data={created}
@@ -98,7 +98,7 @@ class Index extends Component {
                         <div className={styles.tablist}>
                             {title.map((item,i)=>(
                                 <div className={flag==i&&styles.show||styles.hide} key={i}>
-                                    {this.list(data[i],fetch[i],pending[i],end[i],flag==i)}
+                                    {this.list(data[i],fetch[i],pending[i],end[i],flag==i,flag)}
                                 </div>
                             ))}
                         </div>

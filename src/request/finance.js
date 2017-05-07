@@ -54,7 +54,7 @@ const requests = (Fetch) => {
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
   Fetch.depositbs=()=>{return Fetch('api/depositbs','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}`,'GET')}
-  Fetch.depositbsInvest=(id)=>{return Fetch(`api/depositbs/invest/${id}`,'GET')}
+  Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}`,'GET')}
   Fetch.depositbsAccountCapitalInfo=()=>{return Fetch('api/depositbs/accountCapitalInfo','GET')}
   Fetch.depositbsAccountCapitalList=(page,type)=>{return Fetch(`api/depositbs/accountCapitalList/${type}/${page}`,'GET')}
   Fetch.depositbsBuy=(productId,num,couponId,password,type)=>{return Fetch(`api/depositbs/buy?productId=${productId}&num=${num}&couponId=${couponId}&password=${password}&type=${type}`,'GET')}

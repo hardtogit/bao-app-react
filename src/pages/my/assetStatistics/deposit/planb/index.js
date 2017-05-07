@@ -26,7 +26,7 @@ class Index extends React.Component {
     }
     listClick=(id)=>{
        const {push}=this.props;
-       push(`/user/detailsDcb/${id}`)
+       push(`/user/detailsDcb/${id}/0`)
     }
     loadEndDom=(datas)=>{
         const {

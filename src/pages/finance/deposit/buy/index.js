@@ -526,10 +526,12 @@ class DepositBuy extends React.Component {
           if (depositbs){
               depositData = this.getCurrentMonth();
               String=depositData.month&&depositData.month+'个月'||'个月'
+              sy=this.expectIncome();
           }
           if (quantityDataB){
               if (quantityDataB.code==100){
                   quantity=quantityDataB.data.remain
+                  sy=this.expectIncome();
               }
           }
       }

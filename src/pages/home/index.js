@@ -144,7 +144,7 @@ class FinancialIndex extends Component{
         const {rateA}=this.state;
        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex')});
        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
-       const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50);
+       const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50,2);
        return(<ul className={style.productUl}>
            {
            Depot1

@@ -65,7 +65,7 @@ class Index extends Component{
                             年利率
                         </p>
                         <p className={style.msText}>
-                            {type=='A'&&'期限'||'每月还息 到期还本'}
+                            {type=='A'&&'到期还本付息'||'每月还息 到期还本'}
                         </p>
                     </div>
                 </div>

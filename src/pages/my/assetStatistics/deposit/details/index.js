@@ -8,11 +8,12 @@ class Index extends Component{
     render(){
         const {
             params:{
-                id
+                id,
+                type
             }
         }=this.props;
         return(<div>
-            <Details id={id} type={5}/>
+            <Details id={id} type={5} index={type}/>
         </div>)
     }
 }

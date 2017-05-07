@@ -120,7 +120,8 @@ class ProductDetail extends React.Component {
           endTime
       }=this.Timer(month,depositN);
       const money=this.moneyFn(rate,month);
-      const bData=[{name:'起投金额',val:qt},{name:'锁定时间',val:month+'个月'}];
+      const textTz=lx=='A'?'锁定时间':'投资时间';
+      const bData=[{name:'起投金额',val:qt},{name:textTz,val:month+'个月'}];
       let text='马上买入';
       let flag=false
       if (isbuy&&num==0){
@@ -166,7 +167,7 @@ class ProductDetail extends React.Component {
                       <img src={introduce}/>
                   </span>
                       <span>
-                         定存宝详情
+                         定存宝介绍
                      </span>
                   </li>
                   <li onClick={()=>{push('/planDetails/'+id+'/'+this.props.params.type)}}>

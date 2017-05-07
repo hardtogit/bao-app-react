@@ -78,10 +78,12 @@ class Index extends React.Component {
             investId,
             rate
         }=data;
+        const {type}=this.props;
+        console.log(type)
         return(<div>
             <div className={styles.listBoxOne}>
                 <h2>{name}<span>({investId})</span></h2>
-                <p><span>{month}个月</span><span>约定年化收益率{rate}%</span></p>
+                <p><span>{month}个月</span><span>约定年化收益率{rate}%</span><span style={{float:'right'}}>{type==6?'到期还本付息':'每月还息  到期还本'}</span></p>
             </div>
             <div className={styles.listBoxTwo}>
                 <p>{accumulateProfit}</p>
@@ -263,11 +265,11 @@ class Index extends React.Component {
     //加载完资产详情页面后，发起请求
     componentDidMount(){
         const Id=this.props.id;
-        const{type,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest}=this.props;
+        const{type,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
         if (type==4){
             getZqProductDetail(Id)
         }else if (type==5){
-            getDepositbs(Id)
+            getDepositbs(Id,index)
         }else if (type==6){
             getDepositasInvest(Id)
         }else {
@@ -375,10 +377,10 @@ const dispatchFn=(dispatch,own)=>({
             params:[Id]
         })
     },
-    getDepositbs(Id){
+    getDepositbs(Id,index){
         dispatch({
             type:'DEPOSITBS_INVEST',
-            params:[Id]
+            params:[Id,index]
         })
     },
     getDepositasInvest(Id){

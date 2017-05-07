@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
+import cns from 'classnames'
 import Loading from '../../../../components/pageLoading'
 class DepositIndex extends React.Component {
     componentDidMount(){
@@ -12,12 +13,40 @@ class DepositIndex extends React.Component {
             this.props.getList();
         }
     }
+    bannerDom=()=>{
+        const {push}=this.props;
+        const user=sessionStorage.getItem("bao-auth");
+        const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
+        if (!user){
+            return <div className={styles.xsBox} onClick={()=>{push('/register')}}>
+                <img src={Couponimg} className={styles.bg}/>
+                <img src={Coupon1} className={styles.bj}/>
+                <div className={styles.text}>
+                     <span>
+                    新用户注册注册即送<span className={styles.money}>800</span>￥
+                </span>
+                    <span className={styles.right}>
+                    点击<br/>领取
+                </span>
+                </div>
+            </div>
+        }else {
+            let {voucher,interestRateSecurities}=userInfo;
+            if (!voucher&&!interestRateSecurities){
+                return false
+            }else {
+                return <p className={cns(styles.title,styles.pdTitle)}>
+                    您当前有{voucher&&<span>{voucher}张抵用券</span>||null}{(interestRateSecurities&&voucher)&&'和'||null}{interestRateSecurities&&<span>{interestRateSecurities}张加息券</span>||null}未使用
+                </p>
+            }
+        }
+    }
     loadDom=()=>{
         return <Loading/>
     }
     loadEndDom=(deposit)=>{
         const {push}=this.props;
-        return(<div style={{marginTop:'10px'}}>
+        return(<div>
             <List go={(index,id)=>{push(`/deposit-product/${index}/A/${id}`)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
         </div>)
     }
@@ -27,7 +56,12 @@ class DepositIndex extends React.Component {
           if (deposit){
               Dom=this.loadEndDom(deposit)
           }
-          return Dom
+          return(
+              <div className={styles.planb}>
+                  {this.bannerDom()}
+                  {Dom}
+              </div>
+          )
       }
 }
 const mapStateToProps = (state) => {
