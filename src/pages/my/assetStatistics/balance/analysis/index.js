@@ -42,8 +42,6 @@ class Index extends React.Component {
                         <li><span className={styles.zt}></span><span className={styles.m_m}>直投项目待收本息</span><span className={styles.m_i}>{data.info[3].value}</span></li>
                         <li><span className={styles.zq}></span><span className={styles.m_m}>债权转让待收本息</span><span className={styles.m_i}>{data.info[4].value}</span></li>
                     </ul>
-                    {/*<p className={styles.lcj}>理财金</p>*/}
-                    {/*<p className={styles.lcj_m}>{data.privilege_total}</p>*/}
                 </div>
             </div>
         )
