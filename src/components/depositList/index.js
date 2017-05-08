@@ -38,7 +38,7 @@ class Index extends Component{
         this.props.goBuy(i,id,soldOut,isBuy)
     }
     oneDomA=(i,interest,isFriday)=>{
-        const {month,rate,id}=interest;
+        const {month,rate,id,soldOut}=interest;
         const {type}=this.props;
         return(
             <li className={style.depositli} key={i} onClick={()=>{this.go(i,id)}}>
@@ -54,9 +54,9 @@ class Index extends Component{
                         <p>
                             {month}个月
                         </p>
-                        <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
+                        {soldOut? <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
                             买入
-                        </button>
+                        </button>:<span className={style.overSold}>已售完</span>}
                     </div>
                 </div>
                 <div className={style.msBox} style={{paddingTop:'0px'}}>
