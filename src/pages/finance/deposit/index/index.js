@@ -3,6 +3,7 @@ import styles from './index.styl';
 import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
+import Alert from '../../../../components/Dialog/alert'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 import cns from 'classnames'
 import Loading from '../../../../components/pageLoading'
@@ -46,10 +47,23 @@ class DepositIndex extends React.Component {
     loadDom=()=>{
         return <Loading/>
     }
+    go(index,id,soldOut){
+        const {push}=this.props;
+        if (!soldOut){
+            this.refs.alert.show({
+                title: '',
+                content:'产品已售罄',
+                okText:'知道了',
+            })
+        }else {
+            push(`/deposit-product/${index}/A/${id}`)
+        }
+
+    }
     loadEndDom=(deposit)=>{
         const {push}=this.props;
         return(<div>
-            <List go={(index,id)=>{push(`/deposit-product/${index}/A/${id}`)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
+            <List go={(index,id,soldOut)=>{this.go(index,id,soldOut)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
         </div>)
     }
       render(){
@@ -62,6 +76,7 @@ class DepositIndex extends React.Component {
               <div className={styles.planb}>
                   {this.bannerDom()}
                   {Dom}
+                  <Alert ref="alert"/>
               </div>
           )
       }

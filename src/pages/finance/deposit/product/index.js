@@ -125,7 +125,7 @@ class ProductDetail extends React.Component {
       let text='马上买入';
       let flag=false
       if (isbuy&&num==0){
-          text='售罄'
+          text='已售罄'
           flag=true
       }else if (!isbuy){
           text='未开始'

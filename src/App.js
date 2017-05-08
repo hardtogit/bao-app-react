@@ -244,8 +244,6 @@ export default class App extends React.Component {
                   <Route path='zqProductInfo/:id' component={ZqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='zqSecurityPlan/:id' component={ZqSecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
                   <Route path='securityPlan/:id' component={SecurityPlan} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
-                  <Route path='dcContract/:id' component={DcContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
-                  <Route path='dcbContract/:id' component={DcbContract} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*直投安全保障计划*/
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>

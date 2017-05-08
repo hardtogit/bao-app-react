@@ -224,10 +224,6 @@ class Index extends React.Component {
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>
                     </ul>||''}
-                    <li style={{height:'40px'}}></li>
-                    <ul>
-                       <li onClick={()=>{push(url)}}>产品合同 <span className={styles.arrowRight}></span></li>
-                    </ul>
                 </ul>
             </div>
         )

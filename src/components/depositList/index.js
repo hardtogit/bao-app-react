@@ -41,7 +41,7 @@ class Index extends Component{
         const {month,rate,id,soldOut}=interest;
         const {type}=this.props;
         return(
-            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id)}}>
+            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id,soldOut)}}>
                 <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={danbao}/></span>
                     {isFriday&&<span className={style.hongwu} style={{marginRight:'10px'}}><img src={type_hongwu}/></span>||null}
                     </p>
@@ -56,7 +56,7 @@ class Index extends Component{
                         </p>
                         {soldOut? <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
                             买入
-                        </button>:<span className={style.overSold}>已售完</span>}
+                        </button>:<span className={style.overSold}>已售罄</span>}
                     </div>
                 </div>
                 <div className={style.msBox} style={{paddingTop:'0px'}}>
@@ -76,7 +76,7 @@ class Index extends Component{
        const {title,rate,month,id,soldOut,isBuy}=item;
        let text='买入';
        if (isBuy&&soldOut==0){
-           text='已售完'
+           text='已售罄'
        }else if (!isBuy){
            text='未开始'
        }
