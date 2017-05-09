@@ -5,6 +5,16 @@
     top: 0px;
     
 }
+.planBicon{
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url("../../../assets/images/planBicon.png") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    right: -5px;
+    top: 5px;
+}
 .tabList{
     display: flex;
     width: 100%;
@@ -24,6 +34,7 @@
 .financeIndex .cavOne{
     font-size:16px;
     padding: 8px;
+    position: relative;
 }
 .financeIndex .action .cavOne{
     color:#00a6e2;
