@@ -47,9 +47,15 @@ class DepositIndex extends React.Component {
     loadDom=()=>{
         return <Loading/>
     }
-    go(index,id,soldOut){
+    go(index,id,soldOut,isBuy){
         const {push}=this.props;
-        if (!soldOut){
+        if (!isBuy){
+            this.refs.alert.show({
+                title: '',
+                content:'产品购买未开始',
+                okText:'知道了',
+            })
+        }else if (!soldOut){
             this.refs.alert.show({
                 title: '',
                 content:'产品已售罄',
@@ -63,7 +69,7 @@ class DepositIndex extends React.Component {
     loadEndDom=(deposit)=>{
         const {push}=this.props;
         return(<div>
-            <List go={(index,id,soldOut)=>{this.go(index,id,soldOut)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
+            <List go={(index,id,soldOut,isBuy)=>{this.go(index,id,soldOut,isBuy)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
         </div>)
     }
       render(){

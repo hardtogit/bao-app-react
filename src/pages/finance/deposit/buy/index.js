@@ -238,6 +238,11 @@ class DepositBuy extends React.Component {
     }=this.state;
     const {quantityData,quantityDataB}=this.props;
     if (type=='A'){
+        if (quantityData){
+            if (!quantityData.data.isBuy){
+                return false
+            }
+        }
         return quantity &&
         quantity <= (quantityData && quantityData.data.quantity || 0) ? true : false
     }else {
@@ -589,7 +594,7 @@ class DepositBuy extends React.Component {
           depositbsBuyResultData={depositbsBuyResultData}
           time={this.state.buyTime}
           clearDataResult={clearDataResult}/>
-        <p><Link to={`/agreement/${id}/${lx}`} className={styles.protocol}>《借款合同》</Link></p>
+        <p><Link to={`/agreement`} className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

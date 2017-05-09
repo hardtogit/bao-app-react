@@ -38,10 +38,10 @@ class Index extends Component{
         this.props.goBuy(i,id,soldOut,isBuy)
     }
     oneDomA=(i,interest,isFriday)=>{
-        const {month,rate,id,soldOut}=interest;
+        const {month,rate,id,soldOut,isBuy}=interest;
         const {type}=this.props;
         return(
-            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id,soldOut)}}>
+            <li className={style.depositli} key={i} onClick={()=>{this.go(i,id,soldOut,isBuy)}}>
                 <p className={style.title}>定存宝{type}计划{month}<span className={style.hongwu}><img src={danbao}/></span>
                     {isFriday&&<span className={style.hongwu} style={{marginRight:'10px'}}><img src={type_hongwu}/></span>||null}
                     </p>
@@ -54,9 +54,9 @@ class Index extends Component{
                         <p>
                             {month}个月
                         </p>
-                        {soldOut? <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
+                        {(soldOut&&isBuy)? <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
                             买入
-                        </button>:<span className={style.overSold}>已售罄</span>}
+                        </button>:<span className={style.overSold}>{!isBuy?'未开始':'已售罄'}</span>}
                     </div>
                 </div>
                 <div className={style.msBox} style={{paddingTop:'0px'}}>

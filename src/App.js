@@ -274,7 +274,7 @@ export default class App extends React.Component {
             <Route path="demand-product" component={DemandProduct}></Route>
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path='agreement/:id/:type' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
