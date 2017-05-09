@@ -29,7 +29,8 @@ class FinancialIndex extends Component{
       xsRate:'',
       xsId:'',
       openUrl:'cn.bao://',
-
+      openApp:false,
+      equipment:1
      }
    }
    componentWillMount(){
@@ -49,10 +50,27 @@ class FinancialIndex extends Component{
            })
        }
    }
+    equipment=()=>{
+        const u = navigator.userAgent;
+        const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid){
+            this.setState({
+                openUrl:'http://bao-image.oss-cn-hangzhou.aliyuncs.com/static/download/android/baodian-android-baodianpc.apk',
+                equipment:1
+            })
+        }else if (isiOS){
+            this.setState({
+                openUrl:'https://itunes.apple.com/cn/app/id1017177170?mt=8',
+                equipment:2
+            })
+        }
+    }
    componentDidMount(){
      const Height=this.getHeight();
      const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
       const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
+      this.equipment();
      this.setState({
        height:{height:Height+'px'}
      })
@@ -331,11 +349,32 @@ class FinancialIndex extends Component{
            </div>
        </li>)
    }
+    openApp=()=>{
+       const {openUrl,equipment}=this.state;
+          this.setState({
+              openApp:true
+          })
+        setTimeout(()=>{
+                this.setState({
+                    openApp:false
+                })
+            if (equipment==1){
+                    window.open(openUrl)
+            }else {
+                window.location.href=openUrl;
+            }
+        },3000)
+    }
+    endApp=()=>{
+        this.setState({
+            openApp:false
+        })
+    }
     render(){
       const{
         show,
         flage,
-        openUrl
+        openApp,
       }=this.state,
       user=sessionStorage.getItem('bao-auth'),
       depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")),
@@ -390,7 +429,7 @@ class FinancialIndex extends Component{
                <span className={style.text}>
                上客户端，领专属大礼包
                </span>
-                    <a href={openUrl} className={style.openApp}>
+                    <a  className={style.openApp} onClick={this.openApp} >
                         立即打开
                     </a>
                 </div>
@@ -430,6 +469,7 @@ class FinancialIndex extends Component{
                       bodyDom
                   }
               </div>
+                {openApp&&<iframe src='cn.bao://' onLoad={()=>{this.endApp()}}></iframe>||null}
            </div>
            )
     }
