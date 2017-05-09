@@ -27,7 +27,9 @@ class FinancialIndex extends Component{
        depositb:false,
        rateA:'',
       xsRate:'',
-      xsId:''
+      xsId:'',
+      openUrl:'cn.bao://',
+
      }
    }
    componentWillMount(){
@@ -333,6 +335,7 @@ class FinancialIndex extends Component{
       const{
         show,
         flage,
+        openUrl
       }=this.state,
       user=sessionStorage.getItem('bao-auth'),
       depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")),
@@ -387,7 +390,7 @@ class FinancialIndex extends Component{
                <span className={style.text}>
                上客户端，领专属大礼包
                </span>
-                    <a href='https://itunes.apple.com/cn/app/bao-dian-li-cai-ling100yuan/id1017177170?l=en&mt=8' className={style.openApp}>
+                    <a href={openUrl} className={style.openApp}>
                         立即打开
                     </a>
                 </div>
