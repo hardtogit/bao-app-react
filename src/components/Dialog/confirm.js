@@ -6,7 +6,7 @@ import React from 'react'
 import Dialog from './index'
 import helper from './helper.js'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 export default class ConfirmDialog extends React.Component {
 	constructor(props) {
 		super(props)
@@ -16,15 +16,15 @@ export default class ConfirmDialog extends React.Component {
 	}
 
 	static propTypes = {
-		title: React.PropTypes.string,             // 标题
-		content: React.PropTypes.oneOfType([       // 内容
+		title:PropTypes.string,             // 标题
+		content:PropTypes.oneOfType([       // 内容
 			React.PropTypes.string,
 			React.PropTypes.element
 		]),
-		okText: React.PropTypes.string,             // 确认按钮文本 （右侧按钮）
-		okCallback: React.PropTypes.func,           // 确定回调函数
-		cancelText: React.PropTypes.string,         // 取消按钮文本（左侧按钮）
-		cancelCallback: React.PropTypes.func,       // 取消回调函数
+		okText:PropTypes.string,             // 确认按钮文本 （右侧按钮）
+		okCallback:PropTypes.func,           // 确定回调函数
+		cancelText:PropTypes.string,         // 取消按钮文本（左侧按钮）
+		cancelCallback:PropTypes.func,       // 取消回调函数
 	}
 
 	show(options) {

@@ -30,7 +30,7 @@ class Index extends Component{
                     场所：<span>成都市锦江区新光华路7号航天科技大厦38楼</span>
                 </div>
                 <div className={styles.text}>
-                   <p>乙方：</p>
+                    <p>乙方：</p>
                     <p>宝点网用户名：</p>
                     <p>身份证号码：</p>
                 </div>
@@ -61,8 +61,8 @@ class Index extends Component{
                     g. 宝点网账户：指出借人或借款客户以自身名义在宝点网注册后系统自动产生的虚拟账户，通过第三方支付机构及/或其他通道进行充值或提现。
                 </div>
                 <div className={styles.text}>
-                   h.《宝点网借款合同》：指通过宝点网平台完成撮合的借款的借款合同（包括债权转让协议）。
-                 </div>
+                    h.《宝点网借款合同》：指通过宝点网平台完成撮合的借款的借款合同（包括债权转让协议）。
+                </div>
                 <div className={styles.text}>
                     i. 担保：指合作机构为出借人的借款提供的全额本息保障方式，包括但不限于以保证、抵押、质押等方式提供担保，或承诺进行代偿、债权回购或发放后备贷款等方式。
                 </div>
@@ -225,8 +225,8 @@ class Index extends Component{
 }
 const datas=(state)=>({})
 const dispatchFn=(dispatch)=>({
-     pop(){
-         dispatch(goBack())
-     }
+    pop(){
+        dispatch(goBack())
+    }
 })
 export default connect(datas,dispatchFn)(Index)

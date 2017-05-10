@@ -70,7 +70,7 @@ class DirectBuy extends React.Component {
       }
   }
     componentWillUnmount(){
-
+        this.props.clearData()
     }
     changePending=()=>{
         this.setState({
@@ -141,9 +141,10 @@ class DirectBuy extends React.Component {
 
   // 获取用户将要使用的优惠券
   getCoupon = () => {
+
     // 1. 用户选择的、可用的优惠券
     if (this.props.selectedCoupon && (this.props.selectedCoupon.type === '抵用券' && this.voucherIsAvailable(this.props.selectedCoupon) || this.props.selectedCoupon.type === '加息券')) {
-      return  this.props.selectedCoupon
+        return  this.props.selectedCoupon
     } else {
     // 2. 可用的、最优惠的优惠券
       return this.getMaxCoupon()
@@ -376,7 +377,6 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail
-     console.log(this.props)
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
@@ -516,6 +516,15 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'DIRECTINVEST_BUY'
+        })
+    },
+    clearData(){
+         dispatch({
+             type:'CLEAR_CONPONS'
+         })
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'AVAILABLE_COUPONS'
         })
     }
 })

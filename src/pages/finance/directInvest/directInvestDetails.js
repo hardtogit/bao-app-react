@@ -193,7 +193,7 @@ class Index extends Component{
                 <img src={arrow2} className={styles.suJt}/>
             </div>
             <div className={styles.timeBox}>
-                <DepTime type={1} startTime={interest_start_time} endTime={interest_end_time} Grade={credit_rating}
+                <DepTime type={'B'} startTime={interest_start_time} endTime={interest_end_time} Grade={credit_rating}
                          repayment={repayment} lx={type}/>
             </div>
                 <div className={styles.tabHeader}>

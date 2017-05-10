@@ -1,6 +1,7 @@
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import style from './index.css'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 class Publiclist extends Component{
     static propTypes={
         listData:PropTypes.object

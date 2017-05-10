@@ -7,7 +7,7 @@ import _ from 'lodash'
 import cn from 'classnames'
 import validate from './validate'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class BasePasswordInput extends React.Component {
   constructor(props) {
     super(props)
@@ -21,21 +21,21 @@ class BasePasswordInput extends React.Component {
   }
   static nameq = "BasePasswordInput";
   static propTypes = {
-    className: React.PropTypes.string,
-    noleftPadding: React.PropTypes.bool,     // 是否有左边内边距
-    label: React.PropTypes.string,
-    right: React.PropTypes.element,
-    name: React.PropTypes.string,
-    maxValue: React.PropTypes.number,
-    reg: React.PropTypes.object,
-    onInvalid: React.PropTypes.func,
-    borderType: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    noleftPadding: React.PropTypes.bool,     // 是否有左边内边距
-    containerStyle: React.PropTypes.object,
-    leftTextStyle: React.PropTypes.object,
-     icon:React.PropTypes.element,
-      imgSty:React.PropTypes.object
+    className: PropTypes.string,
+    noleftPadding: PropTypes.bool,     // 是否有左边内边距
+    label: PropTypes.string,
+    right: PropTypes.element,
+    name: PropTypes.string,
+    maxValue: PropTypes.number,
+    reg: PropTypes.object,
+    onInvalid: PropTypes.func,
+    borderType: PropTypes.string,
+    placeholder: PropTypes.string,
+    noleftPadding: PropTypes.bool,     // 是否有左边内边距
+    containerStyle: PropTypes.object,
+    leftTextStyle: PropTypes.object,
+     icon:PropTypes.element,
+      imgSty:PropTypes.object
   }
 
   setValue(value) {

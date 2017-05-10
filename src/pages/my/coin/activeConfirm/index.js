@@ -23,7 +23,6 @@ class Index extends React.Component{
         }
     }
     componentWillMount(){
-        console.log(this.props)
         this.props.getAddress();
     }
     componentWillReceiveProps(next){
@@ -41,7 +40,6 @@ class Index extends React.Component{
                     code,
                 }
             }=next;
-            console.log(code);
             if (code==100){
                 push(`/user/exchangeSuccess${search}`)
             }else {

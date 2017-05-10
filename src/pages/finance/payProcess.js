@@ -8,7 +8,7 @@ import LoadingDialog from '../../components/Dialog/loading'
 import util from '../../utils/utils'
 import styles from './payProcess.styl'
 import cn from 'classnames'
-
+import PropTypes from 'prop-types'
 class PayProcess extends React.Component {
   constructor(props) {
     super(props)
@@ -22,11 +22,11 @@ class PayProcess extends React.Component {
   }
 
   static propTypes = {
-    type: React.PropTypes.string, // demand deposit creditors directInvest
-    inputValue: React.PropTypes.number, // 初始购买金额
-    onClose: React.PropTypes.func, //
-    type: React.PropTypes.string,  // type 类型 ‘demand’ 'deposit' 'directInvest' 'creditors'
-    go: React.PropTypes.func, // go 路由跳转
+    type: PropTypes.string, // demand deposit creditors directInvest
+    inputValue: PropTypes.number, // 初始购买金额
+    onClose: PropTypes.func, //
+    type: PropTypes.string,  // type 类型 ‘demand’ 'deposit' 'directInvest' 'creditors'
+    go: PropTypes.func, // go 路由跳转
   }
 
   // 余额支付序列号
@@ -48,7 +48,7 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-       console.log(nextProps.balancePayData);
+      const {go,depositbs,clearDataResult} = this.props;
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
       // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
       //   this._onSelectPay(chosen)
@@ -61,13 +61,31 @@ class PayProcess extends React.Component {
     if (nextProps.balancePayPending) {
       this.refs.loading.show('支付中...')
     } else {
-      this.refs.loading.hide()
+      if (this.props.type!='depositB'){
+          this.refs.loading.hide()
+      }
+    }
+    if (nextProps.balancePayData&&nextProps.depositbsBuyResultData){
+        const code = nextProps.balancePayData.code;
+        if (code==100&&nextProps.depositbsBuyResultData.data.status==1){
+            go('/depositInvestSuccess/B');
+            nextProps.clear();
+        }else {
+            if (this.props.time<=3){
+                depositbs(nextProps.balancePayData)
+            }else {
+                nextProps.clear();
+                clearDataResult();
+                nextProps.changePending();
+                this.refs.loading.hide();
+                this.openErrorDialog('支付出错了')
+            }
+        }
     }
 
     if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
       const code = nextProps.balancePayData.code;
       const pending=nextProps.balancePayPending;
-      const go = this.props.go;
       if (code == 100&&pending) {
         // 支付成功
           let user=JSON.parse(sessionStorage.getItem('bao-user'));
@@ -75,9 +93,10 @@ class PayProcess extends React.Component {
           sessionStorage.setItem('bao-user',JSON.stringify(user));
           nextProps.changePending();
         switch(this.props.type) {
-          case 'deposit': go('/depositInvestSuccess'); break;
-          case 'directInvest': go('/directInvestSuccess'); break;
-          case 'creditors': go('/creditorInvestSuccess'); break;
+          case 'depositA': go('/depositInvestSuccess/A'); break;
+          case 'directInvest': go('/directInvestSuccess/A'); break;
+          case 'creditors': go('/creditorInvestSuccess/A'); break;
+          case 'depositB':depositbs(nextProps.balancePayData) ; break;
         }
         this.balancePayRedirectFlag = true
 
@@ -306,7 +325,7 @@ class PayProcess extends React.Component {
   renderBalanceContent (disable) {
     return (
       <div className={ disable ? styles.contentTextDisable : styles.contentText}>
-        {this.props.balance&&this.props.balance+'元'|| ''}
+        {!isNaN(this.props.balance)&&this.props.balance+'元'|| ''}
         {disable ? <span className={styles.contentMark}> (余额不足)</span> : null}
       </div>
     )

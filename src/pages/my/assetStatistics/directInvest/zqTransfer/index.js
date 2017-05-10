@@ -221,7 +221,6 @@ const dispatchFn=(dispatch)=>({
           })
     },
     clear(){
-        console.log('qingle ')
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'DIRECT_INVEST_TRANSFER'

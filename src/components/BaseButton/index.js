@@ -6,22 +6,22 @@ import React from 'react'
 import _ from 'lodash'
 import cn from 'classnames'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class BaseButton extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
   static propTypes = {
-    className: React.PropTypes.string, 
-    disable: React.PropTypes.bool,   // 是否可用状态  disable 默认为无效状态
-    text: React.PropTypes.oneOfType([  // 按钮文本
-      React.PropTypes.string, 
-      React.PropTypes.object
+    className: PropTypes.string,
+    disable: PropTypes.bool,   // 是否可用状态  disable 默认为无效状态
+    text: PropTypes.oneOfType([  // 按钮文本
+      PropTypes.string,
+      PropTypes.object
     ]),            
-    white: React.PropTypes.bool,    // 白色按钮
-    onClick: React.PropTypes.func,     // 点击回调函数
-    containerStyle: React.PropTypes.object
+    white: PropTypes.bool,    // 白色按钮
+    onClick: PropTypes.func,     // 点击回调函数
+    containerStyle: PropTypes.object
   }
 
 	handleClick = () => {   

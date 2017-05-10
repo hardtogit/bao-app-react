@@ -1,5 +1,8 @@
 .bg{
   background:#f0eff5;
+  position: absolute;
+  left: 0px;
+  top: 0px;
   width: 100%;
   height: 100%;
 }
@@ -80,7 +83,7 @@
   margin-top: 20px;
 }
 .money_detail li{
-  width: 200px;
+  width: 250px;
   margin: 10px auto 0;
   height: 20px;
   line-height: 20px;
@@ -117,6 +120,16 @@
    top: 5px;
    background: #fa394c;
  }
+.dc1{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background: #ff660a;
+}
 .zt{
   width: 10px;
   height: 10px;

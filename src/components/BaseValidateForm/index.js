@@ -6,7 +6,7 @@
 import React from 'react'
 import cn from 'classnames'
 import BaseInput from '../BaseInput'
-
+import PropTypes from 'prop-types'
 class ValidateForm extends React.Component {
   constructor(props) {
     super(props)
@@ -16,9 +16,9 @@ class ValidateForm extends React.Component {
   }
 
   static propTypes = {
-    className: React.PropTypes.string, 
-    onValid: React.PropTypes.func,   // 验证成功回调函数
-    onInvalid: React.PropTypes.func, // 验证失败回调函数
+    className: PropTypes.string,
+    onValid: PropTypes.func,   // 验证成功回调函数
+    onInvalid: PropTypes.func, // 验证失败回调函数
   }
 
   submitHandle() {

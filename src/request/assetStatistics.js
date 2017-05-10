@@ -6,7 +6,7 @@ const requests = (Fetch) => {
   // 理财金详情
   Fetch.privilegeDetail = () => { return Fetch('/privilege/detail', 'GET') }
   // 资产详情
-  Fetch.asset = () => { return Fetch('asset', 'GET') }
+  Fetch.asset = () => { return Fetch('api/assets', 'GET') }
   // 余额详情
   Fetch.balance = () => { return Fetch('balance/detail', 'GET') }
   // 余额详情

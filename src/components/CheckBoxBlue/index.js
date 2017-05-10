@@ -3,15 +3,16 @@
  */
 import React from 'react';
 import style from './index.css';
+import PropTypes from 'prop-types'
 export default class Index extends React.Component {
     constructor(props){
         super(props);
     }
     static propTypes = {
-        callBackFun:React.PropTypes.func,
-        status:React.PropTypes.bool,
-        id:React.PropTypes.number,
-        checkedCanClick:React.PropTypes.bool//选择状态能不能点
+        callBackFun:PropTypes.func,
+        status:PropTypes.bool,
+        id:PropTypes.number,
+        checkedCanClick:PropTypes.bool//选择状态能不能点
     };
     change=()=>{
         if(!this.props.checkCanClick && this.props.status){

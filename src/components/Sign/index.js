@@ -7,7 +7,7 @@ import toptitle from './images/sign.jpg';
 import done from './images/done.png';
 import pen from './images/sign_pen.png';
 import close from './images/closex.png';
-
+import PropTypes from 'prop-types'
 export default class SignModel extends React.PureComponent {
     constructor(props){
         super(props);
@@ -17,11 +17,11 @@ export default class SignModel extends React.PureComponent {
         }
     }
     static propTypes = {
-        mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
-        coin:React.PropTypes.number,
-        days:React.PropTypes.number,
-        sign:React.PropTypes.bool,
-        callBackFun:React.PropTypes.func
+        mode: PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
+        coin:PropTypes.number,
+        days:PropTypes.number,
+        sign:PropTypes.bool,
+        callBackFun:PropTypes.func
     };
     static defaultProps = {
         mode: 'ScaleModal'

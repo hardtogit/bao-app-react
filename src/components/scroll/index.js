@@ -1,8 +1,8 @@
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import classNames from 'classnames'
 import Config from './config'
 import styles from './index.css'
-
+import PropTypes from 'prop-types'
 class Scroll extends Component{
     static propTypes={
            height:PropTypes.number,

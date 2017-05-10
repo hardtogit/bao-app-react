@@ -2,7 +2,7 @@ import React from 'react'
 import Boron from '../../customized_node_modules/boron'
 import style from './index.less';
 import cs from 'classnames';
-
+import PropTypes from 'prop-types'
 export default class DurationSelectBox extends React.PureComponent {
     constructor(props){
         super(props);
@@ -12,11 +12,11 @@ export default class DurationSelectBox extends React.PureComponent {
         }
     }
     static propTypes = {
-        mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
-        items:React.PropTypes.arrayOf(React.PropTypes.number),//数据列表[1,3,6,12]
-        callBackFun:React.PropTypes.func.isRequired,
-        from:React.PropTypes.number.isRequired,
-        to:React.PropTypes.number.isRequired
+        mode: PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
+        items:PropTypes.arrayOf(PropTypes.number),//数据列表[1,3,6,12]
+        callBackFun:PropTypes.func.isRequired,
+        from:PropTypes.number.isRequired,
+        to:PropTypes.number.isRequired
     };
     static defaultProps = {
         mode: 'FlyModal',

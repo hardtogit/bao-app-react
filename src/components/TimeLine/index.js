@@ -1,9 +1,7 @@
-import React, {
-  PropTypes,
-} from 'react'
+import React from 'react'
 import styles from './index.styl'
 import cn from 'classnames'
-
+import PropTypes from 'prop-types'
 export default class TimeLine extends React.Component {
 
   static propTypes = {

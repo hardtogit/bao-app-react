@@ -1,238 +1,94 @@
-.Content{
-  position: absolute;
-  height:100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  overflow:auto;
-  width: 100%;
-    left: 0px;
-    top: 0px;
-}
-.bxBox{
-  text-align center
-  padding-top 20px
-  font-size 12px
+.title{
+  padding 15px 0px 10px 15px
+  font-size 14px
   color #AAAAAA
-  & img{
-    width 12px
-  }
-  & .bxText{
-    margin-left 8px
+  span{
+    color #f70
   }
 }
-.header {
-  background: $main
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pb 36
-}
-
-.safeplan {
-  font-size: 12px
-  color: #abeeff
-  mt: 40
-  display: flex
-  align-items: center
-
-  &::before {
-    content: ''
-    mr 8
-    bgimg url(../../../../assets/images/safeplan.png) contain
-    w 13
-    h 15
-  }
-
-  &::after {
-    content: ''
-    triangle 6px 12px right #abeeff
-    ml 6
+.planb{
+  position absolute
+  left 0px
+  height 100%
+  top 0px
+  width 100%
+  padding-top 54px
+  overflow auto
+  .pdTitle{
+    padding 0px 0px 10px 15px
   }
 }
-
-.rate {
-  po r
-  mt 20
-  w 286
-  h 144
-  overflow: hidden;
-  bgimg url(../../../../assets/images/huoproduct.png) contain
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  color: #fff
-  .chart {
-    po a
+.xsBox{
+    display block
+    margin: -3px 15px 2px 15px;
+    position relative
+  .bg{
+    width 100%
   }
-
-  p {
-    &:nth-child(1) {
-      font-size: 12px
+    .bj{
+      width 36px
+      height 36px
+      position absolute
+      left 15px
+      top 50%
+      margin-top -20px
     }
-    &:nth-child(2) {
-      font-size: 60px
-      line-height 1
-      mt 15
-
-      span {
-        font-size: 15px
-      }
-    }
+}
+  .text{
+    position absolute
+    left 0px
+    top 50%
+    width 100%
+    padding-left 67px
+    transform: translate(0px,-50%);
+    font-size 14px
+    color #f7625f
+  }
+ .money{
+   font-size 20px
+ }
+ .right{
+   display inline-block
+   width 27%
+   float right
+   text-align center
+   font-size 13px
+   font-weight normal
+ }
+.xsBox{
+  display block
+  margin: -3px 15px 2px 15px;
+  position relative
+  .bg{
+    width 100%
+  }
+  .bj{
+    width 36px
+    height 36px
+    position absolute
+    left 15px
+    top 50%
+    margin-top -20px
   }
 }
-
-.detail {
-  color: #fff
-  display: flex;
-  align-items: center;
-  font-size: 15px
-  mt 42
-  &::after {
-    content: ''
-    ml 5
-    w 8
-    h 15
-    bgimg url(../../../../assets/images/arrowwhite.png) contain
-  }
+.text{
+  position absolute
+  left 0px
+  top 50%
+  width 100%
+  padding-left 67px
+  transform: translate(0px,-50%);
+  font-size 14px
+  color #f7625f
 }
-
-.content {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-
-
+.money{
+  font-size 20px
 }
-
-.newUser {
-  mt 30
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  p {
-    &:nth-child(1) {
-      display: flex;
-      align-items: center;
-      font-size: 14px
-      color #626262
-      span {
-        color #ff7700
-      }
-      &::before {
-        content: ''
-        h 1
-        w 15
-        bg #626262
-        mr 5
-      }
-      &::after {
-        content: ''
-        h 1
-        w 15
-        bg #626262
-        ml 5
-      }
-    }
-    &:nth-child(2) {
-      mt 12
-      font-size: 17px
-      color #ff7700
-      display: flex;
-      align-items: center;
-      &::after {
-        content: ''
-        ml 5
-        w 8
-        h 14
-        bgimg url(../../../../assets/images/harrow.png) contain
-      }
-    }
-  }
-}
-
-.limit {
-  mt 33
-  padding 0 22px
-  display: flex;
-  min-height: 23px
-  & > div {
-    display: flex;
-    flex 1
-    align-items: center;
-    color #aaa
-    font-size: 18px
-    &:nth-child(1) {
-      justify-content: flex-start;
-    }
-    &:nth-child(2) {
-      justify-content: center;
-    }
-    &:nth-child(3) {
-      justify-content: flex-end;
-    }
-  }
-  .chosen {
-    color #00b0e6
-    font-size: 25px
-    line-height: 0.7
-    display: flex;
-    flex-direction: column;
-    transition: color .3s
-    &::after {
-      content: ''
-      h 2
-      bg #00b0e6
-      bottom -16px
-      po r
-    }
-  }
-}
-
-.buy {
-  mt 52
-  display: flex;
-  justify-content: center;
-  button {
-    border-radius: 25px
-    h 44
-    w 243
-    font-size: 20px
-    color #fff
-    border 0
-    bg #ff7700
-  }
-}
-
-.redFriday {
-  w 60
-  h 171
-  po a
-  top 55px
-  right 15px
-
-  .gif {
-    bgimg url(../../../../assets/images/red_friday.png) contain
-    w 65
-    h 150
-    mt 20
-    transition: all 1s ease
-  }
-
-  .down {
-    transform: translate3d(0, 20px, 0);
-  }
-
-  .cross {
-    po a
-    top 0
-    right 0
-    h 18
-    w 18
-    bg rgb(178,178,178)
-  }
-  .crossLine{
-    bg #faf0f0
-    h 55%
-  }
+.right{
+  display inline-block
+  width 27%
+  float right
+  text-align center
+  font-size 13px
+  font-weight normal
 }

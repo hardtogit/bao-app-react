@@ -1,13 +1,13 @@
 import React from 'react'
 const {PulseLoader} = require('../../../customized_node_modules/halogen')
-
+import PropTypes from 'prop-types'
 export default class InlineLoading extends React.Component {
 
   static propTypes = {
-    color: React.PropTypes.string,
-    size: React.PropTypes.string,
-    className:React.PropTypes.string,
-    text:React.PropTypes.string
+    color: PropTypes.string,
+    size: PropTypes.string,
+    className:PropTypes.string,
+    text:PropTypes.string
   }
 
   static defaultProps = {

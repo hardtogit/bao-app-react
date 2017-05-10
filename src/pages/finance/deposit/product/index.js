@@ -19,11 +19,26 @@ import setUrl from '../../../../components/setUrl'
 class ProductDetail extends React.Component {
 
   state = {
-    descActive: false
+    descActive: false,
+    type:'A'
   }
-
+  componentWillMount(){
+      this.setState({
+          type:this.props.params.type
+      })
+  }
   componentDidMount() {
-    this.props.get(this.props.params.id)
+      const {params:{type,productId},getList,get,getB}=this.props;
+      const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
+     if (type=='B'){
+         getB(productId);
+         if (depositbs==null){
+             getList();
+         }
+     }
+     if (type=='A'){
+         get(productId)
+     }
   }
   loading(){
       return(<Loading/>)
@@ -31,10 +46,19 @@ class ProductDetail extends React.Component {
   Timer=(monthN)=>{
       const {
           datas,
+          datasB,
+          params:{
+              id,
+              type
+          }
       }=this.props;
+      let data=datas;
+      if (type=='B'){
+          data=datasB
+      }
       const {
           currentTime
-      }=datas.data;
+      }=data.data;
       let startTime,
           endTime,
           time=new Date(parseInt(currentTime)*1000),
@@ -42,7 +66,7 @@ class ProductDetail extends React.Component {
           month=time.getMonth()+1,
           date=time.getDate();
           startTime=year+'年'+month+'月'+date+'日';
-          month=month+monthN;
+          month=month+parseInt(monthN);
           if (month>12){
               month=month-12;
               year=year+1;
@@ -60,28 +84,31 @@ class ProductDetail extends React.Component {
       }
       return money
   }
-  loadEnd=()=>{
+  loadEnd=(depositbs,isbuy,num)=>{
       const {
           push,
           deposit,
           datas,
+          datasB,
           new_deposit,
           params: {
               id,
+              type:lx
           },
       } = this.props;
+      const {type}=this.state;
       let rate = 0;
       let month = 0;
       let qt=1000;
+      let depositN=deposit;
+      let periods=datas;
+      if (lx=='B'){
+           depositN=depositbs;
+          periods=datasB
+      }
       if (id!=5){
-          deposit.some((item, i) => {
-              if (item.id == id) {
-                  rate = +item.rate
-                  month = +item.month
-                  return true
-              }
-              return false
-          })
+          rate = depositN[id].rate;
+          month = depositN[id].month;
       }else {
           rate=new_deposit.rate;
           month=new_deposit.month;
@@ -91,14 +118,24 @@ class ProductDetail extends React.Component {
       const {
           startTime,
           endTime
-      }=this.Timer(month);
+      }=this.Timer(month,depositN);
       const money=this.moneyFn(rate,month);
-      const bData=[{name:'起投金额',val:qt},{name:'锁定时间',val:month+'个月'}];
+      const textTz=lx=='A'?'锁定时间':'投资时间';
+      const bData=[{name:'起投金额',val:qt},{name:textTz,val:month+'个月'}];
+      let text='马上买入';
+      let flag=false
+      if (isbuy&&num==0){
+          text='已售罄'
+          flag=true
+      }else if (!isbuy){
+          text='未开始'
+          flag=true
+      }
       return(
       <div>
           <Header rate={rate}  data={bData}/>
           <div className={styles.timeBox}>
-          <DepTime startTime={startTime} endTime={endTime}/>
+          <DepTime startTime={startTime} endTime={endTime} type={type}/>
           </div>
           <div className={styles.depositBox}>
               <div className={styles.profit}>
@@ -130,10 +167,10 @@ class ProductDetail extends React.Component {
                       <img src={introduce}/>
                   </span>
                       <span>
-                         定存宝详情
+                         定存宝介绍
                      </span>
                   </li>
-                  <li onClick={()=>{push('/planDetails/'+id)}}>
+                  <li onClick={()=>{push('/planDetails/'+id+'/'+this.props.params.type)}}>
                       <span>
                       <img src={details}/>
                   </span>
@@ -141,7 +178,7 @@ class ProductDetail extends React.Component {
                         计划详情
                    </span>
                   </li>
-                  <li onClick={()=>{push('/demand-related-projects/'+datas.data.periods)}}>
+                  <li onClick={()=>{push('/demand-related-projects/'+periods.data.periods+'/'+lx)}}>
                    <span>
                       <img src={project}/>
                   </span>
@@ -152,11 +189,11 @@ class ProductDetail extends React.Component {
               </ul>
           </div>
           <div className={classNames(styles.depositBox,styles.pdAll1)}>
-              累计加入{datas.data.total}人
+              累计加入{periods.data.total}人
           </div>
           <div className={styles.bottom}>
               <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-              <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
+              <button onClick={()=>{this.purchase(id,lx,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
           </div>
           <Calculator
               ref="calculator"
@@ -171,9 +208,8 @@ class ProductDetail extends React.Component {
           <IsAuth ref="isAuth"/>
       </div>)
   }
-  purchase=(id,push)=>{
-      console.log(this.props)
-      this.refs.isAuth.Verification('/deposit-buy/'+id,push,this.succsseFn,this.props.location.pathname)
+  purchase=(id,lx,push)=>{
+      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`,push,this.succsseFn,this.props.location.pathname)
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)
@@ -181,17 +217,28 @@ class ProductDetail extends React.Component {
   render() {
     const {
         datas,
-        pop
+        pop,
+        datasB,
+        params:{type:lx,id}
     }=this.props;
-    let Dom;
-    if (!datas){
-        Dom=this.loading()
+    const {
+        type
+    }=this.state;
+    let Dom=this.loading();
+    if (lx=='A'){
+        const deposit=JSON.parse(sessionStorage.getItem('bao-deposit'));
+        if (datas){
+            Dom=this.loadEnd('',deposit.deposit[id].isBuy,datas.data.quantity)
+        }
     }else {
-        Dom=this.loadEnd()
+        const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));
+        if (datasB&&depositbs){
+            Dom=this.loadEnd(depositbs.list,depositbs.list[id].isBuy,datasB.data.remain)
+        }
     }
     return (
       <div className={styles.root}>
-        <NavBar onLeft={pop}>定存宝详情</NavBar>
+        <NavBar onLeft={pop}>{type=='A'&&(id==5&&'新手标计划详情'||'定存宝A计划详情')||'定存宝B计划详情'}</NavBar>
           {
               Dom
           }
@@ -207,7 +254,8 @@ const mapStateToProps = (state) => {
     // 累计加入人数
     total: state.infodata.getIn([DEPOSIT_DETAIL, 'data']) && state.infodata.getIn([DEPOSIT_DETAIL, 'data']).data.total || 0,
     userInfoCode: state.infodata.getIn([USER_INFO, 'data']) && state.infodata.getIn([USER_INFO, 'data']).code || 0,
-    datas:state.infodata.getIn(['DEPOSIT_DETAILS','data'])
+    datas:state.infodata.getIn(['DEPOSIT_DETAILS','data']),
+    datasB:state.infodata.getIn(['DEPOSITBS_DETAILS','data'])
   }
 }
 
@@ -226,6 +274,17 @@ const mapDispatchToProps = (dispatch) => ({
 
     })
   },
+    getB(id){
+      dispatch({
+          type:'DEPOSITBS_DETAILS',
+          params:[id]
+      })
+    },
+    getList(){
+        dispatch({
+            type:'DEPOSITBS_PLANB'
+        })
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(ProductDetail))

@@ -14,7 +14,7 @@ import scratcheCard from './scratcheCard.js'
 import shopping from './shopping'
 
 const ROOT_URL = '/mobile_api/'
-
+//const ROOT_URL = '/'
 const transferObjectToFormat = (o) => {
   let result = []
   Object.keys(o).map(key => result.push(key + '=' + encodeURIComponent(o[key])))
@@ -30,7 +30,6 @@ const Fetch = (url, type, data, headers) => {
     }
     let _headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      "bao-auth":'hdj',
     }
 
     options.headers = Object.assign({

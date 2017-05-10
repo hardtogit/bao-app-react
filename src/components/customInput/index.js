@@ -6,7 +6,7 @@ import React from 'react'
 import lodash from 'lodash'
 import util from '../../utils/utils.js'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 export default class BuyNumberInput extends React.Component {
   constructor(props) {
     super(props)
@@ -28,14 +28,14 @@ export default class BuyNumberInput extends React.Component {
   }
 
   static propTypes = {
-    onChange: React.PropTypes.func,  // 输入框内数值发生变化触发回调 第一个参数为值
-    type: React.PropTypes.string,     // 输入框数值类型 默认 integer、 number
-    label: React.PropTypes.string,   // 输入框内容后面的文本
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    onChange: PropTypes.func,  // 输入框内数值发生变化触发回调 第一个参数为值
+    type: PropTypes.string,     // 输入框数值类型 默认 integer、 number
+    label: PropTypes.string,   // 输入框内容后面的文本
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),   // 初始值
-    containerStyle: React.PropTypes.object
+    containerStyle: PropTypes.object
   }
   decreaseHandle() {
     this.blur()
@@ -46,7 +46,11 @@ export default class BuyNumberInput extends React.Component {
       }
     }
   }
-
+    componentWillReceiveProps(next){
+    this.setState({
+        value:next.value
+    })
+    }
   increaseHandle() {
     this.blur()
     const value = Number(this.state.value);
@@ -64,26 +68,27 @@ export default class BuyNumberInput extends React.Component {
     }else {
         this.setState({value})
     }
-    this.props.onChange && this.props.onChange(value || 0)
+    this.props.onChange && this.props.onChange(value)
   }
 
   changeHandle = (value) => {
+      const val=parseInt(value);
     if (this.props.minValue && value < this.props.minValue) {
-      return this._changeHandle(this.props.minValue)
+      return this._changeHandle(parseInt(value))
     }
 
-    if (!value)
-      return this._changeHandle('')
-
-    if (value == 0)
+    if (isNaN(val)){
+        return this._changeHandle('')
+    }
+    if (val == 0)
       return this._changeHandle(0)
 
     if (this.props.type == 'number' && (/^\d*$/.test(value) || /^\d+\.\d{0,1}$/.test(value))) {
-      return this._changeHandle(value)
+      return this._changeHandle(val)
     }
 
-    if (util.checkInteger(value))
-      return this._changeHandle(value)
+    if (util.checkInteger(val))
+      return this._changeHandle(val)
 
     this.setState({value: this.state.value})
   }
@@ -104,7 +109,7 @@ export default class BuyNumberInput extends React.Component {
   }
 
   render() {
-    const value = this.state.isFocus ? this.state.value : this.state.value + this.label
+    const value = this.state.isFocus ? this.state.value : this.state.value + this.label;
     return (
       <div className={styles.container} style={this.props.containerStyle}>
         <span className={styles.opeBtnWrap} onClick={this.decreaseHandle.bind(this)}>

@@ -9,6 +9,7 @@ import styles from './index.css'
 import classNames from 'classnames'
 //定存宝
 import DepositIndex from '../deposit/index'
+import DepositPlanB from '../deposit/planB'
 //直投项目
 import DirectInvestIndex from '../directInvest/index'
 //债权转让
@@ -20,14 +21,16 @@ class financeIndex extends Component{
 		 this.state={
 			 titleCav:[
 			 {
-				 title:'定存宝',
+				 title:'定存宝A',
 			 },{
+                     title:'定存宝B',
+                 },{
 				 title:'直投项目'
 			 },{
 				 title:'债权转让'
 			 }],
 			 Index:0,
-             tabs:[DepositIndex,DirectInvestIndex,CreditorsIndex]
+             tabs:[DepositIndex,DepositPlanB,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
 	 componentWillMount(){
@@ -68,6 +71,7 @@ class financeIndex extends Component{
 				 {
 					 title
 				 }
+					 {title=='定存宝B'&&<span className={styles.planBicon}></span>||''}
 				 </div>
 				</Tab>
 				

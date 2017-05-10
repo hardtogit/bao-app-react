@@ -1,17 +1,18 @@
 /**
  * Created by wangdongfang on 17/2/14.
  */
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import styles from './index.styl'
 import start from '../../assets/images/lxStart.png'
 import locking from '../../assets/images/lxSd.png'
 import arrival from '../../assets/images/lxArrival.png'
 import Interest from '../../assets/images/Interest.png'
+import PropTypes from 'prop-types'
 class Index extends Component{
     static propTypes={
           startTime:PropTypes.string,
           endTime:PropTypes.string,
-          type:PropTypes.number,
+          type:PropTypes.string,
           lx:PropTypes.number,
           Grade:PropTypes.string,
           repayment:PropTypes.string,
@@ -19,10 +20,10 @@ class Index extends Component{
     static defaultProps={
         startTime:'20170214',
         endTime:'20170214',
-        type:0,
+        type:'A',
         lx:2,
         Grade:'A',
-        repayment:'每月还息 到期还'
+        repayment:'每月还息 到期还本'
     }
     constructor(props){
         super(props)
@@ -57,7 +58,7 @@ class Index extends Component{
 
                               </span>
                                 <span className={styles.locking}>
-                                    {type==0&&<img src={locking}/>||<img src={Interest}/>}
+                                    {type=='A'&&<img src={locking}/>||<img src={Interest}/>}
                              </span>
                                 <span className={styles.hx}>
 
@@ -82,7 +83,7 @@ class Index extends Component{
                             <li>
                                 <p>
                                     {
-                                        type==0&&'锁定期'||repayment
+                                        type=='A'&&'锁定期'||repayment
                                     }
                                 </p>
                             </li>
@@ -98,7 +99,7 @@ class Index extends Component{
                               产品类型
                           </span>
                             <span className={styles.dbType}>
-                                {this.state.lx[lx-1]}
+                                抵押标
                             </span>
                         </p>
                         <p>

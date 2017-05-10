@@ -13,5 +13,6 @@ const config = {
      // requestUrl:'http://api.51.devbao.cn/' //51接口
    //requestUrl: 'https://staging-react.devbao.cn/',//外网测试
     //requestUrl: 'http://zhaosigui.api.baod.com/',//外网测试
+    //requestUrl:'http://zhouyangzhi.api.dev.devbao.cn/'
 };
 module.exports = config;

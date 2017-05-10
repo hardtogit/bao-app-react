@@ -4,6 +4,7 @@
 import React from 'react';
 import style from './index.css';
 import classNames from 'classnames';
+import PropTypes from 'prop-types'
 export default class Index extends React.Component {
     constructor(props){
         super(props);
@@ -17,10 +18,10 @@ export default class Index extends React.Component {
             checkedCanClick:true
     };
     static propTypes = {
-        callBackFun:React.PropTypes.func,
-        status:React.PropTypes.bool,
-        id:React.PropTypes.number,
-        checkedCanClick:React.PropTypes.bool//选中了是否还能切换
+        callBackFun:PropTypes.func,
+        status:PropTypes.bool,
+        id:PropTypes.number,
+        checkedCanClick:PropTypes.bool//选中了是否还能切换
     };
     change=()=>{
         if(!this.props.checkedCanClick && this.state.open){

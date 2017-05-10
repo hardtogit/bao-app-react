@@ -7,7 +7,7 @@ const requests = (Fetch) => {
   // 直投项目列表
   Fetch.directInvestProjects = (page) => { return Fetch(`directInvest/projects?page=${page}`, 'GET') }
     // 定存宝涉及项目
-  Fetch.involveProjectList=(page,periods)=>{return Fetch(`deposit/involve-project-list?page=${page}&periods=${periods}`,'GET')}
+  Fetch.involveProjectList=(page,periods,type)=>{return Fetch(`api/depositbs/involveProjectList?type=${type}&nper=${periods}&page=${page}`,'GET')}
   // 直投项目产品详情
   Fetch.directInvestProductDetail = (directInvestId) => { return Fetch(`directInvest/index/${directInvestId}`) }
   // 直投项目投资记录
@@ -51,7 +51,17 @@ const requests = (Fetch) => {
   // 零钱宝赎回
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
-    Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+  Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+  Fetch.depositbs=()=>{return Fetch('api/depositbs','GET')}
+  Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}`,'GET')}
+  Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}`,'GET')}
+  Fetch.depositbsAccountCapitalInfo=()=>{return Fetch('api/depositbs/accountCapitalInfo','GET')}
+  Fetch.depositbsAccountCapitalList=(page,type)=>{return Fetch(`api/depositbs/accountCapitalList/${type}/${page}`,'GET')}
+  Fetch.depositbsBuy=(productId,num,couponId,password,type)=>{return Fetch(`api/depositbs/buy?productId=${productId}&num=${num}&couponId=${couponId}&password=${password}&type=${type}`,'GET')}
+  Fetch.depositbsBuyResult=(id)=>{return Fetch(`api/depositbs/buyResult/${id}`,'GET')}
+  Fetch.depositbsContract=(id)=>{return Fetch(`api/depositbs/contract/${id}`,'GET')}
+  Fetch.depositasInvest=(id)=>{return Fetch(`api/depositas/invest/${id}`,'GET')}
+  Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
 }
 
 export default requests

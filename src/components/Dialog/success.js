@@ -8,7 +8,7 @@ import Boron from '../../customized_node_modules/boron'
 import Dialog from './index'
 import helper from './helper.js'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 export default class Success extends React.Component {
   constructor(props) {
     super(props)
@@ -18,10 +18,10 @@ export default class Success extends React.Component {
   }
 
   static propTypes = {
-    time: React.PropTypes.number,           // 关闭时间
-    text: React.PropTypes.string,           // 文本
-    mode: React.PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
-    callback: React.PropTypes.func,
+    time: PropTypes.number,           // 关闭时间
+    text: PropTypes.string,           // 文本
+    mode: PropTypes.oneOf(['OutlineModal', 'ScaleModal', 'FadeModal', 'FlyModal', 'DropModal', 'WaveModal']),
+    callback: PropTypes.func,
   }
 
   static defaultProps = {

@@ -1,6 +1,7 @@
-import React,{Component,PropTypes} from 'react' 
+import React,{Component} from 'react'
 import Loaders from '../../customized_node_modules/halogen'
 import styles from './index.less'
+import PropTypes from 'prop-types'
 class PageLoading extends Component{
     static PropTypes={
            Text:PropTypes.string,

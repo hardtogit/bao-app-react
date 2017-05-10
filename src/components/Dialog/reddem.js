@@ -10,7 +10,7 @@ import cn from 'classnames'
 import styles from './index.styl'
 import Utils from '../../utils/utils.js'
 import _ from 'lodash'
-
+import PropTypes from 'prop-types'
 export default class ReddemDialog extends React.Component {
   constructor(props) {
     super(props)
@@ -24,14 +24,14 @@ export default class ReddemDialog extends React.Component {
   }
 
   static propTypes = {
-    title: React.PropTypes.string,
-    money: React.PropTypes.number,
-    okText: React.PropTypes.string,             // 确认按钮文本 （右侧按钮）
-    okCallback: React.PropTypes.func,           // 确定回调函数
-    cancelText: React.PropTypes.string,         // 取消按钮文本（左侧按钮）
-    cancelCallback: React.PropTypes.func,       // 取消回调函数
-    placeholder: React.PropTypes.string,
-    detailText: React.PropTypes.string
+    title:PropTypes.string,
+    money:PropTypes.number,
+    okText:PropTypes.string,             // 确认按钮文本 （右侧按钮）
+    okCallback:PropTypes.func,           // 确定回调函数
+    cancelText:PropTypes.string,         // 取消按钮文本（左侧按钮）
+    cancelCallback:PropTypes.func,       // 取消回调函数
+    placeholder:PropTypes.string,
+    detailText:PropTypes.string
   }
 
   static defaultProps = {

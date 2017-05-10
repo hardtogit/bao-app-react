@@ -1,126 +1,92 @@
 import React from 'react';
 import styles from './index.styl';
-import RadialBarChart from '../../../../components/RadialBarChart/';
-import IsAuth from '../../../../components/isAuth'
 import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
-import {Motion, spring, presets} from 'react-motion'
-import Cross from '../../../../components/Cross'
-import classnames from 'classnames'
-import moment from 'moment'
+import List from '../../../../components/depositList/index'
+import Alert from '../../../../components/Dialog/alert'
 import {RATE, USER_INFO} from '../../../../actions/actionTypes'
-import bx from '../../../../assets/images/safe-icon.png'
-import setUrl from '../../../../components/setUrl'
+import cns from 'classnames'
+import Loading from '../../../../components/pageLoading'
+import Couponimg from '../../../../assets/images/coupon1.png'
+import Coupon1 from '../../../../assets/images/registerVoucher.png'
 class DepositIndex extends React.Component {
-  state = {
-      // 默认选中第二个定存期限
-      chosen: 1,
-
-      showRedFriday: true,
-
-      // rate.id
-      id: -1,
-  }
-    componentWillMount(){
-     const {
-         pageIndex,
-         pageIndexs
-     }=this.props;
-         this.setState({
-             chosen:pageIndex
-         })
-        pageIndexs();
-  }
-  isFriday = (x) => {
-      if (!x) return false
-      return moment(x, 'X').day() === 5
-  }
-
-  buyHandle = () => {
-         this.refs.isAuth.Verification('/deposit-buy/' + this.props.rate[this.state.chosen].id,this.props.push,this.succsseFn);
-  }
-  succsseFn=()=>{
-      setUrl.setUrl('/home/productIndex')
-  }
-  render() {
-    const {
-      rate,
-      serverTime,
-      push,
-      userInfoCode,
-    } = this.props;
-    const curRate = rate.length ? +rate[this.state.chosen].rate : 0
-    const id = rate.length ? +rate[this.state.chosen].id : -1
-    return (
-      <div className={styles.Content}>
-        <div className={styles.header}>
-          <p onClick={() => push('/safeplan')} className={styles.safeplan}>已加入安全保障计划</p>
-          <div className={styles.rate}>
-            <p>约定年化收益</p>
-            <Motion defaultStyle={{x: 0}} style={{x: spring(curRate, presets.stiff)}}>
-              {value => <p>{value.x.toFixed(2)}<span>%</span></p>}
-            </Motion>
-            <RadialBarChart rate={Math.pow(curRate, 2) - 50} max={150} />
-          </div>
-          <p onClick={() => push(`/deposit-product/${id}`)} className={styles.detail}>产品详情</p>
-        </div>
-        <div className={styles.content}>
-          {userInfoCode != 100 && (<div onClick={() => push('/register')} className={styles.newUser}>
-            <p>新用户注册送<span>800元</span>抵用券</p>
-            <p>去注册</p>
-          </div>)}
-          <div className={styles.limit}>
-            {rate.map(({month}, i) => (
-              <div key={i} onClick={() => this.setState({chosen: i})}>
-                <span className={this.state.chosen === i && styles.chosen}>{month}个月</span>
-              </div>
-            ))}
-          </div>
-          <div className={styles.buy}>
-            <button onClick={this.buyHandle}>马上买入</button>
-          </div>
-           <div className={styles.bxBox}>
-               <span>
-                   <img src={bx}/>
-               </span>
-               <span className={styles.bxText}>
-                   账户安全由阳光保险全额承保
-               </span>
-           </div>
-        </div>
-          <IsAuth ref="isAuth"/>
-        {this.isFriday(serverTime) && this.state.showRedFriday && <RedFriday onClose={() => this.setState({showRedFriday: false})} href="https://www.bao.cn/zt/activity/scratch" />}
-      </div>
-    )
-  }
-}
-
-class RedFriday extends React.PureComponent {
-
-    state = {
-        down: false
+    componentDidMount(){
+        const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
+        if (deposit==null){
+            this.props.getList();
+        }
     }
-
-    componentDidMount() {
-        this.timer = setTimeout(this.toggle)
-    }
-
-    componentWillUnmount() {
-        this.timer && clearTimeout(this.timer)
-    }
-
-    toggle = () => this.setState({down: !this.state.down})
-
-    render() {
-        return (
-            <div className={styles.redFriday}>
-                <Cross onClick={this.props.onClose} className={styles.cross} lineClass={styles.crossLine}/>
-                <a href={this.props.href}><div onTransitionEnd={this.toggle} className={classnames(styles.gif, this.state.down && styles.down)}></div></a>
+    bannerDom=()=>{
+        const {push}=this.props;
+        const user=sessionStorage.getItem("bao-auth");
+        const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
+        if (!user){
+            return <div className={styles.xsBox} onClick={()=>{push('/register')}}>
+                <img src={Couponimg} className={styles.bg}/>
+                <img src={Coupon1} className={styles.bj}/>
+                <div className={styles.text}>
+                     <span>
+                    新用户注册注册即送<span className={styles.money}>800</span>￥
+                </span>
+                    <span className={styles.right}>
+                    点击<br/>领取
+                </span>
+                </div>
             </div>
-        )
+        }else {
+            let {voucher,interestRateSecurities}=userInfo;
+            if (!voucher&&!interestRateSecurities){
+                return false
+            }else {
+                return <p className={cns(styles.title,styles.pdTitle)}>
+                    您当前有{voucher&&<span>{voucher}张抵用券</span>||null}{(interestRateSecurities&&voucher)&&'和'||null}{interestRateSecurities&&<span>{interestRateSecurities}张加息券</span>||null}未使用
+                </p>
+            }
+        }
     }
-}
+    loadDom=()=>{
+        return <Loading/>
+    }
+    go(index,id,soldOut,isBuy){
+        const {push}=this.props;
+        if (!isBuy){
+            this.refs.alert.show({
+                title: '',
+                content:'产品购买未开始',
+                okText:'知道了',
+            })
+        }else if (!soldOut){
+            this.refs.alert.show({
+                title: '',
+                content:'产品已售罄',
+                okText:'知道了',
+            })
+        }else {
+            push(`/deposit-product/${index}/A/${id}`)
+        }
 
+    }
+    loadEndDom=(deposit)=>{
+        const {push}=this.props;
+        return(<div>
+            <List go={(index,id,soldOut,isBuy)=>{this.go(index,id,soldOut,isBuy)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
+        </div>)
+    }
+      render(){
+          const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
+          let Dom=this.loadDom();
+          if (deposit){
+              Dom=this.loadEndDom(deposit)
+          }
+          return(
+              <div className={styles.planb}>
+                  {this.bannerDom()}
+                  {Dom}
+                  <Alert ref="alert"/>
+              </div>
+          )
+      }
+}
 const mapStateToProps = (state) => {
     return {
         rate: state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.deposit || [],
@@ -142,6 +108,11 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch({
             type:'PRODUCT_INDEX_PAGE',
             index:1
+        })
+    },
+    getList(){
+        dispatch({
+            type:'RATE'
         })
     }
 })

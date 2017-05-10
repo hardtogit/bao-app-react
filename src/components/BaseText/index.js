@@ -6,7 +6,7 @@ import React from 'react'
 import _ from 'lodash'
 import cn from 'classnames'
 import styles from './index.styl'
-
+import PropTypes from 'prop-types'
 class BaseText extends React.Component {
   constructor(props) {
     super(props)
@@ -18,22 +18,22 @@ class BaseText extends React.Component {
   }
     static nameq = "BaseText";
   static propTypes = {
-    className: React.PropTypes.string,
-    defaultValue: React.PropTypes.string,   // 默认值
-    label: React.PropTypes.string,          // 左侧文本
-    content: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.element
+    className: PropTypes.string,
+    defaultValue: PropTypes.string,   // 默认值
+    label: PropTypes.string,          // 左侧文本
+    content: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element
     ]),                                     // 中间内容　
-    right: React.PropTypes.oneOfType([      // 右侧图标
-      React.PropTypes.bool,
-      React.PropTypes.element
+    right: PropTypes.oneOfType([      // 右侧图标
+      PropTypes.bool,
+      PropTypes.element
     ]),
-    borderType: React.PropTypes.string,    // 边框类型
-    onClick: React.PropTypes.func,         // 点击触发事件
-    onChange: React.PropTypes.func,        // 值发生变化触发事件
-    containerStyle: React.PropTypes.object,
-    contentStyle: React.PropTypes.object,
+    borderType: PropTypes.string,    // 边框类型
+    onClick: PropTypes.func,         // 点击触发事件
+    onChange: PropTypes.func,        // 值发生变化触发事件
+    containerStyle: PropTypes.object,
+    contentStyle: PropTypes.object,
   }
 
   validateRun() {
