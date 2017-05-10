@@ -217,8 +217,8 @@ class Index extends React.Component {
                         <li>产品到期日<p>{endStrTime}</p></li>
                         <li>产品起息日<p>{startStrTime}</p></li>
                     </ul>
-                    {type==5&&<li className={styles.Onetitle}>回款记录</li>||''}
-                    {type==5&&<ul>
+                    {(type==5&&currentPeriod!='')&&<li className={styles.Onetitle}>回款记录</li>||''}
+                    {(type==5&&currentPeriod!='')&&<ul>
                         <li>当前期数<p>期数：{currentPeriod}</p></li>
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>
