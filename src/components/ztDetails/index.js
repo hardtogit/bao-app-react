@@ -79,10 +79,9 @@ class Index extends React.Component {
             rate
         }=data;
         const {type}=this.props;
-        console.log(type)
         return(<div>
             <div className={styles.listBoxOne}>
-                <h2>{name}<span>({investId})</span></h2>
+                <h2>{name}</h2>
                 <p><span>{month}个月</span><span>约定年化收益率{rate}%</span><span style={{float:'right'}}>{type==6?'到期还本付息':'每月还息  到期还本'}</span></p>
             </div>
             <div className={styles.listBoxTwo}>
