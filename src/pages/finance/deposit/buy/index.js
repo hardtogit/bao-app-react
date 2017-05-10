@@ -237,11 +237,9 @@ class DepositBuy extends React.Component {
         quantity,
     }=this.state;
     const {quantityData,quantityDataB}=this.props;
+    console.log(quantityData)
     if (type=='A'){
         if (quantityData){
-            if (id==5){
-                return true
-            }
             if (!quantityData.data.isBuy){
                 return false
             }

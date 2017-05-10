@@ -230,7 +230,7 @@ class ProductDetail extends React.Component {
         if (datas){
             let bool=true;
             if (id!=5){
-                bool=deposit[id].isBuy;
+                bool=deposit.deposit[id].isBuy;
             }else {
                bool=deposit.new_deposit.isBuy;
             }
