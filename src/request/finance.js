@@ -62,6 +62,7 @@ const requests = (Fetch) => {
   Fetch.depositbsContract=(id)=>{return Fetch(`api/depositbs/contract/${id}`,'GET')}
   Fetch.depositasInvest=(id)=>{return Fetch(`api/depositas/invest/${id}`,'GET')}
   Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
+  Fetch.newUserActivity=()=>{ return Fetch(`new-user-activity`,'GET')}
 }
 
 export default requests

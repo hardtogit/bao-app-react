@@ -231,6 +231,8 @@ class ProductDetail extends React.Component {
             let bool=true;
             if (id!=5){
                 bool=deposit[id].isBuy;
+            }else {
+               bool=deposit.new_deposit.isBuy;
             }
             Dom=this.loadEnd('',bool,datas.data.quantity)
         }

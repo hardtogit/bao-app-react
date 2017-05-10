@@ -294,5 +294,8 @@ export default {
     },
     [actionTypes.DEPOSITAS_CONTRACT]:{
         apiFn:Fetch.depositasContract
+    },
+    [actionTypes.NEW_USER_ACTIVITY]:{
+        apiFn:Fetch.newUserActivity
     }
 }

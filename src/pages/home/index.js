@@ -13,6 +13,7 @@ import yq from '../../assets/images/yq.png'
 import newHead from '../../assets/images/newHand.png'
 import noisAuth from '../../assets/images/realName.png'
 import setAuthUrl from '../../components/setAuthUrl/index'
+import first from '../../assets/images/firstTz.png'
 class FinancialIndex extends Component{
    constructor(props) {
      super(props)
@@ -67,6 +68,7 @@ class FinancialIndex extends Component{
         }
     }
    componentDidMount(){
+       this.props.getActivity();
      const Height=this.getHeight();
      const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
       const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
@@ -180,6 +182,7 @@ class FinancialIndex extends Component{
    newList=(auth)=>{
        const {rate,title}=this.state;
        const {rateA}=this.state;
+       const {activity}=this.props;
        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
        const newDep=this.newDep();
@@ -187,6 +190,9 @@ class FinancialIndex extends Component{
        let rz;
        if (isAuth==0){
            rz=this.noisAuth();
+       }
+       if (activity.data[0]==1){
+           rz=this.fistTz();
        }
        return(<ul className={style.productUl}>
            {rz}
@@ -243,6 +249,13 @@ class FinancialIndex extends Component{
            </Link>
        </li>)
    }
+    fistTz=()=>{
+        return(<li className={style.headerLi}>
+            <Link to="/user/active">
+                <img src={first} className={style.headerImg}/>
+            </Link>
+        </li>)
+    }
    userInfo=()=>{
        const {
            userData
@@ -383,6 +396,7 @@ class FinancialIndex extends Component{
         pending,
         banner,
         userData,
+        activity,
         location:{
           query:{
                   auth
@@ -396,7 +410,7 @@ class FinancialIndex extends Component{
        }else{
          bannerDom=this.loadingDom();
        }
-       if(depositbs&&depositb){
+       if(depositbs&&depositb&&activity){
            if (user){
                if (!flage){
                    bodyDom=this.showList();
@@ -479,7 +493,8 @@ const  financialIndexInit=(state,own)=>({
   banner:state.infodata.getIn(['BANNER_LIST','data']),
   userData:state.infodata.getIn(['USER_INFO','data']),
   depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
-  deposit:state.infodata.getIn(['RATE','data'])
+  deposit:state.infodata.getIn(['RATE','data']),
+  activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
 })
 const financialIndexInitfn=(dispath,own)=>({
       load(){
@@ -514,6 +529,11 @@ const financialIndexInitfn=(dispath,own)=>({
        dispath({
            type:'RATE'
        })
+    },
+    getActivity(){
+        dispath({
+            type:'NEW_USER_ACTIVITY'
+        })
     }
 })
 
