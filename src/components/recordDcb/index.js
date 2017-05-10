@@ -63,7 +63,9 @@ class Index extends Component {
                 {
                     data&&data.map((item,i)=>{
                         let {name,created,amount,status,id}=item;
-                        created=this.timer(created)
+                        if (type!='A'){
+                            created=this.timer(created)
+                        }
                         return(
                             <div onClick={()=>{this.props.click(id,index)}}  key = {i}>
                                 <Record

@@ -228,7 +228,11 @@ class ProductDetail extends React.Component {
     if (lx=='A'){
         const deposit=JSON.parse(sessionStorage.getItem('bao-deposit'));
         if (datas){
-            Dom=this.loadEnd('',deposit.deposit[id].isBuy,datas.data.quantity)
+            let bool=true;
+            if (id!=5){
+                bool=deposit[id].isBuy;
+            }
+            Dom=this.loadEnd('',bool,datas.data.quantity)
         }
     }else {
         const depositbs=JSON.parse(sessionStorage.getItem('bao-depositbs'));

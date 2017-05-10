@@ -232,13 +232,16 @@ class DepositBuy extends React.Component {
 
   // 能否支付
   canPay() {
-        const {params:{type}}=this.props;
+        const {params:{type,id}}=this.props;
     const {
         quantity,
     }=this.state;
     const {quantityData,quantityDataB}=this.props;
     if (type=='A'){
         if (quantityData){
+            if (id==5){
+                return true
+            }
             if (!quantityData.data.isBuy){
                 return false
             }
