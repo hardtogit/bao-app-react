@@ -12,6 +12,7 @@ import {RATE, USER_INFO} from '../../../../actions/actionTypes'
 import Loading from '../../../../components/pageLoading'
 import Couponimg from '../../../../assets/images/coupon1.png'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
+import setUrl from '../../../../components/setUrl'
 class DepositIndex extends React.Component {
     state={
         depositbs:''
@@ -57,6 +58,9 @@ class DepositIndex extends React.Component {
             okText:'知道了',
         })
     }
+    successFn=()=>{
+        setUrl.setUrl(this.props.url)
+    }
     go=(index,id,soldOut,isBuy)=>{
         let text;
         if (!isBuy){
@@ -83,6 +87,7 @@ class DepositIndex extends React.Component {
             this.alert(text);
             return false
         }
+        this.successFn();
         this.props.push(`/deposit-buy/${index}/B/${id}`)
     }
     loadEndDom=(depositbs)=>{

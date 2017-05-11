@@ -9,12 +9,16 @@ import cns from 'classnames'
 import Loading from '../../../../components/pageLoading'
 import Couponimg from '../../../../assets/images/coupon1.png'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
+import setUrl from '../../../../components/setUrl'
 class DepositIndex extends React.Component {
     componentDidMount(){
         const deposit=JSON.parse(sessionStorage.getItem("bao-deposit"));
         if (deposit==null){
             this.props.getList();
         }
+    }
+    successFn=()=>{
+        setUrl.setUrl(this.props.url)
     }
     bannerDom=()=>{
         const {push}=this.props;
@@ -69,7 +73,7 @@ class DepositIndex extends React.Component {
     loadEndDom=(deposit)=>{
         const {push}=this.props;
         return(<div>
-            <List go={(index,id,soldOut,isBuy)=>{this.go(index,id,soldOut,isBuy)}}  goBuy={(index,id)=>{push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
+            <List go={(index,id,soldOut,isBuy)=>{this.go(index,id,soldOut,isBuy)}}  goBuy={(index,id)=>{this.successFn();push(`/deposit-buy/${index}/A/${id}`)}} data={deposit}/>
         </div>)
     }
       render(){
