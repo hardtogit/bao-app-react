@@ -67,8 +67,8 @@ class FinancialIndex extends Component{
             })
         }
     }
-<<<<<<< HEAD
     componentDidMount(){
+        this.props.getActivity();
         const Height=this.getHeight();
         const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
         const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
@@ -113,54 +113,6 @@ class FinancialIndex extends Component{
             })
         }
     }
-=======
-   componentDidMount(){
-       this.props.getActivity();
-     const Height=this.getHeight();
-     const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
-      const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
-      this.equipment();
-     this.setState({
-       height:{height:Height+'px'}
-     })
-     const {
-         location:{
-             query:{
-                 auth
-             }
-         },
-         load,
-         getListB,
-         getDeposit
-     }=this.props;
-     if (auth){
-         this.getLogin(auth)
-     }else {
-        load();
-     }
-       if (depositbs==null){
-         getListB()
-       }else {
-           const {title,rate}=this.getMessage(depositbs.list);
-           this.setState({
-               depositbs:true,
-               title,
-               rate
-           })
-       }
-       if (depositb==null){
-           getDeposit();
-       }else {
-           const {rateA,xsRate,xsId}=this.getMessageA(depositb)
-           this.setState({
-               depositb:true,
-               rateA,
-               xsRate,
-               xsId
-           })
-       }
-   }
->>>>>>> develop
     componentWillReceiveProps(next){
         const {depositbs,depositb}=this.state;
         const {depositbs:ndbs,deposit}=next;
@@ -212,7 +164,6 @@ class FinancialIndex extends Component{
     oldList=()=>{
         const {rate,title}=this.state;
         const {rateA}=this.state;
-<<<<<<< HEAD
         const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex')});
         const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
         const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50,2);
@@ -231,6 +182,7 @@ class FinancialIndex extends Component{
     newList=(auth)=>{
         const {rate,title}=this.state;
         const {rateA}=this.state;
+        const {activity}=this.props;
         const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
         const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
         const newDep=this.newDep();
@@ -238,6 +190,9 @@ class FinancialIndex extends Component{
         let rz;
         if (isAuth==0){
             rz=this.noisAuth();
+        }
+        if (activity.data[0]==1){
+            rz=this.fistTz();
         }
         return(<ul className={style.productUl}>
             {rz}
@@ -250,49 +205,6 @@ class FinancialIndex extends Component{
         }
         </ul>)
     }
-=======
-       const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex')});
-       const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
-       const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50,2);
-       return(<ul className={style.productUl}>
-           {
-           Depot1
-       }
-           {
-               Depot
-           }
-       {
-           Depot2
-       }
-       </ul>)
-   }
-   newList=(auth)=>{
-       const {rate,title}=this.state;
-       const {rateA}=this.state;
-       const {activity}=this.props;
-       const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
-       const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
-       const newDep=this.newDep();
-       const isAuth=auth;
-       let rz;
-       if (isAuth==0){
-           rz=this.noisAuth();
-       }
-       if (activity.data[0]==1){
-           rz=this.fistTz();
-       }
-       return(<ul className={style.productUl}>
-           {rz}
-           {
-               newDep
-           }{
-           Depot1
-       }{
-           Depot
-       }
-       </ul>)
-   }
->>>>>>> develop
     noLogin=()=>{
         const {rate,title}=this.state;
         const {rateA}=this.state;
@@ -330,11 +242,17 @@ class FinancialIndex extends Component{
         }
         return Dom
     }
-<<<<<<< HEAD
     noisAuth=()=>{
         return(<li className={style.headerLi}>
             <Link to="/user/setting/identityAuth">
                 <img src={noisAuth} className={style.headerImg}/>
+            </Link>
+        </li>)
+    }
+    fistTz=()=>{
+        return(<li className={style.headerLi}>
+            <Link to="/user/active">
+                <img src={first} className={style.headerImg}/>
             </Link>
         </li>)
     }
@@ -370,71 +288,6 @@ class FinancialIndex extends Component{
         return  Height
     }
     loadingDom(){
-=======
-   showList=()=>{
-       const {
-           isInvest,
-       }=this.state;
-       const login=sessionStorage.getItem("bao-auth");
-       let Dom;
-       if (login){
-           if (!isInvest){
-               Dom=this.oldList();
-           }else {
-               Dom=this.newList(this.state.isAuth,);
-           }
-       }else {
-           Dom=this.noLogin();
-       }
-       return Dom
-   }
-   noisAuth=()=>{
-       return(<li className={style.headerLi}>
-           <Link to="/user/setting/identityAuth">
-               <img src={noisAuth} className={style.headerImg}/>
-           </Link>
-       </li>)
-   }
-    fistTz=()=>{
-        return(<li className={style.headerLi}>
-            <Link to="/user/active">
-                <img src={first} className={style.headerImg}/>
-            </Link>
-        </li>)
-    }
-   userInfo=()=>{
-       const {
-           userData
-       }=this.props;
-       let Dom;
-       if (userData.code==100){
-           const isInvest=userData.data.isInvest;
-           if (isInvest==0){
-               Dom=this.newList(userData.data.isAuth);
-           }else {
-               Dom=this.oldList();
-           }
-       }else {
-             Dom=this.noLogin();
-       }
-       return Dom
-   }
-   hide=()=>{
-      this.setState({
-          show:{display:'none'}
-      })
-   }
-   change=(num,num1)=>{
-     this.props.changeDc(num1);
-     this.props.change(num);
-   }
-   getHeight(){
-     const Width=document.body.clientWidth,
-           Height=Width*0.533;
-     return  Height
-   }
-   loadingDom(){
->>>>>>> develop
         return(<div className={style.loadingBox} style={this.state.height}>
 
         </div>)
@@ -531,7 +384,6 @@ class FinancialIndex extends Component{
         })
     }
     render(){
-<<<<<<< HEAD
         const{
                 show,
                 flage,
@@ -544,6 +396,7 @@ class FinancialIndex extends Component{
             pending,
             banner,
             userData,
+            activity,
             location:{
                 query:{
                     auth
@@ -557,7 +410,7 @@ class FinancialIndex extends Component{
         }else{
             bannerDom=this.loadingDom();
         }
-        if(depositbs&&depositb){
+        if(depositbs&&depositb&&activity){
             if (user){
                 if (!flage){
                     bodyDom=this.showList();
@@ -578,55 +431,6 @@ class FinancialIndex extends Component{
                 }
             }
         }
-=======
-      const{
-        show,
-        flage,
-        openApp,
-      }=this.state,
-      user=sessionStorage.getItem('bao-auth'),
-      depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")),
-      depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
-      const {
-        pending,
-        banner,
-        userData,
-        activity,
-        location:{
-          query:{
-                  auth
-           }
-        }
-      }=this.props;
-      let bannerDom,
-          bodyDom;
-       if(!pending&&pending!=undefined){
-         bannerDom=this.loadingEndDom(banner);
-       }else{
-         bannerDom=this.loadingDom();
-       }
-       if(depositbs&&depositb&&activity){
-           if (user){
-               if (!flage){
-                   bodyDom=this.showList();
-               }else {
-                   if (userData){
-                       bodyDom=this.userInfo();
-                   }else {
-                       bodyDom=this.newDep();
-                   }
-               }
-           }else {
-               if (auth){
-                   if (userData){
-                       bodyDom=this.newList(userData.data.isAuth,)
-                   }
-               }else {
-                   bodyDom=this.noLogin();
-               }
-           }
-       }
->>>>>>> develop
         return(
             <div className={style.financialIndexContent}>
                 <div className={style.Pop} style={show}>
@@ -685,20 +489,12 @@ class FinancialIndex extends Component{
     }
 }
 const  financialIndexInit=(state,own)=>({
-<<<<<<< HEAD
     pending:state.infodata.getIn(['BANNER_LIST','pending']),
     banner:state.infodata.getIn(['BANNER_LIST','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
     depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
-    deposit:state.infodata.getIn(['RATE','data'])
-=======
-  pending:state.infodata.getIn(['BANNER_LIST','pending']),
-  banner:state.infodata.getIn(['BANNER_LIST','data']),
-  userData:state.infodata.getIn(['USER_INFO','data']),
-  depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
-  deposit:state.infodata.getIn(['RATE','data']),
-  activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
->>>>>>> develop
+    deposit:state.infodata.getIn(['RATE','data']),
+    activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
 })
 const financialIndexInitfn=(dispath,own)=>({
     load(){
@@ -730,18 +526,13 @@ const financialIndexInitfn=(dispath,own)=>({
         })
     },
     getDeposit(){
-<<<<<<< HEAD
         dispath({
             type:'RATE'
-=======
-       dispath({
-           type:'RATE'
-       })
+        })
     },
     getActivity(){
         dispath({
             type:'NEW_USER_ACTIVITY'
->>>>>>> develop
         })
     }
 })
