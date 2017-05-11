@@ -17,7 +17,7 @@ class Index extends React.Component {
 		return (
 			<div className={styles.bg}>
 				<NavBar onLeft={this.props.pop}>定存宝A计划记录</NavBar>
-              <RecordDcb fetch={[getList,getListB]} data={[listData,listDataB]} pending={[pending,pendingB]} end={[end,endB]} click={this.listClick}/>
+              <RecordDcb fetch={[getList,getListB]} data={[listData,listDataB]} pending={[pending,pendingB]} end={[end,endB]} click={this.listClick} type="A"/>
 			</div>
 		)
 	}

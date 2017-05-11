@@ -22,13 +22,19 @@ let item = [
     },
     {
         name:"官方邮箱",
-        info:"<a href='mailto:admin@bao.cn'>admin@bao.cn</a>",
+        info:"<a href='mailto:admin@bao.cn'>baodian@bao.cn</a>",
+        arrow:false,
+        href:""
+    },
+    {
+        name:"官方网址",
+        info:"<a href='www.bao.cn'>www.bao.cn</a>",
         arrow:false,
         href:""
     },
     {
         name:"官方QQ群",
-        info:"2408000263",
+        info:"3359074 / 482939397",
         arrow:false,
         href:""
     }

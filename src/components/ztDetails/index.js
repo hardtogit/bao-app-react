@@ -76,19 +76,21 @@ class Index extends React.Component {
             name,
             month,
             investId,
-            rate
+            rate,
+            currentPeriod,
+            isExpired
         }=data;
         const {type}=this.props;
-        console.log(type)
         return(<div>
             <div className={styles.listBoxOne}>
-                <h2>{name}<span>({investId})</span></h2>
+                <h2>{name}</h2>
                 <p><span>{month}个月</span><span>约定年化收益率{rate}%</span><span style={{float:'right'}}>{type==6?'到期还本付息':'每月还息  到期还本'}</span></p>
             </div>
             <div className={styles.listBoxTwo}>
                 <p>{accumulateProfit}</p>
                 <p>累计收益（元）</p>
-                <p>昨日收益：{yesterdayProfit}元</p>
+                {(type==5&&currentPeriod!='')&&<p>昨日收益：{yesterdayProfit}元</p>||null}
+                {(type==6&&!isExpired)&&<p>昨日收益：{yesterdayProfit}元</p>||null}
             </div>
         </div>)
     }
@@ -218,8 +220,8 @@ class Index extends React.Component {
                         <li>产品到期日<p>{endStrTime}</p></li>
                         <li>产品起息日<p>{startStrTime}</p></li>
                     </ul>
-                    {type==5&&<li className={styles.Onetitle}>回款记录</li>||''}
-                    {type==5&&<ul>
+                    {(type==5&&currentPeriod!='')&&<li className={styles.Onetitle}>回款记录</li>||''}
+                    {(type==5&&currentPeriod!='')&&<ul>
                         <li>当前期数<p>期数：{currentPeriod}</p></li>
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>

@@ -69,7 +69,7 @@ import siteEdit from './pages/my/setting/site/edit/index'//收货地址编辑
 import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自动投标
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
-
+import active from './pages/user/active/index'
 import inviteFriendsRule from './pages/find/invite/rule' /*邀请好友规则*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
@@ -123,8 +123,8 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -156,6 +156,7 @@ export default class App extends React.Component {
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} >
+                  <Route path='active' component={active} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path='analysis' component={Analysis} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/
                   <Route path="calendarMonths/:year/:month" component={CalendarMonths} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历日期选择*/
@@ -278,13 +279,13 @@ export default class App extends React.Component {
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path="directInvestSuccess" component={DirectInvestSuccess}></Route>
+            <Route path="directInvestSuccess/:type" component={DirectInvestSuccess}></Route>
             <Route path="directContract" component={DirectContract}></Route>
             <Route path="creditorList" component={CreditorList}></Route>
             <Route path="creditorDetail/:id" component={CreditorDetail}></Route>
             <Route path="creditorBuy/:id" component={CreditorBuy}></Route>
             <Route path="creditorProtocol" component={CreditorProtocol}></Route>
-            <Route path="creditorInvestSuccess" component={CreditorInvestSuccess}></Route>
+            <Route path="creditorInvestSuccess/:type" component={CreditorInvestSuccess}></Route>
             <Route path="ChangePayPwd" component={ChangePayPwd}></Route>
             <Route path="CheckPhone" component={CheckPhone}></Route>
             <Route path="changeLoginPwd" component={ChangeLoginPwd}></Route>
