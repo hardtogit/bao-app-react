@@ -279,13 +279,13 @@ export default class App extends React.Component {
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path="directInvestSuccess" component={DirectInvestSuccess}></Route>
+            <Route path="directInvestSuccess/:type" component={DirectInvestSuccess}></Route>
             <Route path="directContract" component={DirectContract}></Route>
             <Route path="creditorList" component={CreditorList}></Route>
             <Route path="creditorDetail/:id" component={CreditorDetail}></Route>
             <Route path="creditorBuy/:id" component={CreditorBuy}></Route>
             <Route path="creditorProtocol" component={CreditorProtocol}></Route>
-            <Route path="creditorInvestSuccess" component={CreditorInvestSuccess}></Route>
+            <Route path="creditorInvestSuccess/:type" component={CreditorInvestSuccess}></Route>
             <Route path="ChangePayPwd" component={ChangePayPwd}></Route>
             <Route path="CheckPhone" component={CheckPhone}></Route>
             <Route path="changeLoginPwd" component={ChangeLoginPwd}></Route>
