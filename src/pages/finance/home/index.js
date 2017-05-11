@@ -82,7 +82,7 @@ class financeIndex extends Component{
            tabs.map((Component,i)=>(
 			   <TabPanel key={i}>
 			   {
-                  <Component pageIndex={this.props.pageIndex} productId={this.props.productId}/>
+                  <Component pageIndex={this.props.pageIndex} productId={this.props.productId} url={this.props.location.pathname}/>
 			   }
 			   </TabPanel>
 		   ))
