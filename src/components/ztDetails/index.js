@@ -76,7 +76,9 @@ class Index extends React.Component {
             name,
             month,
             investId,
-            rate
+            rate,
+            currentPeriod,
+            isExpired
         }=data;
         const {type}=this.props;
         return(<div>
@@ -87,7 +89,8 @@ class Index extends React.Component {
             <div className={styles.listBoxTwo}>
                 <p>{accumulateProfit}</p>
                 <p>累计收益（元）</p>
-                <p>昨日收益：{yesterdayProfit}元</p>
+                {(type==5&&currentPeriod!='')&&<p>昨日收益：{yesterdayProfit}元</p>||null}
+                {(type==6&&!isExpired)&&<p>昨日收益：{yesterdayProfit}元</p>||null}
             </div>
         </div>)
     }
