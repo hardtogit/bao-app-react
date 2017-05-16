@@ -68,6 +68,7 @@ class DepositBuy extends React.Component {
       }else {
           this.props.getDepositds(this.state.productId)
       }
+      this.props.userInfo();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -237,7 +238,6 @@ class DepositBuy extends React.Component {
         quantity,
     }=this.state;
     const {quantityData,quantityDataB}=this.props;
-    console.log(quantityData)
     if (type=='A'){
         if (quantityData){
             if (!quantityData.data.isBuy){
@@ -651,7 +651,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   push(path) {
     dispatch(push(path))
   },
-
+  userInfo(){
+     dispatch({
+         type:actionTypes.USER_INFO
+     })
+  },
   goBack() {
     dispatch(goBack())
   },
