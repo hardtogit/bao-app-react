@@ -45,7 +45,8 @@ class DirectBuy extends React.Component {
       window['closeFn']=this.closeFn;
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)
-    this.props.getUse(this.props.params.id)
+    this.props.getUse(this.props.params.id);
+   this.props.getUser();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -475,6 +476,9 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
       type: actionTypes.DIRECTINVEST_DETAIL,
       params: [id]
     })
+  },
+  getUser(){
+      dispatch({type:actionTypes.USER_INFO})
   },
   getAvailableCoupons(month) {
     dispatch({

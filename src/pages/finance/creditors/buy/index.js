@@ -35,6 +35,7 @@ class CreditorBuy extends React.Component{
   componentDidMount() {
     window['closeFn']=this.closeFn;
     this.props.getCreditorDetail(this.creditorsId)
+      this.props.getUser();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -239,6 +240,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       params: [id]
     })
   },
+    getUser(){
+        dispatch({type:actionTypes.USER_INFO})
+    },
   push(path) {
     dispatch(push(path))
   },
