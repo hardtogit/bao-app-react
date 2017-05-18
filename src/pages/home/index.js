@@ -86,11 +86,7 @@ class FinancialIndex extends Component{
             getListB,
             getDeposit
         }=this.props;
-        if (auth){
-            this.getLogin(auth)
-        }else {
             load();
-        }
         if (depositbs==null){
             getListB()
         }else {

@@ -125,7 +125,7 @@ from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
 const a=window.location.href.split('.')[1]+'.cn';
 document.domain = a;
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
     sagaMiddleware,
