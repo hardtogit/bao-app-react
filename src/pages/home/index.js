@@ -380,7 +380,7 @@ class FinancialIndex extends Component{
             }else {
                 window.location.href=openUrl;
             }
-        },0)
+        },1000)
     }
     endApp=()=>{
         this.setState({
