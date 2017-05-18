@@ -86,7 +86,11 @@ class FinancialIndex extends Component{
             getListB,
             getDeposit
         }=this.props;
+        if (auth){
+            this.getLogin(auth)
+        }else {
             load();
+        }
         if (depositbs==null){
             getListB()
         }else {
@@ -111,7 +115,16 @@ class FinancialIndex extends Component{
     }
     componentWillReceiveProps(next){
         const {depositbs,depositb}=this.state;
-        const {depositbs:ndbs,deposit}=next;
+        const {depositbs:ndbs,deposit,location:{
+            query:{
+                auth
+            }
+        },activity,getActivity}=next;
+        if (auth&&activity){
+            if (activity.code=='0000'){
+                getActivity();
+            }
+        }
         if (!depositbs&&ndbs){
             if (ndbs.code==100){
                 const {title,rate}=this.getMessage(ndbs.data.list);
@@ -406,7 +419,13 @@ class FinancialIndex extends Component{
         }else{
             bannerDom=this.loadingDom();
         }
-        if(depositbs&&depositb&&activity){
+        let active=false;
+        if (typeof activity!='undefined'){
+            if (activity.code!=='0000'){
+                active=true
+            }
+        }
+        if(depositbs&&depositb&&active){
             if (user){
                 if (!flage){
                     bodyDom=this.showList();
@@ -419,11 +438,11 @@ class FinancialIndex extends Component{
                 }
             }else {
                 if (auth){
-                    if (userData){
+                    if (userData&&userData.code==100){
                         bodyDom=this.newList(userData.data.isAuth,)
                     }
                 }else {
-                    bodyDom=this.noLogin();
+                        bodyDom=this.noLogin();
                 }
             }
         }
@@ -515,7 +534,7 @@ const financialIndexInitfn=(dispath,own)=>({
     },
     login(auth){
         const nauth=auth.split('?("')[1].split('")')[0];
-        dispath({type:'USER_LOGIN_FLOW',params:[{auth:nauth}]})
+        dispath({type:'USER_INFO',params:[encodeURIComponent(nauth)]})
     },
     getListB(){
         dispath({
