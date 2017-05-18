@@ -373,19 +373,14 @@ class FinancialIndex extends Component{
     }
     openApp=()=>{
         const {openUrl,equipment}=this.state;
-        this.setState({
-            openApp:true
-        })
+        window.location.href='cn.bao://'
         setTimeout(()=>{
-            this.setState({
-                openApp:false
-            })
             if (equipment==1){
                 window.open(openUrl)
             }else {
                 window.location.href=openUrl;
             }
-        },3000)
+        },0)
     }
     endApp=()=>{
         this.setState({
@@ -445,6 +440,8 @@ class FinancialIndex extends Component{
                         bodyDom=this.noLogin();
                 }
             }
+        }else {
+            bodyDom=this.noLogin();
         }
         return(
             <div className={style.financialIndexContent}>
@@ -498,7 +495,6 @@ class FinancialIndex extends Component{
                         bodyDom
                     }
                 </div>
-                {openApp&&<iframe src='cn.bao://' onLoad={()=>{this.endApp()}}></iframe>||null}
             </div>
         )
     }

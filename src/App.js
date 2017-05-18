@@ -123,15 +123,14 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
     sagaMiddleware,
     routerMiddleware(browserHistory)
 ))
-
 // 启动rootsaga
 sagaMiddleware.run(rootSaga)
 // 应用初始化时即请求全局数据
