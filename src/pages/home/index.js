@@ -519,7 +519,7 @@ const financialIndexInitfn=(dispath,own)=>({
     },
     login(auth){
         const nauth=auth.split('?("')[1].split('")')[0];
-        dispath({type:'USER_LOGIN_FLOW',params:[{auth:encodeURI(nauth)}]})
+        dispath({type:'USER_LOGIN_FLOW',params:[{auth:encodeURIComponent(nauth)}]})
     },
     getListB(){
         dispath({
