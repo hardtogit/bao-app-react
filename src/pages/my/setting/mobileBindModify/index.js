@@ -186,7 +186,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   sendCaptcha(mobile) {
       const clientTime=Date.parse(new Date())/ 1000;
-      const sign=mobile+5+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
+      const sign=mobile+5+clientTime+util.key();
     dispatch({
       type: SEND_MSG,
       params: [

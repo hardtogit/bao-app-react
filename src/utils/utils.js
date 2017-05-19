@@ -78,7 +78,14 @@ let verifyBirthday = (year, month, day, birthday) => {
 utils.checkInteger = (value) => {
     return /^[1-9]+\d*$/.test(value)
 };
-
+utils.key=()=>{
+    const host=window.location.hostname;
+   if (host=='mobile.bao.cn'){
+       return 'base64:6Sz59hJHqfJmWC7kHIY+UjOq2bOVQDqQHTVpGar6G6L='
+   }else {
+       return 'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0='
+   }
+}
 //取身份证前两位,校验省份
 let checkProvince = (card) => {
     return vcity[card.substr(0,2)] ? true : false

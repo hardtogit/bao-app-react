@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   checkExistMobile(mobile) {
     const clientTime=Date.parse(new Date())/ 1000;
-    const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
+    const sign=mobile+1+clientTime+util.key();
     dispatch({
       type: EXIST_MOBILE,
       params: [
