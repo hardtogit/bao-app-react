@@ -16,7 +16,7 @@ import {EXIST_MOBILE,REGISTER_NUM} from '../../../../actions/actionTypes'
 import Icon from '../../../../assets/images/PhoneIcon.png'
 import back from '../../../../assets/images/regBack.png'
 import Alert from '../../../../components/Dialog/alert'
-
+import util from '../../../../utils/utils.js'
 class RegisterMobile extends React.Component {
   constructor(props){
     super(props)
@@ -112,11 +112,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(push(path))
   },
   checkExistMobile(mobile) {
+    const clientTime=Date.parse(new Date())/ 1000;
+    const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
     dispatch({
       type: EXIST_MOBILE,
       params: [
         {
           mobile,
+          type:1,
+          clientTime,
+          sign:util.md5(sign)
         }
       ],
     })

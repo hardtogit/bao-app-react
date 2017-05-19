@@ -8,7 +8,7 @@ import { SEND_MSG, CHECK_VERIFY_CAPTCHA} from '../../../../actions/actionTypes'
 import Alert from '../../../../components/Dialog/alert'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
 import Loading from '../../../../components/pageLoading'
-
+import util from '../../../../utils/utils.js'
 class MobileBindModify extends React.Component {
 
   state = {
@@ -185,12 +185,16 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
   sendCaptcha(mobile) {
+      const clientTime=Date.parse(new Date())/ 1000;
+      const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
     dispatch({
       type: SEND_MSG,
       params: [
         {
-          mobile,
-          type: 2,
+            mobile,
+            type:2,
+            clientTime,
+            sign:util.md5(sign)
         }
       ]
     })

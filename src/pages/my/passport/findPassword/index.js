@@ -126,11 +126,16 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
        getCode(mobile){
+           console.log('fsafasf');
+           const clientTime=Date.parse(new Date())/ 1000;
+           const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
          dispatch({
            type:actionTypes.VERIFY_CAPTCHA,
            params:[{
              mobile,
-             type:3
+               type:3,
+               clientTime,
+               sign:util.md5(sign)
            }
            ]
          })

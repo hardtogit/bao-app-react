@@ -23,7 +23,7 @@ export default {
   		apiFn: Fetch.getRates
   	},
     [actionTypes.SEND_MSG]:{//发送验证码
-        apiFn:Fetch.getVerifyCode
+        apiFn:Fetch.mobilesExit
     },
 
     [actionTypes.CALENDAR]:{/*回款日历*/
@@ -152,7 +152,7 @@ export default {
         apiFn: Fetch.mobilesExit
     },
     [actionTypes.VERIFY_CAPTCHA]:{
-        apiFn: Fetch.getVerifyCode
+        apiFn: Fetch.mobilesExit
     },
     [actionTypes.CHECK_VERIFY_CAPTCHA]: {
         apiFn: Fetch.verifycode
@@ -185,7 +185,7 @@ export default {
         apiFn:Fetch.verifyCard
     },
     [actionTypes.TRANSACTION_CODE]:{
-        apiFn:Fetch.getVerifyCode
+        apiFn:Fetch.mobilesExit
     },
     [actionTypes.LOGIN_OUT]:{
         apiFn:Fetch.logout

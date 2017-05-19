@@ -13,7 +13,7 @@ const requests = (Fetch) => {
   Fetch.findPassword = (data) => { return Fetch('passport/find-password', 'POST', data) }
 
   // 验证手机号是否存在
-  Fetch.mobilesExit = (data) => { return Fetch('/users/verify-code-send', 'POST', data) }
+  Fetch.mobilesExit = (data) => { return Fetch('api/users/verify-code-send', 'POST', data) }
 
   // 发送手机验证码
   Fetch.getVerifyCode = (data) => { return Fetch('passport/get-verify-code', 'POST', data) }

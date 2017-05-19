@@ -84,7 +84,6 @@ class VerifyMobile extends React.Component {
 
   sendVerifyCode = () => {
     const mobile = this.props.data.data.mobile
-
     if (!mobile) {
       return this.setState({errorMessage: '请先绑定手机号'})
     }
@@ -195,11 +194,15 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(replace(path))
     },
     send(mobile){
+        const clientTime=Date.parse(new Date())/ 1000;
+        const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
       dispatch({
         type:'TRANSACTION_CODE',
         params:[{
           mobile,
-          type:'4'
+          type:'4',
+          clientTime,
+          sign:util.md5(sign)
         }]
       })
     },
