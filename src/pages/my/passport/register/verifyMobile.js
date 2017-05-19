@@ -16,11 +16,13 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import Alert from '../../../../components/Dialog/alert'
 import back from '../../../../assets/images/regBack.png'
 import Icon from '../../../../assets/images/yzmIcon.png'
+import util from '../../../../utils/utils.js'
 class RegisterVerifyMobile extends React.Component {
   constructor (props) {
     super(props)
     this.state={
-      init:true
+      init:true,
+      flage:true
     }
   }
 
@@ -38,6 +40,9 @@ class RegisterVerifyMobile extends React.Component {
     }else {
        this.refs.verifyCode.open()
     }
+    this.setState({
+        flage:false
+    })
   }
 
   componentWillUnmount() {
@@ -77,6 +82,7 @@ class RegisterVerifyMobile extends React.Component {
   }
 
   sendVerifyCode = () => {
+    console.log('你大爷')
     const {
         goVerifyCode,
         mobile
@@ -84,6 +90,7 @@ class RegisterVerifyMobile extends React.Component {
     goVerifyCode(mobile)
   }
   Dom(){
+      const {flage}=this.state;
     return(<div>
       <div className={commonStyles.content}>
         <span className={commonStyles.markTitle}>验证码已发送，请填写</span>
@@ -100,7 +107,8 @@ class RegisterVerifyMobile extends React.Component {
               containerStyle={{paddingRight:'15px'}}
               right={ <VerifyCode
                   ref='verifyCode'
-                  onClick={this.sendVerifyCode}
+                  onClick={!flage&&this.sendVerifyCode||null}
+                  noInit={true}
                   containerStyle={{backgroundColor: '#fff', height: 43}}
                   containerDisableStyle={{backgroundColor: '#fff', height: 43}}
                   textStyle={{fontSize: 16, color: '#45c3f0',textAlign:'right'}}
@@ -162,11 +170,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(push(path))
   },
   goVerifyCode(mobile) {
+      const clientTime=Date.parse(new Date())/ 1000;
+      const sign=mobile+1+clientTime+'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0=';
     dispatch({
       type: actionTypes.VERIFY_CAPTCHA,
       params:[{
         mobile,
-        type:1
+        type:1,
+          clientTime,
+          sign:util.md5(sign)
       }]
     })
   },
