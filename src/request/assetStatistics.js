@@ -70,13 +70,13 @@ const requests = (Fetch) => {
   // 理财金激活记录
   Fetch.privilegeActivateList = (page) => { return Fetch('privilege/activate/list?page=' + page, 'GET') }
   // 债权转让记录
-  Fetch.creditorsRecords = (type, page) => { return Fetch(`creditors/records?type=${type}&page=${page}`, 'GET') }
+  Fetch.creditorsRecords = (page,type) => { return Fetch(`creditors/records?page=${page}&type=${type}`, 'GET') }
   // 定存记录
   Fetch.depositRecords = (page, type) => { return Fetch(`deposit/record?page=${page}&type=${type}`, 'GET') }
   // 直投记录
   Fetch.directInvestRecords = (page,type) => { return Fetch(`directInvest/records?type=${type}&page=${page}`, 'GET') }
   // 理财金记录
-  Fetch.privilegeRecords = (type, page) => { return Fetch(`privilege/list?type=${type}&page=${page}`, 'GET') }
+  Fetch.privilegeRecords = (page, type) => { return Fetch(`privilege/list?type=${type}&page=${page}`, 'GET') }
   // 自动投标
   Fetch.autoBid = (...data) => { return Fetch('directInvest/auto-bid', 'POST', {
     count:data[0],

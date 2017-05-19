@@ -27,7 +27,7 @@ class RegisterMobile extends React.Component {
     const code = nextProps.data;
     const {go}=this.props;
     if (code) {
-      if (code.code == 100) {
+      if (code.code == 302) {
           this.refs.alert.show({
               content: '手机号码已注册，立即登录',
               okText: '确定',
@@ -35,8 +35,14 @@ class RegisterMobile extends React.Component {
               okCallback: () => {go('/login')},
           })
       }
-
-      if (code.code == 300&&this.state.init) {
+      if (code.code==300){
+          this.refs.alert.show({
+              content: '发送验证码失败',
+              okText: '确定',
+              cancel:'取消',
+          })
+      }
+      if (code.code == 100&&this.state.init) {
         this.props.savenum(this.refs.form.getValue().mobile );
         this.props.go('/registerVerifyMobile');
         this.setState({
