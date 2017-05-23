@@ -132,7 +132,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
            type:actionTypes.VERIFY_CAPTCHA,
            params:[{
              mobile,
-               type:3,
+               type:2,
                clientTime,
                sign:util.md5(sign)
            }

@@ -200,7 +200,7 @@ const mapDispatchToProps = (dispatch) => ({
         type:'TRANSACTION_CODE',
         params:[{
           mobile,
-          type:'4',
+          type:3,
           clientTime,
           sign:util.md5(sign)
         }]

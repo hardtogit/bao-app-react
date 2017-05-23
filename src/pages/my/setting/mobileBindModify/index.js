@@ -192,7 +192,7 @@ const mapDispatchToProps = (dispatch) => ({
       params: [
         {
             mobile,
-            type:2,
+            type:5,
             clientTime,
             sign:util.md5(sign)
         }
