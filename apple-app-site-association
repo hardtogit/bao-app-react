@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details":[ 
+      {
+      "appID":"K2AU849C9E.weipin.app.baodian",
+      "paths":["*"]
+      }
+    ]
+  }
+}
