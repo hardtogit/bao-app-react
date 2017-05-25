@@ -31,7 +31,8 @@ class FinancialIndex extends Component{
             xsId:'',
             openUrl:'cn.bao://',
             openApp:false,
-            equipment:1
+            equipment:1,
+            isSafari:false
         }
     }
     componentWillMount(){
@@ -68,6 +69,7 @@ class FinancialIndex extends Component{
         }
     }
     componentDidMount(){
+        this.getuserAgent();
         this.props.getActivity();
         const Height=this.getHeight();
         const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
@@ -145,6 +147,14 @@ class FinancialIndex extends Component{
                     xsId
                 })
             }
+        }
+    }
+    getuserAgent=()=>{
+        const userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Safari") > -1) {
+           this.setState({
+               isSafari:true
+           })
         }
     }
     getMessageA=(depositb)=>{
@@ -372,8 +382,10 @@ class FinancialIndex extends Component{
         </li>)
     }
     openApp=()=>{
-        const {openUrl,equipment}=this.state;
-        window.location.href='cn.bao://'
+        const {openUrl,equipment,isSafari}=this.state;
+        if (!isSafari){
+            window.location.href='cn.bao://'
+        }
         setTimeout(()=>{
             if (equipment==1){
                 window.open(openUrl)
