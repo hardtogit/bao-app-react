@@ -8,7 +8,7 @@ class Index extends Component{
         const DataN=new Date(parseInt(time)),
               year=DataN.getFullYear(),
               month=DataN.getMonth()+1,
-              day=DataN.getDay(),
+              day=DataN.getDate(),
               min=DataN.getMinutes(),
               hours=DataN.getHours(),
               seconds=DataN.getSeconds();
