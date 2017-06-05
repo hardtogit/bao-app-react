@@ -70,7 +70,7 @@ import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
 import active from './pages/user/active/index'
-import inviteFriendsRule from './pages/find/invite/rule' /*邀请好友规则*/
+import inviteParticulars from './pages/find/invite/particulars' /*邀请明细*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
@@ -250,7 +250,7 @@ export default class App extends React.Component {
               <Route path='find' component={findIndex}>
                   <Route path="message" component={FindMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteFriendsRule" component={inviteFriendsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>

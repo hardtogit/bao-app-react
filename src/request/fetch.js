@@ -8,6 +8,7 @@ import assetStatistics from './assetStatistics'
 import interestRate from './interestRate'
 import find            from './find'
 import finance         from './finance'
+import invite          from './invite'
 import coin from './coin'
 import bonus from './bonus'
 import scratcheCard from './scratcheCard.js'
@@ -79,4 +80,5 @@ coin(Fetch)
 bonus(Fetch)
 scratcheCard(Fetch)
 shopping(Fetch)
+invite(Fetch)
 export default Fetch

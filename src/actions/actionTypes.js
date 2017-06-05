@@ -73,7 +73,8 @@ export const CALENDAR = 'CALENDAR';
 
 //邀请好友
 
-export const INVITE_FRIENDS='INVITE_FRIENDS'
+export const INVITE_FRIENDS='INVITE_FRIENDS';
+export const INVITE_PARTICULARS='INVITE_PARTICULARS'
 
 
 //setting

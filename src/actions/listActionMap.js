@@ -105,5 +105,8 @@ export default {
     },
     [actionTypes.DEPOSITBS_ACCOUNTCAPITALLIST_NOW]:{
         apiFn:Fetch.depositbsAccountCapitalList
+    },
+    [actionTypes.INVITE_PARTICULARS]:{
+        apiFn:Fetch.inviteParticulars
     }
 }
