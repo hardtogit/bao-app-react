@@ -124,16 +124,11 @@ class feedbackIndex extends Component{
                    this.state.img[0]
                }
                </span>
-                <span className={cn(styles.OneInput,styles.maginL)}>
-                <input type='file' name="photo"  onChange={(e)=>{this.change(e,1)}}/>
-                {
-                    this.state.img[1]
-                }
-               </span>
+
                </div>
               </div>
                  <div className={styles.contact}>
-                     <label className={styles.num} htmlFor="">联系方式 <span>*</span></label>
+                     <label className={styles.num}>联系方式(必填)</label>
                      <input type="text" ref="contactNum"  onChange={this.numChange} placeholder="手机号码/QQ" />
                  </div>
               <div className={styles.sendBox}>
