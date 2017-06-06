@@ -14,7 +14,10 @@ class feedbackIndex extends Component{
         this.state={
             img:[],
             file:[],
-            content:''
+            content:'',
+            numReady:false,
+            disable:true,
+            number:''
         }    
     }
     keyUp=(e)=>{
@@ -22,8 +25,33 @@ class feedbackIndex extends Component{
         this.setState({
             content:Text
         })
-
+        if(Text!=''&&this.refs.contactNum.value.length>4){
+            this.setState({
+                disable:false,
+                number:this.refs.contactNum.value
+            })
+        }else{
+            this.setState({
+                disable:true
+            })
+        }
+    };
+    numChange=(e)=>{
+        let num='';
+        num=this.refs.contactNum.value.replace(/\D/g,'')
+        this.refs.contactNum.value=num
+            if(num.length>4&&this.refs.text.value!=''){
+                this.setState({
+                    disable:false,
+                    number:num
+                })
+            }else{
+                this.setState({
+                    disable:true
+                })
+            }
     }
+
     change=(e,num)=>{
       const filen=e.target.files[0],
           {
@@ -57,6 +85,7 @@ class feedbackIndex extends Component{
         const files = new FormData();
         files.append('imgs',this.state.file);
         files.append('content',this.state.content);
+        files.append('contact',this.state.number);
         const data={
             file:'file',
             data:files
@@ -86,7 +115,7 @@ class feedbackIndex extends Component{
              <NavBar onLeft={this.props.pop}>意见反馈</NavBar>
              <div className={styles.content}>
               <div className={styles.textBox}>
-               <textarea placeholder='请详细描述您的问题或建议，我们将及时跟进解决。(建议添加相关问题的截图)' value={this.state.content} onChange={this.keyUp}>
+               <textarea ref="text" placeholder='请详细描述您的问题或建议，我们将及时跟进解决。(建议添加相关问题的截图)' value={this.state.content} onChange={this.keyUp}>
                </textarea>
                <div className={styles.choose}>
                <span className={styles.OneInput}>
@@ -103,8 +132,12 @@ class feedbackIndex extends Component{
                </span>
                </div>
               </div>
+                 <div className={styles.contact}>
+                     <label className={styles.num} htmlFor="">联系方式 <span>*</span></label>
+                     <input type="text" ref="contactNum"  onChange={this.numChange} placeholder="手机号码/QQ" />
+                 </div>
               <div className={styles.sendBox}>
-              <button className={styles.sendBt} ref='btn' disabled={this.state.content==''} onClick={this.send}>
+              <button className={styles.sendBt} ref='btn' disabled={this.state.disable==true} onClick={this.send}>
                   {pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'提交中'} className={styles.loading}/>||'提交意见反馈'}
               </button>
               </div>

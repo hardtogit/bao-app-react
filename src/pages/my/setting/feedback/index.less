@@ -72,6 +72,31 @@
           background-color: #90D1ED;  
         } 
     }
+    .contact{
+      display: flex;
+      padding: 15px;
+      label{
+        flex: 4 1 auto;
+        width: 1%;
+        line-height: 28px;
+        color:#666;
+        span{
+          color:red
+        }
+      }
+      input{
+        flex: 8 1 auto;
+        border:2px solid #90D1ED;
+        border-radius: 4px;
+        background-color:transparent;
+        height: 32px;
+        width: 1%;
+        text-indent: 10px;
+        &:focus{
+          outline: none;
+        }
+      }
+    }
 }
 .loading{
   display:inline-block;
