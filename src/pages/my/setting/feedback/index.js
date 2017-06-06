@@ -3,21 +3,22 @@ import NavBar from '../../../../components/NavBar/index'
 import cn from 'classnames'
 import styles from './index.less'
 import Alert from '../../../../components/Dialog/alert'
+import Loading from '../../../../components/pageLoading'
 import {connect} from 'react-redux'
-import {replace} from 'react-router-redux'
+import {goBack} from 'react-router-redux'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
 import Success from '../../../../components/Dialog/success'
-
 class feedbackIndex extends Component{
     constructor(props){
        super(props)  
         this.state={
-            img:[],
-            file:[],
+            img:'',
+            file:'',
             content:'',
             numReady:false,
             disable:true,
-            number:''
+            number:'',
+            imgUrl:[]
         }    
     }
     keyUp=(e)=>{
@@ -52,7 +53,7 @@ class feedbackIndex extends Component{
             }
     }
 
-    change=(e,num)=>{
+    change=(e)=>{
       const filen=e.target.files[0],
           {
               img,
@@ -65,11 +66,11 @@ class feedbackIndex extends Component{
            reader.readAsDataURL(filen);
         reader.onload = (ev)=>{
             const Img=<span><img src={ev.target.result} /></span>
-            img[num]=Img;
-            file[num]=filen;
             this.setState({
-              img  
+              img:Img,
+              file:filen
             })
+            this.uploadImg()
         }
       }else{
          this.refs.alert.show({
@@ -80,19 +81,29 @@ class feedbackIndex extends Component{
 		 })
       }
      }
-    send=()=>{
-
+    uploadImg=()=>{
         const files = new FormData();
-        files.append('imgs',this.state.file);
-        files.append('content',this.state.content);
-        files.append('contact',this.state.number);
+        files.append('photo',this.state.file);
         const data={
             file:'file',
             data:files
-        }
+        };
+        this.props.upload(data)
+    };
+    loading=()=>{
+        return(
+            <Loading Text="图片上传中..."></Loading>
+        )
+    };
+    send=()=>{
+        const data={
+            'imgs':this.state.imgUrl,
+            'content':this.state.content,
+            'contact':this.state.number
+        };
         this.props.send(data);
-    }
-    componentWillReceiveProps({code,pending}){
+    };
+    componentWillReceiveProps({code,pending,imgData}){
         if (code==100&&!pending){
             this.refs.success.show({
                 text: '提交意见成功!',
@@ -105,11 +116,23 @@ class feedbackIndex extends Component{
                 okText: '确定',
             })
         }
+        if (imgData&&imgData.code==100){
+            this.setState({
+                imgUrl:[imgData.data.url]
+            })
+        }
     }
     render(){
        const {
-           pending
+           pending,
+           imgUpload
        }=this.props;
+        let b
+        if(imgUpload==false||imgUpload==undefined){
+            b=<div></div>
+        }else{
+            b =this.loading();
+        }
         return(
             <div>
              <NavBar onLeft={this.props.pop}>意见反馈</NavBar>
@@ -119,9 +142,9 @@ class feedbackIndex extends Component{
                </textarea>
                <div className={styles.choose}>
                <span className={styles.OneInput}>
-                <input type='file' name="photo" onChange={(e)=>{this.change(e,0)}}/>
+                <input type='file' name="photo" onChange={(e)=>{this.change(e)}}/>
                {
-                   this.state.img[0]
+                   this.state.img
                }
                </span>
 
@@ -136,15 +159,18 @@ class feedbackIndex extends Component{
                   {pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'提交中'} className={styles.loading}/>||'提交意见反馈'}
               </button>
               </div>
+                 {b}
              </div>
              <Alert ref="alert"/>
             <Success ref="success" />
             </div>
-            ) 
+            )
     }
 }
 const feedbackIndexInit=(state)=>({
     pending:state.infodata.getIn(['FEED_BACK','pending']),
+    imgData:state.infodata.getIn(['UPLOAD_FEED_BACK_IMG','data']),
+    imgUpload:state.infodata.getIn(['UPLOAD_FEED_BACK_IMG','pending']),
     code:state.infodata.getIn(['FEED_BACK','data'])&&state.infodata.getIn(['FEED_BACK','data']).code||false
 })
 const  feedbackIndexInitfn=(dispatch)=>({
@@ -154,8 +180,14 @@ const  feedbackIndexInitfn=(dispatch)=>({
              params:[data]
          })
     },
+    upload(formData){
+        dispatch({
+            type:'UPLOAD_FEED_BACK_IMG',
+            params:[formData]
+        })
+    },
     pop(){
-      dispatch(replace('/user/setting'))
+      dispatch(goBack())
     }
 })
 
