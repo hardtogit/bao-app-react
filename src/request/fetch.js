@@ -44,7 +44,12 @@ const Fetch = (url, type, data, headers) => {
            options.body=data.data;
            delete options.headers
        }else {
-         options.body = transferObjectToFormat(data)
+          options.headers ={
+              'Accept-Language': 'zh-CN',
+              'Cache-Control': 'no-cache',
+              'Content-Type': 'application/json;charset=utf-8',
+          }
+          options.body =JSON.stringify(data)
        }
     } else if (type && type.toUpperCase() === 'GET') {
       url = data

@@ -12,6 +12,7 @@ class findMessage extends Component{
 
     componentDidMount(){
      this.props.getNotice();
+     this.props.setRead()
     }
     componentWillUnmount(){  
       this.props.clearData('FETCH_MY_MASSAGE_S');
@@ -108,6 +109,12 @@ const initMymassegefn=(dispath,own)=>({
            dispath({
                type:'GET_NOTICE'
            })
+      },
+      setRead(){
+           dispath({
+                   type:'SET_READ',
+                 params:[{type:1}]
+            })
       },
        getList(id){
           dispath({

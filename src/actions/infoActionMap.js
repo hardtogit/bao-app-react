@@ -297,5 +297,8 @@ export default {
     },
     [actionTypes.NEW_USER_ACTIVITY]:{
         apiFn:Fetch.newUserActivity
+    },
+    [actionTypes.UPLOAD_FEED_BACK_IMG]:{
+        apiFn:Fetch.uploadFeedBackImg
     }
 }
