@@ -52,7 +52,6 @@ class feedbackIndex extends Component{
                 })
             }
     }
-
     change=(e)=>{
       const filen=e.target.files[0],
           {
@@ -103,7 +102,10 @@ class feedbackIndex extends Component{
         };
         this.props.send(data);
     };
-    componentWillReceiveProps({code,pending,imgData}){
+    componentWillUnmount(){
+         this.props.clean()
+    }
+    componentWillReceiveProps({code,pending,imgData,imgUpload}){
         if (code==100&&!pending){
             this.refs.success.show({
                 text: '提交意见成功!',
@@ -121,17 +123,32 @@ class feedbackIndex extends Component{
                 imgUrl:[imgData.data.url]
             })
         }
+        if(imgUpload&&imgUpload==true){
+            this.setState({
+                disable: true,
+            })
+        }else {
+            if(this.state.content!=''&&this.refs.contactNum.value.length>4){
+                this.setState({
+                    disable: false,
+                });
+            }else {
+                this.setState({
+                    disable: true
+                });
+            }
+        }
     }
     render(){
        const {
            pending,
            imgUpload
        }=this.props;
-        let b
-        if(imgUpload==false||imgUpload==undefined){
-            b=<div></div>
+        let upDom=''
+        if(imgUpload==true){
+            upDom=<div>图片上传中...</div>
         }else{
-            b =this.loading();
+            upDom=pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'提交中'} className={styles.loading}/>||'提交意见反馈'
         }
         return(
             <div>
@@ -147,7 +164,6 @@ class feedbackIndex extends Component{
                    this.state.img
                }
                </span>
-
                </div>
               </div>
                  <div className={styles.contact}>
@@ -156,10 +172,9 @@ class feedbackIndex extends Component{
                  </div>
               <div className={styles.sendBox}>
               <button className={styles.sendBt} ref='btn' disabled={this.state.disable==true} onClick={this.send}>
-                  {pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'提交中'} className={styles.loading}/>||'提交意见反馈'}
+                  {upDom}
               </button>
               </div>
-                 {b}
              </div>
              <Alert ref="alert"/>
             <Success ref="success" />
@@ -188,6 +203,12 @@ const  feedbackIndexInitfn=(dispatch)=>({
     },
     pop(){
       dispatch(goBack())
+    } ,
+    clean(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'FEED_BACK'
+        })
     }
 })
 
