@@ -72,6 +72,45 @@
           background-color: #90D1ED;  
         } 
     }
+    .contact{
+      display: flex;
+      padding: 15px;
+      label{
+        flex: 0 1 112px;
+        width: 1%;
+        line-height: 28px;
+        color:#666;
+        span{
+          color:red
+        }
+      }
+      input{
+        flex: 8 1 auto;
+        border:2px solid #90D1ED;
+        border-radius: 4px;
+        background-color:transparent;
+        height: 32px;
+        width: 1%;
+        text-indent: 10px;
+        &:focus{
+          outline: none;
+        }
+      }
+    }
+}
+.backdrop{
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.3);
+  .text{
+    color: #fff;
+    margin: 200px auto 0 auto;
+    text-align: center;
+  }
 }
 .loading{
   display:inline-block;

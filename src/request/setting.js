@@ -44,7 +44,7 @@ const requests = (Fetch) => {
   // 签到
   Fetch.sign = () => { return Fetch('sign', 'POST')}
   // 意见反馈
-  Fetch.feedback = (data) => { return Fetch('user/feedback', 'POST', data)}
+  Fetch.feedback = (data) => { return Fetch('api/my/feedback', 'POST', data)}
   // 零钱宝和定存宝利率
   Fetch.getRates = () => { return Fetch('common/rates', 'GET')}
   // 获取安全卡
@@ -63,5 +63,7 @@ const requests = (Fetch) => {
   Fetch.siteAdd=(...data)=>{return Fetch('address/create','POST',{mobile:data[0],realname:data[1],address:data[2]})}
   //编辑地址
   Fetch.siteEdit=(...data)=>{return Fetch('address/update','POST',{id:data[0],mobile:data[1],realname:data[2],address:data[3]})}
+  //上传问题反馈图片
+  Fetch.uploadFeedBackImg=(data)=>{return Fetch('oss/upload','POST',data)}
 };
 export default requests
