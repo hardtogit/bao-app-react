@@ -44,6 +44,7 @@ const Fetch = (url, type, data, headers) => {
            delete options.headers
        }else {
          options.body = transferObjectToFormat(data)
+
        }
     } else if (type && type.toUpperCase() === 'GET') {
       url = data
