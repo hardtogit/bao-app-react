@@ -9,7 +9,6 @@ class Index extends React.Component{
 	constructor(props){
 		super(props);
 	}
-
 	render(){
 		Date.prototype.format = function(fmt) {
 			var o = {
@@ -36,14 +35,6 @@ class Index extends React.Component{
 				pending,
 				end
 				}=this.props
-
-		listData&&listData.map((item,i)=>{
-			let date=new Date(item.created);
-			item.created=date.format("yyyy-MM-dd hh:mm:ss");
-
-
-		})
-
 		const Height=document.body.clientHeight-44;
 		return(
             <div className={styles.bg}>
@@ -57,8 +48,8 @@ class Index extends React.Component{
 					return( 	<div key={i} className={styles.data_list_item}>
 						<div className={styles.list_left}>
 							<ul>
-								<li className={styles.from}>{item.userphone}</li>
-								<li className={styles.date}>{item.created}</li>
+								<li className={styles.from}>{item.type==3?'每日佣金':item.userphone}</li>
+								<li className={styles.date}>{  new Date(item.created*1000).format("yyyy-MM-dd hh:mm:ss")  }</li>
 								<li className={styles.mark}>备注：{item.remarks}</li>
 							</ul>
 						</div>
