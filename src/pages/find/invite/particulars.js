@@ -9,12 +9,41 @@ class Index extends React.Component{
 	constructor(props){
 		super(props);
 	}
+
 	render(){
+		Date.prototype.format = function(fmt) {
+			var o = {
+				"M+" : this.getMonth()+1,                 //月份
+				"d+" : this.getDate(),                    //日
+				"h+" : this.getHours(),                   //小时
+				"m+" : this.getMinutes(),                 //分
+				"s+" : this.getSeconds(),                 //秒
+				"q+" : Math.floor((this.getMonth()+3)/3), //季度
+				"S"  : this.getMilliseconds()             //毫秒
+			};
+			if(/(y+)/.test(fmt)) {
+				fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+			}
+			for(var k in o) {
+				if(new RegExp("("+ k +")").test(fmt)){
+					fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+				}
+			}
+			return fmt;
+		};
 		const{
 				listData,
 				pending,
 				end
 				}=this.props
+
+		listData&&listData.map((item,i)=>{
+			let date=new Date(item.created);
+			item.created=date.format("yyyy-MM-dd hh:mm:ss");
+
+
+		})
+
 		const Height=document.body.clientHeight-44;
 		return(
             <div className={styles.bg}>
@@ -28,13 +57,13 @@ class Index extends React.Component{
 					return( 	<div key={i} className={styles.data_list_item}>
 						<div className={styles.list_left}>
 							<ul>
-								<li className={styles.from}>齐小小</li>
-								<li className={styles.date}>2015-12-25 10:10:10</li>
-								<li className={styles.mark}>备注：好友邀请到账sdddssssssssdsadddsssssssssssssssss</li>
+								<li className={styles.from}>{item.userphone}</li>
+								<li className={styles.date}>{item.created}</li>
+								<li className={styles.mark}>备注：{item.remarks}</li>
 							</ul>
 						</div>
 						<div className={styles.list_right}>
-							+20.25
+							+{item.money}
 						</div>
 					</div>)
 				})}
