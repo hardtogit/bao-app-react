@@ -1,7 +1,6 @@
 import React from 'react'
 import cs from 'classnames'
 import styles from './index.styl'
-import backIcon from '../../assets/images/arrowtab.png'
 import PropTypes from 'prop-types'
 export default class NavBar extends React.PureComponent {
     static propTypes = {
@@ -38,7 +37,7 @@ export default class NavBar extends React.PureComponent {
         return (
             <div className={styles.root} style={sty}>
                 <div className={styles.left} onClick={onLeft}>
-                    {(leftNode || leftNode === null) ? leftNode : <img src={backIcon} height={20} width={10}/>}
+                    {(leftNode || leftNode === null) ? leftNode : <span className={styles.arrows}></span>}
                 </div>
                 <div className={styles.middle} onClick={onTitle}>
                     {children || title || ''}
