@@ -34,10 +34,11 @@ export default class NavBar extends React.PureComponent {
             bgs={backgroundColor:bgs}
         }
         Object.assign(sty,bgs);
+        let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
         return (
             <div className={styles.root} style={sty}>
                 <div className={styles.left} onClick={onLeft}>
-                    {(leftNode || leftNode === null) ? leftNode : <span className={styles.arrows}></span>}
+                    {(leftNode || leftNode === null) ? leftNode : <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>}
                 </div>
                 <div className={styles.middle} onClick={onTitle}>
                     {children || title || ''}
