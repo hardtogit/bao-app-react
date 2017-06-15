@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../../../components/NavBar/index'
 import Box from "../../../components/ContentBox/index"
+import backImg from "../../../assets/images/arrowtab.png"
 import styles from './index.css'
 import cs from 'classnames';
 import bgImg from "../../../assets/images/scratchebg.jpg";
@@ -188,6 +189,7 @@ class Index extends React.Component {
         return (
             <div className={styles.bg}>
                 <NavBar backgroundColor="transparent"
+                        leftNode={<img src={backImg} height="20" width="10" alt=""/>}
                         rightNode={<Link className={styles.rightNode} to="/user/scratchesRule">规则</Link>}
                         onLeft={this.props.pop}
                 >我的刮刮卡</NavBar>
