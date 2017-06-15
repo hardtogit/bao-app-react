@@ -58,12 +58,12 @@ class FinancialIndex extends Component{
         const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isAndroid){
             this.setState({
-                openUrl:'http://bao-image.oss-cn-hangzhou.aliyuncs.com/static/download/android/baodian-android-baodianpc.apk',
+                openUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=cdwd.example.ui',
                 equipment:1
             })
         }else if (isiOS){
             this.setState({
-                openUrl:'https://itunes.apple.com/cn/app/id1017177170?mt=8',
+                openUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=cdwd.example.ui',
                 equipment:2
             })
         }
