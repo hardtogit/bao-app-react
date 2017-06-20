@@ -17,6 +17,7 @@ import Loading from '../../../components/pageLoading'
 import PassWord from '../../../components/Dialog/reddem.js'
 import type_hongwu from '../../../assets/images/type_hongwu.png'
 import type_danbao from '../../../assets/images/type_danbao.png'
+import type_xinyong from '../../../assets/images/type_xinyong.png'
 import type_diya from '../../../assets/images/type_diya.png'
 import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
@@ -121,6 +122,7 @@ class DirectInvestCell extends React.Component{
             rate,
             left_quantity,//剩余份数
             total_quantity,
+            activityName,
             term:month,
             status,//4 还款中 3复审中
             date,//开始时间
@@ -130,84 +132,114 @@ class DirectInvestCell extends React.Component{
         const percent=((1-left_quantity/total_quantity)*100).toFixed(0);
         return(
             <div className={styles.cell} style={{width:this.props.screenW}}>
-              <div onClick={this.clickYz}>
-                <div className={styles.cellHead}>
-                  <div>
-                    <p>{title}</p>
-                  </div>
-                  <div className={activity.length>0 ? styles.activitys : styles.actSinggle}>
-                      {
-                          (() => {
-                              if (activity.length>0) {
-                                  return(
-                                      <img src={type_hongwu} alt="type_hongwu"/>
-                                  )
-                              }
-                          })()
-                      }
-                    <div>
-                      <img src={type===1 ? type_diya : type_danbao}/>
+                <div onClick={this.clickYz}>
+                    <div className={styles.cellHead}>
+                        <div>
+                            <p>{title}
+                                {
+                                    (() => {
+                                        let arr=activityName.split("|");
+                                        let flag=false;
+                                        arr.map( (value,i)=>{
+                                            if(value=="扶农贷"){
+                                                flag=true
+                                            }
+                                        });
+                                        if(flag){
+                                            return(
+                                                <span style={{marginLeft:'6px',color:'#77b33f'}}>[抚农贷]</span>
+                                            )
+                                        }
+                                    })()
+                                }
+                            </p>
+                        </div>
+                        <div className={activity.length>0 ? styles.activitys : styles.actSinggle}>
+                            {
+                                (() => {
+                                    if (activity.length>0) {
+                                        return(
+                                            <img src={type_hongwu} alt="type_hongwu"/>
+                                        )
+                                    }
+                                })()
+                            }
+                            <div>
+                                {
+                                    (() => {
+                                        switch (type){
+                                            case 1:
+                                                return <img src={type_xinyong} alt=""/>
+                                                break;
+                                            case 5:
+                                                return <img src={type_diya} alt=""/>
+                                                break;
+                                            default:return <img src={type_diya} alt=""/>
+                                        }
+
+                                    })()
+                                }
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <div className={styles.cellBody}>
+                        <div>
+                            <p>{rate}<span>%</span></p>
+                            <p>{month}个月</p>
+                        </div>
+                        <div>
+                            {(()=>{
+                                if(status === 4){
+                                    return (
+                                        <p>还款中</p>
+                                    )
+                                }else if(status === 3){
+                                    return (
+                                        <p>复审中</p>
+                                    )
+                                }else if(left_quantity === 0){
+                                    return (
+                                        <p>已满标</p>
+                                    )
+                                }else if(beginDate > nowDate){
+                                    return  (
+                                        <p className={styles.begin}>{Moment(date).format('H:mm')}开始</p>
+                                    )
+                                }else{
+                                    return  ((<div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
+                                        <p>抢购</p>
+                                    </div>))
+                                }
+                            })()}
+                        </div>
+                    </div>
+                    <div className={styles.cellFoot}>
+                        <div>
+                            <p>年利率</p>
+                            <p>期限</p>
+                        </div>
+                        {(()=>{
+                            if(status === 4){
+                                return null
+                            }else if(status === 3){
+                                return null
+                            }else if(left_quantity === 0){
+                                return null
+                            }else if(beginDate > nowDate){
+                                return  null
+                            }else{
+                                return(
+                                    <div className={styles.percent}>
+                                        <p>{percent}%</p>
+                                        <div>
+                                            <div style={{width:percent + '%'}}></div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })()}
+                    </div>
                 </div>
-                <div className={styles.cellBody}>
-                  <div>
-                    <p>{rate}<span>%</span></p>
-                    <p>{month}个月</p>
-                  </div>
-                  <div>
-                      {(()=>{
-                          if(status === 4){
-                              return (
-                                  <p>还款中</p>
-                              )
-                          }else if(status === 3){
-                              return (
-                                  <p>复审中</p>
-                              )
-                          }else if(left_quantity === 0){
-                              return (
-                                  <p>已满标</p>
-                              )
-                          }else if(beginDate > nowDate){
-                              return  (
-                                  <p className={styles.begin}>{Moment(date).format('H:mm')}开始</p>
-                              )
-                          }else{
-                              return  ((<div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
-                                <p>抢购</p>
-                              </div>))
-                          }
-                      })()}
-                  </div>
-                </div>
-                <div className={styles.cellFoot}>
-                  <div>
-                    <p>年利率</p>
-                    <p>期限</p>
-                  </div>
-                    {(()=>{
-                        if(status === 4){
-                            return null
-                        }else if(status === 3){
-                            return null
-                        }else if(left_quantity === 0){
-                            return null
-                        }else if(beginDate > nowDate){
-                            return  null
-                        }else{
-                            return(
-                                <div className={styles.percent}>
-                                  <p>{percent}%</p>
-                                  <div>
-                                    <div style={{width:percent + '%'}}></div>
-                                  </div>
-                                </div>
-                            )
-                        }
-                    })()}
-                </div>
-              </div>
             </div>
         )
     }
@@ -320,6 +352,7 @@ class DirectInvestList extends React.Component{
         if (this.state.init){
             Dom=this.ScrollDom()
         }
+        const sessionUser=sessionStorage.getItem("bao-auth");
         return(
             <div className={styles.content}>
                 {
@@ -327,7 +360,7 @@ class DirectInvestList extends React.Component{
                     <div className={styles.root}>
                       <CusDialog ref='wrong'></CusDialog>
                       <PassWord ref="passWord" hasMoney={false} hasDetailText={true}></PassWord>
-                        { is_login && is_login ?
+                        { is_login && is_login && sessionUser ?
                             <div className={styles.noticeDiv}>
                                 {this.setUserCardInfo()}
                             </div> :
@@ -352,8 +385,9 @@ const mapStateToProps = (state,ownProps) => {
     const verifyAssign=state.infodata.getIn([actionTypes.VERIFY_ASSIGN,'data']);
     const user = (userData.code == 100) ? userData.data : {}
     const is_login = (userData.code == 100) ? true : false
-    let ListHeight= is_login ? document.body.clientHeight-88 : document.body.clientHeight-88-78
-    if (is_login) {
+    const sessionUser=sessionStorage.getItem("bao-auth");
+    let ListHeight= is_login && sessionUser? document.body.clientHeight-88 : document.body.clientHeight-88-78
+    if (is_login && sessionUser) {
       if (user) {
         if ((user.voucher && user.voucher>0) || user.interestRateSecurities && user.interestRateSecurities>0) {
             ListHeight -=44;

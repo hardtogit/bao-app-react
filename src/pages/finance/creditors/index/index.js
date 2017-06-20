@@ -199,13 +199,14 @@ class CreditorList extends React.Component{
     if (this.state.init){
         Dom=this.ScrollDom();
     }
+      const sessionUser=sessionStorage.getItem("bao-auth");
     return(
       <div className={styles.root}>
         {
           userData &&  
             <div className={styles.root}>
               <CusDialog ref='wrong'></CusDialog>
-                {is_login ?
+                {is_login && sessionUser ?
                   null
                    :
                   <TopGuide goRegist={() => this.props.push('/regist/')}></TopGuide>
@@ -228,7 +229,8 @@ const mapStateToProps = (state,ownProps) => {
   const key =actionTypes.FETCH_CREDITORSLIST_DATA
   const userData = state.infodata.getIn([actionTypes.USER_INFO, 'data'])
   const is_login = (userData.code == 100) ? true : false
-  let ListHeight= is_login ? document.body.clientHeight-88 : document.body.clientHeight-88-78
+    const sessionUser=sessionStorage.getItem("bao-auth");
+  let ListHeight= is_login && sessionUser ? document.body.clientHeight-88 : document.body.clientHeight-88-78
   return {
     is_login,
     ListHeight,

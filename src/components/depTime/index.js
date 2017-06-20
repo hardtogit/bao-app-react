@@ -99,7 +99,19 @@ class Index extends Component{
                               产品类型
                           </span>
                             <span className={styles.dbType}>
-                                抵押标
+                                {
+                                    (()=>{
+                                        switch (lx){
+                                            case 1:
+                                                return '信用标';
+                                                break;
+                                            case 5:
+                                                return  '抵押标';
+                                                break;
+                                            default:return '抵押标'
+                                        }
+                                    })()
+                                }
                             </span>
                         </p>
                         <p>
