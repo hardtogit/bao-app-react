@@ -140,7 +140,7 @@ class DirectInvestCell extends React.Component{
                                     (() => {
                                         let arr = activityName.split("|");
                                         let docArr=new Array();
-                                        if(arr.length>1){
+                                        if(arr.length>0 && activityName!=""){
                                             arr.map((value, i)=> {
                                                 docArr.push(<span key={i} style={{marginLeft:'6px',color:'#77b33f'}}>{"["+value+"]"}</span>)
                                             });
