@@ -91,12 +91,12 @@ class Index extends Component{
                                     (()=>{
                                         switch (type){
                                             case 1:
-                                                return '信用标';
+                                                return '信用';
                                                 break;
                                             case 5:
-                                                return  '抵押标';
+                                                return  '抵押';
                                                 break;
-                                            default:return '抵押标'
+                                            default:return '抵押'
                                         }
                                     })()
                                 }
