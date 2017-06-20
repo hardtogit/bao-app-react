@@ -138,19 +138,17 @@ class DirectInvestCell extends React.Component{
                             <p>{title}
                                 {
                                     (() => {
-                                        let arr=activityName.split("|");
-                                        let flag=false;
-                                        arr.map( (value,i)=>{
-                                            if(value=="扶农贷"){
-                                                flag=true
-                                            }
-                                        });
-                                        if(flag){
-                                            return(
-                                                <span style={{marginLeft:'6px',color:'#77b33f'}}>[抚农贷]</span>
-                                            )
+                                        let arr = activityName.split("|");
+                                        let docArr=new Array();
+                                        console.log(arr.length)
+                                        if(arr.length>1){
+                                            arr.map((value, i)=> {
+                                                docArr.push(<span key={i} style={{marginLeft:'6px',color:'#77b33f'}}>{"["+value+"]"}</span>)
+                                            });
                                         }
+                                        return docArr;
                                     })()
+
                                 }
                             </p>
                         </div>

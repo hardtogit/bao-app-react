@@ -87,7 +87,19 @@ class Index extends Component{
                          产品类型
                      </span>
                         <span className={styles.productName}>
-                            {type==1&&'抵押标'||'担保标'}
+                                {
+                                    (()=>{
+                                        switch (type){
+                                            case 1:
+                                                return '信用标';
+                                                break;
+                                            case 5:
+                                                return  '抵押标';
+                                                break;
+                                            default:return '抵押标'
+                                        }
+                                    })()
+                                }
                         </span>
                     </li>
                 </ul>
