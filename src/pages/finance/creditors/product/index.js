@@ -152,16 +152,23 @@ class CreditorDetails extends React.Component{
     succsseFn=(url)=>{
         setUrl.setUrl(url)
     }
+    showInfo=()=>{
+        this.refs.modal.show({
+            content:'这部分资金是原转让人截止转让期的应得利息，由于未到还款日先由购买人先垫付，后借借款人下一还款日一并返还。',
+            okText:'确定'
+        })
+    }
   render(){
     let {
       data,
+      push
     } = this.props;
 
     const selectID =this.state.selectID
     return(
       <div className={styles.root}>
           <NavBar onLeft={()=>this.props.goBack()}>
-              {data&&data.name||'产品详情'}
+              产品详情
           </NavBar>
         <div className={styles.scroll}>
         {
@@ -186,13 +193,29 @@ class CreditorDetails extends React.Component{
                 </div>
                 <div className={styles.whiteDiv}>
                   <div className={styles.suBox}>
-                  安全保障计划
-                      <img src={arrow2} className={styles.suJt}/>
+                      {data.name}
+                      <hr style={{marginTop:'15px',border:'none',borderTop:'1px solid #ddd'}} />
                   </div>
                   <div className={styles.timeBox}>
-                      <DepTime type={1} startTime={data.interest_start_time} endTime={data.interest_end_time} Grade={data.credit_rating}
-                               repayment={data.repayment} lx={data.type == '抵押' ? 1 : 2}/>
+                      <ul style={{listStyle:'none'}}>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>转让价值:</span><span style={{color:'#ff7906',float:'right',paddingRight:'15px'}}>{data.transfer_value}元</span></li>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>转让价格:</span><span style={{color:'#ff7906',float:'right',paddingRight:'15px'}}>{data.transfer_price}元</span></li>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>预付利息:</span><span style={{color:'#ff7906',float:'right',paddingRight:'15px'}}>{data.prepaid_interest}元/份 <span onClick={this.showInfo} style={{ borderRadius:'50%',marginLeft:'6px',padding:'0 7px',backgroundColor:'#d1d1d1',color:'#fff'}}>?</span>   </span></li>
+                      </ul>
+                      <hr style={{marginTop:'15px',border:'none',borderTop:'1px solid #ddd'}} />
+                      <ul style={{listStyle:'none',marginTop:'20px'}}>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>还款方式:</span><span style={{color:'#666',float:'right',paddingRight:'15px'}}>{data.repayment}</span></li>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>下一还款日:</span><span style={{color:'#666',float:'right',paddingRight:'15px'}}>{data.next_pay_day}元</span></li>
+
+                      </ul>
                   </div>
+                    <hr style={{marginTop:'15px',border:'none',borderTop:'1px solid #ddd'}} />
+                    <div style={{display:'flex'}}>
+                        <div onClick={()=>{push('/safeplan')}} style={{flex:1,textAlign:'left',color:'#00a6e2',padding:'20px 0 20px 15px'}}>安全保障计划</div>
+                        <div style={{flex:1,textAlign:'center',padding:'20px 0'}}>信用等级{data.credit_rating}</div>
+                        <div style={{flex:1,textAlign:'right',padding:'20px 15px 20px 0'}}>类型：{data.type}</div>
+                    </div>
+                    <CusDialog ref='modal'></CusDialog>
                 </div>
               </div>
               <div className={styles.typeDiv}>
