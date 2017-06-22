@@ -176,7 +176,7 @@ class CreditorDetails extends React.Component{
           ?
           <div>
             <div>
-              <div className={styles.topDiv}>
+              <div className={styles.topDiv} style={{backgroundColor:'#fff'}}>
                 <div className={styles.blueDiv}>
                   <p>{data.price}</p>
                   <p>(元/份)</p>
@@ -205,7 +205,7 @@ class CreditorDetails extends React.Component{
                       <hr style={{marginTop:'15px',border:'none',borderTop:'1px solid #ddd'}} />
                       <ul style={{listStyle:'none',marginTop:'20px'}}>
                           <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>还款方式:</span><span style={{color:'#666',float:'right',paddingRight:'15px'}}>{data.repayment}</span></li>
-                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>下一还款日:</span><span style={{color:'#666',float:'right',paddingRight:'15px'}}>{data.next_pay_day}元</span></li>
+                          <li style={{marginBottom:'20px'}}><span style={{color:'#999'}}>下一还款日:</span><span style={{color:'#666',float:'right',paddingRight:'15px'}}>{data.next_pay_day}</span></li>
 
                       </ul>
                   </div>
@@ -213,7 +213,7 @@ class CreditorDetails extends React.Component{
                     <div style={{display:'flex'}}>
                         <div onClick={()=>{push('/safeplan')}} style={{flex:1,textAlign:'left',color:'#00a6e2',padding:'20px 0 20px 15px'}}>安全保障计划</div>
                         <div style={{flex:1,textAlign:'center',padding:'20px 0'}}>信用等级{data.credit_rating}</div>
-                        <div style={{flex:1,textAlign:'right',padding:'20px 15px 20px 0'}}>类型：{data.type}</div>
+                        <div style={{flex:1,textAlign:'right',padding:'20px 15px 20px 0'}}>类型:{data.type}</div>
                     </div>
                     <CusDialog ref='modal'></CusDialog>
                 </div>
