@@ -181,7 +181,29 @@ class DirectInvestCell extends React.Component{
                     </div>
                     <div className={styles.cellBody}>
                         <div>
-                            <p>{rate}<span>%</span></p>
+                            {
+                                (() => {
+                                    let arr = activityName.split("|");
+                                    let flag=false;
+                                    if(arr.length>0 && activityName!=""){
+                                        arr.map((value, i)=> {
+                                           if(value=='扶农贷'){
+                                               flag=true;
+                                           }
+                                        });
+                                    }
+                                    if(flag){
+                                        return <p>{rate}<span>%</span> <span style={{position:'relative',top:'-12px',left:'-4px'}}>+0.5%</span></p>
+
+                                    }else{
+                                        return <p>{rate}<span>%</span></p>
+
+                                    }
+
+                                })()
+
+                            }
+
                             <p>{month}个月</p>
                         </div>
                         <div>

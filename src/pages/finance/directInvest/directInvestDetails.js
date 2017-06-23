@@ -9,6 +9,7 @@ import Ok from '../../../assets/images/ok.png'
 import Calculator from '../../../components/Calculator'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
+import SwitchPanel from '../../../components/switchPanel/index'
 import classNames from 'classnames'
 import LoadList from '../../../components/scroll/config'
 import nullImg from '../../../assets/images/record.png'
@@ -157,8 +158,13 @@ class Index extends Component{
             total,
             rate,
             term,
+            activityName,
             type,
             fundraising,
+            borrow_interest_rate_one,
+            borrow_interest_rate_two,
+            peasant_loan_title,
+            peasant_loan_content,
             interest_start_time,
             interest_end_time,
             credit_rating,
@@ -187,7 +193,7 @@ class Index extends Component{
                 <div className={styles.title}>{name}</div>
             </NavBar>
             <div ref='topHeight'>
-            <Header rate={rate} data={Bdatas}/>
+            <Header rate={rate} data={Bdatas} activityName={activityName} rateA={borrow_interest_rate_one} rateB={borrow_interest_rate_two}/>
             <div className={styles.suBox} onClick={()=>{push('/safeplan')}}>
                 安全保障计划
                 <img src={arrow2} className={styles.suJt}/>
@@ -196,6 +202,21 @@ class Index extends Component{
                 <DepTime type={'B'} startTime={interest_start_time} endTime={interest_end_time} Grade={credit_rating}
                          repayment={repayment} lx={type}/>
             </div>
+
+                {(()=>{
+                    let arr = activityName.split("|");
+                    let flag=false;
+                    if(arr.length>0 && activityName!=""){
+                        arr.map((value, i)=> {
+                            if(value=='扶农贷'){
+                                flag=true;
+                            }
+                        });
+                    }
+                    return flag?<SwitchPanel status={false} title={peasant_loan_title}>{peasant_loan_content}</SwitchPanel>:''
+                })()}
+
+
                 <div className={styles.tabHeader}>
                   <span className={tabPage==0&&styles.tabCheck||null} onClick={()=>{this.setPage(0)}}>
                       借款人
