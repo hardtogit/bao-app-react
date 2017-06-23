@@ -123,6 +123,8 @@ class DirectInvestCell extends React.Component{
             left_quantity,//剩余份数
             total_quantity,
             activityName,
+            borrow_interest_rate_one,
+            borrow_interest_rate_two,
             term:month,
             status,//4 还款中 3复审中
             date,//开始时间
@@ -193,7 +195,7 @@ class DirectInvestCell extends React.Component{
                                         });
                                     }
                                     if(flag){
-                                        return <p>{rate}<span>%</span> <span style={{position:'relative',top:'-12px',left:'-4px'}}>+0.5%</span></p>
+                                        return <p>{borrow_interest_rate_one}<span>%</span> <span style={{position:'relative',top:'-12px',left:'-4px'}}>+{borrow_interest_rate_two}%</span></p>
 
                                     }else{
                                         return <p>{rate}<span>%</span></p>
