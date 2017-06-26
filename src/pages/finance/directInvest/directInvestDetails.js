@@ -237,14 +237,29 @@ class Index extends Component{
                             </div>
                         </div>
                     </div>
-                    <div className={styles.tabOne}>
-                        <div className={styles.tabContent}>
-                            <h3>还款来源</h3>
-                            <div>
-                                {loan_source}
-                            </div>
-                        </div>
-                    </div>
+                       {
+                           (()=>{
+                               switch (type){
+                                   case 1:
+                                       return '';
+                                       break;
+                                   case 5:
+                                       return  <div className={styles.tabOne}>
+                                                 <div className={styles.tabContent}>
+                                                    <h3>还款来源</h3>
+                                                    <div>{loan_source}</div>
+                                                 </div>
+                                                </div>;
+                                       break;
+                                   default:return <div className={styles.tabOne}>
+                                       <div className={styles.tabContent}>
+                                           <h3>还款来源</h3>
+                                           <div>{loan_source}</div>
+                                       </div>
+                                   </div>;
+                               }
+                           })()
+                       }
                     <div className={styles.tabOne}>
                         <div className={styles.tabContent}>
                             <h3>平台认证</h3>
