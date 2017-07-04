@@ -300,5 +300,25 @@ export default {
     },
     [actionTypes.UPLOAD_FEED_BACK_IMG]:{
         apiFn:Fetch.uploadFeedBackImg
+    },
+    [actionTypes.REG_STORE]:{//注册存管
+        apiFn:Fetch.regStore
+    },
+    [actionTypes.REG_VERIFY]:{//验证存管
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.GET_PROVINCE]:{//获取省份
+        apiFn:Fetch.getProvince
+    },
+    [actionTypes.GET_CITY]:{//获取城市
+        apiFn:Fetch.getCity
+    },
+    [actionTypes.GET_BANK]:{//获取银行
+        apiFn:Fetch.getBank
+    },
+    [actionTypes.GET_POINT]:{//获取网点
+        apiFn:Fetch.getPoint
     }
+
+
 }

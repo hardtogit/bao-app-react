@@ -80,6 +80,10 @@ import findIndex from './pages/find'
 import Invite from './pages/find/invite/index'
 
 // 我的模块
+import verifyPhone from './pages/my/setting/verifyPhone'
+import regStore from './pages/my/setting/regStore'
+import cardBind from './pages/my/setting/cardBind'
+import choicePoint from './pages/my/setting/choicePoint'
 import Setting from './pages/my/setting/index'
 import UserNameModify from './pages/my/setting/usernameModify'
 import SecurityCenter from './pages/my/setting/securityCenter'
@@ -123,8 +127,8 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+//const a=window.location.href.split('.')[1]+'.cn';
+//document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -232,6 +236,10 @@ export default class App extends React.Component {
                   <Route path="setting/siteList" component={siteList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址列表*/
                   <Route path="setting/siteAdd" component={siteAdd} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址新增*/
                   <Route path="setting/siteEdit" component={siteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
+                  <Route path="setting/regStore" component={regStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
+                  <Route path="setting/cardBind" component={cardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/verifyPhone" component={verifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
+                  <Route path="setting/choicePoint" component={choicePoint} ></Route>/*验证手机号*/
                   /*已完成*/
 
                   <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

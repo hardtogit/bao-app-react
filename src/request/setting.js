@@ -65,5 +65,18 @@ const requests = (Fetch) => {
   Fetch.siteEdit=(...data)=>{return Fetch('address/update','POST',{id:data[0],mobile:data[1],realname:data[2],address:data[3]})}
   //上传问题反馈图片
   Fetch.uploadFeedBackImg=(data)=>{return Fetch('oss/upload','POST',data)}
+  //注册存管
+  Fetch.regStore=(data)=>{return Fetch('api/supervise/users/register','POST',data)}
+  //验证存管
+  Fetch.regVerify=(id)=>{ return Fetch(`api/common/msg-result/${id.id}`,'GET')}
+  //获取省份
+  Fetch.getProvince=(data)=>{ return Fetch('api/supervise/outlets/province-list','GET',data)}
+  //获取城市
+  Fetch.getCity=(data)=>{ return Fetch('api/supervise/outlets/city-list','GET',data)}
+  //获取银行
+  Fetch.getBank=(data)=>{ return Fetch('api/supervise/outlets/bank-list','GET',data)}
+  //获取网点
+  Fetch.getPoint=(data)=>{ return Fetch('api/supervise/outlets/outlet-list','GET',data)}
+
 };
 export default requests

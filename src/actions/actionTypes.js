@@ -82,7 +82,18 @@ export const VERIFY_CAPTCHA = 'VERIFY_CAPTCHA'
 export const CHECK_VERIFY_CAPTCHA = 'CHECK_VERIFY_CAPTCHA'
 export const REGISTER = 'REGISTER'
 export const SECURITY_CARD='SECURITY_CARD'
-
+//注册存管
+export const REG_STORE = 'REG_STORE'
+//存管验证
+export const REG_VERIFY ='REG_VERIFY'
+//获取省份
+export const GET_PROVINCE='GET_PROVINCE'
+//获取城市
+export const GET_CITY='GET_CITY'
+//获取银行列表
+export const GET_BANK='GET_BANK'
+//获取营业网点
+export const GET_POINT='GET_POINT'
 export const BIND_MOBILE = 'BIND_MOBILE'
 export const BIND_MOBILE_MODIFY = 'BIND_MOBILE_MODIFY'
 export const BIND_MOBILE_SUCCESS = 'BIND_MOBILE_SUCCESS'
