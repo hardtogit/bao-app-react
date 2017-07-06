@@ -70,13 +70,18 @@ const requests = (Fetch) => {
   //验证存管
   Fetch.regVerify=(id)=>{ return Fetch(`api/common/msg-result/${id.id}`,'GET')}
   //获取省份
-  Fetch.getProvince=(data)=>{ return Fetch('api/supervise/outlets/province-list','GET',data)}
+  Fetch.getProvince=(data)=>{ return Fetch('api/supervise/outlets/provinceList','GET',data)}
   //获取城市
-  Fetch.getCity=(data)=>{ return Fetch('api/supervise/outlets/city-list','GET',data)}
+  Fetch.getCity=(data)=>{ return Fetch('api/supervise/outlets/cityList','GET',data)}
   //获取银行
-  Fetch.getBank=(data)=>{ return Fetch('api/supervise/outlets/bank-list','GET',data)}
+  Fetch.getBank=(data)=>{ return Fetch('api/supervise/outlets/bankList','GET',data)}
   //获取网点
-  Fetch.getPoint=(data)=>{ return Fetch('api/supervise/outlets/outlet-list','GET',data)}
-
+  Fetch.getPoint=(data)=>{ return Fetch('api/supervise/outlets/outletList','GET',data)}
+  //发送验证码
+  Fetch.storeSendCode=(data)=>{ return Fetch('api/supervise/users/sendSms','POST',data)}
+  //验证验证码
+  Fetch.storeVerifyCode=(data)=>{ return Fetch('api/supervise/users/verifySms','POST',data)}
+  //绑定银行卡
+  Fetch.storeBindCar=(data)=>{ return Fetch('api/supervise/users/bindBankcard','POST',data)}
 };
 export default requests

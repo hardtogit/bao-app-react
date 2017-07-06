@@ -34,7 +34,7 @@ class VerifyCode extends React.Component {
 	    label: '重新发送', // 默认文字显示
 	    countdown: 60,  // 默认的倒计时时长
 	    format: '$timeS' // 正在发送状态时的文字显示
-	}
+	};
 
 	tick() {
 	    const {count,time} = this.state;
@@ -49,7 +49,6 @@ class VerifyCode extends React.Component {
 	setInterval() {
 		this.interval = setInterval(this.tick.bind(this), 1000)
 	}
-
 	handleClick() {
 	    if (this.state.active) {
 	      	this.setState({active: false, count: this.props.countdown || this.props.countdown});
@@ -59,7 +58,6 @@ class VerifyCode extends React.Component {
 	      	}
 	    }
 	}
-
 	handleAppStateChange = (currentAppState) => {
 		if (currentAppState == 'inactive') {
 			this.exitTime = new Date().getTime()

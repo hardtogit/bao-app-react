@@ -1,0 +1,31 @@
+.rightBar{
+  font-size: 16px;
+  padding: 12px 0;
+  margin-left: 15px;
+  border-bottom: 1px solid #ddd;
+  .rightIcon{
+    float:right;
+    .text{
+      margin-right: 36px;
+    }
+    .arrow{
+      position: relative;
+      right: 10px;
+      &:before,&:after{
+        border: 10px solid transparent;
+        border-left: 10px solid #fff;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: ' ';
+      }
+      &:before{
+        border-left-color: #B6B6B6;
+        right: -2px;
+
+      }
+    }
+  }
+}

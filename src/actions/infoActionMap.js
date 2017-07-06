@@ -318,7 +318,19 @@ export default {
     },
     [actionTypes.GET_POINT]:{//获取网点
         apiFn:Fetch.getPoint
+    },
+    [actionTypes.STORE_SEND_CODE]:{//存管发送验证码
+        apiFn:Fetch.storeSendCode
+    },
+    [actionTypes.STORE_VERIFY_CODE]:{//存管验证验证码
+        apiFn:Fetch.storeVerifyCode
+    },
+    [actionTypes.STORE_BIND_CAR]:{//存管验证验证码
+        apiFn:Fetch.storeBindCar
     }
+
+
+
 
 
 }

@@ -7,17 +7,20 @@
 import React,{Component} from 'react'
 import NavBar from '../../../../components/NavBar'
 import Button from '../../../../components/BaseButton'
+import Tipbar from '../../../../components/Tipbar'
 import LoadingButton from '../../../../components/LoadingButton/index'
 import ValidateForm from '../../../../components/BaseValidateForm/index'
 import * as actionTypes from '../../../../actions/actionTypes'
 import BaseInput     from '../../../../components/BaseInput/index'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
 import SelectBox from '../../../../components/SelectBox/index'
+import Verify from '../../../../components/VerifyCode/index'
 import Confirm from '../../../../components/Dialog/confirm'
 import Alert from '../../../../components/Dialog/alert'
 import Success from '../../../../components/Dialog/success'
 import styles from './index.less'
 import {go, replace} from 'react-router-redux'
+import {goBack, push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
@@ -26,6 +29,9 @@ class Index extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            time:0,
+            ref:'',
+            formData:{},
             province:'',
             city:'',
             bank:'',
@@ -35,113 +41,207 @@ class Index extends Component{
     static defaultProps = {
         data:[{color:'#000',text:'ds'},{color:'#000',text:'ds'},{color:'#000',text:'ds'}]
     };
-    dd=(e)=>{
-       let el= e.target;
-        console.log(el.value)
-       this.setState({
-           province: el.value
-       });
-        this.props.getCityList({provinceId:el.value})
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.msgId){
+            if (nextProps.msgId.status==1){
+                if(this.state.time<3){
+                    this.setState({
+                        time:this.state.time+1
+                    });
+                    if(nextProps.flagData&&nextProps.flagData.data.status==1){
+                            this.setState({
+                                ref:nextProps.flagData.data.additional[0].data.ref
+                            })
+                    }else{
+                        setTimeout(()=>{
+                            this.props.verify(nextProps.msgId.msgId)
+                        },1000)
+                    }
+                }
+            }
+        }
+
+        if( nextProps.verifyCodeData&&nextProps.verifyCodeData.status==1){
+            this.props.bindCard(this.state.formData)
+            this.props.clean('STORE_VERIFY_CODE');
+        }
+        if(nextProps.regData&&nextProps.regData.status==1){
+            alert('绑定成功')
+        }
     }
     componentWillMount(){
-        this.props.getPointList()
-        this.props.getProvinceList()
-        this.props.getCityList()
-        this.props.getBankList()
-
     }
     componentDidMount(){
     }
+    componentDidUpdate(){
+
+    }
+    sendCode=()=>{
+        let telNo=this.refs.form.getValue().telNo;
+        if(telNo==''){
+            this.refs.alert.open('请填写预留手机号');
+            return false;
+        }
+      this.props.clean('REG_VERIFY');
+      this.props.sendCode({telNo:this.refs.form.getValue().telNo})
+    };
+    choiceBank=(e)=>{
+        sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
+        this.props.push('/user/setting/choiceBank')
+    };
+    choicePoint=(e)=>{
+        if(this.props.bankData){
+            let bank=this.props.bankData.bankId;
+            sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
+            this.props.push('/user/setting/choicePoint?bankId='+bank)
+        }else{
+            this.refs.alert.open('请选择开户行')
+            return;
+        }
+    };
+    submit=()=>{
+        let tip=this.refs.alert;
+        let bankCard=this.refs.form.getValue().bankCard;
+        if(bankCard==''){
+            tip.open('请输入卡号')
+            return false;
+        }
+        if(this.props.pointData==undefined){
+            tip.open('请选择网点')
+            return
+        }
+
+       let smsReference=this.state.ref;
+       let verifyCode=this.refs.verifyCode.value;
+       let bankName=this.props.pointData.bankName;
+       let bankCode=this.props.pointData.bankCode;
+        let telNo=this.refs.form.getValue().telNo;
+        this.setState({
+            formData:{
+                smsReference:smsReference,
+                bankCard:bankCard,
+                bankName:bankName,
+                bankCode:bankCode,
+                telNo:telNo
+            }
+        });
+        if(smsReference&&verifyCode){
+            this.props.verifyCode({
+                smsReference:smsReference,
+                verifyCode:verifyCode
+            })
+        }else{
+            tip.open('请先验证手机号')
+        }
+    };
     render(){
         const{
-            provinceData,
-            cityData,
             bankData,
-            pointData
-            }=this.props
-        console.log(pointData)
+            pointData,
+            msgId
+            }=this.props;
+           const bankCard=sessionStorage.getItem('carNo')?sessionStorage.getItem('carNo'):'';
+
         return(
             <div>
-            <div>
-            省份：<select name="" id="" onChange={this.dd}>
-                {provinceData&&provinceData.data.map((item,i)=>{
-                   return <option key={i} value={item.provinceId}>{item.provinceName}</option>
-                })}
-            </select>
-            </div>
-            <div>
-            城市：<select name="" id="">
-                {cityData&&cityData.data.map((item,i)=>{
-                    return <option key={i} value={item.cityId}>{item.cityName}</option>
-                })}
-            </select>
-            </div>
-            <div>
-            银行：<select name="" id="">
-                {bankData&&bankData.data.map((item,i)=>{
-                    return <option key={i} value={item.bankId}>{item.bankName}</option>
-                })}
-            </select>
-            </div>
-            <div>
-            网点：<select name="" id="">
-                {pointData&&bankData.data.map((item,i)=>{
-                    return <option key={i} value={item.bankId}>{item.bankName}</option>
-                })}
-            </select>
-            </div>
-            <div>
-            银行卡号：<input type="text"/>
-            </div>
-                <button>绑卡</button>
+                <NavBar>绑定银行卡</NavBar>
+                <div style={{paddingTop:'44px'}}>
+                    <ValidateForm ref="form">
+                    <BaseInput
+                        noleftPadding
+                        ref='bankCard'
+                        name='bankCard'
+                        label='银行卡号'
+                        defaultValue={bankCard}
+                        placeholder=''
+                        type='validateItem'
+                        reg={{ required: {message: '请输入正确的卡号'}}}
+                        borderType='four' />
+                    <div className={styles.rightBar}>
+                        开户行<div className={styles.rightIcon}><span className={styles.text} onClick={this.choiceBank}>{bankData?bankData.bankName:'点击选择开户行'}</span><span className={styles.arrow}></span></div>
+                    </div>
+                        <div className={styles.rightBar}>
+                            网点<div className={styles.rightIcon}><span className={styles.text} onClick={this.choicePoint}>{pointData?pointData.bankName:'点击选择网点'}</span><span className={styles.arrow}></span></div>
+                        </div>
+                    <BaseInput
+                        noleftPadding
+                        ref='telNo'
+                        name='telNo'
+                        label='预留手机号'
+                        defaultValue=''
+                        placeholder=''
+                        type='validateItem'
+                        reg={{ required: {message: '请输入正确的卡号'}}}
+                        borderType='four' />
+
+                    <div style={{margin:'10px 15px 0 15px'}}>
+                        <input ref="verifyCode" name="verifyCode" style={{float:'left',width:'60%',padding:'11px 0',marginRight:'2%'}} type="text" placeholder="请输入验证码"/> <Verify containerDisableStyle={{width:'38%'}} containerStyle={{width:'38%'}} init={true} onClick={this.sendCode}></Verify>
+                    </div>
+                    <br/>
+                    <div style={{paddingLeft:'15px',paddingRight:'15px'}}>
+                       <Button text="绑卡" onClick={this.submit} />
+                    </div>
+
+                    </ValidateForm>
+                    <Tipbar ref="alert"></Tipbar>
+                </div>
             </div>
         )
     }
 }
 const mapStateToProps=(state,ownProps)=>{
     return{
-        provinceData:state.infodata.getIn([actionTypes.GET_PROVINCE, 'data']),
-        cityData:state.infodata.getIn([actionTypes.GET_CITY, 'data']),
-        bankData:state.infodata.getIn([actionTypes.GET_BANK, 'data']),
-        pointData:state.infodata.getIn([actionTypes.GET_POINT, 'data']),
-
+        pointData:state.regStore.getIn([actionTypes.CHOICE_POINT, 'bankInfoPoint']),
+        bankData:state.regStore.getIn([actionTypes.CHOICE_BANK, 'bankInfo']),
+        msgId:state.infodata.getIn([actionTypes.STORE_SEND_CODE, 'data']),
+        flagData:state.infodata.getIn([actionTypes.REG_VERIFY,'data']),
+        verifyCodeData:state.infodata.getIn([actionTypes.STORE_VERIFY_CODE,'data']),
+        regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
     }
 };
-
 const mapDispatchToProps=(dispatch,ownProps)=>{
     return{
-        //查询网点
-        getPointList(data){
-            dispatch({
-                type:actionTypes.GET_POINT,
-                params:[data]
-
-
-            })
+        //跳转选择网点
+        push(path) {
+            dispatch(push(path))
         },
-        //查询省份
-        getProvinceList(){
-            dispatch({
-                type:actionTypes.GET_PROVINCE
-
-            })
-
+        //返回上一页
+        pop(){
+            dispath(goBack())
         },
-
-        //查询城市
-        getCityList(data){
+        //发送验证码
+        sendCode(data){
             dispatch({
-                type:actionTypes.GET_CITY,
+                type:actionTypes.STORE_SEND_CODE,
                 params:[data]
             })
-
         },
-
-        //查询银行
-        getBankList(){
+        //验证是否发送成功
+        verify(id){
             dispatch({
-                type:actionTypes.GET_BANK
-
+                type:actionTypes.REG_VERIFY,
+                params:[{id:id}]
+            })
+        },
+        //验证验证码
+        verifyCode(data){
+            dispatch({
+                type:actionTypes.STORE_VERIFY_CODE,
+                params:[data]
+            })
+        },
+        //绑卡
+        bindCard(data){
+            dispatch({
+                type:actionTypes.STORE_BIND_CAR,
+                params:[data]
+            })
+        },
+        //清除state
+        clean(key){
+            dispatch({
+                type:'CLEAR_INFO_DATA',
+                key:key
             })
         }
 

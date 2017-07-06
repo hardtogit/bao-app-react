@@ -75,7 +75,6 @@ export const CALENDAR = 'CALENDAR';
 
 export const INVITE_FRIENDS='INVITE_FRIENDS'
 
-
 //setting
 export const EXIST_MOBILE = 'EXIST_MOBILE'
 export const VERIFY_CAPTCHA = 'VERIFY_CAPTCHA'
@@ -94,6 +93,14 @@ export const GET_CITY='GET_CITY'
 export const GET_BANK='GET_BANK'
 //获取营业网点
 export const GET_POINT='GET_POINT'
+//注册存管验证短信
+export const STORE_SEND_CODE='STORE_SEND_CODE'
+//验证验证码
+export const STORE_VERIFY_CODE='STORE_VERIFY_CODE'
+//绑定银行卡
+export const STORE_BIND_CAR='STORE_BIND_CAR'
+export const CHOICE_POINT='CHOICE_POINT'
+export const CHOICE_BANK='CHOICE_BANK'
 export const BIND_MOBILE = 'BIND_MOBILE'
 export const BIND_MOBILE_MODIFY = 'BIND_MOBILE_MODIFY'
 export const BIND_MOBILE_SUCCESS = 'BIND_MOBILE_SUCCESS'

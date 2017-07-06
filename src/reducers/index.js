@@ -7,6 +7,7 @@ import global from './global.reducer'
 import listdata from './listdata.reducer'
 import infodata from './infodata.reducers'
 import useCoupons from './useCoupons.reducer'
+import regStore from './regStore.reducer'
 
 export default combineReducers({
   routing: routerReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   global,
   listdata,
   infodata,
-  useCoupons
+  useCoupons,
+  regStore
 })
