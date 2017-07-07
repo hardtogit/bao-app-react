@@ -78,11 +78,18 @@ class Index extends Component{
     }
     sendCode=()=>{
         let telNo=this.refs.form.getValue().telNo;
+        let regex = /^1[34578]\d{9}$/;
         if(telNo==''){
-            this.refs.alert.open('请填写预留手机号');
+            this.refs.alert.open('请填写预留手机号码');
+            return false;
+        }else if(!regex.test(telNo)){
+            this.refs.alert.open('请填写正确的手机号码');
             return false;
         }
       this.props.clean('REG_VERIFY');
+        this.setState({
+            time:0
+        });
       this.props.sendCode({telNo:this.refs.form.getValue().telNo})
     };
     choiceBank=(e)=>{
@@ -115,7 +122,7 @@ class Index extends Component{
        let verifyCode=this.refs.verifyCode.value;
        let bankName=this.props.pointData.bankName;
        let bankCode=this.props.pointData.bankCode;
-        let telNo=this.refs.form.getValue().telNo;
+       let telNo=this.refs.form.getValue().telNo;
         this.setState({
             formData:{
                 smsReference:smsReference,
