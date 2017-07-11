@@ -99,7 +99,8 @@ class Index extends React.Component{
             },
             location:{
                 query:{
-                    id
+                    id,
+                    activityId
                 }
             },
             push
@@ -115,7 +116,7 @@ class Index extends React.Component{
                 this.setState({
                     flag:true
                 });
-                this.props.send(id,data[0].id)
+                this.props.send(activityId,id,data[0].id)
             }
         }
     hasAddress=()=>{
@@ -199,10 +200,10 @@ const dispatchFn=(dispatch)=>({
             type:"SITE_LIST"
         })
     },
-    send(productGroup,addressId){
+    send(activityId,productGroup,addressId){
         dispatch({
             type:'ACTIVE_EXCHANGE',
-            params:[{activityId:3,productGroup,addressId}]
+            params:[{activityId:activityId,productGroup,addressId}]
         })
     },
     clearData(){
