@@ -7,7 +7,7 @@ import Scroll from '../../../../../components/scroll/index'
 import {goBack,push} from 'react-router-redux'
 import {Link} from 'react-router'
 import explan from '../../../../../assets/images/my-index/nojilu_03.png' //没有记录
-import listicon1 from '../../../../../assets/images/my-index/listicon1.png' //管家标志
+import type_zqzr from '../../../../../assets/images/my-index/zqzr.png' //管家标志
 import Util from '../../../../../utils/utils'
 import wrap from '../../../../../utils/pageWrapper'
 import {connect} from 'react-redux'
@@ -54,7 +54,7 @@ import {connect} from 'react-redux'
                         }
                         return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
 							<li>
-								<img src={listicon1}/>{name}
+								<img style={{marginTop:'16px'}} src={type_zqzr}/>{name}
                                 {Dom}
 							</li>
 							<li>持有金额<p>{Util.padMoney(hold_money)}</p></li>

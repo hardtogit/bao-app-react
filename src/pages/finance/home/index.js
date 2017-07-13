@@ -71,7 +71,7 @@ class financeIndex extends Component{
 				 {
 					 title
 				 }
-					 {title=='定存宝B'&&<span className={styles.planBicon}></span>||''}
+					 {title=='直投项目'&&<span className={styles.planBicon}></span>||''}
 				 </div>
 				</Tab>
 				

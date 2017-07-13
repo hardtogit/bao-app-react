@@ -1,7 +1,6 @@
 import React from 'react'
 import cs from 'classnames'
 import styles from './index.styl'
-import backIcon from '../../assets/images/arrowtab.png'
 import PropTypes from 'prop-types'
 export default class NavBar extends React.PureComponent {
     static propTypes = {
@@ -35,10 +34,11 @@ export default class NavBar extends React.PureComponent {
             bgs={backgroundColor:bgs}
         }
         Object.assign(sty,bgs);
+        let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
         return (
             <div className={styles.root} style={sty}>
                 <div className={styles.left} onClick={onLeft}>
-                    {(leftNode || leftNode === null) ? leftNode : <img src={backIcon} height={20} width={10}/>}
+                    {(leftNode || leftNode === null) ? leftNode : <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>}
                 </div>
                 <div className={styles.middle} onClick={onTitle}>
                     {children || title || ''}

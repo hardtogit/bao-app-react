@@ -31,7 +31,8 @@ class FinancialIndex extends Component{
             xsId:'',
             openUrl:'cn.bao://',
             openApp:false,
-            equipment:1
+            equipment:1,
+            isSafari:false
         }
     }
     componentWillMount(){
@@ -57,17 +58,18 @@ class FinancialIndex extends Component{
         const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isAndroid){
             this.setState({
-                openUrl:'http://bao-image.oss-cn-hangzhou.aliyuncs.com/static/download/android/baodian-android-baodianpc.apk',
+                openUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=cdwd.example.ui',
                 equipment:1
             })
         }else if (isiOS){
             this.setState({
-                openUrl:'https://itunes.apple.com/cn/app/id1017177170?mt=8',
+                openUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=cdwd.example.ui',
                 equipment:2
             })
         }
     }
     componentDidMount(){
+        this.getuserAgent();
         this.props.getActivity();
         const Height=this.getHeight();
         const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
@@ -145,6 +147,14 @@ class FinancialIndex extends Component{
                     xsId
                 })
             }
+        }
+    }
+    getuserAgent=()=>{
+        const userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Safari") > -1) {
+           this.setState({
+               isSafari:true
+           })
         }
     }
     getMessageA=(depositb)=>{
@@ -372,8 +382,10 @@ class FinancialIndex extends Component{
         </li>)
     }
     openApp=()=>{
-        const {openUrl,equipment}=this.state;
-        window.location.href='cn.bao://'
+        const {openUrl,equipment,isSafari}=this.state;
+        if (!isSafari){
+            window.location.href='cn.bao://'
+        }
         setTimeout(()=>{
             if (equipment==1){
                 window.open(openUrl)

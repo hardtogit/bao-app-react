@@ -90,7 +90,7 @@ class Index extends Component{
                          产品类型
                      </span>
                         <span className={styles.productName}>
-                            {type==1&&'抵押标'||'担保标'}
+                            {type}
                         </span>
                     </li>
                 </ul>

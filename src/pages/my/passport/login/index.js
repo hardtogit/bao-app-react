@@ -5,6 +5,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { push, goBack } from 'react-router-redux'
+import setAuthUrl from '../../../../components/setAuthUrl/index'
 import BaseInput     from '../../../../components/BaseInput/index'
 import BasePasswordInput from '../../../../components/BaseInput/BasePasswordInput'
 import Button        from '../../../../components/BaseButton/index'
@@ -62,7 +63,15 @@ class Login extends React.Component {
         const data  = this.refs.form.getValue();
         if (backUrl!=''){
             this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
-            window.location.href=backUrl
+            setInterval(function(){
+                var auth=sessionStorage.getItem('bao-auth-str')
+                if (auth){
+                    window.location.href=backUrl+'?bao-auth='+auth;
+                }
+            },500);
+
+
+
         }else {
             this.props.doLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
         }
