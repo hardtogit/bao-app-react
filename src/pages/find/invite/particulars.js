@@ -39,11 +39,10 @@ class Index extends React.Component{
 		return(
             <div className={styles.bg}>
                 <NavBar  onLeft={this.props.pop} backgroundColor={"#F76260"}>邀请明细</NavBar>
-				<div className={styles.list_container}>
+				<div className={styles.list_container} style={{position:'absolute',top:'44px',width:'100%'}}>
 				<Scroll height={Height} fetch={()=>{this.props.getList()}}
 						isLoading={pending}  distance={20} endType={end}
 				>
-
 					{listData&&listData.map((item,i)=>{
 					return( 	<div key={i} className={styles.data_list_item}>
 						<div className={styles.list_left}>
