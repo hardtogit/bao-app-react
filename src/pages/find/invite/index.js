@@ -247,6 +247,9 @@ class Index extends React.Component {
             </div>
             <div className={styles.inviContent}>
             <img src={caishen} className={styles.csImg}/>
+
+
+
              <iframe src={`${window.location.origin}/mobile_api/static-page/invite?code=${code}`} style={{width:'100%',border:'0px'}} height={640}></iframe>
             </div>
             <div className={styles.foot}>

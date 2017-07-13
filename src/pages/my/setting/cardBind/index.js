@@ -148,10 +148,9 @@ class Index extends Component{
             msgId
             }=this.props;
            const bankCard=sessionStorage.getItem('carNo')?sessionStorage.getItem('carNo'):'';
-
         return(
-            <div>
-                <NavBar>绑定银行卡</NavBar>
+            <div >
+                <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
                 <div style={{paddingTop:'44px'}}>
                     <ValidateForm ref="form">
                     <BaseInput
@@ -214,7 +213,7 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
         },
         //返回上一页
         pop(){
-            dispath(goBack())
+            dispatch(goBack())
         },
         //发送验证码
         sendCode(data){
