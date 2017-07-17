@@ -62,16 +62,17 @@ class Login extends React.Component {
         }=this.state;
         const data  = this.refs.form.getValue();
         if (backUrl!=''){
-            this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
+            this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'});
+            let flag=true;
             setInterval(function(){
                 var auth=sessionStorage.getItem('bao-auth-str')
                 if (auth){
-                    window.location.href=backUrl+'?bao-auth='+auth;
+                    if(flag){
+                        location.replace(backUrl+'?bao-auth='+auth);
+                    }
+                    flag=false
                 }
             },500);
-
-
-
         }else {
             this.props.doLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
         }

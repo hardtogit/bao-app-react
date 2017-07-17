@@ -20,10 +20,8 @@ class Index extends React.Component{
             <div>
                 <NavBar backgroundColor="#7f48cb" onLeft={this.props.pop}>活动详情</NavBar>
             <div className={styles.bg}>
-                <iframe src="https://www.bao.cn/special/inviteFriends/wap/index.html" frameborder="0"  style={{width:'100%',height:'100%',position:'absolute',top:'44px',border:'none'}}>
-
-
-                </iframe>
+                <iframe src="https://www.bao.cn/special/inviteFriends/wap/index.html"   style={{width:'100%',height:'100%',position:'absolute',top:'44px',border:'none'}}></iframe>
+                <div style={{position:'absolute',bottom:'0'}}></div>
             </div>
             </div>
         )

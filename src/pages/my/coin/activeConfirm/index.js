@@ -85,6 +85,10 @@ class Index extends React.Component{
                     <span>商品详情</span>
                     <span>{query.name}</span>
                 </div>
+                <div className={classNames(styles.clearfix,styles.infoOne)}>
+                    <span>{query.moneyName}</span>
+                    <span>{query.money}</span>
+                </div>
             </div>
             <button className={styles.button} onClick={this.submit} disabled={flag}>
                 {!flag&&'确认兑换'||<span><img src={loadGif}/>兑换中</span>}
@@ -200,10 +204,10 @@ const dispatchFn=(dispatch)=>({
             type:"SITE_LIST"
         })
     },
-    send(activityId,productGroup,addressId){
+    send(activityId,productId,addressId){
         dispatch({
             type:'ACTIVE_EXCHANGE',
-            params:[{activityId:activityId,productGroup,addressId}]
+            params:[{activityId:activityId,productId,addressId}]
         })
     },
     clearData(){
