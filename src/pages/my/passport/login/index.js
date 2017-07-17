@@ -65,8 +65,9 @@ class Login extends React.Component {
             this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'});
             let flag=true;
             setInterval(function(){
-                var auth=sessionStorage.getItem('bao-auth-str')
-                if (auth){
+                let auth=sessionStorage.getItem('bao-auth-str')
+                let user=sessionStorage.getItem('bao-user')
+                if (auth&&user){
                     if(flag){
                         location.replace(backUrl+'?bao-auth='+auth);
                     }
