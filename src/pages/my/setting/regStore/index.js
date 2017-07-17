@@ -120,28 +120,22 @@ class Index extends Component{
                         reg={{ required: {message: '请输入正确身份证号'}}}
                         borderType='four' />
                         <p className={styles.tip}>设置交易密码</p>
-                        <BasePasswordInput
-                            onChange={this.ifPost}
-                            noleftPadding
-                            ref='password'
-                            name='password'
-                            label='交易密码'
-                            defaultValue=''
-                            placeholder='请输入交易密码'
-                            type='validateItem'
-                            reg={{ required: {message: ''}}}
-                            borderType='four' />
-                        <BasePasswordInput
-                            onChange={this.ifPost}
-                            noleftPadding
-                            ref='compassword'
-                            name='compassword'
-                            label='确认密码'
-                            defaultValue=''
-                            placeholder='请输入交易密码'
-                            type='validateItem'
-                            reg={{ reg: {reg: util.checkPassword, message: '请输入正确密码'}}}
-                            borderType='four' />
+                        <div style={{backgroundColor:'#fff'}}>
+                        <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
+                            <div class="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>交易密码</span></div>
+                            <div style={{flex:'1'}}>
+                                <input style={{fontSize: '16px',padding: '12px 0',border: '0'}} type="password" placeholder="请输入交易密码"/>
+                            </div>
+                        </div>
+                            <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
+                                <div ><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>确认密码</span></div>
+                                <div style={{flex:'1'}}>
+                                    <input style={{fontSize: '16px',padding: '12px 0',border: '0'}} placeholder="确认交易密码" type="password"/>
+                                </div>
+
+                            </div>
+                        </div>
+
 
                         <p className={styles.tip}>开通存管后此密码将用于提现、投资等交易操作、原宝点网交易密码将停用</p>
                         </ValidateForm>
