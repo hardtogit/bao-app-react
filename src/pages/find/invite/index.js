@@ -80,7 +80,7 @@ class Index extends React.Component {
             },
             rental: moneyNum * dataNum
         })
-    }
+    };
     openShare = () => { //打开分享
         this.setState({
             modalShow2: {
@@ -245,7 +245,7 @@ class Index extends React.Component {
                     <li><span>{data.number}</span>位</li>
                 </ul>
                 <ul>
-                    <li>赚取佣金</li>
+                    <li>获取收益</li>
                     <li><span>{Util.padMoney(data.amount)}</span>￥</li>
                 </ul>
             </div>

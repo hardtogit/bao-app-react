@@ -198,7 +198,6 @@ export default class App extends React.Component {
                   <Route path="shopCenter" component={ShopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
-                  <Route path="activeConfirm" component={activeConfirm} />/*点币商城确认兑换*/
                   <Route path="trueExchangeConfirm/:id" component={trueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="exchangeSuccess" component={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
                   <Route path="exchangeFail" component={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
@@ -256,6 +255,7 @@ export default class App extends React.Component {
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
+              <Route path="user/activeConfirm" component={activeConfirm}/>/*点币商城确认兑换*/
               /*已完成*/
               <Route path="login" component={Login}></Route>
               <Route path='weChat' component={WeChat}></Route>
