@@ -58,7 +58,7 @@ class findHome extends Component{
                  <img src={Iconfrend} className={styles.cavIcon}/>
                 </span>
                 <span className={styles.changeLeft}>
-                 邀请好友投资返现
+                 呼朋唤友同享千元红包
                 </span>
                 <span className={styles.glyphiconChevronRight}></span>
                 </Link>

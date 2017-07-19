@@ -124,8 +124,8 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
- const a=window.location.href.split('.')[1]+'.cn';
- document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -197,6 +197,7 @@ export default class App extends React.Component {
                   <Route path="goodsDetail/:id" component={GoodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
                   <Route path="shopCenter" component={ShopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="activeConfirm" component={activeConfirm}/>/*点币商城确认兑换*/
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
                   <Route path="trueExchangeConfirm/:id" component={trueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="exchangeSuccess" component={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
@@ -251,11 +252,11 @@ export default class App extends React.Component {
                   <Route path="message" component={FindMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteRule" component={inviteRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
-              <Route path="user/activeConfirm" component={activeConfirm}/>/*点币商城确认兑换*/
+
               /*已完成*/
               <Route path="login" component={Login}></Route>
               <Route path='weChat' component={WeChat}></Route>

@@ -21,7 +21,7 @@ class Index extends React.Component{
                 <NavBar backgroundColor="#7f48cb" onLeft={this.props.pop}>活动详情</NavBar>
             <div className={styles.bg}>
                 <iframe src="https://www.bao.cn/special/inviteFriends/wap/index.html"   style={{width:'100%',height:'100%',position:'absolute',top:'44px',border:'none',bottom:'44px'}}></iframe>
-                <div onClick={this.props.pop}  style={{position:'fixed',lineHeight:'44px',fontSize:'18px',bottom:'0',height:'44px',backgroundColor:'#fed74e',width:'100%',color:'#30194f',textAlign:'center'}}>
+                <div onClick={this.props.replace('/find/inviteFriends')}  style={{position:'fixed',lineHeight:'44px',fontSize:'18px',bottom:'0',height:'44px',backgroundColor:'#fed74e',width:'100%',color:'#30194f',textAlign:'center'}}>
                   马上邀请</div>
             </div>
             </div>
