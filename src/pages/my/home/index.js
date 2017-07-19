@@ -166,9 +166,9 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                                         <p className={styles.listColor} style={{"color":"#F19149"}}>{demand==0&&'查看详情'||'+'+demand}</p>
                                     </div>
                                 </Link>
-								<div style={{position:'absolute',right:'0',top:'0',width:'0',height: '0', borderTop: '50px solid #f6f6f6',borderLeft: '50px solid transparent'}}>
-
+								<div className={styles.remove}>
 								</div>
+								<span className={styles.text}>已下架</span>
                             </div>
                         }
 					</div>
