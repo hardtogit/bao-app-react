@@ -272,7 +272,6 @@ class Index extends React.Component {
 
             </div>
             <div className={styles.foot}>
-                <p><img onClick={this.openCulator} src={count}/></p>
                 <p onClick={this.openShare}>邀请好友赚佣金</p>
             </div>
             <div className={styles.PopBox} style={this.state.modalShow1}>

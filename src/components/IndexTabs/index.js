@@ -209,7 +209,7 @@ class IndexTabs extends React.Component {
                         </Link>
                     </div>
                 </div>
-                <div ref="picture" style={{ position:'fixed', right:'10px', bottom:'60px',width :'44px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
+                <div ref="picture" style={{ zIndex:'100',position:'fixed', right:'10px', bottom:'60px',width :'44px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
             </div>
         );
     }

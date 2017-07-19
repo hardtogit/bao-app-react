@@ -288,22 +288,12 @@
 	height:50px;
 	line-height:50px;
 	text-align:center;
-}
-.foot p:first-child{
-	width:15%;
-	background:#FF9D9C;
-}
-.foot p:first-child img{
-	display:block;
-	margin:0 auto;
-	margin-top: 10px;
-
-}
-.foot p:last-child{
-	width:85%;
+	width:100%;
 	font-size:18px;
 	color:#fff;
 }
+
+
 /*================弹框*/
 .calculator{
 	width: 100%;
