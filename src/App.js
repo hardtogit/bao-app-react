@@ -118,14 +118,14 @@ import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,
 ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
-import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
+import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherDetail} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+//const a=window.location.href.split('.')[1]+'.cn';
+//document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -277,6 +277,8 @@ export default class App extends React.Component {
             <Route path="demand-buy" component={DemandBuy}></Route>
             <Route path="demand-product" component={DemandProduct}></Route>
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherDetail(/:productId)" component={GatherDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>

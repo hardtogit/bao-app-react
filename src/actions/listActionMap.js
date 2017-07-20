@@ -108,5 +108,10 @@ export default {
     },
     [actionTypes.INVITE_PARTICULARS]:{
         apiFn:Fetch.inviteParticulars
+    },
+    //聚点+
+    [actionTypes.DEPOSITBS_GATHER]:{
+        apiFn:Fetch.depositbsGather
     }
+
 }
