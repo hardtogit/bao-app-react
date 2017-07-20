@@ -4,6 +4,7 @@ import styles from './index.styl'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import znq from '../../assets/images/znq.png'
+import setAuthUrl from '../../components/setAuthUrl/index'
 import {Link,IndexLink} from 'react-router'
 class IndexTabs extends React.Component {
     constructor(props) {
@@ -79,7 +80,7 @@ class IndexTabs extends React.Component {
                 //self.host='https://react.10.devbao.cn'
                 selfHost=window.location.protocol+'//demo-pc.devbao.cn'
             }
-            location.href=selfHost+'/special/fiveYears/home/wap/index.html'
+             setAuthUrl(selfHost+'/special/fiveYears/home/wap/index.html')
         }else{
             this.refs.picture.style.right='10px'
         }
