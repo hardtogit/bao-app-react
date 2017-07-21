@@ -303,5 +303,8 @@ export default {
     },
     [actionTypes.GATHER_DETAIL]:{
         apiFn:Fetch.gatherDetail
+    },
+    [actionTypes.GATHER_PROBLEMS]:{
+        apiFn:Fetch.gatherProblems
     }
 }

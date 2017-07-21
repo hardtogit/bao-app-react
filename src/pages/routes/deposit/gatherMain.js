@@ -4,5 +4,5 @@
  * email:413401168@qq.com.
  * use:auto...
  */
-import gatherDetail from '../../finance/deposit/gatherDetail'
-export default gatherDetail
+import gatherMain from '../../finance/deposit/gatherMain'
+export default gatherMain

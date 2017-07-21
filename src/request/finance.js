@@ -64,11 +64,10 @@ const requests = (Fetch) => {
   Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
   Fetch.newUserActivity=()=>{ return Fetch(`new-user-activity`,'GET')}
   //聚点+
-  Fetch.depositbsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}`,'GET')}//聚点+列表
+  Fetch.depositsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}`,'GET')}//聚点+列表
   Fetch.gatherDetail=(id)=>{return Fetch(`api/depositSupervise/projectDetail/${id}`,'GET')}//聚点+详情
-
-
-
+  Fetch.gatherProblems=()=>{return Fetch(`api/depositSupervise/faq`,'GET')}//聚点+常见问题
+  Fetch.gatherBidList=(page)=>{return Fetch(`api/depositSupervise/projectBorrowList/4?page=${page}`,'GET')}//聚点+标
 }
 
 export default requests

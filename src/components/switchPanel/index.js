@@ -24,6 +24,12 @@ class Index extends Component{
             },
             hidden:{
                 display:'none'
+            },
+            border:{
+                borderBottom:'1px solid #ddd'
+            },
+            none:{
+                borderBottom:'none'
             }
         }
     };
@@ -45,8 +51,8 @@ class Index extends Component{
     };
     render(){
         return(
-            <div className={style.panel}>
-            <div className={style.header} onClick={this.switchPanel}>{this.props.title} <span className={classNames(style.arrows,this.state.open&&style.down||'')}></span></div>
+            <div className={style.panel} style={this.state.open?this.props.styles.border:this.props.styles.none}>
+            <div className={style.header} style={this.props.padding} onClick={this.switchPanel}>{this.props.title} <span className={classNames(style.arrows,this.state.open&&style.down||'')}></span></div>
             <div className={style.body}  style={this.state.open?this.props.styles.show:this.props.styles.hidden}>
                 {this.props.children}
             </div>

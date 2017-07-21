@@ -6,7 +6,7 @@ import depositBuy from '../routes/deposit/depositBuy'
 import directBuy from '../routes/deposit/directBuy'
 import directInvestDetails from '../routes/deposit/directInvestDetails'
 import depositProduct from '../routes/deposit/depositProduct'
-import gatherDetail from  '../routes/deposit/gatherDetail'
+import gatherMain from  '../routes/deposit/gatherMain'
 import Bundle from '../bundle'
 export const DepositBuy=(props)=>{
     return<Bundle load={depositBuy}>
@@ -28,8 +28,8 @@ export const DepositProduct=(props)=>{
         {(DepositProduct)=><DepositProduct {...props}/>}
     </Bundle>
 };
-export const GatherDetail=(props)=>{
-    return<Bundle load={gatherDetail}>
-        {(GatherDetail)=><GatherDetail {...props}/>}
+export const GatherMain=(props)=>{
+    return<Bundle load={gatherMain}>
+        {(GatherMain)=><GatherMain {...props}/>}
     </Bundle>
 };

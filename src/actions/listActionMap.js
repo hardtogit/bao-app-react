@@ -110,8 +110,12 @@ export default {
         apiFn:Fetch.inviteParticulars
     },
     //聚点+
-    [actionTypes.DEPOSITBS_GATHER]:{
-        apiFn:Fetch.depositbsGather
+    [actionTypes.DEPOSITS_GATHER]:{
+        apiFn:Fetch.depositsGather
+    },
+    //聚点+标
+    [actionTypes.GATHER_BID_LIST]:{
+        apiFn:Fetch.gatherBidList
     }
 
 }

@@ -282,7 +282,7 @@ class DirectInvestList extends React.Component{
                     return(
                         <DirectInvestCell key={i}
                                           data={data}
-                                          onClick={() => this.props.push(`/gatherDetail/${data.id}`)}
+                                          onClick={() => this.props.push(`/gatherMain/${data.id}`)}
                                           push={(path) => this.props.push(path)}
                                           passwordRef={this.refs.passWord}
                                           wrongRef={this.refs.wrong}
@@ -333,7 +333,7 @@ class DirectInvestList extends React.Component{
     }
 }
 const mapStateToProps = (state,ownProps) => {
-    const key = actionTypes.DEPOSITBS_GATHER
+    const key = actionTypes.DEPOSITS_GATHER
     const userInfoCode= state.infodata.getIn([actionTypes.USER_INFO, 'data']) && state.infodata.getIn([actionTypes.USER_INFO, 'data']).code || 0;
     const verifyAssign=state.infodata.getIn([actionTypes.VERIFY_ASSIGN,'data']);
     const user=sessionStorage.getItem("bao-auth");
@@ -360,7 +360,7 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
     nextPage() {
         dispatch({
-            type: actionTypes.DEPOSITBS_GATHER
+            type: actionTypes.DEPOSITS_GATHER
         })
     },
     setAppointPassword(value){
