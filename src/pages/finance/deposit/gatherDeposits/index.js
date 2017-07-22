@@ -6,18 +6,19 @@ import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
 import Scroll from '../../../../components/scroll'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack, push} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
     }
     render(){
-        const Height=document.body.clientHeight-44;
+        const Height=document.body.clientHeight-108;
         const{
-            listData,
+            data,
             pending,
             end,
+            push,
             pop
-            }=this.props
+            }=this.props;
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
@@ -29,18 +30,16 @@ class Index extends Component{
                <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
                >
-                   {listData&&listData.map((item,i)=>{
-                       return( 	<div key={i} className={styles.data_list_item}>
-                           <div className={styles.list_left}>
-                               <ul>
-                                   <li className={styles.from}>{item.type==3?'每日佣金':item.userphone}</li>
-                                   <li className={styles.date}>{  new Date(item.created*1000).format("yyyy-MM-dd hh:mm:ss")  }</li>
-                                   <li className={styles.mark}>备注：{item.remarks}</li>
-                               </ul>
-                           </div>
-                           <div className={styles.list_right}>
-                               +{item.money}
-                           </div>
+                   {data&&data.map((item,i)=>{
+                       return( 	<div key={i} className={styles.data_list_item} onClick={()=>{push('/GatherBidDetail/'+item.edid)}}>
+                                <div className={styles.item} style={{paddingTop:'12px'}}>
+                                    <div className={styles.left}>{item.borrow_name}</div>
+                                    <div className={styles.right}>{item.borrow_duration}个月</div>
+                                </div>
+                                <div className={styles.item} style={{paddingTop:'6px'}}>
+                                  <div className={styles.left}>{item.borrow_use}</div>
+                                  <div className={styles.right}>借款金额: <span className={styles.money}>{item.borrow_money}</span>元</div>
+                                </div>
                        </div>)
                    })}
 
@@ -49,12 +48,13 @@ class Index extends Component{
         )
     }
 }
-const Datas=(state)=>({
-    listData:state.listdata.getIn(['GATHER_BID_LIST','data']),
-    pending:state.listdata.getIn(['GATHER_BID_LIST','pending']),
-    end:state.listdata.getIn(['GATHER_BID_LIST','pageEnd'])
-
-})
+const Datas=(state)=>{
+    return({
+        data:state.listdata.getIn(['GATHER_BID_LIST','data']),
+        pending:state.listdata.getIn(['GATHER_BID_LIST','pending']),
+        end:state.listdata.getIn(['GATHER_BID_LIST','pageEnd'])
+    })
+}
 const DispatchFn=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
@@ -62,8 +62,11 @@ const DispatchFn=(dispatch,own)=>({
     gitData(id){
         dispatch({
            type:'GATHER_BID_LIST',
-           id:id
+           params:[{id:id}]
         })
+    },
+    push(url){
+        dispatch(push(url))
     }
 })
 export default connect(Datas,DispatchFn)(Index)

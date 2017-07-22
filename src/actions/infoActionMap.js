@@ -306,5 +306,9 @@ export default {
     },
     [actionTypes.GATHER_PROBLEMS]:{
         apiFn:Fetch.gatherProblems
+    },
+    [actionTypes.GATHER_BID_DETAIL]:{
+        apiFn:Fetch.gatherBidDetail
     }
+
 }

@@ -116,6 +116,10 @@ export default {
     //聚点+标
     [actionTypes.GATHER_BID_LIST]:{
         apiFn:Fetch.gatherBidList
+    },
+    //加入记录
+    [actionTypes.GATHER_JOIN]:{
+        apiFn:Fetch.gatherJoin
     }
 
 }

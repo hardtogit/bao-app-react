@@ -10,8 +10,30 @@
   .header{
     background-color:#00a6e2;
     color:#fff;
-    padding: 12px 10px 14px 10px;
+    padding: 12px 15px 14px 15px;
     font-size:14px;
     line-height:1.4
+  }
+  .data_list_item{
+    font-size: 15px;
+    height: 70px;
+    margin-top: 10px;
+    background-color: #fff;
+    .item{
+      display: flex;
+      height: 35px;
+      .left{
+        flex: 1;
+        padding-left: 15px;
+      }
+      .right{
+        flex:1;
+        text-align: right;
+        padding-right: 15px;
+        .money{
+          color:#00a6e2
+        }
+      }
+    }
   }
 }

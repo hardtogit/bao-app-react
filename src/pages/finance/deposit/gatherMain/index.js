@@ -148,7 +148,7 @@ class GatherMain extends React.Component {
                          标的详情
                      </span>
                   </li>
-                  <li onClick={()=>{push('/planDetails/'+id+'/'+this.props.params.type)}}>
+                  <li onClick={()=>{push('/gatherJoin/'+id)}}>
                       <span>
                       <img src={details}/>
                   </span>
@@ -171,7 +171,7 @@ class GatherMain extends React.Component {
           </div>
           <div className={styles.bottom}>
               <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-              <button onClick={()=>{this.purchase(id,lx,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
+              <button onClick={()=>{this.purchase(id,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
           </div>
           <Calculator
               ref="calculator"
@@ -186,8 +186,8 @@ class GatherMain extends React.Component {
           <IsAuth ref="isAuth"/>
       </div>)
   }
-  purchase=(id,lx,push)=>{
-      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`,push,this.succsseFn,this.props.location.pathname)
+  purchase=(id,push)=>{
+      this.refs.isAuth.Verification(`/gatherBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)

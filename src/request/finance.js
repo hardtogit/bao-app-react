@@ -65,9 +65,12 @@ const requests = (Fetch) => {
   Fetch.newUserActivity=()=>{ return Fetch(`new-user-activity`,'GET')}
   //聚点+
   Fetch.depositsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}`,'GET')}//聚点+列表
-  Fetch.gatherDetail=(id)=>{return Fetch(`api/depositSupervise/projectDetail/${id}`,'GET')}//聚点+详情
+  Fetch.gatherDetail=(id)=>{return Fetch(`api/depositSupervise/projectDetail/${id}`,'GET')}//聚点+标的列表
   Fetch.gatherProblems=()=>{return Fetch(`api/depositSupervise/faq`,'GET')}//聚点+常见问题
-  Fetch.gatherBidList=(page)=>{return Fetch(`api/depositSupervise/projectBorrowList/4?page=${page}`,'GET')}//聚点+标
+  Fetch.gatherBidList=(page,data)=>{return Fetch(`api/depositSupervise/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
+  Fetch.gatherJoin=(page,data)=>{return Fetch(`api/depositSupervise/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
+  Fetch.gatherBidDetail=(id)=>{return Fetch(`api/depositSupervise/borrowInfo/${id}`,'GET')}//聚点+详情
+
 }
 
 export default requests

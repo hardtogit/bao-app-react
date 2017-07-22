@@ -122,7 +122,7 @@ import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
-import {GatherDetail,GatherDeposits,GatherProblems} from './loadTool'
+import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail} from './loadTool'
 
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
@@ -281,7 +281,11 @@ export default class App extends React.Component {
             <Route path="gatherMain(/:productId)" component={GatherMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherDetail(/:name/:month)" getComponent={GatherDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherDeposits(/:id)" getComponent={GatherDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBidDetail(/:id)" getComponent={GatherBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBorrowDetail(/:id)" getComponent={GatherBorrowDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBuy(/:productId)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
 
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

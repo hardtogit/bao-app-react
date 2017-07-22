@@ -14,9 +14,29 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/deposit/gatherDeposits').default);
         }, 'GatherDeposits');
-    }, //标的详情
+    }, //标的列表
     GatherProblems  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/deposit/gatherProblems').default);
         }, 'GatherProblems');
-    }
+    }, //常见问题
+    GatherJoin  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherJoin').default);
+        }, 'GatherJoin');
+    },//加入记录
+    GatherBuy  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherBuy').default);
+        }, 'GatherBuy');
+    },//购买
+    GatherBidDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherBidDetail').default);
+        }, 'GatherBidDetail');
+    },//聚点标的详情
+    GatherBorrowDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherBorrowDetail').default);
+        }, 'GatherBorrowDetail');
+    } //借款详情
