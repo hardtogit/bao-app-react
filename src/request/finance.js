@@ -70,7 +70,8 @@ const requests = (Fetch) => {
   Fetch.gatherBidList=(page,data)=>{return Fetch(`api/depositSupervise/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
   Fetch.gatherJoin=(page,data)=>{return Fetch(`api/depositSupervise/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
   Fetch.gatherBidDetail=(id)=>{return Fetch(`api/depositSupervise/borrowInfo/${id}`,'GET')}//聚点+详情
-
+  //我的聚点+
+  Fetch.gatherMyList=(page,data)=>{return Fetch(`api/depositSupervise/myInvestList?page=${page}&type=${data.type}`,'GET')}//我的聚点+列表
 }
 
 export default requests

@@ -1,5 +1,8 @@
 /**
- * Created by wangdongfang on 17/2/7.
+ * Created by xiangguo .
+ * time:2017/7/23 0023.
+ * email:413401168@qq.com.
+ * use:auto...
  */
 import React,{Component} from 'react'
 import styles from './index.less'

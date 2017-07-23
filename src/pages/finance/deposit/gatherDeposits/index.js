@@ -1,5 +1,8 @@
 /**
- * Created by wangdongfang on 17/2/7.
+ * Created by xiangguo .
+ * time:2017/7/23 0023.
+ * email:413401168@qq.com.
+ * use:auto...
  */
 import React,{Component} from 'react'
 import styles from './index.less'
@@ -31,7 +34,7 @@ class Index extends Component{
                        isLoading={pending}  distance={20} endType={end}
                >
                    {data&&data.map((item,i)=>{
-                       return( 	<div key={i} className={styles.data_list_item} onClick={()=>{push('/GatherBidDetail/'+item.edid)}}>
+                       return( 	<div key={i} className={styles.data_list_item} onClick={()=>{push('/gatherBidDetail/'+item.edid)}}>
                                 <div className={styles.item} style={{paddingTop:'12px'}}>
                                     <div className={styles.left}>{item.borrow_name}</div>
                                     <div className={styles.right}>{item.borrow_duration}个月</div>

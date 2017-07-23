@@ -122,7 +122,7 @@ import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
-import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail} from './loadTool'
+import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,GatherBackDetail,GatherMy} from './loadTool'
 
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
@@ -167,6 +167,9 @@ export default class App extends React.Component {
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={ZqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+
+                  <Route path="gatherMy" getComponent={GatherMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加*/
+
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -283,6 +286,7 @@ export default class App extends React.Component {
             <Route path="gatherDeposits(/:id)" getComponent={GatherDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBidDetail(/:id)" getComponent={GatherBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBorrowDetail(/:id)" getComponent={GatherBorrowDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBackDetail(/:id)" getComponent={GatherBackDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBuy(/:productId)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>

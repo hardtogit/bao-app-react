@@ -120,6 +120,18 @@ export default {
     //加入记录
     [actionTypes.GATHER_JOIN]:{
         apiFn:Fetch.gatherJoin
+    },
+    //我的聚点+列表(持有中)
+    [actionTypes.GATHER_MY_LIST_ONE]:{
+        apiFn:Fetch.gatherMyList
+    },
+    //我的聚点+列表（推出中）
+    [actionTypes.GATHER_MY_LIST_TWO]:{
+        apiFn:Fetch.gatherMyList
+    },
+    //我的聚点+列表（已退出）
+    [actionTypes.GATHER_MY_LIST_THREE]:{
+        apiFn:Fetch.gatherMyList
     }
 
 }

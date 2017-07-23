@@ -1,3 +1,9 @@
+/**
+ * Created by xiangguo .
+ * time:2017/7/23 0023.
+ * email:413401168@qq.com.
+ * use:auto...
+ */
 import React from 'react'
 import NavBar from '../../../../components/NavBar'
 import Calculator from '../../../../components/Calculator'

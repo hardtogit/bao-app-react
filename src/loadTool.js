@@ -39,4 +39,14 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/deposit/gatherBorrowDetail').default);
         }, 'GatherBorrowDetail');
-    } //借款详情
+    }, //借款详情
+    GatherBackDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherBackDetail').default);
+        }, 'GatherBackDetail');
+    }, //还款详情
+    GatherMy  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/gather/gatherMy').default);
+        }, 'GatherMy');
+    }

@@ -1,4 +1,10 @@
-//直投项目 直投项目列表
+/**
+ * Created by xiangguo .
+ * time:2017/7/23 0023.
+ * email:413401168@qq.com.
+ * use:auto...
+ */
+//聚点+项目列表
 import React from 'react'
 import styles from './index.less'
 import * as actionTypes from '../../../../actions/actionTypes'

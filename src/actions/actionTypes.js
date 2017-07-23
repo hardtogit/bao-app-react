@@ -190,7 +190,9 @@ export const GATHER_PROBLEMS='GATHER_PROBLEMS' //聚点+问题
 export const GATHER_BID_LIST='GATHER_BID_LIST' //聚点+标
 export const GATHER_JOIN='GATHER_JOIN'//加入记录
 export const GATHER_BID_DETAIL='GATHER_BID_DETAIL'//标的详情
-
+export const GATHER_MY_LIST_ONE='GATHER_MY_LIST_ONE'//我的聚点+列表(持有中)
+export const GATHER_MY_LIST_TWO='GATHER_MY_LIST_TWO'//我的聚点+列表(退出中)
+export const GATHER_MY_LIST_THREE='GATHER_MY_LIST_THREE'//我的聚点+列表(已退出)
 
 export const DEPOSITBS_DETAILS='DEPOSITBS_DETAILS'
 export const DEPOSITBS_INVEST='DEPOSITBS_INVEST'
