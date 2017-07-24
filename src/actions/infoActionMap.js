@@ -309,6 +309,10 @@ export default {
     },
     [actionTypes.GATHER_BID_DETAIL]:{
         apiFn:Fetch.gatherBidDetail
+    },
+    [actionTypes.GATHER_MY_HEADER]:{
+        apiFn:Fetch.gatherMyHeader
     }
+
 
 }

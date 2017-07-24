@@ -8,9 +8,10 @@ import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../../../components/NavBar'
 import Scroll from '../../../../../components/scroll'
+import icon from '../../../../../assets/images/gather/icon-08.png'
 import classNames from 'classnames';
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -20,32 +21,53 @@ class Index extends Component{
     }
     clientWidth=document.body.clientWidth;
     clientHeight=document.body.clientHeight;
-    componentWillMount(){
-     //组件将要渲染时调用
+    //startX=0;
+    //startY=0;
+    //x=0;
+    //
+    //translateStyle={
+    //    one:{transform:'translateX(0px)'},
+    //    two:{transform:'translateX('+-this.clientWidth+'px)'},
+    //    three:{transform:'translateX('+-this.clientWidth*2+'px)'}
+    //    };
+    //
+    //touchStart=(e)=> {
+    //    this.startX=e.touches[0].pageX;
+    //    this.startY=e.touches[0].pageY;
+    //    let str=this.refs.tabs.style.transform;
+    //    this.x=-parseInt(str.substring(str.indexOf('(')+1,str.indexOf('px')));
+    //};
+    //touchMove=(e)=>{
+    //    let  num=-(this.x+this.startX-e.touches[0].pageX);
+    //    if(num>=0){
+    //        num=0
+    //    }
+    //     this.refs.tabs.style.transform= 'translateX('+num+'px)';
+    //};
+    //touchEnd=(e)=>{
+    //    let distance=Math.sqrt(Math.pow((this.startX-e.changedTouches[0].pageX),2)+Math.pow((this.startY-e.changedTouches[0].pageY),2));
+    //
+    //};
 
-    }
     componentDidMount(){
      //组件渲染完成时调用
         this.refs.tabs.style.width=this.clientWidth*3+'px';
+        this.props.gitHeaderData();
     }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
-    }
+
 
     render(){
         const{
-            index
+            index,
+            translateStyle
             }=this.state
-        let translateStyle;
+        let myStyle;
         switch (index){
-            case 0:translateStyle={transform:'translateX(0px)'};
+            case 0:myStyle=this.translateStyle.one;
                 break;
-            case 1:translateStyle={transform:'translateX('+-this.clientWidth+'px)'};
+            case 1:myStyle=this.translateStyle.two;
                 break;
-            case 2:translateStyle={transform:'translateX('+-this.clientWidth*2+'px)'};
+            case 2:myStyle=this.translateStyle.three;
                 break
         }
         const{
@@ -58,9 +80,11 @@ class Index extends Component{
             dataThree,
             pendingThree,
             endThree,
+            headerData,
+            push,
             pop,
             Height,
-            }=this.props
+            }=this.props;
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
@@ -69,11 +93,11 @@ class Index extends Component{
                <div className={styles.header}>
                  <div className={styles.left}>
                      <p className={styles.itemTitle}>待收本息（利息500.00）</p>
-                     <p className={styles.itemContent}>116541.00 <span className={styles.icon}>￥</span></p>
+                     <p className={styles.itemContent}>{headerData&&headerData.data.leftRevenue} <span className={styles.icon}>￥</span></p>
                  </div>
                  <div className={styles.right}>
                      <p className={styles.itemTitle}>历史累积收益</p>
-                     <p className={styles.itemContent}>116541.00 <span className={styles.icon}>￥</span></p>
+                     <p className={styles.itemContent}>{headerData&&headerData.data.historyRightRevenue} <span className={styles.icon}>￥</span></p>
                  </div>
                </div>
                <div className={styles.toggle}>
@@ -82,21 +106,50 @@ class Index extends Component{
                    <div onClick={()=>{this.setState({index:2})}} className={classNames(styles.item,this.state.index==2?styles.active:'')}>已退出</div>
                </div>
                <div className={styles.overFlow}>
-               <div ref="tabs" className={classNames(styles.tabs,styles.clearFixed)} style={translateStyle}>
+               <div ref="tabs"   className={classNames(styles.tabs,styles.clearFixed)} style={myStyle}>
                    <div className={styles.tab}>
                            <Scroll height={Height} fetch={()=>{this.props.gitGatherListOne({type:1})}}
                                    isLoading={pendingOne}  distance={20} endType={endOne}
                            >
                                {dataOne&&dataOne.map((item,i)=>{
-                                   return( 	<div key={i} className={styles.data_list_item}>
+                                   return(
+                                       <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=持有中&data='+JSON.stringify(item))}}>
+                                       <div  className={styles.data_list_item}>
                                        <div className={styles.item_header}>
-                                           <div className={classNames(styles.name,styles.sub_item)} >{item.name}</div><div className={classNames(styles.sub_item,styles.conpon)}>{item.coupon_info}</div><div className={classNames(styles.sub_item,styles.days)}>{item.remain_time}天</div>
+                                           <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
+                                           <div className={classNames(styles.sub_item,styles.conpon)}>
+                                               {(()=>{
+                                                   switch (item.coupon_type){
+                                                       case 0: break;
+                                                       case 1: return <span className={styles.pink}>{item.coupon_info}</span>;
+                                                       break;
+                                                       case 2:  return <span className={styles.cyan}>{item.coupon_info}</span>;
+                                                       break;
+                                                       default:break;
+                                                   }
+                                               })()}
+
+
+                                           </div>
+                                           <div className={classNames(styles.sub_item,styles.days)}>{item.remain_time}天</div>
                                        </div>
                                        <div className={styles.item_body}>
+                                           <div className={classNames(styles.one,styles.item)}>
+                                              <p className={styles.rate}>{item.plan_income}</p>
+                                               <p className={styles.title}>预期收益(元)</p>
+                                           </div>
+                                           <div className={classNames(styles.two,styles.item)}>
+                                               <p className={styles.rate}>{item.rate}%</p>
+                                               <p className={styles.title}>预期年化利率</p>
+                                           </div>
+                                           <div className={classNames(styles.three,styles.item)}>
+                                               <p className={styles.rate}>{item.invest_money}</p>
+                                               <p className={styles.title}>加入金额(元)</p>
+                                           </div>
 
                                        </div>
-
-                                   </div>)
+                                       </div>
+                                       </div>)
                                })}
 
                            </Scroll>
@@ -106,10 +159,44 @@ class Index extends Component{
                                isLoading={pendingTwo}  distance={20} endType={endTwo}
                        >
                            {dataTwo&&dataTwo.map((item,i)=>{
-                               return( 	<div key={i} className={styles.data_list_item}>
-                                   sss
+                               return(
+                                   <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=退出中&data='+JSON.stringify(item))}}>
+                                       <div  className={styles.data_list_item}>
+                                           <div className={styles.item_header}>
+                                               <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
+                                               <div className={classNames(styles.sub_item,styles.conpon)}>
+                                                   {(()=>{
+                                                       switch (item.coupon_type){
+                                                           case 0: break;
+                                                           case 1: return <span className={styles.pink}>{item.coupon_info}</span>;
+                                                               break;
+                                                           case 2:  return <span className={styles.cyan}>{item.coupon_info}</span>;
+                                                               break;
+                                                           default:break;
+                                                       }
+                                                   })()}
 
-                               </div>)
+
+                                               </div>
+                                               <div className={classNames(styles.sub_item,styles.days)}></div>
+                                           </div>
+                                           <div className={styles.item_body}>
+                                               <div className={classNames(styles.one,styles.item)}>
+                                                   <p className={styles.rate}>{item.plan_income}</p>
+                                                   <p className={styles.title}>预期收益(元)</p>
+                                               </div>
+                                               <div className={classNames(styles.two,styles.item)}>
+                                                   <p className={styles.rate}>{item.rate}%</p>
+                                                   <p className={styles.title}>预期年化利率</p>
+                                               </div>
+                                               <div className={classNames(styles.three,styles.item)}>
+                                                   <p className={styles.rate}>{item.invest_money}</p>
+                                                   <p className={styles.title}>加入金额(元)</p>
+                                               </div>
+
+                                           </div>
+                                       </div>
+                                   </div>)
                            })}
 
                        </Scroll>
@@ -119,10 +206,44 @@ class Index extends Component{
                                isLoading={pendingThree}  distance={20} endType={endThree}
                        >
                            {dataThree&&dataThree.map((item,i)=>{
-                               return( 	<div key={i} className={styles.data_list_item}>
-                                   sss
+                               return(
+                                   <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=已退出&data='+JSON.stringify(item))}}>
+                                       <div  className={styles.data_list_item}>
+                                           <div className={styles.item_header}>
+                                               <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
+                                               <div className={classNames(styles.sub_item,styles.conpon)}>
+                                                   {(()=>{
+                                                       switch (item.coupon_type){
+                                                           case 0: break;
+                                                           case 1: return <span className={styles.pink}>{item.coupon_info}</span>;
+                                                               break;
+                                                           case 2:  return <span className={styles.cyan}>{item.coupon_info}</span>;
+                                                               break;
+                                                           default:break;
+                                                       }
+                                                   })()}
 
-                               </div>)
+
+                                               </div>
+                                               <div className={classNames(styles.sub_item,styles.days)}></div>
+                                           </div>
+                                           <div className={styles.item_body}>
+                                               <div className={classNames(styles.one,styles.item)}>
+                                                   <p className={styles.rate}>{item.plan_income}</p>
+                                                   <p className={styles.title}>预期收益(元)</p>
+                                               </div>
+                                               <div className={classNames(styles.two,styles.item)}>
+                                                   <p className={styles.rate}>{item.rate}%</p>
+                                                   <p className={styles.title}>预期年化利率</p>
+                                               </div>
+                                               <div className={classNames(styles.three,styles.item)}>
+                                                   <p className={styles.rate}>{item.invest_money}</p>
+                                                   <p className={styles.title}>加入金额(元)</p>
+                                               </div>
+
+                                           </div>
+                                       </div>
+                                   </div>)
                            })}
 
                        </Scroll>
@@ -144,11 +265,15 @@ const mapStateToProps=(state)=>({
     pendingThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','pending']),
     dataThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','data']),
     endThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','pageEnd']),
+    headerData:state.infodata.getIn(['GATHER_MY_HEADER','data']),
     Height:document.body.clientHeight-235
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
+    },
+    push(url){
+        dispatch(push(url))
     },
     gitGatherListOne(type){
         dispatch({
@@ -166,6 +291,11 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'GATHER_MY_LIST_THREE',
             params:[type]
+        })
+    },
+    gitHeaderData(){
+        dispatch({
+            type:'GATHER_MY_HEADER'
         })
     }
 });

@@ -132,6 +132,19 @@ export default {
     //我的聚点+列表（已退出）
     [actionTypes.GATHER_MY_LIST_THREE]:{
         apiFn:Fetch.gatherMyList
-    }
+    },
+    //标的还款详情
+    [actionTypes.GATHER_BID_BACK_DETAIL]:{
+        apiFn:Fetch.gatherBidBackDetail
+    },
+    //聚点+项目列表
+    [actionTypes.GATHER_PROJECTS]:{
+        apiFn:Fetch.gatherProjects
+    },
+    //聚点+
+    [actionTypes.GATHER_INVEST_RECORD]:{
+        apiFn:Fetch.gatherInvestRecord
+    },
+
 
 }

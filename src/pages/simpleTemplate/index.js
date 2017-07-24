@@ -16,6 +16,8 @@ class Index extends Component{
             isOpen: false
         }
     }
+    static defaultProps = {//设置初始props
+    }
     componentWillMount(){
      //组件将要渲染时调用
     }

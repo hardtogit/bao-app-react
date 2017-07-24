@@ -11,23 +11,35 @@
   .data_list_item{
     margin-top: 15px;
     background-color: #fff;
-    padding-left: 15px;
+    padding-left: 10px;
     .item{
+      height: 60px;
       border-bottom: 1px solid #ddd;
       display: flex;
-      padding: 15px 0;
+      &:last-child{
+        border-bottom: none;
+      }
       .left{
         flex: 1;
-        .time{
-          color:#888;
+        .name{
           font-size: 18px;
+          margin-top: 10px;
+          margin-bottom: 6px;
+          color:#898989
+        }
+        .time{
+          font-size: 12px;
+          color:#aaa
         }
       }
       .right{
         flex:1;
+        line-height:60px;
         text-align: right;
-        color:#666;
-        padding-right: 15px;
+        color:#ff7700;
+        padding-right: 10px;
+        font-size: 20px;
+
       }
     }
   }

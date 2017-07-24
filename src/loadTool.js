@@ -45,8 +45,23 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/finance/deposit/gatherBackDetail').default);
         }, 'GatherBackDetail');
     }, //还款详情
+    GatherInvestRecord  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/gatherInvestRecord').default);
+        }, 'GatherInvestRecord');
+    },//投资记录
     GatherMy  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/gather/gatherMy').default);
         }, 'GatherMy');
-    }
+    },//我的聚点+
+    GatherMyDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/gather/gatherMyDetail').default);
+        }, 'GatherMyDetail');
+    },//聚点+详情
+    GatherProjects  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/gather/gatherProjects').default);
+        }, 'GatherProjects');
+    }//我的聚点+项目详情

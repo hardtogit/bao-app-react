@@ -6,13 +6,13 @@
  */
 import React,{Component} from 'react'
 import styles from './index.less'
-import NavBar from '../../../../components/NavBar'
-import Scroll from '../../../../components/scroll'
+import classNames from 'classnames'
+import NavBar from '../../../../../components/NavBar'
+import Scroll from '../../../../../components/scroll'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
-        this.props.gitData(this.props.params.id)
     }
     render(){
         Date.prototype.format = function(fmt) {
@@ -45,18 +45,21 @@ class Index extends Component{
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
-                  还款详情
+                  投资项目
               </NavBar>
-               <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
+               <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id,this.props.params.type)}}
                        isLoading={pending}  distance={20} endType={end}
                >
                    {listData&&listData.map((item,i)=>{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
-                               <div className={styles.left}><p className={styles.time}>{ new Date(item.time*1000).format("yyyy-MM-dd")}</p></div>
-                               <div className={styles.right}>{item.status==0?"未还款":"正常还款"}</div>
+                               <div className={styles.left}>{item.borrow_name}</div>
+                               <div className={styles.right} onClick={()=>{push()}}>查看协议</div>
                            </div>
-
+                           <div className={styles.item}>
+                               <div className={styles.left}>投资金额(元)</div>
+                               <div className={classNames(styles.right,styles.money)}>{item.money}</div>
+                           </div>
                        </div>)
                    })}
 
@@ -67,19 +70,22 @@ class Index extends Component{
 }
 const Datas=(state)=>{
     return{
-        listData:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','data']),
-        pending:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','pending']),
-        end:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','pageEnd'])
+        listData:state.listdata.getIn(['GATHER_PROJECTS','data']),
+        pending:state.listdata.getIn(['GATHER_PROJECTS','pending']),
+        end:state.listdata.getIn(['GATHER_PROJECTS','pageEnd'])
     }
 }
 const DispatchFn=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
-    gitData(id){
+    push(url){
+        dispatch(push(url))
+    },
+    gitData(id,type){
         dispatch({
-           type:'GATHER_BID_BACK_DETAIL',
-           params:[{id:id}]
+           type:'GATHER_PROJECTS',
+           params:[{id:id,type:type}]
         })
     }
 })

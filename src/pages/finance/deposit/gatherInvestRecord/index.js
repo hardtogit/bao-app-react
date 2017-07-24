@@ -12,7 +12,6 @@ import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
-        this.props.gitData(this.props.params.id)
     }
     render(){
         Date.prototype.format = function(fmt) {
@@ -45,7 +44,7 @@ class Index extends Component{
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
-                  还款详情
+                  投资记录
               </NavBar>
                <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
@@ -53,8 +52,8 @@ class Index extends Component{
                    {listData&&listData.map((item,i)=>{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
-                               <div className={styles.left}><p className={styles.time}>{ new Date(item.time*1000).format("yyyy-MM-dd")}</p></div>
-                               <div className={styles.right}>{item.status==0?"未还款":"正常还款"}</div>
+                               <div className={styles.left}><p className={styles.name}>{item.userphone}</p><p className={styles.time}>{ new Date(item.add_time*1000).format("yyyy-MM-dd hh:mm:ss")}</p></div>
+                               <div className={styles.right}>￥{item.money}</div>
                            </div>
 
                        </div>)
@@ -67,9 +66,9 @@ class Index extends Component{
 }
 const Datas=(state)=>{
     return{
-        listData:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','data']),
-        pending:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','pending']),
-        end:state.listdata.getIn(['GATHER_BID_BACK_DETAIL','pageEnd'])
+        listData:state.listdata.getIn(['GATHER_INVEST_RECORD','data']),
+        pending:state.listdata.getIn(['GATHER_INVEST_RECORD','pending']),
+        end:state.listdata.getIn(['GATHER_INVEST_RECORD','pageEnd'])
     }
 }
 const DispatchFn=(dispatch,own)=>({
@@ -78,7 +77,7 @@ const DispatchFn=(dispatch,own)=>({
     },
     gitData(id){
         dispatch({
-           type:'GATHER_BID_BACK_DETAIL',
+           type:'GATHER_INVEST_RECORD',
            params:[{id:id}]
         })
     }

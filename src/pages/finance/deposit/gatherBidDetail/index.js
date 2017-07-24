@@ -87,7 +87,6 @@ class GatherMain extends React.Component {
           title,
           month
             }=data.data
-      console.log(data)
       rate=parseFloat(rate).toFixed(2);
       const money=this.moneyFn(rate,month);
       const bData=[{name:'借款金额',val:total},{name:'借款期限',val:month+'个月'}];
@@ -160,7 +159,7 @@ class GatherMain extends React.Component {
                          还款详情
                      </span>
                   </li>
-                  <li onClick={()=>{push('/gatherJoin/'+id)}}>
+                  <li onClick={()=>{push('/gatherInvestRecord/'+id)}}>
                       <span>
                       <img src={details}/>
                   </span>
