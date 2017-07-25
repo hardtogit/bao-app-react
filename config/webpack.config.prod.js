@@ -71,7 +71,7 @@ module.exports = {
     // You can remove this after ejecting.
     resolveLoader: {
         root: paths.ownNodeModules,
-        moduleTemplates: ['*-loader']
+        moduleTemplates: ['*-loader','file-loader']
     },
     module: {
         // First, run the linter.

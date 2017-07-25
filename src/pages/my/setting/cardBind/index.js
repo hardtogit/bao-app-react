@@ -149,9 +149,13 @@ class Index extends Component{
             }=this.props;
            const bankCard=sessionStorage.getItem('carNo')?sessionStorage.getItem('carNo'):'';
         return(
-            <div >
+            <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
-                <div style={{paddingTop:'44px'}}>
+                <div className={styles.tip}>
+                    *请绑定本人持有的银行卡，此卡将用于充值、提现、投
+                    资等，已绑定过银行卡的用户需重新绑定
+                </div>
+                <div className={styles.form}>
                     <ValidateForm ref="form">
                     <BaseInput
                         noleftPadding
@@ -166,31 +170,29 @@ class Index extends Component{
                     <div className={styles.rightBar}>
                         开户行<div className={styles.rightIcon}><span className={styles.text} onClick={this.choiceBank}>{bankData?bankData.bankName:'点击选择开户行'}</span><span className={styles.arrow}></span></div>
                     </div>
-                        <div className={styles.rightBar}>
-                            网点<div className={styles.rightIcon}><span className={styles.text} onClick={this.choicePoint}>{pointData?pointData.bankName:'点击选择网点'}</span><span className={styles.arrow}></span></div>
-                        </div>
                     <BaseInput
                         noleftPadding
                         ref='telNo'
                         name='telNo'
-                        label='预留手机号'
+                        label='预留手机'
                         defaultValue=''
                         placeholder=''
                         type='validateItem'
                         reg={{ required: {message: '请输入正确的卡号'}}}
                         borderType='four' />
 
-                    <div style={{margin:'10px 15px 0 15px'}}>
-                        <input ref="verifyCode" name="verifyCode" style={{float:'left',width:'60%',padding:'11px 0',marginRight:'2%'}} type="text" placeholder="请输入验证码"/> <Verify containerDisableStyle={{width:'38%'}} containerStyle={{width:'38%'}} init={true} onClick={this.sendCode}></Verify>
+                    <div style={{padding:'0 0 0 90px',position:'relative'}}>
+                       <div style={{position:'absolute',left:'15px',top:'12px'}}>验证码</div> <input ref="verifyCode" name="verifyCode" style={{float:'left',width:'64%',padding:'11px 0',border:'none'}} type="text" placeholder="请输入验证码"/> <Verify containerDisableStyle={{width:'36%'}} containerStyle={{width:'36%'}} init={true} onClick={this.sendCode}></Verify>
                     </div>
-                    <br/>
-                    <div style={{paddingLeft:'15px',paddingRight:'15px'}}>
-                       <Button text="绑卡" onClick={this.submit} />
-                    </div>
-
                     </ValidateForm>
-                    <Tipbar ref="alert"></Tipbar>
                 </div>
+                <div className={styles.problem}>
+                      忘记预留手机怎么办？
+                </div>
+                <div className={styles.submit}>
+                    <Button text="下一步" onClick={this.submit} />
+                </div>
+                <Tipbar ref="alert"></Tipbar>
             </div>
         )
     }

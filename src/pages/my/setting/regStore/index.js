@@ -24,6 +24,8 @@ import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
 import Loading from '../../../../components/pageLoading'
+require('../../../../components/pageLoading')
+
 class Index extends Component{
     constructor(props) {
         super(props);
@@ -60,8 +62,13 @@ class Index extends Component{
         }
     }
     componentDidMount(){
-          //this.refs.tip.show();
-           document.getElementById('root').style.backgroundcolor='#f6f6f6';
+        passGuard1.generate("kb1",kb,1);
+
+        $(function(){
+            setTimeout(function(){
+                kb.generate();
+            },100);
+        })
     }
     isFilled=()=>{
         const $this=this
@@ -122,15 +129,15 @@ class Index extends Component{
                         <p className={styles.tip}>设置交易密码</p>
                         <div style={{backgroundColor:'#fff'}}>
                         <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
-                            <div class="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>交易密码</span></div>
+                            <div className="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>交易密码</span></div>
                             <div style={{flex:'1'}}>
-                                <input style={{fontSize: '16px',padding: '12px 0',border: '0'}} type="password" placeholder="请输入交易密码"/>
+                                <input ref="kb1" id="kb1" className='default' style={{fontSize: '16px',padding: '12px 0',border: '0'}} type="password" placeholder="请输入交易密码"/>
                             </div>
                         </div>
                             <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
                                 <div ><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>确认密码</span></div>
                                 <div style={{flex:'1'}}>
-                                    <input style={{fontSize: '16px',padding: '12px 0',border: '0'}} placeholder="确认交易密码" type="password"/>
+                                    <input ref="kb2" style={{fontSize: '16px',padding: '12px 0',border: '0'}} placeholder="确认交易密码" type="password"/>
                                 </div>
 
                             </div>
