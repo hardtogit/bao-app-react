@@ -53,6 +53,8 @@ class Index extends Component{
             this.refs.alert.open('两次输入的密码不一致')
             return false;
         }
+        passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
+        passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
 
     let realName=this.refs.form.getValue().realName,idCard=this.refs.form.getValue().idCard;
     let data={realName:realName,idCard:idCard,password:'27525'};
@@ -60,7 +62,6 @@ class Index extends Component{
     this.props.reg(data)
     };
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.flagData)
         if(nextProps.data){
             if (nextProps.data.status==1){
                 if(this.state.time<3){

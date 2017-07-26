@@ -13,6 +13,7 @@ import Couponimg from '../../../assets/images/coupon1.png'
 import Coupon1 from '../../../assets/images/registerVoucher.png'
 import CusDialog from '../../../components/Dialog/alert.js'
 import Scroll from '../../../components/scroll/index.js'
+import Store from '../../../components/Dialog/store'
 import Loading from '../../../components/pageLoading'
 import PassWord from '../../../components/Dialog/reddem.js'
 import type_hongwu from '../../../assets/images/type_hongwu.png'
@@ -64,7 +65,13 @@ class DirectInvestCell extends React.Component{
             id,
             term
         }=this.props.data;
-        this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+        let storeData=sessionStorage.getItem('bao-store')
+        if(storeData.isRegister&&storeData.isBindBankcard){
+            this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+        }else{
+            this.refs.store.show()
+        }
+
     }
     yz=(success)=>{
         const is_login = true;
@@ -134,6 +141,7 @@ class DirectInvestCell extends React.Component{
         const percent=((1-left_quantity/total_quantity)*100).toFixed(0);
         return(
             <div className={styles.cell} style={{width:this.props.screenW}}>
+                <Store ref="store"></Store>
                 <div onClick={this.clickYz}>
                     <div className={styles.cellHead}>
                         <div>

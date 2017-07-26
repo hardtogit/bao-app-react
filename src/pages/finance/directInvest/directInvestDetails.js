@@ -7,6 +7,7 @@ import arrow2 from '../../../assets/images/arrow2.png'
 import Load from '../../../components/pageLoading'
 import Ok from '../../../assets/images/ok.png'
 import Calculator from '../../../components/Calculator'
+import Store from '../../../components/Dialog/store'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
 import SwitchPanel from '../../../components/switchPanel/index'
@@ -302,6 +303,7 @@ class Index extends Component{
                 <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
                 <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
             </div>
+            <Store ref="store"></Store>
             <IsAuth ref="isAuth"/>
             <Calculator
                 ref="calculator"
@@ -316,8 +318,13 @@ class Index extends Component{
         </div>)
     }
     purchase=(id,push)=>{
-        const {term}=this.props.infoData.data
-        this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+        let storeData=sessionStorage.getItem('bao-store')
+        if(storeData.isRegister&&storeData.isBindBankcard){
+            const {term}=this.props.infoData.data
+            this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+        }else{
+            this.refs.store.show()
+        }
     }
     succsseFn=(url)=>{
         setUrl.setUrl(url)

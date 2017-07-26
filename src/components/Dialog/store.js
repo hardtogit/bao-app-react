@@ -62,7 +62,7 @@ export default class Success extends React.Component {
         return (
             <div style={display}>
             <div ref='dialog' style={{zIndex: '1050',position: 'fixed',transform: 'translate3d(-50%, -50%, 0px)',top: '50%',left: '50%',width:'86%'}}>
-                <div style={{width:'100%',position:'relative'}}>
+                <div style={{width:'100%',position:'relative',height:'140px'}}>
                     <img style={{width:'100%'}} src={require('./images/header.png')} />
                     <img width='40px' style={{position:'absolute',left:'-14px',top:'-10px'}} src={require('./images/01.png')} alt=""/>
                     <img width='40px' style={{position:'absolute',left:'-14px',bottom:'16px'}} src={require('./images/02.png')} alt=""/>

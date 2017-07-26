@@ -4,6 +4,7 @@
 import React from 'react';
 import style from './index.css';
 import classNames from 'classnames';
+import Store from '../Dialog/store'
 import PropTypes from 'prop-types'
 export default class Index extends React.Component {
     constructor(props){
@@ -27,7 +28,7 @@ export default class Index extends React.Component {
         const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
         }else{
-           this.refs.store.show();
+            this.refs.store.show()
             return false;
         }
 
@@ -43,8 +44,11 @@ export default class Index extends React.Component {
     };
     render() {
         return (
+            <div style={{float:'right'}}>
+                <Store ref="store"></Store>
             <div className={classNames(this.props.className,style.bg,this.state.open?style.open:'')} onClick={()=>{this.change()}}>
                 <div className={style.button}></div>
+            </div>
             </div>
         )
     }

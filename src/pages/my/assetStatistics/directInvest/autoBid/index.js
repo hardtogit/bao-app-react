@@ -260,7 +260,7 @@ class Index extends React.Component {
         const bidTypes = ['不限','担保标','抵押标'];
         const repaymentTypes = ['不限','每月还息到期还本','每月等额还本息'];
         if(!info){
-            return <Loading/>
+            return  <Loading/>
         }
         return (
             <div>
@@ -271,7 +271,7 @@ class Index extends React.Component {
                 <Box className={classnames(this.state.error&&style.box_error||'')}> 
                     <div className={style.open}>
                         开启自动投标功能
-                        <Switch className={style.switch} status={this.state.open} callBackFun={this.toggle}/>
+                        <Switch className={style.switch} status={this.state.open}  callBackFun={this.toggle}/>
                     </div>
                     <div className={classnames(style.content,this.state.open?'show':'hide')}>
                         <ul className={style.times}>

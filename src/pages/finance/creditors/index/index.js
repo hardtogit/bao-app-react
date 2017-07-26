@@ -28,7 +28,12 @@ class CreditorCell extends React.Component{
       const {
           id
       }=this.props.data
-      this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+      let storeData=sessionStorage.getItem('bao-store')
+      if(storeData.isRegister&&storeData.isBindBankcard){
+          this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+      }else{
+          this.refs.store.show()
+      }
   }
   yz=(success)=>{
       const is_login = true;

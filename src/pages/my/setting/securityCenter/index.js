@@ -62,11 +62,7 @@ class SecurityCenter extends React.Component {
 			</div>
 			<div style={{marginTop: 15}}>
 				<BaseText
-				 onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-				  {push('/user/setting/loginPasswordModify')}else{
-				   this.refs.store.show()
-				  }
-				  }}
+				 onClick={()=>{push('/user/setting/loginPasswordModify')}}
 				 label='修改登录密码'
 				 borderType='two' />
 			{isSetTradePassword ?
