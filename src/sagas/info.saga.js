@@ -49,6 +49,9 @@ function* takeRequest (action) {
                type:'SAFE_CARD_INFO'
            })
            yield put({
+               type:'STORE_STATUS_INFO'
+           })
+           yield put({
                type:'AUTH_COOKIE',
                lx:'set'
            })

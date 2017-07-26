@@ -106,9 +106,9 @@
 }
 .gobuy p{
 	font-size:18px;
-	color:#fff;
+	color:#999;
 	text-align:center;
-	background:#59C5EC;
+	background:#dedede;
 	line-height:50px;
 }
 .gobuy p.back{

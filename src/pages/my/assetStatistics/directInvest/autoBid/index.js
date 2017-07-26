@@ -5,6 +5,7 @@ import Tipbar from '../../../../../components/Tipbar/index'
 import NavBar from '../../../../../components/NavBar/index';
 import Box from '../../../../../components/ContentBox/index';
 import Switch from '../../../../../components/switch/index'
+import Store from '../../../../../components/Dialog/store'
 import Alert from '../../../../../components/Dialog/alert';
 import Confirm from '../../../../../components/Dialog/confirm';
 import Success from '../../../../../components/Dialog/success'
@@ -100,7 +101,7 @@ class Index extends React.Component {
         this.refs.success.show({
             text: '设置成功',
             callback: () => {
-                this.props.push('/user');
+                this.props.push('/home');
                 this.props.getInfo();
             }
         });

@@ -166,8 +166,20 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                                         <p className={styles.listColor} style={{"color":"#F19149"}}>{demand==0&&'查看详情'||'+'+demand}</p>
                                     </div>
                                 </Link>
+								<div className={styles.remove}>
+								</div>
+								<span className={styles.text}>已下架</span>
                             </div>
                         }
+						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+							<Link to="/user/gatherMy">
+								<img src={makeOver}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>聚点+</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'流动性高'||'+'+creditors}</p>
+								</div>
+							</Link>
+						</div>
 					</div>
 				</div>
 

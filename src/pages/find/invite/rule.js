@@ -1,32 +1,42 @@
+/**
+ * Created by xiangguo .
+ * time:2017/7/13 0013.
+ * email:413401168@qq.com.
+ * use:auto...
+ */
 import React from 'react';
 import {Link} from 'react-router';
 import NavBar from '../../../components/NavBar/';
 import {connect} from 'react-redux';
-import {goBack} from 'react-router-redux'
-import Box from '../../../components/ContentBox/index';
+import Scroll from '../../../components/scroll'
+import {goBack,replace} from 'react-router-redux'
 import styles from './index.css'
 class Index extends React.Component{
-	constructor(props){
-		super(props);
-	}
-	render(){
-		return(
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return(
+            <div>
+                <NavBar backgroundColor="#7f48cb" onLeft={this.props.pop}>活动详情</NavBar>
             <div className={styles.bg}>
-                <NavBar  onLeft={this.props.pop} backgroundColor={"#F76260"}>活动说明</NavBar>
-                <Box>
-                    <iframe style={{"width":"100%","height":"100%","marginTop":"44px","border":"none"}}
-							src={`${window.location.origin}/mobile_api/static-page/invite-rule`}></iframe>
-                </Box>
+                <iframe src="https://www.bao.cn/special/inviteFriends/wap/index.html"   style={{width:'100%',height:'100%',position:'absolute',top:'44px',border:'none',bottom:'44px'}}></iframe>
+                <div onClick={()=>{this.props.replace('/find/inviteFriends')}}  style={{position:'fixed',lineHeight:'44px',fontSize:'18px',bottom:'0',height:'44px',backgroundColor:'#fed74e',width:'100%',color:'#30194f',textAlign:'center'}}>
+                  马上邀请</div>
             </div>
-		)
-	}
+            </div>
+        )
+    }
 }
-const datas=(state)=>({
+const mapStateToProps=(state)=>({
 
-})
-const dispatchFn=(dispatch)=>({
-	pop(){
-		dispatch(goBack())
-	}
-})
-export default connect(datas,dispatchFn)(Index)
+});
+const mapFnToProps=(dispath)=>({
+    pop(){
+        dispath(goBack())
+    },
+    replace(url){
+        dispath(replace(url))
+    }
+});
+export default connect(mapStateToProps,mapFnToProps)(Index)

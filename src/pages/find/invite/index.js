@@ -3,6 +3,10 @@ import NavBar from '../../../components/NavBar/index'
 import styles from './index.css'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
+import pic1 from '../../../assets/images/invite/pic1.png'
+import pic2 from '../../../assets/images/invite/pic2.png'
+import pic3 from '../../../assets/images/invite/pic3.png'
+import arrow from '../../../assets/images/invite/arrow.png'
 import Box from '../../../components/ContentBox/index'
 import Util from '../../../utils/utils'
 import API from '../../../../config/index'
@@ -76,7 +80,7 @@ class Index extends React.Component {
             },
             rental: moneyNum * dataNum
         })
-    }
+    };
     openShare = () => { //打开分享
         this.setState({
             modalShow2: {
@@ -241,19 +245,33 @@ class Index extends React.Component {
                     <li><span>{data.number}</span>位</li>
                 </ul>
                 <ul>
-                    <li>赚取佣金</li>
+                    <li>获取收益</li>
                     <li><span>{Util.padMoney(data.amount)}</span>￥</li>
                 </ul>
             </div>
             <div className={styles.inviContent}>
-            <img src={caishen} className={styles.csImg}/>
+                <h2 className={styles.acTitle}>邀请好友送现金，上不封顶</h2>
+                <small className={styles.subAcTitle}><span className={styles.text}> 您的专属邀请码</span>：{code} </small>
+                <div className={styles.line}>
+                      <div className={styles.lineText}>邀请奖励</div>
+                </div>
+                <table className={styles.table}>
+                    <tr>
+                        <td className={styles.numTd}><span>1</span></td> <td className={styles.text}>邀友见面礼<br/>享30%收益返现</td> <td><img src={pic1} alt=""/></td>
+                    </tr>
+                    <tr>
+                        <td className={styles.numTd}><span>2</span></td> <td className={styles.text}>奖励加码<br/>50元红包返现</td> <td><img src={pic2} alt=""/></td>
+                    </tr>
+                    <tr>
+                        <td className={styles.numTd}><span>3</span></td> <td className={styles.text}>友“益”延续<br/>坐享每日佣金</td> <td><img src={pic3} alt=""/></td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3" className={styles.goDetail}> <Link to="/find/inviteRule"> <span style={{color:'#f56264'}}>活动详情</span> <img  src={arrow} alt=""/></Link></td>
+                    </tr>
+                </table>
 
-
-
-             <iframe src={`${window.location.origin}/mobile_api/static-page/invite?code=${code}`} style={{width:'100%',border:'0px'}} height={640}></iframe>
             </div>
             <div className={styles.foot}>
-                <p><img onClick={this.openCulator} src={count}/></p>
                 <p onClick={this.openShare}>邀请好友赚佣金</p>
             </div>
             <div className={styles.PopBox} style={this.state.modalShow1}>
@@ -345,7 +363,7 @@ class Index extends React.Component {
         }
         return (
             <div className={styles.bg}>
-                <NavBar onLeft={pop} backgroundColor="#F76260" title="邀请好友" rightNode={<Link className={styles.rightNode} to="/find/inviteFriendsRule">活动说明</Link>}/>
+                <NavBar onLeft={pop} backgroundColor="#F76260" title="邀请好友" rightNode={<Link className={styles.rightNode} to="/find/inviteParticulars">邀请明细</Link>}/>
                 <Box>
                     {
                         contentDom

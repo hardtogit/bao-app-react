@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import BaseText from '../../../../components/BaseText'
 import NavBar from '../../../../components/NavBar/index'
 import Page from '../../../../components/Page'
+import Store from '../../../../components/Dialog/store'
 import commonStyles from '../../../../css/common.styl'
 import utils from '../../../../utils/utils.js'
 import {push, goBack} from 'react-router-redux'
@@ -24,6 +25,21 @@ class SecurityCenter extends React.Component {
 		  const{
 			  push
 		  }=this.props;
+		const storeData=JSON.parse(sessionStorage.getItem('bao-store'))
+		let text='';
+		let url=''
+		if(storeData.isRegister&&storeData.isBindBankcard){
+			text= "已开通"
+		}else{
+			if(storeData.isRegister){
+				text= "未绑定银行卡"
+				url="/user/setting/cardBind"
+			}else{
+				text= "未开通"
+				url="/user/setting/regStore"
+			}
+		}
+
 
        return(
 		   <div>
@@ -46,24 +62,48 @@ class SecurityCenter extends React.Component {
 			</div>
 			<div style={{marginTop: 15}}>
 				<BaseText
-				 onClick={()=>{push('/user/setting/loginPasswordModify')}}
+				 onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+				  {push('/user/setting/loginPasswordModify')}else{
+				   this.refs.store.show()
+				  }
+				  }}
 				 label='修改登录密码'
 				 borderType='two' />
 			{isSetTradePassword ?
 				<BaseText
-				 onClick={()=>{push('/user/setting/tradePasswordModify')}}
+				 onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+				  {push('/user/setting/tradePasswordModify')}else{
+				   this.refs.store.show()
+				  }
+				  }}
 				 label='修改交易密码'
 				 borderType='four' /> : null}
 			{isSetTradePassword ?
 				 <BaseText
-				  onClick={()=>{push('/user/setting/tradePasswordForget')}}
+				  onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+				  {push('/user/setting/tradePasswordForget')}else{
+				   this.refs.store.show()
+				  }
+				  }}
 				  label='忘记交易密码'
-				  borderType='three' /> :
+				  borderType='four' /> :
 				 <BaseText
-				  onClick={()=>{push('/user/setting/tradePasswordSet')}}
+				  onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+				  {push('/user/setting/tradePasswordSet')}else{
+				   this.refs.store.show()
+				  }
+				  }}
 				  label='设置交易密码'
 				  borderType='four' /> }
+				<BaseText
+						onClick={()=>{ if(storeData.isRegister&&storeData.isBindBankcard){
+                             return false;
+						}else{push(url)}  }}
+						label='开通银行存管'
+						content={text}
+						borderType='three' />
 		     </div>
+			   <Store ref="store"> </Store>
 		</div>
 		   )
 	}

@@ -537,6 +537,12 @@ const financialIndexInitfn=(dispath,own)=>({
             index:num
         })
     },
+    getStore(){
+      dispath({
+          type:'STORE_STATUS_INFO',
+          index:num
+      })
+    },
     push(url){
         dispath(push(url))
     },

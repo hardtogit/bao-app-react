@@ -70,7 +70,8 @@ import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
 import active from './pages/user/active/index'
-import inviteFriendsRule from './pages/find/invite/rule' /*邀请好友规则*/
+import inviteParticulars from './pages/find/invite/particulars' /*邀请明细*/
+import inviteRule from './pages/find/invite/rule' /*邀请规则*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
@@ -123,11 +124,13 @@ import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,
 ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
-import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
+import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
-import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
-from './pages/routeComponent/accountComponent'
+import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
+import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects} from './loadTool'
+
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
 //document.domain = a;
@@ -139,6 +142,7 @@ const store = createStore(reducer, applyMiddleware(
 ))
 // 启动rootsaga
 sagaMiddleware.run(rootSaga)
+
 // 应用初始化时即请求全局数据
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO,lx:'init'});
@@ -172,6 +176,11 @@ export default class App extends React.Component {
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={ZqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
 
+                  <Route path="gatherMy" getComponent={GatherMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加*/
+                  <Route path="gatherMyDetail" getComponent={GatherMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
+                  <Route path="gatherProjects/:id/:type" getComponent={GatherProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
+
+
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
@@ -202,8 +211,8 @@ export default class App extends React.Component {
                   <Route path="goodsDetail/:id" component={GoodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
                   <Route path="shopCenter" component={ShopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
                   <Route path='shopCenterRule' component={shopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="activeConfirm" component={activeConfirm}/>/*点币商城确认兑换*/
                   <Route path="exchangeList" component={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
-                  <Route path="activeConfirm" component={activeConfirm} />/*点币商城确认兑换*/
                   <Route path="trueExchangeConfirm/:id" component={trueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
                   <Route path="exchangeSuccess" component={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
                   <Route path="exchangeFail" component={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
@@ -263,10 +272,12 @@ export default class App extends React.Component {
               <Route path='find' component={findIndex}>
                   <Route path="message" component={FindMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteFriendsRule" component={inviteFriendsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
+
               /*已完成*/
               <Route path="login" component={Login}></Route>
               <Route path='weChat' component={WeChat}></Route>
@@ -287,6 +298,17 @@ export default class App extends React.Component {
             <Route path="demand-buy" component={DemandBuy}></Route>
             <Route path="demand-product" component={DemandProduct}></Route>
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherMain(/:productId)" component={GatherMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherDetail(/:name/:month)" getComponent={GatherDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherDeposits(/:id)" getComponent={GatherDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBidDetail(/:id)" getComponent={GatherBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBorrowDetail(/:id)" getComponent={GatherBorrowDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBackDetail(/:id)" getComponent={GatherBackDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherInvestRecord(/:id)" getComponent={GatherInvestRecord} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBuy(/:productId)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>

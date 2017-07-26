@@ -8,8 +8,9 @@ import {connect} from 'react-redux'
 import styles from './index.css'
 import classNames from 'classnames'
 //定存宝
-import DepositIndex from '../deposit/index'
-import DepositPlanB from '../deposit/planB'
+//import DepositIndex from '../deposit/index'
+//import DepositPlanB from '../deposit/planB'
+import DepositGather from '../deposit/gather'
 //直投项目
 import DirectInvestIndex from '../directInvest/index'
 //债权转让
@@ -21,16 +22,14 @@ class financeIndex extends Component{
 		 this.state={
 			 titleCav:[
 			 {
-				 title:'定存宝A',
+				 title:'聚点+',
 			 },{
-                     title:'定存宝B',
-                 },{
 				 title:'直投项目'
 			 },{
 				 title:'债权转让'
 			 }],
 			 Index:0,
-             tabs:[DepositIndex,DepositPlanB,DirectInvestIndex,CreditorsIndex]
+             tabs:[DepositGather,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
 	 componentWillMount(){

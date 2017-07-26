@@ -63,6 +63,21 @@ const requests = (Fetch) => {
   Fetch.depositasInvest=(id)=>{return Fetch(`api/depositas/invest/${id}`,'GET')}
   Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
   Fetch.newUserActivity=()=>{ return Fetch(`new-user-activity`,'GET')}
+  //聚点+
+  Fetch.depositsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}`,'GET')}//聚点+列表
+  Fetch.gatherDetail=(id)=>{return Fetch(`api/depositSupervise/projectDetail/${id}`,'GET')}//聚点+标的列表
+  Fetch.gatherProblems=()=>{return Fetch(`api/depositSupervise/faq`,'GET')}//聚点+常见问题
+  Fetch.gatherBidList=(page,data)=>{return Fetch(`api/depositSupervise/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
+  Fetch.gatherJoin=(page,data)=>{return Fetch(`api/depositSupervise/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
+  Fetch.gatherBidDetail=(id)=>{return Fetch(`api/depositSupervise/borrowInfo/${id}`,'GET')}//聚点+详情
+  //我的聚点+
+  Fetch.gatherMyList=(page,data)=>{return Fetch(`api/depositSupervise/myInvestList?page=${page}&type=${data.type}`,'GET')}//我的聚点+列表
+  Fetch.gatherMyHeader=()=>{return Fetch(`api/depositSupervise/myProfile`,'GET')}//我的聚点+头部
+  Fetch.gatherBidBackDetail=(page,data)=>{return Fetch(`api/depositSupervise/borrowRepaymentList/${data.id}?page=${page}`,'GET')}//我的聚点+标的还款详情
+  Fetch.gatherProjects=(page,data)=>{return Fetch(`api/depositSupervise/myInvestBorrowList?investId=${data.id}&type=${data.type}&page=${page}`,'GET')}//我的聚点+标的还款详情
+  Fetch.gatherInvestRecord=(page,data)=>{return Fetch(`api/depositSupervise/borrowInvest/${data.id}?page=${page}`,'GET')}//聚点+标
+
+
 }
 
 export default requests

@@ -55,7 +55,7 @@ import rateup from '../../../../../assets/images/my-index/rateup.png' //提升�
 					</ul>
 				</div>
 				<div className={styles.gobuy}>
-					<p onClick={()=>{if(total)push('/user/demandReddem')}} className={total>0&&styles.back||""}>赎回</p></div>
+					<p >已下架</p></div>
 				</div>
 				)
 	}

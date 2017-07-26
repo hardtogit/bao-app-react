@@ -105,5 +105,46 @@ export default {
     },
     [actionTypes.DEPOSITBS_ACCOUNTCAPITALLIST_NOW]:{
         apiFn:Fetch.depositbsAccountCapitalList
-    }
+    },
+    [actionTypes.INVITE_PARTICULARS]:{
+        apiFn:Fetch.inviteParticulars
+    },
+    //聚点+
+    [actionTypes.DEPOSITS_GATHER]:{
+        apiFn:Fetch.depositsGather
+    },
+    //聚点+标
+    [actionTypes.GATHER_BID_LIST]:{
+        apiFn:Fetch.gatherBidList
+    },
+    //加入记录
+    [actionTypes.GATHER_JOIN]:{
+        apiFn:Fetch.gatherJoin
+    },
+    //我的聚点+列表(持有中)
+    [actionTypes.GATHER_MY_LIST_ONE]:{
+        apiFn:Fetch.gatherMyList
+    },
+    //我的聚点+列表（推出中）
+    [actionTypes.GATHER_MY_LIST_TWO]:{
+        apiFn:Fetch.gatherMyList
+    },
+    //我的聚点+列表（已退出）
+    [actionTypes.GATHER_MY_LIST_THREE]:{
+        apiFn:Fetch.gatherMyList
+    },
+    //标的还款详情
+    [actionTypes.GATHER_BID_BACK_DETAIL]:{
+        apiFn:Fetch.gatherBidBackDetail
+    },
+    //聚点+项目列表
+    [actionTypes.GATHER_PROJECTS]:{
+        apiFn:Fetch.gatherProjects
+    },
+    //聚点+
+    [actionTypes.GATHER_INVEST_RECORD]:{
+        apiFn:Fetch.gatherInvestRecord
+    },
+
+
 }

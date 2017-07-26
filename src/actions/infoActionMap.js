@@ -304,6 +304,18 @@ export default {
     [actionTypes.UPLOAD_FEED_BACK_IMG]:{
         apiFn:Fetch.uploadFeedBackImg
     },
+    [actionTypes.GATHER_DETAIL]:{
+        apiFn:Fetch.gatherDetail
+    },
+    [actionTypes.GATHER_PROBLEMS]:{
+        apiFn:Fetch.gatherProblems
+    },
+    [actionTypes.GATHER_BID_DETAIL]:{
+        apiFn:Fetch.gatherBidDetail
+    },
+    [actionTypes.GATHER_MY_HEADER]:{
+        apiFn:Fetch.gatherMyHeader
+    },
     [actionTypes.REG_STORE]:{//注册存管
         apiFn:Fetch.regStore
     },
@@ -334,6 +346,8 @@ export default {
     [actionTypes.STORE_BIND_CAR]:{//存管验证验证码
         apiFn:Fetch.storeBindCar
     }
+
+
 
 
 

@@ -1,0 +1,134 @@
+.container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  overflow: auto;
+  padding-top: 44px;
+  background-color: #f0eff5;
+  .header{
+    background-color: #00a6e2;
+    display: flex;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color:#fff;
+    .left{
+      border-right: 1px solid #ddd;
+      padding-left: 30px;
+      flex: 1;
+    }
+    .right{
+      flex: 1;
+      padding-left: 15px;
+    }
+    .itemTitle{
+      font-size: 12px;
+      padding-top: 6px;
+      padding-bottom: 15px;
+    }
+    .itemContent{
+      font-size:24px;
+      padding-bottom: 6px;
+      .icon{
+        font-size: 14px;
+        position: relative;
+        top:-10px;
+      }
+    }
+  }
+  .toggle{
+    display:flex;
+    background-color:#fff;
+    .item{
+      flex:1;
+      text-align:center;
+      line-height:41px;
+
+    }
+    .item.active{
+      border-bottom:3px solid #00a6e2
+    }
+  }
+  .tabs{
+    .tab{
+       width:33.33333%;
+       float:left
+    }
+  }
+  .clearFixed:before,.clearFixed:after{
+    display:table;
+    content:'';
+  }
+  .clearFixed:after{
+    clear:both
+  }
+  .overFlow{
+    overflow:hidden;
+  }
+  .box{
+    background-color: #fff;
+    margin-top: 10px;
+  }
+  .data_list_item{
+    margin-left:15px;
+    .item_header{
+      font-size:14px;
+      display:flex;
+      padding: 10px 0;
+      border-bottom:1px solid #ddd;
+      .sub_item{
+        flex:1;
+        img{
+        width: 18px;
+        float: left;
+        margin-right: 4px;
+      }
+      }
+      .conpon span{
+        font-size:12px;
+        padding:0 4px;
+        color:#fff;
+        border-radius: 4px;
+      }
+      .conpon .pink{
+        background-color:#feb278;
+      }
+      .conpon .cyan{
+        background-color:#7acb9f ;
+      }
+      .days{
+        text-align: right;
+        padding-right: 15px;
+      }
+    }
+    .item_body{
+      display: flex;
+      padding: 10px 15px 10px 0;
+      .item{
+        flex: 1;
+        width: 1%;
+        .title{
+          font-size:12px;
+          color:#a0a0a0
+        }
+        .rate{
+          font-size: 22px;
+          padding-bottom: 10px;
+        }
+      }
+      .one{
+        .rate{
+          color:#ff7701
+        }
+      }
+      .two{
+         text-align: center;
+      }
+      .three{
+        text-align: right;
+      }
+    }
+  }
+}
+

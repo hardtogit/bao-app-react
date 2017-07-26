@@ -24,6 +24,13 @@ export default class Index extends React.Component {
         checkedCanClick:PropTypes.bool//选中了是否还能切换
     };
     change=()=>{
+        const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        if(storeData.isRegister&&storeData.isBindBankcard){
+        }else{
+           this.refs.store.show();
+            return false;
+        }
+
         if(!this.props.checkedCanClick && this.state.open){
             return false;
         }

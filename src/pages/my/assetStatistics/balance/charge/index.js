@@ -4,6 +4,7 @@ import styles from './index.css'
 import {connect} from 'react-redux'
 import fivestar from '../../../../../assets/images/my-index/balance.png' //圆形五角星
 import Loading from '../../../../../components/pageLoading/'
+import Store from '../../../../../components/Dialog/store'
 import {Link} from 'react-router'
 import {push,goBack} from 'react-router-redux'
 import wrap from '../../../../../utils/pageWrapper'
@@ -86,7 +87,12 @@ class Index extends React.Component {
 					<h1>￥{balance}</h1>
 					<div className={styles.btnContent}>
 						<button className={styles.rechargeBtn} onClick={this.rechargeFn}>充值</button>
-						<button className={styles.depositBtn} onClick={()=>{this.money(balance)}}>提现</button>
+						<button className={styles.depositBtn} onClick={()=>{let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+		if(storeData.isBindBankcard&&storeData.isRegister){
+			this.money(balance)
+		}else{
+			this.refs.tip.show();
+		} }}>提现</button>
 					</div>
 				</div>)
 	}
@@ -150,7 +156,12 @@ class Index extends React.Component {
 		</div>)
 	}
     rechargeFn=()=>{
-    	this.refs.isAuth.isbindSecurityCard(this.hasCard,this.props.push,'/user/setting/securityCard')
+		let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+		if(storeData.isBindBankcard&&storeData.isRegister){
+			this.refs.isAuth.isbindSecurityCard(this.hasCard,this.props.push,'/user/setting/securityCard')
+		}else{
+			this.refs.tip.show();
+		}
 	}
 	hasCard=()=>{
     	this.setState({
@@ -195,6 +206,7 @@ class Index extends React.Component {
 			}{
                 this.pay()
 			}
+				<Store ref="tip"></Store>
 			</div>
 		)
 	}

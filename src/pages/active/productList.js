@@ -1,9 +1,6 @@
 /**
  * Created by wangdongfang on 17/4/17.
  */
-/**
- * Created by wangdongfang on 17/2/17.
- */
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
