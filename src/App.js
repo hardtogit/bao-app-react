@@ -13,7 +13,7 @@ import reducer from './reducers';
 import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
-import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB} from './actions/actionTypes'
+import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO} from './actions/actionTypes'
 import RelatedProjects from './pages/finance/demand/relatedProjects'
 import DemandInvestFail from './pages/finance/demand/investFail'
 import DemandRedeem from './pages/finance/demand/redeem'
@@ -83,6 +83,7 @@ import Invite from './pages/find/invite/index'
 import verifyPhone from './pages/my/setting/verifyPhone'
 import regStore from './pages/my/setting/regStore'
 import cardBind from './pages/my/setting/cardBind'
+import BindSuccess from './pages/my/setting/bindSuccess'
 import choicePoint from './pages/my/setting/choicePoint'
 import choiceBank from './pages/my/setting/choiceBank'
 import Setting from './pages/my/setting/index'
@@ -142,6 +143,7 @@ sagaMiddleware.run(rootSaga)
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO,lx:'init'});
 store.dispatch({type:SAFE_CARD_INFO});
+store.dispatch({type:STORE_STATUS_INFO});
 store.dispatch({type:DEPOSITBS_PLANB});
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)
@@ -239,6 +241,7 @@ export default class App extends React.Component {
                   <Route path="setting/siteEdit" component={siteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
                   <Route path="setting/regStore" component={regStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
                   <Route path="setting/cardBind" component={cardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/bindSuccess" component={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
                   <Route path="setting/verifyPhone" component={verifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
                   <Route path="setting/choiceBank" component={choiceBank} ></Route>/*选择开户行*/
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/

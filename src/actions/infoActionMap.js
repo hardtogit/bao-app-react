@@ -121,6 +121,9 @@ export default {
     [actionTypes.SAFE_CARD_INFO]:{//我的安全卡信息
         apiFn:Fetch.securityCard
     },
+    [actionTypes.STORE_STATUS_INFO]:{//存管开通信息
+        apiFn:Fetch.storeStatusInfo
+    },
     [actionTypes.SIGN]:{//签到
         apiFn:Fetch.sign
     },
@@ -304,7 +307,10 @@ export default {
     [actionTypes.REG_STORE]:{//注册存管
         apiFn:Fetch.regStore
     },
-    [actionTypes.REG_VERIFY]:{//验证存管
+    [actionTypes.REG_VERIFY]:{//验证存管是否注册成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.SEND_VERIFY]:{//验证存管短信是否发送成功
         apiFn:Fetch.regVerify
     },
     [actionTypes.GET_PROVINCE]:{//获取省份

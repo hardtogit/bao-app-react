@@ -31,6 +31,7 @@ export const MONEY_INFO  = 'MONEY_INFO';//资产分析
 export const FETCH_MONEY_LOG = 'FETCH_MONEY_LOG';//资产记录
 export const RED_PACKETS_RULE = 'RED_PACKETS_RULE';//红包规则
 export const SAFE_CARD_INFO = 'SAFE_CARD_INFO';//安全卡信息
+export const STORE_STATUS_INFO='STORE_STATUS_INFO'//存管开通状态
 export const SIGN = 'SIGN';//签到
 export const COIN_LOG = 'COIN_LOG';//点币记录
 export const BONUS_LOG = 'BONUS_LOG';//红包记录
@@ -83,8 +84,10 @@ export const REGISTER = 'REGISTER'
 export const SECURITY_CARD='SECURITY_CARD'
 //注册存管
 export const REG_STORE = 'REG_STORE'
-//存管验证
+//存管验证是否注册成功
 export const REG_VERIFY ='REG_VERIFY'
+//存管验证短信是否发送成功
+export const SEND_VERIFY='SEND_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市

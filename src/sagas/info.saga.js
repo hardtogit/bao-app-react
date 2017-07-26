@@ -36,6 +36,9 @@ function* takeRequest (action) {
         if(action.type==actionTypes.USER_INFO_WITH_LOGIN){
             sessionStorage.setItem("bao-user",JSON.stringify(response.data));
         }
+        if(action.type==actionTypes.STORE_STATUS_INFO&&response.code=='100'){
+            sessionStorage.setItem("bao-store",JSON.stringify(response.data));
+        }
        if (action.type==actionTypes.USER_LOGIN_FLOW&&response.code==100){
            sessionStorage.setItem("bao-auth", true);
            sessionStorage.removeItem('bao-sc');

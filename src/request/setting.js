@@ -49,6 +49,8 @@ const requests = (Fetch) => {
   Fetch.getRates = () => { return Fetch('common/rates', 'GET')}
   // 获取安全卡
   Fetch.securityCard = () => { return Fetch('user/security-card-info', 'GET')}
+  //获取是否注册存管
+  Fetch.storeStatusInfo = () => { return Fetch('api/supervise/account/accountInfo', 'GET')}
   //获取银行卡列表
   Fetch.getBankList=()=>{return Fetch('user/bankcardlist','GET')}
   //绑定安全卡或者修改
@@ -74,7 +76,7 @@ const requests = (Fetch) => {
   //获取城市
   Fetch.getCity=(data)=>{ return Fetch('api/supervise/outlets/cityList','GET',data)}
   //获取银行
-  Fetch.getBank=(data)=>{ return Fetch('api/supervise/outlets/bankList','GET',data)}
+  Fetch.getBank=(data)=>{ return Fetch('api/supervise/banks','GET',data)}
   //获取网点
   Fetch.getPoint=(data)=>{ return Fetch('api/supervise/outlets/outletList','GET',data)}
   //发送验证码

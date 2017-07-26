@@ -4,7 +4,7 @@ import App from './App'
 //坑人键盘专用
 require('!file-loader?name=static/js/[name].[ext]!./assets/lib/jquery.js');
 require('!file-loader?name=static/js/[name].[ext]!./assets/lib/microdoneH5.min.js');
-require('!file-loader?name=static/js/[name].[ext]!./assets/lib/doneConfig.js');
+//require('!file-loader?name=static/js/[name].[ext]!./assets/lib/doneConfig.js');
 require('!file-loader?name=static/css/[name].[ext]!./css/microdone-h5.css');
 require('!file-loader?name=static/svg/[name].[ext]!./assets/svg/123.svg');
 require('!file-loader?name=static/svg/[name].[ext]!./assets/svg/123_2.svg');

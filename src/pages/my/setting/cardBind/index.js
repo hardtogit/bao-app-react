@@ -30,6 +30,7 @@ class Index extends Component{
         super(props);
         this.state = {
             time:0,
+            regTime:0,
             ref:'',
             formData:{},
             province:'',
@@ -48,13 +49,13 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.data.status==1){
+                    if(nextProps.sendFlag&&nextProps.sendFlag.data.status==1){
                             this.setState({
-                                ref:nextProps.flagData.data.additional[0].data.ref
+                                ref:nextProps.sendFlag.data.additional[0].data.ref
                             })
                     }else{
                         setTimeout(()=>{
-                            this.props.verify(nextProps.msgId.msgId)
+                            this.props.verifySend(nextProps.msgId.msgId)
                         },1000)
                     }
                 }
@@ -66,7 +67,19 @@ class Index extends Component{
             this.props.clean('STORE_VERIFY_CODE');
         }
         if(nextProps.regData&&nextProps.regData.status==1){
-            alert('绑定成功')
+            if(this.state.regTime<3){
+                this.setState({
+                    regTime:this.state.regTime+1
+                });
+                if(nextProps.flagData&&nextProps.flagData.data.status==1){
+                        this.props.push('/user/setting/bindSuccess')
+                }else{
+                    setTimeout(()=>{
+                        this.props.verifyReg(nextProps.regData.msgId)
+                    },1000)
+                }
+            }
+
         }
     }
     componentWillMount(){
@@ -96,16 +109,7 @@ class Index extends Component{
         sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
         this.props.push('/user/setting/choiceBank')
     };
-    choicePoint=(e)=>{
-        if(this.props.bankData){
-            let bank=this.props.bankData.bankId;
-            sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
-            this.props.push('/user/setting/choicePoint?bankId='+bank)
-        }else{
-            this.refs.alert.open('请选择开户行')
-            return;
-        }
-    };
+
     submit=()=>{
         let tip=this.refs.alert;
         let bankCard=this.refs.form.getValue().bankCard;
@@ -113,15 +117,11 @@ class Index extends Component{
             tip.open('请输入卡号')
             return false;
         }
-        if(this.props.pointData==undefined){
-            tip.open('请选择网点')
-            return
-        }
 
        let smsReference=this.state.ref;
        let verifyCode=this.refs.verifyCode.value;
-       let bankName=this.props.pointData.bankName;
-       let bankCode=this.props.pointData.bankCode;
+       let bankName=this.props.bankData.bankName;
+       let bankCode=this.props.bankData.bankCode;
        let telNo=this.refs.form.getValue().telNo;
         this.setState({
             formData:{
@@ -132,7 +132,7 @@ class Index extends Component{
                 telNo:telNo
             }
         });
-        if(smsReference&&verifyCode){
+        if(verifyCode){
             this.props.verifyCode({
                 smsReference:smsReference,
                 verifyCode:verifyCode
@@ -202,7 +202,8 @@ const mapStateToProps=(state,ownProps)=>{
         pointData:state.regStore.getIn([actionTypes.CHOICE_POINT, 'bankInfoPoint']),
         bankData:state.regStore.getIn([actionTypes.CHOICE_BANK, 'bankInfo']),
         msgId:state.infodata.getIn([actionTypes.STORE_SEND_CODE, 'data']),
-        flagData:state.infodata.getIn([actionTypes.REG_VERIFY,'data']),
+        regFlag:state.infodata.getIn([actionTypes.REG_VERIFY,'data']),
+        sendFlag:state.infodata.getIn([actionTypes.SEND_VERIFY,'data']),
         verifyCodeData:state.infodata.getIn([actionTypes.STORE_VERIFY_CODE,'data']),
         regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
     }
@@ -225,9 +226,15 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             })
         },
         //验证是否发送成功
-        verify(id){
+        verifyReg(id){
             dispatch({
                 type:actionTypes.REG_VERIFY,
+                params:[{id:id}]
+            })
+        },
+        verifySend(id){
+            dispatch({
+                type:actionTypes.SEND_VERIFY,
                 params:[{id:id}]
             })
         },

@@ -51,19 +51,27 @@ class Index extends Component{
         const{
             bankData
             }=this.props;
+        let Dom;
+        if(bankData){
+            Dom=<ul className={styles.item}>
+                        {bankData&&bankData.data.map((value,i)=>{
+                            return <li onClick={()=>{this.choiceBank(value.bankId,value.bankName)}} key={value.bankId}> {value.bankName} </li>
+                        })}
+                 </ul>
+
+        }else{
+            Dom=<Loading></Loading>
+        }
+
         return(
             <div>
                 <NavBar onLeft={this.props.pop}>选择开户行</NavBar>
                 <div style={{paddingTop:'44px'}}>
-                <div className={styles.container}>
-                    <div ref="group" className={styles.address} >
-                        <ul className={styles.item}>
-                            {bankData&&bankData.data.map((value,i)=>{
-                                return <li onClick={()=>{this.choiceBank(value.bankId,value.bankName)}} key={value.bankId}> {value.bankName} </li>
-                            })}
-                        </ul>
+                    <div className={styles.container}>
+                        <div ref="group" className={styles.address} >
+                            {Dom}
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         )
