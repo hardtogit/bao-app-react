@@ -85,6 +85,7 @@ import verifyPhone from './pages/my/setting/verifyPhone'
 import regStore from './pages/my/setting/regStore'
 import cardBind from './pages/my/setting/cardBind'
 import BindSuccess from './pages/my/setting/bindSuccess'
+import RegStoreSuccess from './pages/my/setting/regStoreSuccess'
 import choicePoint from './pages/my/setting/choicePoint'
 import choiceBank from './pages/my/setting/choiceBank'
 import Setting from './pages/my/setting/index'
@@ -132,8 +133,8 @@ import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBi
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects} from './loadTool'
 
 // 工厂方法创建saga中间件
-//const a=window.location.href.split('.')[1]+'.cn';
-//document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -249,6 +250,7 @@ export default class App extends React.Component {
                   <Route path="setting/siteAdd" component={siteAdd} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址新增*/
                   <Route path="setting/siteEdit" component={siteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
                   <Route path="setting/regStore" component={regStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
+                  <Route path="setting/regSToreSuccess" component={RegStoreSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存管成功*/
                   <Route path="setting/cardBind" component={cardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
                   <Route path="setting/bindSuccess" component={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
                   <Route path="setting/verifyPhone" component={verifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/

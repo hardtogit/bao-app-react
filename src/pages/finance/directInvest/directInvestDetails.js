@@ -318,7 +318,7 @@ class Index extends Component{
         </div>)
     }
     purchase=(id,push)=>{
-        let storeData=sessionStorage.getItem('bao-store')
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
             const {term}=this.props.infoData.data
             this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)

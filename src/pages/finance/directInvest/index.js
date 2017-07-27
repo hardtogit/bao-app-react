@@ -46,7 +46,12 @@ class DirectInvestCell extends React.Component{
             if (verifyAssign){
                 if (verifyAssign.code==100&&id!=''){
                     this.succsseFn();
+                    let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+                    if(storeData.isRegister&&storeData.isBindBankcard){
                     this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
+                    }else{
+                        this.refs.store.show()
+                    }
                 }else if (verifyAssign.code!=100){
                     this.props.passwordRef.hide()
                     this.props.wrongRef.show({
@@ -65,7 +70,7 @@ class DirectInvestCell extends React.Component{
             id,
             term
         }=this.props.data;
-        let storeData=sessionStorage.getItem('bao-store')
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
             this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
         }else{

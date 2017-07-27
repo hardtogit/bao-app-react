@@ -1,4 +1,4 @@
-/**
+npm/**
  * Fetch
  */
 import config          from '../../config/index'

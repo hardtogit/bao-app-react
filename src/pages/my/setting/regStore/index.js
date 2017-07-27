@@ -55,24 +55,27 @@ class Index extends Component{
         }
         passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
-
     let realName=this.refs.form.getValue().realName,idCard=this.refs.form.getValue().idCard;
-    let data={realName:realName,idCard:idCard,password:'27525'};
-
+    let data={realName:realName,idCard:idCard,password:passGuard2.getOutput()};
     this.props.reg(data)
     };
     componentWillReceiveProps(nextProps) {
         if(nextProps.data){
             if (nextProps.data.status==1){
-                if(this.state.time<3){
+                if(this.state.time<=3){
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.status==0){
+                    if(nextProps.flagData&&nextProps.flagData.data.status==1){
+
                     }else{
-                        setTimeout(()=>{
-                            this.props.verify(nextProps.data.msgId)
-                        },1000)
+                        if(this.state.time>=3){
+                            this.refs.alert.open('开通存管账户失败')
+                        }else{
+                            setTimeout(()=>{
+                                this.props.verify(nextProps.data.msgId)
+                            },3000)
+                        }
                     }
                 }
             }

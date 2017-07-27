@@ -39,11 +39,17 @@ export default class ReddemDialog extends React.Component {
     hasDetailText: false,
   }
 
-
   show = (options) => {
     const _options = Object.assign({}, options, {money: Utils.moneyFormat(options.money || '')})
     this.setState({top: 0, error: '', options: _options})
-    this.refs.dialog.show()
+    this.refs.dialog.show();
+    setTimeout(function(){  passGuard3.generate("kb3",kb,0);
+      $(function(){
+        setTimeout(function(){
+          kb.generate();
+        },100);
+      })},1000)
+
   }
 
   hide = () => {
@@ -75,7 +81,6 @@ export default class ReddemDialog extends React.Component {
 
   render() {
     const options = this.state.options
-
     return (
       <Dialog ref='dialog' style={{top: 0}}>
         <div className={cn(styles.modal, styles.reddemModal)} style={{width: helper.getWidth()}}>
@@ -93,6 +98,7 @@ export default class ReddemDialog extends React.Component {
           <div className={styles.inputWrap}>
             <input
               className={styles.input}
+              id="kb3"
               ref='textInput'
               placeholder={options.placeholder}
               onFocus={this.focusHandle}

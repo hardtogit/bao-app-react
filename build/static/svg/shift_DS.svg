@@ -1,32 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 90 76" preserveAspectRatio="none"
-	version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  enable-background="new 0 0 90 76" xml:space="preserve">
+<svg width="100%" height="100%" viewBox="0 0 72 78" preserveAspectRatio="none"
+version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  enable-background="new 0 0 72 78" xml:space="preserve">
 <g>
-	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="44.8037" y1="4.7891" x2="44.8037" y2="70.1528">
-		<stop  offset="0" style="stop-color:#F0F0F0"/>
-		<stop  offset="1" style="stop-color:#FFFFFF"/>
-	</linearGradient>
-	<path fill="url(#SVGID_1_)" stroke="#CBCBCB" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M87.209,69.849
-		c0,1.071-0.895,1.94-2,1.94H4.398c-1.105,0-2-0.869-2-1.94V5.488c0-1.071,0.896-1.941,2-1.941h80.812c1.105,0,2,0.869,2,1.941
-		V69.849z"/>
-	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="44.8039" y1="72.112" x2="44.8039" y2="3.2258">
-		<stop  offset="0" style="stop-color:#E6E6E6"/>
-		<stop  offset="1" style="stop-color:#FFFFFF"/>
-	</linearGradient>
-	<path fill="none" stroke="url(#SVGID_2_)" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" d="M86.859,69.446
-		c0,1.058-0.884,1.916-1.976,1.916H4.724c-1.091,0-1.975-0.858-1.975-1.916V5.892c0-1.058,0.884-1.916,1.975-1.916h80.159
-		c1.092,0,1.976,0.858,1.976,1.916V69.446z"/>
+	<path fill="#757575" d="M68,66c0,4.418-3.582,8-8,8H12c-4.418,0-8-3.582-8-8V14c0-4.418,3.582-8,8-8h48c4.418,0,8,3.582,8,8V66z"/>
+	<path fill="#FFFFFF" d="M68,64c0,4.418-3.582,8-8,8H12c-4.418,0-8-3.582-8-8V12c0-4.418,3.582-8,8-8h48c4.418,0,8,3.582,8,8V64z"/>
 </g>
 <g>
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#666666" d="M62.086,36.193h-8.129v16.257c0,0.562-0.454,1.016-1.016,1.016
-		H36.684c-0.561,0-1.016-0.455-1.016-1.016V36.193h-8.13c-0.005,0-0.008-0.003-0.013-0.003c-0.262,0.003-0.525-0.098-0.725-0.305
-		c-0.395-0.409-0.395-1.074,0-1.482l17.286-17.21c0.004-0.004,0.005-0.009,0.008-0.013c0.197-0.205,0.458-0.308,0.717-0.307
-		c0.26-0.001,0.52,0.102,0.718,0.307c0.007,0.006,0.008,0.015,0.014,0.021l17.25,17.202c0.105,0.108,0.178,0.238,0.226,0.374
-		c0.054,0.123,0.083,0.258,0.083,0.401C63.102,35.737,62.647,36.193,62.086,36.193L62.086,36.193z"/>
+	<polyline points="43.667,50.056 43.667,41.389 53,41.389 36,24.944 19,41.389 28.333,41.389 28.333,50.056 	"/>
 </g>
-<path fill-rule="evenodd" clip-rule="evenodd" fill="#666666" d="M54.053,58.022c0,1.036-0.801,1.875-1.791,1.875H37.457
-	c-0.989,0-1.791-0.839-1.791-1.875l0,0c0-1.036,0.802-1.875,1.791-1.875h14.805C53.252,56.147,54.053,56.986,54.053,58.022
-	L54.053,58.022z"/>
+<rect x="28" y="54.25" width="16" height="4"/>
 </svg>
