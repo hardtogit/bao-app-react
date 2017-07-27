@@ -48,7 +48,7 @@ export default class ReddemDialog extends React.Component {
         setTimeout(function(){
           kb.generate();
         },100);
-      })},1000)
+      })},500)
 
   }
 
@@ -57,7 +57,9 @@ export default class ReddemDialog extends React.Component {
   }
 
   okHandle = () => {
-    const options = this.state.options
+    const options = this.state.options;
+    passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
+    this.password=passGuard3.getOutput();
     if (options.okCallback) { 
       return options.okCallback.call(null, this.hide, this.password)
     }
@@ -76,7 +78,8 @@ export default class ReddemDialog extends React.Component {
   }
 
   blurHandle = () => {
-    ReactDom.findDOMNode(this.refs.dialog).getElementsByTagName('div')[0].style.top = '50%'
+    console.log('ds')
+    ReactDom.findDOMNode(this.refs.dialog).getElementsByTagName('div')[0].style.top = '35%'
   }
 
   render() {
@@ -103,7 +106,7 @@ export default class ReddemDialog extends React.Component {
               placeholder={options.placeholder}
               onFocus={this.focusHandle}
               onBlur={this.blurHandle}
-              onChange={(e)=>{this.password=e.nativeEvent.target.value}} type="password"/>
+              onChange={(e)=>{this.password=e.nativeEvent.target.value}} type="text"/>
           </div>
           {
            this.state.error ? <span className={styles.errorText}>{this.state.error}</span> : null

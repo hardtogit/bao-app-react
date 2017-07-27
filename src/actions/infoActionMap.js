@@ -325,6 +325,9 @@ export default {
     [actionTypes.SEND_VERIFY]:{//验证存管短信是否发送成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.BIND_VERIFY]:{//验证存管短信是否发送成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },

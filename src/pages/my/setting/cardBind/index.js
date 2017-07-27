@@ -30,7 +30,7 @@ class Index extends Component{
         super(props);
         this.state = {
             time:0,
-            regTime:0,
+            bindTime:0,
             ref:'',
             formData:{},
             province:'',
@@ -45,7 +45,7 @@ class Index extends Component{
     componentWillReceiveProps(nextProps) {
         if(nextProps.msgId){
             if (nextProps.msgId.status==1){
-                if(this.state.time<3){
+                if(this.state.time<=3){
                     this.setState({
                         time:this.state.time+1
                     });
@@ -54,29 +54,36 @@ class Index extends Component{
                                 ref:nextProps.sendFlag.data.additional[0].data.ref
                             })
                     }else{
-                        setTimeout(()=>{
-                            this.props.verifySend(nextProps.msgId.msgId)
-                        },1000)
+                        if(this.state.time>=3){
+                            this.refs.alert.open('发送验证码失败，请稍后重试');
+                        }else{
+                            setTimeout(()=>{
+                                this.props.verifySend(nextProps.msgId.msgId)
+                            },2000)
+                        }
                     }
                 }
             }
         }
-
         if( nextProps.verifyCodeData&&nextProps.verifyCodeData.status==1){
             this.props.bindCard(this.state.formData)
             this.props.clean('STORE_VERIFY_CODE');
         }
         if(nextProps.regData&&nextProps.regData.status==1){
-            if(this.state.regTime<3){
+            if(this.state.bindTime<=3){
                 this.setState({
-                    regTime:this.state.regTime+1
+                    bindTime:this.state.bindTime+1
                 });
-                if(nextProps.flagData&&nextProps.flagData.data.status==1){
+                if(nextProps.bindFlag&&nextProps.bindFlag.data.status==1){
                         this.props.push('/user/setting/bindSuccess')
                 }else{
-                    setTimeout(()=>{
-                        this.props.verifyReg(nextProps.regData.msgId)
-                    },1000)
+                    if(this.state.bindTime>=3){
+                        this.refs.alert.open('绑定银行卡失败');
+                    }else{
+                        setTimeout(()=>{
+                            this.props.verifyBind(nextProps.regData.msgId)
+                        },2000)
+                    }
                 }
             }
 
@@ -99,18 +106,23 @@ class Index extends Component{
             this.refs.alert.open('请填写正确的手机号码');
             return false;
         }
-      this.props.clean('REG_VERIFY');
+      this.props.clean('SEND_VERIFY');
         this.setState({
             time:0
         });
       this.props.sendCode({telNo:this.refs.form.getValue().telNo})
     };
     choiceBank=(e)=>{
-        sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
+        //sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
+        this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
         this.props.push('/user/setting/choiceBank')
     };
 
     submit=()=>{
+        this.props.clean('BIND_VERIFY');
+        this.setState({
+            bindTime:0
+        });
         let tip=this.refs.alert;
         let bankCard=this.refs.form.getValue().bankCard;
         if(bankCard==''){
@@ -132,7 +144,7 @@ class Index extends Component{
                 telNo:telNo
             }
         });
-        if(verifyCode){
+        if(verifyCode&&smsReference){
             this.props.verifyCode({
                 smsReference:smsReference,
                 verifyCode:verifyCode
@@ -144,10 +156,11 @@ class Index extends Component{
     render(){
         const{
             bankData,
-            pointData,
-            msgId
+            saveData
             }=this.props;
-           const bankCard=sessionStorage.getItem('carNo')?sessionStorage.getItem('carNo'):'';
+           const bankCard=saveData&&saveData.carNo?saveData.carNo:'';
+           const telNo=saveData&&saveData.telNo?saveData.telNo:'';
+
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
@@ -175,7 +188,7 @@ class Index extends Component{
                         ref='telNo'
                         name='telNo'
                         label='预留手机'
-                        defaultValue=''
+                        defaultValue={telNo}
                         placeholder=''
                         type='validateItem'
                         reg={{ required: {message: '请输入正确的卡号'}}}
@@ -199,13 +212,13 @@ class Index extends Component{
 }
 const mapStateToProps=(state,ownProps)=>{
     return{
-        pointData:state.regStore.getIn([actionTypes.CHOICE_POINT, 'bankInfoPoint']),
         bankData:state.regStore.getIn([actionTypes.CHOICE_BANK, 'bankInfo']),
         msgId:state.infodata.getIn([actionTypes.STORE_SEND_CODE, 'data']),
-        regFlag:state.infodata.getIn([actionTypes.REG_VERIFY,'data']),
+        bindFlag:state.infodata.getIn([actionTypes.BIND_VERIFY,'data']),
         sendFlag:state.infodata.getIn([actionTypes.SEND_VERIFY,'data']),
         verifyCodeData:state.infodata.getIn([actionTypes.STORE_VERIFY_CODE,'data']),
         regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
+        saveData:state.regStore.getIn([actionTypes.SAVE_STORE_DATA,'data']),
     }
 };
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -226,9 +239,9 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             })
         },
         //验证是否发送成功
-        verifyReg(id){
+        verifyBind(id){
             dispatch({
-                type:actionTypes.REG_VERIFY,
+                type:actionTypes.BIND_VERIFY,
                 params:[{id:id}]
             })
         },
@@ -257,6 +270,12 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:'CLEAR_INFO_DATA',
                 key:key
+            })
+        },
+        saveStoreData(data){
+            dispatch({
+                type:'SAVE_STORE_DATA',
+                data:data
             })
         }
 

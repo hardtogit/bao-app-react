@@ -89,6 +89,8 @@ export const REG_STORE = 'REG_STORE'
 export const REG_VERIFY ='REG_VERIFY'
 //存管验证短信是否发送成功
 export const SEND_VERIFY='SEND_VERIFY'
+//验证银行卡是否绑定成功
+export const BIND_VERIFY='BIND_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市
@@ -105,6 +107,7 @@ export const STORE_VERIFY_CODE='STORE_VERIFY_CODE'
 export const STORE_BIND_CAR='STORE_BIND_CAR'
 export const CHOICE_POINT='CHOICE_POINT'
 export const CHOICE_BANK='CHOICE_BANK'
+export const SAVE_STORE_DATA='SAVE_STORE_DATA'//暂存卡号和手机号
 export const BIND_MOBILE = 'BIND_MOBILE'
 export const BIND_MOBILE_MODIFY = 'BIND_MOBILE_MODIFY'
 export const BIND_MOBILE_SUCCESS = 'BIND_MOBILE_SUCCESS'

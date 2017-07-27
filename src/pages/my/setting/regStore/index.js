@@ -19,7 +19,7 @@ import Alert from '../../../../components/Dialog/alert'
 import Success from '../../../../components/Dialog/success'
 import styles from './index.styl'
 import util from '../../../../utils/utils.js'
-import {go, replace} from 'react-router-redux'
+import {go,replace,push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
@@ -38,6 +38,14 @@ class Index extends Component{
         if(this.state.disable){
             return
         }
+
+    let realName=this.refs.form.getValue().realName,idCard=this.refs.form.getValue().idCard;
+    let reg1=/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+    let reg2= /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$/;
+        if (idCard.match(reg1) == null && idCard.match(reg2) == null) {
+            this.refs.alert.open('身份证输入错误');
+            return false;
+        }
         //判断密码长度
         if(passGuard1.getLength()==0){
             this.refs.alert.open('密码不能为空')
@@ -55,7 +63,6 @@ class Index extends Component{
         }
         passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
-    let realName=this.refs.form.getValue().realName,idCard=this.refs.form.getValue().idCard;
     let data={realName:realName,idCard:idCard,password:passGuard2.getOutput()};
     this.props.reg(data)
     };
@@ -67,7 +74,7 @@ class Index extends Component{
                         time:this.state.time+1
                     });
                     if(nextProps.flagData&&nextProps.flagData.data.status==1){
-
+                        this.props.push('/user/setting/cardBind')
                     }else{
                         if(this.state.time>=3){
                             this.refs.alert.open('开通存管账户失败')
@@ -200,8 +207,10 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
              type:actionTypes.REG_VERIFY,
              params:[{id:id}]
          })
+     },
+     push(url){
+         dispatch(push(url))
      }
-
     }
 };
 
