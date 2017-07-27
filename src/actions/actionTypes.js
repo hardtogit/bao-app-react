@@ -97,6 +97,7 @@ export const GET_PROVINCE='GET_PROVINCE'
 export const GET_CITY='GET_CITY'
 //获取银行列表
 export const GET_BANK='GET_BANK'
+export const GET_BANK_BIND_LIST='GET_BANK_BIND_LIST'
 //获取营业网点
 export const GET_POINT='GET_POINT'
 //注册存管验证短信

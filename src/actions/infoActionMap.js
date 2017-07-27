@@ -337,6 +337,9 @@ export default {
     [actionTypes.GET_BANK]:{//获取银行
         apiFn:Fetch.getBank
     },
+    [actionTypes.GET_BANK_BIND_LIST]:{//获取银行
+        apiFn:Fetch.getBankBindList
+    },
     [actionTypes.GET_POINT]:{//获取网点
         apiFn:Fetch.getPoint
     },

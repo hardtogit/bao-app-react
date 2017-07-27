@@ -90,6 +90,7 @@ class Index extends Component{
         }
     }
     componentWillMount(){
+        this.props.getBankBindList()
     }
     componentDidMount(){
     }
@@ -219,6 +220,7 @@ const mapStateToProps=(state,ownProps)=>{
         verifyCodeData:state.infodata.getIn([actionTypes.STORE_VERIFY_CODE,'data']),
         regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
         saveData:state.regStore.getIn([actionTypes.SAVE_STORE_DATA,'data']),
+        bankList:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'data'])
     }
 };
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -276,6 +278,11 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:'SAVE_STORE_DATA',
                 data:data
+            })
+        },
+        getBankBindList(){
+            dispatch({
+                type:'GET_BANK_BIND_LIST',
             })
         }
 

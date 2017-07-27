@@ -77,6 +77,8 @@ const requests = (Fetch) => {
   Fetch.getCity=(data)=>{ return Fetch('api/supervise/outlets/cityList','GET',data)}
   //获取银行
   Fetch.getBank=(data)=>{ return Fetch('api/supervise/banks','GET',data)}
+  //获取银行
+  Fetch.getBankBindList=(data)=>{ return Fetch('api/supervise/banks/binList','GET',data)}
   //获取网点
   Fetch.getPoint=(data)=>{ return Fetch('api/supervise/outlets/outletList','GET',data)}
   //发送验证码
