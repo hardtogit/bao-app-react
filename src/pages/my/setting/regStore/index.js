@@ -19,7 +19,7 @@ import Alert from '../../../../components/Dialog/alert'
 import Success from '../../../../components/Dialog/success'
 import styles from './index.styl'
 import util from '../../../../utils/utils.js'
-import {go,replace,push} from 'react-router-redux'
+import {go,goBack,replace,push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
@@ -32,13 +32,13 @@ class Index extends Component{
         this.state = {
             time: 0,
             disable:true,
+            pending:false,
         }
     }
     reg=()=>{
         if(this.state.disable){
             return
         }
-
     let realName=this.refs.form.getValue().realName,idCard=this.refs.form.getValue().idCard;
     let reg1=/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
     let reg2= /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$/;
@@ -63,7 +63,11 @@ class Index extends Component{
         }
         passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
-    let data={realName:realName,idCard:idCard,password:passGuard2.getOutput()};
+    let data={realName:realName,idCard:idCard,password:passGuard2.getOutput(),passwordFactor:sessionStorage.getItem('passwordFactor')};
+        this.setState({
+            time:0,
+            pending:true
+        });
     this.props.reg(data)
     };
     componentWillReceiveProps(nextProps) {
@@ -77,7 +81,12 @@ class Index extends Component{
                         this.props.push('/user/setting/cardBind')
                     }else{
                         if(this.state.time>=3){
+                            this.setState({
+                                pending:false
+                            })
                             this.refs.alert.open('开通存管账户失败')
+                            $("#kb1").val('');
+                            $("#kb2").val('');
                         }else{
                             setTimeout(()=>{
                                 this.props.verify(nextProps.data.msgId)
@@ -125,7 +134,7 @@ class Index extends Component{
             }=this.state;
         return(
             <div className={styles.container}>
-                <NavBar>开通存管账户</NavBar>
+                <NavBar onLeft={this.props.pop}>开通存管账户</NavBar>
                 <div style={{paddingTop:'60px'}}>
                     <p className={styles.tip}>*请输入本人的真实姓名和身份证号，一但开通成功，无法修改。</p>
                     <ValidateForm
@@ -177,7 +186,7 @@ class Index extends Component{
                     <div style={{padding:'15px'}}>
                     <Button ref="bottom" style={{marginTop:'15px'}} onClick={this.reg} disable={disable}
                         className={styles.bottom}
-                        text={this.props.pending ? <LoadingButton text='开通中...' /> : '开通存管'}
+                        text={this.state.pending ? <LoadingButton text='开通中...' /> : '开通存管'}
                          />
                     </div>
                     <Tipbar ref="alert"></Tipbar>
@@ -201,6 +210,9 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
              type:actionTypes.REG_STORE,
              params:[data]
          })
+     },
+     pop(){
+         dispatch(goBack())
      },
      verify(id){
          dispatch({
