@@ -63,6 +63,7 @@ class Index extends Component{
         }
         passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
+        passGuard1.getOutput();
     let data={realName:realName,idCard:idCard,password:passGuard2.getOutput(),passwordFactor:sessionStorage.getItem('passwordFactor')};
         this.setState({
             time:0,
@@ -77,7 +78,7 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.data.status==1){
+                    if(nextProps.flagData&&nextProps.flagData.data.status==1&&nextProps.flagData.data.additional[0].code=="0000"){
                         this.props.push('/user/setting/cardBind')
                     }else{
                         if(this.state.time>=3){
@@ -134,7 +135,7 @@ class Index extends Component{
             }=this.state;
         return(
             <div className={styles.container}>
-                <NavBar onLeft={this.props.pop}>开通存管账户</NavBar>
+                <NavBar onLeft={this.props.pop} leftNode={<div style={{paddingLeft:'10px'}}>取消</div>} >开通存管账户</NavBar>
                 <div style={{paddingTop:'60px'}}>
                     <p className={styles.tip}>*请输入本人的真实姓名和身份证号，一但开通成功，无法修改。</p>
                     <ValidateForm

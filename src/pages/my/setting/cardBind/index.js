@@ -36,7 +36,8 @@ class Index extends Component{
             province:'',
             city:'',
             bank:'',
-            point:''
+            point:'',
+            submitting:false
         }
     }
     static defaultProps = {
@@ -49,7 +50,7 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.sendFlag&&nextProps.sendFlag.data.status==1){
+                    if(nextProps.sendFlag&&nextProps.sendFlag.data.status==1&&nextProps.sendFlag.data.additional[0].code=='0000'){
                             this.setState({
                                 ref:nextProps.sendFlag.data.additional[0].data.ref
                             })
@@ -69,16 +70,26 @@ class Index extends Component{
             this.props.bindCard(this.state.formData)
             this.props.clean('STORE_VERIFY_CODE');
         }
+        if(nextProps.verifyCodeData&&nextProps.verifyCodeData.status!=1){
+            this.refs.alert.open('验证码错误');
+            this.props.clean('STORE_VERIFY_CODE');
+            this.setState({
+                submitting:false
+            })
+        }
         if(nextProps.regData&&nextProps.regData.status==1){
             if(this.state.bindTime<=3){
                 this.setState({
                     bindTime:this.state.bindTime+1
                 });
-                if(nextProps.bindFlag&&nextProps.bindFlag.data.status==1){
+                if(nextProps.bindFlag&&nextProps.bindFlag.data.status==1&&nextProps.bindFlag.data.additional[0].code=='0000'){
                         this.props.push('/user/setting/bindSuccess')
                 }else{
                     if(this.state.bindTime>=3){
                         this.refs.alert.open('绑定银行卡失败');
+                        this.setState({
+                            submitting:false
+                        })
                     }else{
                         setTimeout(()=>{
                             this.props.verifyBind(nextProps.regData.msgId)
@@ -118,9 +129,27 @@ class Index extends Component{
         this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
         this.props.push('/user/setting/choiceBank')
     };
+    str;
+    bindBank=(e)=>{
+        let carNo=this.refs.form.getValue().bankCard
+        if(carNo.length>=6){
+           let newStr=carNo.substr(0,6);
+            if(newStr!=this.str){
+                this.str=newStr;
+                this.props.bankList.data.map((value,i)=>{
+                    if(value.cardBin==newStr){
+                        this.props.bankToState(value)
+                    }
+                })
+            }
+        }else{
+            this.props.bankToState({bankName:"点击选择开户行",bankCode:""})
+        }
 
+    }
     submit=()=>{
         this.props.clean('BIND_VERIFY');
+        this.props.clean('STORE_BIND_CAR')
         this.setState({
             bindTime:0
         });
@@ -135,6 +164,10 @@ class Index extends Component{
        let verifyCode=this.refs.verifyCode.value;
        let bankName=this.props.bankData.bankName;
        let bankCode=this.props.bankData.bankCode;
+        if(bankCode==''){
+            tip.open('请选择开户行')
+            return false;
+        }
        let telNo=this.refs.form.getValue().telNo;
         this.setState({
             formData:{
@@ -146,6 +179,9 @@ class Index extends Component{
             }
         });
         if(verifyCode&&smsReference){
+            this.setState({
+                submitting:true
+            })
             this.props.verifyCode({
                 smsReference:smsReference,
                 verifyCode:verifyCode
@@ -157,6 +193,7 @@ class Index extends Component{
     render(){
         const{
             bankData,
+            pending,
             saveData
             }=this.props;
            const bankCard=saveData&&saveData.carNo?saveData.carNo:'';
@@ -165,6 +202,7 @@ class Index extends Component{
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
+                {pending? <Loading></Loading>:<div>
                 <div className={styles.tip}>
                     *请绑定本人持有的银行卡，此卡将用于充值、提现、投
                     资等，已绑定过银行卡的用户需重新绑定
@@ -172,6 +210,7 @@ class Index extends Component{
                 <div className={styles.form}>
                     <ValidateForm ref="form">
                     <BaseInput
+                        onChange={this.bindBank}
                         noleftPadding
                         ref='bankCard'
                         name='bankCard'
@@ -204,8 +243,13 @@ class Index extends Component{
                       忘记预留手机怎么办？
                 </div>
                 <div className={styles.submit}>
-                    <Button text="下一步" onClick={this.submit} />
+                    <Button ref="bottom" style={{marginTop:'15px'}} onClick={this.submit}
+                            className={styles.bottom}
+                            text={this.state.submitting ? <LoadingButton text='绑定中...' /> : '下一步'}
+                    />
                 </div>
+                    </div>
+                }
                 <Tipbar ref="alert"></Tipbar>
             </div>
         )
@@ -220,7 +264,8 @@ const mapStateToProps=(state,ownProps)=>{
         verifyCodeData:state.infodata.getIn([actionTypes.STORE_VERIFY_CODE,'data']),
         regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
         saveData:state.regStore.getIn([actionTypes.SAVE_STORE_DATA,'data']),
-        bankList:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'data'])
+        bankList:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'data']),
+        pending:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'pending'])
     }
 };
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -245,6 +290,13 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:actionTypes.BIND_VERIFY,
                 params:[{id:id}]
+            })
+        },
+        //更新网点到state
+        bankToState(data){
+            dispatch({
+                type:actionTypes.CHOICE_BANK,
+                bankData:data
             })
         },
         verifySend(id){

@@ -30,8 +30,8 @@ class Index extends Component{
     }
     static defaultProps={
     };
-    choiceBank=(bankId,bankName)=>{
-        this.props.bankToState({bankId:bankId,bankName:bankName});
+    choiceBank=(bankCode,bankName)=>{
+        this.props.bankToState({bankCode:bankCode,bankName:bankName});
         this.props.pop()
     }
     componentWillReceiveProps(nextProps) {
@@ -55,7 +55,7 @@ class Index extends Component{
         if(bankData){
             Dom=<ul className={styles.item}>
                         {bankData&&bankData.data.map((value,i)=>{
-                            return <li onClick={()=>{this.choiceBank(value.bankId,value.bankName)}} key={value.bankId}> {value.bankName} </li>
+                            return <li onClick={()=>{this.choiceBank(value.bankCode,value.bankName)}} key={value.bankId}> {value.bankName} </li>
                         })}
                  </ul>
 
@@ -92,7 +92,6 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             })
 
         },
-
         //更新网点到state
         bankToState(data){
             dispatch({
