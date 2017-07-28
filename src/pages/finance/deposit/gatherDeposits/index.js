@@ -13,6 +13,9 @@ import {goBack, push} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
     }
+    componentWillUnmount(){
+        this.props.clearData();
+    }
     render(){
         const Height=document.body.clientHeight-108;
         const{
@@ -30,7 +33,7 @@ class Index extends Component{
                <div className={styles.header}>
                    为保护借款人信息，仅展示部分商品匹配标的。投资聚点+后可在个人中心中查看已购买项目的匹配记录。
                </div>
-               <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
+               <Scroll  height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
                >
                    {data&&data.map((item,i)=>{
@@ -70,6 +73,12 @@ const DispatchFn=(dispatch,own)=>({
     },
     push(url){
         dispatch(push(url))
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_BID_LIST'
+        })
     }
 })
 export default connect(Datas,DispatchFn)(Index)

@@ -13,6 +13,9 @@ import {goBack} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
     }
+    componentWillUnmount(){
+        this.props.clearData();
+    }
     render(){
         Date.prototype.format = function(fmt) {
             var o = {
@@ -79,6 +82,12 @@ const DispatchFn=(dispatch,own)=>({
         dispatch({
            type:'GATHER_JOIN',
            params:[{id:id}]
+        })
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_JOIN'
         })
     }
 })
