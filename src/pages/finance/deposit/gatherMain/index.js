@@ -90,8 +90,10 @@ class GatherMain extends React.Component {
           id,
           rate,
           buy_total,
+          buy_status,
           type,
           has_money,
+          money,
           price,
           title,
           month
@@ -102,17 +104,18 @@ class GatherMain extends React.Component {
       //    startTime,
       //    endTime
       //}=this.Timer(month,depositN);
-      const money=this.moneyFn(rate,month);
       const textTz='锁定时间';
       const bData=[{name:'起投金额',val:price},{name:textTz,val:month+'个月'}];
       let text='马上买入';
       let flag=false;
-      let isbuy=true;
-      if (isbuy&&has_money>=money){
+      if (buy_status==0&&has_money>=money){
           text='已售罄'
           flag=true
-      }else if (!isbuy){
+      }else if (buy_status==1){
           text='未开始'
+          flag=true
+      }else if(buy_status==2){
+          text='已结束'
           flag=true
       }
       return(

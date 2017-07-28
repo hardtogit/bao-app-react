@@ -17,6 +17,7 @@ import IsAuth from '../../../../components/isAuth'
 import Moment from 'moment'
 import Couponimg from '../../../../assets/images/coupon1.png'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
+import Store from '../../../../components/Dialog/store'
 import CusDialog from '../../../../components/Dialog/alert.js'
 import Scroll from '../../../../components/scroll/index.js'
 import Loading from '../../../../components/pageLoading'
@@ -70,7 +71,12 @@ class DirectInvestCell extends React.Component{
             id,
             term
             }=this.props.data;
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
         this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+        }else{
+            this.refs.store.show()
+        }
     }
     yz=(success)=>{
         const is_login = true;
@@ -136,6 +142,7 @@ class DirectInvestCell extends React.Component{
         const percent=((has_money/money)*100).toFixed(0);
         return(
             <div className={styles.cell} style={{width:this.props.screenW}}>
+                <Store ref="store"></Store>
                 <div onClick={this.clickYz}>
                     <div className={styles.cellHead}>
                         <div>
@@ -316,8 +323,6 @@ class DirectInvestList extends React.Component{
         const {data}=this.props;
         return(
             <div className={styles.content}>
-
-
                     <div className={styles.root}>
                         <CusDialog ref='wrong'></CusDialog>
                         <PassWord ref="passWord" hasMoney={false} hasDetailText={true}></PassWord>
