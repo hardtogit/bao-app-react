@@ -73,7 +73,7 @@ export default class Success extends React.Component {
                     <p style={{fontSize:'12px',marginTop:'16px',color:'#777'}}>资金有保障&nbsp;&nbsp;&nbsp;&nbsp;投资更放心</p>
                     <div style={{height:'40px',borderTop:'1px solid #ddd',marginTop:'30px'}}>
                         <div onClick={this.hide} style={{float:'left',width:'50%',height:'40px',color:'#777',lineHeight:'40px',borderRight:'1px solid #ddd'}}>取消</div><div style={{float:'left',width:'50%',lineHeight:'40px',color:'#00a6e2'}}>
-                        <Link to={storeData&&storeData.isRegister?"/user/setting/cardBind":"user/setting/regStore"}>立马开通</Link></div>
+                        <Link to="/user/setting/regStore">立马开通</Link></div>
                     </div>
                 </div>
             </div>

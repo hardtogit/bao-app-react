@@ -126,6 +126,7 @@ class Index extends Component{
     };
     choiceBank=(e)=>{
         //sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
+        this.props.clean('STORE_VERIFY_CODE');
         this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
         this.props.push('/user/setting/choiceBank')
     };

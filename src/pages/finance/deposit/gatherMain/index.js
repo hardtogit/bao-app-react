@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import wrap from '../../../../utils/pageWrapper'
 import {push, goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
+import Store from '../../../../components/Dialog/store'
 import {DEPOSIT_DETAIL, RATE, USER_INFO} from '../../../../actions/actionTypes'
 import security from '../../../../assets/images/gather/icon-01.png'
 import introduce from '../../../../assets/images/gather/icon-02.png'
@@ -134,7 +135,7 @@ class GatherMain extends React.Component {
                   <p className={styles.profitText}>投资10000元，{month}个月后到期预计预期可赚</p>
                   <p className={styles.profitText1}>具体收益以实际到账为准</p>
                   <p className={styles.profitNum}>
-                      {money}
+                      {this.moneyFn(rate,month)}
                       <span>元</span>
                   </p>
               </div>
@@ -193,10 +194,18 @@ class GatherMain extends React.Component {
               modalBody={styles.modalBody}
           />
           <IsAuth ref="isAuth"/>
+          <Store ref="store"> </Store>
       </div>)
   }
   purchase=(id,push)=>{
-      this.refs.isAuth.Verification(`/gatherBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+      let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+      if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+          this.refs.isAuth.Verification(`/gatherBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+      }else{
+          this.refs.store.show();
+      }
+
+
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)

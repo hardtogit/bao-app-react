@@ -140,7 +140,7 @@ class CreditorDetails extends React.Component{
                   })
               }else{
                   //推送到购买页面
-                  push(`/creditorBuy/${id}`)
+                  push(`/creditorBuy/${id}`);
                   this.succsseFn(this.props.location.pathname)
               }
           }else{

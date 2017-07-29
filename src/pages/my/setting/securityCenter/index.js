@@ -69,7 +69,11 @@ class SecurityCenter extends React.Component {
 				<BaseText
 				 onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
 				  {push('/user/setting/tradePasswordModify')}else{
-				   this.refs.store.show()
+				  if(storeData.isRegister){
+                     push('/user/setting/cardBind')
+				  }else{
+				  this.refs.store.show()
+				    }
 				  }
 				  }}
 				 label='修改交易密码'
@@ -78,7 +82,11 @@ class SecurityCenter extends React.Component {
 				 <BaseText
 				  onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
 				  {push('/user/setting/tradePasswordForget')}else{
-				   this.refs.store.show()
+				    if(storeData.isRegister){
+                     push('/user/setting/cardBind')
+				  }else{
+				  this.refs.store.show()
+				    }
 				  }
 				  }}
 				  label='忘记交易密码'
@@ -86,7 +94,11 @@ class SecurityCenter extends React.Component {
 				 <BaseText
 				  onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
 				  {push('/user/setting/tradePasswordSet')}else{
-				   this.refs.store.show()
+				    if(storeData.isRegister){
+                        push('/user/setting/cardBind')
+				  }else{
+				  this.refs.store.show()
+				    }
 				  }
 				  }}
 				  label='设置交易密码'

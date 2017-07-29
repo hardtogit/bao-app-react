@@ -323,7 +323,11 @@ class Index extends Component{
             const {term}=this.props.infoData.data
             this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
         }else{
-            this.refs.store.show()
+            if(storeData.isRegister){
+                push('/user/setting/cardBind')
+            }else{
+                this.refs.store.show()
+            }
         }
     }
     succsseFn=(url)=>{
