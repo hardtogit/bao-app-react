@@ -86,7 +86,7 @@ class Index extends React.Component {
 					<p>我的余额</p>
 					<h1>￥{balance}</h1>
 					<div className={styles.btnContent}>
-						<button className={styles.rechargeBtn} onClick={this.rechargeFn}>充值</button>
+						<button className={styles.rechargeBtn} onClick={()=>{this.props.push('/user/newRecharge')}}>充值</button>
 						<button className={styles.depositBtn} onClick={()=>{let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
 		if(storeData.isBindBankcard&&storeData.isRegister){
 			this.money(balance)

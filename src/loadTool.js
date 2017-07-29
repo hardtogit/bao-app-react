@@ -64,4 +64,9 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/gather/gatherProjects').default);
         }, 'GatherProjects');
-    }//我的聚点+项目详情
+    },//我的聚点+项目详情
+    NewCharge  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/newCharge').default);
+        }, 'NewCharge');
+    }//存管充值

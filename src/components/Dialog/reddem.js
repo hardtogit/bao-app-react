@@ -60,7 +60,8 @@ export default class ReddemDialog extends React.Component {
     const options = this.state.options;
     passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
     this.password=passGuard3.getOutput();
-    if (options.okCallback) { 
+    if (options.okCallback) {
+      console.log(this.password)
       return options.okCallback.call(null, this.hide, this.password)
     }
 
