@@ -82,26 +82,26 @@ class Index extends React.Component {
         }else if(cashData&&cashData.status!=1){
                this.alert('提现未处理')
         }
-        if (cashData){
-            const {code}=cashData;
-            if (code==300){
-                this.alert('提交失败！')
-            }else if (code==301){
-                this.alert('有未处理的提现!')
-            }else if (code==302){
-                this.alert('提现金额大于帐户可提余额!')
-            }else if (code==303){
-                this.alert('提现密码错误 !')
-            }else if (code==304){
-                this.alert('未绑卡提现!')
-            }else if (code==305){
-                this.alert('没安全卡提现!')
-            }else if (code==100){
-                const time=Date.parse(new Date()),
-                    cash_amount=this.state.val;
-                push(time,cash_amount)
-            }
-        }
+        //if (cashData){
+        //    const {code}=cashData;
+        //    if (code==300){
+        //        this.alert('提交失败！')
+        //    }else if (code==301){
+        //        this.alert('有未处理的提现!')
+        //    }else if (code==302){
+        //        this.alert('提现金额大于帐户可提余额!')
+        //    }else if (code==303){
+        //        this.alert('提现密码错误 !')
+        //    }else if (code==304){
+        //        this.alert('未绑卡提现!')
+        //    }else if (code==305){
+        //        this.alert('没安全卡提现!')
+        //    }else if (code==100){
+        //        const time=Date.parse(new Date()),
+        //            cash_amount=this.state.val;
+        //        push(time,cash_amount)
+        //    }
+        //}
     }
     alert=(message)=>{
         this.refs.alert.show({

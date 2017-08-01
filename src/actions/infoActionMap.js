@@ -337,6 +337,12 @@ export default {
     [actionTypes.CASH_VERIFY]:{//验证提现是否成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.PAY_VERIFY]:{//验证余额支付之后成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CARD_PAY_VERIFY]:{//验证银行卡支付是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },
@@ -358,17 +364,23 @@ export default {
     [actionTypes.STORE_VERIFY_CODE]:{//存管验证验证码
         apiFn:Fetch.storeVerifyCode
     },
-    [actionTypes.STORE_BIND_CAR]:{//存管验证验证码
+    [actionTypes.STORE_BIND_CAR]:{//绑卡
         apiFn:Fetch.storeBindCar
     },
-    [actionTypes.GET_MY_CARD_LIST]:{//存管验证验证码
+    [actionTypes.GET_MY_CARD_LIST]:{//获取我的银行卡
         apiFn:Fetch.getMyCardList
     },
-    [actionTypes.NEW_RECHARGE]:{//存管验证验证码
+    [actionTypes.NEW_RECHARGE]:{//充值
         apiFn:Fetch.newRecharge
     },
-    [actionTypes.GATHER_BUY]:{//存管验证验证码
+    [actionTypes.GATHER_BUY]:{//购买聚点+
         apiFn:Fetch.gatherBuy
+    },
+    [actionTypes.NEW_DIRECTINVEST_BUY]:{//余额方式购买直投
+        apiFn:Fetch.gatherBuy
+    },
+    [actionTypes.NEW_CARD_BUY]:{//银行卡购买直投
+    apiFn:Fetch.newCardBuy
     }
 
 }

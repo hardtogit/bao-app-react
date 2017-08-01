@@ -95,6 +95,10 @@ export const BIND_VERIFY='BIND_VERIFY'
 export const RECHARGE_VERIFY='RECHARGE_VERIFY'
 //验证是否提现成功
 export const CASH_VERIFY='CASH_VERIFY'
+//验证余额是否购买成功
+export const PAY_VERIFY='PAY_VERIFY'
+//验证银行卡购买是否成功
+export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市
@@ -148,6 +152,8 @@ export const DIRECTINVEST_DETAIL = 'DIRECTINVEST_DETAIL'
 export const DEMAND_BUY = 'DEMAND_BUY'
 export const DEPOSIT_BUY = 'DEPOSIT_BUY'
 export const DIRECTINVEST_BUY = 'DIRECTINVEST_BUY'
+export const NEW_DIRECTINVEST_BUY = 'NEW_DIRECTINVEST_BUY'
+export const NEW_CARD_BUY ='NEW_CARD_BUY'
 export const CREDITORS_BUY = 'CREDITORS_BUY'
 export const DEPOSIT_DETAILS='DEPOSIT_DETAILS'
 //理財首頁banner列表

@@ -55,8 +55,9 @@ class PayProcess extends React.Component {
       const {go,depositbs,clearDataResult,banks} = this.props;
       this.setState({
         bankName:banks[0].bankName,
-        bankCard:banks[0].bankCard.substr(banks[0].bankCard.length-4,4),
-        bankCode:banks[0].bankCard
+        bankCode:banks[0].bankCard.substr(banks[0].bankCard.length-4,4),
+        bankCard:banks[0].bankCard
+
       })
 
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
@@ -75,22 +76,40 @@ class PayProcess extends React.Component {
           this.refs.loading.hide()
       }
     }
-    if (nextProps.balancePayData&&nextProps.depositbsBuyResultData){
-        const code = nextProps.balancePayData.code;
-        if (code==100&&nextProps.depositbsBuyResultData.data.status==1){
+    if (nextProps.balancePayData&&nextProps.verifyData){
+        const status = nextProps.balancePayData.status;
+        const msgId= nextProps.balancePayData.msgId;
+        if (status==1&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0]=='0000'){
             go('/depositInvestSuccess/B');
             nextProps.clear();
         }else {
-            if (this.props.time<=3){
-                depositbs(nextProps.balancePayData)
+          console.log(this.props.time)
+            if (this.props.time<3){
+
             }else {
                 nextProps.clear();
-                clearDataResult();
-                nextProps.changePending();
+                //nextProps.changePending();
                 this.refs.loading.hide();
                 this.openErrorDialog('支付出错了')
             }
         }
+    }
+    if (nextProps.cardPayData&&nextProps.cardVerifyData){
+      const status = nextProps.cardPayData.status;
+      const msgId= nextProps.cardPayData.msgId;
+      if (status==1&&nextProps.cardVerifyData.data.status==1&&nextProps.cardVerifyData.data.additional[0]=='0000'){
+        go('/depositInvestSuccess/B');
+        nextProps.clear();
+      }else {
+        if (this.props.time<3){
+
+        }else {
+          nextProps.clear();
+          nextProps.changePending();
+          this.refs.loading.hide();
+          this.openErrorDialog('支付出错了')
+        }
+      }
     }
 
     if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
@@ -106,7 +125,9 @@ class PayProcess extends React.Component {
           case 'depositA': go('/depositInvestSuccess/A'); break;
           case 'directInvest': go('/directInvestSuccess/A'); break;
           case 'creditors': go('/creditorInvestSuccess/A'); break;
-          case 'depositB':depositbs(nextProps.balancePayData) ; break;
+          case 'depositB':
+
+            (nextProps.balancePayData) ; break;
         }
         this.balancePayRedirectFlag = true
 
@@ -187,14 +208,16 @@ class PayProcess extends React.Component {
   gotoPay = () => {
     util.getPassErrorNums(this.props.user.username || '', () => {
       const money = this.props.inputValue
+
       this.reddem = this.refs.reddem.show({
         title: '购买',
         money: money,
-        okCallback: (close, value) => {
-          //if (!util.checkPassword(value)) {
-          //  return this.refs.reddem.setState({error: '请输入正确的交易密码'})
-          //}
-          this._balancePay(value, money)
+        okCallback: (close, value,money) => {
+          if(this.state.chosen==1){
+            this._balancePay(value, money)
+          }else{
+            this._cardPay(value, money)
+          }
           close()
         },
         cancelCallback: () => {
@@ -209,7 +232,9 @@ class PayProcess extends React.Component {
   _balancePay(value, money) {
     this.props.onRequestBalancePay && this.props.onRequestBalancePay(value, money)
   }
-
+  _cardPay(value,money){
+    this.props.onRequestCardPay&&this.props.onRequestCardPay(value,money,this.state.bankCard)
+}
   // 余额支付逻辑
   filterBalancePay = (user, go, data) => {
     if (!user.isSetTradePassword) {
@@ -253,7 +278,7 @@ class PayProcess extends React.Component {
     // 京东支付 或者 连连支付
     if (this.state.chosen == 2) {
       data.chosen = 2
-      this.filterBankPay(user, go, data)
+      this.filterBalancePay(user, go, data)
     }
 
     // 余额支付
@@ -280,7 +305,7 @@ class PayProcess extends React.Component {
         { disable ? <img  className={styles.RadioImg} src={require('../../assets/images/0k_disable.png')} /> :
             this.state.chosen == index + 1 ? <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k.png')} /> :
                 <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k_no.png')} /> }
-        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCard+")":''}</span>
+        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCode+")":''}</span>
         <div className={styles.RadioContent}>
           { index + 1 == this.props.BALANCEINDEX && this.renderBalanceContent(disable) }
         </div>

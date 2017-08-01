@@ -34,7 +34,8 @@ class DirectBuy extends React.Component {
         select:1,
         rate:false,
         init:true,
-        pending:false
+        pending:false,
+        time:0
     }
 
     this.directInvestId = this.props.params.id
@@ -46,10 +47,13 @@ class DirectBuy extends React.Component {
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)
     this.props.getUse(this.props.params.id);
-   this.props.getUser();
+    this.props.getMyBankCards()
+    this.props.getUser();
   }
 
   componentWillReceiveProps(nextProps) {
+      const {buyData,verifyData,carBuyData,cardVerifyData}=nextProps;
+      const $this=this;
     if (!utils.isPlainObject(this.props.detail)) {
       const quantity = this.props.detail.left_quantity ?
           this.props.detail.left_quantity < this.state.quantity ?
@@ -69,6 +73,61 @@ class DirectBuy extends React.Component {
               pending:true
           })
       }
+      if (carBuyData&&carBuyData.status==1){
+          if(this.state.time<=3){
+              this.setState({
+                  time:this.state.time+1
+              });
+              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.additional[0].code=='0000'){
+                  const time=Date.parse(new Date()),
+                      cash_amount=this.state.val;
+                  push(time,cash_amount)
+              }else{
+                  if(this.state.time>=3){
+                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.additional[0].code!='0000'){
+                          this.alert(cardVerifyData.data.additional[0].msg)
+                      }else{
+                      }
+
+                  }else{
+                      setTimeout(function(){
+                          $this.props.cardPayVerify({id:carBuyData.msgId})
+                      },2000)
+
+                  }
+              }
+          }
+      }
+      if (buyData&&buyData.status==1){
+          if(this.state.time<=3){
+              this.setState({
+                  time:this.state.time+1
+              });
+              if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code=='0000'){
+                  const time=Date.parse(new Date()),
+                      cash_amount=this.state.val;
+                  push(time,cash_amount)
+              }else{
+                  if(this.state.time>=3){
+                      if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code!='0000'){
+                          this.alert(verifyData.data.additional[0].msg)
+                          this.changePending()
+                      }else{
+                          this.changePending()
+                      }
+                  }else{
+                      setTimeout(function(){
+                          $this.props.payVerify({id:buyData.msgId})
+                      },2000)
+
+                  }
+              }
+          }
+      }else if(buyData&&buyData.status!=1){
+
+      }
+
+
   }
     componentWillUnmount(){
         this.props.clearData()
@@ -79,13 +138,29 @@ class DirectBuy extends React.Component {
         })
     }
   directInvestBuy = (password, money) => {
+
     let coupon = this.props.useCoupon ? this.getCoupon() : null
       const {useCoupon}=this.state;
     if (!useCoupon&&coupon){
         coupon.id=''
     }
-    this.props.balancePay(this.directInvestId, this.state.quantity, password,this.props.location.state, coupon && coupon.id || '')
+      this.setState({
+          pendding:true
+      })
+
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
   }
+    directCardBuy=(password,money,bankCard)=>{
+        let coupon = this.props.useCoupon ? this.getCoupon() : null
+        const {useCoupon}=this.state;
+        if (!useCoupon&&coupon){
+            coupon.id=''
+        }
+        this.setState({
+            pendding:true
+        })
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+    }
 
   // 能否支付
   canPay() {
@@ -100,7 +175,7 @@ class DirectBuy extends React.Component {
       if (select==1){
           this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
       }else {
-          this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+          this.successsFn()
       }
   }
     successsFn=()=>{
@@ -113,6 +188,9 @@ class DirectBuy extends React.Component {
                 }
             }
         }
+        this.setState({
+            time:0
+        })
         // 调用支付流程
         this.refs.payProcess.open({
             id: this.directInvestId,
@@ -377,7 +455,11 @@ class DirectBuy extends React.Component {
         this.setState({payTop:'100%',url:''})
     }
   render(){
-    const detail = this.props.detail
+    const detail = this.props.detail;
+      let banksList={}
+      if(this.props.banks&&this.props.banks.data){
+          banksList=this.props.banks.data
+      }
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
@@ -412,21 +494,27 @@ class DirectBuy extends React.Component {
             <p>还需支付（元）</p>
             <p>{utils.padMoney(this.getPayTotal())}</p>
           </div>
-          
-          <PayProcess 
+
+            { banksList.length!=undefined ?<PayProcess
             ref='payProcess' 
             type='directInvest'
             go={this.props.push}
             getChoose={this.getChoose}
             overPay={this.overPay}
             user={this.props.user}
+            banks={banksList}
+            time={this.state.time}
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.directInvestBuy}
+            onRequestCardPay={this.directCardBuy}
+            verifyData={this.props.verifyData}
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
             balancePayPending={this.state.pending}
             balancePayData={this.props.buyData}
+            cardPayData={this.props.carBuyData}
+            cardVerifyData={this.props.cardVerifyData}
             changePending={this.changePending}
-            clear={this.props.clear}/>
+            clear={this.props.clear}/>:''}
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
@@ -463,11 +551,15 @@ const mapStateToProps = (state,ownProps)=>{
       detail: detail && detail.data || {},
       couponsFetching: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'pending']),
       couponsData: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'data']),
-      buyPending: state.infodata.getIn([actionTypes.DIRECTINVEST_BUY, 'pending']),
-      buyData: state.infodata.getIn([actionTypes.DIRECTINVEST_BUY, 'data']),
+      buyPending: state.infodata.getIn([actionTypes.NEW_DIRECTINVEST_BUY, 'pending']),
+      buyData: state.infodata.getIn([actionTypes.NEW_DIRECTINVEST_BUY, 'data']),
+      carBuyData:state.infodata.getIn([actionTypes.NEW_CARD_BUY, 'data']),
       selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
       useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
-      use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data'])
+      use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
+      banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
+      verifyData:state.infodata.getIn(['PAY_VERIFY','data']),
+      cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data'])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -498,17 +590,46 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
   goBack() {
     dispatch(goBack())
   },
-  balancePay(id, num, payPwd, borrowPwd, couponId) {
+  balancePay(productId, num, password, passwordFactor, couponId) {
+      console.log('dsds')
     dispatch({
-      type: actionTypes.DIRECTINVEST_BUY,
-      params: [id, {
+      type: actionTypes.NEW_DIRECTINVEST_BUY,
+      params: [{
+        productId,
         num,
-        payPwd,
-        borrowPwd,
-        type: 3,
-        couponId
-      }]
+        password,
+        passwordFactor,
+        couponId,
+        type:'POINT'
+        }]
     })
+  },
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId){
+     dispatch({
+         type:actionTypes.NEW_CARD_BUY,
+         params:[{
+             bankCard,
+             transferAmount,
+             productId,
+             num,
+             password,
+             passwordFactor,
+             couponId,
+             type:'POINT'
+         }]
+     })
+    },
+  payVerify(id){
+      dispatch({
+          type:'PAY_VERIFY',
+          params:[id]
+      })
+  },
+  cardPayVerify(id){
+      dispatch({
+          type:'CARD_PAY_VERIFY',
+          params:[id]
+      })
   },
   setUseCoupons(selectedCoupon) {
     dispatch({
@@ -519,7 +640,19 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     clear(){
         dispatch({
             type:'CLEAR_INFO_DATA',
-            key:'DIRECTINVEST_BUY'
+            key:'NEW_CARD_BUY'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'NEW_DIRECTINVEST_BUY'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'PAY_VERIFY'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CARD_PAY_VERIFY'
         })
     },
     clearData(){
@@ -530,7 +663,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             type:'CLEAR_INFO_DATA',
             key:'AVAILABLE_COUPONS'
         })
-    }
+    },
+    getMyBankCards(){
+        dispatch({
+            type:'GET_MY_CARD_LIST'
+        })
+    },
 })
 
 export default (connect(mapStateToProps, mapDispatchToProps)(wrap(DirectBuy)))

@@ -76,7 +76,8 @@ const requests = (Fetch) => {
   Fetch.gatherBidBackDetail=(page,data)=>{return Fetch(`api/depositSupervise/borrowRepaymentList/${data.id}?page=${page}`,'GET')}//我的聚点+标的还款详情
   Fetch.gatherProjects=(page,data)=>{return Fetch(`api/depositSupervise/myInvestBorrowList?investId=${data.id}&type=${data.type}&page=${page}`,'GET')}//我的聚点+标的还款详情
   Fetch.gatherInvestRecord=(page,data)=>{return Fetch(`api/depositSupervise/borrowInvest/${data.id}?page=${page}`,'GET')}//聚点+标
-  Fetch.gatherBuy=(data)=>{return Fetch('supervise/account/investBid','POST',data)}//聚点余额购买
+  Fetch.gatherBuy=(data)=>{return Fetch('api/supervise/account/investBid','POST',data)}//聚点余额购买
+  Fetch.newCardBuy=(data)=>{return Fetch('api/supervise/account/rechargeInvestBid','POST',data)}//使用银行卡充值投标
   //存管
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
