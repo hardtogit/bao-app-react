@@ -61,10 +61,8 @@ export default class ReddemDialog extends React.Component {
     passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
     this.password=passGuard3.getOutput();
     if (options.okCallback) {
-      console.log(this.password)
       return options.okCallback.call(null, this.hide, this.password)
     }
-
     this.hide()
   }
 
@@ -79,7 +77,6 @@ export default class ReddemDialog extends React.Component {
   }
 
   blurHandle = () => {
-    console.log('ds')
     ReactDom.findDOMNode(this.refs.dialog).getElementsByTagName('div')[0].style.top = '35%'
   }
 

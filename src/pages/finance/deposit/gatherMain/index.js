@@ -200,7 +200,7 @@ class GatherMain extends React.Component {
   purchase=(id,push)=>{
       let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
       if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-          this.refs.isAuth.Verification(`/gatherBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+          this.refs.isAuth.Verification(`/gatherBuy/${id}/2`,push,this.succsseFn,this.props.location.pathname)
       }else{
           this.refs.store.show();
       }

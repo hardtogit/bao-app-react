@@ -310,7 +310,7 @@ export default class App extends React.Component {
             <Route path="gatherInvestRecord(/:id)" getComponent={GatherInvestRecord} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="gatherBuy(/:productId)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherBuy(/:productId/:idnpm)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
 
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

@@ -5,6 +5,7 @@ import React from 'react'
 import ConfirmDialog from '../../components/Dialog/confirm'
 import ReddemDialog from '../../components/Dialog/reddem'
 import LoadingDialog from '../../components/Dialog/loading'
+import Choice from '../../components/Dialog/ChoiceCard'
 import util from '../../utils/utils'
 import styles from './payProcess.styl'
 import cn from 'classnames'
@@ -15,7 +16,10 @@ class PayProcess extends React.Component {
     
     this.state = {
       chosen: props.BALANCEINDEX,
-      disable: []
+      disable: [],
+      bankName:'',
+      bankCode:'',
+      bankCard:''
     }  
 
     this.options = ['账户余额', '连连支付']
@@ -48,7 +52,13 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      const {go,depositbs,clearDataResult} = this.props;
+      const {go,depositbs,clearDataResult,banks} = this.props;
+      this.setState({
+        bankName:banks[0].bankName,
+        bankCard:banks[0].bankCard.substr(banks[0].bankCard.length-4,4),
+        bankCode:banks[0].bankCard
+      })
+
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
       // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
       //   this._onSelectPay(chosen)
@@ -168,41 +178,12 @@ class PayProcess extends React.Component {
     })
   }  
 
-  // changeValueHandler = (val, balance, callback) => { 
-  //   let states = {}
-
-  //   if(val > +balance) {
-  //     if (this.state.chosen === this.props.BALANCEINDEX) {
-  //       states = Object.assign(states, {chosen: 1, disable: [this.props.BALANCEINDEX]})
-  //     } else {
-  //       states = Object.assign(states, {disable: [this.props.BALANCEINDEX]})
-  //     }
-  //   } else {
-  //     const index = this.state.disable.indexOf(this.props.BALANCEINDEX)
-  //     states = Object.assign(states, {chosen: this.props.BALANCEINDEX})
-  //     if (index !== -1) {
-  //       this.state.disable.splice(index, 1)
-  //       states = Object.assign(states, {disable: this.state.disable})
-  //     }
-  //   }
-
-  //   const balanceText = val <= +balance ?
-  //         '余额' + balance + '元' :
-  //         '余额' + balance + '元' + '（余额不足）'
-
-  //   this.state.options.splice(this.state.options.length - 1, 1, balanceText) 
-  //   states.options = this.state.options
-  //   this.setState(states)    
-  //   callback && callback(states.chosen || this.state.chosen)
-  // }
-
   // 选择支付方式
   selectPayWay(index) {
     if (index + 1 == this.state.chosen) return false
     this.setState({chosen: index + 1})
       this.props.getChoose(index + 1)
   }
-
   gotoPay = () => {
     util.getPassErrorNums(this.props.user.username || '', () => {
       const money = this.props.inputValue
@@ -210,9 +191,9 @@ class PayProcess extends React.Component {
         title: '购买',
         money: money,
         okCallback: (close, value) => {
-          if (!util.checkPassword(value)) {
-            return this.refs.reddem.setState({error: '请输入正确的交易密码'})
-          }
+          //if (!util.checkPassword(value)) {
+          //  return this.refs.reddem.setState({error: '请输入正确的交易密码'})
+          //}
           this._balancePay(value, money)
           close()
         },
@@ -262,47 +243,7 @@ class PayProcess extends React.Component {
   filterBankPay = (user, go, data) => {
     let type = this.props.type
     const chosen = this.state.chosen
-    if (!user.isAuth) {
-      // 如果没有实名认证，跳转认证页面
-      return go('/user/setting/identityAuth')
-    }
-    
-    if (!user.isbindSecurityCard) {
-      // 如果没有绑定安全卡，跳到绑卡页面
-      return go('/user/setting/bankcardAdd', {redirectTo: 'PayWeb', data, type})
-    }
 
-    // // 京东 或 连连支付
-    // this.refs.confirm.show({
-    //   content: '确定支付已完成?',
-    //   okText: '已完成',
-    //   cancelText: '取消',
-    //   okCallback: (close) => {
-    //     if (type == 'demand') {
-    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDemand'}])
-    //     } else if ( type == 'deposit' ) {
-    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'DepositHome'}])
-    //     } else if ( type == 'directInvest' ) {
-    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyDirectProjects'}])
-    //     } else if ( type == 'creditors' ) {
-    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyCreditorTransfer'}])
-    //     } else if ( type == 'balance' ) {
-    //       navigator.immediatelyResetRouteStack([{id: 'IndexTabs'}, {id: 'MyBalance'}])
-    //     }
-    //   }
-    // })
-    // if (type == 'demand') {
-    //   return go(util.combineUrl(`/pay/${this.props.inputValue}`,{type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
-    // } else if (type == 'deposit') {
-    //     return go(util.combineUrl(`/pay/deposit`,{wap:'deposit',type:2,productId:data.productId,quantity:data.quantity,password:'',couponId:data.couponId}))
-    // } else if (type == 'creditors') {
-    //   return go(util.combineUrl(`/pay/${data.id}`,{wap:'creditors',copies:data.copies,payPass:data.payPass&&data.payPass||'',type:2}))
-    // } else if (type == 'directInvest') {
-    //     return go(util.combineUrl(`/pay/${data.id}`,{wap:'directInvest',type:2,num:data.num,borrowPwd:data.borrowPwd&&data.borrowPwd||'',payPwd:'',couponId:data.couponId}))
-    // } else if (type == 'balance') {
-    //
-    // }
-      this.props.overPay(this.props.inputValue,data);
   }
 
   // @params data 支付方式 1:京东支付  2:连连支付  3:余额支付
@@ -333,23 +274,34 @@ class PayProcess extends React.Component {
 
   renderRadio = (label, index) => {
     const disable = ~this.state.disable.indexOf(index + 1);
+
     return (
-      <div className={styles.Radio} key={index} onClick={() => {if(!disable) {this.selectPayWay(index)}}}>
-        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{label}</span>
+      <div className={styles.Radio} key={index} >
+        { disable ? <img  className={styles.RadioImg} src={require('../../assets/images/0k_disable.png')} /> :
+            this.state.chosen == index + 1 ? <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k.png')} /> :
+                <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k_no.png')} /> }
+        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCard+")":''}</span>
         <div className={styles.RadioContent}>
           { index + 1 == this.props.BALANCEINDEX && this.renderBalanceContent(disable) }
         </div>
-        { disable ? <img className={styles.RadioImg} src={require('../../assets/images/0k_disable.png')} /> :
-          this.state.chosen == index + 1 ? <img className={styles.RadioImg} src={require('../../assets/images/0k.png')} /> :
-          <img className={styles.RadioImg} src={require('../../assets/images/0k_no.png')} /> }
+        {index==1? <img onClick={this.choiceBank} width="15px" src={require('../../assets/images/arrow2.png')} alt=""/>:''}
       </div>
     )
   }
-
+  choiceCallback=(a,b,c)=>{
+    this.setState({
+      bankName:b,
+      bankCard:c.substr(c.length-4,4),
+      bankCode:c
+    })
+    a()
+  }
+  choiceBank=()=>{
+    this.refs.choice.show()
+  }
   render() {
-    // const containerStyle = this.state.visible ?
-    //   {position:'absolute',left:0,right:0,top:0,bottom:0} :
-    //   {position:'absolute',height:0,width:0}
+      let banks={};
+        banks.data=this.props.banks;
 
     return (
       <div style={{}}>
@@ -362,6 +314,7 @@ class PayProcess extends React.Component {
           }
           return this.renderRadio(option, index)
         })}
+        <Choice options={{banks:banks,choiceCallback:this.choiceCallback}} ref="choice"></Choice>
         {/*<ActionSheet 
           ref='act'
           onClose={() => {this.setState({visible: false, visiblePay: false}); this.props.onClose && this.props.onClose()}}

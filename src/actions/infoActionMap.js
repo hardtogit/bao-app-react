@@ -256,6 +256,9 @@ export default {
     [actionTypes.CASH]:{
         apiFn:Fetch.cash
     },
+    [actionTypes.NEW_CASH]:{//新的提现
+        apiFn:Fetch.newCash
+    },
     [actionTypes.WITHDRAW]:{
         apiFn:Fetch.withdraw
     },
@@ -328,6 +331,12 @@ export default {
     [actionTypes.BIND_VERIFY]:{//验证存管短信是否发送成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.RECHARGE_VERIFY]:{//验证存管短信是否发送成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CASH_VERIFY]:{//验证提现是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },
@@ -351,12 +360,15 @@ export default {
     },
     [actionTypes.STORE_BIND_CAR]:{//存管验证验证码
         apiFn:Fetch.storeBindCar
+    },
+    [actionTypes.GET_MY_CARD_LIST]:{//存管验证验证码
+        apiFn:Fetch.getMyCardList
+    },
+    [actionTypes.NEW_RECHARGE]:{//存管验证验证码
+        apiFn:Fetch.newRecharge
+    },
+    [actionTypes.GATHER_BUY]:{//存管验证验证码
+        apiFn:Fetch.gatherBuy
     }
-
-
-
-
-
-
 
 }

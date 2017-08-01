@@ -91,6 +91,10 @@ export const REG_VERIFY ='REG_VERIFY'
 export const SEND_VERIFY='SEND_VERIFY'
 //验证银行卡是否绑定成功
 export const BIND_VERIFY='BIND_VERIFY'
+//验证是否充值成功
+export const RECHARGE_VERIFY='RECHARGE_VERIFY'
+//验证是否提现成功
+export const CASH_VERIFY='CASH_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市
@@ -106,6 +110,7 @@ export const STORE_SEND_CODE='STORE_SEND_CODE'
 export const STORE_VERIFY_CODE='STORE_VERIFY_CODE'
 //绑定银行卡
 export const STORE_BIND_CAR='STORE_BIND_CAR'
+export const GET_MY_CARD_LIST='GET_MY_CARD_LIST'
 export const CHOICE_POINT='CHOICE_POINT'
 export const CHOICE_BANK='CHOICE_BANK'
 export const SAVE_STORE_DATA='SAVE_STORE_DATA'//暂存卡号和手机号
@@ -155,7 +160,8 @@ export const FETCH_LIST_DATA_SUCCESS = 'FETCH_LIST_DATA_SUCCESS';// state.listda
 export const FETCH_LIST_DATA_FAIL = 'FETCH_LIST_DATA_FAIL';// state.listdata 请求失败
 export const FETCH_RELATED_PROJECTS = 'FETCH_LIST_DATA_FAIL';// state.listdata 请求失败
 /注册/
-export  const   REGISTER_NUM='REGISTER_NUM'
+export const REGISTER_NUM='REGISTER_NUM';
+export const NEW_RECHARGE='NEW_RECHARGE';
 //找回密码
 export const FOR_GET_PWD='FOR_GET_PWD'
 export const FIND_PWD_SET='FIND_PWD_SET'
@@ -202,6 +208,7 @@ export const CREDITORS_PROPERTY_DETAIL='CREDITORS_PROPERTY_DETAIL' //债券记�
 export const CREDITORS_PRODUCTINFO='CREDITORS_PRODUCTINFO' //债权转让详情
 export const CREDITORS_CONTRACT='CREDITORS_CONTRACT' //债权转让合同
 export const  CASH='CASH'  //提现
+export const  NEW_CASH='NEW_CASH'  //新的提现
 export const WITHDRAW='WITHDRAW' //提现
 export const DIRECT_INVEST_TRANSFER='DIRECT_INVEST_TRANSFER'
 export const DIRECT_INVEST_COUPON = 'DIRECT_INVEST_COUPON'
@@ -222,6 +229,7 @@ export const GATHER_MY_LIST_ONE='GATHER_MY_LIST_ONE'//我的聚点+列表(持有
 export const GATHER_MY_LIST_TWO='GATHER_MY_LIST_TWO'//我的聚点+列表(退出中)
 export const GATHER_MY_LIST_THREE='GATHER_MY_LIST_THREE'//我的聚点+列表(已退出)
 export const GATHER_MY_HEADER='GATHER_MY_HEADER'//我的聚点头
+export const GATHER_BUY='GATHER_BUY'//聚点购买
 
 export const DEPOSITBS_DETAILS='DEPOSITBS_DETAILS'
 export const DEPOSITBS_INVEST='DEPOSITBS_INVEST'

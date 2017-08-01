@@ -17,16 +17,16 @@ class Index extends React.Component {
             disabled:true,
             money:'',
             bank:'',
-            number:""
+            time:0,
+            number:"",
+            bankCard:''
         }
     }
     componentDidMount(){
+        this.props.getMyBankCards();
        const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
-       const bank=JSON.parse(sessionStorage.getItem('bao-bank'));
         this.setState({
             money:user.balance,
-            bank:bank.name,
-            number:bank.number
         })
     }
     onValid=()=>{
@@ -43,7 +43,45 @@ class Index extends React.Component {
         })
     }
     componentWillReceiveProps(next){
-        const {cashData,push}=next;
+        const {cashData,push,cardInfo,verifyData}=next;
+        const $this=this
+        if(cardInfo&&cardInfo.data){
+            this.setState({
+                bank:cardInfo.data[0].bankName,
+                number:cardInfo.data[0].bankCard.substr(cardInfo.data[0].bankCard.length-4,4),
+                bankCard:cardInfo.data[0].bankCard
+            })
+        }
+        if (cashData&&cashData.status==1){
+                if(this.state.time<=3){
+                    this.setState({
+                        time:this.state.time+1
+                    });
+                    if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code=='0000'){
+                        const time=Date.parse(new Date()),
+                            cash_amount=this.state.val;
+                        push(time,cash_amount)
+                    }else{
+                        if(this.state.time>=3){
+                            if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code!='0000'){
+                                this.alert(verifyData.data.additional[0].msg)
+                            }else{
+                                this.alert('提现失败')
+                            }
+                            this.setState({
+                                time:0
+                            })
+                        }else{
+                            setTimeout(function(){
+                                $this.props.cashVerify({id:cashData.msgId})
+                            },2000)
+
+                        }
+                    }
+                }
+        }else if(cashData&&cashData.status!=1){
+               this.alert('提现未处理')
+        }
         if (cashData){
             const {code}=cashData;
             if (code==300){
@@ -73,10 +111,11 @@ class Index extends React.Component {
     }
     send=()=>{
        const {
-           val
+           val,
+           bankCard
        }=this.state,
        pwd=this.refs.reddem.password;
-      this.props.send(val,utils.md5(pwd));
+      this.props.send(val,pwd,sessionStorage.getItem('passwordFactor'),bankCard);
         this.refs.reddem.hide();
     }
     change=(e)=>{
@@ -158,27 +197,40 @@ class Index extends React.Component {
     }
 }
 const Rechargeinit=(state)=>({
-      cashData:state.infodata.getIn(['CASH','data']),
+      cashData:state.infodata.getIn(['NEW_CASH','data']),
       withdraw:state.infodata.getIn(['WITHDRAW','data']),
-     userinfo:state.infodata.getIn(['USER_INFO','data'])
+     userinfo:state.infodata.getIn(['USER_INFO','data']),
+    cardInfo:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
+    verifyData:state.infodata.getIn(['CASH_VERIFY','data'])
 });
-const Rechargeinitfn=(dispath)=>({
+const Rechargeinitfn=(dispatch)=>({
      pop(){
-         dispath(goBack());
+         dispatch(goBack());
      },
-    send(amount,password){
-         dispath({
-             type:'CASH',
-             params:[{amount,password}]
+    send(transferAmount,password,passwordFactor,bankCard){
+        dispatch({
+             type:'NEW_CASH',
+             params:[{transferAmount,password,passwordFactor,bankCard}]
          })
     },
+    getMyBankCards(){
+        dispatch({
+            type:'GET_MY_CARD_LIST'
+        })
+    },
     get(){
-        dispath({
+        dispatch({
             type:'WITHDRAW'
         })
     },
+    cashVerify(id){
+        dispatch({
+            type:'CASH_VERIFY',
+            params:[id]
+        })
+    },
     push(time,cash_amount){
-        dispath(push(`/user/cashsuccess?time=${time}&cash_amount=${cash_amount}`))
+        dispatch(push(`/user/cashsuccess?time=${time}&cash_amount=${cash_amount}`))
     }
 });
 export default connect(Rechargeinit,Rechargeinitfn)(wrap(Index))
