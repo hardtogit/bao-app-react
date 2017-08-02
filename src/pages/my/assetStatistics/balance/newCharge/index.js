@@ -11,9 +11,10 @@ import BaseText from '../../../../../components/BaseText'
 import BaseButton from '../../../../../components/BaseButton'
 import Reddem from '../../../../../components/Dialog/reddem'
 import Choice from '../../../../../components/Dialog/ChoiceCard'
+import LoadingDialog from '../../../../../components/Dialog/loading'
 import TipBar from '../../../../../components/Tipbar'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -52,13 +53,13 @@ class Index extends Component{
                         time:this.state.time+1
                     });
                     if(nextProps.verifyData&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code=='0000'){
-
+                         this.props.push('/user/reChargeSuccess')
                     }else{
                         if(this.state.time>=3){
                             if(nextProps.verifyData&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code!='0000'){
                                 this.refs.tip.open(nextProps.verifyData.data.additional[0].msg)
                             }else{
-                                this.refs.tip.open('充值失败！')
+                                this.props.push('/user/reChargeFail')
                             }
                             this.setState({
                                 time:0
@@ -80,6 +81,8 @@ class Index extends Component{
     }
     componentWillUnmount(){
      //组件将要被移除时调用
+        this.props.clear()
+
     }
     handleChange=(e)=>{
         const recMoney=e.target.value,
@@ -126,6 +129,7 @@ class Index extends Component{
                     passwordFactor:sessionStorage.getItem('passwordFactor'),
                     password:b
                 }
+                $this.refs.loading.show("充值中...")
                 $this.props.recharge(data)
                 a()
             }
@@ -158,7 +162,7 @@ class Index extends Component{
                <Reddem  ref="password"></Reddem>
                <TipBar ref="tip"></TipBar>
                <Choice options={{banks:banks,choiceCallback:this.choiceCallback}} ref="choice"></Choice>
-
+               <LoadingDialog ref="loading"></LoadingDialog>
            </div>
         )
     }
@@ -173,6 +177,9 @@ const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
+    push(url){
+         dispatch(push(url))
+    },
     getMyBankCards(){
         dispatch({
             type:'GET_MY_CARD_LIST'
@@ -182,6 +189,16 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'NEW_RECHARGE',
             params:[data]
+        })
+    },
+    clear(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'NEW_RECHARGE'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'RECHARGE_VERIFY'
         })
     },
     rechargeVerify(id){

@@ -83,7 +83,6 @@ class PayProcess extends React.Component {
             go('/depositInvestSuccess/B');
             nextProps.clear();
         }else {
-          console.log(this.props.time)
             if (this.props.time<3){
 
             }else {

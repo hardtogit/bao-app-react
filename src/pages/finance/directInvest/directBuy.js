@@ -157,7 +157,7 @@ class DirectBuy extends React.Component {
             coupon.id=''
         }
         this.setState({
-            pendding:true
+            pending:true
         })
         this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
     }
@@ -591,7 +591,6 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     dispatch(goBack())
   },
   balancePay(productId, num, password, passwordFactor, couponId) {
-      console.log('dsds')
     dispatch({
       type: actionTypes.NEW_DIRECTINVEST_BUY,
       params: [{

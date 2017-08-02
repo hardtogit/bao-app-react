@@ -40,7 +40,10 @@ export default class ReddemDialog extends React.Component {
   }
 
   show = (options) => {
-    const _options = Object.assign({}, options, {money: Utils.moneyFormat(options.money || '')})
+    let  _options = options = Object.assign({}, options)
+    if(options.money){
+      _options = Object.assign({}, options, {money: Utils.moneyFormat(options.money || '')})
+    }
     this.setState({top: 0, error: '', options: _options})
     this.refs.dialog.show();
     setTimeout(function(){  passGuard3.generate("kb3",kb,0);
@@ -81,7 +84,7 @@ export default class ReddemDialog extends React.Component {
   }
 
   render() {
-    const options = this.state.options
+    const options = this.state.options;
     return (
       <Dialog ref='dialog' style={{top: 0}}>
         <div className={cn(styles.modal, styles.reddemModal)} style={{width: helper.getWidth()}}>

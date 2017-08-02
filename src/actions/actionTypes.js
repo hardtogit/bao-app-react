@@ -95,10 +95,14 @@ export const BIND_VERIFY='BIND_VERIFY'
 export const RECHARGE_VERIFY='RECHARGE_VERIFY'
 //验证是否提现成功
 export const CASH_VERIFY='CASH_VERIFY'
+//验证短信是否验证成功
+export const CODE_RIGHT_VERIFY='CODE_RIGHT_VERIFY'
 //验证余额是否购买成功
 export const PAY_VERIFY='PAY_VERIFY'
 //验证银行卡购买是否成功
 export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
+//验证免密是否成功
+export const ACCREDIT_VERIFY='ACCREDIT_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市
@@ -236,6 +240,8 @@ export const GATHER_MY_LIST_TWO='GATHER_MY_LIST_TWO'//我的聚点+列表(退出
 export const GATHER_MY_LIST_THREE='GATHER_MY_LIST_THREE'//我的聚点+列表(已退出)
 export const GATHER_MY_HEADER='GATHER_MY_HEADER'//我的聚点头
 export const GATHER_BUY='GATHER_BUY'//聚点购买
+export const FREE_ACCREDIT='FREE_ACCREDIT'//自动授权
+
 
 export const DEPOSITBS_DETAILS='DEPOSITBS_DETAILS'
 export const DEPOSITBS_INVEST='DEPOSITBS_INVEST'

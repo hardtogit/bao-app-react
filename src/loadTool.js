@@ -69,4 +69,14 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/newCharge').default);
         }, 'NewCharge');
-    }//存管充值
+    },//存管充值
+    ReChargeSuccess  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeSuccess').default);
+        }, 'ReChargeSuccess');
+    },//存管充值成功
+    ReChargeFail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeFail').default);
+        }, 'ReChargeFail');
+    }//存管充值失败

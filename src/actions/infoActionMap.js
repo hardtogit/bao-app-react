@@ -334,6 +334,9 @@ export default {
     [actionTypes.RECHARGE_VERIFY]:{//验证存管短信是否发送成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.CODE_RIGHT_VERIFY]:{//验证验证码是否正确
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.CASH_VERIFY]:{//验证提现是否成功
         apiFn:Fetch.regVerify
     },
@@ -341,6 +344,9 @@ export default {
         apiFn:Fetch.regVerify
     },
     [actionTypes.CARD_PAY_VERIFY]:{//验证银行卡支付是否成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.ACCREDIT_VERIFY]:{//验证免密是否成功
         apiFn:Fetch.regVerify
     },
     [actionTypes.GET_PROVINCE]:{//获取省份
@@ -363,6 +369,9 @@ export default {
     },
     [actionTypes.STORE_VERIFY_CODE]:{//存管验证验证码
         apiFn:Fetch.storeVerifyCode
+    },
+    [actionTypes.FREE_ACCREDIT]:{//存管验证验证码
+        apiFn:Fetch.freeAccredit
     },
     [actionTypes.STORE_BIND_CAR]:{//绑卡
         apiFn:Fetch.storeBindCar

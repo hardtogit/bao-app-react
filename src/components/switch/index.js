@@ -4,6 +4,9 @@
 import React from 'react';
 import style from './index.css';
 import classNames from 'classnames';
+import Reddem from '../Dialog/reddem';
+import LoadingDialog from '../Dialog/loading'
+import {goBack,push} from 'react-router-redux'
 import Store from '../Dialog/store'
 import PropTypes from 'prop-types'
 export default class Index extends React.Component {
@@ -24,14 +27,37 @@ export default class Index extends React.Component {
         id:PropTypes.number,
         checkedCanClick:PropTypes.bool//选中了是否还能切换
     };
+    checkAccredit=()=>{
+        let $this=this;
+        this.refs.red.show({
+            title:'免密授权',
+            okCallback:function(a,b){
+                let data;
+                data={
+                    freeTransCode:42703,
+                    freeFlag:0,
+                    passwordFactor:sessionStorage.getItem('passwordFactor'),
+                    password:b
+                }
+                $this.refs.loading.show('免密授权中...')
+                $this.props.authFn(data);
+                a()
+            }
+        });
+    }
     change=()=>{
         const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
         }else{
-            this.refs.store.show()
-            return false;
+            if(storeData.isRegister){
+                this.props.push('/user/setting/cardBind')
+            }else{
+                this.refs.store.show()
+                return false;
+            }
         }
-
+        this.checkAccredit()
+        return;
         if(!this.props.checkedCanClick && this.state.open){
             return false;
         }
@@ -49,6 +75,8 @@ export default class Index extends React.Component {
             <div className={classNames(this.props.className,style.bg,this.state.open?style.open:'')} onClick={()=>{this.change()}}>
                 <div className={style.button}></div>
             </div>
+                <Reddem   hasMoney={false}  ref="red"></Reddem>
+                <LoadingDialog ref="loading"> </LoadingDialog>
             </div>
         )
     }

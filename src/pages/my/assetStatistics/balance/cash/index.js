@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router';
 import {push,goBack} from 'react-router-redux'
 import ReddemDialog from '../../../../../components/Dialog/reddem'
+import LoadingDialog from '../../../../../components/Dialog/loading'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
 import utils from '../../../../../utils/utils'
@@ -36,7 +37,9 @@ class Index extends React.Component {
         this.refs.reddem.show({
             title: '提现',
             money:val,
-            okCallback:()=>{this.send()} ,
+            okCallback:()=>{
+                this.refs.loading.show('处理中...')
+                this.send()} ,
             cancelCallback: () => {
 
             }
@@ -65,7 +68,9 @@ class Index extends React.Component {
                         if(this.state.time>=3){
                             if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code!='0000'){
                                 this.alert(verifyData.data.additional[0].msg)
+                                this.refs.loading.hide()
                             }else{
+                                this.refs.loading.hide()
                                 this.alert('提现失败')
                             }
                             this.setState({
@@ -82,26 +87,6 @@ class Index extends React.Component {
         }else if(cashData&&cashData.status!=1){
                this.alert('提现未处理')
         }
-        //if (cashData){
-        //    const {code}=cashData;
-        //    if (code==300){
-        //        this.alert('提交失败！')
-        //    }else if (code==301){
-        //        this.alert('有未处理的提现!')
-        //    }else if (code==302){
-        //        this.alert('提现金额大于帐户可提余额!')
-        //    }else if (code==303){
-        //        this.alert('提现密码错误 !')
-        //    }else if (code==304){
-        //        this.alert('未绑卡提现!')
-        //    }else if (code==305){
-        //        this.alert('没安全卡提现!')
-        //    }else if (code==100){
-        //        const time=Date.parse(new Date()),
-        //            cash_amount=this.state.val;
-        //        push(time,cash_amount)
-        //    }
-        //}
     }
     alert=(message)=>{
         this.refs.alert.show({
@@ -192,6 +177,7 @@ class Index extends React.Component {
                </div>
                 <Tipbar ref='tipbar' />
                 <Alert ref="alert"/>
+                <LoadingDialog ref="loading"></LoadingDialog>
             </div>
         )
     }

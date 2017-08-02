@@ -7,7 +7,7 @@
 import React from 'react' //绑定成功
 import NavBar from '../../../../../components/NavBar'
 import { connect } from 'react-redux'
-import { push ,replace} from 'react-router-redux'
+import { push,replace } from 'react-router-redux'
 import styles from './index.css'
 import BaseButton from '../../../../../components/BaseButton/index'
 import success from '../../../../../assets/images/shopp-center/success.png'
@@ -43,11 +43,11 @@ class Index extends React.Component{
 
         return(
             <div className={styles.leftArrow}>
-                <NavBar leftNode={<div></div>}>充值成功</NavBar>
+                <NavBar leftNode={<div></div>}>充值失败</NavBar>
                 <div className={styles.bg}>
                     <div className={styles.content}>
                         <div className={styles.imgWrapper}><img src={success}/></div>
-                        <p>充值成功</p>
+                        <p>充值失败</p>
                         <BaseButton text={'继续充值'} disable={false} onClick={()=>{this.props.replace('/user/newRecharge')}} className={styles.button}/>
                         <BaseButton text={'返回首页'} disable={false} onClick={()=>{this.props.replace('/home')}} className={styles.button}/>
                     </div>

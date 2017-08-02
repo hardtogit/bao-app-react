@@ -10,6 +10,7 @@ import Alert from '../../../../../components/Dialog/alert';
 import Confirm from '../../../../../components/Dialog/confirm';
 import Success from '../../../../../components/Dialog/success'
 import Loading from '../../../../../components/pageLoading/index'
+import LoadingDialog from '../../../../../components/Dialog/loading'
 import SelectBox from '../../../../../components/SelectBox/index'
 import DurationSelect from '../../../../../components/durationSelectBox/index'
 import Arrow from '../../../../../assets/images/arrow2.png'
@@ -268,10 +269,10 @@ class Index extends React.Component {
                 <Tipbar ref='tipbar' className={style.tips} />
                 <Success ref="success" />
                 <Alert ref="alert"/>
-                <Box className={classnames(this.state.error&&style.box_error||'')}> 
+                <Box className={classnames(this.state.error&&style.box_error||'')}>
                     <div className={style.open}>
                         开启自动投标功能
-                        <Switch className={style.switch} status={this.state.open}  callBackFun={this.toggle}/>
+                        <Switch className={style.switch} status={this.state.open} push={this.props.push} authFn={this.props.freeAccredit}  callBackFun={this.toggle}/>
                     </div>
                     <div className={classnames(style.content,this.state.open?'show':'hide')}>
                         <ul className={style.times}>
@@ -379,7 +380,8 @@ const infoModel = (data)=>{
 const mapStateToProps = (state) => {
     return {
         info:infoModel(state.infodata.getIn(['AUTO_BUY_INFO','data'])),
-        setInfo:state.infodata.getIn(['AUTO_BUY','data'])
+        setInfo:state.infodata.getIn(['AUTO_BUY','data']),
+        freeAccreditData:state.infodata.getIn(['FREE_ACCREDIT','data'])
     }
 };
 
@@ -406,6 +408,19 @@ const mapDispatchToProps = (dispatch) => ({
             type:"CLEAR_INFO_DATA",
             key:'AUTO_BUY_INFO'
         })
+    },
+    freeAccredit(data){
+        dispatch({
+            type:"FREE_ACCREDIT",
+            params:[data]
+        })
+    },
+    accreditVerify(id){
+        dispatch({
+            type:"ACCREDIT_VERIFY",
+            params:[{id:id}]
+        })
     }
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index)

@@ -31,6 +31,7 @@ class Index extends Component{
         this.state = {
             time:0,
             bindTime:0,
+            codeTime:0,
             ref:'',
             formData:{},
             province:'',
@@ -67,7 +68,24 @@ class Index extends Component{
             }
         }
         if( nextProps.verifyCodeData&&nextProps.verifyCodeData.status==1){
-            this.props.bindCard(this.state.formData)
+            if(this.state.codeTime<=3){
+                this.setState({
+                    time:this.state.codeTime+1
+                });
+                if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.data.status==1&&nextProps.verifyCodeRightData.data.additional[0].code=='0000'){
+                    this.props.bindCard(this.state.formData)
+                }else{
+                    if(this.state.codeTime>=3){
+                        this.refs.alert.open('验证码错误');
+                    }else{
+                        setTimeout(()=>{
+                            this.props.verifyCodeRight(nextProps.verifyCodeData.msgId)
+                        },2000)
+                    }
+                }
+            }
+
+
             this.props.clean('STORE_VERIFY_CODE');
         }
         if(nextProps.verifyCodeData&&nextProps.verifyCodeData.status!=1){
@@ -107,6 +125,12 @@ class Index extends Component{
     }
     componentDidUpdate(){
 
+    }
+    componentWillUnmount(){
+        this.props.clean('BIND_VERIFY');
+        this.props.clean('STORE_BIND_CAR')
+        this.props.clean('CODE_RIGHT_VERIFY')
+        this.props.clean('SEND_VERIFY');
     }
     sendCode=()=>{
         let telNo=this.refs.form.getValue().telNo;
@@ -151,8 +175,10 @@ class Index extends Component{
     submit=()=>{
         this.props.clean('BIND_VERIFY');
         this.props.clean('STORE_BIND_CAR')
+        this.props.clean('CODE_RIGHT_VERIFY')
         this.setState({
-            bindTime:0
+            bindTime:0,
+            codeTime:0
         });
         let tip=this.refs.alert;
         let bankCard=this.refs.form.getValue().bankCard;
@@ -266,7 +292,8 @@ const mapStateToProps=(state,ownProps)=>{
         regData:state.infodata.getIn([actionTypes.STORE_BIND_CAR,'data']),
         saveData:state.regStore.getIn([actionTypes.SAVE_STORE_DATA,'data']),
         bankList:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'data']),
-        pending:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'pending'])
+        pending:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'pending']),
+        verifyCodeRightData:state.infodata.getIn([actionTypes.CODE_RIGHT_VERIFY,'data'])
     }
 };
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -311,6 +338,13 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:actionTypes.STORE_VERIFY_CODE,
                 params:[data]
+            })
+        },
+        //验证验证码是否验证成功
+        verifyCodeRight(id){
+            dispatch({
+                type:actionTypes.CODE_RIGHT_VERIFY,
+                params:[{id:id}]
             })
         },
         //绑卡
