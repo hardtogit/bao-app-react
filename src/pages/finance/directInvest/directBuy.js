@@ -599,7 +599,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         password,
         passwordFactor,
         couponId,
-        type:'POINT'
+        type:'DIRECT'
         }]
     })
   },

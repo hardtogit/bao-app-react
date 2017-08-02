@@ -346,6 +346,12 @@ export default {
     [actionTypes.CARD_PAY_VERIFY]:{//验证银行卡支付是否成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.PAY_VERIFY]:{//验证聚点余额支付
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CARD_PAY_VERIFY]:{//验证银行卡支付是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.ACCREDIT_VERIFY]:{//验证免密是否成功
         apiFn:Fetch.regVerify
     },

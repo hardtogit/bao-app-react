@@ -36,6 +36,7 @@ class Index extends React.Component {
             balance:1,//单次投标份数
             start:1,//开始期限
             end:24,//结束期限
+            time:0,
             buttonClickStatus:true//确认开启是否能点击
         }
     }
@@ -45,7 +46,7 @@ class Index extends React.Component {
     componentWillUnmount(){
         this.props.clear()
     }
-    componentWillReceiveProps=({info,setInfo})=>{
+    componentWillReceiveProps=({info,setInfo,freeAccreditData,accreditVerifyData})=>{
         if(info && !newInfo){
             if(this.state.open !=info.open
                 || this.state.bidType!=info.type
@@ -93,6 +94,52 @@ class Index extends React.Component {
                             content: '自动投标开启失败',
                             okText: '确定',
                         })
+                }
+            }
+        }
+        if(freeAccreditData&&freeAccreditData.status==1){
+            let $this=this;
+            if(this.state.time<=3){
+                this.setState({
+                    time:this.state.time+1
+                });
+                if(accreditVerifyData&&accreditVerifyData.data.status==1&&accreditVerifyData.data.additional[0].code=='0000'){
+                    $this.refs.switch.refs.loading.hide();
+                    this.refs.succes.show({
+                        text: '授权成功',
+                        callback: () => {
+                            this.props.getInfo();
+                        }
+                    });
+                    this.props.accreditClear();
+                    this.setState({
+                        time:0
+                    })
+                }else{
+                    if(this.state.time>=3){
+                        if(accreditVerifyData&&accreditVerifyData.data.status==1&&accreditVerifyData.data.additional[0].code!='0000'){
+                            $this.refs.switch.refs.loading.hide();
+                            this.refs.alert.show({
+                                content: '授权失败',
+                                okText: '确定',
+                            })
+                            this.props.accreditClear()
+                        }else{
+                            $this.refs.switch.refs.loading.hide();
+                            this.refs.alert.show({
+                                content: '授权失败',
+                                okText: '确定',
+                            })
+                            this.props.accreditClear()
+                        } this.setState({
+                            time:0
+                        })
+                    }else{
+                        setTimeout(function(){
+                            $this.props.accreditVerify({id:freeAccreditData.msgId})
+                        },2000)
+
+                    }
                 }
             }
         }
@@ -268,11 +315,12 @@ class Index extends React.Component {
                 <NavBar onLeft={pop} rightNode={<Link style={{"color":"#fff"}} to="/user/autoBuyRule">规则</Link>}>自动投标</NavBar>
                 <Tipbar ref='tipbar' className={style.tips} />
                 <Success ref="success" />
+                <Success ref="successTwo" />
                 <Alert ref="alert"/>
                 <Box className={classnames(this.state.error&&style.box_error||'')}>
                     <div className={style.open}>
                         开启自动投标功能
-                        <Switch className={style.switch} status={this.state.open} push={this.props.push} authFn={this.props.freeAccredit}  callBackFun={this.toggle}/>
+                        <Switch ref="switch" className={style.switch} status={this.state.open} push={this.props.push} authFn={this.props.freeAccredit}  callBackFun={this.toggle}/>
                     </div>
                     <div className={classnames(style.content,this.state.open?'show':'hide')}>
                         <ul className={style.times}>
@@ -381,7 +429,8 @@ const mapStateToProps = (state) => {
     return {
         info:infoModel(state.infodata.getIn(['AUTO_BUY_INFO','data'])),
         setInfo:state.infodata.getIn(['AUTO_BUY','data']),
-        freeAccreditData:state.infodata.getIn(['FREE_ACCREDIT','data'])
+        freeAccreditData:state.infodata.getIn(['FREE_ACCREDIT','data']),
+        accreditVerifyData:state.infodata.getIn(['ACCREDIT_VERIFY','data'])
     }
 };
 
@@ -409,6 +458,16 @@ const mapDispatchToProps = (dispatch) => ({
             key:'AUTO_BUY_INFO'
         })
     },
+    accreditClear(){
+        dispatch({
+            type:"CLEAR_INFO_DATA",
+            key:'FREE_ACCREDIT'
+        });
+        dispatch({
+            type:"CLEAR_INFO_DATA",
+            key:'ACCREDIT_VERIFY'
+        })
+    },
     freeAccredit(data){
         dispatch({
             type:"FREE_ACCREDIT",
@@ -418,7 +477,7 @@ const mapDispatchToProps = (dispatch) => ({
     accreditVerify(id){
         dispatch({
             type:"ACCREDIT_VERIFY",
-            params:[{id:id}]
+            params:[id]
         })
     }
 

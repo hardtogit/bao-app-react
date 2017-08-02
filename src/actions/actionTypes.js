@@ -99,6 +99,10 @@ export const CASH_VERIFY='CASH_VERIFY'
 export const CODE_RIGHT_VERIFY='CODE_RIGHT_VERIFY'
 //验证余额是否购买成功
 export const PAY_VERIFY='PAY_VERIFY'
+//验证聚点余额购买是否成功
+export const GATHER_PAY_VERIFY='GATHER_PAY_VERIFY'
+//验证聚点银行卡购买是否成功
+export const GATHER_CARD_VERIFY='GATHER_CARD_VERIFY'
 //验证银行卡购买是否成功
 export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
 //验证免密是否成功

@@ -30,7 +30,7 @@ class Index extends React.Component {
     this.state = {
       productId:this.props.params.productId,
       inputValue: 10000,
-      quantity: 10,  // 购买数量
+      quantity: 200,  // 购买数量
       unitPrice: 1000, // 单价
       vouchers: [],
       interestRates: [],
@@ -72,29 +72,15 @@ class Index extends React.Component {
        }else {
            this.props.getAvailableCoupons(nextProps.quantityDataB.data.id)
        }
-    }
-    if (this.props.quantityLeftFetching == true && 
-        nextProps.quantityLeftFetching == false && 
-        nextProps.quantityData && 
-        nextProps.quantityData.code == 100) {
-      // 获取到定存宝详情数据 并设置默认购买份数
-      const result = nextProps.quantityData
-      const quantity = result && result.data && result.data.quantity ?
-              result.data.quantity < this.state.quantity ?
-              result.data.quantity : this.state.quantity:0;
-      this.setState({quantity})      
-    }
-      if (this.props.quantityDataBLeftFetching == true &&
-          nextProps.quantityDataBLeftFetching == false &&
-          nextProps.quantityDataB &&
-          nextProps.quantityDataB.code == 100) {
-          // 获取到定存宝详情数据 并设置默认购买份数
-          const result = nextProps.quantityDataB;
-          const quantity = result && result.data && result.data.remain ?
-              result.data.remain < this.state.quantity ?
-                  result.data.remain : this.state.quantity:0;
-          this.setState({quantity})
+    };
+      if(nextProps.quantityDataB&& nextProps.quantityDataB.code=='100'){
+          if(nextProps.quantityDataB.quantity<this.state.quantity){
+              this.setState({
+                  quantity:nextProps.quantityDataB.quantity
+              })
+          }
       }
+
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {
       this.hasSetCoupon = true;
 
@@ -121,7 +107,8 @@ class Index extends React.Component {
     componentWillUnmount(){
     this.props.clearDataInfo();
     }
-  depositBuy = (password, money) => {
+    //余额购买
+  gatherBalanceBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;
     const {useCoupon,depositId,quantity}=this.state;
     const {params:{type,productId},balancePay}=this.props;
@@ -131,7 +118,18 @@ class Index extends React.Component {
     balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
 
   }
-
+    //银行卡购买
+  gatherCardBuy=(password,money,bankCard)=>{
+        let coupon = this.props.useCoupon ? this.getCoupon() : null
+        const {useCoupon}=this.state;
+        if (!useCoupon&&coupon){
+            coupon.id=''
+        }
+        this.setState({
+            pending:true
+        })
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+    }
   // 修改购买份数
   changeQuantity = (value) => {
     const {
@@ -432,21 +430,17 @@ class Index extends React.Component {
         }
         this.setState({payTop:'100%',url:''})
     }
-    depositbsBuy=(data)=>{
-        let {buyTime}=this.state;
-        buyTime++;
+    gatherBalanceBuy=(password, money)=>{
+        let coupon = this.props.useCoupon ? this.getCoupon() : null
+        const {useCoupon}=this.state;
+        if (!useCoupon&&coupon){
+            coupon.id=''
+        }
         this.setState({
-            buyTime
+            pending:true
         })
-       setTimeout(()=>{
-            if (buyTime>3){
-                this.setState({
-                    buyTime:0
-                })
-            }else {
-                this.props.depositbsBuyResult(data.data.msgId);
-            }
-       },500)
+
+        this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
     }
   render() {
     const {
@@ -516,16 +510,17 @@ class Index extends React.Component {
                 user={this.props.user}
                 banks={banksList}
                 balance={+this.props.user.balance}
-                onRequest
-                    ={this.depositBuy}
-                inputValue={Number(utils.padMoney(this.getPayTotal()))}
-                balancePayPending={this.state.pending}
-                balancePayData={lx=='A'&&this.props.depositBuyData||depositbsBuy}
+                onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
+                onRequestCardPay={this.gatherCardBuy}//传递银行卡支付
+                balancePayData={this.props.balanceBuyData}//余额支付数据
+                cardPayData={this.props.carBuyData}//银行卡支付数据
+                verifyData={this.props.verifyData}//余额是否支付成功验证
+                cardVerifyData={this.props.cardVerifyData}//银行卡是否支付成功验证
+                inputValue={Number(utils.padMoney(this.getPayTotal()))}//传递付款金额
+                balancePayPending={this.state.pending}//控制loading参数
                 changePending={this.changePending}
-                clear={()=>{lx=='A'&&this.props.clearData('DEPOSIT_BUY')||this.props.clearData('DEPOSITBS_BUY')}}
+                clear={()=>{this.props.clearData()}}
                 money={utils.padMoney(this.getPayTotal())}
-                depositbs={this.depositbsBuy}
-                depositbsBuyResultData={depositbsBuyResultData}
                 time={this.state.buyTime}
                 clearDataResult={clearDataResult}/>:''}
 
@@ -569,14 +564,12 @@ const mapStateToProps = (state, ownProps) => {
     couponsFetching: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'pending']),
     couponsData: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'data']),
     rates: state.infodata.getIn([RATE, 'data']),
-    depositBuyPending: state.infodata.getIn([actionTypes.DEPOSIT_BUY, 'pending']),
-    depositBuyData: state.infodata.getIn([actionTypes.DEPOSIT_BUY, 'data']),
+    balanceBuyData:state.infodata.getIn([actionTypes.GATHER_BALANCE_BUY,'data']),
+    cardBuyData:state.infodata.getIn([actionTypes.GATHER_CARD_BUY,'data']),
+    verifyData:state.infodata.getIn([actionType.]),
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
-    depositbsBuy:state.infodata.getIn(['DEPOSITBS_BUY','data']),
-    depositbsBuyPending:state.infodata.getIn(['DEPOSITBS_BUY','pending']),
-    depositbsBuyResultData:state.infodata.getIn(['DEPOSITBS_BUYRESULT','data'])
   }
 }
 
@@ -599,26 +592,44 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       params: [id]
     })
   },
-
+  //获取优惠卷
   getAvailableCoupons(month) {
     dispatch({
       type: actionTypes.AVAILABLE_COUPONS,
       params: ['定存', month]
     })
   },
-
-  balancePay(productId, num, password,passwordFactor, couponId) {
-    dispatch({
-      type: actionTypes.DEPOSIT_BUY,
-      params: [{
-        productId,
-          num,
-          password,
-          passwordFactor,
-        couponId
-      }]
-    })
-  },
+  //余额支付
+  balancePay(productId, num, password, passwordFactor, couponId) {
+        dispatch({
+            type: actionTypes.GATHER_BALANCE_BUY,
+            params: [{
+                productId,
+                num,
+                password,
+                passwordFactor,
+                couponId,
+                type:'POINT'
+            }]
+        })
+    },
+  //银行卡支付
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId){
+        dispatch({
+            type:actionTypes.GATHER_CARD_BUY,
+            params:[{
+                bankCard,
+                transferAmount,
+                productId,
+                num,
+                password,
+                passwordFactor,
+                couponId,
+                type:'POINT'
+            }]
+        })
+    },
+   //选择优惠卷
   setUseCoupons(selectedCoupon) {
     dispatch({
       type: actionTypes.SET_USE_COUPONS,
