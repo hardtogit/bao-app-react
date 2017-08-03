@@ -107,11 +107,16 @@ class GatherMain extends React.Component {
       //}=this.Timer(month,depositN);
       const textTz='锁定时间';
       const bData=[{name:'起投金额',val:price},{name:textTz,val:month+'个月'}];
-      let text='马上买入';
-      let flag=false;
-      if (buy_status==0&&has_money>=money){
-          text='已售罄'
-          flag=true
+      let text='';
+      let flag=true;
+      if(buy_status==0){
+          if(parseInt(has_money)>=parseInt(money)){
+              text='已售罄'
+              flag=true
+          }else{
+              text='马上买入'
+              flag=false
+          }
       }else if (buy_status==1){
           text='未开始'
           flag=true

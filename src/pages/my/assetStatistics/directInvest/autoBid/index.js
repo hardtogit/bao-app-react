@@ -105,7 +105,7 @@ class Index extends React.Component {
                 });
                 if(accreditVerifyData&&accreditVerifyData.data.status==1&&accreditVerifyData.data.additional[0].code=='0000'){
                     $this.refs.switch.refs.loading.hide();
-                    this.refs.succes.show({
+                    this.refs.success.show({
                         text: '授权成功',
                         callback: () => {
                             this.props.getInfo();

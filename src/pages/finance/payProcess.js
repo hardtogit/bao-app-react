@@ -38,11 +38,7 @@ class PayProcess extends React.Component {
     BALANCEINDEX: 1,  
     priorityINDEX: 2   // 除去余额支付外，优先选择的银行
   }
-
   componentDidMount() {
-    // this.changeValueHandler(this.props.inputValue, this.props.user.balance || 0, (chosen) => {
-    //   this._onSelectPay(chosen)
-    // })
     if (this.props.balancePay === false) {
       // 不使用余额支付，默认选择优先定义的银行
       this.setState({chosen: this.props.priorityINDEX})
@@ -52,7 +48,8 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      const {go,depositbs,clearDataResult,banks} = this.props;
+      const {go,banks} = this.props;
+      console.log(nextProps)
       this.setState({
         bankName:banks[0].bankName,
         bankCode:banks[0].bankCard.substr(banks[0].bankCard.length-4,4),
@@ -79,7 +76,7 @@ class PayProcess extends React.Component {
     if (nextProps.balancePayData&&nextProps.verifyData){
         const status = nextProps.balancePayData.status;
         const msgId= nextProps.balancePayData.msgId;
-        if (status==1&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0]=='0000'){
+        if (status==1&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code=='0000'){
             go('/depositInvestSuccess/B');
             nextProps.clear();
         }else {
@@ -96,7 +93,8 @@ class PayProcess extends React.Component {
     if (nextProps.cardPayData&&nextProps.cardVerifyData){
       const status = nextProps.cardPayData.status;
       const msgId= nextProps.cardPayData.msgId;
-      if (status==1&&nextProps.cardVerifyData.data.status==1&&nextProps.cardVerifyData.data.additional[0]=='0000'){
+      console.log(nextProps.cardVerifyData)
+      if (nextProps.cardVerifyData.data.status==1&&nextProps.cardVerifyData.data.additional[0].code=='0000'){
         go('/depositInvestSuccess/B');
         nextProps.clear();
       }else {
