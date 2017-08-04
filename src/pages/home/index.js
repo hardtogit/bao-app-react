@@ -22,11 +22,8 @@ class FinancialIndex extends Component{
             flage:false,
             isAuth:0,
             show:{display:'block'},
-            title:'',
-            rate:'',
-            depositbs:false,
-            depositb:false,
-            rateA:'',
+            gatherRate:'',
+            gatherTitle:'',
             xsRate:'',
             xsId:'',
             openUrl:'cn.bao://',
@@ -71,9 +68,8 @@ class FinancialIndex extends Component{
     componentDidMount(){
         this.getuserAgent();
         this.props.getActivity();
+        this.props.getGatherData();
         const Height=this.getHeight();
-        const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
-        const depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
         this.equipment();
         this.setState({
             height:{height:Height+'px'}
@@ -84,70 +80,38 @@ class FinancialIndex extends Component{
                     auth
                 }
             },
-            load,
-            getListB,
-            getDeposit
+            load
         }=this.props;
         if (auth){
             this.getLogin(auth)
         }else {
             load();
         }
-        if (depositbs==null){
-            getListB()
-        }else {
-            const {title,rate}=this.getMessage(depositbs.list);
-            this.setState({
-                depositbs:true,
-                title,
-                rate
-            })
-        }
-        if (depositb==null){
-            getDeposit();
-        }else {
-            const {rateA,xsRate,xsId}=this.getMessageA(depositb)
-            this.setState({
-                depositb:true,
-                rateA,
-                xsRate,
-                xsId
-            })
-        }
     }
     componentWillReceiveProps(next){
-        const {depositbs,depositb}=this.state;
-        const {depositbs:ndbs,deposit,location:{
+
+        const {location:{
             query:{
                 auth
             }
-        },activity,getActivity}=next;
+        },activity,getActivity,gatherData}=next;
         if (auth&&activity){
             if (activity.code=='0000'){
                 getActivity();
             }
         }
-        if (!depositbs&&ndbs){
-            if (ndbs.code==100){
-                const {title,rate}=this.getMessage(ndbs.data.list);
+        if(gatherData&&gatherData._tail&&gatherData._tail.array.length!=0){
+                const {gatherTitle,gatherRate}=this.getGatherMessage(gatherData._tail.array);
+                const {xsId,xsRate}=this.getGatherNewMessage(gatherData._tail.array)
                 this.setState({
-                    depositbs:false,
-                    title,
-                    rate
+                    sessionGatherData:true,
+                    gatherTitle,
+                    gatherRate,
+                    xsId,
+                    xsRate
                 })
-            }
         }
-        if (!depositb&&deposit){
-            if (deposit.code==100){
-                const {rateA,xsRate,xsId}=this.getMessageA(deposit.data)
-                this.setState({
-                    depositb:true,
-                    rateA,
-                    xsRate,
-                    xsId
-                })
-            }
-        }
+
     }
     getuserAgent=()=>{
         const userAgent = navigator.userAgent;
@@ -156,23 +120,24 @@ class FinancialIndex extends Component{
                isSafari:true
            })
         }
-    }
-    getMessageA=(depositb)=>{
-        const xsRate=depositb.new_deposit.rate;
-        const xsId=depositb.new_deposit.id;
-        const rateA=depositb.deposit[0].rate;
-        return{xsRate,rateA,xsId}
-    }
-    getMessage=(depositbs)=>{
-        for (let i=0;i<depositbs.length;i++){
-            if (depositbs[i].month=='6'){
-                return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
+    };
+    getGatherMessage=(gatherData)=>{
+        for (let i=0;i<gatherData.length;i++){
+            if (gatherData[i].month=='6'){
+                return{gatherTitle:gatherData[i].month+'月期'+gatherData[i].title, gatherRate:gatherData[i].rate}
+            }
+        }
+    };
+    getGatherNewMessage=(gatherData)=>{
+        for (let i=0;i<gatherData.length;i++){
+            if (gatherData[i].month=='1'){
+                return{xsId:gatherData[i].id, xsRate:gatherData[i].rate}
             }
         }
     }
     getLogin=(auth)=>{
         this.props.login(auth)
-    }
+    };
     listLoad=()=>{
         const Loading=Loaders['BeatLoader']
         return(<div className={style.loading}>
@@ -181,17 +146,12 @@ class FinancialIndex extends Component{
         </div>)
     }
     oldList=()=>{
-        const {rate,title}=this.state;
-        const {rateA}=this.state;
-        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex')});
-        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
-        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,1);this.props.push('/home/productIndex')},50,2);
+        const {gatherTitle,gatherRate}=this.state;
+        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
+        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(1,1);this.props.push('/home/productIndex')},50,2);
         return(<ul className={style.productUl}>
             {
-                Depot1
-            }
-            {
-                Depot
+                Gather
             }
             {
                 Depot2
@@ -199,11 +159,9 @@ class FinancialIndex extends Component{
         </ul>)
     }
     newList=(auth)=>{
-        const {rate,title}=this.state;
-        const {rateA}=this.state;
+        const {gatherTitle,gatherRate}=this.state;
         const {activity}=this.props;
-        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
-        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
         const newDep=this.newDep();
         const isAuth=auth;
         let rz;
@@ -218,17 +176,13 @@ class FinancialIndex extends Component{
             {
                 newDep
             }{
-            Depot1
-        }{
-            Depot
+            Gather
         }
         </ul>)
     }
     noLogin=()=>{
-        const {rate,title}=this.state;
-        const {rateA}=this.state;
-        const Depot=this.depot('3月期定存宝A计划',rateA,()=>{this.change(0,0);this.props.push('/home/productIndex');});
-        const Depot1=this.depot(title,rate,()=>{this.change(1,2);this.props.push('/home/productIndex')},1000,2)
+        const {gatherTitle,gatherRate}=this.state;
+        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
         const newDep=this.newDep();
         const noImg=this.newImg();
         return(<ul className={style.productUl}>
@@ -238,9 +192,7 @@ class FinancialIndex extends Component{
             {
                 newDep
             }{
-            Depot1
-        }{
-            Depot
+            Gather
         }
         </ul>)
     }
@@ -254,7 +206,7 @@ class FinancialIndex extends Component{
             if (!isInvest){
                 Dom=this.oldList();
             }else {
-                Dom=this.newList(this.state.isAuth,);
+                Dom=this.newList(this.state.isAuth);
             }
         }else {
             Dom=this.noLogin();
@@ -374,7 +326,7 @@ class FinancialIndex extends Component{
                           </span>
                 </p>
                 <p className={Classnames(style.mgl)}>
-                    <Link className={style.tzButtom} to={`/deposit-product/5/A/${xsId}`}>
+                    <Link className={style.tzButtom} to={`/gatherMain/${xsId}`}>
                         立即投资
                     </Link>
                 </p>
@@ -405,9 +357,7 @@ class FinancialIndex extends Component{
                 flage,
                 openApp,
             }=this.state,
-            user=sessionStorage.getItem('bao-auth'),
-            depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs")),
-            depositb=JSON.parse(sessionStorage.getItem("bao-deposit"));
+            user=sessionStorage.getItem('bao-auth');
         const {
             pending,
             banner,
@@ -432,7 +382,7 @@ class FinancialIndex extends Component{
                 active=true
             }
         }
-        if(depositbs&&depositb&&active){
+        if(active){
             if (user){
                 if (!flage){
                     bodyDom=this.showList();
@@ -446,7 +396,7 @@ class FinancialIndex extends Component{
             }else {
                 if (auth){
                     if (userData&&userData.code==100){
-                        bodyDom=this.newList(userData.data.isAuth,)
+                        bodyDom=this.newList(userData.data.isAuth)
                     }
                 }else {
                         bodyDom=this.noLogin();
@@ -514,9 +464,8 @@ class FinancialIndex extends Component{
 const  financialIndexInit=(state,own)=>({
     pending:state.infodata.getIn(['BANNER_LIST','pending']),
     banner:state.infodata.getIn(['BANNER_LIST','data']),
+    gatherData:state.listdata.getIn(['DEPOSITS_GATHER','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
-    depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
-    deposit:state.infodata.getIn(['RATE','data']),
     activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
 })
 const financialIndexInitfn=(dispath,own)=>({
@@ -529,6 +478,12 @@ const financialIndexInitfn=(dispath,own)=>({
         dispath({
             type:'PRODUCT_INDEX',
             index:num
+        })
+    },
+    getGatherData() {
+        dispath({
+            type:'DEPOSITS_GATHER',
+            params:[{pageSize:2}]
         })
     },
     changeDc(num){

@@ -160,12 +160,17 @@ class Index extends Component{
         if(carNo.length>=6){
            let newStr=carNo.substr(0,6);
             if(newStr!=this.str){
+                let flag=true
                 this.str=newStr;
                 this.props.bankList.data.map((value,i)=>{
                     if(value.cardBin==newStr){
+                        flag=false;
                         this.props.bankToState(value)
                     }
-                })
+                });
+                if(flag){
+                    this.props.bankToState({bankName:"存管暂不支持该银行的储蓄卡",bankCode:""})
+                }
             }
         }else{
             this.props.bankToState({bankName:"请输入卡号识别",bankCode:""})
