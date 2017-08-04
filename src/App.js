@@ -133,8 +133,8 @@ import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBi
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail} from './loadTool'
 
 // 工厂方法创建saga中间件
-//const a=window.location.href.split('.')[1]+'.cn';
-//document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
