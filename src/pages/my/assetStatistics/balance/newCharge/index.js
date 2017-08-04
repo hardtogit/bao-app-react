@@ -52,12 +52,12 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.verifyData&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code=='0000'){
+                    if(nextProps.verifyData&&nextProps.verifyData.code=='0001'){
                          this.props.push('/user/reChargeSuccess')
                     }else{
                         if(this.state.time>=3){
-                            if(nextProps.verifyData&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code!='0000'){
-                                this.refs.tip.open(nextProps.verifyData.data.additional[0].msg)
+                            if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
+                                this.props.push('/user/reChargeFail')
                             }else{
                                 this.props.push('/user/reChargeFail')
                             }

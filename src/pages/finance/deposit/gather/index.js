@@ -297,21 +297,21 @@ class DirectInvestList extends React.Component{
                        isLoading={pending} distance={5} endType={pageEnd} endload={<div></div>}>
             {
                 data && data.map((data,i) => {
-                    return(
-                        <DirectInvestCell key={i}
-                                          data={data}
-                                          onClick={() => this.props.push(`/gatherMain/${data.id}`)}
-                                          push={(path) => this.props.push(path)}
-                                          passwordRef={this.refs.passWord}
-                                          wrongRef={this.refs.wrong}
-                                          screenW={screenW}
-                                          postPasswordAction={(value) => this.props.setAppointPassword(value)}
-                                          sendAssign={this.props.sendAssign}
-                                          isAuth={this.refs.isAuth}
-                                          isAuthPush={this.props.push}
-                                          verifyAssign={this.props.verifyAssign}
-                        />
-                    )
+                     return(
+                         <DirectInvestCell key={i}
+                                           data={data}
+                                           onClick={() => this.props.push(`/gatherMain/${data.id}`)}
+                                           push={(path) => this.props.push(path)}
+                                           passwordRef={this.refs.passWord}
+                                           wrongRef={this.refs.wrong}
+                                           screenW={screenW}
+                                           postPasswordAction={(value) => this.props.setAppointPassword(value)}
+                                           sendAssign={this.props.sendAssign}
+                                           isAuth={this.refs.isAuth}
+                                           isAuthPush={this.props.push}
+                                           verifyAssign={this.props.verifyAssign}
+                         />
+                     )
                 })}
         </Scroll>)
     }
@@ -354,7 +354,18 @@ const mapStateToProps = (state,ownProps) => {
     const verifyAssign=state.infodata.getIn([actionTypes.VERIFY_ASSIGN,'data']);
     const user=sessionStorage.getItem("bao-auth");
     const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
-    let ListHeight= user? document.body.clientHeight-88 : document.body.clientHeight-88-78
+    let ListHeight= user? document.body.clientHeight-88 : document.body.clientHeight-88-78;
+    //去除一个月的新手标
+    let data=state.listdata.getIn([key, 'data']);
+    let copyData=[];
+    if(data&&data._tail){
+        for(let i=0; i<data._tail.array.length;i++){
+            if(data._tail.array[i].month!=1){
+                copyData.push(data._tail.array[i])
+            }
+        }
+    }
+    data=copyData;
     if (user) {
         if (userInfo) {
             if ((userInfo.voucher && userInfo.voucher>0) || userInfo.interestRateSecurities && userInfo.interestRateSecurities>0) {
@@ -366,9 +377,10 @@ const mapStateToProps = (state,ownProps) => {
         ListHeight,
         userInfoCode,
         verifyAssign,
+        data, 
         appointPassword:state.finance.getIn(['appointPassword','passWord']),
         pending: state.listdata.getIn([key, 'pending']),
-        data: state.listdata.getIn([key, 'data']),
+        //data: state.listdata.getIn([key, 'data']),
         curPage: state.listdata.getIn([key, 'curPage']),
         pageEnd: state.listdata.getIn([key, 'pageEnd'])
     }

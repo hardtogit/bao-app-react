@@ -51,9 +51,9 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.sendFlag&&nextProps.sendFlag.data.status==1&&nextProps.sendFlag.data.additional[0].code=='0000'){
+                    if(nextProps.sendFlag&&nextProps.sendFlag.code=='0001'){
                             this.setState({
-                                ref:nextProps.sendFlag.data.additional[0].data.ref
+                                ref:nextProps.sendFlag.data.ref
                             })
                     }else{
                         if(this.state.time>=3){
@@ -72,7 +72,7 @@ class Index extends Component{
                 this.setState({
                     time:this.state.codeTime+1
                 });
-                if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.data.status==1&&nextProps.verifyCodeRightData.data.additional[0].code=='0000'){
+                if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.code=='0001'){
                     this.props.bindCard(this.state.formData)
                 }else{
                     if(this.state.codeTime>=3){
@@ -100,7 +100,7 @@ class Index extends Component{
                 this.setState({
                     bindTime:this.state.bindTime+1
                 });
-                if(nextProps.bindFlag&&nextProps.bindFlag.data.status==1&&nextProps.bindFlag.data.additional[0].code=='0000'){
+                if(nextProps.bindFlag&&nextProps.bindFlag.code=='0001'){
                         this.props.push('/user/setting/bindSuccess')
                 }else{
                     if(this.state.bindTime>=3){
@@ -115,7 +115,6 @@ class Index extends Component{
                     }
                 }
             }
-
         }
     }
     componentWillMount(){
@@ -149,6 +148,7 @@ class Index extends Component{
       this.props.sendCode({telNo:this.refs.form.getValue().telNo})
     };
     choiceBank=(e)=>{
+        return;
         //sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
         this.props.clean('STORE_VERIFY_CODE');
         this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
@@ -168,7 +168,7 @@ class Index extends Component{
                 })
             }
         }else{
-            this.props.bankToState({bankName:"点击选择开户行",bankCode:""})
+            this.props.bankToState({bankName:"请输入卡号识别",bankCode:""})
         }
 
     }
@@ -248,7 +248,7 @@ class Index extends Component{
                         reg={{ required: {message: '请输入正确的卡号'}}}
                         borderType='four' />
                     <div className={styles.rightBar}>
-                        开户行<div className={styles.rightIcon}><span className={styles.text} onClick={this.choiceBank}>{bankData?bankData.bankName:'点击选择开户行'}</span><span className={styles.arrow}></span></div>
+                        开户行<div className={styles.rightIcon}><span className={styles.text} onClick={this.choiceBank}>{bankData?bankData.bankName:'请输入卡号识别'}</span><span className={styles.arrow}></span></div>
                     </div>
                     <BaseInput
                         noleftPadding

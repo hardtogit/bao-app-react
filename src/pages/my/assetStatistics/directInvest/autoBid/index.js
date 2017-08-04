@@ -103,7 +103,7 @@ class Index extends React.Component {
                 this.setState({
                     time:this.state.time+1
                 });
-                if(accreditVerifyData&&accreditVerifyData.data.status==1&&accreditVerifyData.data.additional[0].code=='0000'){
+                if(accreditVerifyData&&accreditVerifyData.code=='0001'){
                     $this.refs.switch.refs.loading.hide();
                     this.refs.success.show({
                         text: '授权成功',
@@ -117,7 +117,7 @@ class Index extends React.Component {
                     })
                 }else{
                     if(this.state.time>=3){
-                        if(accreditVerifyData&&accreditVerifyData.data.status==1&&accreditVerifyData.data.additional[0].code!='0000'){
+                        if(accreditVerifyData&&accreditVerifyData.code!='0001'){
                             $this.refs.switch.refs.loading.hide();
                             this.refs.alert.show({
                                 content: '授权失败',

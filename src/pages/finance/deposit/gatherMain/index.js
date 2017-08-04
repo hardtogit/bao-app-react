@@ -92,6 +92,8 @@ class GatherMain extends React.Component {
           rate,
           buy_total,
           buy_status,
+          value_start_date,
+          value_end_date,
           type,
           has_money,
           money,
@@ -99,7 +101,6 @@ class GatherMain extends React.Component {
           title,
           month
             }=data.data
-      console.log(data)
       rate=parseFloat(rate).toFixed(2);
       //const {
       //    startTime,
@@ -128,7 +129,7 @@ class GatherMain extends React.Component {
       <div>
           <Header rate={rate}  data={bData}/>
           <div className={styles.timeBox}>
-          <SimpleDepTime startTime={'ds'} endTime={'dsa'} type={type}/>
+          <SimpleDepTime startTime={value_start_date} endTime={value_end_date} type={type}/>
           </div>
           <div className={styles.depositBox}>
               <div className={styles.profit}>
@@ -209,7 +210,6 @@ class GatherMain extends React.Component {
       }else{
           this.refs.store.show();
       }
-
 
   }
   succsseFn=(url)=>{

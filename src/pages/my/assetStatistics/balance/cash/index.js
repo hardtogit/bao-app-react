@@ -60,17 +60,17 @@ class Index extends React.Component {
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code=='0000'){
+                    if(verifyData&&verifyData.code=='0001'){
                         const time=Date.parse(new Date()),
                             cash_amount=this.state.val;
                         push(time,cash_amount)
                     }else{
                         if(this.state.time>=3){
-                            if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code!='0000'){
-                                this.alert(verifyData.data.additional[0].msg)
+                            if(verifyData&&verifyData.code!='0001'){
+                                this.alert('提现失败');
                                 this.refs.loading.hide()
                             }else{
-                                this.refs.loading.hide()
+                                this.refs.loading.hide();
                                 this.alert('提现失败')
                             }
                             this.setState({

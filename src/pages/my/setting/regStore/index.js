@@ -78,7 +78,7 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.data.status==1&&nextProps.flagData.data.additional[0].code=="0000"){
+                    if(nextProps.flagData&&nextProps.flagData.code=="0001"){
                         this.props.push('/user/setting/cardBind')
                     }else{
                         if(this.state.time>=3){
