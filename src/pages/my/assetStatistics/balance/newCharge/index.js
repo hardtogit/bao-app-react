@@ -127,6 +127,8 @@ class Index extends Component{
                     bankCard:$this.state.bankCardNo,
                     transferAmount:$this.state.recMoney,
                     passwordFactor:sessionStorage.getItem('passwordFactor'),
+                    device:'WAP',
+                    hEncryptKey:sessionStorage.getItem('hEncryptKey'),
                     password:b
                 }
                 $this.refs.loading.show("充值中...")

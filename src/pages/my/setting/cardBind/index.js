@@ -145,7 +145,7 @@ class Index extends Component{
         this.setState({
             time:0
         });
-      this.props.sendCode({telNo:this.refs.form.getValue().telNo})
+      this.props.sendCode({telNo:this.refs.form.getValue().telNo,transcode:46708})
     };
     choiceBank=(e)=>{
         //return;
@@ -175,8 +175,7 @@ class Index extends Component{
         }else{
             this.props.bankToState({bankName:"请输入卡号识别",bankCode:""})
         }
-
-    }
+    };
     submit=()=>{
         this.props.clean('BIND_VERIFY');
         this.props.clean('STORE_BIND_CAR')

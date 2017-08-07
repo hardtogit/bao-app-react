@@ -100,7 +100,7 @@ class Index extends React.Component {
            bankCard
        }=this.state,
        pwd=this.refs.reddem.password;
-      this.props.send(val,pwd,sessionStorage.getItem('passwordFactor'),bankCard);
+      this.props.send(val,pwd,sessionStorage.getItem('passwordFactor'),bankCard,"WAP",sessionStorage.getItem('hEncryptKey'));
         this.refs.reddem.hide();
     }
     change=(e)=>{
@@ -196,7 +196,7 @@ const Rechargeinitfn=(dispatch)=>({
     send(transferAmount,password,passwordFactor,bankCard){
         dispatch({
              type:'NEW_CASH',
-             params:[{transferAmount,password,passwordFactor,bankCard}]
+             params:[{transferAmount,password,passwordFactor,bankCard,device,hEncryptKey}]
          })
     },
     getMyBankCards(){

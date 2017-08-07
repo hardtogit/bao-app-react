@@ -163,7 +163,7 @@ class Index extends React.Component {
           pending:true,
           time:0
       })
-    balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+    balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
 
   }
     //银行卡购买
@@ -178,7 +178,7 @@ class Index extends React.Component {
             pending:true,
             time:0
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
     }
   // 修改购买份数
   changeQuantity = (value) => {
@@ -645,7 +645,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 password,
                 passwordFactor,
                 couponId,
-                type:'POINT'
+                type:'POINT',
+                device,
+                hEncryptKey
             }]
         })
     },
@@ -661,7 +663,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 password,
                 passwordFactor,
                 couponId,
-                type:'POINT'
+                type:'POINT',
+                device,
+                hEncryptKey
             }]
         })
     },

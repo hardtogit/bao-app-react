@@ -148,7 +148,7 @@ class DirectBuy extends React.Component {
           pendding:true
       })
 
-    this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
   }
     directCardBuy=(password,money,bankCard)=>{
         let coupon = this.props.useCoupon ? this.getCoupon() : null
@@ -159,7 +159,7 @@ class DirectBuy extends React.Component {
         this.setState({
             pending:true
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '')
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
     }
 
   // 能否支付
@@ -599,7 +599,9 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         password,
         passwordFactor,
         couponId,
-        type:'DIRECT'
+        type:'DIRECT',
+          device,
+          hEncryptKey
         }]
     })
   },
@@ -614,7 +616,9 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
              password,
              passwordFactor,
              couponId,
-             type:'POINT'
+             type:'DIRECT',
+             device,
+             hEncryptKey
          }]
      })
     },
