@@ -148,7 +148,7 @@ class Index extends Component{
       this.props.sendCode({telNo:this.refs.form.getValue().telNo})
     };
     choiceBank=(e)=>{
-        return;
+        //return;
         //sessionStorage.setItem('carNo',this.refs.form.getValue().bankCard);
         this.props.clean('STORE_VERIFY_CODE');
         this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
