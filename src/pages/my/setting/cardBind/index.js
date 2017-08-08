@@ -73,10 +73,16 @@ class Index extends Component{
                     codeTime:this.state.codeTime+1
                 });
                 if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.code=='0001'){
-                    this.props.bindCard(this.state.formData)
+                    this.props.bindCard(this.state.formData);
+                    this.setState({
+                        codeTime:4
+                    });
                 }else{
                     if(this.state.codeTime>=3){
                         this.refs.alert.open('验证码错误');
+                        this.setState({
+                            submitting:false
+                        })
                     }else{
                         setTimeout(()=>{
                             this.props.verifyCodeRight(nextProps.verifyCodeData.msgId)
@@ -84,9 +90,6 @@ class Index extends Component{
                     }
                 }
             }
-
-
-            this.props.clean('STORE_VERIFY_CODE');
         }
         if(nextProps.verifyCodeData&&nextProps.verifyCodeData.status!=1){
             this.refs.alert.open('验证码错误');
@@ -213,7 +216,8 @@ class Index extends Component{
         if(verifyCode&&smsReference){
             this.setState({
                 submitting:true
-            })
+            });
+            this.props.clean('STORE_VERIFY_CODE');
             this.props.verifyCode({
                 smsReference:smsReference,
                 verifyCode:verifyCode
