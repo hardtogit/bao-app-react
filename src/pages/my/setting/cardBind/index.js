@@ -70,7 +70,7 @@ class Index extends Component{
         if( nextProps.verifyCodeData&&nextProps.verifyCodeData.status==1){
             if(this.state.codeTime<=3){
                 this.setState({
-                    time:this.state.codeTime+1
+                    codeTime:this.state.codeTime+1
                 });
                 if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.code=='0001'){
                     this.props.bindCard(this.state.formData)
@@ -130,6 +130,7 @@ class Index extends Component{
         this.props.clean('STORE_BIND_CAR')
         this.props.clean('CODE_RIGHT_VERIFY')
         this.props.clean('SEND_VERIFY');
+        this.props.clean('SAVE_STORE_DATA');
     }
     sendCode=()=>{
         let telNo=this.refs.form.getValue().telNo;
