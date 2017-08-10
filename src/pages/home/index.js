@@ -464,7 +464,7 @@ class FinancialIndex extends Component{
 const  financialIndexInit=(state,own)=>({
     pending:state.infodata.getIn(['BANNER_LIST','pending']),
     banner:state.infodata.getIn(['BANNER_LIST','data']),
-    gatherData:state.listdata.getIn(['DEPOSITS_GATHER','data']),
+    gatherData:state.listdata.getIn(['DEPOSITS_GATHER_INDEX','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
     activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
 })
@@ -482,8 +482,7 @@ const financialIndexInitfn=(dispath,own)=>({
     },
     getGatherData() {
         dispath({
-            type:'DEPOSITS_GATHER',
-            params:[{pageSize:2}]
+            type:'DEPOSITS_GATHER_INDEX',
         })
     },
     changeDc(num){

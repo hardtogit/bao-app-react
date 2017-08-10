@@ -21,8 +21,8 @@ class TradePasswordModify extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      errorMessage: ''
-    }
+      time:0
+       }
   }
   componentDidMount(){
     passGuard1.generate("kb1",kb,0);
@@ -33,36 +33,59 @@ class TradePasswordModify extends React.Component {
       },100);
     })
   }
-  componentWillReceiveProps({data,resCode}) {
-    if (data){
-      if (!data.data.isSetTradePassword){
-        this.alert()
+  componentWillReceiveProps(nextProps) {
+    let $this=this;
+    if (data&&data.status==1){
+      if(this.state.time<=3){
+        this.setState({
+          time:this.state.time+1
+        });
+        if(verifyData&&verifyData.code=='0001'){
+               this.props.push('')
+        }else{
+          if(this.state.time>=3){
+            if(verifyData&&verifyData.code!='0001'){
+              this.alert('提现失败');
+              this.refs.loading.hide()
+            }else{
+              this.refs.loading.hide();
+              this.alert('提现失败')
+            }
+            this.setState({
+              time:0
+            })
+          }else{
+            setTimeout(function(){
+              $this.props.cashVerify({id:cashData.msgId})
+            },2000)
+
+          }
+        }
       }
     }
-    if (resCode == 100) {
-      this.refs.alert.show({
-        title: '交易密码修改成功',
-        okText: '确定',
-        okCallback: this.props.pop,
-      })
-    }
-    if (resCode == 301) {
-      this.refs.alert.show({
-        title: '交易密码不能和登录密码一致',
-        okText: '确定',
-      })
-    }
-    if (resCode == 302) {
-      this.refs.alert.show({
-        title: '原交易密码错误，请重新输入',
-        okText: '确定',
-      })
-    }
   }
-  openTipbar(message) {
-    //this.refs.tipbar.open(message)
+  submit=()=>{
+    //判断密码长度
+    if(passGuard1.getLength()==0||passGuard2.getLength()==0){
+      this.refs.alert.open('密码不能为空')
+      return false;
+    }
+    //判断密码是否匹配正则
+    if(passGuard2.getValid()==1){
+      this.refs.alert.open('新密码不符合要求')
+      return false;
+    }
+    passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
+    passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
+    let data={
+      hEncryptKey:sessionStorage.getItem('hEncryptKey'),
+      passwordFactor:sessionStorage.getItem('passwordFactor'),
+      oldPassword:passGuard1.getOutput(),
+      newPassword:passGuard2.getOutput(),
+      device:"WAP"
+    }
+    this.props.modify(data)
   }
-
   render() {
     return (
       <Page>
@@ -71,19 +94,18 @@ class TradePasswordModify extends React.Component {
           <div className={styles.input_group}>
           <div className={styles.inputs}>
             <span>原密码</span>
-          <input id="kb1" type="text"/>
+          <input id="kb1" type="text" placeholder="请输入原交易密码"/>
           </div>
           <div className={styles.inputs}>
             <span>新密码</span>
-          <input id="kb2" type="text"/>
+          <input id="kb2" type="text" placeholder="请输入新交易密码"/>
           </div>
           </div>
-          <Button className={styles.submit} text="确认修改" >
+          <Button className={styles.submit} onClick={this.submit} text="确认修改" >
 
           </Button>
-          <Alert ref="alert" />
         </div>
-        <Tipbar text={this.state.errorMessage} />
+        <Tipbar ref='alert'/>
       </Page>
     )
   }
@@ -91,18 +113,12 @@ class TradePasswordModify extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
-    pending: state.infodata.getIn([TRADE_PASSWORD_MODIFY, 'pending']),
-    resCode: state.infodata.getIn([TRADE_PASSWORD_MODIFY, 'data']) && state.infodata.getIn([TRADE_PASSWORD_MODIFY, 'data']).code || 0,
+    data:state.infodata.getIn(['STORE_TRADE_PASSWORD_MODIFY', 'data']),
+    verifyData:state.infodata.getIn(['PASSWORD_CHANGE_VERIFY','data'])
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  load(){
-    dispatch({
-      type:'USER_INFO_WITH_LOGIN'
-    })
-  },
   push(path) {
     dispatch(push(path))
   },
@@ -113,12 +129,18 @@ const mapDispatchToProps = (dispatch) => ({
 
   modify(data) {
     dispatch({
-      type: TRADE_PASSWORD_MODIFY,
+      type: 'STORE_TRADE_PASSWORD_MODIFY',
       params: [
         data
       ]
     })
   },
+  verify(id){
+     dispatch({
+       type:'PASSWORD_CHANGE_VERIFY',
+       id:[id]
+     })
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradePasswordModify)

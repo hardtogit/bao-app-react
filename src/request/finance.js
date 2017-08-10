@@ -83,7 +83,7 @@ const requests = (Fetch) => {
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
   Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw','POST',data)}//新的提现接口
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
-
+  Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/oss/upload','POST',data)}//身份证上传
 }
 
 export default requests

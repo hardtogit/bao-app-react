@@ -113,6 +113,10 @@ export default {
     [actionTypes.DEPOSITS_GATHER]:{
         apiFn:Fetch.depositsGather
     },
+    //聚点首页
+    [actionTypes.DEPOSITS_GATHER_INDEX]:{
+        apiFn:Fetch.depositsGather
+    },
     //聚点+标
     [actionTypes.GATHER_BID_LIST]:{
         apiFn:Fetch.gatherBidList

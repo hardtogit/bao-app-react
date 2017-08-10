@@ -40,15 +40,21 @@ const Fetch = (url, type, data, headers) => {
     //  'Postman-Token': '6905a27a-4950-8d13-e455-81550f5784f7'
     }, _headers, headers || {})
     if (type && type.toUpperCase() === 'POST' && data) {
+        console.log(data)
       if (data.hasOwnProperty('file')){
            options.body=data.data;
            delete options.headers
-       }else {
+       }
+      else if(data.get&&data.get('files')){
+          options.body=data;
+          delete options.headers
+      }
+      else {
           options.headers ={
               'Accept-Language': 'zh-CN',
               'Cache-Control': 'no-cache',
               'Content-Type': 'application/json;charset=utf-8',
-          }
+          };
           options.body =JSON.stringify(data)
        }
     } else if (type && type.toUpperCase() === 'GET') {

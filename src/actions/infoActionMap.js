@@ -175,6 +175,9 @@ export default {
     [actionTypes.TRADE_PASSWORD_MODIFY]:{
        apiFn: Fetch.tradePasswordModify
     },
+    [actionTypes.STORE_TRADE_PASSWORD_MODIFY]:{
+        apiFn: Fetch.storeTradePasswordModify
+    },
     [actionTypes.SECURITY_CARD]:{
        apiFn: Fetch.securityCard
     },
@@ -258,6 +261,9 @@ export default {
     },
     [actionTypes.NEW_CASH]:{//新的提现
         apiFn:Fetch.newCash
+    },
+    [actionTypes.IDCARD_UPLOAD]:{//上传身份证
+        apiFn:Fetch.idCardUpload
     },
     [actionTypes.WITHDRAW]:{
         apiFn:Fetch.withdraw
@@ -353,6 +359,9 @@ export default {
         apiFn:Fetch.regVerify
     },
     [actionTypes.ACCREDIT_VERIFY]:{//验证免密是否成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.PASSWORD_CHANGE_VERIFY]:{//验证密码修改是否成功
         apiFn:Fetch.regVerify
     },
     [actionTypes.GET_PROVINCE]:{//获取省份

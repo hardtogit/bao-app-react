@@ -79,4 +79,9 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeFail').default);
         }, 'ReChargeFail');
-    }//存管充值失败
+    },//存管充值失败
+    IdCardUpload  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/user/idCardUpload').default);
+        }, 'IdCardUpload');
+    }
