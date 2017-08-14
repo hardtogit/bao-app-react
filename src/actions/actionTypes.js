@@ -109,6 +109,8 @@ export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
 export const ACCREDIT_VERIFY='ACCREDIT_VERIFY'
 //验证密码修改是否成功
 export const PASSWORD_CHANGE_VERIFY='PASSWORD_CHANGE_VERIFY'
+//公用驗證
+export const PUBLIC_VERIFY='PUBLIC_VERIFY'
 //获取省份
 export const GET_PROVINCE='GET_PROVINCE'
 //获取城市

@@ -27,13 +27,16 @@ class TradePasswordSet extends React.Component {
         this.state = {
             errorMessage: '',
             smsReference:'',
-            init:true
+            init:true,
+            time:0
         }
     }
     componentDidMount(){
         const alert = this.refs.alert;
         const {smsReference}=this.props.location.query
-        console.log(this.props)
+        this.setState({
+            smsReference:smsReference
+        })
         passGuard3.generate("kb3",kb,0);
         $(function(){
             setTimeout(function(){
@@ -41,31 +44,37 @@ class TradePasswordSet extends React.Component {
             },100);
         })
     }
-    componentWillReceiveProps({resCode,pending}) {
+    componentWillReceiveProps(nextProps) {
         const alert = this.refs.alert;
-        if (resCode == 100&&!pending&&this.state.init) {
-            this.refs.success.show({
-                text: '重置密码成功!',
-                callback: () => {this.props.go('/user/setting'),this.props.clear()},
-            });
-            this.setState({
-                init:false
-            })
+        if(nextProps.setData&&nextProps.setData.status==1){
+           if(this.state.time<=3){
+               if(nextProps.verifyData&&nextProps.verifyData.code=='0001'){
+                       this.refs.success.show({
+                           text: '重置密码成功!',
+                           callback: () => {this.props.go('/user/setting'),this.props.clear()},
+                       });
+               }else{
+                   setTimeout(function(){
+                       this.props.tradePassWordVerify(nextProps.setData.msgId)
+                   },2000)
+               }
+           }
         }
-        if (resCode == 301&&!pending) {
-            alert.show({
-                title: '交易密码不能和登录密码一致',
-                okText: '确定',
-            })
-        }
+        //if (resCode == 100&&!pending&&this.state.init) {
+        //    this.refs.success.show({
+        //        text: '重置密码成功!',
+        //        callback: () => {this.props.go('/user/setting'),this.props.clear()},
+        //    });
+        //    this.setState({
+        //        init:false
+        //    })
+        //}
     }
-
-    onValid = () => {
-        if (this.props.pending) return
-        const {
-            password
-        } = this.refs.form.getValue()
-        this.props.pwdSet({password})
+    send(){
+        passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
+        let newPassword=passGuard3.getOutput();
+        let data={newPassword:newPassword,smsReference:this.state.smsReference,passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
+        this.props.pwdSet(data)
     }
     render() {
         const {
@@ -78,7 +87,7 @@ class TradePasswordSet extends React.Component {
                      <div style={{padding:'12px 15px',color:'#777'}}>新密码</div><input style={{flex:'1',border:'none'}} id="kb3" type="text"/>
                     </div>
                     <div style={{marginTop:'40px',padding:'15px'}}>
-                    <Button text="确认设置"></Button>
+                    <Button onClick={this.send} text="确认设置"></Button>
                     </div>
                     <Alert ref="alert" />
                     <Success ref="success"/>
@@ -91,6 +100,8 @@ class TradePasswordSet extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
+        setData:state.infodata.getIn(['NEW_TRADE_PASSWORD_SET','data']),
+        verifyData:state.infodata.getIn(['PUBLIC_VERIFY','data'])
     }
 }
 
@@ -114,11 +125,17 @@ const mapDispatchToProps = (dispatch) => ({
     },
     pwdSet(data) {
         dispatch({
-            type: TRADE_PASSWORD_SET,
+            type: 'NEW_TRADE_PASSWORD_SET',
             params: [
                 data
             ]
         })
+    },
+    tradePassWordVerify(id){
+        dispatch({
+              type:'PUBLIC_VERIFY',
+              params:[{id:id}]
+            })
     }
 })
 

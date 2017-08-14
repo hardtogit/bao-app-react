@@ -376,6 +376,9 @@ export default {
     [actionTypes.FORGET_VERIFY]:{//验证密码修改是否成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.PUBLIC_VERIFY]:{//验证密码修改是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },

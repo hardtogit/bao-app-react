@@ -21,6 +21,8 @@ const requests = (Fetch) => {
   Fetch.storeTradePasswordModify = (data) => { return Fetch('api/supervise/users/tradePwdModify', 'POST', data)}
   // 设置交易密码
   Fetch.tradePasswordSet = (data) => { return Fetch('user/trade-password', 'POST', data)}
+  // 设置交易密码
+  Fetch.newTradePasswordSet = (data) => { return Fetch('api/supervise/users/tradePwdForget', 'POST', data)}
   // 设置手势密码
   Fetch.gestureSet = (data) => { return Fetch('user/gesture-password', 'POST', data)}
   // 修改手势密码
