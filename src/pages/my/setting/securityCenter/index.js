@@ -81,7 +81,7 @@ class SecurityCenter extends React.Component {
 			{isSetTradePassword ?
 				 <BaseText
 				  onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-				  {push('/user/setting/tradePasswordForget')}else{
+				  {push('/user/setting/tradePasswordForget/verifyMobile')}else{
 				    if(storeData.isRegister){
                      push('/user/setting/cardBind')
 				  }else{

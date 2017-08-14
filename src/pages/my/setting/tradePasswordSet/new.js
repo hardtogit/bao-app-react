@@ -31,58 +31,16 @@ class TradePasswordSet extends React.Component {
     }
     componentDidMount(){
         const alert = this.refs.alert;
-        const {
-            data,
-            load,
-            idCard,
-            yzCode
-        }=this.props;
-        if (!data){
-            load()
-        }else {
-            if (data.data.card==''){
-                alert.show({
-                    title: '为了您的账号安全，请先认证身份信息！',
-                    okText: '去认证',
-                    okCallback: ()=>{this.props.go('/user/setting/identityAuth')},
-                })
-            }else if (idCard!==100){
-                alert.show({
-                    title: '您还没有验证身份信息！',
-                    okText: '去验证',
-                    okCallback:()=>{this.props.go('/user/setting/tradePasswordForget')},
-                })
-            }else if (yzCode!=100){
-                alert.show({
-                    title: '您还没有短信验证！',
-                    okText: '去验证',
-                    okCallback:()=>{this.props.go('/user/setting/tradePasswordForget/verifyMobile')},
-                })
-            }
-        }
+        console.log(this.props)
+        passGuard3.generate("kb3",kb,0);
+        $(function(){
+            setTimeout(function(){
+                kb.generate();
+            },100);
+        })
     }
-    componentWillReceiveProps({resCode,data,pending,idCard,yzCode}) {
+    componentWillReceiveProps({resCode,pending}) {
         const alert = this.refs.alert;
-        if (data.data.card==''){
-            alert.show({
-                title: '为了您的账号安全，请先认证身份信息！',
-                okText: '去认证',
-                okCallback:()=>{this.props.go('/user/setting/identityAuth')},
-            })
-        }else if (idCard!==100){
-            alert.show({
-                title: '您还没有验证身份信息！',
-                okText: '去验证',
-                okCallback:()=>{this.props.go('/user/setting/tradePasswordForget')},
-            })
-        }else if (yzCode!=100){
-            alert.show({
-                title: '您还没有短信验证！',
-                okText: '去验证',
-                okCallback:()=>{this.props.go('/user/setting/tradePasswordForget/verifyMobile')},
-            })
-        }
-
         if (resCode == 100&&!pending&&this.state.init) {
             this.refs.success.show({
                 text: '重置密码成功!',
@@ -107,58 +65,19 @@ class TradePasswordSet extends React.Component {
         } = this.refs.form.getValue()
         this.props.pwdSet({password})
     }
-
-    onInvalid = (name, value, message) => {
-        this.setState({errorMessage: message})
-    }
-    loadEnd(){
-        return(<div>
-            <ValidateForm
-                className={commonStyles.mt15}
-                ref='form'
-                onValid={this.onValid}
-                onInvalid={this.onInvalid}>
-                <BasePasswordInput
-                    ref='password'
-                    name='password'
-                    maxLength={16}
-                    placeholder='设置新交易密码'
-                    type='validateItem'
-                    reg={{ reg: {reg: util.checkPassword, message: '请输入正确密码'} }}
-                />
-                <Button
-                    className={commonStyles.buttonWrap}
-                    text={this.props.pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'提交中'} className={commonStyles.loading}/>||'确认设置'}
-                    type='submit' />
-            </ValidateForm>
-            { this.state.errorMessage && <Tipbar text={this.state.errorMessage} /> }
-        </div>)
-    }
-    loadDom(){
-        return(<Loading/>)
-    }
     render() {
         const {
-            data,
-            idCard,
-            yzCode
         }=this.props;
-        let Dom;
-        if (data){
-            if (data.data.card!=''&&idCard==100&&yzCode==100){
-                Dom=this.loadEnd()
-            }
-        }
-        else{
-            Dom=this.loadDom()
-        }
         return (
             <Page>
                 <div className={commonStyles.panel}>
                     <NavBar onLeft={this.props.pop} title='设置新交易密码' />
-                    {
-                        Dom
-                    }
+                    <div style={{display:'flex',backgroundColor:'#fff',marginTop:'15px'}}>
+                     <div style={{padding:'12px 15px',color:'#777'}}>新密码</div><input style={{flex:'1',border:'none'}} id="kb3" type="text"/>
+                    </div>
+                    <div style={{marginTop:'40px',padding:'15px'}}>
+                    <Button text="确认设置"></Button>
+                    </div>
                     <Alert ref="alert" />
                     <Success ref="success"/>
                 </div>
@@ -172,7 +91,6 @@ const mapStateToProps = (state, ownProps) => {
         data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
         pending: state.infodata.getIn([TRADE_PASSWORD_SET, 'pending']),
         resCode: state.infodata.getIn([TRADE_PASSWORD_SET, 'data']) && state.infodata.getIn([TRADE_PASSWORD_SET, 'data']).code || 0,
-        idCard:state.infodata.getIn([VERIFY_CARD,'data'])&&state.infodata.getIn([VERIFY_CARD,'data']).code||false,
         yzCode:state.infodata.getIn([CHECK_VERIFY_CAPTCHA_W,'data'])&&state.infodata.getIn([CHECK_VERIFY_CAPTCHA_W,'data']).code||false
     }
 }

@@ -590,7 +590,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
   goBack() {
     dispatch(goBack())
   },
-  balancePay(productId, num, password, passwordFactor, couponId) {
+  balancePay(productId, num, password, passwordFactor, couponId,device,hEncryptKey) {
     dispatch({
       type: actionTypes.NEW_DIRECTINVEST_BUY,
       params: [{
@@ -605,7 +605,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         }]
     })
   },
-  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId){
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,hEncryptKey){
      dispatch({
          type:actionTypes.NEW_CARD_BUY,
          params:[{

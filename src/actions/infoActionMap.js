@@ -193,11 +193,17 @@ export default {
     [actionTypes.TRANSACTION_CODE]:{
         apiFn:Fetch.mobilesExit
     },
+    [actionTypes.NEW_TRANSACTION_CODE]:{
+        apiFn:Fetch.storeSendCode
+    },
     [actionTypes.LOGIN_OUT]:{
         apiFn:Fetch.logout
     },
     [actionTypes.CHECK_VERIFY_CAPTCHA_W]:{
         apiFn: Fetch.verifycode
+    },
+    [actionTypes.NEW_CHECK_VERIFY_CAPTCHA_W]:{
+        apiFn: Fetch.storeVerifyCode
     },
     [actionTypes.FIND_PWD_SET]:{
         apiFn:Fetch.findPassword
@@ -362,6 +368,9 @@ export default {
         apiFn:Fetch.regVerify
     },
     [actionTypes.PASSWORD_CHANGE_VERIFY]:{//验证密码修改是否成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.FORGET_VERIFY]:{//验证密码修改是否成功
         apiFn:Fetch.regVerify
     },
     [actionTypes.GET_PROVINCE]:{//获取省份

@@ -22,139 +22,136 @@ class VerifyMobile extends React.Component {
     this.state = {
       errorMessage: '',
       init:true,
+      time:0,
+      verifyTime:0,
+      smsReference:''
     }    
-  }
-  alert=()=>{
-    const alert=this.refs.alert;
-    alert.show({
-      title: '您还没有绑定手机号码',
-      okText: '去绑定',
-      okCallback:()=>{this.props.push('/user/setting/mobileBind')}
-    })
   }
   loadDom(){
     return(<Loading/>)
   }
-  loadEnd(data){
+  loadEnd(){
     const {
-        pending
+        pending,
+        data
     }=this.props;
-    return(<div>
-      <p className={styles.sendText}>我们已发送短信至
-        <span className={styles.mark}>{util.replaceTextToSymbol(data.data.mobile, 4, 7)}</span>
-        ,请在输入框填写验证码，若未收到请耐心等待～
-      </p>
-      <ValidateForm
-          className={commonStyles.mt15}
-          ref={'form'}
-          onValid={this.onValid}
-          onInvalid={this.onInvalid}>
-        <BaseInput
-            ref='captcha'
-            name='captcha'
-            label='验证码'
-            type='validateItem'
-            keyboardType='numeric'
-            right={ <VerifyCode ref='verifyCode' onClick={this.sendVerifyCode} label='发送验证码' /> }
-            reg={{ required: {message: '请输入正确的验证码'},
+      let dom=this.loadDom()
+      if(data){
+          dom=<div>
+              <p className={styles.sendText}>我们已发送短信至
+                  <span className={styles.mark}>{util.replaceTextToSymbol(data.data.mobile, 4, 7)}</span>
+                  ,请在输入框填写验证码，若未收到请耐心等待～
+              </p>
+              <ValidateForm
+                  className={commonStyles.mt15}
+                  ref={'form'}
+                  onValid={this.onValid}
+                  onInvalid={this.onInvalid}>
+                  <BaseInput
+                      ref='captcha'
+                      name='captcha'
+                      label='验证码'
+                      type='validateItem'
+                      keyboardType='numeric'
+                      right={ <VerifyCode ref='verifyCode' onClick={this.sendVerifyCode} label='发送验证码' /> }
+                      reg={{ required: {message: '请输入正确的验证码'},
               captcha: {message: '请输入正确的验证码'}}} />
-        <Button
-            className={commonStyles.buttonWrap}
-            text={pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'下一步'} className={commonStyles.loading}/>||'下一步'}
-            type='submit' />
-      </ValidateForm>
-      { this.state.errorMessage && <Tipbar text={this.state.errorMessage} /> }
-    </div>)
+                  <Button
+                      className={commonStyles.buttonWrap}
+                      text={pending&&<InlineLoading color="rgba(255,255,255,.8)" text={'下一步'} className={commonStyles.loading}/>||'下一步'}
+                      type='submit' />
+              </ValidateForm>
+              { this.state.errorMessage && <Tipbar text={this.state.errorMessage} /> }
+          </div>
+      }
+    return(<div>{dom}</div>)
   }
   onValid = () => {
     const {
         sendYzm,
-        data
     }=this.props;
-    const datas={
-       mobile:data.data.mobile,
-       code:this.refs.form.getValue().captcha
-    }
-    sendYzm(datas)
+      if(this.state.smsReference){
+          const datas={
+              smsReference:this.state.smsReference,
+              verifyCode:this.refs.form.getValue().captcha
+          };
+          this.setState({
+              verifyTime:0,
+          })
+          sendYzm(datas)
+      }else{
+          this.refs.alert.show({content: '请先发送验证码',okText:'确定'})
+      }
   }
 
   onInvalid = (name, value, message) => {
     this.setState({errorMessage: message})
   }
-
   sendVerifyCode = () => {
-    const mobile = this.props.data.data.mobile
-    if (!mobile) {
-      return this.setState({errorMessage: '请先绑定手机号'})
-    }
-
-    if (!util.checkMobile(mobile)) {
-      return this.setState({errorMessage: '请使用正确的手机号'})
-    }
+      this.setState({
+          time:0,
+          smsReference:''
+          })
+      this.props.clean('SEND_VERIFY');
+      this.props.clean('NEW_TRANSACTION_CODE')
    this.props.send(this.props.data.data.mobile)
   }
   componentDidMount() {
-    const {
-        data,
-        load,
-        idCard
-    }=this.props;
-    if (!data){
-      load()
-    }else if (data.data.mobile==''){
-       this.alert()
-    }else {
-      if (idCard!=100){
-        this.refs.alert.show({
-          title: '您还没有验证身份信息！',
-          okText: '去验证',
-          okCallback:()=>{this.props.replace('/user/setting/tradePasswordForget')}
-        })
-      }
-    }
+       this.props.load()
   }
-  componentWillReceiveProps({data,regCode,pending,idCard}){
+  componentWillReceiveProps(nextProps){
     const alertn=this.refs.alert;
-    if (data){
-      if (data.data.mobile==''){
-        this.alert()
-      }else {
-        if (idCard!=100){
-          this.refs.alert.show({
-            title: '您还没有验证身份信息！',
-            okText: '去验证',
-            okCallback:()=>{this.props.replace('/user/setting/tradePasswordForget')}
-          })
-        }
-      }
+     if(nextProps.data&&this.state.init){
+      this.props.send(nextProps.data.data.mobile)
+      this.setState({
+          init:false
+      })
+     }
+    if (nextProps.sendData&&nextProps.sendData.status==1){
+       if(this.state.time<=3){
+           this.setState({
+               time:this.state.time+1
+           })
+           if(nextProps.verifySendData&&nextProps.verifySendData.code=="0001"){
+               this.setState({
+                   smsReference:nextProps.verifySendData.data.ref
+               })
+           }else{
+               if(this.state.time>=3){
+                   this.refs.alert.show({content: '验证码发送失败',okText:'确定'});
+               }else{
+                   setTimeout(()=>{
+                       this.props.verifySend(nextProps.sendData.msgId)
+                   },2000)
+               }
+           }
+       }
     }
-   if (regCode==100&&this.state.init&&!pending){
-      this.props.push('/user/setting/tradePasswordForget/new')
-     this.setState({
-       init:false
-     })
-   }
-   if (regCode==300&&!pending){
-     alertn.show({
-       title: '对不起验证码认证失败',
-       okText: '返回'
-     })
-   }
+     if (nextProps.verifyCodeData&&nextProps.verifyCodeData.status==1){
+          if(this.state.verifyTime<=3){
+              this.setState({
+                  verifyTime:this.state.verifyTime+1
+              })
+              if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.code=="0001"){
+                  this.props.push('/user/setting/tradePasswordForget/new?smsReference='+this.state.smsReference)
+              }else{
+                  if(this.state.verifyTime>=3){
+                      this.refs.alert.show({content: '验证码错误',okText:'确定'});
+                  }else{
+                      setTimeout(()=>{
+                          this.props.verifyCodeRight(nextProps.verifyCodeData.msgId)
+                      },2000)
+                  }
+              }
+          }
+      }
   }
   render() {
     const {
-        data,
-        idCard,
         pop
     }=this.props;
     let Dom;
-    if (data){
-      if (data.data.mobile!=''&&idCard==100){
-        Dom=this.loadEnd(data)
-      }
-    }else{
-      Dom=this.loadDom()
-    }
+    Dom=this.loadEnd();
     return (
       <div className={commonStyles.panel}>
         <NavBar
@@ -170,11 +167,13 @@ class VerifyMobile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']))
   return {
     data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
-    regCode:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data'])&&state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data']).code||'',
-    pending:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','pending']),
-    idCard:state.infodata.getIn(['VERIFY_CARD','data'])&&state.infodata.getIn(['VERIFY_CARD','data']).code||false
+    sendData:state.infodata.getIn(['NEW_TRANSACTION_CODE','data']),
+    verifySendData:state.infodata.getIn(['SEND_VERIFY','data']),
+    verifyCodeData:state.infodata.getIn(['NEW_CHECK_VERIFY_CAPTCHA_W','data']),
+   verifyCodeRightData:state.infodata.getIn(['CODE_RIGHT_VERIFY','data'])
   }
 }
 
@@ -194,26 +193,58 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(replace(path))
     },
     send(mobile){
-        const clientTime=Date.parse(new Date())/ 1000;
-        const sign=mobile+3+clientTime+util.key();
       dispatch({
-        type:'TRANSACTION_CODE',
+        type:'NEW_TRANSACTION_CODE',
         params:[{
-          mobile,
-          type:3,
-          clientTime,
-          sign:util.md5(sign)
+          telNo:mobile,
+          transcode:46708
         }]
+      })
+    },
+    verifySend(id){
+      dispatch({
+          type:'SEND_VERIFY',
+          params:[{id:id}]
       })
     },
    sendYzm(data){
      dispatch({
-       type:'CHECK_VERIFY_CAPTCHA_W',
+       type:'NEW_CHECK_VERIFY_CAPTCHA_W',
        params:[
             data
        ]
      })
-   }
+   },
+   verifyCodeRight(id){
+     dispatch({
+       type:'CODE_RIGHT_VERIFY',
+       params:[{id:id}]
+     })
+    },
+    clean(key){
+      dispatch({
+          type:'CLEAR_INFO_DATA',
+          key:key
+      })
+    },
+    cleanAll(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CODE_RIGHT_VERIFY'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'NEW_CHECK_VERIFY_CAPTCHA_W'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'SEND_VERIFY'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'NEW_TRANSACTION_CODE'
+        });
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyMobile)

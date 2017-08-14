@@ -636,7 +636,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     })
   },
   //余额支付
-  balancePay(productId, num, password, passwordFactor, couponId) {
+  balancePay(productId, num, password, passwordFactor, couponId,device,hEncryptKey) {
         dispatch({
             type: actionTypes.GATHER_BALANCE_BUY,
             params: [{
@@ -652,7 +652,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         })
     },
   //银行卡支付
-  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId){
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,hEncryptKey){
         dispatch({
             type:actionTypes.GATHER_CARD_BUY,
             params:[{

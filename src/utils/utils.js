@@ -83,7 +83,7 @@ utils.key=()=>{
    if (host=='mobile.bao.cn'){
        return 'base64:6Sz59hJHqfJmWC7kHIY+UjOq2bOVQDqQHTVpGar6G6L='
    }else {
-       return 'base64:cHFfWlsxHtS6HdiVWiR7XbzmvqqJmSbrBLx7CQuKDT0='
+       return 'base64:6Sz59hJHqfJmWC7kHIY+UjOq2bOVQDqQHTVpGar6G6L='
    }
 }
 //取身份证前两位,校验省份

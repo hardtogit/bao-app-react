@@ -45,7 +45,7 @@ const Fetch = (url, type, data, headers) => {
            options.body=data.data;
            delete options.headers
        }
-      else if(data.get&&data.get('files')){
+      else if(data.get){
           options.body=data;
           delete options.headers
       }
