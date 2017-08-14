@@ -128,7 +128,7 @@ class Index extends Component{
                     transferAmount:$this.state.recMoney,
                     passwordFactor:sessionStorage.getItem('passwordFactor'),
                     device:'WAP',
-                    hEncryptKey:sessionStorage.getItem('hEncryptKey'),
+                    mapKey:sessionStorage.getItem('mapKey'),
                     password:b
                 }
                 $this.refs.loading.show("充值中...")

@@ -26,11 +26,13 @@ class TradePasswordSet extends React.Component {
         super(props)
         this.state = {
             errorMessage: '',
+            smsReference:'',
             init:true
         }
     }
     componentDidMount(){
         const alert = this.refs.alert;
+        const {smsReference}=this.props.location.query
         console.log(this.props)
         passGuard3.generate("kb3",kb,0);
         $(function(){
@@ -45,7 +47,7 @@ class TradePasswordSet extends React.Component {
             this.refs.success.show({
                 text: '重置密码成功!',
                 callback: () => {this.props.go('/user/setting'),this.props.clear()},
-            })
+            });
             this.setState({
                 init:false
             })
@@ -89,9 +91,6 @@ class TradePasswordSet extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
-        pending: state.infodata.getIn([TRADE_PASSWORD_SET, 'pending']),
-        resCode: state.infodata.getIn([TRADE_PASSWORD_SET, 'data']) && state.infodata.getIn([TRADE_PASSWORD_SET, 'data']).code || 0,
-        yzCode:state.infodata.getIn([CHECK_VERIFY_CAPTCHA_W,'data'])&&state.infodata.getIn([CHECK_VERIFY_CAPTCHA_W,'data']).code||false
     }
 }
 

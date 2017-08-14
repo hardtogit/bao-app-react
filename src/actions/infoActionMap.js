@@ -169,8 +169,11 @@ export default {
     [actionTypes.LOGIN_PASSWORD_MODIFY]:{
        apiFn: Fetch.loginPasswordModify
     },
-    [actionTypes.TRADE_PASSWORD_SET]:{
-       apiFn: Fetch.tradePasswordSet
+    [actionTypes.NEW_TRADE_PASSWORD_SET]:{
+       apiFn: Fetch.newTradePasswordSet
+    },
+    [actionTypes.TRADE_PASSWORD_SET]:{//新的忘记密码设置
+        apiFn: Fetch.tradePasswordSet
     },
     [actionTypes.TRADE_PASSWORD_MODIFY]:{
        apiFn: Fetch.tradePasswordModify

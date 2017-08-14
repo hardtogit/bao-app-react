@@ -148,7 +148,7 @@ class DirectBuy extends React.Component {
           pendding:true
       })
 
-    this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
+    this.props.balancePay(this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
   }
     directCardBuy=(password,money,bankCard)=>{
         let coupon = this.props.useCoupon ? this.getCoupon() : null
@@ -159,7 +159,7 @@ class DirectBuy extends React.Component {
         this.setState({
             pending:true
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
     }
 
   // 能否支付
@@ -590,7 +590,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
   goBack() {
     dispatch(goBack())
   },
-  balancePay(productId, num, password, passwordFactor, couponId,device,hEncryptKey) {
+  balancePay(productId, num, password, passwordFactor, couponId,device,mapKey) {
     dispatch({
       type: actionTypes.NEW_DIRECTINVEST_BUY,
       params: [{
@@ -599,13 +599,13 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         password,
         passwordFactor,
         couponId,
-        type:'DIRECT',
+          productType:'DIRECT',
           device,
-          hEncryptKey
+          mapKey:mapKey
         }]
     })
   },
-  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,hEncryptKey){
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,mapKey){
      dispatch({
          type:actionTypes.NEW_CARD_BUY,
          params:[{
@@ -616,9 +616,9 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
              password,
              passwordFactor,
              couponId,
-             type:'DIRECT',
+             productType:'DIRECT',
              device,
-             hEncryptKey
+             mapKey:mapKey
          }]
      })
     },

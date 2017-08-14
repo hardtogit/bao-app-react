@@ -163,7 +163,7 @@ class Index extends React.Component {
           pending:true,
           time:0
       })
-    balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
+    balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
 
   }
     //银行卡购买
@@ -178,7 +178,7 @@ class Index extends React.Component {
             pending:true,
             time:0
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('hEncryptKey'))
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
     }
   // 修改购买份数
   changeQuantity = (value) => {
@@ -636,7 +636,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     })
   },
   //余额支付
-  balancePay(productId, num, password, passwordFactor, couponId,device,hEncryptKey) {
+  balancePay(productId, num, password, passwordFactor, couponId,device,mapKey) {
         dispatch({
             type: actionTypes.GATHER_BALANCE_BUY,
             params: [{
@@ -645,14 +645,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 password,
                 passwordFactor,
                 couponId,
-                type:'POINT',
+                productType:'POINT',
                 device,
-                hEncryptKey
+                mapKey:mapKey
             }]
         })
     },
   //银行卡支付
-  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,hEncryptKey){
+  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,mapKey){
         dispatch({
             type:actionTypes.GATHER_CARD_BUY,
             params:[{
@@ -663,9 +663,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 password,
                 passwordFactor,
                 couponId,
-                type:'POINT',
+                productType:'POINT',
                 device,
-                hEncryptKey
+                mapKey:mapKey
             }]
         })
     },

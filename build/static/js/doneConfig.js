@@ -11,6 +11,7 @@ var kb = new keyBoard({
     "kbType" : 0,// 键盘类型,0:全键盘;1:纯数字键盘,默认值0
     "svg":"/static/svg/"//svg图片的地址
 });
+//注册存管
 var passGuard1 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
     "maxLength" : 12,// 最大输入长度
@@ -45,6 +46,7 @@ function cb3(){
 function cb4(){
     console.log("失败1");
 }
+//单个使用。
 var passGuard3 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
     "maxLength" : 12,// 最大输入长度

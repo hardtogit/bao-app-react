@@ -78,7 +78,7 @@ class TradePasswordModify extends React.Component {
     passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
     passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
     let data={
-      hEncryptKey:sessionStorage.getItem('hEncryptKey'),
+      mapKey:sessionStorage.getItem('mapKey'),
       passwordFactor:sessionStorage.getItem('passwordFactor'),
       oldPassword:passGuard1.getOutput(),
       newPassword:passGuard2.getOutput(),

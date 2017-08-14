@@ -64,7 +64,7 @@ class Index extends Component{
         passGuard1.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard2.setRandKey(sessionStorage.getItem('passwordFactor'));
         passGuard1.getOutput();
-    let data={realName:realName,idCard:idCard,password:passGuard2.getOutput(),passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',hEncryptKey:sessionStorage.getItem('hEncryptKey')};
+    let data={realName:realName,idCard:idCard,password:passGuard2.getOutput(),passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
         this.setState({
             time:0,
             pending:true
