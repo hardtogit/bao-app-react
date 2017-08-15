@@ -32,7 +32,22 @@ class Index extends React.Component {
         window['closeFn'] = this.closeFn;
         this.props.load();
     }
-
+    goCash=(balance)=>{
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        if(storeData.isBindBankcard&&storeData.isRegister){
+            if(storeData.isUploadIdcard){
+                this.money(balance)
+            }else{
+                this.props.push('/user/IdCardUpload');
+            }
+        }else{
+            if(storeData.isRegister){
+                this.props.push('/user/setting/cardBind')
+            }else{
+                this.refs.tip.show();
+            }
+        }
+    }
     closeFn = ()=> {
         this.setState({payTop: '100%', url: ''})
     }
@@ -106,16 +121,7 @@ class Index extends React.Component {
 		}
 						}}>充值
                 </button>
-                <button className={styles.depositBtn} onClick={()=>{let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-		if(storeData.isBindBankcard&&storeData.isRegister){
-			this.money(balance)
-		}else{
-		    if(storeData.isRegister){
-		         this.props.push('/user/setting/cardBind')
-		    }else{
-		    	this.refs.tip.show();
-		    }
-		} }}>提现
+                <button className={styles.depositBtn} onClick={()=>{this.goCash(balance)}}>提现
                 </button>
             </div>
         </div>)

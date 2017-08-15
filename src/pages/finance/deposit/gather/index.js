@@ -74,7 +74,7 @@ class DirectInvestCell extends React.Component{
         const{push}=this.props;
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-        this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+        this.props.isAuth.Verification(`/gatherBuy/${id}/2`,this.props.isAuthPush,this.succsseFn)
         }else{
             if(storeData.isRegister){
                 push('/user/setting/cardBind')

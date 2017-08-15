@@ -45,32 +45,32 @@ class TradePasswordSet extends React.Component {
         })
     }
     componentWillReceiveProps(nextProps) {
-        const alert = this.refs.alert;
+        let $this=this;
         if(nextProps.setData&&nextProps.setData.status==1){
            if(this.state.time<=3){
+               $this.setState({
+                   time:this.state.time+1
+               })
                if(nextProps.verifyData&&nextProps.verifyData.code=='0001'){
                        this.refs.success.show({
                            text: '重置密码成功!',
                            callback: () => {this.props.go('/user/setting'),this.props.clear()},
                        });
                }else{
-                   setTimeout(function(){
-                       this.props.tradePassWordVerify(nextProps.setData.msgId)
-                   },2000)
+                   if(this.state.time>=3){
+                       if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
+                           alert('重置密码失败')
+                       }
+                   }else{
+                       setTimeout(function(){
+                           $this.props.tradePassWordVerify(nextProps.setData.msgId)
+                       },2000)
+                   }
                }
            }
         }
-        //if (resCode == 100&&!pending&&this.state.init) {
-        //    this.refs.success.show({
-        //        text: '重置密码成功!',
-        //        callback: () => {this.props.go('/user/setting'),this.props.clear()},
-        //    });
-        //    this.setState({
-        //        init:false
-        //    })
-        //}
     }
-    send(){
+    send=()=>{
         passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
         let newPassword=passGuard3.getOutput();
         let data={newPassword:newPassword,smsReference:this.state.smsReference,passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
@@ -120,7 +120,7 @@ const mapDispatchToProps = (dispatch) => ({
     clear(){
        dispatch({
            type:CLAER_LC,
-           key:[VERIFY_CARD,CHECK_VERIFY_CAPTCHA_W]
+           key:['NEW_TRADE_PASSWORD_SET','PUBLIC_VERIFY']
        })
     },
     pwdSet(data) {

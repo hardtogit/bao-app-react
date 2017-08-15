@@ -129,7 +129,7 @@ class GatherMain extends React.Component {
       <div>
           <Header rate={rate}  data={bData}/>
           <div className={styles.timeBox}>
-          <SimpleDepTime startTime={value_start_date} endTime={value_end_date} type={type}/>
+          <SimpleDepTime repayment="到期还本息" startTime={value_start_date} endTime={value_end_date} type={type}/>
           </div>
           <div className={styles.depositBox}>
               <div className={styles.profit}>

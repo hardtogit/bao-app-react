@@ -92,7 +92,7 @@ class Index extends Component{
               </NavBar>
                <div className={styles.header}>
                  <div className={styles.left}>
-                     <p className={styles.itemTitle}>待收本息（利息500.00）</p>
+                     <p className={styles.itemTitle}>待收本息（利息{headerData&&headerData.data.interest}）</p>
                      <p className={styles.itemContent}>{headerData&&headerData.data.leftRevenue} <span className={styles.icon}>￥</span></p>
                  </div>
                  <div className={styles.right}>

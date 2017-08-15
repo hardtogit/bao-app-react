@@ -302,7 +302,7 @@ class PayProcess extends React.Component {
         { disable ? <img  className={styles.RadioImg} src={require('../../assets/images/0k_disable.png')} /> :
             this.state.chosen == index + 1 ? <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k.png')} /> :
                 <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k_no.png')} /> }
-        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCode+")":''}</span>
+        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCode+")":'账户余额'}</span>
         <div className={styles.RadioContent}>
           { index + 1 == this.props.BALANCEINDEX && this.renderBalanceContent(disable) }
         </div>

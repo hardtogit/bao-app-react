@@ -85,3 +85,9 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/user/idCardUpload').default);
         }, 'IdCardUpload');
     }
+//成功失败模版
+export const SuccessTemplate  = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./pages/template/successTemplate').default);
+    }, 'SuccessTemplate');
+}//成功模版

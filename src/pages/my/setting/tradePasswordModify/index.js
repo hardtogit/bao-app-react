@@ -33,7 +33,7 @@ class TradePasswordModify extends React.Component {
       },100);
     })
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps({data,verifyData}) {
     let $this=this;
     if (data&&data.status==1){
       if(this.state.time<=3){
@@ -41,24 +41,21 @@ class TradePasswordModify extends React.Component {
           time:this.state.time+1
         });
         if(verifyData&&verifyData.code=='0001'){
-               this.props.push('')
+          this.cleanInput()
+               alert('修改密码成功')
         }else{
           if(this.state.time>=3){
             if(verifyData&&verifyData.code!='0001'){
-              this.alert('提现失败');
-              this.refs.loading.hide()
-            }else{
-              this.refs.loading.hide();
-              this.alert('提现失败')
+              this.cleanInput()
+              alert('修改密码失败');
             }
             this.setState({
               time:0
             })
           }else{
             setTimeout(function(){
-              $this.props.cashVerify({id:cashData.msgId})
+              $this.props.verify({id:data.msgId})
             },2000)
-
           }
         }
       }
@@ -80,11 +77,15 @@ class TradePasswordModify extends React.Component {
     let data={
       mapKey:sessionStorage.getItem('mapKey'),
       passwordFactor:sessionStorage.getItem('passwordFactor'),
-      oldPassword:passGuard1.getOutput(),
+      password:passGuard1.getOutput(),
       newPassword:passGuard2.getOutput(),
       device:"WAP"
     }
     this.props.modify(data)
+  };
+  cleanInput=()=>{
+    $('#kb1').val('');
+    $('#kb2').val('');
   }
   render() {
     return (
@@ -102,7 +103,6 @@ class TradePasswordModify extends React.Component {
           </div>
           </div>
           <Button className={styles.submit} onClick={this.submit} text="确认修改" >
-
           </Button>
         </div>
         <Tipbar ref='alert'/>
@@ -138,7 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
   verify(id){
      dispatch({
        type:'PASSWORD_CHANGE_VERIFY',
-       id:[id]
+       params:[id]
      })
   }
 })

@@ -37,6 +37,7 @@ class Index extends React.Component {
       pending:false,
       couponsFetching:true,
       top:'100%',
+      checkBox:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -265,7 +266,18 @@ class Index extends React.Component {
     }
     return maxCoupon
   }
-
+  //是否阅读合同
+  ifScan=()=>{
+      if(this.state.checkBox){
+          this.setState({
+              checkBox:false
+          })
+      }else{
+          this.setState({
+              checkBox:true
+          })
+      }
+  }
   // 能否支付
   canPay() {
         const {params:{type,id}}=this.props;
@@ -278,9 +290,13 @@ class Index extends React.Component {
                 return false
             }
         }
+       if(!this.state.checkBox){
+           return false
+       }
         return quantity &&
         quantity <= (quantityDataB && quantityDataB.data.quantity|| 0) ? true : false
   }
+
   // 获取支付费用
   getPayTotal = (type) => {
     const coupon = this.getCoupon();
@@ -558,7 +574,10 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>:''}
 
-        <p><Link to={`/agreement`} className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
+        <p className={styles.textContent}><input onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+            <Link to={`/agreement`} className={styles.protocol}>《风险提示》</Link>和
+            <Link to={`/agreement`} className={styles.protocol}>《服务计划协议》</Link>
+        </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

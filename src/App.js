@@ -130,11 +130,12 @@ import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponen
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload} from './loadTool'
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,
+SuccessTemplate} from './loadTool'
 
 // 工厂方法创建saga中间件
-//const a=window.location.href.split('.')[1]+'.cn';
-//document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -158,6 +159,7 @@ export default class App extends React.Component {
             <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={PageTransition}>
+              <Route path="successTemplate" getComponent={SuccessTemplate}></Route>
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
