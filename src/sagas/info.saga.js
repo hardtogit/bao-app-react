@@ -33,8 +33,12 @@ function* takeRequest (action) {
                sessionStorage.setItem("bao-auth", true);
            }
        }
-        if(action.type==actionTypes.USER_INFO_WITH_LOGIN){
+        if(action.type==actionTypes.USER_INFO_WITH_LOGIN&&response.code!='0000'){
             sessionStorage.setItem("bao-user",JSON.stringify(response.data));
+        }else if(action.type==actionTypes.USER_INFO_WITH_LOGIN&&response.code=='0000'){
+            yield put(replace('/login'))
+            sessionStorage.removeItem('bao-user')
+            sessionStorage.removeItem("bao-auth");
         }
         if(action.type==actionTypes.STORE_STATUS_INFO&&response.code=='100'){
             sessionStorage.setItem("bao-store",JSON.stringify(response.data));

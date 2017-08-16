@@ -40,9 +40,6 @@ class FinancialIndex extends Component{
                     isInvest:false
                 })
             }
-            this.setState({
-                isAuth:user.isAuth
-            })
         }else {
             this.setState({
                 flage:true
@@ -89,7 +86,14 @@ class FinancialIndex extends Component{
         }
     }
     componentWillReceiveProps(next){
-
+        const store=JSON.parse(sessionStorage.getItem("bao-store"));
+        if(store){
+           if(store.isRegister){
+               this.setState({
+                   isAuth:1
+               })
+           }
+        }
         const {location:{
             query:{
                 auth

@@ -259,7 +259,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
           nobjs  
 		}=this.props;
 		let Dom;
-		if(nobjs){
+		if(nobjs&&nobjs.code==100){
             Dom=this.loadingEndDom(nobjs.data)
 		}else{
 			Dom=this.loadingDom()
