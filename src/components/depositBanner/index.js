@@ -40,7 +40,7 @@ class Index extends Component{
                             });
                         }
                         if(flag){
-                            return <span>{rateA}<span style={{fontSize:'36px'}}>+{rateB}</span></span>
+                            return <span>{rateA}{rateB=='0.00'?'':<span style={{fontSize:'36px'}}>+{rateB}</span>}</span>
                         }else{
                             return <span>{rate}</span>
                         }
