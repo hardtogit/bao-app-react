@@ -155,23 +155,6 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 						</div>
 					</div>
 
-					<div className={styles.myProduct}>
-                        {
-                            isBuyDemand!=0 &&
-                            <div className={styles.myList}>
-                                <Link to='/user/MyDemandIndex'>
-                                    <img src={looseChange}/>
-                                    <div className={styles.myListText}>
-                                        <p className={styles.listTitle}>零钱宝</p>
-                                        <p className={styles.listColor} style={{"color":"#F19149"}}>{demand==0&&'查看详情'||'+'+demand}</p>
-                                    </div>
-                                </Link>
-								<div className={styles.remove}>
-								</div>
-								<span className={styles.text}>已下架</span>
-                            </div>
-                        }
-					</div>
 				</div>
 
 				<div className={styles.contents} style={{"marginBottom":"40px"}}>
