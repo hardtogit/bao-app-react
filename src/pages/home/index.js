@@ -219,7 +219,7 @@ class FinancialIndex extends Component{
     }
     noisAuth=()=>{
         return(<li className={style.headerLi}>
-            <Link to="/user/setting/identityAuth">
+            <Link to="/user/setting/regStore">
                 <img src={noisAuth} className={style.headerImg}/>
             </Link>
         </li>)

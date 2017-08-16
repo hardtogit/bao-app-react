@@ -41,6 +41,7 @@ class Index extends React.Component {
                         <li><span className={styles.dc1}></span><span className={styles.m_m}>定存宝B计划待收本息</span><span className={styles.m_i}>{data.info[5].value}</span></li>
                         <li><span className={styles.zt}></span><span className={styles.m_m}>直投项目待收本息</span><span className={styles.m_i}>{data.info[3].value}</span></li>
                         <li><span className={styles.zq}></span><span className={styles.m_m}>债权转让待收本息</span><span className={styles.m_i}>{data.info[4].value}</span></li>
+                        <li><span className={styles.jd}></span><span className={styles.m_m}>聚点+计划待收本息</span><span className={styles.m_i}>{data.info[4].value}</span></li>
                     </ul>
                 </div>
             </div>
@@ -91,6 +92,9 @@ const moneyModel =(data)=>{
             },{
                 name: "定存宝B计划待收本息",
                 value: 0
+            },{
+                name: "聚点+计划待收本息",
+                value:0
             }
         ],
         total_money:0
@@ -102,6 +106,7 @@ const moneyModel =(data)=>{
         money.info[3].value = data.data.borrow;
         money.info[4].value = data.data.transfer;
         money.info[5].value = data.data.dingcunB;
+        money.info[6].value = data.data.depositSuperviseLeftRevenue
         money.total_money = Util.padMoney(data.data.userSum);
         money.balance_total =  Util.padMoney(data.data.money);
         money.profit_total = Util.padMoney(data.data.history);
@@ -118,7 +123,8 @@ const moneyModel =(data)=>{
                     "#fa394c",
                     "#ffaf32",
                     "#2ce4a6",
-                    "#ff660a"
+                    "#ff660a",
+                    "#000"
                 ],
                 series: [{
                     name: '资产分析',
