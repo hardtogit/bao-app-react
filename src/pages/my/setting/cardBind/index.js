@@ -104,6 +104,7 @@ class Index extends Component{
                     bindTime:this.state.bindTime+1
                 });
                 if(nextProps.bindFlag&&nextProps.bindFlag.code=='0001'){
+                        this.props.updateStore();
                         this.props.push('/user/setting/bindSuccess')
                 }else{
                     if(this.state.bindTime>=3){
@@ -374,6 +375,11 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:'SAVE_STORE_DATA',
                 data:data
+            })
+        },
+        updateStore(){
+            dispatch({
+                type:'STORE_STATUS_INFO'
             })
         },
         getBankBindList(){

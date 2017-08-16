@@ -79,6 +79,7 @@ class Index extends Component{
                         time:this.state.time+1
                     });
                     if(nextProps.flagData&&nextProps.flagData.code=="0001"){
+                        this.props.updateStore();
                         this.props.push('/user/setting/cardBind')
                     }else{
                         if(this.state.time>=3){
@@ -220,6 +221,11 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
              type:actionTypes.REG_VERIFY,
              params:[{id:id}]
          })
+     },
+     updateStore(){
+        dispatch({
+            type:actionTypes.STORE_STATUS_INFO
+        })
      },
      push(url){
          dispatch(push(url))

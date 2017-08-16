@@ -64,7 +64,7 @@ const requests = (Fetch) => {
   Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}
   Fetch.newUserActivity=()=>{ return Fetch(`new-user-activity`,'GET')}
   //聚点+
-  Fetch.depositsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}?pageSize=${BIG_PAGE_SIZE}`,'GET')}//聚点+列表
+  Fetch.depositsGather=(page)=>{return Fetch(`api/depositSupervise/projectLists?page=${page}pageSize=${BIG_PAGE_SIZE}`,'GET')}//聚点+列表
   Fetch.gatherDetail=(id)=>{return Fetch(`api/depositSupervise/projectDetail/${id}`,'GET')}//聚点+标的列表
   Fetch.gatherProblems=()=>{return Fetch(`api/depositSupervise/faq`,'GET')}//聚点+常见问题
   Fetch.gatherBidList=(page,data)=>{return Fetch(`api/depositSupervise/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
