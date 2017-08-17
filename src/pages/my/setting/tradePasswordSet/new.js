@@ -73,7 +73,7 @@ class TradePasswordSet extends React.Component {
     send=()=>{
         passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
         let newPassword=passGuard3.getOutput();
-        let data={newPassword:newPassword,smsReference:this.state.smsReference,passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
+        let data={password:newPassword,smsReference:this.state.smsReference,passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
         this.props.pwdSet(data)
     }
     render() {

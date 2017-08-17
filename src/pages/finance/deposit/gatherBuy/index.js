@@ -37,7 +37,7 @@ class Index extends React.Component {
       pending:false,
       couponsFetching:true,
       top:'100%',
-      checkBox:false,
+      checkBox:true,
       choose:'',
         money:'',
         useCoupon:true,
@@ -267,15 +267,17 @@ class Index extends React.Component {
     return maxCoupon
   }
   //是否阅读合同
-  ifScan=()=>{
+  ifScan=(e)=>{
       if(this.state.checkBox){
           this.setState({
               checkBox:false
           })
+          e.target.checked=false
       }else{
           this.setState({
               checkBox:true
           })
+          e.target.checked=true
       }
   }
   // 能否支付
@@ -574,7 +576,7 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>:''}
 
-        <p className={styles.textContent}><input onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+        <p className={styles.textContent}><input checked="checked"  onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/agreement`} className={styles.protocol}>《风险提示》</Link>和
             <Link to={`/agreement`} className={styles.protocol}>《服务计划协议》</Link>
         </p>
