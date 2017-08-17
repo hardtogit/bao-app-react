@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             params: [
                 {
                     mobile,
-                    type: 2,
+                    type: 6,
                 }
             ]
         })
