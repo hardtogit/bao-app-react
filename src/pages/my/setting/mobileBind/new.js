@@ -226,7 +226,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch({
             type: BIND_MOBILE_SUCCESS,
             key:'USER_INFO_WITH_LOGIN',
-            mobile
+            data:mobile
         })
     },
 })
