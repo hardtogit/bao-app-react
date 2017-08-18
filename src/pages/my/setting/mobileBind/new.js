@@ -189,6 +189,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
    },
     getVerifyCode(mobile) {
         const clientTime=Date.parse(new Date())/ 1000;
+        mobile=mobile.toString();
         const sign=mobile+6+clientTime+util.key();
         dispatch({
             type: SEND_MSG,
