@@ -25,7 +25,7 @@ class SecurityCenter extends React.Component {
 		  const{
 			  push
 		  }=this.props;
-		const storeData=JSON.parse(sessionStorage.getItem('bao-store'))
+		const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
 		let text='';
 		let url=''
 		if(storeData.isRegister&&storeData.isBindBankcard){
@@ -45,7 +45,7 @@ class SecurityCenter extends React.Component {
 		   <div>
 	         <div style={{marginTop: 15}}>
 				<BaseText
-				  onClick={() =>isAuth === 0 && push('/user/setting/identityAuth')}
+				  onClick={() =>isAuth === 0 && push('/user/setting/regStore')}
 				  label='身份认证'
 				  content={isAuth === 1 ? '审核中' : isAuth === 2 ? utils.replaceTextToSymbol(card, 9, 14) : '未认证'}
 				  borderType='two' />
