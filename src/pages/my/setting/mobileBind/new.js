@@ -212,7 +212,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             params: [
                 {
                     mobile,
-                    verifyCode,
+                    code:verifyCode,
                 }
             ]
         })
