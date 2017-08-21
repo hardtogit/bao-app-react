@@ -33,6 +33,7 @@ class Index extends Component{
             time: 0,
             disable:true,
             pending:false,
+            ifUpdate:false
         }
     }
     reg=()=>{
@@ -78,9 +79,12 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.code=="0001"){
+                    if(nextProps.flagData&&nextProps.flagData.code=="0001"&&!this.state.ifUpdate){
                         this.props.updateStore();
                         this.props.push('/user/setting/cardBind')
+                        this.setState({
+                            ifUpdate:true
+                        })
                     }else{
                         if(this.state.time>=3){
                             this.setState({
