@@ -581,8 +581,8 @@ class Index extends React.Component {
                 time={this.state.time}/>:''}
 
         <p className={styles.textContent}><input checked="checked"  onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-            <Link to={`/agreement`} className={styles.protocol}>《风险提示》</Link>和
-            <Link to={`/agreement`} className={styles.protocol}>《服务计划协议》</Link>
+            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>和
+            <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>
         </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
