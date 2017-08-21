@@ -78,14 +78,16 @@ class DirectBuy extends React.Component {
               this.setState({
                   time:this.state.time+1
               });
-              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.code=='0001'){
+              if(cardVerifyData&&cardVerifyData.code=='0001'){
                   const time=Date.parse(new Date()),
                       cash_amount=this.state.val;
                   push(time,cash_amount)
               }else{
                   if(this.state.time>=3){
-                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.code!='0001'){
-                          this.alert(cardVerifyData.data.additional[0].msg)
+                      if(cardVerifyData&&cardVerifyData.code!='0001'){
+                          this.setState({
+                              time:0
+                          })
                       }else{
                       }
 
@@ -103,14 +105,16 @@ class DirectBuy extends React.Component {
               this.setState({
                   time:this.state.time+1
               });
-              if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code=='0001'){
+              if(verifyData&&verifyData.code=='0001'){
                   const time=Date.parse(new Date()),
                       cash_amount=this.state.val;
                   push(time,cash_amount)
               }else{
                   if(this.state.time>=3){
-                      if(verifyData&&verifyData.data.status==1&&verifyData.data.additional[0].code!='0001'){
-                          this.alert(verifyData.data.additional[0].msg)
+                      if(verifyData&&verifyData.code!='0001'){
+                          this.setState({
+                              time:0
+                          })
                           this.changePending()
                       }else{
                           this.changePending()
@@ -656,7 +660,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'CARD_PAY_VERIFY'
-        })
+        });
     },
     clearData(){
          dispatch({

@@ -76,7 +76,7 @@ class PayProcess extends React.Component {
     if (nextProps.balancePayData&&nextProps.verifyData){
         const status = nextProps.balancePayData.status;
         const msgId= nextProps.balancePayData.msgId;
-        if (status==1&&nextProps.verifyData.data.status==1&&nextProps.verifyData.data.additional[0].code=='0000'){
+        if (nextProps.verifyData.code=='0001'){
             go('/depositInvestSuccess/B');
             nextProps.clear();
         }else {
@@ -93,8 +93,7 @@ class PayProcess extends React.Component {
     if (nextProps.cardPayData&&nextProps.cardVerifyData){
       const status = nextProps.cardPayData.status;
       const msgId= nextProps.cardPayData.msgId;
-      console.log(nextProps.cardVerifyData)
-      if (nextProps.cardVerifyData.data.status==1&&nextProps.cardVerifyData.data.additional[0].code=='0000'){
+      if (nextProps.cardVerifyData.code=='0001'){
         go('/depositInvestSuccess/B');
         nextProps.clear();
       }else {
@@ -109,38 +108,38 @@ class PayProcess extends React.Component {
       }
     }
 
-    if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
-      const code = nextProps.balancePayData.code;
-      const pending=nextProps.balancePayPending;
-      if (code == 100&&pending) {
-        // 支付成功
-          let user=JSON.parse(sessionStorage.getItem('bao-user'));
-              user.isInvest=1;
-          sessionStorage.setItem('bao-user',JSON.stringify(user));
-          nextProps.changePending();
-        switch(this.props.type) {
-          case 'depositA': go('/depositInvestSuccess/A'); break;
-          case 'directInvest': go('/directInvestSuccess/A'); break;
-          case 'creditors': go('/creditorInvestSuccess/A'); break;
-          case 'depositB':
-
-            (nextProps.balancePayData) ; break;
-        }
-        this.balancePayRedirectFlag = true
-
-      } else if  (code == 342&&pending) { // 输错5次密码
-        this.openExceedErrorDialog(nextProps.balancePayData.data.minute)
-        util.savePassErrorDate(this.props.user.username || '')
-          nextProps.changePending();
-          nextProps.clear()
-      } else if (pending){
-        let message = '支付出错了'
-        if (code == 343) message = '密码输入错误，请重新输入'
-        this.openErrorDialog(message)
-          nextProps.changePending();
-          nextProps.clear()
-      }
-    }
+    //if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {
+    //  const code = nextProps.balancePayData.code;
+    //  const pending=nextProps.balancePayPending;
+    //  if (code == 100&&pending) {
+    //    // 支付成功
+    //      let user=JSON.parse(sessionStorage.getItem('bao-user'));
+    //          user.isInvest=1;
+    //      sessionStorage.setItem('bao-user',JSON.stringify(user));
+    //      nextProps.changePending();
+    //    switch(this.props.type) {
+    //      case 'depositA': go('/depositInvestSuccess/A'); break;
+    //      case 'directInvest': go('/directInvestSuccess/A'); break;
+    //      case 'creditors': go('/creditorInvestSuccess/A'); break;
+    //      case 'depositB':
+    //
+    //        (nextProps.balancePayData) ; break;
+    //    }
+    //    this.balancePayRedirectFlag = true
+    //
+    //  } else if  (code == 342&&pending) { // 输错5次密码
+    //    this.openExceedErrorDialog(nextProps.balancePayData.data.minute)
+    //    util.savePassErrorDate(this.props.user.username || '')
+    //      nextProps.changePending();
+    //      nextProps.clear()
+    //  } else if (pending){
+    //    let message = '支付出错了'
+    //    if (code == 343) message = '密码输入错误，请重新输入'
+    //    this.openErrorDialog(message)
+    //      nextProps.changePending();
+    //      nextProps.clear()
+    //  }
+    //}
   }
 
   // 根据金额和余额决定支付方式

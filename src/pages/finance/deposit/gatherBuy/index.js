@@ -36,6 +36,7 @@ class Index extends React.Component {
       interestRates: [],
       pending:false,
       couponsFetching:true,
+      getAvailableCouponsFlag:false,
       top:'100%',
       checkBox:true,
       choose:'',
@@ -50,6 +51,7 @@ class Index extends React.Component {
     }
   }
   componentWillMount(){
+      this.props.clean('GATHER_DETAIL')
     const {
         params: {
             productId
@@ -66,13 +68,15 @@ class Index extends React.Component {
 
   componentWillReceiveProps(nextProps) {
       let $this=this
-    if (nextProps.quantityDataB&& nextProps.quantityDataB.code=='100' && !this.getAvailableCouponsFlag) {
-      this.getAvailableCouponsFlag = true
+    if (nextProps.quantityDataB&& nextProps.quantityDataB.code=='100' && !this.state.getAvailableCouponsFlag) {
+        this.setState({
+            getAvailableCouponsFlag:true
+        })
       // 获取可以使用的优惠券
        if (nextProps.params.id==5){
            this.props.getAvailableCoupons(nextProps.new_deposit.month)
        }else {
-           this.props.getAvailableCoupons(nextProps.quantityDataB.data.id)
+           this.props.getAvailableCoupons(nextProps.quantityDataB.data.month)
        }
     };
       if(nextProps.quantityDataB&& nextProps.quantityDataB.code=='100'){
@@ -133,7 +137,7 @@ class Index extends React.Component {
               }else{
                   if(this.state.time>=3){
                       if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code!='0001'){
-                          this.alert(cardVerifyData.data.additional[0].msg)
+                          this.alert('购买失败')
                       }else{
                       }
 
@@ -728,6 +732,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
               type:'CLEAR_INFO_DATA',
               key:'GATHER_CARD_VERIFY'
           })
+  },
+  clean(key){
+      dispatch({
+          type:'CLEAR_INFO_DATA',
+          key:key
+      })
   },
   gatherData(id){
     dispatch({
