@@ -177,7 +177,7 @@ module.exports = {
         test: /\.html$/,
         loader: 'html',
         query: {
-          //attrs: ['link:href'],
+          attrs: ['link:href'],
         }
       }
     ]

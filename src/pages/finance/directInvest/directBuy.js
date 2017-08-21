@@ -78,13 +78,13 @@ class DirectBuy extends React.Component {
               this.setState({
                   time:this.state.time+1
               });
-              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.additional[0].code=='0001'){
+              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.code=='0001'){
                   const time=Date.parse(new Date()),
                       cash_amount=this.state.val;
                   push(time,cash_amount)
               }else{
                   if(this.state.time>=3){
-                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.additional[0].code!='0001'){
+                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.data.code!='0001'){
                           this.alert(cardVerifyData.data.additional[0].msg)
                       }else{
                       }
