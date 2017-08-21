@@ -38,7 +38,7 @@ class Index extends Component{
             }=this.props
         return(
            <div className={styles.container}>
-              <NavBar onLeft={()=>{push('gatherBuy/3/2')}}>
+              <NavBar onLeft={()=>{pop('gatherBuy/3/2')}}>
                   理财
               </NavBar>
                <div className={styles.content}>
