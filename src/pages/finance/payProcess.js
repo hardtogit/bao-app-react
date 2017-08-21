@@ -77,7 +77,11 @@ class PayProcess extends React.Component {
         const status = nextProps.balancePayData.status;
         const msgId= nextProps.balancePayData.msgId;
         if (nextProps.verifyData.code=='0001'){
-            go('/depositInvestSuccess/B');
+              switch(this.props.type) {
+                case 'gather': go('/depositInvestSuccess/A'); break;
+                case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
+                case 'creditors': go('/creditorInvestSuccess/A'); break;
+              }
             nextProps.clear();
         }else {
             if (this.props.time<3){
@@ -94,7 +98,11 @@ class PayProcess extends React.Component {
       const status = nextProps.cardPayData.status;
       const msgId= nextProps.cardPayData.msgId;
       if (nextProps.cardVerifyData.code=='0001'){
-        go('/depositInvestSuccess/B');
+        switch(this.props.type) {
+          case 'gather': go('/depositInvestSuccess/A'); break;
+          case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
+          case 'creditors': go('/creditorInvestSuccess/A'); break;
+        }
         nextProps.clear();
       }else {
         if (this.props.time<3){

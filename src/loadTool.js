@@ -84,6 +84,16 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/user/idCardUpload').default);
         }, 'IdCardUpload');
+    },//风险提示
+    DangerContract  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/contracts/danger').default);
+        }, 'DangerContract');
+    },//服务协议
+    ServiceContract  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/contracts/service').default);
+        }, 'ServiceContract');
     }
 //成功失败模版
 export const SuccessTemplate  = (location, cb) => {
