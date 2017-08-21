@@ -7,23 +7,23 @@ class Index extends Component{
     Verification(url,push,success,urlN){
         const baoAuth=this.publickFn();
         if (baoAuth){
-            const bao=JSON.parse(sessionStorage.getItem("bao-user"));
-            if (bao.isAuth==0||bao.isAuth==1){
-                this.refs.alert.show({
-                    title: '',
-                    content: '为了您的账户安全，请先实名认证',
-                    okText: '去认证',
-                    cancel:'取消',
-                    okCallback: () => {push('/user/setting/identityAuth')},
-                })
-            }else {
+            //const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+            //if (bao.isAuth==0||bao.isAuth==1){
+            //    this.refs.alert.show({
+            //        title: '',
+            //        content: '为了您的账户安全，请先实名认证',
+            //        okText: '去认证',
+            //        cancel:'取消',
+            //        okCallback: () => {push('/user/setting/identityAuth')},
+            //    })
+            //}else {
                 push(url);
                 if (urlN){
                     success(urlN);
                 }else {
                     success();
                 }
-            }
+            //}
         }else {
             push('/login')
         }
