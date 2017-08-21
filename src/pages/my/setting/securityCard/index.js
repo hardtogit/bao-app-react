@@ -19,6 +19,7 @@ class Index extends React.Component {
     componentDidMount=()=>{
       if(this.state.bindCard){
           this.props.bankInfo();
+          this.props.myCardInfo();
       }
     };
     changeCard=(code)=>{
@@ -26,7 +27,8 @@ class Index extends React.Component {
     };
     render() {
         const {
-            push
+            push,
+            CardInfo
         }=this.props;
         return (
             <div className={styles.bg}>
@@ -36,18 +38,17 @@ class Index extends React.Component {
                 <Box>
                     <div className={styles.card_bg}>
                         <div className={cs(styles.card,{'hide':!this.state.bindCard})}>
-                            <h2>{this.props.CardInfo&&this.props.CardInfo.name}</h2>
+                            <h2>{this.props.CardInfo&&this.props.CardInfo.bankName}</h2>
                             <p>我的安全卡</p>
                             <h3>
                                 ****&emsp;****&emsp;*****&emsp;
-                                <span>{this.props.CardInfo&&this.props.CardInfo.number}</span>
+                                <span>{this.props.CardInfo&&this.props.CardInfo.bankCard.substring(15)}</span>
                             </h3>
                             {
                                 this.props.CardInfo&&
                                 <img src={this.props.CardInfo.bg} alt=""/>
                             }
                         </div>
-                        <div className={cs(styles.btn,{'hide':!this.state.bindCard})} onClick={()=>{this.changeCard(this.props.CardInfo.code)}}>更换安全卡</div>
                         <img className={styles.safe_img} src={img1} alt=""/>
                         <img className={styles.safe_img} src={img2} alt=""/>
                     </div>
@@ -57,16 +58,15 @@ class Index extends React.Component {
     }
 }
 const cardModel=(data)=>{
-    if(data && (101==data.code || 301==data.code)){
-        data.data.code = data.code;
-        return data.data;
+    if(data && (100==data.code )){
+        return data.data[0];
     }else{
         return false;
     }
 };
 const mapStateToProps = (state) => {
     return {
-        CardInfo:cardModel(state.infodata.getIn([actionTypes.SAFE_CARD_INFO, 'data']))
+        CardInfo:cardModel(state.infodata.getIn([actionTypes.GET_MY_CARD_LIST, 'data']))
     }
 };
 
@@ -74,6 +74,11 @@ const mapDispatchToProps = (dispatch) => ({
     bankInfo(){
         dispatch({
             type: actionTypes.SAFE_CARD_INFO
+        })
+    },
+    myCardInfo(){
+        dispatch({
+            type: actionTypes.GET_MY_CARD_LIST
         })
     },
     push(path){
