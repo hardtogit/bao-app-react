@@ -99,7 +99,11 @@ class VerifyMobile extends React.Component {
   componentDidMount() {
        this.props.load()
   }
-  componentWillReceiveProps(nextProps){
+    componentWillUnmount(){
+       this.props.cleanAll()
+    }
+
+    componentWillReceiveProps(nextProps){
     const alertn=this.refs.alert;
      if(nextProps.data&&this.state.init){
       this.props.send(nextProps.data.data.mobile)

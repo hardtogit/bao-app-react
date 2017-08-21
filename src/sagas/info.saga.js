@@ -4,6 +4,7 @@ import actionMap from '../actions/infoActionMap'
 import * as actionTypes from '../actions/actionTypes'
 import {push,replace} from 'react-router-redux'
 import * as notLoginMap from '../actions/notLogin.map'
+import {auths} from '../actions/authMap'
 function* takeRequest (action) {
     yield put({
         type: actionTypes.FETCH_INFO_DATA_REQUEST,
@@ -41,6 +42,13 @@ function* takeRequest (action) {
             sessionStorage.removeItem("bao-auth");
         }
         if(action.type==actionTypes.STORE_STATUS_INFO&&response.code=='100'){
+            for(var i in auths){
+                if(response.data.authInstrCd.indexOf(auths[i].value)!=-1){
+                    response.data[auths[i].key]=true
+                }else{
+                    response.data[auths[i].key]=false
+                }
+            }
             sessionStorage.setItem("bao-store",JSON.stringify(response.data));
         }
        if (action.type==actionTypes.USER_LOGIN_FLOW&&response.code==100){
