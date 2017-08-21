@@ -105,6 +105,7 @@ class Index extends React.Component {
                 });
                 if(accreditVerifyData&&accreditVerifyData.code=='0001'){
                     $this.refs.switch.refs.loading.hide();
+                    this.props.updateStoreInfo()
                     this.refs.success.show({
                         text: '授权成功',
                         callback: () => {
@@ -478,6 +479,11 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch({
             type:"ACCREDIT_VERIFY",
             params:[id]
+        })
+    },
+    updateStoreInfo(){
+        dispatch({
+            type:"STORE_STATUS_INFO",
         })
     }
 

@@ -37,6 +37,8 @@ export default class Index extends React.Component {
                     freeTransCode:42703,
                     freeFlag:0,
                     passwordFactor:sessionStorage.getItem('passwordFactor'),
+                    mapKey:sessionStorage.getItem('mapKey'),
+                    device:'WAP',
                     password:b
                 }
                 $this.refs.loading.show('免密授权中...')
@@ -48,6 +50,10 @@ export default class Index extends React.Component {
     change=()=>{
         const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
+            if(!storeData.isAuthBid){
+                this.checkAccredit()
+                return;
+            }
         }else{
             if(storeData.isRegister){
                 this.props.push('/user/setting/cardBind')
@@ -56,8 +62,7 @@ export default class Index extends React.Component {
                 return false;
             }
         }
-        this.checkAccredit()
-        return;
+
         if(!this.props.checkedCanClick && this.state.open){
             return false;
         }

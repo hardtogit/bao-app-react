@@ -42,7 +42,7 @@ class TradePasswordModify extends React.Component {
         });
         if(verifyData&&verifyData.code=='0001'){
           this.cleanInput()
-               alert('修改密码成功')
+          this.props.push('/successTemplate?title=密码修改成功&pushUrl=/home/myIndex&text=密码修改成功')
         }else{
           if(this.state.time>=3){
             if(verifyData&&verifyData.code!='0001'){
@@ -81,6 +81,7 @@ class TradePasswordModify extends React.Component {
       newPassword:passGuard2.getOutput(),
       device:"WAP"
     }
+    this.props.clean()
     this.props.modify(data)
   };
   cleanInput=()=>{
@@ -126,7 +127,16 @@ const mapDispatchToProps = (dispatch) => ({
   pop() {
     dispatch(goBack())
   },
-
+  clean(){
+    dispatch({
+      type:'CLEAR_INFO_DATA',
+      key:'PASSWORD_CHANGE_VERIFY'
+    });
+    dispatch({
+      type:'CLEAR_INFO_DATA',
+      key:'STORE_TRADE_PASSWORD_MODIFY'
+    })
+  },
   modify(data) {
     dispatch({
       type: 'STORE_TRADE_PASSWORD_MODIFY',
