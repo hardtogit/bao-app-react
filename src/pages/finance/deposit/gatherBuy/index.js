@@ -561,7 +561,7 @@ class Index extends React.Component {
         </div>
             { banksList.length!=undefined ?<PayProcess
                 ref='payProcess'
-                type={`deposit${lx}`}
+                type={`gather`}
                 go={this.props.push}
                 getChoose={this.getChoose}
                 user={this.props.user}

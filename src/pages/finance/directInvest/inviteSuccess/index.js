@@ -13,6 +13,7 @@ class InvestSuccess extends React.Component {
   }
     componentDidMount(){
         this.props.getUser();
+        console.log(this.props)
     }
     componentWillUnmount(){
         this.props.clearData();
@@ -25,7 +26,7 @@ class InvestSuccess extends React.Component {
         <div className={styles.content}>
           <div className={styles.amount}>
             <span>投资金额</span>
-            <span>¥{ data && data.money || ''}</span>
+            <span>¥{ this.props.params.money}</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
