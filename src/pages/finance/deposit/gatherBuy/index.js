@@ -59,6 +59,7 @@ class Index extends React.Component {
     }=this.props;
   }
   componentDidMount() {
+      this.refs.choice.checked =true
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)
@@ -277,12 +278,10 @@ class Index extends React.Component {
           this.setState({
               checkBox:false
           })
-          $(this.refs.checked).prop('checked','false')
       }else{
           this.setState({
               checkBox:true
           })
-          e.target.checked =true
       }
   }
   // 能否支付
@@ -581,7 +580,7 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>:''}
 
-        <p className={styles.textContent}><input ref="checked" checked={true}  onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+        <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>和
             <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>
         </p>
