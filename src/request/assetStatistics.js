@@ -93,7 +93,8 @@ const requests = (Fetch) => {
   // 绑定银行卡
   Fetch.bindCardInfo = (type, way) => { return Fetch (`/user/bind-bank-info?type=${type}&way=${way}`, 'GET') }
   // 回款日历
-  Fetch.paymentCalendar = (year, month) => { return Fetch (`common/payment-calendar?year=${year}&month=${month}`, 'GET') }
+  //Fetch.paymentCalendar = (year, month) => { return Fetch (`common/payment-calendar?year=${year}&month=${month}`, 'GET') }
+  Fetch.paymentCalendar = (year, month) => { return Fetch (`api/my/payment-calendar?year=${year}&month=${month}`, 'GET') }
 }
 
 export default requests

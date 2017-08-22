@@ -23,6 +23,9 @@ class Index extends React.Component {
             bankCard:''
         }
     }
+    componentWillUnmount(){
+        this.props.clean('NEW_CASH')
+    }
     componentDidMount(){
         this.props.getMyBankCards();
        const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
@@ -55,37 +58,18 @@ class Index extends React.Component {
                 bankCard:cardInfo.data[0].bankCard
             })
         }
-        if (cashData&&cashData.status==1){
-                if(this.state.time<=3){
-                    this.setState({
-                        time:this.state.time+1
-                    });
-                    if(verifyData&&verifyData.code=='0001'){
+        if (cashData){
+            if(cashData.code=='100'){
                         const time=Date.parse(new Date()),
                             cash_amount=this.state.val;
                         push(time,cash_amount)
-                    }else{
-                        if(this.state.time>=3){
-                            if(verifyData&&verifyData.code!='0001'){
-                                this.alert('提现失败');
-                                this.refs.loading.hide()
-                            }else{
-                                this.refs.loading.hide();
-                                this.alert('提现失败')
-                            }
-                            this.setState({
-                                time:0
-                            })
-                        }else{
-                            setTimeout(function(){
-                                $this.props.cashVerify({id:cashData.msgId})
-                            },2000)
-
-                        }
-                    }
-                }
-        }else if(cashData&&cashData.status!=1){
-               this.alert('提现未处理')
+            }else if(cashData.code=='300'){
+                this.alert('提现失败');
+                this.refs.loading.hide()
+            }else{
+                this.alert('提现失败');
+                this.refs.loading.hide()
+            }
         }
     }
     alert=(message)=>{
@@ -187,7 +171,6 @@ const Rechargeinit=(state)=>({
       withdraw:state.infodata.getIn(['WITHDRAW','data']),
      userinfo:state.infodata.getIn(['USER_INFO','data']),
     cardInfo:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
-    verifyData:state.infodata.getIn(['CASH_VERIFY','data'])
 });
 const Rechargeinitfn=(dispatch)=>({
      pop(){
@@ -213,6 +196,12 @@ const Rechargeinitfn=(dispatch)=>({
         dispatch({
             type:'CASH_VERIFY',
             params:[id]
+        })
+    },
+    clean(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
         })
     },
     push(time,cash_amount){

@@ -76,8 +76,9 @@ class DirectInvestCell extends React.Component{
         if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
         this.props.isAuth.Verification(`/gatherBuy/${id}/2`,this.props.isAuthPush,this.succsseFn)
         }else{
-            if(storeData.isRegister){
+            if(storeData&&storeData.isRegister){
                 push('/user/setting/cardBind')
+
             }else{
                 this.refs.store.show()
             }
@@ -300,7 +301,7 @@ class DirectInvestList extends React.Component{
                      return(
                          <DirectInvestCell key={i}
                                            data={data}
-                                           onClick={() => this.props.push(`/gatherMain/${data.id}`)}
+                                           onClick={() => this.props.push(`/gatherMain/${data.id}/2`)}
                                            push={(path) => this.props.push(path)}
                                            passwordRef={this.refs.passWord}
                                            wrongRef={this.refs.wrong}

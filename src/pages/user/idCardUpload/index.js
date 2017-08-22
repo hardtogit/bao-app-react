@@ -35,6 +35,7 @@ class Index extends Component {
         //组件接收到新的props调用
         if(nextProps.data){
             if(nextProps.data.code==100){
+                this.props.update()
                 this.props.push('/successTemplate?title=身份证上传成功&pushUrl=/home/myIndex&text=上传成功')
             }else{
 

@@ -176,7 +176,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 								<img src={makeOver}/>
 								<div className={styles.myListText}>
 									<p className={styles.listTitle}>聚点+</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'流动性高'||'+'+creditors}</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{'智能投标'}</p>
 								</div>
 							</Link>
 						</div>

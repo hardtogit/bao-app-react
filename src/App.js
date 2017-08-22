@@ -309,7 +309,7 @@ export default class App extends React.Component {
             <Route path="demand-buy" component={DemandBuy}></Route>
             <Route path="demand-product" component={DemandProduct}></Route>
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="gatherMain(/:productId)" component={GatherMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="gatherMain(/:productId/:type)" component={GatherMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherDetail(/:name/:month)" getComponent={GatherDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherDeposits(/:id)" getComponent={GatherDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBidDetail(/:id)" getComponent={GatherBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>

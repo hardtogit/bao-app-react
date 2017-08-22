@@ -14,7 +14,7 @@ import Choice from '../../../../../components/Dialog/ChoiceCard'
 import LoadingDialog from '../../../../../components/Dialog/loading'
 import TipBar from '../../../../../components/Tipbar'
 import {connect} from 'react-redux'
-import {goBack,push} from 'react-router-redux'
+import {goBack,push,replace} from 'react-router-redux'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -180,7 +180,7 @@ const mapDispatchToProps=(dispatch,own)=>({
          dispatch(goBack())
     },
     push(url){
-         dispatch(push(url))
+         dispatch(replace(url))
     },
     getMyBankCards(){
         dispatch({

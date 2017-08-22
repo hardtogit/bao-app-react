@@ -39,18 +39,18 @@ class Index extends Component{
     isbindSecurityCard(successFn,push,url){
         const baoAuth=this.publickFn();
         if (baoAuth){
-            const bao=JSON.parse(sessionStorage.getItem("bao-user"));
-            if (!bao.isbindSecurityCard){
-                this.refs.alert.show({
-                    title: '',
-                    content: '对不起您还没有绑定安全卡',
-                    okText: '去绑定',
-                    cancel:'取消',
-                    okCallback: () => {push(url)},
-                })
-            }else {
+            //const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+            //if (!bao.isbindSecurityCard){
+            //    this.refs.alert.show({
+            //        title: '',
+            //        content: '对不起您还没有绑定安全卡',
+            //        okText: '去绑定',
+            //        cancel:'取消',
+            //        okCallback: () => {push(url)},
+            //    })
+            //}else {
                 successFn&&successFn()
-            }
+            //}
         }else {
             push('/login')
         }
@@ -58,18 +58,18 @@ class Index extends Component{
     isSecurityCard(successFn,push,url){
         const baoAuth=this.publickFn();
         if (baoAuth){
-            const bao=JSON.parse(sessionStorage.getItem("bao-user"));
-            if (!bao.isSetTradePassword){
-                this.refs.alert.show({
-                    title: '',
-                    content: '对不起您还没有设置交易密码',
-                    okText: '设置',
-                    cancel:'取消',
-                    okCallback: () => {push(url)},
-                })
-            }else {
+            //const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+            //if (!bao.isSetTradePassword){
+            //    this.refs.alert.show({
+            //        title: '',
+            //        content: '对不起您还没有设置交易密码',
+            //        okText: '设置',
+            //        cancel:'取消',
+            //        okCallback: () => {push(url)},
+            //    })
+            //}else {
                 successFn&&successFn()
-            }
+            //}
         }else {
             push('/login')
         }

@@ -70,11 +70,12 @@ class Index extends React.Component {
       let $this=this
     if (nextProps.quantityDataB&& nextProps.quantityDataB.code=='100' && !this.state.getAvailableCouponsFlag) {
         this.setState({
-            getAvailableCouponsFlag:true
+            getAvailableCouponsFlag:true,
+            unitPrice:parseInt(nextProps.quantityDataB.data.price)
         })
       // 获取可以使用的优惠券
        if (nextProps.params.id==5){
-           this.props.getAvailableCoupons(nextProps.new_deposit.month)
+           this.props.getAvailableCoupons(nextProps.quantityDataB.data.month)
        }else {
            this.props.getAvailableCoupons(nextProps.quantityDataB.data.month)
        }
@@ -276,12 +277,12 @@ class Index extends React.Component {
           this.setState({
               checkBox:false
           })
-          e.target.checked=false
+          $(this.refs.checked).prop('checked','false')
       }else{
           this.setState({
               checkBox:true
           })
-          e.target.checked=true
+          e.target.checked =true
       }
   }
   // 能否支付
@@ -580,7 +581,7 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>:''}
 
-        <p className={styles.textContent}><input checked="checked"  onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+        <p className={styles.textContent}><input ref="checked" checked={true}  onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>和
             <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>
         </p>

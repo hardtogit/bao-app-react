@@ -6,6 +6,7 @@ import cs from 'classnames/index';
 import NavBar from '../../../../components/NavBar/index'
 import Box from  "../../../../components/ContentBox/index"
 import styles from './index.css'
+import Store from '../../../../components/Dialog/store'
 import img1 from  "../../../../assets/images/safe1.png";
 import img2 from  "../../../../assets/images/safe2.png";
 import * as actionTypes from '../../../../actions/actionTypes'
@@ -13,39 +14,50 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bindCard:JSON.parse(sessionStorage.getItem("bao-user")).isbindSecurityCard
+            bindCard: JSON.parse(sessionStorage.getItem("bao-store")).isBindBankcard
         }
     }
-    componentDidMount=()=>{
-      if(this.state.bindCard){
-          this.props.bankInfo();
-          this.props.myCardInfo();
-      }
+
+    componentDidMount = ()=> {
+        if (this.state.bindCard) {
+            this.props.bankInfo();
+            this.props.myCardInfo();
+        }
     };
-    changeCard=(code)=>{
-            this.props.push("/user/setting/bankcardAdd");
+    changeCard = (code)=> {
+        this.props.push("/user/setting/bankcardAdd");
     };
+
     render() {
         const {
             push,
             CardInfo
-        }=this.props;
+            }=this.props;
+        const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         return (
             <div className={styles.bg}>
-                {this.state.bindCard&&<NavBar  onLeft={this.props.pop}>安全卡</NavBar>}
-                {!this.state.bindCard&&<NavBar  onLeft={this.props.pop} rightNode={<span style={{"fontSize":"14px","color":"#fff"}}
-                                                                                    onClick={()=>{push('/user/setting/bankcardAdd')}}>添加</span>}>安全卡</NavBar>}
+                {this.state.bindCard && <NavBar onLeft={this.props.pop}>安全卡</NavBar>}
+                {!this.state.bindCard && <NavBar onLeft={this.props.pop} rightNode={<span style={{"fontSize":"14px","color":"#fff"}}
+                                                                                     onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+				  {push('/user/setting/tradePasswordModify')}else{
+				  if(storeData.isRegister){
+                     push('/user/setting/cardBind')
+				  }else{
+				  this.refs.store.show()
+				    }
+				  }
+				  }}>添加</span>}>安全卡</NavBar>}
                 <Box>
                     <div className={styles.card_bg}>
                         <div className={cs(styles.card,{'hide':!this.state.bindCard})}>
-                            <h2>{this.props.CardInfo&&this.props.CardInfo.bankName}</h2>
+                            <h2>{CardInfo && CardInfo.bankName}</h2>
                             <p>我的安全卡</p>
                             <h3>
                                 ****&emsp;****&emsp;*****&emsp;
-                                <span>{this.props.CardInfo&&this.props.CardInfo.bankCard.substring(15)}</span>
+                                <span>{CardInfo && CardInfo.bankCard.substring(15)}</span>
                             </h3>
                             {
-                                this.props.CardInfo&&
+                                CardInfo &&
                                 <img src={this.props.CardInfo.bg} alt=""/>
                             }
                         </div>
@@ -53,20 +65,21 @@ class Index extends React.Component {
                         <img className={styles.safe_img} src={img2} alt=""/>
                     </div>
                 </Box>
+                <Store ref="store"></Store>
             </div>
         )
     }
 }
-const cardModel=(data)=>{
-    if(data && (100==data.code )){
+const cardModel = (data)=> {
+    if (data && (100 == data.code )) {
         return data.data[0];
-    }else{
+    } else {
         return false;
     }
 };
 const mapStateToProps = (state) => {
     return {
-        CardInfo:cardModel(state.infodata.getIn([actionTypes.GET_MY_CARD_LIST, 'data']))
+        CardInfo: cardModel(state.infodata.getIn([actionTypes.GET_MY_CARD_LIST, 'data']))
     }
 };
 

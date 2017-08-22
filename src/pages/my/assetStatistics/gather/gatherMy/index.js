@@ -8,6 +8,7 @@ import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../../../components/NavBar'
 import Scroll from '../../../../../components/scroll'
+import BaseButton from '../../../../../components/BaseButton'
 import icon from '../../../../../assets/images/gather/icon-08.png'
 import classNames from 'classnames';
 import {connect} from 'react-redux'
@@ -16,45 +17,28 @@ class Index extends Component{
     constructor(props) {//构造器
         super(props)
         this.state = {
-            index: 0
+            index: 0,
+            text:"立即购买"
         }
     }
     clientWidth=document.body.clientWidth;
     clientHeight=document.body.clientHeight;
-    //startX=0;
-    //startY=0;
-    //x=0;
-    //
+
     translateStyle={
         one:{transform:'translateX(0px)'},
         two:{transform:'translateX('+-this.clientWidth+'px)'},
         three:{transform:'translateX('+-this.clientWidth*2+'px)'}
         };
-
-    //touchStart=(e)=> {
-    //    this.startX=e.touches[0].pageX;
-    //    this.startY=e.touches[0].pageY;
-    //    let str=this.refs.tabs.style.transform;
-    //    this.x=-parseInt(str.substring(str.indexOf('(')+1,str.indexOf('px')));
-    //};
-    //touchMove=(e)=>{
-    //    let  num=-(this.x+this.startX-e.touches[0].pageX);
-    //    if(num>=0){
-    //        num=0
-    //    }
-    //     this.refs.tabs.style.transform= 'translateX('+num+'px)';
-    //};
-    //touchEnd=(e)=>{
-    //    let distance=Math.sqrt(Math.pow((this.startX-e.changedTouches[0].pageX),2)+Math.pow((this.startY-e.changedTouches[0].pageY),2));
-    //
-    //};
-
     componentDidMount(){
      //组件渲染完成时调用
         this.refs.tabs.style.width=this.clientWidth*3+'px';
         this.props.gitHeaderData();
     }
-
+    componentWillReceiveProps({dataOne,dataTwo,dataThree}){
+       if(dataOne&&dataTwo&&dataThree){
+         
+       }
+    }
 
     render(){
         const{
@@ -251,6 +235,7 @@ class Index extends Component{
                    </div>
                </div>
                    </div>
+               <div className={styles.button} >立即购买</div>
            </div>
         )
     }

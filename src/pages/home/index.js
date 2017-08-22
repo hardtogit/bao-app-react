@@ -330,7 +330,7 @@ class FinancialIndex extends Component{
                           </span>
                 </p>
                 <p className={Classnames(style.mgl)}>
-                    <Link className={style.tzButtom} to={`/gatherMain/${xsId}`}>
+                    <Link className={style.tzButtom} to={`/gatherMain/${xsId}/5`}>
                         立即投资
                     </Link>
                 </p>
