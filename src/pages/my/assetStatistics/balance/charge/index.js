@@ -7,7 +7,7 @@ import Loading from '../../../../../components/pageLoading/'
 import Store from '../../../../../components/Dialog/store'
 import {Link} from 'react-router'
 import {push,goBack} from 'react-router-redux'
-import wrap from '../../../../../utils/pageWrapper'
+//import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
@@ -282,4 +282,4 @@ const Rechargeinitfn = (dispath, own)=>({
         })
     }
 })
-export default connect(Rechargeinit, Rechargeinitfn)(wrap(Index))
+export default connect(Rechargeinit, Rechargeinitfn)(Index)

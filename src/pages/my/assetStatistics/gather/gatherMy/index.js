@@ -39,6 +39,10 @@ class Index extends Component{
          
        }
     }
+    change=(num,num1)=>{
+        this.props.changeDc(num1);
+        this.props.change(num);
+    }
 
     render(){
         const{
@@ -235,7 +239,7 @@ class Index extends Component{
                    </div>
                </div>
                    </div>
-               <div className={styles.button} >立即购买</div>
+               <div className={styles.button} onClick={()=>{this.change(0,0);this.props.push('/home/productIndex')}}>立即购买</div>
            </div>
         )
     }
@@ -282,6 +286,18 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'GATHER_MY_HEADER'
         })
-    }
+    },
+    change(num){
+        dispatch({
+            type:'PRODUCT_INDEX',
+            index:num
+        })
+    },
+    changeDc(num){
+        dispatch({
+            type:'PRODUCT_INDEX_PAGE',
+            index:num
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)
