@@ -43,18 +43,49 @@ class FindpasswordVerifyMobile extends React.Component {
            init:false
          })
        }
+        if (code==100){
+            alert.show({
+                content: '成功',
+                okText: '确定',
+            })
+        }
        if (code==300){
         alert.show({
-          content: '验证失败 ',
+          content: '验证失败',
           okText: '确定',
         })
-      }
+       }
       if (code==301){
         alert.show({
           content: '手机号不存在',
           okText: '确定',
         })
       }
+        if (code==302){
+            alert.show({
+                content: '手机号已注册',
+                okText: '确定',
+            })
+        }
+        if (code==303){
+            alert.show({
+                content: '签名错误',
+                okText: '确定',
+            })
+        }
+        if (code==304){
+            alert.show({
+                content: '用户不存在',
+                okText: '确定',
+            })
+        }
+        if (code==305){
+            alert.show({
+                content: '用户被冻结',
+                okText: '确定',
+            })
+        }
+
     }
   }
   onValid = () => {
