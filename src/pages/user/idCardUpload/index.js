@@ -30,7 +30,6 @@ class Index extends Component {
         //组件渲染完成时调用
         this.props.update()
     }
-
     componentWillReceiveProps(nextProps) {
         //组件接收到新的props调用
         if(nextProps.data){
@@ -97,7 +96,7 @@ class Index extends Component {
             this.refs.back.src=''
             this.refs.alert.show({
                 title: '',
-                content: '上传文件格式错误，只能为图片。',
+                content: '上传文件格式错误，只能为jpg格式的图片。',
                 okText: '确定',
                 okCallback: () => {},
             })
@@ -106,11 +105,12 @@ class Index extends Component {
 
     render() {
         const {
-            pop
+            pop,
+            push
             }=this.props;
         return (
             <div className={styles.container}>
-                <NavBar onLeft={pop}>
+                <NavBar onLeft={pop} rightNode={<div>说明</div>} onRight={()=>{push('/user/IdCardUploadExplain')}}>
                     身份证上传
                 </NavBar>
                 <div className={styles.tip}>

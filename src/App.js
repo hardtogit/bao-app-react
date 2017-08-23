@@ -130,8 +130,8 @@ import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponen
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,
-SuccessTemplate,DangerContract,ServiceContract} from './loadTool'
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract} from './loadTool'
 
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
@@ -163,6 +163,7 @@ export default class App extends React.Component {
               <Route path="successTemplate" getComponent={SuccessTemplate}></Route>
               <Route path="dangerContract" getComponent={DangerContract}></Route>
               <Route path="serviceContract" getComponent={ServiceContract}></Route>
+              <Route path="borrowContract/:id" getComponent={BorrowContract}></Route>
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
@@ -180,7 +181,8 @@ export default class App extends React.Component {
                   <Route path="newRecharge" getComponent={NewCharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值*/
                   <Route path="reChargeSuccess" getComponent={ReChargeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值成功*/
                   <Route path="reChargeFail" getComponent={ReChargeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值失败*/
-                  <Route path="IdCardUpload" getComponent={IdCardUpload} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传*/
+                  <Route path="idCardUpload" getComponent={IdCardUpload} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传*/
+                  <Route path="idCardUploadExplain" getComponent={IdCardUploadExplain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传说明*/
                   <Route path="moneyLog" component={MoneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/

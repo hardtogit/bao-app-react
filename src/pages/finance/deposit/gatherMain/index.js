@@ -209,7 +209,11 @@ class GatherMain extends React.Component {
       if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
           this.refs.isAuth.Verification(`/gatherBuy/${id}/${type}`,push,this.succsseFn,this.props.location.pathname)
       }else{
-          this.refs.store.show();
+          if(storeData&&storeData.isRegister){
+              push('/user/setting/cardBind')
+          }else{
+              this.refs.store.show();
+          }
       }
 
   }

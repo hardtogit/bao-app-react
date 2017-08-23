@@ -255,7 +255,7 @@ const mapStateToProps=(state)=>({
     dataThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','data']),
     endThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','pageEnd']),
     headerData:state.infodata.getIn(['GATHER_MY_HEADER','data']),
-    Height:document.body.clientHeight-235
+    Height:document.body.clientHeight-279
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){

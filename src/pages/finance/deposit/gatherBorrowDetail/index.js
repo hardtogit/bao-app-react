@@ -11,7 +11,7 @@ import SwitchPanel from '../../../../components/switchPanel'
 import Loading from '../../../../components/pageLoading'
 import ok from '../../../../assets/images/ok.png'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 class Panel extends Component{
     render(){
      return <div className={styles.panel} style={this.props.ownStyle}>
@@ -32,6 +32,8 @@ class Index extends Component{
         const{
             pop,
             data,
+            params,
+            push,
             pending
             }=this.props
         let Dom=<Loading></Loading>
@@ -87,7 +89,7 @@ class Index extends Component{
                 </div>
                 <div className={styles.container}>
                <Panel ownStyle={{marginBottom:'10px'}} title="协议范本">
-                   点击查看 <span className={styles.book}>《借款合同》</span>和 <span className={styles.book}>《风控告知》</span>
+                   点击查看 <span onClick={()=>{push('/borrowContract/'+params.id)}} className={styles.book}>《借款合同》</span>和 <span onClick={()=>{push('/dangerContract')}} className={styles.book}>《风险提示》</span>
                </Panel>
                 </div>
            </div>
@@ -119,6 +121,9 @@ const DispatchFn=(dispatch,own)=>({
             type:'GATHER_BID_DETAIL',
             params:[id]
         })
+    },
+    push(url){
+        dispatch(push(url))
     }
 
 })

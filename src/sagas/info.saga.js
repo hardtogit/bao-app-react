@@ -42,11 +42,14 @@ function* takeRequest (action) {
             sessionStorage.removeItem("bao-auth");
         }
         if(action.type==actionTypes.STORE_STATUS_INFO&&response.code=='100'){
+
             for(var i in auths){
-                if(response.data.authInstrCd.indexOf(auths[i].value)!=-1){
-                    response.data[auths[i].key]=true
-                }else{
-                    response.data[auths[i].key]=false
+                if(response.data.authInstrCd.indexOf){
+                    if(response.data.authInstrCd.indexOf(auths[i].value)!=-1){
+                        response.data[auths[i].key]=true
+                    }else{
+                        response.data[auths[i].key]=false
+                    }
                 }
             }
             sessionStorage.setItem("bao-store",JSON.stringify(response.data));
