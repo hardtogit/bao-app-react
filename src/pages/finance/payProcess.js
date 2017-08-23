@@ -320,8 +320,8 @@ class PayProcess extends React.Component {
   choiceCallback=(a,b,c)=>{
     this.setState({
       bankName:b,
-      bankCard:c.substr(c.length-4,4),
-      bankCode:c
+      bankCode:c.substr(c.length-4,4),
+      bankCard:c
     })
     a()
   }
