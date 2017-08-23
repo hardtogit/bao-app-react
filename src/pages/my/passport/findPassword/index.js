@@ -45,13 +45,13 @@ class FindpasswordVerifyMobile extends React.Component {
        }
        if (code==300){
         alert.show({
-          content: '验证码错误，请重新输入验证码 ',
+          content: '验证失败 ',
           okText: '确定',
         })
       }
       if (code==301){
         alert.show({
-          content: '验证码失效，请重新获取验证码',
+          content: '手机号不存在',
           okText: '确定',
         })
       }
