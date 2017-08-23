@@ -33,7 +33,47 @@ class FindpasswordVerifyMobile extends React.Component {
   componentWillUnmount() {
 
   }
-  componentWillReceiveProps({code}){
+  componentWillReceiveProps({code,sendCodeData}){
+      const alert=this.refs.alert;
+     if(sendCodeData){
+         const code=sendCodeData.code
+         if (code==300){
+             alert.show({
+                 content: '验证失败',
+                 okText: '确定',
+             })
+         }
+         if (code==301){
+             alert.show({
+                 content: '手机号不存在',
+                 okText: '确定',
+             })
+         }
+         if (code==302){
+             alert.show({
+                 content: '手机号已注册',
+                 okText: '确定',
+             })
+         }
+         if (code==303){
+             alert.show({
+                 content: '签名错误',
+                 okText: '确定',
+             })
+         }
+         if (code==304){
+             alert.show({
+                 content: '用户不存在',
+                 okText: '确定',
+             })
+         }
+         if (code==305){
+             alert.show({
+                 content: '用户被冻结',
+                 okText: '确定',
+             })
+         }
+     }
     if (code){
       const alert=this.refs.alert;
        if (code==100&&this.state.init){
@@ -43,49 +83,18 @@ class FindpasswordVerifyMobile extends React.Component {
            init:false
          })
        }
-        if (code==100){
-            alert.show({
-                content: '成功',
-                okText: '确定',
-            })
-        }
        if (code==300){
         alert.show({
-          content: '验证失败',
-          okText: '确定',
-        })
-       }
-      if (code==301){
-        alert.show({
-          content: '手机号不存在',
+          content: '验证码错误，请重新输入验证码 ',
           okText: '确定',
         })
       }
-        if (code==302){
-            alert.show({
-                content: '手机号已注册',
-                okText: '确定',
-            })
-        }
-        if (code==303){
-            alert.show({
-                content: '签名错误',
-                okText: '确定',
-            })
-        }
-        if (code==304){
-            alert.show({
-                content: '用户不存在',
-                okText: '确定',
-            })
-        }
-        if (code==305){
-            alert.show({
-                content: '用户被冻结',
-                okText: '确定',
-            })
-        }
-
+      if (code==301){
+        alert.show({
+          content: '验证码失效，请重新获取验证码',
+          okText: '确定',
+        })
+      }
     }
   }
   onValid = () => {
@@ -150,8 +159,9 @@ class FindpasswordVerifyMobile extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      code:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data'])&&state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data']).code||false,
-      pending:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','pending'])
+      sendCodeData:state.infodata.getIn([actionTypes.VERIFY_CAPTCHA,'data']),
+      code:state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'data'])&&state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'data']).code||false,
+      pending:state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'pending'])
   }
 }
 
