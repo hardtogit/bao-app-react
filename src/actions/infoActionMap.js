@@ -367,7 +367,13 @@ export default {
     [actionTypes.GATHER_PAY_VERIFY]:{//验证聚点余额支付
         apiFn:Fetch.regVerify
     },
-    [actionTypes.GATHER_CARD_VERIFY]:{//验证银行卡支付是否成功
+    [actionTypes.GATHER_CARD_VERIFY]:{//验证聚点银行卡支付是否成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CREDITOR_PAY_VERIFY]:{//验证债权余额支付
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CREDITOR_CARD_VERIFY]:{//验证债权银行卡支付是否成功
         apiFn:Fetch.regVerify
     },
     [actionTypes.ACCREDIT_VERIFY]:{//验证免密是否成功
@@ -428,6 +434,12 @@ export default {
         apiFn:Fetch.gatherBuy
     },
     [actionTypes.GATHER_CARD_BUY]:{//银行卡购买聚点+
+        apiFn:Fetch.newCardBuy
+    },
+    [actionTypes.CREDITOR_BALANCE_BUY]:{//余额方式购买债权
+        apiFn:Fetch.gatherBuy
+    },
+    [actionTypes.CREDITOR_CARD_BUY]:{//银行卡购买债权
         apiFn:Fetch.newCardBuy
     }
 }

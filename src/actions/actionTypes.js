@@ -99,12 +99,16 @@ export const CASH_VERIFY='CASH_VERIFY'
 export const CODE_RIGHT_VERIFY='CODE_RIGHT_VERIFY'
 //验证余额是否购买成功
 export const PAY_VERIFY='PAY_VERIFY'
+//验证银行卡购买是否成功
+export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
 //验证聚点余额购买是否成功
 export const GATHER_PAY_VERIFY='GATHER_PAY_VERIFY'
 //验证聚点银行卡购买是否成功
 export const GATHER_CARD_VERIFY='GATHER_CARD_VERIFY'
-//验证银行卡购买是否成功
-export const CARD_PAY_VERIFY='CARD_PAY_VERIFY'
+//验证债权余额购买是否成功
+export const CREDITOR_PAY_VERIFY='GATHER_PAY_VERIFY'
+//验证债权银行卡购买是否成功
+export const CREDITOR_CARD_VERIFY='GATHER_CARD_VERIFY'
 //验证免密是否成功
 export const ACCREDIT_VERIFY='ACCREDIT_VERIFY'
 //验证密码修改是否成功
@@ -172,6 +176,8 @@ export const NEW_DIRECTINVEST_BUY = 'NEW_DIRECTINVEST_BUY';
 export const NEW_CARD_BUY ='NEW_CARD_BUY';
 export const GATHER_BALANCE_BUY='GATHER_BALANCE_BUY';//聚点余额购买
 export const GATHER_CARD_BUY='GATHER_CARD_BUY';//聚点银行卡购买
+export const CREDITOR_BALANCE_BUY='CREDITOR_BALANCE_BUY';//债权余额购买
+export const CREDITOR_CARD_BUY='CREDITOR_CARD_BUY';//债权银行卡购买
 export const CREDITORS_BUY = 'CREDITORS_BUY';
 export const DEPOSIT_DETAILS='DEPOSIT_DETAILS';
 //理財首頁banner列表

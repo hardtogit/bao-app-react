@@ -79,9 +79,7 @@ class DirectBuy extends React.Component {
                   time:this.state.time+1
               });
               if(cardVerifyData&&cardVerifyData.code=='0001'){
-                  const time=Date.parse(new Date()),
-                      cash_amount=this.state.val;
-                  push(time,cash_amount)
+
               }else{
                   if(this.state.time>=3){
                       if(cardVerifyData&&cardVerifyData.code!='0001'){
@@ -106,9 +104,7 @@ class DirectBuy extends React.Component {
                   time:this.state.time+1
               });
               if(verifyData&&verifyData.code=='0001'){
-                  const time=Date.parse(new Date()),
-                      cash_amount=this.state.val;
-                  push(time,cash_amount)
+
               }else{
                   if(this.state.time>=3){
                       if(verifyData&&verifyData.code!='0001'){
@@ -130,8 +126,6 @@ class DirectBuy extends React.Component {
       }else if(buyData&&buyData.status!=1){
 
       }
-
-
   }
     componentWillUnmount(){
         this.props.clearData()

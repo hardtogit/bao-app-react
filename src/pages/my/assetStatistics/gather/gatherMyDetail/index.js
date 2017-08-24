@@ -104,7 +104,7 @@ class Index extends Component{
                        <span className={styles.arrow}></span>
                    </div>
                    <div className={styles.item}>
-                       <div className={styles.left}>查看协议</div>
+                       <div className={styles.left} onClick={()=>{this.props.push('/serviceContract')}}>查看协议</div>
                        <span className={styles.arrow}></span>
                    </div>
                </div>

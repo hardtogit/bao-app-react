@@ -107,9 +107,7 @@ class Index extends React.Component {
                   time:this.state.time+1
               });
               if(verifyData&&verifyData.data.status==1&&verifyData.code=='0001'){
-                  const time=Date.parse(new Date()),
-                      cash_amount=this.state.val;
-                  push(time,cash_amount)
+
               }else{
                   if(this.state.time>=3){
                       if(verifyData&&verifyData.data.status==1&&verifyData.code!='0001'){
@@ -139,8 +137,9 @@ class Index extends React.Component {
               }else{
                   if(this.state.time>=3){
                       if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code!='0001'){
-                          this.alert('购买失败')
+                          this.changePending()
                       }else{
+                          this.changePending()
                       }
 
                   }else{
@@ -177,6 +176,7 @@ class Index extends React.Component {
   gatherCardBuy=(password,money,bankCard)=>{
         let coupon = this.props.useCoupon ? this.getCoupon() : null
         const {useCoupon}=this.state;
+      const {params:{type,productId},balancePay}=this.props;
         if (!useCoupon&&coupon){
             coupon.id=''
         }
@@ -185,7 +185,7 @@ class Index extends React.Component {
             pending:true,
             time:0
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.directInvestId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),productId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
     }
   // 修改购买份数
   changeQuantity = (value) => {
@@ -581,8 +581,8 @@ class Index extends React.Component {
                 time={this.state.time}/>:''}
 
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>和
-            <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>
+            <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>和
+            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
         </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}

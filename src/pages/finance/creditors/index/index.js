@@ -13,6 +13,7 @@ import type_hongwu from '../../../../assets/images/type_hongwu.png'
 import type_xinyong from '../../../../assets/images/type_xinyong.png'
 import type_danbao from '../../../../assets/images/type_danbao.png'
 import type_diya from '../../../../assets/images/type_diya.png'
+import Store from '../../../../components/Dialog/store'
 import Scroll from '../../../../components/scroll/index.js'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
 import Loading from '../../../../components/pageLoading'
@@ -29,7 +30,7 @@ class CreditorCell extends React.Component{
           id
       }=this.props.data
       const{push}=this.props
-      let storeData=sessionStorage.getItem('bao-store')
+      let storeData=JSON.parse(sessionStorage.getItem('bao-store'))
       if(storeData.isRegister&&storeData.isBindBankcard){
           this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
       }else{
@@ -87,6 +88,7 @@ class CreditorCell extends React.Component{
     } = this.props
     return(
         <div className={styles.cell} style={{width:this.props.screenW}}>
+            <Store ref="store"></Store>
           <div onClick={this.clickYz}>
             <div className={styles.cellHead}>
               <div>
@@ -296,7 +298,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     pageIndex(){
         dispatch({
             type:'PRODUCT_INDEX',
-            index:3
+            index:2
         })
     }
 })

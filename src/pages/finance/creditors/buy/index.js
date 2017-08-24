@@ -27,6 +27,7 @@ class CreditorBuy extends React.Component{
         payTop:'100%',
         url:'',
         select:1,
+        time:0,
         pending:false
     }
     this.creditorsId = this.props.params.id
@@ -36,6 +37,7 @@ class CreditorBuy extends React.Component{
     window['closeFn']=this.closeFn;
     this.props.getCreditorDetail(this.creditorsId)
       this.props.getUser();
+      this.props.getMyBankCards()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,10 +47,56 @@ class CreditorBuy extends React.Component{
           nextProps.detail.left_quantity : this.state.copies : 1  
       this.setState({copies})
     }
-      if (nextProps.creditorsBuyPending){
-          this.setState({
-              pending:true
-          })
+    const{cardBuyData,balanceBuyData,verifyData,cardVerifyData}=nextProps;
+      //验证余额是否购买成功
+      if(balanceBuyData&&balanceBuyData.status==1){
+          if(this.state.time<=3){
+              this.setState({
+                  time:this.state.time+1
+              });
+              if(verifyData&&verifyData.data.status==1&&verifyData.code=='0001'){
+              }else{
+                  if(this.state.time>=3){
+                      if(verifyData&&verifyData.data.status==1&&verifyData.code!='0001'){
+                          this.changePending()
+                      }else{
+                          this.changePending()
+                      }
+                  }else{
+                      setTimeout(function(){
+                          $this.props.payVerify({id:balanceBuyData.msgId})
+                      },2000)
+
+                  }
+              }
+          }
+      }
+      //验证银行卡是否购买才成功
+      if (cardBuyData&&cardBuyData.status==1){
+          if(this.state.time<=3){
+              this.setState({
+                  time:this.state.time+1
+              });
+              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code=='0001'){
+                  const time=Date.parse(new Date()),
+                      cash_amount=this.state.val;
+                  push(time,cash_amount)
+              }else{
+                  if(this.state.time>=3){
+                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code!='0001'){
+                          this.changePending()
+                      }else{
+                          this.changePending()
+                      }
+
+                  }else{
+                      setTimeout(function(){
+                          $this.props.cardPayVerify({id:cardBuyData.msgId})
+                      },2000)
+
+                  }
+              }
+          }
       }
   }
     changePending=()=>{
@@ -83,11 +131,32 @@ class CreditorBuy extends React.Component{
     // if (utils.isPlainObject(this.props.detail)) return false
     return this.state.copies <= (this.props.detail.left_quantity || 0)&&this.state.copies>0 ? true : false
   }
+    //余额购买
+    creditorBalanceBuy = (password, money) => {
 
-  creditorBuy = (password, money) => {
-    this.props.balancePay(this.creditorsId, this.state.copies, password)
-  }
+        const {copies}=this.state;
+        const {balancePay}=this.props;
+        const coupon = '';//债权转让不能使用优惠卷
 
+        this.props.clearData()
+        this.setState({
+            pending:true,
+            time:0
+        });
+        balancePay(this.creditorsId,copies, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
+
+    }
+    //银行卡购买
+    creditorCardBuy=(password,money,bankCard)=>{
+        const {copies}=this.state;
+        const coupon = '';//债权转让不能使用优惠卷
+        this.props.clearData()
+        this.setState({
+            pending:true,
+            time:0
+        })
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.creditorsId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
+    }
   getPrice () {
     return utils.accAdd(this.props.detail.price, this.props.detail.prepaid_interest || 0)
   }
@@ -137,6 +206,10 @@ class CreditorBuy extends React.Component{
     }
   render(){
     const detail = this.props.detail
+      let banksList={};
+      if(this.props.banks&&this.props.banks.data){
+          banksList=this.props.banks.data
+      }
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
@@ -176,20 +249,25 @@ class CreditorBuy extends React.Component{
             <p>{utils.padMoney(this.getPayTotal())}</p>
           </div>
 
-          <PayProcess 
+            { banksList.length!=undefined&&banksList.length!=0 ?<PayProcess
             ref='payProcess' 
             type='creditors'
             getChoose={this.getChoose}
             go={this.props.push}
             user={this.props.user}
+            banks={banksList}
             overPay={this.overPay}
             balance={this.props.user.balance || 0}
-            onRequestBalancePay={this.creditorBuy}
+            onRequestBalancePay={this.creditorBalanceBuy}//传递余额支付方法
+            onRequestCardPay={this.creditorCardBuy}//传递银行卡支付
+            balancePayData={this.props.balanceBuyData}//余额支付数据
+            cardPayData={this.props.cardBuyData}//银行卡支付数据
+            verifyData={this.props.verifyData}//余额是否支付成功验证
+            cardVerifyData={this.props.cardVerifyData}//银行卡是否支付成功验证
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
             balancePayPending={this.state.pending}
-            balancePayData={this.props.creditorsBuyData}
             changePending={this.changePending}
-            clear={this.props.clear}/>
+            clear={this.props.clear}/>:''}
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
@@ -218,22 +296,82 @@ const mapStateToProps = (state, ownProps) => {
   return{
     user: userData && userData.data || {},
     detail: detail && detail.data || {},
+    banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
+      balanceBuyData:state.infodata.getIn([actionTypes.CREDITOR_BALANCE_BUY,'data']),
+      cardBuyData:state.infodata.getIn([actionTypes.CREDITOR_CARD_BUY,'data']),
+      verifyData:state.infodata.getIn([actionTypes.CREDITOR_PAY_VERIFY,'data']),
+      cardVerifyData:state.infodata.getIn([actionTypes.CREDITOR_CARD_VERIFY,'data']),
     creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
-    creditorsBuyData: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'data'])
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  balancePay(creditorId, copies, payPass) {
-    dispatch({
-      type: actionTypes.CREDITORS_BUY,
-      params: [creditorId, {
-        copies,
-        payPass,
-        type: 3
-      }]
-    })
-  },
+    //余额支付
+    balancePay(productId, num, password, passwordFactor, couponId,device,mapKey) {
+        dispatch({
+            type: actionTypes.CREDITOR_BALANCE_BUY,
+            params: [{
+                productId,
+                num,
+                password,
+                passwordFactor,
+                couponId,
+                productType:'TRANSFER',
+                device,
+                mapKey:mapKey
+            }]
+        })
+    },
+    //银行卡支付
+    cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,mapKey){
+        dispatch({
+            type:actionTypes.CREDITOR_CARD_BUY,
+            params:[{
+                bankCard,
+                transferAmount,
+                productId,
+                num,
+                password,
+                passwordFactor,
+                couponId,
+                productType:'POINT',
+                device,
+                mapKey:mapKey
+            }]
+        })
+    },
+    //余额购买验证
+    payVerify(id){
+        dispatch({
+            type:'CREDITOR_PAY_VERIFY',
+            params:[id]
+        })
+    },
+    //银行卡购买验证
+    cardPayVerify(id){
+        dispatch({
+            type:'CREDITOR_CARD_VERIFY',
+            params:[id]
+        })
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CREDITOR_BALANCE_BUY'
+        }),
+            dispatch({
+                type:'CLEAR_INFO_DATA',
+                key:'CREDITOR_CARD_BUY'
+            }),
+            dispatch({
+                type:'CLEAR_INFO_DATA',
+                key:'CREDITOR_PAY_VERIFY'
+            }),
+            dispatch({
+                type:'CLEAR_INFO_DATA',
+                key:'CREDITOR_CARD_VERIFY'
+            })
+    },
   getCreditorDetail(id) {
     dispatch({
       type: actionTypes.CREDITORS_DETAIL,
@@ -245,6 +383,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
   push(path) {
     dispatch(push(path))
+  },
+  getMyBankCards(){
+        dispatch({
+            type:'GET_MY_CARD_LIST'
+        })
   },
   goBack() {
     dispatch(goBack())
