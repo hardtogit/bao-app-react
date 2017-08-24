@@ -256,6 +256,7 @@ export const GATHER_MY_LIST_TWO='GATHER_MY_LIST_TWO'//我的聚点+列表(退出
 export const GATHER_MY_LIST_THREE='GATHER_MY_LIST_THREE'//我的聚点+列表(已退出)
 export const GATHER_MY_HEADER='GATHER_MY_HEADER'//我的聚点头
 export const GATHER_BUY='GATHER_BUY'//聚点购买
+export const GATHER_CONTRACT='GATHER_CONTRACT' //聚点合同
 export const FREE_ACCREDIT='FREE_ACCREDIT'//自动授权
 
 

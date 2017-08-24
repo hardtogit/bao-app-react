@@ -454,12 +454,12 @@ class Index extends Component{
     }
 }
 const datas=(state)=>({
-      infoData:state.infodata.getIn(['DIRECT_INVEST_CONTRACT','data'])
+      infoData:state.infodata.getIn(['GATHER_CONTRACT','data'])
 });
 const dispatchFn=(dispatch)=>({
       getInfo(id){
           dispatch({
-              type:'DIRECT_INVEST_CONTRACT',
+              type:'GATHER_CONTRACT',
               params:[id]
           })
       },
