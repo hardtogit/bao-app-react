@@ -91,8 +91,8 @@ class FinancialIndex extends Component{
         if (auth){
             this.getLogin(auth)
         }else {
-            load();
         }
+        load();
         if (depositbs==null){
             getListB()
         }else {
