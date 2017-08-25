@@ -374,7 +374,7 @@ class Index extends Component{
                 }
             }=this.props;
         console.log(data)
-        let startDate,endDate;
+        //let startDate,endDate;
         //if (data.startTime!='0'){
         //    startDate=zhDate(data.startTime)
         //}
@@ -382,6 +382,8 @@ class Index extends Component{
         //    endDate=zhDate(end_date);
         //}
         const strDate=zhDate(data.startTime);
+        const endDate=zhDate(data.endTime);
+        //const endDate=zhDate(data.endTime);
         return (<div className={styles.bodyBox}>
             <div className={styles.content}>
                 <h1 className={styles.newTitle}>借款合同</h1>
@@ -398,28 +400,28 @@ class Index extends Component{
                         乙方（借款人）：
                     </p>
                     <p className={styles.text}>
-                        姓名：
+                        姓名：{data.borrow.borrowUser}
                     </p>
                     <p className={styles.text}>
-                        证件类型：
+                        证件类型：{data.borrow.type}
                     </p>
                     <p className={styles.text}>
-                        证件证号：
+                        证件证号：{data.borrow.borrowCard}
                     </p>
                     <p className={styles.text}>
-                        宝点网用户名：
+                        宝点网用户名：{data.borrow.userName}
                     </p>
                     <p className={styles.text}>
-                        联系方式：
+                        联系方式：{data.borrow.userPhone}
                     </p>
                     <p className={styles.text}>
-                        丙方（居间平台服务商）：
+                        丙方（居间平台服务商）：成都伟品信息技术服务有限公司
                     </p>
                     <p className={styles.text}>
-                        联系方式：
+                        联系方式：四川省成都市锦江区红星路三段1号IFS国际金融中心办公楼三号楼41楼4102-06
                     </p>
                     <p className={styles.text}>
-                        联系电话：
+                        联系电话：028-966180
                     </p>
                     <p className={classNames(styles.text,styles.pd1)}>
                         鉴于:
@@ -444,10 +446,10 @@ class Index extends Component{
                             <thead>
                             <tr>
                                 <th>
-                                    出借人用户名
+                                    出借人姓名
                                 </th>
                                 <th>
-                                    出借人姓名
+                                    证件号
                                 </th>
                                 <th>
                                     出借金额
@@ -455,12 +457,15 @@ class Index extends Component{
                             </tr>
                             </thead>
                             <tbody>
+                            {data.invest.map((item,i)=>{
+                                return(<tr key={i}><td>{item.user}</td><td>{item.card}</td><td>{item.money}</td></tr>)
+                            })}
                             </tbody>
                         </table>
                     </div>
                     <p  className={classNames(styles.text1,styles.pd1)}>
-                        第二条  乙方的借款用途为：，
-                        借款金额为：（大写：人民币），借款利率：%，还款方式：，借款期限为：到止。
+                        第二条  乙方的借款用途为：{data.borrow.borrowUse}，
+                        借款金额为：{data.borrow.borrowMoney}（大写：人民币{data.borrow.CNMoney}），借款利率：{data.borrow.borrowRate}%，还款方式：{data.borrow.repaymentType}，借款期限为：{endDate}到止。
                     </p>
                     <p  className={styles.text1}>
                         第三条 借款、还款的支付方式
@@ -639,37 +644,9 @@ class Index extends Component{
                             </tr>
                             </thead>
                             <tbody>
-                            {
-                                //loan_detail.map(({username,amount,real_name,percent,term},i)=>(
-                                //    <tr key={i}>
-                                //        <td>
-                                //            {
-                                //                username
-                                //            }
-                                //        </td>
-                                //        <td>
-                                //            {
-                                //                real_name
-                                //            }
-                                //        </td>
-                                //        <td>
-                                //            {
-                                //                amount
-                                //            }
-                                //        </td>
-                                //        <td>
-                                //            {
-                                //                term
-                                //            }
-                                //        </td>
-                                //        <td>
-                                //            {
-                                //                percent
-                                //            }
-                                //        </td>
-                                //    </tr>
-                                //))
-                            }
+                            {data.transfer.map((item,i)=>{
+                                return(<tr key={i}><td>{item.holder}</td><td>{item.ceder}</td><td>{item.hasMoney}</td></tr>)
+                            })}
                             </tbody>
                         </table>
                     </div>
@@ -680,7 +657,7 @@ class Index extends Component{
                             甲方（出借人）：详见本合同第一条
                         </p>
                         <p>
-                            乙方（借款人）：
+                            乙方（借款人）：{data.borrow.borrowUser}
                         </p>
                         <p>
                             丙方（居间平台服务商）：
@@ -689,7 +666,7 @@ class Index extends Component{
                             <img src={seal} />
                         </p>
                         <p>
-                            合同签署日期：
+                            合同签署日期：{strDate}
                         </p>
                     </div>
                 </div>
@@ -704,7 +681,12 @@ class Index extends Component{
         }=this.props;
         let dom;
         if(infoData){
-           dom=this.loadEndDomTwo();
+            if(this.props.params.type==0){
+                dom=this.loadEndDom();
+            }else{
+                dom=this.loadEndDomTwo();
+            }
+
         }else{
            dom=this.loadDom()
         }

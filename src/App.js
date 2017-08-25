@@ -134,8 +134,8 @@ GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCh
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+//const a=window.location.href.split('.')[1]+'.cn';
+//document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -163,7 +163,7 @@ export default class App extends React.Component {
               <Route path="successTemplate" getComponent={SuccessTemplate}></Route>
               <Route path="dangerContract" getComponent={DangerContract}></Route>
               <Route path="serviceContract" getComponent={ServiceContract}></Route>
-              <Route path="borrowContract/:id" getComponent={BorrowContract}></Route>
+              <Route path="borrowContract/:id/:type" getComponent={BorrowContract}></Route>
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>

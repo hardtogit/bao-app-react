@@ -13,7 +13,7 @@ var kb = new keyBoard({
 });
 //注册存管
 var passGuard1 = new passGuard({
-    "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
+    "mappurl" : "/api/supervise/users/passwordControlKey",
     "maxLength" : 12,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
     "regExp2": "[\\S\\s]{6,12}",
@@ -30,7 +30,7 @@ function cb2(){
     console.log("失败1");
 }
 var passGuard2 = new passGuard({
-    "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
+    "mappurl" : "/api/supervise/users/passwordControlKey",
     "maxLength" : 12,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
     "regExp2": "[\\S\\s]{6,12}",
@@ -48,7 +48,7 @@ function cb4(){
 }
 //单个使用。
 var passGuard3 = new passGuard({
-    "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
+    "mappurl" : "/api/supervise/users/passwordControlKey",
     "maxLength" : 12,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
     "regExp2": "[\\S\\s]{6,12}",

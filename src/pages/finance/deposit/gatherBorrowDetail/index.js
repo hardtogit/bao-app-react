@@ -89,7 +89,7 @@ class Index extends Component{
                 </div>
                 <div className={styles.container}>
                <Panel ownStyle={{marginBottom:'10px'}} title="协议范本">
-                   点击查看 <span onClick={()=>{push('/borrowContract/'+params.id)}} className={styles.book}>《借款合同》</span>和 <span onClick={()=>{push('/dangerContract')}} className={styles.book}>《风险提示》</span>
+                   点击查看 <span onClick={()=>{push('/borrowContract/'+params.id+'/0')}} className={styles.book}>《借款合同》</span>和 <span onClick={()=>{push('/dangerContract')}} className={styles.book}>《风险提示》</span>
                </Panel>
                 </div>
            </div>
