@@ -100,7 +100,7 @@ class Index extends React.Component {
         this.refs.success.show({
             text: '设置成功',
             callback: () => {
-                this.props.push('/user');
+                this.props.push('/home/myIndex');
                 this.props.getInfo();
             }
         });
