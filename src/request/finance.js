@@ -81,6 +81,7 @@ const requests = (Fetch) => {
   Fetch.gatherContract=(id)=>{return Fetch(`api/depositSupervise/contract/${id}`,'GET')}//聚点+合同
 
   //存管
+  Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
   Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw','POST',data)}//新的提现接口

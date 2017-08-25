@@ -104,6 +104,7 @@ class Index extends Component{
         }
     }
     componentDidMount(){
+        this.props.getStoreUserInfo()
         passGuard1.generate("kb1",kb,0);
         passGuard2.generate("kb2",kb,0);
         $(function(){
@@ -138,6 +139,10 @@ class Index extends Component{
         const{
             disable
             }=this.state;
+        const{
+            userData
+            }=this.props;
+        console.log(userData)
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop} leftNode={<div style={{paddingLeft:'10px'}}>取消</div>} >开通存管账户</NavBar>
@@ -153,7 +158,12 @@ class Index extends Component{
                         ref='realName'
                         name='realName'
                         label='真实姓名'
-                        defaultValue=''
+                        defaultValue={(()=>{
+                        let name='';
+                        if(userData&&userData.data&&userData.data.realName)
+                        { name=userData.data.realName}
+                        return name
+                        })()}
                         placeholder='请输入真实姓名'
                         type='validateItem'
                         reg={{ required: {message: '请输入正确姓名'}}}
@@ -205,6 +215,7 @@ const mapStateToProps=(state,ownProps)=>{
    return{
        pending:state.infodata.getIn([actionTypes.REG_STORE, 'pending']),
        data:state.infodata.getIn([actionTypes.REG_STORE, 'data']),
+       userData:state.infodata.getIn([actionTypes.GET_STORE_USER_INFO, 'data']),
        flagData:state.infodata.getIn([actionTypes.REG_VERIFY,'data'])
    }
 };
@@ -224,6 +235,11 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
          dispatch({
              type:actionTypes.REG_VERIFY,
              params:[{id:id}]
+         })
+     },
+     getStoreUserInfo(){
+         dispatch({
+             type:actionTypes.GET_STORE_USER_INFO
          })
      },
      updateStore(){

@@ -83,6 +83,8 @@ export const VERIFY_CAPTCHA = 'VERIFY_CAPTCHA'
 export const CHECK_VERIFY_CAPTCHA = 'CHECK_VERIFY_CAPTCHA'
 export const REGISTER = 'REGISTER'
 export const SECURITY_CARD='SECURITY_CARD'
+//获取存管所用用户信息
+export const GET_STORE_USER_INFO='GET_STORE_USER_INFO'
 //注册存管
 export const REG_STORE = 'REG_STORE'
 //存管验证是否注册成功
