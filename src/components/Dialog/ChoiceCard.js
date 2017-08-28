@@ -57,7 +57,7 @@ class Index extends React.Component {
                         <span onClick={this.hide}>X</span> 选择付款方式
                     </div>
                     <div className={styles.c_body}>
-                        {options.banks&&options.banks.data.map((value,i)=>{
+                        {options.banks&&options.banks.data&&options.banks.data.map((value,i)=>{
                              return <div key={i} className={styles.c_item} onClick={()=>{this.handClick(value.bankName,value.bankCard)}}>
                                  <span>{value.bankName}</span><span>({value.bankCard.substr(value.bankCard.length-4,4)})</span>
                              </div>

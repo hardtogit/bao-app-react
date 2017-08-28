@@ -20,6 +20,7 @@ class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      defaultQuantity:200,
       quantity: 200,  // 购买数量
       unitPrice: 50, // 单价
       chosenPay: '',
@@ -56,8 +57,8 @@ class DirectBuy extends React.Component {
       const $this=this;
     if (!utils.isPlainObject(this.props.detail)) {
       const quantity = this.props.detail.left_quantity ?
-          this.props.detail.left_quantity < this.state.quantity ?
-          this.props.detail.left_quantity : this.state.quantity : 1
+          this.props.detail.left_quantity < this.state.defaultQuantity ?
+          this.props.detail.left_quantity : this.state.defaultQuantity : 1
       this.setState({quantity})
     }
 
@@ -454,15 +455,16 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail;
-      let banksList={}
+      //let banksList={}
       if(this.props.banks&&this.props.banks.data){
-          banksList=this.props.banks.data
+        let  banksList=this.props.banks.data
       }
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
         <NavBar title='购买支付' onLeft={this.pop}></NavBar>
         <div style={{height:44}}></div>
+        <p className={styles.title}>购买产品：直投 {detail.term}个月 年化利率（{detail.rate || ''}%）</p>
         <div className={styles.scroll}>
           <div className={styles.infomation}>
             <div>
@@ -493,14 +495,14 @@ class DirectBuy extends React.Component {
             <p>{utils.padMoney(this.getPayTotal())}</p>
           </div>
 
-            { banksList.length!=undefined ?<PayProcess
+            <PayProcess
             ref='payProcess' 
             type='directInvest'
             go={this.props.push}
             getChoose={this.getChoose}
             overPay={this.overPay}
             user={this.props.user}
-            banks={banksList}
+            banks={this.props.banks&&this.props.banks.data}
             time={this.state.time}
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.directInvestBuy}
@@ -512,7 +514,7 @@ class DirectBuy extends React.Component {
             cardPayData={this.props.carBuyData}
             cardVerifyData={this.props.cardVerifyData}
             changePending={this.changePending}
-            clear={this.props.clear}/>:''}
+            clear={this.props.clear}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
@@ -664,6 +666,14 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             type:'CLEAR_INFO_DATA',
             key:'AVAILABLE_COUPONS'
         })
+        //dispatch({
+        //    type:'CLEAR_INFO_DATA',
+        //    key:'GET_MY_CARD_LIST'
+        //})
+        //dispatch({
+        //    type:'CLEAR_INFO_DATA',
+        //    key:'DIRECTINVEST_DETAIL'
+        //})
     },
     getMyBankCards(){
         dispatch({

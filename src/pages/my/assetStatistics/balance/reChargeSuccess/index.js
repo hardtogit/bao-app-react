@@ -48,8 +48,7 @@ class Index extends React.Component{
                     <div className={styles.content}>
                         <div className={styles.imgWrapper}><img src={success}/></div>
                         <p>充值成功</p>
-                        <BaseButton text={'继续充值'} disable={false} onClick={()=>{this.props.replace('/user/newRecharge')}} className={styles.button}/>
-                        <BaseButton text={'返回首页'} disable={false} onClick={()=>{this.props.replace('/home')}} className={styles.button}/>
+                        <BaseButton text={'确定'} disable={false} onClick={()=>{this.props.replace('/user/newRecharge')}} className={styles.button}/>
                     </div>
                 </div>
             </div>

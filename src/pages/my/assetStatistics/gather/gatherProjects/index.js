@@ -14,6 +14,10 @@ import {goBack,push} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
     }
+    componentWillUnmount(){
+        this.props.clean()
+        console.log('ds')
+    }
     render(){
         Date.prototype.format = function(fmt) {
             var o = {
@@ -40,6 +44,7 @@ class Index extends Component{
             listData,
             pending,
             end,
+            push,
             pop
             }=this.props
         return(
@@ -54,7 +59,7 @@ class Index extends Component{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
                                <div className={styles.left}>{item.borrow_name}</div>
-                               <div className={styles.right} onClick={()=>{push()}}>查看协议</div>
+                               <div className={styles.right} onClick={()=>{push(`/borrowContract/${item.borrow_id}/1`)}}>查看协议</div>
                            </div>
                            <div className={styles.item}>
                                <div className={styles.left}>投资金额(元)</div>
@@ -86,6 +91,12 @@ const DispatchFn=(dispatch,own)=>({
         dispatch({
            type:'GATHER_PROJECTS',
            params:[{id:id,type:type}]
+        })
+    },
+    clean(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_PROJECTS'
         })
     }
 })

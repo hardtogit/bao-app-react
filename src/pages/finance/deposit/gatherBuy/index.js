@@ -520,10 +520,7 @@ class Index extends React.Component {
                   sy=this.expectIncome();
               }
           }
-      let banksList={}
-      if(this.props.banks&&this.props.banks.data){
-          banksList=this.props.banks.data
-      }
+
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
@@ -559,13 +556,14 @@ class Index extends React.Component {
           <span>还需支付（元）</span>
           <span>{utils.padMoney(this.getPayTotal())}</span>
         </div>
-            { banksList.length!=undefined ?<PayProcess
+            <PayProcess
                 ref='payProcess'
                 type={`gather`}
+                data={this.props.quantityDataB&&this.props.quantityDataB.data}
                 go={this.props.push}
                 getChoose={this.getChoose}
                 user={this.props.user}
-                banks={banksList}
+                banks={this.props.banks&&this.props.banks.data}
                 balance={+this.props.user.balance}
                 onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
                 onRequestCardPay={this.gatherCardBuy}//传递银行卡支付
@@ -578,8 +576,7 @@ class Index extends React.Component {
                 changePending={this.changePending}
                 clear={()=>{this.props.clearData()}}
                 money={utils.padMoney(this.getPayTotal())}
-                time={this.state.time}/>:''}
-
+                time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>和
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>

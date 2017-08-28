@@ -70,18 +70,34 @@ class Index extends Component{
             time:0,
             pending:true
         });
+        this.props.clean()
     this.props.reg(data)
     };
     componentWillReceiveProps(nextProps) {
+        //设置用户
+        if(nextProps.userData){
+            this.refs.form.refs.realName.setState({
+                value:nextProps.userData.data.realName
+            })
+            this.refs.form.refs.idCard.setState({
+                value:nextProps.userData.data.idCard
+            })
+            setTimeout(()=>{
+                this.ifPost()
+            },1000)
+
+        }
         if(nextProps.data){
             if (nextProps.data.status==1){
                 if(this.state.time<=3){
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.flagData&&nextProps.flagData.code=="0001"&&!this.state.ifUpdate){
-                        this.props.updateStore();
+                    if(nextProps.flagData&&nextProps.flagData.code=="0001"){
                         this.props.push('/user/setting/cardBind')
+                        if(!this.state.ifUpdate){
+                            this.props.updateStore();
+                        }
                         this.setState({
                             ifUpdate:true
                         })
@@ -90,7 +106,12 @@ class Index extends Component{
                             this.setState({
                                 pending:false
                             })
-                            this.refs.alert.open('开通存管账户失败')
+                            if(nextProps.flagData&&nextProps.flagData.code!="0001"&&!this.state.ifUpdate){
+                                this.refs.alert.open(nextProps.flagData.msg)
+
+                            }else{
+                                this.refs.alert.open('开通存管账户失败')
+                            }
                             $("#kb1").val('');
                             $("#kb2").val('');
                         }else{
@@ -139,10 +160,6 @@ class Index extends Component{
         const{
             disable
             }=this.state;
-        const{
-            userData
-            }=this.props;
-        console.log(userData)
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop} leftNode={<div style={{paddingLeft:'10px'}}>取消</div>} >开通存管账户</NavBar>
@@ -158,12 +175,7 @@ class Index extends Component{
                         ref='realName'
                         name='realName'
                         label='真实姓名'
-                        defaultValue={(()=>{
-                        let name='';
-                        if(userData&&userData.data&&userData.data.realName)
-                        { name=userData.data.realName}
-                        return name
-                        })()}
+                        defaultValue=''
                         placeholder='请输入真实姓名'
                         type='validateItem'
                         reg={{ required: {message: '请输入正确姓名'}}}
@@ -230,6 +242,16 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
      },
      pop(){
          dispatch(goBack())
+     },
+     clean(){
+         dispatch({
+             type:'CLEAR_INFO_DATA',
+             key:'REG_STORE'
+         });
+         dispatch({
+             type:'CLEAR_INFO_DATA',
+             key:'REG_VERIFY'
+         })
      },
      verify(id){
          dispatch({

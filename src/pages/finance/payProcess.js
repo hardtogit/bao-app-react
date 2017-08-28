@@ -10,6 +10,7 @@ import util from '../../utils/utils'
 import styles from './payProcess.styl'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
+import Utils from '../../utils/utils'
 class PayProcess extends React.Component {
   constructor(props) {
     super(props)
@@ -48,15 +49,18 @@ class PayProcess extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if(this.props.data){
+      //console.log(this.props.data.server_time*1000)+1000*60*60*24*30*parseInt(this.props.data.month)
+      console.log()
+    }
       const {go,banks} = this.props;
-      console.log(nextProps)
+    if(banks){
       this.setState({
         bankName:banks[0].bankName,
-        bankCode:banks[0].bankCard.substr(banks[0].bankCard.length-4,4),
+        bankCode:"("+banks[0].bankCard.substr(banks[0].bankCard.length-4,4)+")",
         bankCard:banks[0].bankCard
-
       })
-
+    }
     if (nextProps.balance != this.props.balance || this.props.inputValue != nextProps.inputValue) {
       // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
       //   this._onSelectPay(chosen)
@@ -78,7 +82,11 @@ class PayProcess extends React.Component {
         const msgId= nextProps.balancePayData.msgId;
         if (nextProps.verifyData.code=='0001'){
               switch(this.props.type) {
-                case 'gather': go('/depositInvestSuccess/A'); break;
+                case 'gather':
+                  const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
+                  const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
+                  const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
+                  go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'nowDate='+nowDate); break;
                 case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
                 case 'creditors': go('/creditorInvestSuccess/A'); break;
               }
@@ -99,7 +107,11 @@ class PayProcess extends React.Component {
       const msgId= nextProps.cardPayData.msgId;
       if (nextProps.cardVerifyData.code=='0001'){
         switch(this.props.type) {
-          case 'gather': go('/depositInvestSuccess/A'); break;
+          case 'gather':
+            const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
+            const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
+            const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
+            go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
           case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
           case 'creditors': go('/creditorInvestSuccess/A'); break;
         }
@@ -165,11 +177,10 @@ class PayProcess extends React.Component {
     } else {
       const index = this.state.disable.indexOf(this.props.BALANCEINDEX)
       let states = {chosen: this.props.BALANCEINDEX}
-      if (index !== -1) {
+      //if (index !== -1) {
         this.state.disable.splice(index, 1)
         states.disable = this.state.disable
-      }
-
+      //}
       this.setState(states)
     }
   }
@@ -309,7 +320,7 @@ class PayProcess extends React.Component {
         { disable ? <img  className={styles.RadioImg} src={require('../../assets/images/0k_disable.png')} /> :
             this.state.chosen == index + 1 ? <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k.png')} /> :
                 <img onClick={() => {if(!disable) {this.selectPayWay(index)}}} className={styles.RadioImg} src={require('../../assets/images/0k_no.png')} /> }
-        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+"("+this.state.bankCode+")":'账户余额'}</span>
+        <span className={cn(styles.RadioLabel, disable && styles.disableText)}>{index==1?this.state.bankName+this.state.bankCode:'账户余额'}</span>
         <div className={styles.RadioContent}>
           { index + 1 == this.props.BALANCEINDEX && this.renderBalanceContent(disable) }
         </div>
@@ -320,7 +331,7 @@ class PayProcess extends React.Component {
   choiceCallback=(a,b,c)=>{
     this.setState({
       bankName:b,
-      bankCode:c.substr(c.length-4,4),
+      bankCode:"("+c.substr(c.length-4,4)+")",
       bankCard:c
     })
     a()

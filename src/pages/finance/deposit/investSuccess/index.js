@@ -13,49 +13,38 @@ class InvestSuccess extends React.Component {
   }
   componentDidMount(){
       this.props.getUser();
+
   }
     componentWillUnmount(){
-      if (this.props.params.type=='A'){
-          this.props.clearData('DEPOSIT_BUY');
-      }else {
-          this.props.clearData('DEPOSITBS_BUYRESULT');
-      }
+
     }
     listA=(data)=>{
         const {
-            buy_time,
-            start_date,
-            maturityDate
+            money,
+            startDate,
+            endDate,
+            nowDate
         }=data;
         return [{
                 title: '你已投资成功',
-                date: buy_time
+                date: nowDate
             },
             {
                 title: '起息日',
-                date: start_date
+                date: startDate
             },
             {
-                title: '到期日',
-                date: maturityDate ,
+                title: '预计到期日',
+                date: endDate ,
                 curStep: true
             },
+            {   title:'本息到账',
+                date:'债权自动转让时间为1~3天，转让成功自动回款',
+                curStep: true
+            }
         ]
     }
-    time=(date,type)=>{
-        const time=new Date(parseInt(date)*1000);
-        const year=time.getFullYear(),
-              month=this.lessTen(time.getMonth()+1),
-              day=this.lessTen(time.getDate()),
-              hours=this.lessTen(time.getHours()),
-              min=this.lessTen(time.getMinutes()),
-              sec=this.lessTen(time.getSeconds());
-        if (type==1){
-            return year+'-'+month+'-'+day+'  '+hours+':'+min+':'+sec
-        }else {
-            return year+'-'+month+'-'+day
-        }
-    }
+
     lessTen=(num)=>{
         if (num<10){
             return '0'+num
@@ -63,44 +52,22 @@ class InvestSuccess extends React.Component {
             return num
         }
     }
-    listB=(data)=>{
-        const{currentTime,maturityTime}=data,
-         startStr=this.time(currentTime,1),
-            startLx=this.time(currentTime,2),
-            endStr= this.time(maturityTime,2);
-        return [{
-            title: '你已投资成功',
-            date: startStr
-        },
-            {
-                title: '起息日',
-                date: startLx
-            },
-            {
-                title: '到期日',
-                date: endStr ,
-                curStep: true
-            },
-        ]
-    }
+
   render() {
-        const {params:{type},depositBuyData,depositsbBuyData}=this.props;
+        const {location:{
+             query
+            }}=this.props;
         let data;
         let dataArry;
-        if (type=='A'){
-            data = depositBuyData && depositBuyData.data || {}
-            dataArry=this.listA(data)
-        }else {
-            data = depositsbBuyData && depositsbBuyData.data.additional || {}
-            dataArry=this.listB(data)
-        }
+        dataArry=this.listA(query)
+
     return (
       <div className={styles.root}>
         <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
         <div className={styles.content}>
           <div className={styles.amount}>
             <span>投资金额</span>
-            <span>¥{ data && data.amount || ''}</span>
+            <span>¥{ query && query.money || ''}</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
@@ -115,10 +82,10 @@ class InvestSuccess extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    depositBuyData: state.infodata.getIn([actionTypes.DEPOSIT_BUY, 'data']),
-    depositsbBuyData:state.infodata.getIn([actionTypes.DEPOSITBS_BUYRESULT, 'data'])
-  }
+    return{
+        userData:state.infodata.getIn(['USER_INFO'],'data')
+    }
+
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

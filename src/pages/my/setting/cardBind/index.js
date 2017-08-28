@@ -108,10 +108,17 @@ class Index extends Component{
                         this.props.push('/user/setting/bindSuccess')
                 }else{
                     if(this.state.bindTime>=3){
-                        this.refs.alert.open('绑定银行卡失败');
+                        if(nextProps.bindFlag&&nextProps.bindFlag.code!='0001'){
+                        this.refs.alert.open(nextProps.bindFlag.msg);
                         this.setState({
                             submitting:false
                         })
+                        }else{
+                            this.refs.alert.open('绑定银行卡失败');
+                            this.setState({
+                                submitting:false
+                            })
+                        }
                     }else{
                         setTimeout(()=>{
                             this.props.verifyBind(nextProps.regData.msgId)
@@ -126,8 +133,20 @@ class Index extends Component{
     }
     componentDidMount(){
     }
-    componentDidUpdate(){
+    showTip=()=>{
+        this.refs.tip.show({
+            okText:'确定',
+            title:'温馨提示',
+            content:<div style={{textAlign:'left'}}>
+                <p style={{fontSize:'14px'}}>如果您忘记银行卡开户支行，请参考以下方式</p>
+                <p style={{fontSize:'14px',marginTop:'10px',color:'#999',lineHeight:'1.4'}}>方法一: 通过拨打银行卡背面的客服热线，向客服咨询开户支行</p>
+                <p style={{fontSize:'14px',marginTop:'10px',color:'#999',lineHeight:'1.4'}}>方法二: 带上银行卡、身份证到最近的一家开卡行银行网点</p>
+                <p style={{fontSize:'14px',marginTop:'10px',color:'#999',lineHeight:'1.4'}}>方法三：如果开通网上银行，可通过登录网上银行自助查询</p>
+            </div>
 
+        })
+    }
+    componentDidUpdate(){
     }
     componentWillUnmount(){
         this.props.clean('BIND_VERIFY');
@@ -276,7 +295,7 @@ class Index extends Component{
                     </div>
                     </ValidateForm>
                 </div>
-                <div className={styles.problem}>
+                <div onClick={this.showTip} className={styles.problem}>
                       忘记预留手机怎么办？
                 </div>
                 <div className={styles.submit}>
@@ -288,6 +307,7 @@ class Index extends Component{
                     </div>
                 }
                 <Tipbar ref="alert"></Tipbar>
+                <Alert ref="tip"></Alert>
             </div>
         )
     }

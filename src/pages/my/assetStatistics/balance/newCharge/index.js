@@ -57,9 +57,11 @@ class Index extends Component{
                     }else{
                         if(this.state.time>=3){
                             if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
-                                this.props.push('/user/reChargeFail')
+                                //this.props.push('/user/reChargeFail')
+                                $this.refs.loading.hide()
                             }else{
-                                this.props.push('/user/reChargeFail')
+                                //this.props.push('/user/reChargeFail')
+                                $this.refs.loading.hide()
                             }
                             this.setState({
                                 time:0

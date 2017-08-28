@@ -11,7 +11,7 @@ import Loading from '../../../components/pageLoading'
 import {goBack} from 'react-router-redux'
 import NewContract from './newContract'
 const zhDate=(date)=>{
-        const standardDate=new Date(Date.parse(date)),
+        const standardDate=new Date(date),
             year=standardDate.getFullYear(),
             month=standardDate.getMonth()+1,
             day=standardDate.getDate();
@@ -373,16 +373,8 @@ class Index extends Component{
                 data
                 }
             }=this.props;
-        console.log(data)
-        //let startDate,endDate;
-        //if (data.startTime!='0'){
-        //    startDate=zhDate(data.startTime)
-        //}
-        //if (end_date!='0'){
-        //    endDate=zhDate(end_date);
-        //}
-        const strDate=zhDate(data.startTime);
-        const endDate=zhDate(data.endTime);
+        const strDate=zhDate(data.startTime*1000);
+        const endDate=zhDate(data.endTime*1000);
         //const endDate=zhDate(data.endTime);
         return (<div className={styles.bodyBox}>
             <div className={styles.content}>

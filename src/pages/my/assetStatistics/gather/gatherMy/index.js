@@ -29,6 +29,9 @@ class Index extends Component{
         two:{transform:'translateX('+-this.clientWidth+'px)'},
         three:{transform:'translateX('+-this.clientWidth*2+'px)'}
         };
+    componentWillUnmount(){
+        this.props.clean()
+    }
     componentDidMount(){
      //组件渲染完成时调用
         this.refs.tabs.style.width=this.clientWidth*3+'px';
@@ -299,5 +302,19 @@ const mapDispatchToProps=(dispatch,own)=>({
             index:num
         })
     },
+    clean(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_MY_LIST_ONE'
+        });
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_MY_LIST_TWO'
+        });
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_MY_LIST_THREE'
+        })
+    }
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)
