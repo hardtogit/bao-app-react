@@ -33,3 +33,4 @@ export const GATHER_PROBLEMS='GATHER_PROBLEMS' //聚点+问题
 export const GATHER_BID_LIST='GATHER_BID_LIST' //聚点+标
 export const GATHER_JOIN='GATHER_JOIN'//加入记录
 export const GATHER_BID_DETAIL='GATHER_BID_DETAIL'//标的详情
+export const GATHER_CONTRACT='GATHER_CONTRACT'//聚点+合同

@@ -121,7 +121,7 @@ class Index extends React.Component {
                         if(accreditVerifyData&&accreditVerifyData.code!='0001'){
                             $this.refs.switch.refs.loading.hide();
                             this.refs.alert.show({
-                                content: '授权失败',
+                                content:accreditVerifyData.msg ,
                                 okText: '确定',
                             })
                             this.props.accreditClear()

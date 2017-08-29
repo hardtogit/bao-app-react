@@ -28,14 +28,12 @@ class Index extends Component {
 
     componentDidMount() {
         //组件渲染完成时调用
-        this.props.update()
     }
     componentWillReceiveProps(nextProps) {
         //组件接收到新的props调用
         if(nextProps.data){
             if(nextProps.data.code==100){
-                this.props.update()
-                this.props.push('/successTemplate?title=身份证上传成功&pushUrl=/home/myIndex&text=上传成功')
+                this.props.push('/successTemplate?title=身份证上传成功&pushUrl=/user/recharge&text=上传成功')
             }else{
 
             }
@@ -155,11 +153,6 @@ const mapDispatchToProps = (dispatch, own)=>({
     },
     push(url){
         dispatch(push(url))
-    },
-    update(){
-        dispatch({
-            type:'STORE_STATUS_INFO',
-        })
     }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index)

@@ -24,10 +24,10 @@ var passGuard1 = new passGuard({
 });
 
 function cb1(){
-    console.log("成功1");
+    //console.log("成功1");
 }
 function cb2(){
-    console.log("失败1");
+    //console.log("失败1");
 }
 var passGuard2 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
@@ -41,10 +41,10 @@ var passGuard2 = new passGuard({
 });
 
 function cb3(){
-    console.log("成功1");
+    //console.log("成功1");
 }
 function cb4(){
-    console.log("失败1");
+    //console.log("失败1");
 }
 //单个使用。
 var passGuard3 = new passGuard({

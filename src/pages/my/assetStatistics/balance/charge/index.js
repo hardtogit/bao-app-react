@@ -27,7 +27,9 @@ class Index extends React.Component {
             url: ''
         }
     }
-
+    componentWillMount(){
+        this.props.update()
+    }
     componentDidMount() {
         window['closeFn'] = this.closeFn;
         this.props.load();
@@ -279,6 +281,11 @@ const Rechargeinitfn = (dispath, own)=>({
         dispath({
             type: 'CLEAR_INFO_DATA',
             key: 'AUTH_COOKIE'
+        })
+    },
+    update(){
+        dispath({
+            type:'STORE_STATUS_INFO',
         })
     }
 })

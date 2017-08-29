@@ -98,7 +98,7 @@ class PayProcess extends React.Component {
                 nextProps.clear();
                 //nextProps.changePending();
                 this.refs.loading.hide();
-                this.openErrorDialog('支付出错了')
+                this.openErrorDialog(nextProps.verifyData.msg)
             }
         }
     }
@@ -123,7 +123,7 @@ class PayProcess extends React.Component {
           nextProps.clear();
           nextProps.changePending();
           this.refs.loading.hide();
-          this.openErrorDialog('支付出错了')
+          this.openErrorDialog(nextProps.cardVerifyData.msg)
         }
       }
     }
