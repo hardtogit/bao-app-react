@@ -430,7 +430,7 @@ class Index extends Component{
                         是双方真实意思表示，并认可该形式之合同的法律效力。
                     </p>
                     <p className={styles.text1}>据此，出借人与借款人，在居间服务人的撮合下，就借款事宜达成以下合同：</p>
-                    <div className={styles.tableBox}>
+                    <div className={styles.tableBox}>git
                         <p  className={classNames(styles.text,styles.pd)}>
                             第一条 出借人详情如下表所示:
                         </p>

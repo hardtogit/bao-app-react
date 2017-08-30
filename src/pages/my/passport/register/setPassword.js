@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router'
 import { push, goBack } from 'react-router-redux'
 import BaseInput from '../../../../components/BaseInput'
 import BasePasswordInput from '../../../../components/BaseInput/BasePasswordInput'
@@ -22,10 +23,12 @@ class RegisterSetPassword extends React.Component {
   constructor (props) {
     super(props)
       this.state={
-      init:true
+      init:true,
+      checkBox:true
       }
   }
   componentDidMount() {
+     this.refs.choice.checked =true
      const {
          mobile,
          code
@@ -46,7 +49,18 @@ class RegisterSetPassword extends React.Component {
   componentWillUnmount() {
     
   }
-
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
   componentWillReceiveProps({data}) {
      if (data){
        const code=data.code;
@@ -92,6 +106,9 @@ class RegisterSetPassword extends React.Component {
         mobile,
         code
     }=this.props;
+      if(!this.state.checkBox){
+          return
+      }
     this.props.goRegister({
       mobile,
       verifyCode:code,
@@ -138,10 +155,9 @@ class RegisterSetPassword extends React.Component {
               text='注册'
               type='submit' />
         </ValidateForm>
-        <div className={styles.agreement}>
-          同意<span className={styles.agreementText} onClick={()=>{this.props.go('/privacy')}}>《宝点网隐私条例》</span>和
-          <span className={styles.agreementText} onClick={()=>{this.props.go('/service')}}>《宝点网服务协议》</span>
-        </div>
+          <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+              <Link to={'/privacy'} className={styles.protocol}>《借贷及担保服务协议》</Link>和<Link to={'/service'} className={styles.protocol}>《宝点网服务协议》</Link>
+          </p>
       </div>
     </div>)
   }

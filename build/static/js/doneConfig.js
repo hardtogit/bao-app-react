@@ -14,9 +14,9 @@ var kb = new keyBoard({
 //注册存管
 var passGuard1 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
-    "maxLength" : 12,// 最大输入长度
+    "maxLength" : 20,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
-    "regExp2": "[\\S\\s]{6,12}",
+    "regExp2": "[\\S\\s]{6,20}",
     "displayMode" : 0,// 显示形式,0:星号;1:明文,默认值0
     "callBack":cb1,//成功回调
     "errorCallBack":cb2,//失败回调
@@ -31,9 +31,9 @@ function cb2(){
 }
 var passGuard2 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
-    "maxLength" : 12,// 最大输入长度
+    "maxLength" : 20,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
-    "regExp2": "[\\S\\s]{6,12}",
+    "regExp2": "[\\S\\s]{6,20}",
     "displayMode" : 0,// 显示形式,0:星号;1:明文,默认值0
     "callBack":cb1,//成功回调
     "errorCallBack":cb2,//失败回调
@@ -49,9 +49,9 @@ function cb4(){
 //单个使用。
 var passGuard3 = new passGuard({
     "mappurl" : "/mobile_api/api/supervise/users/passwordControlKey",
-    "maxLength" : 12,// 最大输入长度
+    "maxLength" : 20,// 最大输入长度
     "regExp1" : "[\\S\\s]",// 输入过程限制的正则
-    "regExp2": "[\\S\\s]{6,12}",
+    "regExp2": "[\\S\\s]{6,20}",
     "displayMode" : 0,// 显示形式,0:星号;1:明文,默认值0
     "callBack":cb1,//成功回调
     "errorCallBack":cb2,//失败回调

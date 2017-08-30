@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../../../components/NavBar'
 import styles from './directBuy.less'
 import * as actionTypes from '../../../actions/actionTypes'
+import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import wrap from '../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
@@ -29,6 +30,7 @@ class DirectBuy extends React.Component {
         top:'100%',
         choose:'',
         money:'',
+        checkBox:true,
        useCoupon:true,
         payTop:'100%',
         url:'',
@@ -44,6 +46,7 @@ class DirectBuy extends React.Component {
   }
 
   componentDidMount(){
+      this.refs.choice.checked =true
       window['closeFn']=this.closeFn;
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)
@@ -136,6 +139,18 @@ class DirectBuy extends React.Component {
             pending:false
         })
     }
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
   directInvestBuy = (password, money) => {
 
     let coupon = this.props.useCoupon ? this.getCoupon() : null
@@ -165,6 +180,9 @@ class DirectBuy extends React.Component {
   canPay() {
     const detail = this.props.detail
     if (utils.isPlainObject(detail)) return false
+      if(!this.state.checkBox){
+          return false
+      }
     return this.state.quantity && detail.left_quantity && this.state.quantity <= detail.left_quantity ? true : false
   }
 
@@ -516,9 +534,9 @@ class DirectBuy extends React.Component {
             changePending={this.changePending}
             clear={this.props.clear}/>
 
-          <div className={styles.payBtn}>
-            <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
-          </div>
+              <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+                  <Link to={`/directContract`} className={styles.protocol}>《借贷及担保服务协议》</Link>
+              </p>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}
             text='确认支付' 

@@ -59,9 +59,11 @@ class Index extends Component{
                             if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
                                 //this.props.push('/user/reChargeFail')
                                 $this.refs.loading.hide()
+                                $this.refs.tip.open(nextProps.verifyData.msg)
                             }else{
                                 //this.props.push('/user/reChargeFail')
                                 $this.refs.loading.hide()
+                                $this.refs.tip.open('充值失败')
                             }
                             this.setState({
                                 time:0

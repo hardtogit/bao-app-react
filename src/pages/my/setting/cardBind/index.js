@@ -230,7 +230,8 @@ class Index extends Component{
                 bankCard:bankCard,
                 bankName:bankName,
                 bankCode:bankCode,
-                telNo:telNo
+                telNo:telNo,
+                device:'WAP'
             }
         });
         if(verifyCode&&smsReference){

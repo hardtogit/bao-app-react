@@ -190,13 +190,15 @@ class Index extends Component{
                         placeholder='请输入身份证号'
                         type='validateItem'
                         reg={{ required: {message: '请输入正确身份证号'}}}
-                        borderType='four' />
+                        borderType='four'
+                        wrapStyle={{borderBottom:'none'}}
+                    />
                         <p className={styles.tip}>设置交易密码</p>
                         <div style={{backgroundColor:'#fff'}}>
-                        <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
+                        <div style={{display:'-webkit-flex',marginLeft:'15px',borderBottom:'1px solid #ddd'}}>
                             <div className="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>交易密码</span></div>
                             <div style={{flex:'1'}}>
-                                <input ref="kb1" id="kb1" className='default' style={{fontSize: '16px',padding: '12px 0',border: '0'}}  placeholder="请输入交易密码"/>
+                                <input ref="kb1" id="kb1" className='default' style={{fontSize: '16px',padding: '12px 0',border: '0'}}  placeholder="请输入6~20位交易密码"/>
                             </div>
                         </div>
                             <div style={{display:'-webkit-flex',marginLeft:'15px'}}>
