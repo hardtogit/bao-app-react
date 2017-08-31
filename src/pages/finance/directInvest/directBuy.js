@@ -21,7 +21,6 @@ class DirectBuy extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      defaultQuantity:200,
       quantity: 200,  // 购买数量
       unitPrice: 50, // 单价
       chosenPay: '',
@@ -60,8 +59,8 @@ class DirectBuy extends React.Component {
       const $this=this;
     if (!utils.isPlainObject(this.props.detail)) {
       const quantity = this.props.detail.left_quantity ?
-          this.props.detail.left_quantity < this.state.defaultQuantity ?
-          this.props.detail.left_quantity : this.state.defaultQuantity : 1
+          this.props.detail.left_quantity < this.state.quantity ?
+          this.props.detail.left_quantity : this.state.quantity : 1
       this.setState({quantity})
     }
 

@@ -38,7 +38,8 @@ class Index extends Component{
             city:'',
             bank:'',
             point:'',
-            submitting:false
+            submitting:false,
+            ifUpdate:false
         }
     }
     static defaultProps = {
@@ -104,7 +105,9 @@ class Index extends Component{
                     bindTime:this.state.bindTime+1
                 });
                 if(nextProps.bindFlag&&nextProps.bindFlag.code=='0001'){
+                    if(!this.state.ifUpdate){
                         this.props.updateStore();
+                    }
                         this.props.push('/user/setting/bindSuccess')
                 }else{
                     if(this.state.bindTime>=3){

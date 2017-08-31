@@ -123,10 +123,10 @@ class Index extends Component{
             return false
         }
         this.refs.password.show({
+            title:'充值',
             money:this.state.recMoney,
             okCallback:function(a,b){
                let data;
-                console.log(b)
                 data={
                     bankCard:$this.state.bankCardNo,
                     transferAmount:$this.state.recMoney,
