@@ -11,8 +11,9 @@ import Scroll from '../../../../components/scroll'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 class Index extends Component{
-    componentDidMount(){
-        this.props.gitData(this.props.params.id)
+
+    componentWillUnmount(){
+        this.props.clean()
     }
     render(){
         Date.prototype.format = function(fmt) {
@@ -81,6 +82,13 @@ const DispatchFn=(dispatch,own)=>({
            type:'GATHER_BID_BACK_DETAIL',
            params:[{id:id}]
         })
+    },
+    clean(){
+      dispatch({
+         type:'CLEAR_DATA',
+         key:'GATHER_BID_BACK_DETAIL'
+
+      })
     }
 })
 export default connect(Datas,DispatchFn)(Index)

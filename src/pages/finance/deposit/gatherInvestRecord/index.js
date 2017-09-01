@@ -13,6 +13,9 @@ import {goBack} from 'react-router-redux'
 class Index extends Component{
     componentDidMount(){
     }
+    componentWillUnmount(){
+        this.props.clean()
+    }
     render(){
         Date.prototype.format = function(fmt) {
             var o = {
@@ -79,6 +82,13 @@ const DispatchFn=(dispatch,own)=>({
         dispatch({
            type:'GATHER_INVEST_RECORD',
            params:[{id:id}]
+        })
+    },
+    clean(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GATHER_INVEST_RECORD'
+
         })
     }
 })
