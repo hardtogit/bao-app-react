@@ -20,7 +20,9 @@ const zhDate=(date)=>{
 class Index extends Component{
     componentWillMount(){
         const id=this.props.params.id;
-        this.props.getInfo(id);
+        if(this.props.params.type==1){
+            this.props.getInfo(id);
+        }
     }
     componentDidMount(){
 
@@ -33,31 +35,12 @@ class Index extends Component{
     }
 
     loadEndDom=()=>{
-        const {
-            infoData:{
-                data
-            }
-        }=this.props;
-        const {
-            amount,card,connect_address,date,number,
-            percent,providers,real_name,repayment,
-            sponsor,username,loan_detail,identity,userphone
-            ,contact,borrow_use,amount_cny,start_date,end_date,overdue,penalty
-            }=data;
-        let startDate,endDate;
-        if (start_date!=''){
-            startDate=zhDate(start_date)
-        }
-        if (end_date!=''){
-            endDate=zhDate(end_date);
-        }
-        const strDate=zhDate(date);
     return (<div className={styles.bodyBox}>
         <div className={styles.content}>
             <h1 className={styles.newTitle}>借款合同</h1>
-            <p className={classNames(styles.text,styles.textRight)}>合同编号:{number}</p>
+            <p className={classNames(styles.text,styles.textRight)}>合同编号:</p>
             <p className={styles.text}>
-                本借款合同（ 下称“本合同” ）由以下各方于{strDate}签署：
+                本借款合同（ 下称“本合同” ）由以下各方于签署：
             </p>
             <p className={styles.text}>
                 甲方（出借人）：
@@ -379,7 +362,7 @@ class Index extends Component{
         return (<div className={styles.bodyBox}>
             <div className={styles.content}>
                 <h1 className={styles.newTitle}>借款合同</h1>
-                <p className={classNames(styles.text,styles.textRight)}>合同编号:</p>
+                <p className={classNames(styles.text,styles.textRight)}>合同编号:{data.borrow.contractNum}</p>
                 <p className={styles.text}>
                     本借款合同（ 下称“本合同” ）由以下各方于{strDate}签署：
                 </p>
@@ -430,7 +413,7 @@ class Index extends Component{
                         是双方真实意思表示，并认可该形式之合同的法律效力。
                     </p>
                     <p className={styles.text1}>据此，出借人与借款人，在居间服务人的撮合下，就借款事宜达成以下合同：</p>
-                    <div className={styles.tableBox}>git
+                    <div className={styles.tableBox}>
                         <p  className={classNames(styles.text,styles.pd)}>
                             第一条 出借人详情如下表所示:
                         </p>
@@ -672,16 +655,17 @@ class Index extends Component{
             pop
         }=this.props;
         let dom;
-        if(infoData){
-            if(this.props.params.type==0){
-                dom=this.loadEndDom();
+            if(this.props.params.type==1){
+                if(infoData) {
+                    dom=this.loadEndDomTwo();
+
+                }else{
+                    dom=this.loadDom()
+                }
             }else{
-                dom=this.loadEndDomTwo();
+                dom = this.loadEndDom();
             }
 
-        }else{
-           dom=this.loadDom()
-        }
         return(<div>
             <NavBar onLeft={pop}>安全保障计划</NavBar>
             {dom}

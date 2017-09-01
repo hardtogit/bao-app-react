@@ -95,7 +95,6 @@ class Index extends React.Component {
           val
       });
       if (!reg.test(val)){
-          tipbar.open('请输入正确的格式!');
           this.setState({
               disabled:true
           })
@@ -103,18 +102,33 @@ class Index extends React.Component {
           this.setState({
               disabled:true
           })
-          tipbar.open('金额必须大于50')
       }else if (val>parseFloat(this.state.money)){
           this.setState({
               disabled:true
           })
-          tipbar.open('超出余额！')
+
       }
       else {
           this.setState({
               disabled:false
           })
       }
+    }
+    blur=(e)=>{
+        const val=e.target.value,
+            reg=/^\d+(\.\d{1,2})?$/,
+            tipbar=this.refs.tipbar;
+        if (!reg.test(val)){
+            tipbar.open('请输入正确的格式!');
+
+        }else if (val<50){
+
+            tipbar.open('金额必须大于50')
+        }else if (val>parseFloat(this.state.money)){
+            tipbar.open('超出余额！')
+        }
+        else {
+        }
     }
     render() {
         const {
@@ -142,7 +156,7 @@ class Index extends React.Component {
                        </div>
                        <div className={styles.withdrawalsInput}>
                            <span>￥</span>
-                           <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change}/>
+                           <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change} onBlur={this.blur}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
                            当前金额￥{money}
