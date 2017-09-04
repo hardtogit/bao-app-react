@@ -57,21 +57,9 @@ class ProductDetail extends React.Component {
           data=datasB
       }
       const {
-          currentTime
+          startTime,
+          endTime
       }=data.data;
-      let startTime,
-          endTime,
-          time=new Date(parseInt(currentTime)*1000),
-          year=time.getFullYear(),
-          month=time.getMonth()+1,
-          date=time.getDate();
-          startTime=year+'年'+month+'月'+date+'日';
-          month=month+parseInt(monthN);
-          if (month>12){
-              month=month-12;
-              year=year+1;
-          }
-          endTime=year+'年'+month+'月'+date+'日';
           return{
               startTime,
               endTime
