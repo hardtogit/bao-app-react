@@ -82,8 +82,8 @@ class FinancialIndex extends Component{
         if (auth){
             this.getLogin(auth)
         }else {
-            load();
         }
+        load();
     }
     componentWillReceiveProps(next){
         const store=JSON.parse(sessionStorage.getItem("bao-store"));

@@ -61,7 +61,8 @@ class DirectBuy extends React.Component {
       const quantity = this.props.detail.left_quantity ?
           this.props.detail.left_quantity < this.state.quantity ?
           this.props.detail.left_quantity : this.state.quantity : 1
-      this.setState({quantity})
+      const  unitPrice=this.props.detail.each_money
+      this.setState({quantity,unitPrice})
     }
 
     if (!this.hasSetCoupon && nextProps.couponsData && nextProps.couponsData.data) {

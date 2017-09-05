@@ -27,7 +27,7 @@ class Index extends Component{
                     注：甲方具有提供互联网信息服务的资质并拥有（www.bao.cn）的经营权。
                 </div>
                 <div className={styles.text}>
-                    场所：<span>成都市锦江区新光华路7号航天科技大厦38楼</span>
+                    场所：<span>四川省成都市锦江区红星路三段1号IFS国际金融中心办公楼三号楼41楼4102-06</span>
                 </div>
                 <div className={styles.text}>
                     <p>乙方：</p>

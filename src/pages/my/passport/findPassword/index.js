@@ -23,6 +23,7 @@ class FindpasswordVerifyMobile extends React.Component {
     this.state = {
       errorMessage: '',
       init:true,
+      active:true,
     }
   }
 
@@ -33,7 +34,58 @@ class FindpasswordVerifyMobile extends React.Component {
   componentWillUnmount() {
 
   }
-  componentWillReceiveProps({code}){
+  componentWillReceiveProps({code,sendCodeData}){
+      var $this = this;
+      const alert=this.refs.alert;
+
+     if(sendCodeData){
+         const code=sendCodeData.code
+
+         if (code==300){
+
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '验证失败',
+                 okText: '确定',
+             })
+         }
+         if (code==301){
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '手机号不存在',
+                 okText: '确定',
+             })
+         }
+         if (code==302){
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '手机号已注册',
+                 okText: '确定',
+             })
+         }
+         if (code==303){
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '签名错误',
+                 okText: '确定',
+             })
+         }
+         if (code==304){
+
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '用户不存在',
+                 okText: '确定',
+             })
+         }
+         if (code==305){
+             $this.refs.verifyCode.setState({active: true, count: 0})
+             alert.show({
+                 content: '用户被冻结',
+                 okText: '确定',
+             })
+         }
+     }
     if (code){
       const alert=this.refs.alert;
        if (code==100&&this.state.init){
@@ -102,7 +154,7 @@ class FindpasswordVerifyMobile extends React.Component {
             name='captcha'
             label='验证码'
             type='validateItem'
-            right={<VerifyCode onClick={this.sendVerifyCode} containerStyle={{height: 44}} init={true}/>}
+            right={<VerifyCode ref="verifyCode" onClick={this.sendVerifyCode} containerStyle={{height: 44}} init={true}/>}
             reg={{ required: {message: '验证码不能为空'},
                    captcha: {message: '请输入正确的验证码'}}}
             borderType='three' />
@@ -119,8 +171,9 @@ class FindpasswordVerifyMobile extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      code:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data'])&&state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','data']).code||false,
-      pending:state.infodata.getIn(['CHECK_VERIFY_CAPTCHA_W','pending'])
+      sendCodeData:state.infodata.getIn([actionTypes.VERIFY_CAPTCHA,'data']),
+      code:state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'data'])&&state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'data']).code||false,
+      pending:state.infodata.getIn([actionTypes.CHECK_VERIFY_CAPTCHA_W,'pending'])
   }
 }
 

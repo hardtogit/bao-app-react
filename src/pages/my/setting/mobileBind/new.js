@@ -188,12 +188,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
        })
    },
     getVerifyCode(mobile) {
+        const clientTime=Date.parse(new Date())/ 1000;
+        mobile=mobile.toString();
+        const sign=mobile+6+clientTime+util.key();
         dispatch({
             type: SEND_MSG,
             params: [
                 {
                     mobile,
-                    type: 2,
+                    type: 6,
+                    clientTime,
+                    sign:util.md5(sign)
                 }
             ]
         })
@@ -207,7 +212,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             params: [
                 {
                     mobile,
-                    verifyCode,
+                    code:verifyCode,
                 }
             ]
         })
@@ -221,7 +226,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch({
             type: BIND_MOBILE_SUCCESS,
             key:'USER_INFO_WITH_LOGIN',
-            mobile
+            data:mobile
         })
     },
 })
