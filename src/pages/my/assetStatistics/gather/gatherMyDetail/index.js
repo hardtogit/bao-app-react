@@ -62,7 +62,6 @@ class Index extends Component{
             data,
             type
             }=this.state
-        console.log(data)
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
@@ -104,7 +103,7 @@ class Index extends Component{
                        <span className={styles.arrow}></span>
                    </div>
                    <div className={styles.item}>
-                       <div className={styles.left} onClick={()=>{this.props.push('/serviceContract')}}>查看协议</div>
+                       <div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1')}}>查看协议</div>
                        <span className={styles.arrow}></span>
                    </div>
                </div>
@@ -115,7 +114,6 @@ class Index extends Component{
     }
 }
 const mapStateToProps=(state)=>{
-    console.log(state)
     return{
 
     }

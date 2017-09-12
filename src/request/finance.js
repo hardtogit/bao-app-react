@@ -79,7 +79,7 @@ const requests = (Fetch) => {
   Fetch.gatherBuy=(data)=>{return Fetch('api/supervise/account/investBid','POST',data)}//聚点余额购买
   Fetch.newCardBuy=(data)=>{return Fetch('api/supervise/account/rechargeInvestBid','POST',data)}//使用银行卡充值投标
   Fetch.gatherContract=(id)=>{return Fetch(`api/depositSupervise/contract/${id}`,'GET')}//聚点+合同
-
+  Fetch.gatherServerContract=(id)=>{return Fetch(`api/depositSupervise/serviceContract/${id}`,'GET')}//聚点+服务计划合同
   //存管
   Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表

@@ -162,7 +162,7 @@ export default class App extends React.Component {
           <Route path="/" component={PageTransition}>
               <Route path="successTemplate" getComponent={SuccessTemplate}></Route>
               <Route path="dangerContract" getComponent={DangerContract}></Route>
-              <Route path="serviceContract" getComponent={ServiceContract}></Route>
+              <Route path="serviceContract/:id/:type" getComponent={ServiceContract}></Route>
               <Route path="borrowContract/:id/:type" getComponent={BorrowContract}></Route>
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>

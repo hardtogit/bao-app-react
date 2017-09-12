@@ -337,6 +337,9 @@ export default {
     [actionTypes.GATHER_CONTRACT]:{//聚点合同
         apiFn:Fetch.gatherContract
     },
+    [actionTypes.GATHER_SERVER_CONTRACT]:{//聚点服务合同
+        apiFn:Fetch.gatherServerContract
+    },
     [actionTypes.GET_STORE_USER_INFO]:{//获取注册存管相关信息
         apiFn:Fetch.getStoreUserInfo
     },

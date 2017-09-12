@@ -578,7 +578,7 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-            <Link to={`/serviceContract`} className={styles.protocol}>《服务计划协议》</Link>和
+            <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
         </p>
         <Button
