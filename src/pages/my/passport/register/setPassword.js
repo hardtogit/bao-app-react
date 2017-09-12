@@ -150,14 +150,14 @@ class RegisterSetPassword extends React.Component {
               type='validateItem'
               containerStyle={{paddingRight:'15px'}}
               borderType='four' />
+            <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+                <Link to={'/privacy'} className={styles.protocol}>《宝点网隐私条例》</Link>和<Link to={'/service'} className={styles.protocol}>《宝点网服务协议》</Link>
+            </p>
           <Button
               className={styles.buttonWrap}
               text='注册'
               type='submit' />
         </ValidateForm>
-          <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-              <Link to={'/privacy'} className={styles.protocol}>《借贷及担保服务协议》</Link>和<Link to={'/service'} className={styles.protocol}>《宝点网服务协议》</Link>
-          </p>
       </div>
     </div>)
   }

@@ -82,7 +82,6 @@ class RegisterVerifyMobile extends React.Component {
   }
 
   sendVerifyCode = () => {
-    console.log('你大爷')
     const {
         goVerifyCode,
         mobile

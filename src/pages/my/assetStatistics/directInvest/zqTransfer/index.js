@@ -54,7 +54,7 @@ class Index extends Component{
                 money:0.00
             })
         }else if (val<50*0.85){
-            this.refs.tipbar.open('这让率不能低于15%!')
+            this.refs.tipbar.open('转让率不能低于15%!')
             this.setState({
                 disabled:true,
                 money:0.00

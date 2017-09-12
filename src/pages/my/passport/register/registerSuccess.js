@@ -46,7 +46,7 @@ class Index extends Component{
                 实名投资可再得<span>700</span>元抵用券
             </div>
             <div className={styles.buttonBox}>
-                <span className={styles.button} onClick={()=>{set();go('/user/setting/regStore')}}>
+                <span className={styles.button} onClick={()=>{set();go('/home')}}>
                     立即投资
                 </span>
             </div>
