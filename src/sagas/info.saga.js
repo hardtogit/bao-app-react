@@ -80,6 +80,9 @@ function* takeRequest (action) {
            sessionStorage.setItem("bao-depositbs",JSON.stringify(response.data));
        }
        if (action.type==actionTypes.LOGIN_OUT&&response.code==100){
+           yield put({
+               type:'CLEAR_STORE_DATA'
+           })
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
        }

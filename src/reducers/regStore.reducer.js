@@ -8,7 +8,6 @@ import * as actionTypes from '../actions/actionTypes'
 import Immutable from 'immutable'
 
 const defaultState = Immutable.Map();//Immutable 不变的 增删查改即是新的
-
 export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.CHOICE_POINT:
@@ -20,6 +19,10 @@ export default (state = defaultState, action) => {
         case actionTypes.SAVE_STORE_DATA:
             return state.setIn([action.type, 'data'], action.data)
             break;
-         default:return state
+        case actionTypes.CLEAR_STORE_DATA:
+            return state.delete(actionTypes.CHOICE_POINT).delete(actionTypes.CHOICE_BANK).delete(actionTypes.SAVE_STORE_DATA)
+            break;
+         default:console.log(state)
+             return state
     }
 }
