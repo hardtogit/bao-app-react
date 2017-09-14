@@ -75,7 +75,7 @@ export const CALENDAR = 'CALENDAR';
 
 export const INVITE_FRIENDS='INVITE_FRIENDS';
 export const INVITE_PARTICULARS='INVITE_PARTICULARS'
-
+export const GET_CAPTCHA='GET_CAPTCHA'
 
 //setting
 export const EXIST_MOBILE = 'EXIST_MOBILE'

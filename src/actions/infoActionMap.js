@@ -300,5 +300,9 @@ export default {
     },
     [actionTypes.UPLOAD_FEED_BACK_IMG]:{
         apiFn:Fetch.uploadFeedBackImg
-    }
+    },
+    [actionTypes.GET_CAPTCHA]:{
+        apiFn:Fetch.getCapcha
+    },
+
 }
