@@ -1,0 +1,118 @@
+.container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  overflow: auto;
+  padding-top: 44px;
+  background-color: #f0eff5;
+  .header{
+    background-color: #33454c;
+  }
+  .item_content{
+    padding: 15px 25px 30px 25px;
+    .item{
+      background-color: #317fcf ;
+      padding:15px 25px 0 25px;
+      height:115px ;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      .title{
+        font-size: 18px;
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        .img{
+          width: 30px;
+          display: block;
+          margin-right: 10px;
+          float: left;
+        }
+        .right{
+          flex: 1;
+          padding-top: 5px;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
+        }
+      }
+      .num{
+        font-size:24px;
+        padding-left: 42px;
+        position: relative;
+        z-index: 10;
+      }
+      .bg{
+        position: absolute;
+        width: 100px;
+        right: -10px;
+        bottom: -20px;
+        opacity: .3;
+      }
+    }
+    .btn{
+      height: 35px;
+      border: 1px solid #389a88;
+      text-align: center;
+      color: #389a88;
+      margin: 15px 0;
+      .add{
+        font-size: 32px;
+        position: relative;
+        bottom: 5px;
+        color:#888
+      }
+      .text{
+        font-size: 16px;
+        position: relative;
+        bottom: 8px;
+      }
+    }
+  }
+
+}
+.detail{
+  margin-left: 15px;
+  margin-right: 15px;
+  border-top: 1px solid #ddd;
+  margin-top: 30px;
+  padding:5px 20px 40px 20px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  .item{
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    .left{
+      flex:0 80px;
+    }
+    .right{
+      flex: 1;
+      color:#888
+    }
+  }
+}
+.submit{
+  margin-top: 15px;
+  padding: 15px;
+}
+//适配iphone5
+@media screen and (max-width: 360px) {
+  .container{
+    .item_content{
+      .item{
+        .num{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+

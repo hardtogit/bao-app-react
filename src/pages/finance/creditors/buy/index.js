@@ -41,6 +41,7 @@ class CreditorBuy extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
+      const $this=this;
     if (!utils.isPlainObject(nextProps.detail)) {
       const copies = nextProps.detail.left_quantity ?
           nextProps.detail.left_quantity < this.state.copies ?

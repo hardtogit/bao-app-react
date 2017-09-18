@@ -104,7 +104,17 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/contracts/borrow').default);
         }, 'BorrowContract');
-    }//借款合同
+    },//借款合同
+    MyBankCard  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/myBankCard').default);
+        }, 'MyBankCard');
+    },//我的银行卡
+    BankCardManage  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/bankCardManage').default);
+        }, 'BankCardManage');
+    }//我的银行卡
 //成功失败模版
 export const SuccessTemplate  = (location, cb) => {
     require.ensure([], require => {

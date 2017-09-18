@@ -131,11 +131,11 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,MyBankCard,BankCardManage} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+//const a=window.location.href.split('.')[1]+'.cn';
+//document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -267,7 +267,8 @@ export default class App extends React.Component {
                   <Route path="setting/verifyPhone" component={verifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
                   <Route path="setting/choiceBank" component={choiceBank} ></Route>/*选择开户行*/
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/
-
+                  <Route path="setting/myBankCard" getComponent={MyBankCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的银行卡*/
+                  <Route path="setting/bankCardManage" getComponent={BankCardManage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*银行卡管理*/
                   /*已完成*/
 
                   <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

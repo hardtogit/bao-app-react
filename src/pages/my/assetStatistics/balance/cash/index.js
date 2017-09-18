@@ -20,6 +20,7 @@ class Index extends React.Component {
             bank:'',
             time:0,
             number:"",
+            charge:'',
             bankCard:''
         }
     }
@@ -159,7 +160,7 @@ class Index extends React.Component {
                            <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change} onBlur={this.blur}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
-                           当前金额￥{money}
+                           当前金额￥{money} <span style={{float:'right'}}>额外扣除￥{this.state.charge}手续费</span>
                        </div>
                    </div>
                    <div className={styles.time}>

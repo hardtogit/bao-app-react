@@ -23,7 +23,9 @@ class Index extends Component{
             recMoney:'',
             bankName:'',
             bankCard:'',
-            time:0,
+            singleLimit:'',
+            dayLimit:'',
+            time:0
         }
     }
     static defaultProps = {//设置初始props
@@ -43,7 +45,9 @@ class Index extends Component{
             this.setState({
                 bankName:nextProps.banks.data[0].bankName,
                 bankCard:nextProps.banks.data[0].bankCard.substr(nextProps.banks.data[0].bankCard.length-4,4),
-                bankCardNo:nextProps.banks.data[0].bankCard
+                bankCardNo:nextProps.banks.data[0].bankCard,
+                singleLimit:nextProps.banks.data[0].singleLimit,
+                dayLimit:nextProps.banks.data[0].dayLimit,
             })
         }
         if(nextProps.rechargeData){

@@ -62,10 +62,10 @@ class Setting extends React.Component {
 
 					</div>
 					<div className={styles.listw}>
-						<Link to='/user/setting/securityCard'>
+						<Link to='/user/setting/myBankCard'>
 							<BaseText
 								onClick={()=>{}}
-								label='安全卡'
+								label='银行卡'
 								borderType='two' />
 						</Link>
 						<Link to='/user/setting/securityCenter'>

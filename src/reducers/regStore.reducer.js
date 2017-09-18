@@ -19,10 +19,13 @@ export default (state = defaultState, action) => {
         case actionTypes.SAVE_STORE_DATA:
             return state.setIn([action.type, 'data'], action.data)
             break;
+        case actionTypes.STORE_CARD_INFO:
+            return state.setIn([action.type, 'data'], action.data)
+            break;
         case actionTypes.CLEAR_STORE_DATA:
             return state.delete(actionTypes.CHOICE_POINT).delete(actionTypes.CHOICE_BANK).delete(actionTypes.SAVE_STORE_DATA)
             break;
-         default:console.log(state)
+         default:
              return state
     }
 }

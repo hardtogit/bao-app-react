@@ -135,6 +135,7 @@ export const STORE_BIND_CAR='STORE_BIND_CAR'
 //清除存管数据
 export const CLEAR_STORE_DATA='CLEAR_STORE_DATA'
 export const GET_MY_CARD_LIST='GET_MY_CARD_LIST'
+export const STORE_CARD_INFO='STORE_CARD_INFO'//保存选择的银行卡信息
 export const CHOICE_POINT='CHOICE_POINT'
 export const CHOICE_BANK='CHOICE_BANK'
 export const SAVE_STORE_DATA='SAVE_STORE_DATA'//暂存卡号和手机号
