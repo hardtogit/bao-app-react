@@ -271,6 +271,9 @@ export default {
     [actionTypes.NEW_CASH]:{//新的提现
         apiFn:Fetch.newCash
     },
+    [actionTypes.SERVICE_CHARGE_RULE]:{//新的提现
+        apiFn:Fetch.serviceChargeRule
+    },
     [actionTypes.IDCARD_UPLOAD]:{//上传身份证
         apiFn:Fetch.idCardUpload
     },

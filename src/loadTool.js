@@ -89,7 +89,7 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/user/idCardUploadExplain').default);
         }, 'IdCardUploadExplain');
-    },//身份证上传
+    },//上传说明
     DangerContract  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/contracts/danger').default);
@@ -114,7 +114,13 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/setting/bankCardManage').default);
         }, 'BankCardManage');
+    },//我的银行卡
+    ChoiceMyCard  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/user/choiceMyCard').default);
+        }, 'ChoiceMyCard');
     }//我的银行卡
+
 //成功失败模版
 export const SuccessTemplate  = (location, cb) => {
     require.ensure([], require => {

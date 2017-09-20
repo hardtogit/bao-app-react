@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router';
 import {push,goBack} from 'react-router-redux'
 import ReddemDialog from '../../../../../components/Dialog/reddem'
+import Choice from '../../../../../components/Dialog/ChoiceCard'
 import LoadingDialog from '../../../../../components/Dialog/loading'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
@@ -21,8 +22,12 @@ class Index extends React.Component {
             time:0,
             number:"",
             charge:'',
-            bankCard:''
+            bankCard:'',
+            bankIcon:''
         }
+    }
+    componentWillMount(){
+        this.props.serviceChargeRule()
     }
     componentWillUnmount(){
         this.props.clean('NEW_CASH')
@@ -49,14 +54,24 @@ class Index extends React.Component {
             }
         })
     }
+
     componentWillReceiveProps(next){
-        const {cashData,push,cardInfo,verifyData}=next;
+        const {cashData,push,cardInfo,nowCard}=next;
         const $this=this
         if(cardInfo&&cardInfo.data){
             this.setState({
                 bank:cardInfo.data[0].bankName,
                 number:cardInfo.data[0].bankCard.substr(cardInfo.data[0].bankCard.length-4,4),
-                bankCard:cardInfo.data[0].bankCard
+                bankCard:cardInfo.data[0].bankCard,
+                bankIcon:cardInfo.data[0].bankIcon
+            })
+        }
+        if(nowCard){
+            this.setState({
+                bank:nowCard.bankName,
+                number:nowCard.bankCard.substr(nowCard.bankCard.length-4,4),
+                bankCard:nowCard.bankCard,
+                bankIcon:nowCard.bankIcon
             })
         }
         if (cashData){
@@ -132,35 +147,47 @@ class Index extends React.Component {
         }
     }
     render() {
+        let changeDom;
+
         const {
             pop,
+            go,
+            cardInfo,
+            rule
         }=this.props;
+        if(rule){
+            if(rule.data.num>0){
+                console.log('ss')
+                changeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>本月免费提现次数剩余{rule.data.num}次</div>
+            }
+        }
         const {
             val,
             disabled,
             money,
             bank,
-            number
+            number,
+            bankIcon
         }=this.state;
         return (
             <div className={styles.bg}>
                 <NavBar onLeft={pop}>余额提现</NavBar>
                <div className={styles.body}>
                    <div className={styles.contentBox}>
-                       <div className={styles.title}>
+                       <div className={styles.title} onClick={()=>{go('/user/choiceMyCard')}}>
                            <span className={styles.cardLx}>储蓄卡</span>
-                           <span className={styles.card}>{bank}({number})</span>
+                           <span className={styles.card}><img className={styles.icon_img} src={bankIcon} alt=""/>{bank}({number})</span>
                        </div>
                        <div className={styles.withdrawalsInfo}>
                            <span>提现金额（元）</span>
-                           <span className={styles.withdrawalsText}>提现金额不得低于50元</span>
+                           <span className={styles.withdrawalsText}>单笔最高20万</span>
                        </div>
                        <div className={styles.withdrawalsInput}>
                            <span>￥</span>
                            <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change} onBlur={this.blur}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
-                           当前金额￥{money} <span style={{float:'right'}}>额外扣除￥{this.state.charge}手续费</span>
+                           当前金额￥{money} <span style={{float:'right'}}>{changeDom}</span>
                        </div>
                    </div>
                    <div className={styles.time}>
@@ -177,6 +204,7 @@ class Index extends React.Component {
                 <Tipbar ref='tipbar' />
                 <Alert ref="alert"/>
                 <LoadingDialog ref="loading"></LoadingDialog>
+                <Choice ref="choice" options={{banks:cardInfo,choiceCallback:this.choiceCallback}}></Choice>
             </div>
         )
     }
@@ -186,11 +214,16 @@ const Rechargeinit=(state)=>({
       withdraw:state.infodata.getIn(['WITHDRAW','data']),
      userinfo:state.infodata.getIn(['USER_INFO','data']),
     cardInfo:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
+    nowCard:state.regStore.getIn(['CHOICE_CARD','cardInfo']),
+    rule:state.infodata.getIn(['SERVICE_CHARGE_RULE','data']),
 });
 const Rechargeinitfn=(dispatch)=>({
      pop(){
          dispatch(goBack());
      },
+    go(url){
+        dispatch(push(url))
+    },
     send(transferAmount,password,passwordFactor,bankCard,device,mapKey){
         dispatch({
              type:'NEW_CASH',
@@ -218,6 +251,12 @@ const Rechargeinitfn=(dispatch)=>({
             type:'CLEAR_INFO_DATA',
             key:key
         })
+    },
+    serviceChargeRule(){
+       dispatch({
+           type:'SERVICE_CHARGE_RULE',
+           params:[{device:'WAP',transferAmount:'50'}]
+       })
     },
     push(time,cash_amount){
         dispatch(push(`/user/cashsuccess?time=${time}&cash_amount=${cash_amount}`))

@@ -131,7 +131,7 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,MyBankCard,BankCardManage} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
 
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
@@ -231,6 +231,7 @@ export default class App extends React.Component {
                   <Route path='ruleRate' component={ruleRate} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*加息规则*/
                   <Route path='ruleVoucher' component={ruleVoucher} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*抵用券规则*/
                   <Route path="cash" component={Cash} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现页面*/
+                  <Route path="choiceMyCard" getComponent={ChoiceMyCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现选择银行卡*/
                   <Route path="autoBuy" component={autoBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   <Route path="autoBuyRule" component={autoBuyRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   /*设置界面*/

@@ -24,10 +24,10 @@ class Index extends React.Component {
             text: this.props.text || ''
         }
     }
-    handClick=(name,code)=>{
+    handClick=(card)=>{
         const options = this.props.options;
         if (options.choiceCallback) {
-            return options.choiceCallback.call(null, this.hide, name,code)
+            return options.choiceCallback(this.hide,card)
         }
     }
     static defaultProps = {
@@ -58,8 +58,14 @@ class Index extends React.Component {
                     </div>
                     <div className={styles.c_body}>
                         {options.banks&&options.banks.data&&options.banks.data.map((value,i)=>{
-                             return <div key={i} className={styles.c_item} onClick={()=>{this.handClick(value.bankName,value.bankCard)}}>
-                                 <img className={styles.icon} src={value.bankIcon} alt=""/><span>{value.bankName}</span><span>({value.bankCard.substr(value.bankCard.length-4,4)})</span>
+                             return <div key={i} className={styles.c_item} onClick={()=>{this.handClick(value)}}>
+                                 <div className={styles.c_left}>
+                                 <img className={styles.c_icon} src={value.bankIcon} alt=""/>
+                                 </div>
+                                 <div className={styles.c_right}>
+                                 <div className={styles.c_top}><span>{value.bankName}</span><span>({value.bankCard.substr(value.bankCard.length-4,4)})</span></div>
+                                 <div className={styles.c_bottom}>单笔限额{value.singleLimit}，单日限额{value.dayLimit}</div>
+                                 </div>
                              </div>
                         })}
                     </div>

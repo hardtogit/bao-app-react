@@ -16,6 +16,9 @@ export default (state = defaultState, action) => {
         case actionTypes.CHOICE_BANK:
             return state.setIn([action.type, 'bankInfo'], action.bankData)
             break;
+        case actionTypes.CHOICE_CARD:
+            return state.setIn([action.type, 'cardInfo'], action.data)
+            break;
         case actionTypes.SAVE_STORE_DATA:
             return state.setIn([action.type, 'data'], action.data)
             break;

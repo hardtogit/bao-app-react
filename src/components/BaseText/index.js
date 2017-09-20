@@ -20,7 +20,10 @@ class BaseText extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     defaultValue: PropTypes.string,   // 默认值
-    label: PropTypes.string,          // 左侧文本
+    label: PropTypes.oneOfType([      // 右侧图标
+          PropTypes.string,
+          PropTypes.object
+        ]),          // 左侧文本
     content: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element

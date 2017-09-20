@@ -87,3 +87,10 @@
 .test{
   font-size: 24px;
 }
+.icon_img{
+  width: 24px;
+  float: left;
+  position: relative;
+  top: -3px;
+  margin-right: 2px;
+}

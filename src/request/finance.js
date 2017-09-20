@@ -85,6 +85,7 @@ const requests = (Fetch) => {
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
   Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw','POST',data)}//新的提现接口
+  Fetch.serviceChargeRule=(data)=>{return Fetch('api/supervise/account/withdrawFee','POST',data)}//获取手续费规则
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
   Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/users/uploadIdCard','POST',data)}//身份证上传
 }

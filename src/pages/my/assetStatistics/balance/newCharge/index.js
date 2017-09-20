@@ -23,6 +23,7 @@ class Index extends Component{
             recMoney:'',
             bankName:'',
             bankCard:'',
+            bankIcon:'',
             singleLimit:'',
             dayLimit:'',
             time:0
@@ -46,6 +47,7 @@ class Index extends Component{
                 bankName:nextProps.banks.data[0].bankName,
                 bankCard:nextProps.banks.data[0].bankCard.substr(nextProps.banks.data[0].bankCard.length-4,4),
                 bankCardNo:nextProps.banks.data[0].bankCard,
+                bankIcon:nextProps.banks.data[0].bankIcon,
                 singleLimit:nextProps.banks.data[0].singleLimit,
                 dayLimit:nextProps.banks.data[0].dayLimit,
             })
@@ -110,13 +112,14 @@ class Index extends Component{
         }
 
     }
-    choiceCallback=(a,b,c)=>{
+    choiceCallback=(hide,data)=>{
         this.setState({
-            bankName:b,
-            bankCard:c.substr(c.length-4,4),
-            bankCardNo:c
+            bankName:data.bankName,
+            bankCard:data.bankCard.substr(data.bankCard.length-4,4),
+            bankCardNo:data.bankCard,
+            bankIcon:data.bankIcon
         })
-        a()
+        hide();
     }
     choiceBank=()=>{
         this.refs.choice.show()
@@ -152,7 +155,8 @@ class Index extends Component{
             }=this.props;
         const{
             bankName,
-            bankCard
+            bankCard,
+            bankIcon
             }=this.state;
 
         return(
@@ -164,7 +168,7 @@ class Index extends Component{
                    <span className={styles.title}>充值金额</span><input onChange={this.handleChange} placeholder="请输入充值金额" className={styles.input} type="text"/><span className={styles.unit}>元</span>
                </div>
                <div style={{marginTop:'15px'}}>
-               <BaseText onClick={this.choiceBank} label={bankName&&bankName+"("+bankCard+")"}> </BaseText>
+               <BaseText className={styles.bank_line} onClick={this.choiceBank} label={bankName&&<div><img src={bankIcon} alt=""/> <span className={styles.text}>{bankName}({bankCard})</span></div> }> </BaseText>
                </div>
                <div style={{marginTop:'40px',padding:'0 15px'}}>
                <BaseButton onClick={this.handleClick} text="下一步" disable={this.state.disabled}></BaseButton>
