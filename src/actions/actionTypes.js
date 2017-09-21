@@ -115,6 +115,9 @@ export const CREDITOR_CARD_VERIFY='GATHER_CARD_VERIFY'
 export const ACCREDIT_VERIFY='ACCREDIT_VERIFY'
 //验证密码修改是否成功
 export const PASSWORD_CHANGE_VERIFY='PASSWORD_CHANGE_VERIFY'
+//验证解绑是否成功
+export const UNBIND_VERIFY='UNBIND_VERIFY'
+
 //公用驗證
 export const PUBLIC_VERIFY='PUBLIC_VERIFY'
 //获取省份
@@ -132,6 +135,8 @@ export const STORE_SEND_CODE='STORE_SEND_CODE'
 export const STORE_VERIFY_CODE='STORE_VERIFY_CODE'
 //绑定银行卡
 export const STORE_BIND_CAR='STORE_BIND_CAR'
+//解绑
+export const UNBIND_CARD='UNBIND_CARD'
 //清除存管数据
 export const CLEAR_STORE_DATA='CLEAR_STORE_DATA'
 export const GET_MY_CARD_LIST='GET_MY_CARD_LIST'

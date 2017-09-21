@@ -397,6 +397,9 @@ export default {
     [actionTypes.PUBLIC_VERIFY]:{//验证密码修改是否成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.UNBIND_VERIFY]:{//验证解绑是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },
@@ -423,6 +426,9 @@ export default {
     },
     [actionTypes.STORE_BIND_CAR]:{//绑卡
         apiFn:Fetch.storeBindCar
+    },
+    [actionTypes.UNBIND_CARD]:{//绑卡
+        apiFn:Fetch.unbindCard
     },
     [actionTypes.GET_MY_CARD_LIST]:{//获取我的银行卡
         apiFn:Fetch.getMyCardList

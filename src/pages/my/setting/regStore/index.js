@@ -83,7 +83,9 @@ class Index extends Component{
                 value:nextProps.userData.data.idCard
             })
             setTimeout(()=>{
-                this.ifPost()
+                if(this.refs.form){
+                    this.ifPost()
+                }
             },1000)
 
         }

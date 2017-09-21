@@ -49,7 +49,8 @@ class Index extends Component {
             let file1 = this.refs.file1.files[0];
             let file2 = this.refs.file2.files[0];
             formData.append('front', file1);
-            formData.append('back', file2)
+            formData.append('back', file2);
+            formData.append('device','WAP')
             this.props.upload(formData)
         }else{
             this.refs.alert.show({

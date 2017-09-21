@@ -7,7 +7,7 @@
 import React from 'react' //绑定成功
 import NavBar from '../../../components/NavBar/'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import { push,replace,goBack} from 'react-router-redux'
 import styles from './index.css'
 import BaseButton from '../../../components/BaseButton/index'
 import success from '../../../assets/images/shopp-center/success.png'
@@ -18,7 +18,7 @@ class Index extends React.Component{
             title:'标题',
             text:'成功',
             buttonText:'确定',
-            pushUrl:'/home'
+            pushUrl:''
         }
     }
     componentDidMount(){
@@ -30,7 +30,7 @@ class Index extends React.Component{
             title,
             text,
             buttonText,
-            pushUrl
+            pushUrl,
             }=this.state
         return(
             <div className={styles.leftArrow}>
@@ -39,7 +39,7 @@ class Index extends React.Component{
                     <div className={styles.content}>
                         <div className={styles.imgWrapper}><img src={success}/></div>
                         <p>{text}</p>
-                        <BaseButton text={buttonText} disable={false} onClick={()=>{this.props.push(pushUrl)}} className={styles.button}/>
+                        <BaseButton text={buttonText} disable={false} onClick={()=>{if(pushUrl){this.props.push(pushUrl)}else {this.props.pop()}}} className={styles.button}/>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,10 @@ const mapStateToProps=(state)=>({
 });
 const mapDispatchToProps=(dispatch)=>({
     push(url){
-        dispatch(push(url))
+        dispatch(replace(url))
+    },
+    pop(){
+        dispatch(goBack())
     }
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

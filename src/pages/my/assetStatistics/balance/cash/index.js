@@ -114,7 +114,7 @@ class Index extends React.Component {
           this.setState({
               disabled:true
           })
-      }else if (val<50){
+      }else if (val>200000){
           this.setState({
               disabled:true
           })
@@ -137,17 +137,18 @@ class Index extends React.Component {
         if (!reg.test(val)){
             tipbar.open('请输入正确的格式!');
 
-        }else if (val<50){
-
-            tipbar.open('金额必须大于50')
-        }else if (val>parseFloat(this.state.money)){
+        }else if(val>200000){
+            tipbar.open('单笔金额不能大于20万')
+        }
+        else if (val>parseFloat(this.state.money)){
             tipbar.open('超出余额！')
         }
         else {
         }
     }
+
     render() {
-        let changeDom;
+        let chargeDom;
 
         const {
             pop,
@@ -156,9 +157,17 @@ class Index extends React.Component {
             rule
         }=this.props;
         if(rule){
-            if(rule.data.num>0){
+            if(rule.data.num<0){
                 console.log('ss')
-                changeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>本月免费提现次数剩余{rule.data.num}次</div>
+                chargeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>本月免费提现次数剩余{rule.data.num}次</div>
+            }else{
+                let charge=this.state.val*rule.data.rate/100;
+                if(charge<rule.data.minMoney){
+                    charge=rule.data.minMoney;
+                }
+                //TODO
+                charge = Math.floor(charge*100)/100;
+                 chargeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>额外扣除{charge}元手续费</div>
             }
         }
         const {
@@ -187,7 +196,7 @@ class Index extends React.Component {
                            <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change} onBlur={this.blur}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
-                           当前金额￥{money} <span style={{float:'right'}}>{changeDom}</span>
+                           当前金额￥{money} <span style={{float:'right'}}>{chargeDom}</span>
                        </div>
                    </div>
                    <div className={styles.time}>

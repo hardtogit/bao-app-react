@@ -172,7 +172,7 @@ class Index extends Component{
         this.setState({
             time:0
         });
-      this.props.sendCode({telNo:this.refs.form.getValue().telNo,transcode:46708})
+      this.props.sendCode({telNo:this.refs.form.getValue().telNo,transcode:46708,device:'WAP'})
     };
     choiceBank=(e)=>{
         //return;
@@ -244,7 +244,8 @@ class Index extends Component{
             this.props.clean('STORE_VERIFY_CODE');
             this.props.verifyCode({
                 smsReference:smsReference,
-                verifyCode:verifyCode
+                verifyCode:verifyCode,
+                device:'WAP'
             })
         }else{
             tip.open('请先验证手机号')
