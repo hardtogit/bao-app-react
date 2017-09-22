@@ -654,7 +654,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   getAvailableCoupons(month) {
     dispatch({
       type: actionTypes.AVAILABLE_COUPONS,
-      params: ['定存', month]
+      params: ['聚点+', month]
     })
   },
   //余额支付

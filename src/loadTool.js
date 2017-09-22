@@ -105,6 +105,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/contracts/borrow').default);
         }, 'BorrowContract');
     },//借款合同
+    StoreContract  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/contracts/store').default);
+        }, 'StoreContract');
+    },//存管协议
     MyBankCard  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/setting/myBankCard').default);

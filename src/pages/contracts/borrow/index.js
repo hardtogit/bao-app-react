@@ -9,6 +9,7 @@ import seal from '../../../assets/images/z.png'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
 import {goBack} from 'react-router-redux'
+import Utils from '../../../utils/utils'
 import NewContract from './newContract'
 const zhDate=(date)=>{
         const standardDate=new Date(date),
@@ -356,8 +357,8 @@ class Index extends Component{
                 data
                 }
             }=this.props;
-        const strDate=zhDate(data.startTime*1000);
-        const endDate=zhDate(data.endTime*1000);
+        const strDate=Utils.formatDate("yyyy年MM月dd日",new Date(data.borrow.startTime*1000));
+        const endDate=Utils.formatDate("yyyy年MM月dd日",new Date(data.borrow.endTime*1000));
         //const endDate=zhDate(data.endTime);
         return (<div className={styles.bodyBox}>
             <div className={styles.content}>
@@ -620,7 +621,7 @@ class Index extends Component{
                             </thead>
                             <tbody>
                             {data.transfer.map((item,i)=>{
-                                return(<tr key={i}><td>{item.holder}</td><td>{item.ceder}</td><td>{item.hasMoney}</td></tr>)
+                                return(<tr key={i}><td>{item.holder}</td><td>{item.ceder}</td><td>{item.hasMoney}</td><td>{item.time}</td></tr>)
                             })}
                             </tbody>
                         </table>
@@ -635,7 +636,7 @@ class Index extends Component{
                             乙方（借款人）：{data.borrow.borrowUser}
                         </p>
                         <p>
-                            丙方（居间平台服务商）：
+                            丙方（居间平台服务商）：成都伟品信息技术服务有限公司
                         </p>
                         <p>
                             <img src={seal} />

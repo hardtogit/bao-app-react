@@ -131,7 +131,7 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
 
 // 工厂方法创建saga中间件
 //const a=window.location.href.split('.')[1]+'.cn';
@@ -164,6 +164,8 @@ export default class App extends React.Component {
               <Route path="dangerContract" getComponent={DangerContract}></Route>
               <Route path="serviceContract/:id/:type" getComponent={ServiceContract}></Route>
               <Route path="borrowContract/:id/:type" getComponent={BorrowContract}></Route>
+              <Route path="storeContract" getComponent={StoreContract}></Route>
+
               <IndexRedirect to="home" />
               <Route path="home" component={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>

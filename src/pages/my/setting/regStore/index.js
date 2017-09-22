@@ -34,7 +34,8 @@ class Index extends Component{
             time: 0,
             disable:true,
             pending:false,
-            ifUpdate:false
+            ifUpdate:false,
+            checkBox:true
         }
     }
     reg=()=>{
@@ -128,6 +129,7 @@ class Index extends Component{
         }
     }
     componentDidMount(){
+        this.refs.choice.checked =true
         this.props.getStoreUserInfo()
         passGuard1.generate("kb1",kb,0);
         passGuard2.generate("kb2",kb,0);
@@ -142,14 +144,24 @@ class Index extends Component{
         const $this=this
         let realName=this.refs.form.getValue().realName, idCard=this.refs.form.getValue().idCard;
         let password=$this.refs.form.getValue().password, compassword=$this.refs.form.getValue().compassword;
-        if(realName!=''&&idCard!=''&&password!=''&&compassword!=''){
+        if(realName!=''&&idCard!=''&&password!=''&&compassword!=''&&this.state.checkBox){
             return true;
         }else{
             return false;
         }
     };
+    flag=true
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.flag){
+            this.flag=false;
+        }else{
+            this.flag=true
+        }
+        this.ifPost()
+    }
     ifPost=()=>{
-        if(this.isFilled()){
+        if(this.isFilled()&&this.flag==true){
             this.setState({
                 disable:false
             })
@@ -213,8 +225,7 @@ class Index extends Component{
                             </div>
                         </div>
                         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-                            <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
-                            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
+                            <Link to={`/storeContract`} className={styles.protocol}>《浙江民泰商业银行股份有限公司网络交易资金账户服务三方协议》</Link>
                         </p>
                         <p className={styles.tip}>开通存管后此密码将用于提现、投资等交易操作、原宝点网交易密码将停用</p>
                         </ValidateForm>
