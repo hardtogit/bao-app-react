@@ -20,6 +20,7 @@ import Success from '../../../../components/Dialog/success'
 import styles from './index.styl'
 import util from '../../../../utils/utils.js'
 import {go,goBack,replace,push} from 'react-router-redux'
+import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
@@ -211,8 +212,10 @@ class Index extends Component{
 
                             </div>
                         </div>
-
-
+                        <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+                            <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
+                            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
+                        </p>
                         <p className={styles.tip}>开通存管后此密码将用于提现、投资等交易操作、原宝点网交易密码将停用</p>
                         </ValidateForm>
                     <div style={{padding:'15px'}}>

@@ -10,7 +10,7 @@ import NavBar from '../../../components/NavBar'
 import Loading from '../../../components/pageLoading'
 import choice from '../../../assets/images/choice.png'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -77,7 +77,7 @@ class Index extends Component{
         }
         return(
            <div className={styles.container}>
-              <NavBar onLeft={pop}>
+              <NavBar onLeft={pop} onRight={()=>{this.props.push('/user/setting/cardBind')}} rightNode={<div style={{fontSize:'32px',position:'relative',left:'12px',top:'-3px'}}>+</div>}>
                   选择银行卡
               </NavBar>
                {Dom}
@@ -92,6 +92,9 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
+    },
+    push(url){
+         dispatch(push(url))
     },
     getMyBankCards(){
         dispatch({

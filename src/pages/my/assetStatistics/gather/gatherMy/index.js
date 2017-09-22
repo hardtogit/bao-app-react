@@ -146,10 +146,10 @@ class Index extends Component{
                            </Scroll>
                    </div>
                    <div className={styles.tab}>
-                       <Scroll height={Height} fetch={()=>{this.props.gitGatherListTwo({type:2})}}
-                               isLoading={pendingTwo}  distance={20} endType={endTwo}
+                       <Scroll height={Height} fetch={()=>{this.props.gitGatherListThree({type:3})}}
+                               isLoading={pendingThree}  distance={20} endType={endThree}
                        >
-                           {dataTwo&&dataTwo.map((item,i)=>{
+                           {dataThree&&dataThree.map((item,i)=>{
                                return(
                                    <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=退出中&data='+JSON.stringify(item))}}>
                                        <div  className={styles.data_list_item}>
@@ -193,10 +193,10 @@ class Index extends Component{
                        </Scroll>
                    </div>
                    <div className={styles.tab}>
-                       <Scroll height={Height} fetch={()=>{this.props.gitGatherListThree({type:3})}}
-                               isLoading={pendingThree}  distance={20} endType={endThree}
+                       <Scroll height={Height} fetch={()=>{this.props.gitGatherListTwo({type:2})}}
+                               isLoading={pendingTwo}  distance={20} endType={endTwo}
                        >
-                           {dataThree&&dataThree.map((item,i)=>{
+                           {dataTwo&&dataTwo.map((item,i)=>{
                                return(
                                    <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=已退出&data='+JSON.stringify(item))}}>
                                        <div  className={styles.data_list_item}>
