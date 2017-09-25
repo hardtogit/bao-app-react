@@ -27,7 +27,7 @@ class Index extends React.Component {
         }
     }
     componentWillMount(){
-        this.props.serviceChargeRule()
+
     }
     componentWillUnmount(){
         this.props.clean('NEW_CASH')
@@ -129,6 +129,7 @@ class Index extends React.Component {
               disabled:false
           })
       }
+        this.props.serviceChargeRule({device:'WAP',transferAmount:val})
     }
     blur=(e)=>{
         const val=e.target.value,
@@ -156,18 +157,14 @@ class Index extends React.Component {
             cardInfo,
             rule
         }=this.props;
+        console.log(rule)
         if(rule){
-            if(rule.data.num<0){
-                console.log('ss')
+            if(rule.data.num>0){
                 chargeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>本月免费提现次数剩余{rule.data.num}次</div>
             }else{
-                let charge=this.state.val*rule.data.rate/100;
-                if(charge<rule.data.minMoney){
-                    charge=rule.data.minMoney;
+                if(rule.data.expenses){
+                    chargeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>额外扣除{rule.data.expenses}元手续费</div>
                 }
-                //TODO
-                charge = Math.floor(charge*100)/100;
-                 chargeDom=<div style={{fontSize:'12px',position:'relative',top:'2px'}}>额外扣除{charge}元手续费</div>
             }
         }
         const {
@@ -261,10 +258,10 @@ const Rechargeinitfn=(dispatch)=>({
             key:key
         })
     },
-    serviceChargeRule(){
+    serviceChargeRule(data){
        dispatch({
            type:'SERVICE_CHARGE_RULE',
-           params:[{device:'WAP',transferAmount:'50'}]
+           params:[data]
        })
     },
     push(time,cash_amount){

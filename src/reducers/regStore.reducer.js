@@ -26,7 +26,7 @@ export default (state = defaultState, action) => {
             return state.setIn([action.type, 'data'], action.data)
             break;
         case actionTypes.CLEAR_STORE_DATA:
-            return state.delete(actionTypes.CHOICE_POINT).delete(actionTypes.CHOICE_BANK).delete(actionTypes.SAVE_STORE_DATA)
+            return state.delete(actionTypes.CHOICE_POINT).delete(actionTypes.CHOICE_BANK).delete(actionTypes.SAVE_STORE_DATA).delete(actionTypes.STORE_STATUS_INFO)
             break;
          default:
              return state
