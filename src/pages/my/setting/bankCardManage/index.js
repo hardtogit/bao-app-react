@@ -142,7 +142,7 @@ class Index extends Component{
                             身份证号
                         </div>
                         <div className={styles.right}>
-
+                            {data.idCard}
                         </div>
                     </div>
                     <div className={styles.item}>

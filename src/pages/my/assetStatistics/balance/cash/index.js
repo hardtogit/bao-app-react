@@ -56,7 +56,7 @@ class Index extends React.Component {
     }
 
     componentWillReceiveProps(next){
-        const {cashData,push,cardInfo,nowCard}=next;
+        const {cashData,push,cardInfo,nowCard,rule}=next;
         const $this=this
         if(cardInfo&&cardInfo.data){
             this.setState({
@@ -87,6 +87,12 @@ class Index extends React.Component {
                 this.refs.loading.hide()
             }
         }
+        if(rule){
+            this.setState({
+                charge:rule.data.expenses
+            })
+
+        }
     }
     alert=(message)=>{
         this.refs.alert.show({
@@ -100,7 +106,7 @@ class Index extends React.Component {
            bankCard
        }=this.state,
        pwd=this.refs.reddem.password;
-      this.props.send(val,pwd,sessionStorage.getItem('passwordFactor'),bankCard,"WAP",sessionStorage.getItem('mapKey'));
+      this.props.send(val,pwd,sessionStorage.getItem('passwordFactor'),bankCard,"WAP",sessionStorage.getItem('mapKey'),this.state.charge);
         this.refs.reddem.hide();
     }
     change=(e)=>{
@@ -230,10 +236,10 @@ const Rechargeinitfn=(dispatch)=>({
     go(url){
         dispatch(push(url))
     },
-    send(transferAmount,password,passwordFactor,bankCard,device,mapKey){
+    send(transferAmount,password,passwordFactor,bankCard,device,mapKey,feeAmount){
         dispatch({
              type:'NEW_CASH',
-             params:[{transferAmount,password,passwordFactor,bankCard,device,mapKey:mapKey}]
+             params:[{transferAmount,password,passwordFactor,bankCard,device,mapKey:mapKey,feeAmount}]
          })
     },
     getMyBankCards(){

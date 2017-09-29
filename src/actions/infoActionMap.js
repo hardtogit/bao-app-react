@@ -87,7 +87,9 @@ export default {
     [actionTypes.BIND_MOBILE_MODIFY]: { // 修改绑定手机
         apiFn: Fetch.bindMobileModify
     },
-
+    [actionTypes.STORE_BIND_MOBILE_MODIFY]: { // 修改绑定手机
+        apiFn: Fetch.storeBindMobileModify
+    },
     [actionTypes.CHECK_VERIFY_CAPTCHA]: { // 修改绑定手机
         apiFn: Fetch.verifycode
     },
@@ -400,6 +402,15 @@ export default {
     [actionTypes.UNBIND_VERIFY]:{//验证解绑是否成功
         apiFn:Fetch.regVerify
     },
+    [actionTypes.CHANGE_CODE_VERIFY]:{//验证存管修改手机号验证码是否发送成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.CHANGE_CODE_RIGHT_VERIFY]:{//验证存管修改手机号验证码是否发送成功
+        apiFn:Fetch.regVerify
+    },
+    [actionTypes.VERIFY_BIND_MOBILE]:{//验证更换手机号是否成功
+        apiFn:Fetch.regVerify
+    },
     [actionTypes.GET_PROVINCE]:{//获取省份
         apiFn:Fetch.getProvince
     },
@@ -418,7 +429,13 @@ export default {
     [actionTypes.STORE_SEND_CODE]:{//存管发送验证码
         apiFn:Fetch.storeSendCode
     },
+    [actionTypes.STORE_SEND_CODE_CHANGE]:{//存管修改手机号发送验证码
+        apiFn:Fetch.storeSendCode
+    },
     [actionTypes.STORE_VERIFY_CODE]:{//存管验证验证码
+        apiFn:Fetch.storeVerifyCode
+    },
+    [actionTypes.STORE_CHANGE_PHONE_VERIFY_CODE]:{//存管修改绑定手机
         apiFn:Fetch.storeVerifyCode
     },
     [actionTypes.FREE_ACCREDIT]:{//存管验证验证码

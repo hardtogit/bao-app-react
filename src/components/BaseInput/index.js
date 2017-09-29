@@ -105,7 +105,6 @@ class BaseInput extends React.Component {
 
     blurHandle && blurHandle()
     const result = this.validateRun()
-
     if (!result.result) {
       this.props.onInvalid && this.props.onInvalid(result.name, result.value, result.message);
     }
@@ -179,6 +178,7 @@ class BaseInput extends React.Component {
               className={styles.centerInput}
               placeholder={ props.placeholder }
               value={this.state.value}
+              id={props.id}
               onChange={(e) => { this.onChange(e, props.onChange) } }
               onBlur={(e) => {this.onBlur(e, props.onBlur) } }
               onFocus={(e) => { this.onFocus(e, props.onFocus) } } />

@@ -23,60 +23,148 @@ class MobileBind extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            errorMessage: ''
+            errorMessage: '',
+            time:0,
+            time1:0,
+            time2:0,
+            ref:''
         }
     }
     componentDidMount(){
+        if(document.getElementById('kb3')){
+            console.log()
+            passGuard3.generate("kb3",kb,0);
+            $(function(){
+                setTimeout(function(){
+                    kb.generate();
+                },100);
+            })
+        }
         const {
             mobile,
             load
         }=this.props;
-        if (mobile){
-            if (mobile==''){
-             this.alert()
-            }
-        }else {
             load()
-        }
     }
-    componentWillReceiveProps({mobile,verifyResCode, bindResCode}) {
+    componentWillReceiveProps({mobile,sendCode,verifySendData,verifyCodeData,verifyCodeRightData,bindResData,verifyBindMobileData}) {
         const alert = this.refs.alert;
+        if(sendCode){
+           if(sendCode.status==1) {
+               if(this.state.time<=3){
+                   this.setState({
+                       time:this.state.time+1
+                   });
+                   if(verifySendData&&verifySendData.code=="0001"){
+                         this.setState({
+                             ref:verifySendData.data.ref
+                         })
+                   }else{
+                       if(this.state.time>=3){
+                           this.setState({
+                               pending:false
+                           })
+                           if(verifySendData&&verifySendData.code!="0001"){
+                               this.refs.tip.open(verifySendData.msg)
+                           }else{
+                               this.refs.tip.open('验证码发送失败')
+                           }
+                           this.refs.code.setState({
+                               active:true
+                           })
+                       }else{
+                           setTimeout(()=>{
+                               this.props.verifySend(sendCode.msgId)
+                           },2000)
+                       }
+                   }
+               }
+
+           }
+        }
+        if(verifyCodeData){
+            if(verifyCodeData.status==1) {
+                if(this.state.time1<=3){
+                    this.setState({
+                        time:this.state.time1+1
+                    });
+                    if(verifyCodeRightData&&verifyCodeRightData.code=="0001"){
+                        this.props.bindMobile({
+                            newMobile:this.refs.form.getValue().mobile,
+                            password:passGuard3.getOutput(),
+                            passwordFactor:sessionStorage.getItem('passwordFactor'),
+                            mapKey:sessionStorage.getItem('mapKey'),
+                            smsReference:this.state.ref,
+                            device:'WAP'
+                        })
+
+                    }else{
+                        if(this.state.time>=3){
+                            this.setState({
+                                pending:false
+                            })
+                            if(verifyCodeRightData&&verifyCodeRightData.code!="0001"){
+                                this.refs.tip.open(verifyCodeRightData.msg)
+                            }else{
+                                this.refs.tip.open('验证码发送失败')
+                            }
+                            this.refs.code.setState({
+                                active:true
+                            })
+                        }else{
+                            setTimeout(()=>{
+                                this.props.verifyCodeRight(verifyCodeData.msgId)
+                            },2000)
+                        }
+                    }
+                }
+
+            }
+        }
+        if(bindResData){
+           if(bindResData.code==301){
+               this.refs.tip.open('交易密码错误')
+           }else if(bindResData.code==302){
+               this.refs.tip.open('手机号已存在')
+           }else if(bindResData.status==1) {
+               if(this.state.time1<=3){
+                   this.setState({
+                       time:this.state.time1+1
+                   });
+                   if(verifyBindMobileData&&verifyBindMobileData.code=="0001"){
+                           const {mobile} = this.refs.form.getValue()
+                           this.props.bindSuccess(''+mobile+'')
+                           alert.show({
+                               content: '绑定成功',
+                               okText: '确定',
+                               okCallback: () => this.props.replace('/securityCenter'),
+                           })
+
+                   }else{
+                       if(this.state.time>=3){
+                           this.setState({
+                               pending:false
+                           })
+                           if(verifyBindMobileData&&verifyBindMobileData.code!="0001"){
+                               this.refs.tip.open(verifyBindMobileData.msg)
+                           }else{
+                               this.refs.tip.open('验证码发送失败')
+                           }
+                           this.refs.code.setState({
+                               active:true
+                           })
+                       }else{
+                           setTimeout(()=>{
+                               this.props.verifyCodeRight(bindResData.msgId)
+                           },2000)
+                       }
+                   }
+               }
+           }
+        }
         if (mobile&&mobile==''){
             this.alert()
         }
-        if (verifyResCode === 302) {
-            alert.show({
-                content: '手机号已经被注册',
-                okText: '确定',
-            })
-        }
-        if (bindResCode === 100) {
-            const {mobile} = this.refs.form.getValue()
-            this.props.bindSuccess(''+mobile+'')
-            alert.show({
-                content: '绑定成功',
-                okText: '确定',
-                okCallback: () => this.props.replace('/securityCenter'),
-            })
-        }
-        if (bindResCode === 300) {
-            alert.show({
-                content: '绑定失败',
-                okText: '确定',
-            })
-        }
-        if (bindResCode === 301) {
-            alert.show({
-                content: '手机号已被绑定',
-                okText: '确定',
-            })
-        }
-        if (bindResCode === 302) {
-            alert.show({
-                content: '你已经绑定过了',
-                okText: '确定',
-            })
-        }
+
     }
     alert(){
         const alertn=this.refs.alert;
@@ -89,60 +177,52 @@ class MobileBind extends React.Component {
     loadDom(){
         return(<Loading/>)
     }
-    loadEnd(){
-       return(<div>
-           <ValidateForm
-               className={commonStyles.mt15}
-               ref='form'
-               onValid={this.onValid}
-               onInvalid={this.onInvalid}>
-               <BaseInput
-                   ref='mobile'
-                   name='mobile'
-                   label='手机号'
-                   maxLength={11}
-                   keyboardType='numeric'
-                   placeholder='请输入11位手机号'
-                   type='validateItem'
-                   reg={{ required: {message: '请输入正确的手机号'},
-                       mobile: {message: '请输入正确的手机号'} }}
-                   borderType='four' />
-               <BaseInput
-                   ref='captcha'
-                   name='captcha'
-                   label='验证码'
-                   keyboardType='numeric'
-                   type='validateItem'
-                   right={ <VerifyCode onClick={this.sendVerifyCode} label='发送验证码' /> }
-                   reg={{ required: {message: '请输入正确的验证码'},
-                       captcha: {message: '请输入正确的验证码'}}}
-                   borderType='four' />
-               <Button
-                   className={commonStyles.buttonWrap}
-                   text='绑定手机'
-                   type='submit'
-               />
-           </ValidateForm>
-           { this.state.errorMessage && <Tipbar text={this.state.errorMessage} /> }
-       </div>)
-    }
+
     onValid = () => {
+        var $this=this;
         const {
             mobile,
             captcha,
-        } = this.refs.form.getValue()
-        this.props.bindMobile(+mobile, +captcha)
+        } = this.refs.form.getValue();
+        if(this.state.ref==''){
+            this.refs.tip.open('请重新发送验证码');
+            return false;
+        }
+        //判断密码长度
+        if(passGuard3.getLength()==0){
+            this.refs.tip.open('密码不能为空')
+            return false;
+        }
+        //判断密码是否匹配正则
+        if(passGuard3.getValid()==1){
+            this.refs.tip.open('交易密码错误')
+            return false;
+        }
+        this.setState({
+            time1:0,
+            time2:0
+        })
+        this.props.cleanData();
+        this.props.verifyCode({verifyCode:captcha,smsReference:this.state.ref,device:'WAP'});
     }
 
     onInvalid = (name, value, message) => {
-        this.setState({errorMessage: message})
+        this.refs.tip.open(message);
     }
 
     sendVerifyCode = () => {
+        this.setState({
+            time:0
+        })
         const {mobile} = this.refs.form.getValue()
-
         if (!util.checkMobile(mobile)) {
-            return this.setState({errorMessage: '请输入正确的手机号'})
+            console.log(mobile)
+            this.refs.tip.open('请输入正确的手机号');
+            this.refs.code.setState({
+                active:true
+            })
+            return;
+            //return this.setState({errorMessage: '请输入正确的手机号'})
         }
         this.props.getVerifyCode(+mobile)
     }
@@ -151,22 +231,57 @@ class MobileBind extends React.Component {
         const {
             mobile
         }=this.props;
-        let Dom;
-        if (mobile){
-            if (mobile!=''){
-                Dom=this.loadEnd()
-            }
-        }else {
-            Dom=this.loadDom()
-        }
         return (
             <div className={commonStyles.panel}>
                 <NavBar
                     title='绑定新手机'
                 />
-                {
-                    Dom
-                }
+                <div>
+                    <ValidateForm
+                        className={commonStyles.mt15}
+                        ref='form'
+                        onValid={this.onValid}
+                        onInvalid={this.onInvalid}>
+                        <BaseInput
+                            ref='mobile'
+                            name='mobile'
+                            label='手机号'
+                            maxLength={11}
+                            keyboardType='numeric'
+                            placeholder='请输入11位手机号'
+                            type='validateItem'
+                            reg={{ required: {message: '请输入正确的手机号'},
+                            mobile: {message: '请输入正确的手机号'} }}
+                            borderType='four' />
+                        <BaseInput
+                            id="kb3"
+                            name="password"
+                            label="交易密码"
+                            placeholder='请输入交易密码'
+                            borderType='four'
+                            reg={{required:{message:'请输入正确的交易密码'}
+                            }}
+                        />
+                        <BaseInput
+                            ref='captcha'
+                            name='captcha'
+                            label='验证码'
+                            keyboardType='numeric'
+                            type='validateItem'
+                            right={ <VerifyCode ref='code' onClick={this.sendVerifyCode} label='发送验证码' /> }
+                            reg={{ required: {message: '请输入正确的验证码'},
+                       captcha: {message: '请输入正确的验证码'}}}
+                            borderType='four' />
+                        <Button
+                            className={commonStyles.buttonWrap}
+                            text='绑定手机'
+                            type='submit'
+                        />
+
+                    </ValidateForm>
+
+                </div>
+                 <Tipbar className={commonStyles.tip} ref="tip"  />
                 <Alert ref="alert" />
             </div>
         )
@@ -176,8 +291,12 @@ class MobileBind extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         mobile:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data'])&&state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']).data.mobile||false,
-        verifyResCode: state.infodata.getIn([SEND_MSG, 'data']) && +state.infodata.getIn([SEND_MSG, 'data']).code || 0,
-        bindResCode: state.infodata.getIn([BIND_MOBILE_MODIFY, 'data']) && +state.infodata.getIn([BIND_MOBILE_MODIFY, 'data']).code || 0,
+        sendCode:state.infodata.getIn(['STORE_SEND_CODE_CHANGE','data']),
+        verifySendData:state.infodata.getIn(['CHANGE_CODE_VERIFY','data']),
+        verifyCodeData:state.infodata.getIn(['STORE_CHANGE_PHONE_VERIFY_CODE','data']),
+        verifyCodeRightData:state.infodata.getIn(['CHANGE_CODE_RIGHT_VERIFY','data']),
+        bindResData:state.infodata.getIn(['CHANGE_CODE_RIGHT_VERIFY','data']),
+        verifyBindMobileData:state.infodata.getIn(['VERIFY_BIND_MOBILE','data'])
     }
 }
 
@@ -188,36 +307,67 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
        })
    },
     getVerifyCode(mobile) {
-        const clientTime=Date.parse(new Date())/ 1000;
-        mobile=mobile.toString();
-        const sign=mobile+6+clientTime+util.key();
         dispatch({
-            type: SEND_MSG,
-            params: [
-                {
-                    mobile,
-                    type: 6,
-                    clientTime,
-                    sign:util.md5(sign)
-                }
-            ]
+            type:'STORE_SEND_CODE_CHANGE',
+            params:[{telNo:''+mobile,transcode:46749,device:'WAP'}]
+        })
+    },
+    verifySend(id){
+        dispatch({
+            type:'CHANGE_CODE_VERIFY',
+            params:[{id:id}]
+        })
+    },
+    verifyCode(data){
+        dispatch({
+            type:'STORE_CHANGE_PHONE_VERIFY_CODE',
+            params:[data]
+        })
+    },
+    verifyCodeRight(id){
+        dispatch({
+            type:'CHANGE_CODE_RIGHT_VERIFY',
+            params:[{id:id}]
         })
     },
    push(path){
       dispatch(push(path))
    },
-    bindMobile(mobile, verifyCode) {
+    cleanData(){
         dispatch({
-            type: BIND_MOBILE_MODIFY,
-            params: [
-                {
-                    mobile,
-                    code:verifyCode,
-                }
-            ]
+            type:'CLEAR_INFO_DATA',
+            key:'STORE_SEND_CODE_CHANGE'
+        }),
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'CHANGE_CODE_VERIFY'
+         }),
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'STORE_CHANGE_PHONE_VERIFY_CODE'
+         }),
+            dispatch({
+                type:'CLEAR_INFO_DATA',
+                key:'CHANGE_CODE_RIGHT_VERIFY'
+            }),
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'VERIFY_BIND_MOBILE'
         })
     },
+   bindMobile(data) {
+        dispatch({
+            type: 'STORE_BIND_MOBILE_MODIFY',
+            params: [data]
+        })
+    },
+    verifyBindMobile(id){
+      dispatch({
+          type:'VERIFY_BIND_MOBILE',
+          params:[{id:id}]
+      })
 
+    },
     replace(path) {
         dispatch(replace(path))
     },
