@@ -38,6 +38,7 @@ class Index extends React.Component {
         this.setState({
             money:user.balance,
         })
+        this.props.serviceChargeRule({device:'WAP',transferAmount:'0.00'})
     }
     onValid=()=>{
         const {
