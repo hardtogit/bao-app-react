@@ -38,6 +38,9 @@ class RegisterSetPassword extends React.Component {
      }else if (!mobile||!code){
        this.alert('/register')
      }
+     if(mobile) {
+         this.props.getCaptcha(mobile)
+     }
    }
    alert(path){
      this.refs.alert.show({
@@ -125,6 +128,10 @@ class RegisterSetPassword extends React.Component {
     this.refs.tipbar.open(message)
   }
   Dom(){
+      const {
+          captcha
+          }=this.props;
+      console.log(captcha)
     return(<div>
       <div className={commonStyles.content}>
         <span className={commonStyles.markTitle}>设置登陆密码</span>
@@ -147,6 +154,7 @@ class RegisterSetPassword extends React.Component {
               name='captcha'
               icon={<div className={styles.Icon}><img src={tjm}/></div>}
               placeholder='推荐码（选填）'
+              defaultValue={captcha&&captcha.data.code||''}
               type='validateItem'
               containerStyle={{paddingRight:'15px'}}
               borderType='four' />
@@ -164,11 +172,12 @@ class RegisterSetPassword extends React.Component {
   render() {
     const {
         mobile,
-         code
+         code,
+        captcha
      }=this.props;
      let Dom;
-     if (mobile&&code){
-       Dom=this.Dom()
+     if (mobile&&code&&captcha){
+          Dom = this.Dom()
      }
     return (
       <div className={commonStyles.panel} style={{backgroundColor: '#fff', paddingTop: 0}}>
@@ -190,7 +199,8 @@ const mapStateToProps = (state) => {
   return {
     mobile:my.getIn(['REGISTER_NUM','mobile']),
     code:my.getIn(['REGISTER_NUM','code']),
-    data:my.getIn(['REGISTER','data'])
+    data:my.getIn(['REGISTER','data']),
+    captcha:my.getIn(['GET_CAPTCHA','data'])
   }
 }
 
@@ -205,6 +215,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({
       type: actionTypes.REGISTER,
       params:[data]
+    })
+  },
+  getCaptcha(mobile){
+    dispatch({
+        type:actionTypes.GET_CAPTCHA,
+        params:[{mobile:mobile}]
     })
   },
   userInfo(){

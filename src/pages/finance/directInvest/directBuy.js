@@ -249,7 +249,7 @@ class DirectBuy extends React.Component {
 
   // 当前可用的、最优惠的优惠券
   getMaxCoupon() {
-    // const quantity = 
+    // const quantity =
     const payTotal = Number(this.state.quantity * this.state.unitPrice)
     let maxVoucher, maxInterestRate, maxCoupon
     // 选出面值最大的抵用券
@@ -277,8 +277,7 @@ class DirectBuy extends React.Component {
     }
 
     if (maxVoucher && maxInterestRate) { // 两种都有
-      const maxInterestRateAmount = payTotal * Number(maxInterestRate.rate) / 100
-
+      const maxInterestRateAmount = payTotal * Number(maxInterestRate.rate) / 100/12*this.props.params.month
       if (maxInterestRateAmount > Number(maxVoucher.amount)) { // 抵用券优惠更多
         maxCoupon = maxInterestRate
       } else { // 加息券优惠更多

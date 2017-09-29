@@ -474,4 +474,9 @@ export default {
     [actionTypes.CREDITOR_CARD_BUY]:{//银行卡购买债权
         apiFn:Fetch.newCardBuy
     }
+    },
+    [actionTypes.GET_CAPTCHA]:{
+        apiFn:Fetch.getCapcha
+    },
+
 }

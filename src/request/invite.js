@@ -7,6 +7,9 @@
 const requests = (Fetch) => {
     // 邀请明细
     Fetch.inviteParticulars = (page) => { return Fetch(`api/users/invite/detail?page=${page}&pageSize=10`, 'GET') }
+    //获取验证码
+    Fetch.getCapcha = (data) => { return Fetch(`passport/invite-code`,'GET',data)}
+
 
 }
 export default requests
