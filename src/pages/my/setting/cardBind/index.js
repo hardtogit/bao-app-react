@@ -132,7 +132,9 @@ class Index extends Component{
         }
     }
     componentWillMount(){
-        this.props.getBankBindList()
+        if(!this.props.bankList){
+            this.props.getBankBindList()
+        }
     }
     componentDidMount(){
     }

@@ -77,55 +77,76 @@ class PayProcess extends React.Component {
           this.refs.loading.hide()
       }
     }
-    if (nextProps.balancePayData&&nextProps.verifyData){
+    if (nextProps.balancePayData){
+       if(nextProps.balancePayData.code=='301'){
+         nextProps.clear();
+         //nextProps.changePending();
+         this.refs.loading.hide();
+         this.openErrorDialog('密码错误');
+         return;
+       }
+      if(nextProps.verifyData){
         const status = nextProps.balancePayData.status;
         const msgId= nextProps.balancePayData.msgId;
         if (nextProps.verifyData.code=='0001'){
-              switch(this.props.type) {
-                case 'gather':
-                  const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
-                  const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
-                  const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
-                  go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
-                case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
-                case 'creditors': go('/creditorInvestSuccess/A'); break;
-              }
-            nextProps.clear();
-        }else {
-            if (this.props.time<3){
-
-            }else {
-                nextProps.clear();
-                //nextProps.changePending();
-                this.refs.loading.hide();
-                this.openErrorDialog(nextProps.verifyData.msg)
-            }
-        }
-    }
-    if (nextProps.cardPayData&&nextProps.cardVerifyData){
-      const status = nextProps.cardPayData.status;
-      const msgId= nextProps.cardPayData.msgId;
-      if (nextProps.cardVerifyData.code=='0001'){
-        switch(this.props.type) {
-          case 'gather':
-            const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
-            const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
-            const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
-            go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
-          case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
-          case 'creditors': go('/creditorInvestSuccess/A'); break;
-        }
-        nextProps.clear();
-      }else {
-        if (this.props.time<3){
-
-        }else {
+          switch(this.props.type) {
+            case 'gather':
+              const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
+              const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
+              const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
+              go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
+            case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
+            case 'creditors': go('/creditorInvestSuccess/A'); break;
+          }
           nextProps.clear();
-          nextProps.changePending();
-          this.refs.loading.hide();
-          this.openErrorDialog(nextProps.cardVerifyData.msg)
+        }else {
+          if (this.props.time<3){
+
+          }else {
+            nextProps.clear();
+            //nextProps.changePending();
+            this.refs.loading.hide();
+            this.openErrorDialog(nextProps.verifyData.msg)
+          }
+        }
+
+      }
+
+    }
+    if (nextProps.cardPayData){
+      if(nextProps.cardPayData.code=='301'){
+        nextProps.clear();
+        //nextProps.changePending();
+        this.refs.loading.hide();
+        this.openErrorDialog('密码错误')
+        return;
+      }
+      if(nextProps.cardVerifyData){
+        const status = nextProps.cardPayData.status;
+        const msgId= nextProps.cardPayData.msgId;
+        if (nextProps.cardVerifyData.code=='0001'){
+          switch(this.props.type) {
+            case 'gather':
+              const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
+              const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
+              const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
+              go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
+            case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
+            case 'creditors': go('/creditorInvestSuccess/A'); break;
+          }
+          nextProps.clear();
+        }else {
+          if (this.props.time<3){
+
+          }else {
+            nextProps.clear();
+            nextProps.changePending();
+            this.refs.loading.hide();
+            this.openErrorDialog(nextProps.cardVerifyData.msg)
+          }
         }
       }
+
     }
 
     //if (nextProps.balancePayData && nextProps.balancePayData.code && !this.balancePayRedirectFlag) {

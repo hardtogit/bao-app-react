@@ -55,7 +55,7 @@ class Index extends Component{
         if(bankData){
             Dom=<ul className={styles.item}>
                         {bankData&&bankData.data.map((value,i)=>{
-                            return <li onClick={()=>{this.choiceBank(value.bankCode,value.bankName)}} key={value.bankId}> {value.bankName} </li>
+                            return <li key={value.bankId} onClick={()=>{this.choiceBank(value.bankCode,value.bankName)}} > {value.bankName} </li>
                         })}
                  </ul>
 
@@ -90,7 +90,6 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
             dispatch({
                 type:actionTypes.GET_BANK
             })
-
         },
         //更新网点到state
         bankToState(data){

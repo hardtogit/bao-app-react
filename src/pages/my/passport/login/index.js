@@ -60,6 +60,7 @@ class Login extends React.Component {
         const {
             backUrl
         }=this.state;
+        this.props.clean();
         const data  = this.refs.form.getValue();
         if (backUrl!=''){
             this.props.isLogin({username:data.username,password:util.md5(data.password),clientType:'wap'});
@@ -177,5 +178,11 @@ const mapDispatchToProps = (dispatch) => ({
     go(path) {
         dispatch(push(path))
     },
+    clean(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'USER_LOGIN_FLOW'
+        })
+    }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

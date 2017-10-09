@@ -49,9 +49,15 @@ class Index extends Component{
                                 submitting:false
                             });
                             if(nextProps.flagData&&nextProps.flagData.code!="0001"){
-                                this.refs.tip.open('解绑失败')
+                                this.refs.alert.show({
+                                    content: nextProps.flagData.msg,
+                                    okText: '确定',
+                                })
                             }else{
-                                this.refs.tip.open('解绑失败')
+                                this.refs.alert.show({
+                                    content: "解绑失败",
+                                    okText: '确定',
+                                })
                             }
                         }else{
                             setTimeout(()=>{
@@ -61,7 +67,10 @@ class Index extends Component{
                     }
                 }
             }else if(nextProps.unbindData.code==301){
-                this.refs.tip.open('密码错误')
+                this.refs.alert.show({
+                    content: '交易密码错误',
+                    okText: '确定',
+                })
                 this.setState({
                     submitting:false
                 });
@@ -96,7 +105,8 @@ class Index extends Component{
                     password:b
                 };
                 $this.setState({
-                    submitting:true
+                    submitting:true,
+                    time:0
                 });
                 $this.props.unBind(data);
                 a()
