@@ -271,7 +271,7 @@ export default class App extends React.Component {
                   <Route path="setting/choiceBank" component={choiceBank} ></Route>/*选择开户行*/
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/
                   <Route path="setting/myBankCard" getComponent={MyBankCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的银行卡*/
-                  <Route path="setting/bankCardManage" getComponent={BankCardManage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*银行卡管理*/
+                  <Route path="setting/bankCardManage/:color" getComponent={BankCardManage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*银行卡管理*/
                   /*已完成*/
 
                   <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

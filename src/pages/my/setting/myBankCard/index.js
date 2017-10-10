@@ -34,30 +34,44 @@ class Index extends Component{
     }
     addCard=()=>{
        this.props.push('/user/setting/cardBind')
-
     }
-    goDetail=(data)=>{
+
+    goDetail=(data,i)=>{
+        HTMLElement.prototype.__defineGetter__("currentStyle", function () {
+            return this.ownerDocument.defaultView.getComputedStyle(this, null);
+        });
+        var getElementByAttr=(tag,attr,value)=>{
+            var aElements=document.getElementsByTagName(tag);
+            var aEle=[];
+            for(var i=0;i<aElements.length;i++) {
+                if(aElements[i].getAttribute(attr)==value)
+                    aEle.push( aElements[i] );
+            }
+            return aEle;
+        }
+
+        var dom =getElementByAttr('div','data-color',i);
+        for(var i=0;i<dom.length;i++){
+            var color = dom[i].currentStyle.backgroundColor;
+        }
         this.props.storeCardInfo(data);
-        this.props.push('/user/setting/bankCardManage')
+        this.props.push('/user/setting/bankCardManage/'+color+'?color=fff');
     };
     render(){
         let Dom;
         const{
             pop,
-            data
+            data,
             }=this.props;
         if(data){
             Dom=<div>
                 <div className={styles.item_content}>
                 {data.data.map((value,i)=>{
                     let num=value.bankCard.substr(value.bankCard.length-4,4)
-                 return<div className={styles.item} key={i}   onClick={()=>{
-
-                     this.goDetail(value)
-                 }}>
+                 return<div className={styles.item} key={i}   onClick={()=>{this.goDetail(value,i)}} data-color={i}>
                          <div className={styles.title}><div className={styles.left}><img className={styles.img} src={value.bankIcon} alt=""/></div><div className={styles.right}>{value.bankName}</div></div>
                          <div className={styles.num}>****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;{num}</div>
-                     <img className={styles.bg} src={value.bankImg} alt=""/>
+                         <img className={styles.bg} src={value.bankImg} alt=""/>
                  </div>
                  })}
                     <div className={styles.btn} onClick={this.addCard}>
@@ -74,7 +88,6 @@ class Index extends Component{
                   银行卡
               </NavBar>
                {Dom}
-
            </div>
         )
     }
