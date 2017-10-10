@@ -24,11 +24,12 @@ class RegisterSetPassword extends React.Component {
     super(props)
       this.state={
       init:true,
-      checkBox:true
+      checkBox:true,
+      letCheck:false
       }
   }
   componentDidMount() {
-     this.refs.choice.checked =true
+
      const {
          mobile,
          code
@@ -50,7 +51,7 @@ class RegisterSetPassword extends React.Component {
      })
   }
   componentWillUnmount() {
-    
+    this.props.clean()
   }
     //是否阅读合同
     ifScan=(e)=>{
@@ -63,6 +64,15 @@ class RegisterSetPassword extends React.Component {
                 checkBox:true
             })
         }
+    }
+  componentDidUpdate(){
+      if(this.refs.choice&&!this.state.letCheck){
+          this.refs.choice.checked =true
+          this.setState({
+              letCheck:true
+          })
+      }
+
     }
   componentWillReceiveProps({data}) {
      if (data){
@@ -131,7 +141,6 @@ class RegisterSetPassword extends React.Component {
       const {
           captcha
           }=this.props;
-      console.log(captcha)
     return(<div>
       <div className={commonStyles.content}>
         <span className={commonStyles.markTitle}>设置登陆密码</span>
@@ -216,6 +225,12 @@ const mapDispatchToProps = (dispatch) => ({
       type: actionTypes.REGISTER,
       params:[data]
     })
+  },
+  clean(){
+    dispatch({
+      type:'CLEAR_INFO_DATA',
+      key:'REGISTER_NUM'
+        })
   },
   getCaptcha(mobile){
     dispatch({

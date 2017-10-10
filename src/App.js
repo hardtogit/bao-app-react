@@ -134,8 +134,8 @@ GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCh
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
 
 // 工厂方法创建saga中间件
-//const a=window.location.href.split('.')[1]+'.cn';
-//document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
