@@ -51,7 +51,7 @@ class RegisterSetPassword extends React.Component {
      })
   }
   componentWillUnmount() {
-    
+    this.props.clean()
   }
     //是否阅读合同
     ifScan=(e)=>{
@@ -225,6 +225,12 @@ const mapDispatchToProps = (dispatch) => ({
       type: actionTypes.REGISTER,
       params:[data]
     })
+  },
+  clean(){
+    dispatch({
+      type:'CLEAR_INFO_DATA',
+      key:'REGISTER_NUM'
+        })
   },
   getCaptcha(mobile){
     dispatch({
