@@ -27,12 +27,15 @@ class Index extends Component{
     static defaultProps = {//设置初始props
     }
     componentWillMount(){
+        //console.log(this.props)
      //组件将要渲染时调用
     }
     componentDidMount(){
       if(this.props.data){}else{
           this.alert('/user/setting/myBankCard')
       }
+      //  console.log(this);
+      //console.log(this.props.params.color);
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.unbindData){
@@ -124,14 +127,15 @@ class Index extends Component{
         let Dom;
         const{
             pop,
-            data
+            data,
             }=this.props;
+        let backgroundStyle = this.props.params.color;
         if(data){
             let num=data.bankCard.substr(data.bankCard.length-4,4)
             Dom= <div>
                 <div className={styles.header}>
                     <div className={styles.item_content}>
-                        <div className={styles.item}>
+                        <div className={styles.item} style={{backgroundColor:backgroundStyle}}>
                             <div className={styles.title}><div className={styles.left}><img className={styles.img} src={data.bankIcon} alt=""/></div><div className={styles.right}>{data.bankName}</div></div>
                             <div className={styles.num}>****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;{num}</div>
                             <img className={styles.bg} src={data.bankImg} alt=""/>
