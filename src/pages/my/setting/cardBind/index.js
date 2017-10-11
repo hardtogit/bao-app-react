@@ -183,24 +183,19 @@ class Index extends Component{
         this.props.saveStoreData({carNo:this.refs.form.getValue().bankCard,telNo:this.refs.form.getValue().telNo});
         this.props.push('/user/setting/choiceBank')
     };
-    str;
     bindBank=(e)=>{
-        let carNo=this.refs.form.getValue().bankCard
-        if(carNo.length>=6){
-           let newStr=carNo.substr(0,6);
-            if(newStr!=this.str){
+        let carNo=this.refs.form.getValue().bankCard;
+        if(carNo.length>=3){
                 let flag=true
-                this.str=newStr;
                 this.props.bankList.data.map((value,i)=>{
-                    if(value.cardBin==newStr){
+                    if(carNo.indexOf(value.cardBin)==0){
                         flag=false;
                         this.props.bankToState(value)
                     }
                 });
-                if(flag){
+                if(flag&&carNo.length>7){
                     this.props.bankToState({bankName:"存管暂不支持该银行的储蓄卡",bankCode:""})
                 }
-            }
         }else{
             this.props.bankToState({bankName:"请输入卡号识别",bankCode:""})
         }
