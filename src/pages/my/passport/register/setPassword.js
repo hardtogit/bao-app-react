@@ -228,7 +228,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   clean(){
     dispatch({
-      type:'CLEAR_INFO_DATA',
+      type:'DEEP_CLEAR_INFO_DATA',
       key:'REGISTER_NUM'
         })
   },

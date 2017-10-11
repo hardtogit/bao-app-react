@@ -53,6 +53,9 @@ export default (state = defaultState, action) => {
         case actionTypes.CLEAR_INFO_DATA:
             const clearKey=action.key;
             return state.setIn([clearKey,'data'],null)
+        case actionTypes.DEEP_CLEAR_INFO_DATA:
+            const deepClearKey=action.key;
+            return state.setIn([deepClearKey],null)
         default:
             return state
     }
