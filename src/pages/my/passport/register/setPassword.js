@@ -50,7 +50,7 @@ class RegisterSetPassword extends React.Component {
        okCallback: () => {this.props.go(path)},
      })
   }
-  componentWillUnmount() {
+  componentWillMount() {
     this.props.clean()
   }
     //是否阅读合同
@@ -228,8 +228,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   clean(){
     dispatch({
-      type:'DEEP_CLEAR_INFO_DATA',
-      key:'REGISTER_NUM'
+      type:'CLEAR_INFO_DATA',
+      key:'REGISTER'
         })
   },
   getCaptcha(mobile){
