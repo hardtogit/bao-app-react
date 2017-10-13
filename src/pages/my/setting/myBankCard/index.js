@@ -55,7 +55,7 @@ class Index extends Component{
             var color = dom[i].currentStyle.backgroundColor;
         }
         this.props.storeCardInfo(data);
-        this.props.push('/user/setting/bankCardManage/'+color+'?color=fff');
+        this.props.push('/user/setting/bankCardManage/'+color);
     };
     render(){
         let Dom;

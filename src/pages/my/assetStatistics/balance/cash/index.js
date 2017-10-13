@@ -83,6 +83,9 @@ class Index extends React.Component {
             }else if(cashData.code=='300'){
                 this.alert('提现失败');
                 this.refs.loading.hide()
+            }else if(cashData.code=='301'){
+                this.alert(cashData.msg);
+                this.refs.loading.hide()
             }else if(cashData.code=='302'){
                 this.alert(cashData.msg);
                 this.refs.loading.hide()

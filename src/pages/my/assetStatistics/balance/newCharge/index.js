@@ -11,6 +11,7 @@ import BaseText from '../../../../../components/BaseText'
 import BaseButton from '../../../../../components/BaseButton'
 import Reddem from '../../../../../components/Dialog/reddem'
 import Choice from '../../../../../components/Dialog/ChoiceCard'
+import Alert from '../../../../../components/Dialog/alert'
 import LoadingDialog from '../../../../../components/Dialog/loading'
 import TipBar from '../../../../../components/Tipbar'
 import {connect} from 'react-redux'
@@ -83,11 +84,20 @@ class Index extends Component{
                     }
                 }
 
+            }else if(nextProps.rechargeData.code==301){
+                $this.refs.loading.hide()
+                this.refs.alert.show({
+                    content: '交易密码错误',
+                    okText: '确定',
+                })
             }else{
-
+                $this.refs.loading.hide()
+                this.refs.alert.show({
+                    content: '交易错误',
+                    okText: '确定',
+                })
             }
         }
-
     }
     componentWillUnmount(){
      //组件将要被移除时调用
@@ -177,6 +187,7 @@ class Index extends Component{
                <TipBar ref="tip"></TipBar>
                <Choice options={{banks:banks,choiceCallback:this.choiceCallback}} ref="choice"></Choice>
                <LoadingDialog ref="loading"></LoadingDialog>
+               <Alert ref="alert"/>
            </div>
         )
     }

@@ -79,9 +79,6 @@ class Index extends Component{
                 });
             }
         }
-
-
-
     }
     componentWillUnmount(){
      //组件将要被移除时调用

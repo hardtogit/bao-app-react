@@ -32,7 +32,6 @@ class MobileBind extends React.Component {
     }
     componentDidMount(){
         if(document.getElementById('kb3')){
-            console.log()
             passGuard3.generate("kb3",kb,0);
             $(function(){
                 setTimeout(function(){
@@ -85,9 +84,10 @@ class MobileBind extends React.Component {
             if(verifyCodeData.status==1) {
                 if(this.state.time1<=3){
                     this.setState({
-                        time:this.state.time1+1
+                        time1:this.state.time1+1
                     });
                     if(verifyCodeRightData&&verifyCodeRightData.code=="0001"){
+                        $('#kb3').val('');
                         this.props.bindMobile({
                             newMobile:this.refs.form.getValue().mobile,
                             password:passGuard3.getOutput(),
@@ -98,7 +98,7 @@ class MobileBind extends React.Component {
                         })
 
                     }else{
-                        if(this.state.time>=3){
+                        if(this.state.time1>=3){
                             this.setState({
                                 pending:false
                             })
@@ -126,9 +126,9 @@ class MobileBind extends React.Component {
            }else if(bindResData.code==302){
                this.refs.tip.open('手机号已存在')
            }else if(bindResData.status==1) {
-               if(this.state.time1<=3){
+               if(this.state.time2<=3){
                    this.setState({
-                       time:this.state.time1+1
+                       time2:this.state.time2+1
                    });
                    if(verifyBindMobileData&&verifyBindMobileData.code=="0001"){
                            const {mobile} = this.refs.form.getValue()
@@ -140,7 +140,7 @@ class MobileBind extends React.Component {
                            })
 
                    }else{
-                       if(this.state.time>=3){
+                       if(this.state.time2>=3){
                            this.setState({
                                pending:false
                            })

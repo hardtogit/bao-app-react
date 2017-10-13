@@ -21,6 +21,7 @@ import Success from '../../../../components/Dialog/success'
 import styles from './index.less'
 import {go, replace} from 'react-router-redux'
 import {goBack, push} from 'react-router-redux'
+import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import IDValidator from 'id-validator'
 import {IDENTITY_AUTH, SET_USERNAME_SUCCESS,REGISTER_NUM} from '../../../../actions/actionTypes'
@@ -39,13 +40,14 @@ class Index extends Component{
             bank:'',
             point:'',
             submitting:false,
-            ifUpdate:false
+            ifUpdate:false,
         }
     }
     static defaultProps = {
         data:[{color:'#000',text:'ds'},{color:'#000',text:'ds'},{color:'#000',text:'ds'}]
     };
     componentWillReceiveProps(nextProps) {
+        const $this=this;
         if(nextProps.msgId){
             if (nextProps.msgId.status==1){
                 if(this.state.time<=3){
@@ -137,6 +139,10 @@ class Index extends Component{
         }
     }
     componentDidMount(){
+       this.refs.choice.checked =true
+        }
+    componentDidUpdate(){
+
     }
     showTip=()=>{
         this.refs.tip.show({
@@ -150,6 +156,15 @@ class Index extends Component{
             </div>
 
         })
+    }
+    flag=true
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.flag){
+            this.flag=false;
+        }else{
+            this.flag=true
+        }
     }
     componentDidUpdate(){
     }
@@ -186,15 +201,17 @@ class Index extends Component{
     bindBank=(e)=>{
         let carNo=this.refs.form.getValue().bankCard;
         if(carNo.length>=3){
-                let flag=true
-                this.props.bankList.data.map((value,i)=>{
-                    if(carNo.indexOf(value.cardBin)==0){
-                        flag=false;
-                        this.props.bankToState(value)
+                let flag=true;
+                if(this.props.bankList){
+                    this.props.bankList.data.map((value,i)=>{
+                        if(carNo.indexOf(value.cardBin)==0){
+                            flag=false;
+                            this.props.bankToState(value)
+                        }
+                    });
+                    if(flag&&carNo.length>7){
+                        this.props.bankToState({bankName:"存管暂不支持该银行的储蓄卡",bankCode:""})
                     }
-                });
-                if(flag&&carNo.length>7){
-                    this.props.bankToState({bankName:"存管暂不支持该银行的储蓄卡",bankCode:""})
                 }
         }else{
             this.props.bankToState({bankName:"请输入卡号识别",bankCode:""})
@@ -210,6 +227,10 @@ class Index extends Component{
         });
         let tip=this.refs.alert;
         let bankCard=this.refs.form.getValue().bankCard;
+        if(!this.flag){
+            tip.open('请阅读并同意下方协议')
+            return false;
+        }
         if(bankCard==''){
             tip.open('请输入卡号')
             return false;
@@ -256,11 +277,10 @@ class Index extends Component{
             }=this.props;
            const bankCard=saveData&&saveData.carNo?saveData.carNo:'';
            const telNo=saveData&&saveData.telNo?saveData.telNo:'';
-
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
-                {pending? <Loading></Loading>:<div>
+                <div>
                 <div className={styles.tip}>
                     *请绑定本人持有的银行卡，此卡将用于充值、提现、投
                     资等，已绑定过银行卡的用户需重新绑定
@@ -297,6 +317,9 @@ class Index extends Component{
                     </div>
                     </ValidateForm>
                 </div>
+                    <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
+                        <Link to={`/storeContract`} className={styles.protocol}>《浙江民泰商业银行股份有限公司网络交易资金账户服务三方协议》</Link>
+                    </p>
                 <div onClick={this.showTip} className={styles.problem}>
                       忘记预留手机怎么办？
                 </div>
@@ -307,7 +330,8 @@ class Index extends Component{
                     />
                 </div>
                     </div>
-                }
+
+
                 <Tipbar ref="alert"></Tipbar>
                 <Alert ref="tip"></Alert>
             </div>
