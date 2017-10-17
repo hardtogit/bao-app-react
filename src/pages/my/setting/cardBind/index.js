@@ -140,6 +140,7 @@ class Index extends Component{
     }
     componentDidMount(){
        this.refs.choice.checked =true
+        this.props.getStoreUserInfo()
         }
     componentDidUpdate(){
 
@@ -273,19 +274,37 @@ class Index extends Component{
         const{
             bankData,
             pending,
+            storeUserInfo,
             saveData
             }=this.props;
            const bankCard=saveData&&saveData.carNo?saveData.carNo:'';
            const telNo=saveData&&saveData.telNo?saveData.telNo:'';
+            const realName=storeUserInfo&&storeUserInfo.data.realName?storeUserInfo.data.realName:'';
+            const idCard=storeUserInfo&&storeUserInfo.data.idCard?storeUserInfo.data.idCard:'';;
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
                 <div>
                 <div className={styles.tip}>
-                    *请绑定本人持有的银行卡，此卡将用于充值、提现、投
-                    资等，已绑定过银行卡的用户需重新绑定
+                {this.props.location.query.from&&'浙江民泰银行为宝点网提供资金存管服务，为保障资金安全，请绑定本人持有的银行卡'||'请绑定本人持有的银行卡，此卡将用于充值、提现、投资等，已绑定过银行卡的用户需重新绑定'}
                 </div>
                 <div className={styles.form}>
+                    {(()=>{if(this.props.location.query.from=='cardList'&&realName){
+                           return <div>
+                            <div style={{display:'-webkit-flex',marginLeft:'15px',borderBottom:'1px solid #ddd'}}>
+                               <div className="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>真实姓名</span></div>
+                               <div style={{flex:'1'}}>
+                                   <input  className='default' disabled style={{fontSize: '16px',padding: '12px 0',border: '0',backgroundColor:'#fff'}}  value={realName}/>
+                               </div>
+                           </div>
+                               <div style={{display:'-webkit-flex',marginLeft:'15px',borderBottom:'1px solid #ddd'}}>
+                                   <div className="false"><span style={{color: '#000',fontSize: '16px',width: '75px',display: 'block',padding:'12px 0'}}>身份证号</span></div>
+                                   <div style={{flex:'1'}}>
+                                       <input  className='default' disabled style={{fontSize: '16px',padding: '12px 0',border: '0',backgroundColor:'#fff'}}  value={idCard}/>
+                                   </div>
+                               </div>
+                           </div>
+                    }})()}
                     <ValidateForm ref="form">
                     <BaseInput
                         onChange={this.bindBank}
@@ -330,8 +349,6 @@ class Index extends Component{
                     />
                 </div>
                     </div>
-
-
                 <Tipbar ref="alert"></Tipbar>
                 <Alert ref="tip"></Alert>
             </div>
@@ -349,7 +366,8 @@ const mapStateToProps=(state,ownProps)=>{
         saveData:state.regStore.getIn([actionTypes.SAVE_STORE_DATA,'data']),
         bankList:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'data']),
         pending:state.infodata.getIn([actionTypes.GET_BANK_BIND_LIST,'pending']),
-        verifyCodeRightData:state.infodata.getIn([actionTypes.CODE_RIGHT_VERIFY,'data'])
+        verifyCodeRightData:state.infodata.getIn([actionTypes.CODE_RIGHT_VERIFY,'data']),
+        storeUserInfo:state.infodata.getIn([actionTypes.GET_STORE_USER_INFO,'data'])
     }
 };
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -431,6 +449,11 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
         getBankBindList(){
             dispatch({
                 type:'GET_BANK_BIND_LIST',
+            })
+        },
+        getStoreUserInfo(){
+            dispatch({
+                type:'GET_STORE_USER_INFO',
             })
         }
 

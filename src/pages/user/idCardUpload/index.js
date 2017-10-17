@@ -10,13 +10,17 @@ import NavBar from '../../../components/NavBar'
 import Button from '../../../components/BaseButton'
 import Alert from '../../../components/Dialog/alert'
 import circle from '../../../assets/images/account/addicon.png'
+import classNames from 'classnames'
+import LoadingDialog from '../../../components/Dialog/loading'
 import {connect} from 'react-redux'
 import {goBack,replace,push} from 'react-router-redux'
 class Index extends Component {
     constructor(props) {//构造器
         super(props)
         this.state = {
-            isOpen: false
+            isOpen: false,
+            disable:true,
+            sendFlag:true
         }
     }
     static defaultProps = {//设置初始props
@@ -30,12 +34,33 @@ class Index extends Component {
         //组件渲染完成时调用
     }
     componentWillReceiveProps(nextProps) {
+        const $this=this;
         //组件接收到新的props调用
         if(nextProps.data){
             if(nextProps.data.code==100){
-                this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功')
-            }else{
+                if($this.state.sendFlag){
+                    $this.props.update()
+                    $this.setState({
+                        sendFlag:false
+                    })
+                }
+                if(nextProps.countData){
+                  if(nextProps.countData.data.isUploadIdcard){
+                      this.refs.loading.hide()
+                      this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功')
+                  }else{
+                      setTimeout(function(){
+                          $this.props.update()
+                      },1000)
+                  }
 
+                }
+            }else{
+                this.refs.loading.hide()
+                this.refs.alert.show({
+                    content:'上传失败',
+                    okText:'确定'
+                })
             }
         }
     }
@@ -44,13 +69,17 @@ class Index extends Component {
         //组件将要被移除时调用
     }
     submit = ()=> {
+        if(this.state.disable){
+            return
+        }
         if(this.refs.back.src&&this.refs.front.src){
             var formData = new FormData();
             let file1 = this.refs.file1.files[0];
             let file2 = this.refs.file2.files[0];
             formData.append('front', file1);
             formData.append('back', file2);
-            formData.append('device','WAP')
+            formData.append('device','WAP');
+            this.refs.loading.show('处理中...')
             this.props.upload(formData)
         }else{
             this.refs.alert.show({
@@ -80,6 +109,7 @@ class Index extends Component {
                 okCallback: () => {},
             })
         }
+        this.ifPost()
     };
     changeTwo=(e)=>{
         const file=e.target.files[0];
@@ -100,8 +130,19 @@ class Index extends Component {
                 okCallback: () => {},
             })
         }
+        this.ifPost()
     }
-
+    ifPost(){
+        if(this.refs.file1.files[0]&&this.refs.file2.files[0]){
+            this.setState({
+                disable:false
+            })
+        }else{
+            this.setState({
+                disable:true
+            })
+        }
+    }
     render() {
         const {
             pop,
@@ -132,15 +173,17 @@ class Index extends Component {
                             <input onChange={this.changeTwo} ref="file2" className={styles.input} type="file"/>
                         </div>
                     </div>
-                    <Button className={styles.submit} onClick={this.submit} text="确认上传"></Button>
+                    <Button className={styles.submit} disable={this.state.disable} onClick={this.submit} text="确认上传"></Button>
                 </div>
+                <LoadingDialog ref="loading"></LoadingDialog>
                 <Alert ref="alert"></Alert>
             </div>
         )
     }
 }
 const mapStateToProps = (state)=>({
-    data:state.infodata.getIn(['IDCARD_UPLOAD','data'])
+    data:state.infodata.getIn(['IDCARD_UPLOAD','data']),
+    countData:state.infodata.getIn(['STORE_STATUS_INFO','data'])
 });
 const mapDispatchToProps = (dispatch, own)=>({
     pop(){
@@ -150,6 +193,11 @@ const mapDispatchToProps = (dispatch, own)=>({
         dispatch({
             type: 'IDCARD_UPLOAD',
             params: [data]
+        })
+    },
+    update(){
+        dispatch({
+            type:'STORE_STATUS_INFO',
         })
     },
     push(url){

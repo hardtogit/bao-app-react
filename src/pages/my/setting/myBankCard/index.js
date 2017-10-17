@@ -33,7 +33,7 @@ class Index extends Component{
      //组件将要被移除时调用
     }
     addCard=()=>{
-       this.props.push('/user/setting/cardBind')
+       this.props.push('/user/setting/cardBind?from=cardList')
     }
 
     goDetail=(data,i)=>{
