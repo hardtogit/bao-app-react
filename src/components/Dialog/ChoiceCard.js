@@ -68,6 +68,7 @@ class Index extends React.Component {
                                  </div>
                              </div>
                         })}
+                        <div className={styles.tip}>限额仅供参考，具体以支付渠道为准</div>
                     </div>
 
                 </div>

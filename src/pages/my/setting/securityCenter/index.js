@@ -132,7 +132,9 @@ class SecurityCenter extends React.Component {
             </div>
         )
     }
-
+    componentWillMount(){
+        this.props.update()
+    }
     componentDidMount() {
         const {
             user,
@@ -187,6 +189,11 @@ const mapDispatchToProps = (dispatch) => ({
     pop() {
         dispatch(goBack())
     },
+    update(){
+        dispatch({
+            type:'STORE_STATUS_INFO',
+        })
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecurityCenter)

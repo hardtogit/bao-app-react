@@ -27,6 +27,11 @@ export default class Index extends React.Component {
         id:PropTypes.number,
         checkedCanClick:PropTypes.bool//选中了是否还能切换
     };
+    componentWillReceiveProps(nextProps){
+        this.setState({
+             open:nextProps.status
+            })
+    }
     checkAccredit=()=>{
         let $this=this;
         this.refs.red.show({
