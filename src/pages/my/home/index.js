@@ -16,11 +16,13 @@ import safeplan from '../../../assets/images/my-index/7.png' // 直投项目
 import directMail from '../../../assets/images/my-index/8.png' // 自动投标
 import redPacket from '../../../assets/images/my-index/10.png' // 红包
 import scratchCard from '../../../assets/images/my-index/11.png' // 刮刮卡
+import rt from '../../../assets/images/my-index/rt.png' //即将下线
 import someCoins from '../../../assets/images/my-index/12.png' // 点币
 import interest from '../../../assets/images/my-index/13.png' // 加息券
 import toUse from '../../../assets/images/my-index/14.png' // 抵用券
 import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 import DepositTreasureB from '../../../assets/images/my-index/16.png'
+import poppic1 from '../../../assets/images/my-index/pop01.png'
  class Index extends React.Component{
 	constructor(props) {
         super(props);
@@ -185,6 +187,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                                 <img src={scratchCard}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>刮刮卡</p>
+									<img src={rt} style={{"position":"absolute","top":"2px","left":"102px","width":"44px","height":"12px"}}/>
                                     <p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
                                 </div>
                             </Link>
@@ -221,35 +224,66 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 				</div>
 			</div>
 			)
-	} 
+	}
+     fridayPopDom(data){
+         const {
+             investment_amount,
+             withdrawal_amount,
+             coin
+         }=data;
+         return(
+			 <div className={styles.fridayPop}>
+				 <div className={styles.popWraper}>
+					 <img className={styles.pop1} src={poppic1} />
+				 </div>
+			 </div>
+         )
+	 }
 	componentDidMount() {
 		  this.props.load();
+		  this.props.fridayPop();
 	}
      doSign=()=>{
             this.refs.SignModel.show();
      };
 	render(){
 		const{
-          nobjs  
+          nobjs,
+            fridayPopData
 		}=this.props;
 		let Dom;
+		let PopDom;
 		if(nobjs){
             Dom=this.loadingEndDom(nobjs.data)
 		}else{
 			Dom=this.loadingDom()
 		}
+		if(fridayPopData){
+			PopDom=this.fridayPopDom(fridayPopData.data)
+			console.log(PopDom);
+		}
 		return(
-			<div className={styles.myContent}>
-				{
-                  Dom 
-				}
+			<div>
+				<div className={styles.myContent}>
+                    {
+                        Dom
+                    }
+
+				</div>
+				<div>
+                    {
+                        PopDom
+                    }
+				</div>
 			</div>
+
 		)
 	}
 }
 
 const myIndexInit=(state,own)=>({
-	  nobjs:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data'])
+	  nobjs:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
+	  fridayPopData:state.infodata.getIn(['FRIDAY_POP','data'])
 })
 const myIndexInitfn=(dispath,own)=>({
 	  load(){
@@ -257,5 +291,10 @@ const myIndexInitfn=(dispath,own)=>({
 			  type:"USER_INFO_WITH_LOGIN"
 		  })
 	  },
+	fridayPop(){
+		dispath({
+			type:"FRIDAY_POP"
+		})
+	},
 })
 export default connect(myIndexInit,myIndexInitfn)(Index)
