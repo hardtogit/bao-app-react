@@ -96,6 +96,7 @@ class Index extends React.Component {
                 this.alert('提现失败');
                 this.refs.loading.hide()
             }
+            this.props.clean('NEW_CASH')
         }
         if(rule){
             this.setState({
