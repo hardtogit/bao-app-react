@@ -9,7 +9,7 @@ import styles from './index.css'
 import classNames from 'classnames'
 //定存宝
 //import DepositIndex from '../deposit/index'
-//import DepositPlanB from '../deposit/planB'
+import DepositPlanB from '../deposit/planB'
 import DepositGather from '../deposit/gather'
 //直投项目
 import DirectInvestIndex from '../directInvest/index'
@@ -23,13 +23,17 @@ class financeIndex extends Component{
 			 titleCav:[
 			 {
 				 title:'聚点+',
-			 },{
+			 },
+             {
+                 title:'定存宝'
+             },
+			 {
 				 title:'直投项目'
 			 },{
 				 title:'债权转让'
 			 }],
 			 Index:0,
-             tabs:[DepositGather,DirectInvestIndex,CreditorsIndex]
+             tabs:[DepositGather,DepositPlanB,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
 	 componentWillMount(){
