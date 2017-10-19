@@ -78,7 +78,7 @@ class CreditorBuy extends React.Component{
               this.setState({
                   time:this.state.time+1
               });
-              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code=='0001'){
+              if(cardVerifyData&&cardVerifyData.code=='0001'){
                   const time=Date.parse(new Date()),
                       cash_amount=this.state.val;
                   push(time,cash_amount)
@@ -156,7 +156,7 @@ class CreditorBuy extends React.Component{
             pending:true,
             time:0
         })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.creditorsId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
+        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),this.creditorsId, copies, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
     }
   getPrice () {
     return utils.accAdd(this.props.detail.price, this.props.detail.prepaid_interest || 0)
@@ -249,14 +249,13 @@ class CreditorBuy extends React.Component{
             <p>还需支付（元）</p>
             <p>{utils.padMoney(this.getPayTotal())}</p>
           </div>
-
-            { banksList.length!=undefined&&banksList.length!=0 ?<PayProcess
+            <PayProcess
             ref='payProcess' 
             type='creditors'
             getChoose={this.getChoose}
             go={this.props.push}
             user={this.props.user}
-            banks={banksList}
+            banks={this.props.banks&&this.props.banks.data}
             overPay={this.overPay}
             balance={this.props.user.balance || 0}
             onRequestBalancePay={this.creditorBalanceBuy}//传递余额支付方法
@@ -268,7 +267,8 @@ class CreditorBuy extends React.Component{
             inputValue={Number(utils.padMoney(this.getPayTotal()))}
             balancePayPending={this.state.pending}
             changePending={this.changePending}
-            clear={this.props.clear}/>:''}
+            clear={()=>{this.props.clearData()}}
+            time={this.state.time}/>
 
           <div className={styles.payBtn}>
             <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
@@ -325,6 +325,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     //银行卡支付
     cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,mapKey){
+        console.log(num)
         dispatch({
             type:actionTypes.CREDITOR_CARD_BUY,
             params:[{
@@ -335,7 +336,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 password,
                 passwordFactor,
                 couponId,
-                productType:'POINT',
+                productType:'TRANSFER',
                 device,
                 mapKey:mapKey
             }]

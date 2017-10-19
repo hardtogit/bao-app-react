@@ -110,9 +110,9 @@ export const GATHER_PAY_VERIFY='GATHER_PAY_VERIFY'
 //验证聚点银行卡购买是否成功
 export const GATHER_CARD_VERIFY='GATHER_CARD_VERIFY'
 //验证债权余额购买是否成功
-export const CREDITOR_PAY_VERIFY='GATHER_PAY_VERIFY'
+export const CREDITOR_PAY_VERIFY='CREDITOR_PAY_VERIFY'
 //验证债权银行卡购买是否成功
-export const CREDITOR_CARD_VERIFY='GATHER_CARD_VERIFY'
+export const CREDITOR_CARD_VERIFY='CREDITOR_CARD_VERIFY'
 //验证免密是否成功
 export const ACCREDIT_VERIFY='ACCREDIT_VERIFY'
 //验证密码修改是否成功
