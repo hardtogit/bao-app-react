@@ -26,14 +26,14 @@ class InvestSuccess extends React.Component {
         <div className={styles.content}>
           <div className={styles.amount}>
             <span>投资金额</span>
-            <span>¥{ data && Utils.toFixed(data.amount) || ''}</span>
+            <span>¥{ this.props.location.query.money}</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
               data={[
                 {
                   title: '你已投资成功',
-                  date: data.add_time + '(预付利息' + data.prepaid_interest + '元)'
+                  date: '等待竞标'
                 },
                 {
                   title: '竞标中',

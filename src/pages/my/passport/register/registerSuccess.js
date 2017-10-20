@@ -11,6 +11,7 @@ import {push} from 'react-router-redux'
 
 class Index extends Component{
     componentDidMount(){
+        this.props.upDateStore();
         const {
             mobile,
             code,
@@ -81,6 +82,9 @@ const dispatch=(dispatch,own)=>(
     {
        go(path){
              dispatch(push(path))
+       },
+       upDateStore(){
+           type:'STORE_STATUS_INFO'
        },
        set(){
          dispatch({
