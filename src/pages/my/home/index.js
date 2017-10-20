@@ -322,7 +322,7 @@ import newpic from '../../../assets/images/my-index/new.png'
 
 		let Dom;
 		let PopDom;
-		if(fridayPopData&&fridayPopData.data){
+		if(fridayPopData&&fridayPopData.data&&fridayPopData.data.coin != 0){
             PopDom=this.fridayPopDom(fridayPopData.data);
 		}
 
