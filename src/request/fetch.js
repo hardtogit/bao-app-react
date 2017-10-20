@@ -12,6 +12,7 @@ import invite          from './invite'
 import coin from './coin'
 import bonus from './bonus'
 import fridayPop from './redFriday.js'
+import fridayCoinList from './redFriday.js'
 import scratcheCard from './scratcheCard.js'
 import shopping from './shopping'
 
@@ -86,6 +87,7 @@ coin(Fetch)
 bonus(Fetch)
 scratcheCard(Fetch)
 fridayPop(Fetch)
+fridayCoinList(Fetch)
 shopping(Fetch)
 invite(Fetch)
 export default Fetch

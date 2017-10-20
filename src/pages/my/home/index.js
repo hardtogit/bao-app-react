@@ -22,14 +22,53 @@ import interest from '../../../assets/images/my-index/13.png' // 加息券
 import toUse from '../../../assets/images/my-index/14.png' // 抵用券
 import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 import DepositTreasureB from '../../../assets/images/my-index/16.png'
-import poppic1 from '../../../assets/images/my-index/pop01.png'
+import poppic1 from '../../../assets/images/my-index/pop1.png'
+import close from '../../../assets/images/my-index/close.png'
+import gift from '../../../assets/images/my-index/gift.png'
+import newpic from '../../../assets/images/my-index/new.png'
  class Index extends React.Component{
 	constructor(props) {
         super(props);
+        this.state={
+          ifSet:true,
+		  ifShow:true
+        }
     }
+
 	loadingDom(){
 		return(<Loading/>)
 	}
+    componentWillReceiveProps({fridayPopData}){
+		if(fridayPopData&&fridayPopData.code==100&&this.state.ifSet&&fridayPopData.data){
+            if(fridayPopData.data.isFriday){
+                let userInfo=sessionStorage.getItem('bao-user');
+                userInfo=JSON.parse(userInfo);
+                let userId= userInfo.id;
+                if(document.cookie.length>0){
+                    let c_start;
+                    c_start = document.cookie.indexOf(userId+"=");
+                    if(c_start != -1){
+                        this.setState({
+                            ifShow:false
+                        })
+                    }else{
+                        this.setState({
+                            ifShow:true
+                        });
+                        let exdate=new Date();
+                        exdate.setDate(exdate.getDate()+ 2);
+                        document.cookie=userId+"=true"+ ";expires="+exdate.toGMTString()+";path=/";
+                    }
+
+                }
+            }
+            this.setState({
+                ifSet:false
+            })
+		}
+
+    }
+
 	loadingEndDom(data){
       const {
 		avatar,
@@ -220,6 +259,16 @@ import poppic1 from '../../../assets/images/my-index/pop01.png'
 								<p className={styles.listColor} style={{"color":"#F19149"}}>{privilege}</p>
 							</div>
 						</div>
+						<div className={styles.myList}>
+							<Link to="/user/fridayActivity">
+								<img src={gift} style={{"width":"26px","height":"25px","marginLeft":"2px"}}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>周五狂享礼</p>
+									<img src={newpic} style={{"position":"absolute","top":"-1px","left":"128px","width":"24px","height":"12px"}}/>
+									<p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
+								</div>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -227,14 +276,30 @@ import poppic1 from '../../../assets/images/my-index/pop01.png'
 	}
      fridayPopDom(data){
          const {
-             investment_amount,
-             withdrawal_amount,
-             coin
+             coin,
+             username
          }=data;
          return(
-			 <div className={styles.fridayPop}>
+			 <div ref="fridayPop" className={styles.fridayPopWraper}>
+				 <div className={styles.shadow}></div>
 				 <div className={styles.popWraper}>
-					 <img className={styles.pop1} src={poppic1} />
+					 <div className={styles.popContent}>
+						 <img className={styles.pop1} src={poppic1} />
+						 <div className={styles.pop2}>
+							<div className={styles.txt1}>
+								<p className={styles.txt11}>尊敬的{username}</p>
+								<p className={styles.txt12}>你在上一个活动周期里</p>
+							</div>
+							 <div className={styles.txt2}>
+								 <p className={styles.txt21}>恭喜获得点币数</p>
+								 <p className={styles.txt22}>{coin}</p>
+							 </div>
+						 </div>
+						 <div className={styles.pop3}>
+							 <span>向更多点币发起冲击吧！</span>
+						 </div>
+					 </div>
+					 <img src={close} className={styles.close} onClick={this.handleClick} />
 				 </div>
 			 </div>
          )
@@ -246,34 +311,37 @@ import poppic1 from '../../../assets/images/my-index/pop01.png'
      doSign=()=>{
             this.refs.SignModel.show();
      };
+     handleClick=()=> {
+         this.refs.fridayPop.style.display = 'none';
+     }
 	render(){
 		const{
           nobjs,
             fridayPopData
 		}=this.props;
+
 		let Dom;
 		let PopDom;
+		if(fridayPopData&&fridayPopData.data){
+            PopDom=this.fridayPopDom(fridayPopData.data);
+		}
+
+
 		if(nobjs){
-            Dom=this.loadingEndDom(nobjs.data)
+            Dom=this.loadingEndDom(nobjs.data);
 		}else{
-			Dom=this.loadingDom()
+			Dom=this.loadingDom();
 		}
-		if(fridayPopData){
-			PopDom=this.fridayPopDom(fridayPopData.data)
-			console.log(PopDom);
-		}
+
 		return(
 			<div>
 				<div className={styles.myContent}>
                     {
                         Dom
                     }
-
 				</div>
 				<div>
-                    {
-                        PopDom
-                    }
+                    {this.state.ifShow&&PopDom}
 				</div>
 			</div>
 

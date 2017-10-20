@@ -108,5 +108,8 @@ export default {
     },
     [actionTypes.INVITE_PARTICULARS]:{
         apiFn:Fetch.inviteParticulars
+    },
+    [actionTypes.FRIDAY_COINLIST]:{    //周五活动币列表
+        apiFn:Fetch.fridayCoinList
     }
 }

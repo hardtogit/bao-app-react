@@ -73,6 +73,7 @@ import active from './pages/user/active/index'
 import inviteParticulars from './pages/find/invite/particulars' /*邀请明细*/
 import inviteRule from './pages/find/invite/rule' /*邀请规则*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
+import FridayActivityRule from './pages/my/fridayActivity/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
 import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详情*/
 import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
@@ -116,7 +117,7 @@ import ProductList from './pages/active/productList'
 import homeIndex from './pages/home/index'
 import shopCenterRule from './pages/my/coin/shopCenter/rule'
 import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,
-ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,
+ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,FridayActivity,
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
@@ -124,8 +125,8 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}
 from './pages/routeComponent/accountComponent'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(
     thunk,
@@ -187,6 +188,8 @@ export default class App extends React.Component {
                   <Route path="addRate" component={AddAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
                   <Route path="addRateUsed" component={pastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
                   <Route path="scratchesCard" component={ScratchesCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
+                  <Route path="fridayActivity" component={FridayActivity} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
+                  <Route path="fridayActivityRule" component={FridayActivityRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
                   <Route path='guaguaList' component={GuaList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="scratchesRule" component={ScratchesRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*刮刮卡规则*/
                   <Route path="vouchers" component={Vouchers} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的抵用券*/

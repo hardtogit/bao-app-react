@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Scroll from '../../../components/scroll'
 import {goBack} from 'react-router-redux'
 import styles from './index.css'
+import listPic from './list.png'
 class Index extends React.Component{
 	constructor(props){
 		super(props);
@@ -38,22 +39,34 @@ class Index extends React.Component{
 		const Height=document.body.clientHeight-44;
 		return(
             <div className={styles.bg}>
-                <NavBar  onLeft={this.props.pop} backgroundColor={"#F76260"}>邀请明细</NavBar>
+                <NavBar rightNode={<Link className={styles.rightNode} to="user/fridayActivityRule">活动规则</Link>} onLeft={this.props.pop} backgroundColor={"#00a6e2"}>周五狂享礼</NavBar>
 				<div className={styles.list_container} style={{position:'absolute',top:'44px',width:'100%'}}>
 				<Scroll height={Height} fetch={()=>{this.props.getList()}}
 						isLoading={pending}  distance={20} endType={end}
 				>
 					{listData&&listData.map((item,i)=>{
-					return( 	<div key={i} className={styles.data_list_item}>
-						<div className={styles.list_left}>
-							<ul>
-								<li className={styles.from}>{item.type==3?'每日佣金':item.userphone}</li>
-								<li className={styles.date}>{  new Date(item.created*1000).format("yyyy-MM-dd hh:mm:ss")  }</li>
-								<li className={styles.mark}>备注：{item.remarks}</li>
-							</ul>
+					return(
+					<div key={i} className={styles.data_list_item}>
+						<div className={styles.data_list_top}>
+							<img src={listPic} className={styles.listPic}/>
+							<span style={{"marginLeft":"5px"}}> 周五活动币 </span>
+							<span className={styles.addTime}>{item.add_time}</span>
 						</div>
-						<div className={styles.list_right}>
-							+{item.money}
+						<div className={styles.data_list_bottom}>
+							<ul>
+								<li className={styles.invest}>
+									<p className={styles.num}>{item.investment_amount}</p>
+									<p className={styles.txt}>投资金额(元)</p>
+								</li>
+								<li className={styles.withdraw}>
+									<p className={styles.num}>{item.withdrawal_amount}</p>
+									<p className={styles.txt}>提现金额(元)</p>
+								</li>
+								<li className={styles.coinnum}>
+									<p className={styles.num} style={{"color":"#ff7701","textAlign":"right"}}>+{item.coin}</p>
+									<p className={styles.txt}  style={{"textAlign":"right"}}>点币数</p>
+								</li>
+							</ul>
 						</div>
 					</div>)
 				})}
@@ -65,9 +78,9 @@ class Index extends React.Component{
 	}
 }
 const datas=(state)=>({
-		listData:state.listdata.getIn(['INVITE_PARTICULARS','data']),
-		pending:state.listdata.getIn(['INVITE_PARTICULARS','pending']),
-		end:state.listdata.getIn(['INVITE_PARTICULARS','pageEnd'])
+		listData:state.listdata.getIn(['FRIDAY_COINLIST','data']),
+		pending:state.listdata.getIn(['FRIDAY_COINLIST','pending']),
+		end:state.listdata.getIn(['FRIDAY_COINLIST','pageEnd'])
 })
 const dispatchFn=(dispath)=>({
 	pop(){
@@ -75,8 +88,8 @@ const dispatchFn=(dispath)=>({
 	},
 	getList(){
 		dispath({
-			type:'INVITE_PARTICULARS',
+			type:'FRIDAY_COINLIST',
 		})
 	},
-})
+});
 export default connect(datas,dispatchFn)(Index)

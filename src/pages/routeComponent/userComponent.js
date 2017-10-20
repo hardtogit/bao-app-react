@@ -16,6 +16,7 @@ import myDirectProjects from '../routes/user/myDirectProjects'
 import projectRecorde from '../routes/user/projectRecorde'
 import zqTransferRule from '../routes/user/zqTransferRule'
 import scratchesCard from '../routes/user/scratchesCard'
+import fridayActivity from '../routes/user/fridayActivity'
 import addAccrualIndex from '../routes/user/addAccrualIndex'
 import coinShop from '../routes/user/coinShop'
 import guaList from '../routes/user/guaList'
@@ -100,6 +101,11 @@ export const  ZqTransferRule=(props)=>{
 export const  ScratchesCard=(props)=>{
     return<Bundle load={scratchesCard}>
         {(ScratchesCard)=><ScratchesCard {...props}/>}
+    </Bundle>
+};
+export const  FridayActivity=(props)=>{
+    return<Bundle load={fridayActivity}>
+        {(FridayActivity)=><FridayActivity {...props}/>}
     </Bundle>
 };
 export const  AddAccrualIndex=(props)=>{

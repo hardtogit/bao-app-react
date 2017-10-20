@@ -14,11 +14,19 @@ class Index extends React.Component{
     render(){
         return(
             <div className={style.bg}>
-                <NavBar backgroundColor={"#00b0e6"} onLeft={this.props.pop}>刮刮卡规则</NavBar>
-                <Box>
-               <iframe style={{"width":"100%","height":"100%","border":"none",}}
-                       src={`${window.location.origin}/mobile_api/static-page/scratcheCard-rule`}></iframe>
+                <NavBar backgroundColor={"#00b0e6"} onLeft={this.props.pop}>活动规则</NavBar>
+                <Box className={style.box}>
+                    <ul className={style.ruleList}>
+                        <li>1、活动时间：2017年10月24日起（截止日期以公告为准）；</li>
+                        <li>2、累计新增投资资金计算时间：每周五至下周四；</li>
+                        <li>3、累计新增投资资金=（每周投资资金）-（每周退出资金）；</li>
+                        <li>4、以最高奖励为准，奖励不叠加享受；</li>
+                        <li>5、投资项目复审未通过则不算入“累计新增投资资金”；</li>
+                        <li>6、点币发放时间为每周五9点以后；</li>
+                        <li>7、新手标，债权转让不参与此次活动。</li>
+                    </ul>
                 </Box>
+
             </div>
         )
     }
