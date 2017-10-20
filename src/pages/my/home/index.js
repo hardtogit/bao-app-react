@@ -295,10 +295,11 @@ import newpic from '../../../assets/images/my-index/new.png'
 							 </div>
 						 </div>
 						 <div className={styles.pop3}>
-							 <span>向更多点币发起冲击吧！</span>
+							 <p>向更多点币发起冲击吧！</p>
 						 </div>
+						 <img src={close} className={styles.close} onClick={this.handleClick} />
 					 </div>
-					 <img src={close} className={styles.close} onClick={this.handleClick} />
+
 				 </div>
 			 </div>
          )

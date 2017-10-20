@@ -48,9 +48,13 @@ class Index extends React.Component{
 					return(
 					<div key={i} className={styles.data_list_item}>
 						<div className={styles.data_list_top}>
-							<img src={listPic} className={styles.listPic}/>
-							<span style={{"marginLeft":"5px"}}> 周五活动币 </span>
-							<span className={styles.addTime}>{item.add_time}</span>
+							<div style={{"position":"absolute","left":"0"}}>
+								<img src={listPic} className={styles.listPic}/>
+								<span style={{"marginLeft":"5px"}}> 周五活动币 </span>
+							</div>
+							<div  style={{"position":"absolute","right":"10","top":"5px"}}>
+								<span className={styles.addTime}>{item.add_time}</span>
+							</div>
 						</div>
 						<div className={styles.data_list_bottom}>
 							<ul>
