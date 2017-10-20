@@ -226,7 +226,6 @@ import newpic from '../../../assets/images/my-index/new.png'
                                 <img src={scratchCard}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>刮刮卡</p>
-									<img src={rt} style={{"position":"absolute","top":"2px","left":"102px","width":"44px","height":"12px"}}/>
                                     <p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
                                 </div>
                             </Link>
@@ -265,7 +264,7 @@ import newpic from '../../../assets/images/my-index/new.png'
 								<div className={styles.myListText}>
 									<p className={styles.listTitle}>周五狂享礼</p>
 									<img src={newpic} style={{"position":"absolute","top":"-1px","left":"128px","width":"24px","height":"12px"}}/>
-									<p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
+									<p className={styles.listColor} style={{"color":"#888"}}>点币大派送</p>
 								</div>
 							</Link>
 						</div>
