@@ -298,7 +298,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     pageIndex(){
         dispatch({
             type:'PRODUCT_INDEX',
-            index:2
+            index:3
         })
     }
 })

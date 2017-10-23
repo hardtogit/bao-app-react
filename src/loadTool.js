@@ -69,6 +69,16 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/newCharge').default);
         }, 'NewCharge');
+    },//老余额首页
+    CashOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/cashOld').default);
+        }, 'CashOld');
+    },//老的提现页面
+    ReChargeOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeOld').default);
+        }, 'ReChargeOld');
     },//存管充值
     ReChargeSuccess  = (location, cb) => {
         require.ensure([], require => {

@@ -335,7 +335,7 @@ class DirectInvestList extends React.Component{
                   user ?
                       user.voucher || user.interestRateSecurities ?
                         <div>
-                          <span style={{fontSize: 14, color: '#888'}}>您当前有
+                          <span style={{fontSize: 14, color: '#aaa'}}>您当前有
                               {user.voucher ? <span style={{color: '#ff7700'}}>{user.voucher}张抵用券{user.interestRateSecurities ? '和' : ''}</span> : null}
                               {user.interestRateSecurities ? <span style={{color: '#ff7700'}}>{user.interestRateSecurities}张加息券</span> : null}未使用
                           </span>

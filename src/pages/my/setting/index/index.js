@@ -68,6 +68,12 @@ class Setting extends React.Component {
 								label='银行卡'
 								borderType='two' />
 						</Link>
+						<Link to='/user/setting/securityCard'>
+							<BaseText
+								onClick={()=>{}}
+								label='安全卡'
+								borderType='four' />
+						</Link>
 						<Link to='/user/setting/securityCenter'>
 							<BaseText
 								onClick={()=>{}}

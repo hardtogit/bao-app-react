@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import ConfirmDialog from '../../components/Dialog/confirm'
-import ReddemDialog from '../../components/Dialog/reddem'
+import ReddemDialog from '../../components/Dialog/reddemOld'
 import LoadingDialog from '../../components/Dialog/loading'
 import util from '../../utils/utils'
 import styles from './payProcess.styl'
@@ -94,12 +94,14 @@ class PayProcess extends React.Component {
                 this.openExceedErrorDialog(nextProps.balancePayData.data.minute)
                 util.savePassErrorDate(this.props.user.username || '')
                 nextProps.changePending();
+                this.refs.loading.hide();
                 nextProps.clear()
             } else if (pending){
                 let message = '支付出错了'
                 if (code == 343) message = '密码输入错误，请重新输入'
                 this.openErrorDialog(message)
                 nextProps.changePending();
+                this.refs.loading.hide();
                 nextProps.clear()
             }
         }

@@ -96,14 +96,25 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                     </Link>
                     <div className={styles.myProduct}>
 						<div className={styles.myList}>
-						    <Link to={`/user/recharge`}>
+						    <Link to={`/user/rechargeOld`}>
 							<img src={recharge}/>
 							<div className={styles.myListText}>
-								<p className={styles.listTitle}>充值</p>
+								<p className={styles.listTitle}>平台余额</p>
 								<p className={styles.listColor} style={{"color":"#888"}}>{balance==0&&'立即充值'||balance}</p>
 							</div>
 							</Link>
 						</div>
+						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+							<Link to={`/user/recharge`}>
+								<img src={recharge}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>存管余额</p>
+									<p className={styles.listColor} style={{"color":"#888"}}>{balance==0&&'立即充值'||balance}</p>
+								</div>
+							</Link>
+						</div>
+					</div>
+					<div className={styles.myProduct}>
 						<div className={styles.myList}  style={{"borderLeft":"1px solid #E4E4E4"}}>
 							<Link to={`/user/autoBuy`}>
 								<img src={directMail}/>
@@ -113,9 +124,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 								</div>
 							</Link>
 						</div>
-					</div>
-					<div className={styles.myProduct}>
-						<div className={styles.myList}>
+						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
 							<Link to="/user/dcbB">
 								<img src={DepositTreasureB}/>
 								<div className={styles.myListText}>
@@ -124,7 +133,9 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 								</div>
 							</Link>
 						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+					</div>
+					<div className={styles.myProduct}>
+						<div className={styles.myList} >
 							<Link to='/user/dcb'>
 								<img src={DepositTreasure}/>
 								<div className={styles.myListText}>
@@ -133,9 +144,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 								</div>
 							</Link>
 						</div>
-					</div>
-					<div className={styles.myProduct}>
-						<div className={styles.myList}>
+						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
                             <Link to="/user/zt">
                                 <img src={safeplan}/>
                                 <div className={styles.myListText}>
@@ -144,18 +153,18 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                                 </div>
                             </Link>
 						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
-                            <Link to="/user/zq">
-                                <img src={makeOver}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>债权转让</p>
-                                    <p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'流动性高'||'+'+creditors}</p>
-                                </div>
-							</Link>
-						</div>
 					</div>
 
 					<div className={styles.myProduct}>
+						<div className={styles.myList} >
+							<Link to="/user/zq">
+								<img src={makeOver}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>债权转让</p>
+									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'流动性高'||'+'+creditors}</p>
+								</div>
+							</Link>
+						</div>
 						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
 							<Link to="/user/gatherMy">
 								<img src={makeOver}/>
