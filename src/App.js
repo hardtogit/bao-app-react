@@ -131,7 +131,7 @@ import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponen
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
 
 // 工厂方法创建saga中间件
@@ -334,6 +334,7 @@ export default class App extends React.Component {
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path="directBuyOld(/:id(/:month))" getComponent={DirectBuyOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directInvestSuccess/:money" component={DirectInvestSuccess}></Route>
             <Route path="directContract" component={DirectContract}></Route>
             <Route path="creditorList" component={CreditorList}></Route>

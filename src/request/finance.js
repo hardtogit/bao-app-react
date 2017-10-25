@@ -9,7 +9,13 @@ const requests = (Fetch) => {
     // 定存宝涉及项目
   Fetch.involveProjectList=(page,periods,type)=>{return Fetch(`api/depositbs/involveProjectList?type=${type}&nper=${periods}&page=${page}`,'GET')}
   // 直投项目产品详情
-  Fetch.directInvestProductDetail = (directInvestId) => { return Fetch(`directInvest/index/${directInvestId}`) }
+  Fetch.directInvestProductDetail = (directInvestId,access_sys) => {
+    if(access_sys){
+        return Fetch(`directInvest/index/${directInvestId}?access_sys=${access_sys}`)
+    }else{
+        return Fetch(`directInvest/index/${directInvestId}`)
+    }
+  }
   // 直投项目投资记录
   Fetch.directInvestInvestRecords = (page, directInvestId) => {
       return Fetch(`directInvest/projects-records/${directInvestId}?page=${page}`)

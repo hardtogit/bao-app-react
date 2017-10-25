@@ -77,7 +77,7 @@ const moneyModel =(data)=>{
                 name: "账户余额",
                 value: 0
             }, {
-                name: "零钱宝",
+                name: "聚点+计划待收本息",
                 value: 0
             }, {
                 name: "定存宝A计划待收本息",

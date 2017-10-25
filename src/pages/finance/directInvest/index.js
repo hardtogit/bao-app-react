@@ -61,11 +61,12 @@ class DirectInvestCell extends React.Component{
                 }
             }
     }
-    toBuy=(event)=>{
+    toBuy=(event,flag)=>{
+        console.log(flag)
         event.stopPropagation();
-        this.yz(this.qgSuccess)
+        this.yz(this.qgSuccess,flag)
     }
-    qgSuccess=()=>{
+    qgSuccess=(flag)=>{
         const {
             id,
             term
@@ -73,7 +74,12 @@ class DirectInvestCell extends React.Component{
         const{push}=this.props
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-            this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+            if(flag){
+                this.props.isAuth.Verification(`/directBuyOld/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+            }else{
+                this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+            }
+
         }else{
             if(storeData.isRegister){
                 push('/user/setting/cardBind')
@@ -83,7 +89,7 @@ class DirectInvestCell extends React.Component{
         }
 
     }
-    yz=(success)=>{
+    yz=(success,flag)=>{
         const is_login = true;
         const {
             is_assign,//是否是约标
@@ -114,7 +120,7 @@ class DirectInvestCell extends React.Component{
                     })
                 }else{
                     //推送到购买页面
-                    success();
+                    success(flag);
                 }
             }
         }else{
@@ -169,6 +175,10 @@ class DirectInvestCell extends React.Component{
                                     })()
 
                                 }
+                                {!this.props.data.access_sys&&
+                                    <span className={styles.store}>存</span>
+                                }
+
                             </p>
                         </div>
                         <div className={activity.length>0 ? styles.activitys : styles.actSinggle}>
@@ -245,7 +255,7 @@ class DirectInvestCell extends React.Component{
                                         <p className={styles.begin}>{Moment(date).format('H:mm')}开始</p>
                                     )
                                 }else{
-                                    return  ((<div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
+                                    return  ((<div className={styles.canbuy} onClick={(event,flag)=>this.toBuy(event,this.props.data.access_sys)}>
                                         <p>抢购</p>
                                     </div>))
                                 }
@@ -364,7 +374,7 @@ class DirectInvestList extends React.Component{
                     return(
                         <DirectInvestCell key={i}
                                           data={data}
-                                          onClick={() => this.props.push(`/directInvestDetails/${data.id}`)}
+                                          onClick={() => { if(data.access_sys){this.props.push(`/directInvestDetails/${data.id}?access_sys=platform`)}else{this.props.push(`/directInvestDetails/${data.id}`)}}}
                                           push={(path) => this.props.push(path)}
                                           passwordRef={this.refs.passWord}
                                           wrongRef={this.refs.wrong}

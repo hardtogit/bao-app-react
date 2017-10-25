@@ -80,6 +80,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeOld').default);
         }, 'ReChargeOld');
     },//存管充值
+    DirectBuyOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/directInvest/directBuyOld').default);
+        }, 'DirectBuyOld');
+    },//存管充值
     ReChargeSuccess  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeSuccess').default);

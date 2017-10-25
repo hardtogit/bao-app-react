@@ -30,9 +30,15 @@ class Index extends Component{
             getList,
             routeParams:{
                 id
+            },
+            location:{
+                query:{
+                    access_sys
+                }
             }
+
         }=this.props;
-        getData(id);
+        getData(id,access_sys);
         getList(id);
         this.addScroll();
     }
@@ -321,7 +327,12 @@ class Index extends Component{
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isRegister&&storeData.isBindBankcard){
             const {term}=this.props.infoData.data
-            this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+            if(this.props.location.query.access_sys){
+                this.refs.isAuth.Verification(`/directBuyOld/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+            }else{
+                this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+            }
+
         }else{
             if(storeData.isRegister){
                 push('/user/setting/cardBind')
@@ -367,10 +378,10 @@ const datas=(state)=>({
       end:state.listdata.getIn(['FETCH_DIRECT_BUY_RECORD_DATA','pageEnd'])
 })
 const dispatchFn=(diapatch)=>({
-       getData(id){
+       getData(id,access_sys){
           diapatch({
               type:'DIRECTINVEST_DETAIL',
-              params:[id]
+              params:[id,access_sys]
           })
        },
        getList(id){

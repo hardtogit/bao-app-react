@@ -100,7 +100,9 @@ class Index extends React.Component {
 					   }
 						return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
 						   <li>
-							   <img src={zhitouicon}/>{name}
+							   <img src={zhitouicon}/>{name}   {!item.access_sys&&
+						   <span className={styles.store}>存</span>
+                           }
 							   {Dom}
 							   </li>
 						   <li>持有金额{dyDom}<p>{amount}</p></li>

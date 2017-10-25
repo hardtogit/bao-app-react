@@ -171,7 +171,6 @@ class VerifyMobile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']))
   return {
     data:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
     sendData:state.infodata.getIn(['NEW_TRANSACTION_CODE','data']),
@@ -201,7 +200,8 @@ const mapDispatchToProps = (dispatch) => ({
         type:'NEW_TRANSACTION_CODE',
         params:[{
           telNo:mobile,
-          transcode:46708
+          transcode:46708,
+          device:'WAP'
         }]
       })
     },
