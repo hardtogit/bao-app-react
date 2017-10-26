@@ -262,16 +262,18 @@ class Index extends React.Component {
     }
     //加载完资产详情页面后，发起请求
     componentDidMount(){
+        console.log(this.props) ;
         const Id=this.props.id;
+
         const{type,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
         if (type==4){
-            getZqProductDetail(Id)
+            getZqProductDetail(Id,this.props.location.query.access_sys)
         }else if (type==5){
             getDepositbs(Id,index)
         }else if (type==6){
             getDepositasInvest(Id)
         }else {
-            getInvestProductDetail(Id)
+            getInvestProductDetail(Id,this.props.location.query.access_sys)
         }
     }
     dataN=()=>{
@@ -357,10 +359,10 @@ const datas=(state)=>({
     infoData4:state.infodata.getIn(['DEPOSITA_SINVEST','data'])
 });
 const dispatchFn=(dispatch,own)=>({
-    getInvestProductDetail(Id){
+    getInvestProductDetail(Id,access_sys){
         dispatch({
             type:'DIRECT_INVEST_PROPERTY_DETAIL',
-            params:[Id]
+            params:[Id,access_sys]
         })
     },
     pop(){
@@ -369,10 +371,10 @@ const dispatchFn=(dispatch,own)=>({
     push(url){
         dispatch(push(url))
     },
-    getZqProductDetail(Id){
+    getZqProductDetail(Id,access_sys){
         dispatch({
             type:'CREDITORS_PROPERTY_DETAIL',
-            params:[Id]
+            params:[Id,access_sys]
         })
     },
     getDepositbs(Id,index){

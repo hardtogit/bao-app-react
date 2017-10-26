@@ -48,9 +48,22 @@ const requests = (Fetch) => {
   // 债权产品信息
   Fetch.creditorsProductInfo = (id) => { return Fetch('creditors?id=' + id, 'GET') }
   // 债权资产详情
-  Fetch.creditorsPropertyDetail = (id) => { return Fetch('creditors/list?id=' + id, 'GET') }
+  Fetch.creditorsPropertyDetail = (id,access_sys) => {
+    if(access_sys){
+        return Fetch('creditors/list?id=' + id+'&access_sys=platform', 'GET')
+    }else{
+        return Fetch('creditors/list?id=' + id, 'GET')
+    }
+
+  }
   // 直投资产详情
-  Fetch.directInvestPropertyDetail = (id) => { return Fetch('directInvest/invest-info/' + id, 'GET') }
+  Fetch.directInvestPropertyDetail = (id,access_sys) => {
+    if(access_sys){
+        return Fetch('directInvest/invest-info/' + id+'?access_sys=platform', 'GET')
+    }else{
+        return Fetch('directInvest/invest-info/' + id, 'GET')
+    }
+  }
   // 我的债权转让概要
   Fetch.myCreditorSummary = () => { return Fetch('creditors/detail', 'GET') }
   // 我的债权转让概要

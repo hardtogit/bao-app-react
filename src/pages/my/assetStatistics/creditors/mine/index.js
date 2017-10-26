@@ -52,9 +52,11 @@ import {connect} from 'react-redux'
                         }else{
                             Dom=<p className={styles.surplus}>剩余{surplus_days}天</p>
                         }
-                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
+                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id,item.access_sys)}}>
 							<li>
-								<img style={{marginTop:'16px'}} src={type_zqzr}/>{name}
+								<img style={{marginTop:'16px'}} src={type_zqzr}/>{name}{!item.access_sys&&
+							<span className={styles.store}>存</span>
+                            }
                                 {Dom}
 							</li>
 							<li>持有金额<p>{Util.padMoney(hold_money)}</p></li>
@@ -68,12 +70,17 @@ import {connect} from 'react-redux'
 			</Scroll>
 		</div>)
 	}
-     goDetail=(id)=>{
+     goDetail=(id,access_sys)=>{
          const {
              push
          }=this.props;
          //跳转
-         push('/user/zqPropertyDetail/'+id);
+		 if(access_sys){
+             push('/user/zqPropertyDetail/'+id+'?access_sys=platform');
+		 }else{
+             push('/user/zqPropertyDetail/'+id);
+		 }
+
      }
 	go=()=>{
         const {

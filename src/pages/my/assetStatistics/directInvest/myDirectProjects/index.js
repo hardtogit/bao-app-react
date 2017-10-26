@@ -60,12 +60,17 @@ class Index extends React.Component {
 		push('/home/productIndex');
 	}
 	//点击直投项目列表事件
-    goDetail=(id)=>{
+    goDetail=(id,access_sys)=>{
         const {
             push
         }=this.props;
         //跳转
-        push('/user/propertyDetail/'+id);
+		if(access_sys){
+            push('/user/propertyDetail/'+id+'?access_sys=platform');
+		}else{
+            push('/user/propertyDetail/'+id);
+		}
+
     }
 	scrollDom=()=>{
 		const {
@@ -98,7 +103,7 @@ class Index extends React.Component {
 					   if (coupon_type){
                        	 dyDom=<span className={styles.dyBox} style={coupon_type==1&&{background:'#feb278'}||{background:'#7acb9f'}}>{coupon_text}</span>
 					   }
-						return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
+						return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id,item.access_sys)}}>
 						   <li>
 							   <img src={zhitouicon}/>{name}   {!item.access_sys&&
 						   <span className={styles.store}>存</span>
