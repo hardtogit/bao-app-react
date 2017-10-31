@@ -231,13 +231,13 @@ class DirectBuy extends React.Component {
           const rateN=parseFloat(rate)/100;
           totalRate=totalRate+rateN;
       }
-      if (jxRate){
+      if (jxRate&&this.state.useCoupon){
           if (jxRate.type=="加息券"&&typeof(rate)=='boolean'){
               const rateN=parseFloat(jxRate.rate)/100;
               totalRate=totalRate+rateN;
           }
       }
-    if (this.props.useCoupon) {
+    if (this.props.useCoupon&&this.state.useCoupon) {
       const coupon = this.props.selectedCoupon || this.getMaxCoupon()
       if (coupon && coupon.type==='加息券' && +coupon.rate>=0 && +detail.directRate>=0){
         totalRate += +coupon.rate / 100
