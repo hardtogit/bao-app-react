@@ -104,12 +104,12 @@ class Index extends React.Component {
 
     loadEndDom(data) {
         const {
-            balance
+            balance_platform
             }=data
         return (<div className={classNames(styles.recharge,styles.Boxing)}>
             <img src={fivestar}/>
             <p>我的余额</p>
-            <h1>￥{balance}</h1>
+            <h1>￥{balance_platform}</h1>
             <div className={styles.btnContent}>
                 <button className={styles.rechargeBtn} onClick={()=>{
 						let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
@@ -124,7 +124,7 @@ class Index extends React.Component {
 		}
 						}}>充值
                 </button>
-                <button className={styles.depositBtn} onClick={()=>{this.goCash(balance)}}>提现
+                <button className={styles.depositBtn} onClick={()=>{this.goCash(balance_platform)}}>提现
                 </button>
             </div>
         </div>)

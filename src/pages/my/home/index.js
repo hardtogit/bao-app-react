@@ -37,6 +37,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 		signNumbers,
 		amount,
 		balance,
+		balance_platform,
 		demand,
         directInvest,
 		creditors,
@@ -100,7 +101,7 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 							<img src={recharge}/>
 							<div className={styles.myListText}>
 								<p className={styles.listTitle}>平台余额</p>
-								<p className={styles.listColor} style={{"color":"#888"}}>{balance==0&&'立即充值'||balance}</p>
+								<p className={styles.listColor} style={{"color":"#888"}}>{balance_platform==0&&'立即充值'||balance_platform}</p>
 							</div>
 							</Link>
 						</div>

@@ -10,7 +10,7 @@ import styles from './index.css'
 import {connect} from 'react-redux'
 import {Link} from 'react-router';
 import {push,goBack} from 'react-router-redux'
-import ReddemDialog from '../../../../../components/Dialog/reddem'
+import ReddemDialog from '../../../../../components/Dialog/reddemOld'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
 import utils from '../../../../../utils/utils'
@@ -30,7 +30,7 @@ class Index extends React.Component {
         const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
         const bank=JSON.parse(sessionStorage.getItem('bao-bank'));
         this.setState({
-            money:user.balance,
+            money:user.balance_platform,
             bank:bank.name,
             number:bank.number
         })

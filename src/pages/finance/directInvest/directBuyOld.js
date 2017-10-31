@@ -399,7 +399,7 @@ class DirectBuy extends React.Component {
                             getChoose={this.getChoose}
                             overPay={this.overPay}
                             user={this.props.user}
-                            balance={this.props.user.balance || 0}
+                            balance={this.props.user.balance_platform || 0}
                             onRequestBalancePay={this.directInvestBuy}
                             inputValue={Number(utils.padMoney(this.getPayTotal()))}
                             balancePayPending={this.state.pending}
