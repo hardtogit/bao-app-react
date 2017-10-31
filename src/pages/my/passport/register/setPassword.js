@@ -127,9 +127,10 @@ class RegisterSetPassword extends React.Component {
       verifyCode:code,
       password: data.password,
       codes: data.captcha,
+      tokenId: tokenId,
+      device:'WAP'
     })
   }
-
   onInvalid = (name, value, message) => {
     this.setState({errorMessage: message})
   }

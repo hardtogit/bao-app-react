@@ -9,6 +9,23 @@
     <script src="/static/js/microdone-h5.min.js"></script>
     <script src="/static/js/doneConfig.js"></script>
     <title>宝点网</title>
+    <script type="text/javascript">
+      var tokenId = "bdw" + "-" +new Date().getTime() + "-"+ Math.random().toString(16).substr(2);
+      (function() {
+          _fmOpt = {
+              partner: 'bdw',
+              appName: 'bdw_web',
+              token: tokenId                            };
+          var cimg = new Image(1,1);
+          cimg.onload = function() {
+              _fmOpt.imgLoaded = true;
+          };
+          cimg.src = "https://fp.fraudmetrix.cn/fp/clear.png?partnerCode=bdw&appName=bdw_web&tokenId=" + _fmOpt.token;
+          var fm = document.createElement('script'); fm.type = 'text/javascript'; fm.async = true;
+          fm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'static.fraudmetrix.cn/fm.js?ver=0.1&t=' + (new Date().getTime()/3600000).toFixed(0);
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fm, s);
+      })();
+    </script>
   </head>
   <body>
     <div  id="root"></div>

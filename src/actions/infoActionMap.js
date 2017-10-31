@@ -476,6 +476,8 @@ export default {
     },
     [actionTypes.GET_CAPTCHA]:{
         apiFn:Fetch.getCapcha
+    },
+    [actionTypes.FRIDAY_POP]:{   //星期五活动弹窗
+        apiFn:Fetch.fridayPop
     }
-
 }

@@ -76,7 +76,7 @@ class Login extends React.Component {
                 }
             },500);
         }else {
-            this.props.doLogin({username:data.username,password:util.md5(data.password),clientType:'wap'})
+            this.props.doLogin({username:data.username,password:util.md5(data.password),clientType:'wap',device:'WAP',tokenId:tokenId})
         }
     };
 

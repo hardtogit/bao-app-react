@@ -130,6 +130,12 @@ class DirectBuy extends React.Component {
       }else if(buyData&&buyData.status!=1){
 
       }
+      if(nextProps.use&&nextProps.use.data.is){
+          this.setState({
+              useCoupon:false
+          })
+
+      }
   }
     componentWillUnmount(){
         this.props.clearData()
@@ -319,13 +325,13 @@ class DirectBuy extends React.Component {
           const rateN=parseFloat(rate)/100;
           totalRate=totalRate+rateN;
       }
-      if (jxRate){
+      if (jxRate&&this.state.useCoupon){
           if (jxRate.type=="加息券"&&typeof(rate)=='boolean'){
               const rateN=parseFloat(jxRate.rate)/100;
               totalRate=totalRate+rateN;
           }
       }
-    if (this.props.useCoupon) {
+    if (this.props.useCoupon&&this.state.useCoupon) {
       const coupon = this.props.selectedCoupon || this.getMaxCoupon()
       if (coupon && coupon.type==='加息券' && +coupon.rate>=0 && +detail.directRate>=0){
         totalRate += +coupon.rate / 100
@@ -683,6 +689,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             type:'CLEAR_INFO_DATA',
             key:'AVAILABLE_COUPONS'
         })
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'DIRECT_INVEST_COUPON'
+        })
         //dispatch({
         //    type:'CLEAR_INFO_DATA',
         //    key:'GET_MY_CARD_LIST'
@@ -696,7 +706,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'GET_MY_CARD_LIST'
         })
-    },
+    }
 })
 
 export default (connect(mapStateToProps, mapDispatchToProps)(wrap(DirectBuy)))

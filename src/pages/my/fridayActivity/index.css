@@ -8,17 +8,35 @@
 	overflow: auto;
 }
 .list_container{
-	padding-left: 10px;
-	background-color: #fff;
+	background-color: #f0eff5;
 }
 .list_container .data_list{
 	list-style: none;
 	padding-left: 0;
 }
 .list_container .data_list_item{
+	margin-top: 15px;
 	border-bottom: 1px solid #ddd;
-	height: 90px;
-	padding: 10px 0;
+	height: 112px;
+	padding: 10px 20px;
+	padding-right: 0;
+	background-color: #fff;
+}
+.list_container .data_list_item .data_list_top{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	font-size: 14px;
+	position: relative;
+}
+.list_container .data_list_item .data_list_top .listPic{
+	width:22px;
+	height: 20px;
+	margin-bottom: -3px;
+}
+.list_container .data_list_item .data_list_top .addTime{
+	color: #aaa;
 }
 .list_container .data_list_item:last-child{
 	border-bottom: none;
@@ -27,38 +45,37 @@
 	float: left;
 	width: 68%;
 }
-.list_container .data_list_item .list_left ul li{
+.list_container .data_list_item .data_list_bottom ul li{
 	overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
+	float: left;
+	width: 32%;
 }
-.list_container .data_list_item .list_left ul .from{
-	font-size: 18px;
+.invest{
+	margin-right: 10px;
 }
-.list_container .data_list_item .list_left ul .date{
-	font-size: 14px;
-	margin: 6px 0;
-	color:#aaaaaa
-}
-.list_container .data_list_item .list_left ul .mark{
-	font-size: 14px;
-	color:#aaaaaa
-}
-.list_container .data_list_item .list_left ul{
+.list_container .data_list_item .data_list_bottom ul{
 	list-style: none;
 	padding-left: 0;
-}
-.list_container .data_list_item .list_right{
-    float:right;
-	width: 32%;
-	text-align: right;
 	padding-right: 10px;
-	font-size: 24px;
-	line-height: 66px;
+}
+.list_container .data_list_item .data_list_bottom{
+   padding: 6px;
+	padding-right: 10px;
 
+}
+.num{
+	font-size: 22px;
+}
+.txt{
+	font-size: 12px;
+	color: #aaa;
+	margin-top: 10px;
 }
 .rightNode{
 	color: white;
+	margin-right: 1px;
 }
 .show{
 	display: block;
@@ -662,12 +679,16 @@
 	border-left: 10px solid #f56264;
 	border-bottom: 5px solid transparent;
 }
-.iframe{
-	position: fixed;
-	right: 0;
-	bottom: 44px;
-	left: 0;
-	top: 0;
-	-webkit-overflow-scrolling: touch;
-	overflow-y: scroll;
+.box{
+	background-color: #f0eff5;
+	color:#aaa
+}
+.ruleList{
+	list-style: none;
+	padding: 30px 20px;
+	font-size: 14px;
+
+}
+.ruleList li{
+	line-height: 20px;
 }

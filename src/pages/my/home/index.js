@@ -16,59 +16,102 @@ import safeplan from '../../../assets/images/my-index/7.png' // 直投项目
 import directMail from '../../../assets/images/my-index/8.png' // 自动投标
 import redPacket from '../../../assets/images/my-index/10.png' // 红包
 import scratchCard from '../../../assets/images/my-index/11.png' // 刮刮卡
+import rt from '../../../assets/images/my-index/rt.png' //即将下线
 import someCoins from '../../../assets/images/my-index/12.png' // 点币
 import interest from '../../../assets/images/my-index/13.png' // 加息券
 import toUse from '../../../assets/images/my-index/14.png' // 抵用券
 import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 import DepositTreasureB from '../../../assets/images/my-index/16.png'
- class Index extends React.Component{
-	constructor(props) {
+import poppic1 from '../../../assets/images/my-index/pop1.png'
+import close from '../../../assets/images/my-index/close.png'
+import gift from '../../../assets/images/my-index/gift.png'
+import newpic from '../../../assets/images/my-index/new.png'
+
+class Index extends React.Component {
+    constructor(props) {
         super(props);
+        this.state = {
+            ifSet: true,
+            ifShow: true
+        }
     }
-	loadingDom(){
-		return(<Loading/>)
-	}
-	loadingEndDom(data){
-      const {
-		avatar,
-		username,
-		grade,
-	    isSign,
-		signNumbers,
-		amount,
-		balance,
-		balance_platform,
-		demand,
-        directInvest,
-		creditors,
-		privilege,
-		bonuse,
-		interestRateSecurities,
-		scratcheCard,
-		voucher,
-		coins,
-		deposit,
-        isBuyDemand,
-        depositb
-		}=data;
-		return(
-			<div>
+
+    loadingDom() {
+        return (<Loading/>)
+    }
+
+    componentWillReceiveProps({fridayPopData}) {
+        if (fridayPopData && fridayPopData.code == 100 && this.state.ifSet && fridayPopData.data) {
+            if (fridayPopData.data.isFriday) {
+                let userInfo = sessionStorage.getItem('bao-user');
+                userInfo = JSON.parse(userInfo);
+                let userId = userInfo.id;
+                if (document.cookie.length > 0) {
+                    let c_start;
+                    c_start = document.cookie.indexOf(userId + "=");
+                    if (c_start != -1) {
+                        this.setState({
+                            ifShow: false
+                        })
+                    } else {
+                        this.setState({
+                            ifShow: true
+                        });
+                        let exdate = new Date();
+                        exdate.setDate(exdate.getDate() + 2);
+                        document.cookie = userId + "=true" + ";expires=" + exdate.toGMTString() + ";path=/";
+                    }
+
+                }
+            }
+            this.setState({
+                ifSet: false
+            })
+        }
+
+    }
+
+    loadingEndDom(data) {
+        const {
+            avatar,
+            username,
+            grade,
+            isSign,
+            signNumbers,
+            amount,
+            balance,
+            balance_platform,
+            demand,
+            directInvest,
+            creditors,
+            privilege,
+            bonuse,
+            interestRateSecurities,
+            scratcheCard,
+            voucher,
+            coins,
+            deposit,
+            isBuyDemand,
+            depositb
+        } = data;
+        return (
+            <div>
                 <div className={styles.header}>账户</div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
                 <div className={styles.userAccount}>
-					<div className={styles.headImg}><img src={avatar}/></div>
-					<div className={styles.nameCenter}>
-						<p>{username}</p>
-						<p onClick={e => e.stopPropagation()}><Link><img src={xing}/>普通会员</Link></p>
-					</div>
-					<div className={styles.rightArrows}>
-					    <Link to='/user/setting'>
-						<span className={styles.arrows}></span>
-						</Link>
-					</div>
-				</div>
+                    <div className={styles.headImg}><img src={avatar}/></div>
+                    <div className={styles.nameCenter}>
+                        <p>{username}</p>
+                        <p onClick={e => e.stopPropagation()}><Link><img src={xing}/>普通会员</Link></p>
+                    </div>
+                    <div className={styles.rightArrows}>
+                        <Link to='/user/setting'>
+                            <span className={styles.arrows}></span>
+                        </Link>
+                    </div>
+                </div>
 
-				<div className={styles.contents}>
+                <div className={styles.contents}>
                     <Link to="/user/analysis">
                         <div className={styles.myProduct}>
                             <div className={styles.mpLeft}>
@@ -96,187 +139,257 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
                         </div>
                     </Link>
                     <div className={styles.myProduct}>
-						<div className={styles.myList}>
-						    <Link to={`/user/rechargeOld`}>
-							<img src={recharge}/>
-							<div className={styles.myListText}>
-								<p className={styles.listTitle}>平台余额</p>
-								<p className={styles.listColor} style={{"color":"#888"}}>{balance_platform==0&&'立即充值'||balance_platform}</p>
-							</div>
-							</Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
-							<Link to={`/user/recharge`}>
-								<img src={recharge}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>存管余额</p>
-									<p className={styles.listColor} style={{"color":"#888"}}>{balance==0&&'立即充值'||balance}</p>
-								</div>
-							</Link>
-						</div>
-					</div>
-					<div className={styles.myProduct}>
-						<div className={styles.myList}  style={{"borderLeft":"1px solid #E4E4E4"}}>
-							<Link to={`/user/autoBuy`}>
-								<img src={directMail}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>自动投标</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>省时省心</p>
-								</div>
-							</Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
-							<Link to="/user/dcbB">
-								<img src={DepositTreasureB}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>定存宝B</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{depositb==0&&'每月还息  到期还本'||'+'+depositb}</p>
-								</div>
-							</Link>
-						</div>
-					</div>
-					<div className={styles.myProduct}>
-						<div className={styles.myList} >
-							<Link to='/user/dcb'>
-								<img src={DepositTreasure}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>定存宝A</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{deposit==0&&'到期还本付息'||'+'+deposit}</p>
-								</div>
-							</Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+                        <div className={styles.myList}>
+                            <Link to={`/user/rechargeOld`}>
+                                <img src={recharge}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>平台余额</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#888"}}>{balance_platform == 0 && '立即充值' || balance_platform}</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
+                            <Link to={`/user/recharge`}>
+                                <img src={recharge}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>存管余额</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#888"}}>{balance == 0 && '立即充值' || balance}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
+                            <Link to={`/user/autoBuy`}>
+                                <img src={directMail}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>自动投标</p>
+                                    <p className={styles.listColor} style={{"color": "#F19149"}}>省时省心</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
+                            <Link to="/user/dcbB">
+                                <img src={DepositTreasureB}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>定存宝B</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#F19149"}}>{depositb == 0 && '每月还息  到期还本' || '+' + depositb}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList}>
+                            <Link to='/user/dcb'>
+                                <img src={DepositTreasure}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>定存宝A</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#F19149"}}>{deposit == 0 && '到期还本付息' || '+' + deposit}</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
                             <Link to="/user/zt">
                                 <img src={safeplan}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>直投项目</p>
-                                    <p className={styles.listColor} style={{"color":"#F19149"}}>{directInvest==0&&'期限灵活门槛低'||'+'+directInvest}</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#F19149"}}>{directInvest == 0 && '期限灵活门槛低' || '+' + directInvest}</p>
                                 </div>
                             </Link>
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<div className={styles.myProduct}>
-						<div className={styles.myList} >
-							<Link to="/user/zq">
-								<img src={makeOver}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>债权转让</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{creditors==0&&'流动性高'||'+'+creditors}</p>
-								</div>
-							</Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
-							<Link to="/user/gatherMy">
-								<img src={makeOver}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>聚点+</p>
-									<p className={styles.listColor} style={{"color":"#F19149"}}>{'智能投标'}</p>
-								</div>
-							</Link>
-						</div>
-					</div>
-				</div>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList}>
+                            <Link to="/user/zq">
+                                <img src={makeOver}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>债权转让</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#F19149"}}>{creditors == 0 && '流动性高' || '+' + creditors}</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
+                            <Link to="/user/gatherMy">
+                                <img src={makeOver}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>聚点+</p>
+                                    <p className={styles.listColor} style={{"color": "#F19149"}}>{'智能投标'}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
 
-				<div className={styles.contents} style={{"marginBottom":"40px"}}>
-					<div className={styles.myProduct}>
-						<div className={styles.myList}>
+                <div className={styles.contents} style={{"marginBottom": "40px"}}>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList}>
                             <Link to='/user/redPacket'>
                                 <img src={redPacket}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>红包</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{bonuse}</p>
+                                    <p className={styles.listColor} style={{"color": "#888"}}>{bonuse}</p>
                                 </div>
                             </Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
                             <Link to="/user/addRate">
                                 <img src={interest}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>加息券</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{0==interestRateSecurities?'更多活动':interestRateSecurities+'张'}</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#888"}}>{0 == interestRateSecurities ? '更多活动' : interestRateSecurities + '张'}</p>
                                 </div>
                             </Link>
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<div className={styles.myProduct}>
-						<div className={styles.myList}>
-                            <Link to="/user/scratchesCard">
-                                <img src={scratchCard}/>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList}>
+                            <Link to="/user/fridayActivity">
+                                <img src={gift} style={{"width": "26px", "height": "25px", "marginLeft": "2px"}}/>
                                 <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>刮刮卡</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
+                                    <p className={styles.listTitle}>周五狂享礼</p>
+                                    <p className={styles.listColor} style={{"color": "#888"}}>点币大派送</p>
                                 </div>
                             </Link>
-						</div>
-						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
+                        </div>
+                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
                             <Link to="/user/vouchers">
                                 <img src={toUse}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>抵用券</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{0==voucher?'更多活动':voucher+'张'}</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#888"}}>{0 == voucher ? '更多活动' : voucher + '张'}</p>
                                 </div>
                             </Link>
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<div className={styles.myProduct}>
-						<div className={styles.myList} style={{"borderRight":"1px solid #E4E4E4"}}>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>
                             <Link to={`/user/coinShop`}>
                                 <img src={someCoins}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>积分商城</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{0==coins&&'更多活动'||coins}</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>
                                 </div>
                             </Link>
-						</div>
-						<div className={styles.myList} style={{"display":"none"}}>
-							<img src={manageMoney}/>
-							<div className={styles.myListText}>
-								<p className={styles.listTitle}>理财金</p>
-								<p className={styles.listColor} style={{"color":"#F19149"}}>{privilege}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			)
-	} 
-	componentDidMount() {
-		  this.props.load();
-	}
-     doSign=()=>{
-            this.refs.SignModel.show();
-     };
-	render(){
-		const{
-          nobjs  
-		}=this.props;
-		let Dom;
-		if(nobjs&&nobjs.code==100){
-            Dom=this.loadingEndDom(nobjs.data)
-		}else{
-			Dom=this.loadingDom()
-		}
-		return(
-			<div className={styles.myContent}>
-				{
-                  Dom 
-				}
-			</div>
-		)
-	}
+                        </div>
+                        <div className={styles.myList} style={{"display": "none"}}>
+                            <img src={manageMoney}/>
+                            <div className={styles.myListText}>
+                                <p className={styles.listTitle}>理财金</p>
+                                <p className={styles.listColor} style={{"color": "#F19149"}}>{privilege}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    fridayPopDom(data) {
+        const {
+            coin,
+            username
+        } = data;
+        return (
+            <div ref="fridayPop" className={styles.fridayPopWraper}>
+                <div className={styles.shadow}></div>
+                <div className={styles.popWraper}>
+                    <div className={styles.popContent}>
+                        <img className={styles.pop1} src={poppic1}/>
+                        <div className={styles.pop2}>
+                            <div className={styles.txt1}>
+                                <p className={styles.txt11}>尊敬的{username}</p>
+                                <p className={styles.txt12}>你在上一个活动周期里</p>
+                            </div>
+                            <div className={styles.txt2}>
+                                <p className={styles.txt21}>恭喜获得点币数</p>
+                                <p className={styles.txt22}>{coin}</p>
+                            </div>
+                        </div>
+                        <div className={styles.pop3}>
+                            <p>向更多点币发起冲击吧！</p>
+                        </div>
+                        <img src={close} className={styles.close} onClick={this.handleClick}/>
+                    </div>
+
+                </div>
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        this.props.load();
+        this.props.fridayPop();
+    }
+
+    doSign = () => {
+        this.refs.SignModel.show();
+    };
+    handleClick = () => {
+        this.refs.fridayPop.style.display = 'none';
+    }
+
+    render() {
+        const {
+            nobjs,
+            fridayPopData
+        } = this.props;
+
+        let Dom;
+
+        let PopDom;
+        if (fridayPopData && fridayPopData.data && fridayPopData.data.coin != 0) {
+            PopDom = this.fridayPopDom(fridayPopData.data);
+        }
+
+
+        if (nobjs) {
+            Dom = this.loadingEndDom(nobjs.data);
+        } else {
+            Dom = this.loadingDom();
+        }
+
+        return (
+            <div>
+                <div className={styles.myContent}>
+                    {
+                        Dom
+                    }
+                </div>
+                <div>
+                    {this.state.ifShow && PopDom}
+                </div>
+            </div>
+
+        )
+    }
 }
 
-const myIndexInit=(state,own)=>({
-	  nobjs:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data'])
+const myIndexInit = (state, own) => ({
+    nobjs: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
+    fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data'])
 })
-const myIndexInitfn=(dispath,own)=>({
-	  load(){
-            dispath({
-			  type:"USER_INFO_WITH_LOGIN"
-		  })
-	  },
+const myIndexInitfn = (dispath, own) => ({
+    load() {
+        dispath({
+            type: "USER_INFO_WITH_LOGIN"
+        })
+    },
+    fridayPop() {
+        dispath({
+            type: "FRIDAY_POP"
+        })
+    },
 })
-export default connect(myIndexInit,myIndexInitfn)(Index)
+export default connect(myIndexInit, myIndexInitfn)(Index)
