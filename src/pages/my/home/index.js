@@ -222,13 +222,13 @@ import newpic from '../../../assets/images/my-index/new.png'
 
 					<div className={styles.myProduct}>
 						<div className={styles.myList}>
-                            <Link to="/user/scratchesCard">
-                                <img src={scratchCard}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>刮刮卡</p>
-                                    <p className={styles.listColor} style={{"color":"#888"}}>{0==scratcheCard?'红色星期五':scratcheCard+'张'}</p>
-                                </div>
-                            </Link>
+							<Link to="/user/fridayActivity">
+								<img src={gift} style={{"width":"26px","height":"25px","marginLeft":"2px"}}/>
+								<div className={styles.myListText}>
+									<p className={styles.listTitle}>周五狂享礼</p>
+									<p className={styles.listColor} style={{"color":"#888"}}>点币大派送</p>
+								</div>
+							</Link>
 						</div>
 						<div className={styles.myList} style={{"borderLeft":"1px solid #E4E4E4"}}>
                             <Link to="/user/vouchers">
@@ -240,7 +240,6 @@ import newpic from '../../../assets/images/my-index/new.png'
                             </Link>
 						</div>
 					</div>
-
 					<div className={styles.myProduct}>
 						<div className={styles.myList} style={{"borderRight":"1px solid #E4E4E4"}}>
                             <Link to={`/user/coinShop`}>
@@ -257,16 +256,6 @@ import newpic from '../../../assets/images/my-index/new.png'
 								<p className={styles.listTitle}>理财金</p>
 								<p className={styles.listColor} style={{"color":"#F19149"}}>{privilege}</p>
 							</div>
-						</div>
-						<div className={styles.myList}>
-							<Link to="/user/fridayActivity">
-								<img src={gift} style={{"width":"26px","height":"25px","marginLeft":"2px"}}/>
-								<div className={styles.myListText}>
-									<p className={styles.listTitle}>周五狂享礼</p>
-									<img src={newpic} style={{"position":"absolute","top":"-1px","left":"128px","width":"24px","height":"12px"}}/>
-									<p className={styles.listColor} style={{"color":"#888"}}>点币大派送</p>
-								</div>
-							</Link>
 						</div>
 					</div>
 				</div>
