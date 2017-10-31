@@ -70,6 +70,12 @@ class DirectBuy extends React.Component {
               pending:true
           })
       }
+      if(nextProps.use&&nextProps.use.data.is){
+          this.setState({
+              useCoupon:false
+          })
+
+      }
   }
     componentWillUnmount(){
         this.props.clearData()
@@ -529,6 +535,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'AVAILABLE_COUPONS'
+        })
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'DIRECT_INVEST_COUPON'
         })
     }
 })
