@@ -3,6 +3,7 @@ import NavBar from '../../../../components/NavBar'
 import Calculator from '../../../../components/Calculator'
 import styles from './index.styl'
 import classNames from 'classnames'
+import Store from '../../../../components/Dialog/store'
 import wrap from '../../../../utils/pageWrapper'
 import {push, goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
@@ -197,7 +198,16 @@ class ProductDetail extends React.Component {
       </div>)
   }
   purchase=(id,lx,push)=>{
-      this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`,push,this.succsseFn,this.props.location.pathname)
+      let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+      if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
+          this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
+      }else{
+          if(storeData.isRegister){
+              push('/user/setting/cardBind')
+          }else{
+              this.refs.store.show()
+          }
+      }
   }
   succsseFn=(url)=>{
         setUrl.setUrl(url)
@@ -232,6 +242,7 @@ class ProductDetail extends React.Component {
     }
     return (
       <div className={styles.root}>
+          <Store ref="store"></Store>
         <NavBar onLeft={pop}>{type=='A'&&(id==5&&'新手标计划详情'||'定存宝A计划详情')||'定存宝B计划详情'}</NavBar>
           {
               Dom

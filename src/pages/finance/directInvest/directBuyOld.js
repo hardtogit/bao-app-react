@@ -451,7 +451,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     getDirectInvestDetail(id) {
         dispatch({
             type: actionTypes.DIRECTINVEST_DETAIL,
-            params: [id]
+            params: [id,'platform']
         })
     },
     getUser(){

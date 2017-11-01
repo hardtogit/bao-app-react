@@ -125,7 +125,11 @@ class CreditorDetails extends React.Component{
           }
       }=this.props;
       if (bao.isAuth!=3){
-          this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+          if(this.props.location.query.access_sys){
+              this.refs.isAuth.Verification(`/creditorBuyOld/${id}`,push,this.succsseFn,this.props.location.pathname)
+          }else{
+              this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+          }
       }else {
           const is_login = true;
           const {
@@ -140,7 +144,11 @@ class CreditorDetails extends React.Component{
                   })
               }else{
                   //推送到购买页面
-                  push(`/creditorBuy/${id}`);
+                  if(this.props.location.query.access_sys){
+                      push(`/creditorBuyOld/${id}`);
+                  }else{
+                      push(`/creditorBuy/${id}`);
+                  }
                   this.succsseFn(this.props.location.pathname)
               }
           }else{
@@ -267,7 +275,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
   getData(){
     dispatch({
       type:actionTypes.FETCH_CREDITORS_DETAIL_DATA,
-      params:[ownProps.params.id],
+      params:[ownProps.params.id,ownProps.location.query.access_sys],
     })
   },
   push(path){

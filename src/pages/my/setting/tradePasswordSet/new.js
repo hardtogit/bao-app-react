@@ -8,6 +8,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import BasePasswordInput from '../../../../components/BaseInput/BasePasswordInput'
 import Button        from '../../../../components/BaseButton'
+import LoadingButton from '../../../../components/LoadingButton'
 import NavBar from '../../../../components/NavBar'
 import Alert from '../../../../components/Dialog/alert'
 import ValidateForm  from '../../../../components/BaseValidateForm'
@@ -28,7 +29,8 @@ class TradePasswordSet extends React.Component {
             errorMessage: '',
             smsReference:'',
             init:true,
-            time:0
+            time:0,
+            pending:false
         }
     }
     componentDidMount(){
@@ -52,6 +54,9 @@ class TradePasswordSet extends React.Component {
                    time:this.state.time+1
                })
                if(nextProps.verifyData&&nextProps.verifyData.code=='0001'){
+                   this.setState({
+                       pending:false
+                   })
                        this.refs.success.show({
                            text: '重置密码成功!',
                            callback: () => {this.props.go('/user/setting'),this.props.clear()},
@@ -59,7 +64,11 @@ class TradePasswordSet extends React.Component {
                }else{
                    if(this.state.time>=3){
                        if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
-                           alert('重置密码失败')
+                           $('#kb3').val('');
+                           this.setState({
+                               pending:false
+                           })
+                           this.refs.alert.show({content:'重置密码失败',okText:'确定'})
                        }
                    }else{
                        setTimeout(function(){
@@ -74,6 +83,10 @@ class TradePasswordSet extends React.Component {
         passGuard3.setRandKey(sessionStorage.getItem('passwordFactor'));
         let newPassword=passGuard3.getOutput();
         let data={password:newPassword,smsReference:this.state.smsReference,passwordFactor:sessionStorage.getItem('passwordFactor'),device:'WAP',mapKey:sessionStorage.getItem('mapKey')};
+        this.setState({
+            pending:true,
+            time:0
+        })
         this.props.pwdSet(data)
     }
     render() {
@@ -87,7 +100,7 @@ class TradePasswordSet extends React.Component {
                      <div style={{padding:'12px 15px',color:'#777'}}>新密码</div><input style={{flex:'1',border:'none'}} id="kb3" type="text"/>
                     </div>
                     <div style={{marginTop:'40px',padding:'15px'}}>
-                    <Button onClick={this.send} text="确认设置"></Button>
+                    <Button onClick={this.send} text={this.state.pending ? <LoadingButton text='设置中' /> : '确认设置'}></Button>
                     </div>
                     <Alert ref="alert" />
                     <Success ref="success"/>

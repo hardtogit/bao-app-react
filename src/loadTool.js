@@ -85,6 +85,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/finance/directInvest/directBuyOld').default);
         }, 'DirectBuyOld');
     },//存管充值
+    CreditorBuyOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/creditors/buyOld').default);
+        }, 'CreditorBuyOld');
+    },//老的存管购买
     ReChargeSuccess  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeSuccess').default);

@@ -132,12 +132,12 @@ import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponen
 import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
 
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -343,6 +343,7 @@ export default class App extends React.Component {
             <Route path="creditorList" component={CreditorList}></Route>
             <Route path="creditorDetail/:id" component={CreditorDetail}></Route>
             <Route path="creditorBuy/:id" component={CreditorBuy}></Route>
+            <Route path="creditorBuyOld/:id" getComponent={CreditorBuyOld}></Route>
             <Route path="creditorProtocol" component={CreditorProtocol}></Route>
             <Route path="creditorInvestSuccess/:type" component={CreditorInvestSuccess}></Route>
             <Route path="ChangePayPwd" component={ChangePayPwd}></Route>

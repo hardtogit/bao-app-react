@@ -4,6 +4,7 @@
 import React from 'react';
 import styles from '../index/index.styl';
 import Alert from '../../../../components/Dialog/alert'
+import Store from '../../../../components/Dialog/store'
 import {connect} from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import List from '../../../../components/depositList/index'
@@ -88,13 +89,23 @@ class DepositIndex extends React.Component {
             return false
         }
         this.successFn();
-        this.props.push(`/deposit-buy/${index}/B/${id}`)
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
+            this.props.push(`/deposit-buy/${index}/B/${id}`)
+        }else{
+            if(storeData.isRegister){
+                push('/user/setting/cardBind')
+            }else{
+                this.refs.store.show()
+            }
+        }
     }
     loadEndDom=(depositbs)=>{
         return(<div className={styles.planb}>
             {this.bannerDom()}
             <List type={'B'} go={this.go} goBuy={this.goBuy} data={depositbs}/>
             <Alert ref="alert"/>
+            <Store ref="store"></Store>
         </div>)
     }
     render(){

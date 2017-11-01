@@ -15,7 +15,7 @@ import styles from './index.less'
 import wrap from '../../../../utils/pageWrapper'
 import BuyInput from '../../../../components/customInput'
 import Tipbar from '../../../../components/Tipbar'
-import PayProcess from '../../payProcess'
+import PayProcess from '../../payProcessOld'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import IsAuth from '../../../../components/isAuth'
@@ -230,7 +230,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     getCreditorDetail(id) {
         dispatch({
             type: actionTypes.CREDITORS_DETAIL,
-            params: [id]
+            params: [id,'platform']
         })
     },
     getUser(){

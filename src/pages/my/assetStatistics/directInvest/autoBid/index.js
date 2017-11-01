@@ -143,6 +143,12 @@ class Index extends React.Component {
                     }
                 }
             }
+        }else if(freeAccreditData&&freeAccreditData.code==301){
+            this.refs.switch.refs.loading.hide();
+            this.refs.alert.show({
+                content: '密码错误',
+                okText: '确定',
+            })
         }
 
     };

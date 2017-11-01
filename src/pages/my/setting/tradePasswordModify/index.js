@@ -5,6 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import BasePasswordInput from '../../../../components/BaseInput/BasePasswordInput'
 import Button        from '../../../../components/BaseButton'
+import LoadingButton from '../../../../components/LoadingButton'
 import NavBar from '../../../../components/NavBar'
 import Alert from '../../../../components/Dialog/alert'
 import ValidateForm  from '../../../../components/BaseValidateForm'
@@ -21,7 +22,9 @@ class TradePasswordModify extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      time:0
+      time:0,
+      pending:false
+
        }
   }
   componentDidMount(){
@@ -47,10 +50,11 @@ class TradePasswordModify extends React.Component {
           if(this.state.time>=3){
             if(verifyData&&verifyData.code!='0001'){
               this.cleanInput()
-              alert('修改密码失败');
+                this.refs.alert.open('修改密码失败')
             }
             this.setState({
-              time:0
+              time:0,
+              pending:false
             })
           }else{
             setTimeout(function(){
@@ -59,6 +63,12 @@ class TradePasswordModify extends React.Component {
           }
         }
       }
+    }else if(data&&data.code==301){
+        this.cleanInput()
+        this.refs.alert.open('原密码错误')
+        this.setState({
+            pending:false
+        })
     }
   }
   submit=()=>{
@@ -81,6 +91,10 @@ class TradePasswordModify extends React.Component {
       newPassword:passGuard2.getOutput(),
       device:"WAP"
     }
+    this.setState({
+        time:0,
+        pending:true
+    })
     this.props.clean()
     this.props.modify(data)
   };
@@ -103,7 +117,7 @@ class TradePasswordModify extends React.Component {
           <input id="kb2" type="text" placeholder="请输入新交易密码"/>
           </div>
           </div>
-          <Button className={styles.submit} onClick={this.submit} text="确认修改" >
+          <Button className={styles.submit} onClick={this.submit} text={this.state.pending?<LoadingButton text="修改中"/>:"确认修改"} >
           </Button>
         </div>
         <Tipbar ref='alert'/>

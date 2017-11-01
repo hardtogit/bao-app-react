@@ -21,18 +21,22 @@ import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
 class CreditorCell extends React.Component{
-  toBuy=(event)=>{
+  toBuy=(event,flag)=>{
     event.stopPropagation()
-    this.yz(this.qgSuccess)
+    this.yz(this.qgSuccess,flag)
   }
-  qgSuccess=()=>{
+  qgSuccess=(flag)=>{
       const {
           id
       }=this.props.data
       const{push}=this.props
       let storeData=JSON.parse(sessionStorage.getItem('bao-store'))
       if(storeData.isRegister&&storeData.isBindBankcard){
-          this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+          if(flag){
+              this.props.isAuth.Verification(`/creditorBuyOld/${id}`,this.props.isAuthPush,this.succsseFn);
+          }else{
+              this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+          }
       }else{
           if(storeData.isRegister){
               push('/user/setting/cardBind')
@@ -41,7 +45,7 @@ class CreditorCell extends React.Component{
           }
       }
   }
-  yz=(success)=>{
+  yz=(success,flag)=>{
       const is_login = true;
       const {
           is_overdue,//是否已过投标期限
@@ -57,7 +61,7 @@ class CreditorCell extends React.Component{
                   okText:'知道了'
               })
           }else{
-              success()
+              success(flag)
           }
       }else{
           //跳转登录
@@ -80,6 +84,7 @@ class CreditorCell extends React.Component{
       activity,//活动名称
       activityName,
       rate,
+      access_sys,
       left_quantity,//剩余份数
       term:month,
     } = this.props.data
@@ -105,6 +110,9 @@ class CreditorCell extends React.Component{
                             return docArr;
                         })()
 
+                    }
+                    {!this.props.data.access_sys&&
+                    <span className={styles.store}>存</span>
                     }
                 </p>
               </div>
@@ -151,7 +159,7 @@ class CreditorCell extends React.Component{
                 </div>
               </div>
               <div className={styles.buyBtn}>
-                <div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
+                <div className={styles.canbuy} onClick={(event)=>this.toBuy(event,access_sys)}>
                               <p>抢购</p>
                 </div>
               </div>
@@ -219,7 +227,7 @@ class CreditorList extends React.Component{
               data && data.map((data,i) => (
                   <CreditorCell key={i}
                                 data={data}
-                                onClick={() => this.props.push(`/creditorDetail/${data.id}`)}
+                                onClick={() =>{if(data.access_sys){this.props.push(`/creditorDetail/${data.id}?access_sys=platform`)}else{this.props.push(`/creditorDetail/${data.id}`)}}}
                                 push={(path) => this.props.push(path)}
                                 passwordRef={this.refs.passWord}
                                 wrongRef={this.refs.wrong}

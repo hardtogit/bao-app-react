@@ -27,7 +27,13 @@ const requests = (Fetch) => {
   // 债权转让项目列表
   Fetch.creditorsProjects = (page) => { return Fetch(`creditors/projects?page=${page}`, 'GET') }
   // 债权转让产品详情
-  Fetch.creditorsProductDetail = (creditorsId) => { return Fetch(`creditors?id=${creditorsId}`, 'GET') }
+  Fetch.creditorsProductDetail = (creditorsId,access_sys) => {
+      if(access_sys){
+          return Fetch(`creditors?id=${creditorsId}&access_sys=${access_sys}`, 'GET')
+      }else{
+          return Fetch(`creditors?id=${creditorsId}`, 'GET')
+      }
+     }
   //
   Fetch.creditorsBuy = (id, data) => { return Fetch(`creditors/pay-bond/${id}`, 'GET', data) }
   // 零钱宝购买

@@ -73,7 +73,8 @@ class VerifyMobile extends React.Component {
       if(this.state.smsReference){
           const datas={
               smsReference:this.state.smsReference,
-              verifyCode:this.refs.form.getValue().captcha
+              verifyCode:this.refs.form.getValue().captcha,
+              device:'WAP'
           };
           this.setState({
               verifyTime:0,
