@@ -90,6 +90,16 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/finance/creditors/buyOld').default);
         }, 'CreditorBuyOld');
     },//老的存管购买
+    AutoBuyIndex  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/directInvest/autoBidIndex').default);
+        }, 'AutoBuyIndex');
+    },//老的存管购买
+    MoneyLogOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/recordsOld').default);
+        }, 'MoneyLogOld');
+    },//老的余额明细
     ReChargeSuccess  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeSuccess').default);

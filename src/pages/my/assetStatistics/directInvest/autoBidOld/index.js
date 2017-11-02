@@ -26,7 +26,7 @@ class Index extends React.Component {
         this.state = {
             error:false,
             open:false,
-            resetMoney:JSON.parse(sessionStorage.getItem("bao-user")).balance||0,
+            resetMoney:JSON.parse(sessionStorage.getItem("bao-user")).balance_platform||0,
             bidType:"",//标类型
             repaymentType:"",//还款方式
             rate:"",//年化收益率
@@ -307,7 +307,8 @@ class Index extends React.Component {
             parseFloat(this.state.rate),
             this.state.repaymentType,
             this.state.bidType,
-            id //this.state.open
+            id ,//this.state.open
+            "platform"
          ]);
     };
     render() {
@@ -443,7 +444,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     getInfo(){
         dispatch({
-            type:"AUTO_BUY_INFO"
+            type:"AUTO_BUY_INFO",
+            params:[{access_sys:'platform'}]
         })
     },
     BidSet(params){

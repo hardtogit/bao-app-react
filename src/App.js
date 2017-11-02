@@ -133,11 +133,11 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -189,6 +189,7 @@ export default class App extends React.Component {
                   <Route path="idCardUpload" getComponent={IdCardUpload} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传*/
                   <Route path="idCardUploadExplain" getComponent={IdCardUploadExplain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传说明*/
                   <Route path="moneyLog" component={MoneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
+                  <Route path="moneyLogOld" getComponent={MoneyLogOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细老*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={ZqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -239,7 +240,7 @@ export default class App extends React.Component {
                   <Route path='ruleVoucher' component={ruleVoucher} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*抵用券规则*/
                   <Route path="cash" component={Cash} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现页面*/
                   <Route path="choiceMyCard" getComponent={ChoiceMyCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现选择银行卡*/
-                  <Route path="autoBuy" component={autoBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
+                  <Route path="autoBuy" getComponent={AutoBuyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   <Route path="autoBuyRule" component={autoBuyRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   /*设置界面*/
                   <Route path="setting" component={Setting} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

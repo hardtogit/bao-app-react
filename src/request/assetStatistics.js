@@ -12,7 +12,14 @@ const requests = (Fetch) => {
   // 余额详情
   Fetch.balanceRecordDetails = (id) => { return Fetch('balance/records/' + id, 'GET') }
   // 交易记录
-  Fetch.transactionRecords = (page,type) => {return Fetch(`balance/records?page=${page}&type=${type}`, 'GET') }
+  Fetch.transactionRecords = (page,type,access_sys) => {
+      if(access_sys){
+          return Fetch(`balance/records?page=${page}&type=${type}&access_sys=${access_sys}`, 'GET')
+      }else{
+          return Fetch(`balance/records?page=${page}&type=${type}`, 'GET')
+      }
+
+  }
   // 连连支付
   Fetch.authCookie = () => {return Fetch(`common/auth-cookie`, 'GET') }
   //付款
@@ -42,7 +49,7 @@ const requests = (Fetch) => {
   // 零钱宝赎回
   Fetch.demandRedemption = (data) => {  return Fetch('demand/redemption', 'POST', data) }
   // 自动投标详情
-  Fetch.autoBidDetail = () => { return Fetch('directInvest/auto-bid/detail', 'GET') }
+  Fetch.autoBidDetail = (data) => { return Fetch('directInvest/auto-bid/detail', 'GET',data) }
   // 直投产品信息
   Fetch.directInvestProductInfo = (id) => { return Fetch('directInvest/index/' + id, 'GET') }
   // 债权产品信息
@@ -91,16 +98,32 @@ const requests = (Fetch) => {
   // 理财金记录
   Fetch.privilegeRecords = (page, type) => { return Fetch(`privilege/list?type=${type}&page=${page}`, 'GET') }
   // 自动投标
-  Fetch.autoBid = (...data) => { return Fetch('directInvest/auto-bid', 'POST', {
-    count:data[0],
-    balance:data[1],
-    start_term:data[2],
-    end_term:data[3],
-    rate:data[4],
-    repayment_type:data[5],
-    type:data[6],
-    open:data[7]
-  }) };
+  Fetch.autoBid = (...data) => {
+    if(data[8]){
+        return Fetch('directInvest/auto-bid', 'POST', {
+            count:data[0],
+            balance:data[1],
+            start_term:data[2],
+            end_term:data[3],
+            rate:data[4],
+            repayment_type:data[5],
+            type:data[6],
+            open:data[7],
+            access_sys:data[8]
+        })
+    }else{
+        return Fetch('directInvest/auto-bid', 'POST', {
+            count:data[0],
+            balance:data[1],
+            start_term:data[2],
+            end_term:data[3],
+            rate:data[4],
+            repayment_type:data[5],
+            type:data[6],
+            open:data[7],
+        })
+    }
+     };
   // 获取已使用优惠券信息
   Fetch.directInvestCoupon = (id) => { return Fetch(`directInvest/coupon/${id}`, 'GET') }
   // 绑定银行卡

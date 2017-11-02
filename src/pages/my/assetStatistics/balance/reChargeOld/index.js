@@ -237,7 +237,7 @@ class Index extends React.Component {
         return (
             <div className={styles.bg}>
                 <NavBar onLeft={this.pop}
-                        rightNode={<Link className={styles.detail} to={`/user/moneyLog`}>余额明细</Link>}
+                        rightNode={<Link className={styles.detail} to={`/user/moneyLogOld`}>余额明细</Link>}
                         style={BanckStyle}>我的余额</NavBar>
                 {
                     Dom
