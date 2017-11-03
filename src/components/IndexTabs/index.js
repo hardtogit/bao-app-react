@@ -194,7 +194,7 @@ class IndexTabs extends React.Component {
                     <div>
                         <Link to='/home/productIndex' activeClassName={styles.activeIcon}>
                             <span className={styles.tabIcon1}></span>
-                        <p>产品</p>
+                        <p>投资</p>
                         </Link>
                     </div>
                     <div>

@@ -38,11 +38,7 @@ class Index extends Component{
         }
     }
     componentWillMount(){
-        const {proIndex,proIndexs}=this.props;
-        this.setState({
-            Index:proIndex
-        });
-        proIndexs(proIndex);
+
     }
     componentDidMount(){
 
@@ -51,7 +47,6 @@ class Index extends Component{
         this.setState({
             Index:index
         });
-        this.props.proIndexs(index);
     }
     render(){
         const{
@@ -103,12 +98,6 @@ const financeIndexInit=(state,own)=>({
     proIndex:state.global.getIn(['PRODUCT_INDEX'])
 })
 const financeIndexInitfn=(dispatch,owb)=>({
-    proIndexs(index){
-        dispatch({
-            type:'PRODUCT_INDEX',
-            index:index
-        })
-    },
     pop(){
         dispatch(goBack())
     }
