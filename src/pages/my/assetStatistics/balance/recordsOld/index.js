@@ -36,6 +36,7 @@ class Index extends React.Component {
             filterShow:false
         });
         this.props.clearData();
+        // return;
         this.props.getList(flag);
     };
     ScrollDom=()=>{
@@ -113,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     clearData(){
         dispatch({
-            type:'CLEAR_DATA',
+            type:'CLEAR_DATA_ALL',
             key:'FETCH_MONEY_LOG'
         })
     }

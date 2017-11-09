@@ -319,7 +319,9 @@ class Index extends React.Component {
         }
         return (
             <div>
-                <Tipbar ref='tipbar' className={style.tips} />
+                <div style={{position:'fixed',top:'0',width:'100%',zIndex:'1000'}}>
+                    <Tipbar ref='tipbar' className={style.tips} />
+                </div>
                 <Success ref="success" />
                 <Success ref="successTwo" />
                 <Alert ref="alert"/>

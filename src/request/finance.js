@@ -64,13 +64,13 @@ const requests = (Fetch) => {
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
-  Fetch.depositbs=()=>{return Fetch('api/depositbs','GET')}
-  Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}`,'GET')}
+  Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
+  Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}`,'GET')}
   Fetch.depositbsAccountCapitalInfo=()=>{return Fetch('api/depositbs/accountCapitalInfo','GET')}
   Fetch.depositbsAccountCapitalList=(page,type)=>{return Fetch(`api/depositbs/accountCapitalList/${type}/${page}`,'GET')}
-  Fetch.depositbsBuy=(productId,num,couponId,password,type)=>{return Fetch(`api/depositbs/buy?productId=${productId}&num=${num}&couponId=${couponId}&password=${password}&type=${type}`,'GET')}
-  Fetch.depositbsBuyResult=(id)=>{return Fetch(`api/depositbs/buyResult/${id}`,'GET')}
+  Fetch.depositbsBuy=(productId,num,couponId,password,type)=>{return Fetch(`api/depositbs/buy?productId=${productId}&num=${num}&couponId=${couponId}&password=${password}&type=${type}&access_sys=platform`,'GET')}
+  Fetch.depositbsBuyResult=(id)=>{return Fetch(`api/depositbs/buyResult/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsContract=(id)=>{return Fetch(`api/depositbs/contract/${id}`,'GET')}
   Fetch.depositasInvest=(id)=>{return Fetch(`api/depositas/invest/${id}`,'GET')}
   Fetch.depositasContract=(id)=>{return Fetch(`api/depositas/contract/${id}`,'GET')}

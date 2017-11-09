@@ -4,7 +4,7 @@ import {push, goBack} from 'react-router-redux'
 import Tipbar from '../../../../../components/Tipbar/index'
 import NavBar from '../../../../../components/NavBar/index';
 import Box from '../../../../../components/ContentBox/index';
-import Switch from '../../../../../components/switch/index'
+import Switch from '../../../../../components/switchOld'
 import Store from '../../../../../components/Dialog/store'
 import Alert from '../../../../../components/Dialog/alert';
 import Confirm from '../../../../../components/Dialog/confirm';
@@ -46,7 +46,7 @@ class Index extends React.Component {
     componentWillUnmount(){
         this.props.clear()
     }
-    componentWillReceiveProps=({info,setInfo,freeAccreditData,accreditVerifyData})=>{
+    componentWillReceiveProps=({info,setInfo})=>{
         if(info && !newInfo){
             if(this.state.open !=info.open
                 || this.state.bidType!=info.type
@@ -97,59 +97,7 @@ class Index extends React.Component {
                 }
             }
         }
-        if(freeAccreditData&&freeAccreditData.status==1){
-            let $this=this;
-            if(this.state.time<=3){
-                this.setState({
-                    time:this.state.time+1
-                });
-                if(accreditVerifyData&&accreditVerifyData.code=='0001'){
-                    $this.refs.switch.refs.loading.hide();
-                    this.props.updateStoreInfo()
-                    this.refs.success.show({
-                        text: '授权成功',
-                        callback: () => {
-                            this.props.getInfo();
-                        }
-                    });
-                    this.props.accreditClear();
-                    this.setState({
-                        time:0
-                    })
-                }else{
-                    if(this.state.time>=3){
-                        if(accreditVerifyData&&accreditVerifyData.code!='0001'){
-                            $this.refs.switch.refs.loading.hide();
-                            this.refs.alert.show({
-                                content:accreditVerifyData.msg ,
-                                okText: '确定',
-                            })
-                            this.props.accreditClear()
-                        }else{
-                            $this.refs.switch.refs.loading.hide();
-                            this.refs.alert.show({
-                                content: '授权失败',
-                                okText: '确定',
-                            })
-                            this.props.accreditClear()
-                        } this.setState({
-                            time:0
-                        })
-                    }else{
-                        setTimeout(function(){
-                            $this.props.accreditVerify({id:freeAccreditData.msgId})
-                        },2000)
 
-                    }
-                }
-            }
-        }else if(freeAccreditData&&freeAccreditData.code==301){
-            this.refs.switch.refs.loading.hide();
-            this.refs.alert.show({
-                content: '密码错误',
-                okText: '确定',
-            })
-        }
 
     };
     showSuccess=()=>{
@@ -320,14 +268,16 @@ class Index extends React.Component {
         }
         return (
             <div>
+                <div style={{position:'fixed',top:'0',width:'100%',zIndex:'1000'}}>
                 <Tipbar ref='tipbar' className={style.tips} />
+                </div>
                 <Success ref="success" />
                 <Success ref="successTwo" />
                 <Alert ref="alert"/>
                 <Box className={classnames(this.state.error&&style.box_error||style.top)}>
                     <div className={style.open}>
                         开启自动投标功能
-                        <Switch ref="switch" className={style.switch} status={this.state.open} push={this.props.push} authFn={this.props.freeAccredit}  callBackFun={this.toggle}/>
+                        <Switch className={style.switch} status={this.state.open} callBackFun={this.toggle}/>
                     </div>
                     <div className={classnames(style.content,this.state.open?'show':'hide')}>
                         <ul className={style.times}>
@@ -474,18 +424,6 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch({
             type:"CLEAR_INFO_DATA",
             key:'ACCREDIT_VERIFY'
-        })
-    },
-    freeAccredit(data){
-        dispatch({
-            type:"FREE_ACCREDIT",
-            params:[data]
-        })
-    },
-    accreditVerify(id){
-        dispatch({
-            type:"ACCREDIT_VERIFY",
-            params:[id]
         })
     },
     updateStoreInfo(){

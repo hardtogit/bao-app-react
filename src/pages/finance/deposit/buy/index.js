@@ -72,13 +72,13 @@ class DepositBuy extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag) {
+    if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag&&nextProps.quantityDataB) {
       this.getAvailableCouponsFlag = true
       // 获取可以使用的优惠券
        if (nextProps.params.id==5){
            this.props.getAvailableCoupons(nextProps.new_deposit.month)
        }else {
-           this.props.getAvailableCoupons(nextProps.rates.data.deposit[this.state.depositId].month)
+           this.props.getAvailableCoupons(this.getCurrentMonth().month)
        }
     }
 
@@ -583,7 +583,7 @@ class DepositBuy extends React.Component {
           getChoose={this.getChoose}
           overPay={this.overPay}
           user={this.props.user}
-          balance={+this.props.user.balance}
+          balance={+this.props.user.balance_platform}
           onRequestBalancePay={this.depositBuy}
           inputValue={Number(utils.padMoney(this.getPayTotal()))}
           balancePayPending={this.state.pending}
