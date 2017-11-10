@@ -80,11 +80,18 @@ class PayProcess extends React.Component {
     if (nextProps.balancePayData){
        if(nextProps.balancePayData.code=='301'){
          nextProps.clear();
-         //nextProps.changePending();
-         this.refs.loading.hide();
+         nextProps.changePending();
+         // this.refs.loading.hide();
          this.openErrorDialog('密码错误');
          return;
        }
+        if(nextProps.balancePayData.code=='300'){
+            nextProps.clear();
+            nextProps.changePending();
+            // this.refs.loading.hide();
+            this.openErrorDialog('参数错误');
+            return;
+        }
       if(nextProps.verifyData){
         const status = nextProps.balancePayData.status;
         const msgId= nextProps.balancePayData.msgId;
@@ -104,8 +111,8 @@ class PayProcess extends React.Component {
 
           }else {
             nextProps.clear();
-            //nextProps.changePending();
-            this.refs.loading.hide();
+            nextProps.changePending();
+            // this.refs.loading.hide();
             this.openErrorDialog(nextProps.verifyData.msg)
           }
         }
@@ -116,11 +123,18 @@ class PayProcess extends React.Component {
     if (nextProps.cardPayData){
       if(nextProps.cardPayData.code=='301'){
         nextProps.clear();
-        //nextProps.changePending();
-        this.refs.loading.hide();
+        nextProps.changePending();
+        // this.refs.loading.hide();
         this.openErrorDialog('密码错误')
         return;
       }
+        if(nextProps.cardPayData.code=='300'){
+            nextProps.clear();
+            nextProps.changePending();
+            // this.refs.loading.hide();
+            this.openErrorDialog('参数错误')
+            return;
+        }
       if(nextProps.cardVerifyData){
         const status = nextProps.cardPayData.status;
         const msgId= nextProps.cardPayData.msgId;
