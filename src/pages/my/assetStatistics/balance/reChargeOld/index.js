@@ -37,11 +37,7 @@ class Index extends React.Component {
     goCash=(balance)=>{
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isBindBankcard&&storeData.isRegister){
-            if(storeData.isUploadIdcard){
                 this.money(balance)
-            }else{
-                this.props.push('/user/IdCardUpload');
-            }
         }else{
             if(storeData.isRegister){
                 this.props.push('/user/setting/cardBind')
