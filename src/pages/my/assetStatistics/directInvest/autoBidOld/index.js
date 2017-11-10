@@ -12,6 +12,7 @@ import Success from '../../../../../components/Dialog/success'
 import Loading from '../../../../../components/pageLoading/index'
 import LoadingDialog from '../../../../../components/Dialog/loading'
 import SelectBox from '../../../../../components/SelectBox/index'
+import SelectBoxOld from '../../../../../components/SelectBox/SelectBoxOld'
 import DurationSelect from '../../../../../components/durationSelectBox/index'
 import Arrow from '../../../../../assets/images/arrow2.png'
 import Util from '../../../../../utils/utils';
@@ -62,7 +63,7 @@ class Index extends React.Component {
             ){
                 this.setState({
                     open:info.open,
-                    bidType:info.type||1,//默认不限
+                    bidType:info.type||0,//默认不限
                     repaymentType:info.repayment_type||1,//默认不限
                     rate:(Number(info.rate)||10.5)+'%起',
                     maxRate:Number(info.maxRate),
@@ -142,7 +143,7 @@ class Index extends React.Component {
     };
     bidTypeChoose=(type)=>{//设置标类型
         this.setState({
-            bidType:type+1
+            bidType:type
         })
     };
     minus=()=>{//收益率减少
@@ -261,7 +262,23 @@ class Index extends React.Component {
     };
     render() {
         const {pop,info} = this.props;
-        const bidTypes = ['不限','担保标','抵押标'];
+        let typeText='不限'
+        switch (this.state.bidType) {
+            case 0:
+                typeText = "不限"
+                break;
+            case 1:
+                typeText = "信用标"
+                break;
+            case 2:
+                typeText = "担保标"
+                break;
+            case 5:
+                typeText = '抵押标'
+                break;
+            default:
+                typeText = '不限'
+        }
         const repaymentTypes = ['不限','每月还息到期还本','每月等额还本息'];
         if(!info){
             return  <Loading/>
@@ -326,7 +343,7 @@ class Index extends React.Component {
                             </li>
                             <li onClick={()=>{this.chooseBidType()}}>
                                 标类型
-                                <span>{bidTypes[this.state.bidType-1]} <img src={Arrow} alt=""/></span>
+                                <span>{typeText} <img src={Arrow} alt=""/></span>
                             </li>
                         </ul>
                     </div>
@@ -337,22 +354,31 @@ class Index extends React.Component {
                 <DurationSelect ref="durationSelect" from={this.state.start} to={this.state.end} callBackFun={this.durationChoose} items={
                 [1,3,6,12,24]
                 }/>
-                <SelectBox ref="bidType" callBackFun={this.bidTypeChoose} items={[
-                {
-                    text:'不限',
-                    color:this.state.bidType==1?'#00a6e2':"#000",
-                    canClick:true
-                },
-                {
-                    text:'担保标',
-                    color:this.state.bidType==2?'#00a6e2':"#000",
-                    canClick:true
-                },
-                {
-                    text:'抵押标',
-                    color:this.state.bidType==3?'#00a6e2':"#000",
-                    canClick:true
-                }
+                <SelectBoxOld ref="bidType" callBackFun={this.bidTypeChoose} items={[
+                    {
+                        text: '不限',
+                        color: this.state.bidType == 0 ? '#00a6e2' : "#000",
+                        canClick: true,
+                        type:0
+                    },
+                    {
+                        text: '信用标',
+                        color: this.state.bidType == 1 ? '#00a6e2' : "#000",
+                        canClick: true,
+                        type:1
+                    },
+                    {
+                        text: '担保标',
+                        color: this.state.bidType == 2 ? '#00a6e2' : "#000",
+                        canClick: true,
+                        type:2
+                    },
+                    {
+                        text: '抵押标',
+                        color: this.state.bidType == 5 ? '#00a6e2' : "#000",
+                        canClick: true,
+                        type:5
+                    }
                 ]}/>
                 <SelectBox ref="repaymentType" callBackFun={this.repaymentTypeChoose} items={[
                 {

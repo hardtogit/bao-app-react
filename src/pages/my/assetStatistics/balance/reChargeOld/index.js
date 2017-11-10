@@ -66,11 +66,12 @@ class Index extends React.Component {
             const {submite}=this.state;
             const money = this.state.recMoney;
             const type = 2;
+            const access_sys='platform'
             if (submite && cookie.code == 100) {
                 this.setState({
                     submite: false,
                     payTop: '0px',
-                    url: util.combineUrl(`${hostName}/mobile_api/pay`, {money, type})
+                    url: util.combineUrl(`${hostName}/mobile_api/pay`, {money, type ,access_sys})
                 });
             } else if (submite) {
                 this.setState({

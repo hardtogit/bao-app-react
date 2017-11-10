@@ -76,7 +76,7 @@ class FinancialIndex extends Component{
             height:{height:Height+'px'}
         })
         if (depositbs==null){
-            getListB()
+            this.props.getListB()
         }else {
             const {title,rate}=this.getMessage(depositbs.list);
             this.setState({

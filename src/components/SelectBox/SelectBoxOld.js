@@ -1,3 +1,9 @@
+/**
+ * Created by xiangguo .
+ * time:2017/11/10 0010.
+ * email:413401168@qq.com.
+ * use:auto...
+ */
 import React from 'react'
 import Boron from '../../customized_node_modules/boron'
 import style from './index.less';
@@ -24,8 +30,8 @@ export default class SelectBox extends React.PureComponent {
             height: '100%'
         }
     };
-    choose=(item)=>{
-        if(this.props.items[item].canClick){
+    choose=(i,item)=>{
+        if(this.props.items[i].canClick){
             this.props.callBackFun(item);
             this.hide();
         }
@@ -44,7 +50,7 @@ export default class SelectBox extends React.PureComponent {
                 <ul className={style.select}>
                     {
                         this.props.items.map((item,i)=>{
-                           return <li style={{"color":item.color}} onClick={()=>{this.choose(i)}} key={i}>{item.text}</li>
+                            return <li style={{"color":item.color}} onClick={()=>{this.choose(i, item.type)}} key={i}>{item.text}</li>
                         })
                     }
                 </ul>

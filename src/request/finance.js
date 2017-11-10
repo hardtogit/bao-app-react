@@ -66,9 +66,9 @@ const requests = (Fetch) => {
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
   Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}
-  Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}`,'GET')}
-  Fetch.depositbsAccountCapitalInfo=()=>{return Fetch('api/depositbs/accountCapitalInfo','GET')}
-  Fetch.depositbsAccountCapitalList=(page,type)=>{return Fetch(`api/depositbs/accountCapitalList/${type}/${page}`,'GET')}
+  Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}?access_sys=platform`,'GET')}
+  Fetch.depositbsAccountCapitalInfo=()=>{return Fetch('api/depositbs/accountCapitalInfo?access_sys=platform','GET')}
+  Fetch.depositbsAccountCapitalList=(page,type)=>{return Fetch(`api/depositbs/accountCapitalList/${type}/${page}?access_sys=platform`,'GET')}
   Fetch.depositbsBuy=(productId,num,couponId,password,type)=>{return Fetch(`api/depositbs/buy?productId=${productId}&num=${num}&couponId=${couponId}&password=${password}&type=${type}&access_sys=platform`,'GET')}
   Fetch.depositbsBuyResult=(id)=>{return Fetch(`api/depositbs/buyResult/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsContract=(id)=>{return Fetch(`api/depositbs/contract/${id}`,'GET')}

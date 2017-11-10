@@ -41,7 +41,7 @@ const requests = (Fetch) => {
   // 安全卡
   Fetch.securityCard = (data) => { return Fetch('user/security-card-info', 'GET',data) }
   // 余额提现
-  Fetch.cash = (data) => {  return Fetch('balance/cash', 'POST', data) }
+  Fetch.cash = (data) => {  return Fetch('balance/cash?access_sys=platform', 'POST', data) }
   // 是否有提现正在处理中
   Fetch.hasCash = () => { return Fetch('balance/has-cash', 'GET')}
   // 直投转让
