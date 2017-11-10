@@ -19,6 +19,9 @@ class FinancialIndex extends Component{
         super(props)
         this.state={
             isInvest:true,
+            depositbs:true,
+            title:'',
+            rate:'',
             flage:false,
             isAuth:0,
             show:{display:'block'},
@@ -67,10 +70,21 @@ class FinancialIndex extends Component{
         this.props.getActivity();
         this.props.getGatherData();
         const Height=this.getHeight();
+        const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
         this.equipment();
         this.setState({
             height:{height:Height+'px'}
         })
+        if (depositbs==null){
+            getListB()
+        }else {
+            const {title,rate}=this.getMessage(depositbs.list);
+            this.setState({
+                depositbs:true,
+                title,
+                rate
+            })
+        }
         const {
             location:{
                 query:{
@@ -125,6 +139,13 @@ class FinancialIndex extends Component{
            })
         }
     };
+    getMessage=(depositbs)=>{
+        for (let i=0;i<depositbs.length;i++){
+            if (depositbs[i].month=='3'){
+                return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
+            }
+        }
+    }
     getGatherMessage=(gatherData)=>{
         for (let i=0;i<gatherData.length;i++){
             if (gatherData[i].month=='6'){
@@ -151,11 +172,16 @@ class FinancialIndex extends Component{
     }
     oldList=()=>{
         const {gatherTitle,gatherRate}=this.state;
+        const {rate,title}=this.state;
         const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
-        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(1,1);this.props.push('/home/productIndex')},50,2);
+        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
+        const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,2);this.props.push('/home/productIndex')},50,2);
         return(<ul className={style.productUl}>
             {
                 Gather
+            }
+            {
+                Depot1
             }
             {
                 Depot2
@@ -164,7 +190,9 @@ class FinancialIndex extends Component{
     }
     newList=(auth)=>{
         const {gatherTitle,gatherRate}=this.state;
+        const {rate,title}=this.state;
         const {activity}=this.props;
+        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
         const newDep=this.newDep();
         const isAuth=auth;
@@ -181,11 +209,16 @@ class FinancialIndex extends Component{
                 newDep
             }{
             Gather
-        }
+            }
+            {
+             Depot1
+            }
         </ul>)
     }
     noLogin=()=>{
         const {gatherTitle,gatherRate}=this.state;
+        const {rate,title}=this.state;
+        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
         const newDep=this.newDep();
         const noImg=this.newImg();
@@ -198,6 +231,9 @@ class FinancialIndex extends Component{
             }{
             Gather
         }
+            {
+                Depot1
+            }
         </ul>)
     }
     showList=()=>{
@@ -468,6 +504,7 @@ class FinancialIndex extends Component{
 const  financialIndexInit=(state,own)=>({
     pending:state.infodata.getIn(['BANNER_LIST','pending']),
     banner:state.infodata.getIn(['BANNER_LIST','data']),
+    depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
     gatherData:state.listdata.getIn(['DEPOSITS_GATHER_INDEX','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
     activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])

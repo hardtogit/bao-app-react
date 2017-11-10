@@ -31,12 +31,16 @@ class Index extends React.Component {
         })
     };
     choose=(flag)=>{
+        this.refs.scroll.setState({
+            init:true
+        })
         this.setState({
             flag:flag,
             filterShow:false
         });
         this.props.clearData();
         // return;
+
         this.props.getList(flag);
     };
     ScrollDom=()=>{
@@ -47,7 +51,7 @@ class Index extends React.Component {
             end,
         }=this.props;
         return(<div className={styles.contentList} style={{height:Height}}>
-            <Scroll height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
+            <Scroll ref='scroll' height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
                     isLoading={pending} distance={5} endType={end}  nullDom={<img className={styles.errorImg} src={errorImg} />}>
                 {
                     listData&&listData.map((item,i)=>{
@@ -114,7 +118,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     clearData(){
         dispatch({
-            type:'CLEAR_DATA_ALL',
+            type:'CLEAR_DATA',
             key:'FETCH_MONEY_LOG'
         })
     }

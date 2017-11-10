@@ -178,11 +178,11 @@ const dispatch=(dispatch)=>({
     goBuy(){
         dispatch({
             type:'HOME_TAB_CAV',
-            index:1
+            index:3
         })
         dispatch({
             type:'PRODUCT_INDEX',
-            index:2
+            index:3
         })
     },
     push(url){

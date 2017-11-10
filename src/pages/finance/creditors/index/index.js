@@ -92,7 +92,7 @@ class CreditorCell extends React.Component{
       onClick,
     } = this.props
     return(
-        <div className={styles.cell} style={{width:this.props.screenW}}>
+        <div className={styles.cell} style={{width:this.props.screenW,marginBottom:'8px'}}>
             <Store ref="store"></Store>
           <div onClick={this.clickYz}>
             <div className={styles.cellHead}>

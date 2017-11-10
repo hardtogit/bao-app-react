@@ -192,11 +192,11 @@ const dispatchFn=(dispatch,own)=>({
 	 goBuy(){
 	 	dispatch({
 	 		type:'HOME_TAB_CAV',
-			index:1
+			index:2
 		})
 		 dispatch({
 		 	type:'PRODUCT_INDEX',
-			 index:1
+			 index:2
 		 })
 	 },
 	push(url){

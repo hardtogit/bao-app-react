@@ -31,6 +31,9 @@ class Index extends React.Component {
         })
     };
     choose=(flag)=>{
+        this.refs.scroll.setState({
+            init:true
+        })
         this.setState({
             flag:flag,
             filterShow:false
@@ -46,7 +49,7 @@ class Index extends React.Component {
             end,
         }=this.props;
         return(<div className={styles.contentList} style={{height:Height}}>
-            <Scroll height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
+            <Scroll ref="scroll" height={Height} fetch={()=>{this.props.getList(this.state.flag)}}
                     isLoading={pending} distance={5} endType={end}  nullDom={<img className={styles.errorImg} src={errorImg} />}>
                 {
                     listData&&listData.map((item,i)=>{

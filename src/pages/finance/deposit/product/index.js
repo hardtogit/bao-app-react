@@ -57,6 +57,7 @@ class ProductDetail extends React.Component {
       if (type=='B'){
           data=datasB
       }
+      console.log(data)
       const {
           startTime,
           endTime

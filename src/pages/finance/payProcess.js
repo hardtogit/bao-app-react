@@ -23,7 +23,7 @@ class PayProcess extends React.Component {
       bankCard:''
     }  
 
-    this.options = ['账户余额', '连连支付']
+    this.options = ['存管余额', '连连支付']
   }
 
   static propTypes = {

@@ -12,7 +12,7 @@ import Mydcb from '../../../../../components/mydcb'
 	}
 	buyDom=()=>{
 		const {listData}=this.props
-		return(<div onClick={()=>{this.props.push('/home/productIndex')}}>
+		return(<div onClick={()=>{this.props.goBuy();   this.props.push('/home/productIndex')}}>
 			<div className={styles.gobuy}>{listData.size==0?'立即购买':'再次购买'}</div>
 		</div>)
 	}
@@ -84,6 +84,16 @@ const myDepositSummaryInitfn=(dispath,own)=>({
         dispath({
             type:'CLEAR_DATA',
             key:'DEPOSIT_RECORD'
+        })
+    },
+    goBuy(){
+        dispath({
+            type:'HOME_TAB_CAV',
+            index:1
+        })
+        dispath({
+            type:'PRODUCT_INDEX',
+            index:1
         })
     },
 	push(url){

@@ -66,8 +66,6 @@ export default (state = defaultState, action) => {
       break;
     case actionTypes.CLEAR_DATA:
           return state.set(action.key,defaultDataSchema)
-    case actionTypes.CLEAR_DATA_ALL:
-          return state.set(action.key,defaultDataSchema).setIn([action.key,'pending'],true).setIn([action.key,'pageEnd'],true)
     case actionTypes.CLEAR_ID:
          const Id=state.getIn([action.key,'idData'])
          if(Id){
