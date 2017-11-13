@@ -11,6 +11,7 @@ import Loading from '../../../../components/pageLoading'
 import styles  from './index.styl'
 import commonStyles from '../../../../css/common.styl'
 import Alert from '../../../../components/Dialog/alert'
+import Store from '../../../../components/Dialog/store'
 import {Link} from 'react-router'
 import {push, goBack,replace} from 'react-router-redux'
 import Success from '../../../../components/Dialog/success'
@@ -44,6 +45,10 @@ class Setting extends React.Component {
 			isSetTradePassword,
 			isSetGesturePassword
 		}=datas.data;
+		const{
+			push
+		}=this.props
+		const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
 		return(
 			<div>
 				<div className={commonStyles.panelContent}>
@@ -62,15 +67,32 @@ class Setting extends React.Component {
 
 					</div>
 					<div className={styles.listw}>
-						<Link to='/user/setting/myBankCard'>
+						<Link >
 							<BaseText
-								onClick={()=>{}}
+								onClick={
+                                    ()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+                                    {push('/user/setting/myBankCard')}else{
+                                        if(storeData.isRegister){
+                                            push('/user/setting/cardBind')
+                                        }else{
+                                            this.refs.store.show()
+                                        }
+                                    }
+								}}
 								label='银行卡'
 								borderType='two' />
 						</Link>
-						<Link to='/user/setting/securityCard'>
+						<Link >
 							<BaseText
-								onClick={()=>{}}
+								onClick={  ()=>{if(storeData.isRegister&&storeData.isBindBankcard)
+                                {push('/user/setting/securityCard')}else{
+                                    if(storeData.isRegister){
+                                        push('/user/setting/cardBind')
+                                    }else{
+                                        this.refs.store.show()
+                                    }
+                                }
+                                }}
 								label='安全卡'
 								borderType='four' />
 						</Link>
@@ -162,6 +184,7 @@ class Setting extends React.Component {
 						Dom
 					}
 					<Success ref="success" />
+					<Store ref="store"> </Store>
 				</div>
 			</Page>
 		)

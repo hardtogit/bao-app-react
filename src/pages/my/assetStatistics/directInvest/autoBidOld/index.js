@@ -66,8 +66,8 @@ class Index extends React.Component {
                     bidType:info.type||0,//默认不限
                     repaymentType:info.repayment_type||1,//默认不限
                     rate:(Number(info.rate)||10.5)+'%起',
-                    maxRate:Number(info.maxRate),
-                    minRate:Number(info.minRate),
+                    maxRate:15,
+                    minRate:0,
                     rateInputStatus:false,//年化利率是否正在输入
                     count:info.count||1,//投标次数
                     balance:info.balance||1,//单次投标份数
@@ -102,8 +102,14 @@ class Index extends React.Component {
 
     };
     showSuccess=()=>{
+        let text='';
+        if(this.props.info.open){
+            text=this.state.open&&"已保存"||"已关闭"
+        }else{
+            text=this.state.open&&"已开启"||"已关闭"
+        }
         this.refs.success.show({
-            text: '设置成功',
+            text: text,
             callback: () => {
                 this.props.push('/home/myIndex');
                 this.props.getInfo();
@@ -123,9 +129,9 @@ class Index extends React.Component {
        }
     };
     toggle=(flag,id)=>{//开关自动投标
-        if (!flag){
-           this.sure(0)
-        }
+        // if (!flag){
+        //    this.sure(0)
+        // }
         this.setState({
             open:flag
         })
@@ -294,9 +300,10 @@ class Index extends React.Component {
                 <Box className={classnames(this.state.error&&style.box_error||style.top)}>
                     <div className={style.open}>
                         开启自动投标功能
+                        {this.state.open&&<div style={{float:"right",marginLeft:'6px'}}>开启</div>|| <div style={{float:"right",marginLeft:'6px'}}>关闭</div>}
                         <Switch className={style.switch} status={this.state.open} callBackFun={this.toggle}/>
                     </div>
-                    <div className={classnames(style.content,this.state.open?'show':'hide')}>
+                    <div className={classnames(style.content)}>
                         <ul className={style.times}>
                             <li>
                                 <span className={style.title}>投标次数</span>
@@ -335,7 +342,7 @@ class Index extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <p className={style.rest_money}>约定年化收益率过高将有可能无法成交；当前系统参考约定年化收益率为{Util.padMoney(info.minRate)}%</p>
+                        <p className={style.rest_money}>约定年化收益率过高将有可能无法成交，系统默认最高预定年华收益为15%</p>
                         <ul className={style.types}>
                             <li  onClick={()=>{this.repaymentType()}}>
                                 还款方式
@@ -348,8 +355,11 @@ class Index extends React.Component {
                         </ul>
                     </div>
                 </Box>
-                <button onClick={()=>{this.sure(1)}}  disabled={!this.state.buttonClickStatus}
-                        className={classnames(style.sure,this.state.open?'show':'hide')}>确认开启</button>
+                <button onClick={()=>{
+                    let id=this.state.open?1:0;
+                    this.sure(id)
+                }}  disabled={!this.state.buttonClickStatus}
+                        className={classnames(style.sure)}>保存设置</button>
                 <Confirm ref="confirm"/>
                 <DurationSelect ref="durationSelect" from={this.state.start} to={this.state.end} callBackFun={this.durationChoose} items={
                 [1,3,6,12,24]

@@ -201,7 +201,7 @@ const mapDispatchToProps = (dispatch) => ({
         type:'NEW_TRANSACTION_CODE',
         params:[{
           telNo:mobile,
-          transcode:46708,
+          transcode:46709,
           device:'WAP'
         }]
       })
