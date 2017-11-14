@@ -12,6 +12,7 @@ import CusDialog from '../../../../components/Dialog/alert.js'
 import type_hongwu from '../../../../assets/images/type_hongwu.png'
 import type_xinyong from '../../../../assets/images/type_xinyong.png'
 import type_danbao from '../../../../assets/images/type_danbao.png'
+import wrap from '../../../../utils/pageWrapper'
 import type_diya from '../../../../assets/images/type_diya.png'
 import Store from '../../../../components/Dialog/store'
 import Scroll from '../../../../components/scroll/index.js'
@@ -258,7 +259,7 @@ class CreditorList extends React.Component{
                 {is_login && sessionUser ?
                   null
                    :
-                  <TopGuide goRegist={() => this.props.push('/regist/')}></TopGuide>
+                  <TopGuide goRegist={() => this.props.push('/register')}></TopGuide>
                 }
                 <div className={styles.list}>
                     {Dom}
@@ -310,4 +311,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         })
     }
 })
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(CreditorList))
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(wrap(CreditorList)))
