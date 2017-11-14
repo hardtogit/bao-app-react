@@ -5,7 +5,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import cn from 'classnames'
 import BaseText from '../../../../components/BaseText'
-import Page from '../../../../components/Page'
 import NavBar from '../../../../components/NavBar/index'
 import Loading from '../../../../components/pageLoading'
 import styles  from './index.styl'
@@ -50,8 +49,8 @@ class Setting extends React.Component {
 		}=this.props
 		const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
 		return(
-			<div>
-				<div className={commonStyles.panelContent}>
+			<div style={{height:'100%'}}>
+				<div style={{height:'100%'}} className={commonStyles.panelContent}>
 					<div style={{marginTop: 15}}>
 						<BaseText className={styles.avatarWrap}
 								  label='头像'
@@ -66,7 +65,7 @@ class Setting extends React.Component {
 							right={false} />
 
 					</div>
-					<div className={styles.listw}>
+					<div className={styles.listw} style={{height:'430px'}}>
 						<Link >
 							<BaseText
 								onClick={
@@ -122,14 +121,15 @@ class Setting extends React.Component {
 								borderType='four' />
 						</Link>
 						<Link to='/user/setting/about'>
-							<BaseText
-								onClick={()=>{}}
-								label='关于宝点理财'
-								content={'V4.0.0'}
-								borderType='three' />
-						</Link>
+						<BaseText
+							onClick={()=>{}}
+							label='关于宝点理财'
+							content={'V4.0.0'}
+							borderType='three' />
+					    </Link>
+						<a className={styles.logoutBtn} onClick={this.props.logout}>安全退出</a>
 					</div>
-					<a className={styles.logoutBtn} onClick={this.props.logout}>安全退出</a>
+
 				</div>
 				<Alert ref="alert"/>
 			</div>
@@ -177,7 +177,6 @@ class Setting extends React.Component {
 			Dom=this.loadDom()
 		}
 		return (
-			<Page>
 				<div className={cn(commonStyles.panel, styles.bg)}>
 					<NavBar onLeft={pop}>设置</NavBar>
 					{
@@ -186,7 +185,6 @@ class Setting extends React.Component {
 					<Success ref="success" />
 					<Store ref="store"> </Store>
 				</div>
-			</Page>
 		)
 	}
 }

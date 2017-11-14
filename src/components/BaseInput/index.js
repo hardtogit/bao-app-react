@@ -50,6 +50,7 @@ class BaseInput extends React.Component {
     containerStyle: PropTypes.object,
     wrapStyle: PropTypes.object,
     leftTextStyle: PropTypes.object,
+    inputStyle:PropTypes.object,
     icon:PropTypes.element
   }
 
@@ -164,8 +165,7 @@ class BaseInput extends React.Component {
     const props = this.props
     return (
       <div className={cn([
-        styles.container, props.borderType && styles[props.borderType],
-        this.props.className])}
+        styles.container, props.borderType && styles[props.borderType],styles[this.props.className]])}
         style={this.props.containerStyle}>
         <div className={styles.wrap} style={this.props.wrapStyle}>
             {
@@ -176,6 +176,7 @@ class BaseInput extends React.Component {
             <input
               ref='textInput'
               className={styles.centerInput}
+              style={this.props.inputStyle}
               placeholder={ props.placeholder }
               value={this.state.value}
               id={props.id}

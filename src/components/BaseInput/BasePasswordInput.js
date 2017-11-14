@@ -33,6 +33,7 @@ class BasePasswordInput extends React.Component {
     placeholder: PropTypes.string,
     noleftPadding: PropTypes.bool,     // 是否有左边内边距
     containerStyle: PropTypes.object,
+    inputStyle:PropTypes.object,
     leftTextStyle: PropTypes.object,
      icon:PropTypes.element,
       imgSty:PropTypes.object
@@ -151,7 +152,7 @@ class BasePasswordInput extends React.Component {
     return (
       <div className={cn([
         styles.container, props.borderType && styles[props.borderType], 
-        this.props.className])}
+        styles[this.props.className]])}
         style={this.props.containerStyle}>
         <div className={styles.wrap}>
             {
@@ -163,6 +164,7 @@ class BasePasswordInput extends React.Component {
               ref='textInput'
               type={this.state.status ? 'password' : 'text'}
               className={styles.centerInput}
+              style={this.props.inputStyle}
               placeholder={ props.placeholder }
               value={this.state.value}
               onChange={(e) => { this.onChange(e, props.onChange) } }

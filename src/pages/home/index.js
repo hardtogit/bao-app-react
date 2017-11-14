@@ -112,7 +112,7 @@ class FinancialIndex extends Component{
             query:{
                 auth
             }
-        },activity,getActivity,gatherData}=next;
+        },activity,getActivity,gatherData,depositbs}=next;
         if (auth&&activity){
             if (activity.code=='0000'){
                 getActivity();
@@ -128,6 +128,14 @@ class FinancialIndex extends Component{
                     xsId,
                     xsRate
                 })
+        }
+        if(depositbs&&depositbs.code==100){
+            let {title,rate}=this.getMessage(depositbs.data.list);
+            this.setState({
+                depositbs:true,
+                title,
+                rate
+            })
         }
 
     }

@@ -26,7 +26,9 @@ class Login extends React.Component {
             loading: false,
             errorMessage: '',
             backUrl:'',
-            pathname:['/home/myIndex']
+            pathname:['/home/myIndex'],
+            oneColor:'',
+            twoColor:''
         }
     }
     componentWillMount(){
@@ -83,7 +85,28 @@ class Login extends React.Component {
     onInvalid = (name, value, message) => {
         this.openTipbar(message)
     };
-
+    focusHandle(index){
+        if(index==0){
+            this.setState({
+                oneColor:'blue',
+            })
+        }else{
+            this.setState({
+                twoColor:'blue',
+            })
+        }
+    }
+    blurHandle(index){
+        if(index==0){
+            this.setState({
+                oneColor:'',
+            })
+        }else{
+            this.setState({
+                twoColor:'',
+            })
+        }
+    }
     openTipbar(message) {
         this.refs.tipbar.open(message)
     }
@@ -114,7 +137,11 @@ class Login extends React.Component {
                           noleftPadding
                           ref='username'
                           name='username'
+                          className={this.state.oneColor}
+                          inputStyle={{height:'100%',padding:'0'}}
                           label='帐号'
+                          onFocus={()=>{this.focusHandle(0)}}
+                          onBlur={()=>{this.blurHandle(0)}}
                           defaultValue=''
                           placeholder='手机号/邮箱/用户名'
                           type='validateItem'
@@ -124,8 +151,12 @@ class Login extends React.Component {
                           noleftPadding
                           ref='password'
                           name='password'
+                          className={this.state.twoColor}
+                          inputStyle={{height:'100%',padding:'0'}}
                           maxLength={16}
                           label='密码'
+                          onFocus={()=>{this.focusHandle(1)}}
+                          onBlur={()=>{this.blurHandle(1)}}
                           placeholder='请输入密码'
                           type='validateItem'
                           reg={{ reg: {reg: util.checkPassword, message: '请输入正确密码'}}}
