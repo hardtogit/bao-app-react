@@ -74,7 +74,7 @@ const requests = (Fetch) => {
   // 我的债权转让概要
   Fetch.myCreditorSummary = () => { return Fetch('creditors/detail', 'GET') }
   // 我的债权转让概要
-  Fetch.myDepositSummary = () => { return Fetch('deposit/account-detail', 'GET') }
+  Fetch.myDepositSummary = () => { return Fetch('deposit/account-detail?access_sys=platform', 'GET') }
   // 我的理财金概要
   Fetch.privilegeSummary = () => { return Fetch('privilege/detail', 'GET') }
   // 我的直投概要
@@ -92,7 +92,7 @@ const requests = (Fetch) => {
   // 债权转让记录
   Fetch.creditorsRecords = (page,type) => { return Fetch(`creditors/records?page=${page}&type=${type}`, 'GET') }
   // 定存记录
-  Fetch.depositRecords = (page, type) => { return Fetch(`deposit/record?page=${page}&type=${type}`, 'GET') }
+  Fetch.depositRecords = (page, type) => { return Fetch(`deposit/record?page=${page}&type=${type}&access_sys=platform`, 'GET') }
   // 直投记录
   Fetch.directInvestRecords = (page,type) => { return Fetch(`directInvest/records?type=${type}&page=${page}`, 'GET') }
   // 理财金记录
