@@ -32,17 +32,26 @@ class CreditorCell extends React.Component{
       }=this.props.data
       const{push}=this.props
       let storeData=JSON.parse(sessionStorage.getItem('bao-store'))
-      if(storeData.isRegister&&storeData.isBindBankcard){
-          if(flag){
+      if(flag){
+          if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
               this.props.isAuth.Verification(`/creditorBuyOld/${id}`,this.props.isAuthPush,this.succsseFn);
+              return;
           }else{
-              this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+              if(storeData.isRegister){
+                  push('/user/setting/cardBind')
+              }else{
+                  this.refs.store.show()
+              }
           }
       }else{
-          if(storeData.isRegister){
-              push('/user/setting/cardBind')
+          if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+              this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
           }else{
-              this.refs.store.show()
+              if(storeData.isRegister){
+                  push('/user/setting/cardBind')
+              }else{
+                  this.refs.store.show()
+              }
           }
       }
   }

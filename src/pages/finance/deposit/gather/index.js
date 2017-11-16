@@ -355,7 +355,7 @@ const mapStateToProps = (state,ownProps) => {
     const verifyAssign=state.infodata.getIn([actionTypes.VERIFY_ASSIGN,'data']);
     const user=sessionStorage.getItem("bao-auth");
     const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
-    let ListHeight= user? document.body.clientHeight-100 : document.body.clientHeight-88-78;
+    let ListHeight= user? document.body.clientHeight-88 : document.body.clientHeight-88-78;
     //去除一个月的新手标
     let data=state.listdata.getIn([key, 'data']);
     let copyData=[];

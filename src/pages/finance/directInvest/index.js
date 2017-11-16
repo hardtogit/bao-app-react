@@ -73,20 +73,29 @@ class DirectInvestCell extends React.Component{
         }=this.props.data;
         const{push}=this.props
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-            if(flag){
+        if(flag){
+            if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
                 this.props.isAuth.Verification(`/directBuyOld/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+                return;
             }else{
-                this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+                if(storeData.isRegister){
+                    push('/user/setting/cardBind')
+                }else{
+                    this.refs.store.show()
+                }
             }
-
         }else{
-            if(storeData.isRegister){
-                push('/user/setting/cardBind')
+            if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+                 this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
             }else{
-                this.refs.store.show()
+                if(storeData.isRegister){
+                    push('/user/setting/cardBind')
+                }else{
+                    this.refs.store.show()
+                }
             }
         }
+
 
     }
     yz=(success,flag)=>{
@@ -435,7 +444,7 @@ const mapStateToProps = (state,ownProps) => {
     const user = (userData.code == 100) ? userData.data : {}
     const is_login = (userData.code == 100) ? true : false
     const sessionUser=sessionStorage.getItem("bao-auth");
-    let ListHeight= is_login && sessionUser? document.body.clientHeight-100 : document.body.clientHeight-88-78
+    let ListHeight= is_login && sessionUser? document.body.clientHeight-88 : document.body.clientHeight-88-78
     if (is_login && sessionUser) {
       if (user) {
         if ((user.voucher && user.voucher>0) || user.interestRateSecurities && user.interestRateSecurities>0) {

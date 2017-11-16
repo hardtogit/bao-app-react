@@ -325,21 +325,30 @@ class Index extends Component{
     }
     purchase=(id,push)=>{
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData.isRegister&&storeData.isBindBankcard){
-            const {term}=this.props.infoData.data
-            if(this.props.location.query.access_sys){
+        const {term}=this.props.infoData.data
+        if(this.props.location.query.access_sys){
+            if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
                 this.refs.isAuth.Verification(`/directBuyOld/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+                return;
             }else{
-                this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+                if(storeData.isRegister){
+                    push('/user/setting/cardBind')
+                }else{
+                    this.refs.store.show()
+                }
             }
-
         }else{
-            if(storeData.isRegister){
-                push('/user/setting/cardBind')
+            if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+                this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
             }else{
-                this.refs.store.show()
+                if(storeData.isRegister){
+                    push('/user/setting/cardBind')
+                }else{
+                    this.refs.store.show()
+                }
             }
         }
+
     }
     succsseFn=(url)=>{
         setUrl.setUrl(url)

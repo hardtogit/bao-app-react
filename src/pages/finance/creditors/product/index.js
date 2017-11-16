@@ -118,6 +118,7 @@ class CreditorDetails extends React.Component{
   }
   toBuy=()=>{
       const bao=JSON.parse(sessionStorage.getItem("bao-user"));
+      let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
       const {
         push,
           params: {
@@ -126,9 +127,27 @@ class CreditorDetails extends React.Component{
       }=this.props;
       if (bao.isAuth!=3){
           if(this.props.location.query.access_sys){
-              this.refs.isAuth.Verification(`/creditorBuyOld/${id}`,push,this.succsseFn,this.props.location.pathname)
+              if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
+                  this.refs.isAuth.Verification(`/creditorBuyOld/${id}`,push,this.succsseFn,this.props.location.pathname)
+                  return;
+              }else{
+                  if(storeData.isRegister){
+                      push('/user/setting/cardBind')
+                  }else{
+                      this.refs.store.show()
+                  }
+              }
           }else{
-              this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+              if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+                  this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+              }else{
+                  if(storeData.isRegister){
+                      push('/user/setting/cardBind')
+                  }else{
+                      this.refs.store.show()
+                  }
+              }
+
           }
       }else {
           const is_login = true;
@@ -145,9 +164,27 @@ class CreditorDetails extends React.Component{
               }else{
                   //推送到购买页面
                   if(this.props.location.query.access_sys){
-                      push(`/creditorBuyOld/${id}`);
+                      if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
+                          push(`/creditorBuyOld/${id}`);
+                          return;
+                      }else{
+                          if(storeData.isRegister){
+                              push('/user/setting/cardBind')
+                          }else{
+                              this.refs.store.show()
+                          }
+                      }
                   }else{
-                      push(`/creditorBuy/${id}`);
+                      if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+                          push(`/creditorBuy/${id}`);
+                      }else{
+                          if(storeData.isRegister){
+                              push('/user/setting/cardBind')
+                          }else{
+                              this.refs.store.show()
+                          }
+                      }
+
                   }
                   this.succsseFn(this.props.location.pathname)
               }

@@ -154,7 +154,8 @@ class Index extends React.Component {
             tipbar=this.refs.tipbar;
         if (!reg.test(val)){
             tipbar.open('请输入正确的格式!');
-
+        }else if(val<50){
+            tipbar.open('金额必须大于50')
         }else if(val>200000){
             tipbar.open('单笔金额不能大于20万')
         }
@@ -203,14 +204,17 @@ class Index extends React.Component {
                        </div>
                        <div className={styles.withdrawalsInfo}>
                            <span>提现金额（元）</span>
-                           <span className={styles.withdrawalsText}>单笔最高20万</span>
+                           <span className={styles.withdrawalsText}>提现金额不得低于50元</span>
                        </div>
                        <div className={styles.withdrawalsInput}>
                            <span>￥</span>
                            <input placeholder="请输入提现金额!" type="text" value={val} onChange={this.change} onBlur={this.blur}/>
                        </div>
                        <div className={styles.withdrawalsJe}>
-                           当前金额￥{money} <span style={{float:'right'}}>{chargeDom}</span>
+                           当前金额￥{money}
+                       </div>
+                       <div className={styles.withdrawalsJe}>
+                           额外扣除0.00元手续费
                        </div>
                    </div>
                    <div className={styles.time}>

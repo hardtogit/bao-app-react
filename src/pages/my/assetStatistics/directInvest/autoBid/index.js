@@ -83,7 +83,7 @@ class Index extends React.Component {
         }
         if (setInfo && newInfo) {
             newInfo = false;
-            if (this.state.count * this.state.balance * 50 > this.state.resetMoney) {//余额不满足自动投标
+            if (this.state.count * this.state.balance * 50 > this.state.resetMoney&&this.state.open) {//余额不满足自动投标
                 this.refs.confirm.show({
                     title: '自动投标设置成功',
                     content: '您的余额不能覆盖自动投标总额,自动投标有可能失败,请充值。',

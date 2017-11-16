@@ -100,7 +100,7 @@ const requests = (Fetch) => {
   // 自动投标
   Fetch.autoBid = (...data) => {
     if(data[8]){
-        return Fetch('directInvest/auto-bid', 'POST', {
+        return Fetch('directInvest/auto-bid?access_sys=platform', 'POST', {
             count:data[0],
             balance:data[1],
             start_term:data[2],
