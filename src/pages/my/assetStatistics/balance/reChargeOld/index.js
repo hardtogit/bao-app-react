@@ -6,7 +6,7 @@ import fivestar from '../../../../../assets/images/my-index/balance.png' //圆�
 import Loading from '../../../../../components/pageLoading/'
 import Store from '../../../../../components/Dialog/store'
 import {Link} from 'react-router'
-import {push,goBack} from 'react-router-redux'
+import {push, goBack} from 'react-router-redux'
 //import wrap from '../../../../../utils/pageWrapper'
 import classNames from 'classnames'
 import Tipbar from '../../../../../components/Tipbar/index'
@@ -14,7 +14,9 @@ import Alert from '../../../../../components/Dialog/alert'
 import IsAuth from '../../../../../components/isAuth'
 import Pay from '../../../../../pages/finance/pay/index'
 import util from '../../../../../utils/utils'
+
 const hostName = window.location.origin;
+
 class Index extends React.Component {
     constructor(props) {
         super(props)
@@ -27,26 +29,33 @@ class Index extends React.Component {
             url: ''
         }
     }
-    componentWillMount(){
+
+    componentWillMount() {
         this.props.update()
     }
+
     componentDidMount() {
         window['closeFn'] = this.closeFn;
         this.props.load();
     }
-    goCash=(balance)=>{
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData.isBindBankcard&&storeData.isRegister){
-                this.money(balance)
-        }else{
-            if(storeData.isRegister){
+
+    goCash = (balance) => {
+        let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
+        if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
+            this.money(balance)
+            return;
+        }
+        if (storeData.isBindBankcard && storeData.isRegister) {
+            this.money(balance)
+        } else {
+            if (storeData.isRegister) {
                 this.props.push('/user/setting/cardBind')
-            }else{
+            } else {
                 this.refs.tip.show();
             }
         }
     }
-    closeFn = ()=> {
+    closeFn = () => {
         this.setState({payTop: '100%', url: ''})
     }
 
@@ -57,17 +66,17 @@ class Index extends React.Component {
     componentWillReceiveProps(next) {
         const {
             cookie,
-            }=next;
+        } = next;
         if (cookie) {
-            const {submite}=this.state;
+            const {submite} = this.state;
             const money = this.state.recMoney;
             const type = 2;
-            const access_sys='platform'
+            const access_sys = 'platform'
             if (submite && cookie.code == 100) {
                 this.setState({
                     submite: false,
                     payTop: '0px',
-                    url: util.combineUrl(`${hostName}/mobile_api/pay`, {money, type ,access_sys})
+                    url: util.combineUrl(`${hostName}/mobile_api/pay`, {money, type, access_sys})
                 });
             } else if (submite) {
                 this.setState({
@@ -78,7 +87,7 @@ class Index extends React.Component {
         }
     }
 
-    money = (balance)=> {
+    money = (balance) => {
         //const baoBank = sessionStorage.getItem('bao-bank');
         //if (parseFloat(balance) < 50) {
         //    this.refs.alert.show({
@@ -86,12 +95,12 @@ class Index extends React.Component {
         //        okText: '确定'
         //    })
         //} else {
-            this.props.push('/user/withdrawalsOld')
-            //if (baoBank != null) {
-            //    this.props.push('/user/withdrawals')
-            //} else {
-            //    this.props.push('/user/setting/securityCard')
-            //}
+        this.props.push('/user/withdrawalsOld')
+        //if (baoBank != null) {
+        //    this.props.push('/user/withdrawals')
+        //} else {
+        //    this.props.push('/user/setting/securityCard')
+        //}
         //}
     }
 
@@ -102,32 +111,38 @@ class Index extends React.Component {
     loadEndDom(data) {
         const {
             balance_platform
-            }=data
-        return (<div className={classNames(styles.recharge,styles.Boxing)}>
+        } = data
+        return (<div className={classNames(styles.recharge, styles.Boxing)}>
             <img src={fivestar}/>
             <p>我的余额</p>
             <h1>￥{balance_platform}</h1>
             <div className={styles.btnContent}>
-                <button className={styles.rechargeBtn} onClick={()=>{
-						let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-		if(storeData.isBindBankcard&&storeData.isRegister){
-            this.rechargeFn()
-		}else{
-		    if(storeData.isRegister){
-		         this.props.push('/user/setting/cardBind')
-		    }else{
-		    	this.refs.tip.show();
-		    }
-		}
-						}}>充值
+                <button className={styles.rechargeBtn} onClick={() => {
+                    let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
+                    if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
+                        this.rechargeFn()
+                        return;
+                    }
+                    if (storeData.isBindBankcard && storeData.isRegister) {
+                        this.rechargeFn()
+                    } else {
+                        if (storeData.isRegister) {
+                            this.props.push('/user/setting/cardBind')
+                        } else {
+                            this.refs.tip.show();
+                        }
+                    }
+                }}>充值
                 </button>
-                <button className={styles.depositBtn} onClick={()=>{this.goCash(balance_platform)}}>提现
+                <button className={styles.depositBtn} onClick={() => {
+                    this.goCash(balance_platform)
+                }}>提现
                 </button>
             </div>
         </div>)
     }
 
-    recChange = (e)=> {
+    recChange = (e) => {
         const recMoney = e.target.value,
             reg = /^-?\d*\.?\d*$/;
         this.setState({
@@ -144,7 +159,7 @@ class Index extends React.Component {
             });
         }
     }
-    cancel = (data)=> {
+    cancel = (data) => {
         this.setState(data)
     }
 
@@ -153,24 +168,26 @@ class Index extends React.Component {
             top,
             recMoney,
             disabled
-            }=this.state;
-        return (<div className={styles.rechargeBox} style={{top:top}}>
+        } = this.state;
+        return (<div className={styles.rechargeBox} style={{top: top}}>
             <NavBar leftNode={<span className={styles.rechargeTitle}>取消</span>}
                     style={BanckStyle}
-                    onLeft={()=>{this.cancel({top:'100%'})}}>余额充值</NavBar>
+                    onLeft={() => {
+                        this.cancel({top: '100%'})
+                    }}>余额充值</NavBar>
             <div className={styles.inputBox}>
                 <div className={styles.recInput}>
 				  <span>
                         充值金额
 				  </span>
-				  <span>
+                    <span>
 					  <input placeholder="请输入金额" value={recMoney} onChange={this.recChange}/>
 				  </span>
-				  <span>
+                    <span>
 					  元
 				  </span>
                 </div>
-                <div className={classNames(styles.recInput,styles.recName)}>
+                <div className={classNames(styles.recInput, styles.recName)}>
                     连连支付
                 </div>
                 <button className={styles.buttonNext} disabled={disabled} onClick={this.submit}>
@@ -183,20 +200,24 @@ class Index extends React.Component {
         </div>)
     }
 
-    pay = ()=> {
-        return (<div className={styles.rechargeBox} style={{top:this.state.payTop}}>
+    pay = () => {
+        return (<div className={styles.rechargeBox} style={{top: this.state.payTop}}>
             <Pay url={this.state.url} closeFn={this.closeFn} ref="pay"/>
         </div>)
     }
-    rechargeFn = ()=> {
+    rechargeFn = () => {
         let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
+        if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
+            this.refs.isAuth.isbindSecurityCard(this.hasCard, this.props.push, '/user/setting/securityCard')
+            return;
+        }
         if (storeData.isBindBankcard && storeData.isRegister) {
             this.refs.isAuth.isbindSecurityCard(this.hasCard, this.props.push, '/user/setting/securityCard')
         } else {
             this.refs.tip.show();
         }
     }
-    hasCard = ()=> {
+    hasCard = () => {
         this.setState({
             top: '0px'
         })
@@ -206,13 +227,13 @@ class Index extends React.Component {
         this.refs.tipbar.open(message)
     }
 
-    submit = ()=> {
+    submit = () => {
         this.setState({
             submite: true,
         });
         this.props.submit();
     }
-    pop = ()=> {
+    pop = () => {
         const time = this.refs.pay.getTime();
         if (time != 1) {
             this.props.push('/home/myIndex')
@@ -224,7 +245,7 @@ class Index extends React.Component {
     render() {
         const {
             balance,
-            }=this.props;
+        } = this.props;
         let Dom;
         if (balance) {
             Dom = this.loadEndDom(balance.data)
@@ -248,41 +269,42 @@ class Index extends React.Component {
         )
     }
 }
+
 const BanckStyle = {
     position: 'absolute',
     top: '0px',
     left: '0px'
 };
-const Rechargeinit = (state, own)=>({
+const Rechargeinit = (state, own) => ({
     balance: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
     cookie: state.infodata.getIn(['AUTH_COOKIE', 'data'])
 })
-const Rechargeinitfn = (dispath, own)=>({
-    load(){
+const Rechargeinitfn = (dispath, own) => ({
+    load() {
         dispath({
             type: "USER_INFO_WITH_LOGIN"
         })
     },
-    pop(){
+    pop() {
         dispath(goBack())
     },
-    submit(){
+    submit() {
         dispath({
             type: 'AUTH_COOKIE',
         })
     },
-    push(url){
+    push(url) {
         dispath(push(url))
     },
-    clearData(){
+    clearData() {
         dispath({
             type: 'CLEAR_INFO_DATA',
             key: 'AUTH_COOKIE'
         })
     },
-    update(){
+    update() {
         dispath({
-            type:'STORE_STATUS_INFO',
+            type: 'STORE_STATUS_INFO',
         })
     }
 })

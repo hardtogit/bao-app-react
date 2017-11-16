@@ -90,6 +90,10 @@ class DepositIndex extends React.Component {
         }
         this.successFn();
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
+            this.props.push(`/deposit-buy/${index}/B/${id}`)
+            return;
+        }
         if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
             this.props.push(`/deposit-buy/${index}/B/${id}`)
         }else{

@@ -200,6 +200,10 @@ class ProductDetail extends React.Component {
   }
   purchase=(id,lx,push)=>{
       let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+      if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
+          this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
+          return;
+      }
       if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
           this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
       }else{
