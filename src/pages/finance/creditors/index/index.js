@@ -280,7 +280,7 @@ const mapStateToProps = (state,ownProps) => {
   const userData = state.infodata.getIn([actionTypes.USER_INFO, 'data'])
   const is_login = (userData.code == 100) ? true : false
     const sessionUser=sessionStorage.getItem("bao-auth");
-  let ListHeight= is_login && sessionUser ? document.body.clientHeight-88 : document.body.clientHeight-88-78
+  let ListHeight= is_login && sessionUser ? document.body.clientHeight-100 : document.body.clientHeight-88-78
   return {
     is_login,
     ListHeight,

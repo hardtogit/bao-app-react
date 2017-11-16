@@ -2,7 +2,7 @@
  * 安全中心
  */
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import BaseText from '../../../../components/BaseText'
 import NavBar from '../../../../components/NavBar/index'
 import Page from '../../../../components/Page'
@@ -11,6 +11,7 @@ import commonStyles from '../../../../css/common.styl'
 import utils from '../../../../utils/utils.js'
 import {push, goBack} from 'react-router-redux'
 import Loading from '../../../../components/pageLoading'
+
 class SecurityCenter extends React.Component {
     loadDom() {
         return (<Loading/>)
@@ -22,10 +23,10 @@ class SecurityCenter extends React.Component {
             mobile,
             isSetTradePassword,
             card
-            }=datas.data;
+        } = datas.data;
         const {
             push
-            }=this.props;
+        } = this.props;
         const storeData = JSON.parse(sessionStorage.getItem('bao-store'));
         let text = '';
         let url = ''
@@ -46,84 +47,119 @@ class SecurityCenter extends React.Component {
             <div>
                 <div style={{marginTop: 15}}>
                     <BaseText
-                        onClick={() =>isAuth === 0 && push('/user/setting/regStore')}
+                        onClick={() => isAuth === 0 && push('/user/setting/regStore')}
                         label='身份认证'
                         content={isAuth === 1 ? '审核中' : isAuth === 2 ? utils.replaceTextToSymbol(card, 9, 14) : '未认证'}
                         borderType='two'/>
                     {!mobile ?
                         <BaseText
-                            onClick={() => {push('/user/setting/mobileBind')}}
+                            onClick={() => {
+                                if (storeData.isRegister && storeData.isBindBankcard ) {
+                                    push('/user/setting/mobileBind')
+                                } else {
+                                    if (storeData.isRegister) {
+                                        push('/user/setting/cardBind')
+                                    }
+                                    else {
+                                        this.refs.store.show()
+                                    }
+                                }
+                            }}
                             label='绑定手机'
                             borderType='four'/> :
                         <BaseText
-                            onClick={() => {push('/user/setting/mobileBindModify')}}
+                            onClick={() => {
+                                if (storeData.isRegister && storeData.isBindBankcard) {
+                                    push('/user/setting/mobileBindModify')
+                                } else {
+                                    if (storeData.isRegister) {
+                                        push('/user/setting/cardBind')
+                                    } else {
+                                        this.refs.store.show()
+                                    }
+                                }
+                            }}
                             label='修改绑定手机'
                             content={utils.replaceTextToSymbol(mobile, 4, 7)}
                             borderType='four'/>}
                     <BaseText
-                        onClick={()=>{
-						 if(storeData.isRegister&&storeData.isBindBankcard&& !storeData.isUploadIdcard){
-						 push('/user/IdCardUpload')}
-						 else if(!storeData.isUploadIdcard){
-				            if(storeData.isRegister){
-                             push('/user/setting/cardBind')}
-                             else{
-				             this.refs.store.show()
-				             }
-				             }
-				             }
-						 }
+                        onClick={() => {
+                            if (storeData.isRegister && storeData.isBindBankcard && !storeData.isUploadIdcard) {
+                                push('/user/IdCardUpload')
+                            }
+                            else if (!storeData.isUploadIdcard) {
+                                if (storeData.isRegister) {
+                                    push('/user/setting/cardBind')
+                                }
+                                else {
+                                    this.refs.store.show()
+                                }
+                            }
+                        }
+                        }
                         label='身份证认证'
-                        content={ storeData.isUploadIdcard&&'已认证'||'未认证' }
+                        content={storeData.isUploadIdcard && '已认证' || '未认证'}
                         borderType='three'/>
                 </div>
                 <div style={{marginTop: 15}}>
                     <BaseText
-                        onClick={()=>{push('/user/setting/loginPasswordModify')}}
+                        onClick={() => {
+                            push('/user/setting/loginPasswordModify')
+                        }}
                         label='修改登录密码'
                         borderType='two'/>
                     {isSetTradePassword ?
                         <BaseText
-                            onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-				  {push('/user/setting/tradePasswordModify')}else{
-				  if(storeData.isRegister){
-                     push('/user/setting/cardBind')
-				  }else{
-				  this.refs.store.show()
-				    }
-				  }
-				  }}
+                            onClick={() => {
+                                if (storeData.isRegister && storeData.isBindBankcard) {
+                                    push('/user/setting/tradePasswordModify')
+                                } else {
+                                    if (storeData.isRegister) {
+                                        push('/user/setting/cardBind')
+                                    } else {
+                                        this.refs.store.show()
+                                    }
+                                }
+                            }}
                             label='修改交易密码'
                             borderType='four'/> : null}
                     {isSetTradePassword ?
                         <BaseText
-                            onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-				  {push('/user/setting/tradePasswordForget/verifyMobile')}else{
-				    if(storeData.isRegister){
-                     push('/user/setting/cardBind')
-				  }else{
-				  this.refs.store.show()
-				    }
-				  }
-				  }}
+                            onClick={() => {
+                                if (storeData.isRegister && storeData.isBindBankcard) {
+                                    push('/user/setting/tradePasswordForget/verifyMobile')
+                                } else {
+                                    if (storeData.isRegister) {
+                                        push('/user/setting/cardBind')
+                                    } else {
+                                        this.refs.store.show()
+                                    }
+                                }
+                            }}
                             label='忘记交易密码'
                             borderType='four'/> :
                         <BaseText
-                            onClick={()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-				  {push('/user/setting/tradePasswordSet')}else{
-				    if(storeData.isRegister){
-                        push('/user/setting/cardBind')
-				  }else{
-				  this.refs.store.show()
-				    }
-				  }
-				  }}
+                            onClick={() => {
+                                if (storeData.isRegister && storeData.isBindBankcard) {
+                                    push('/user/setting/tradePasswordSet')
+                                } else {
+                                    if (storeData.isRegister) {
+                                        push('/user/setting/cardBind')
+                                    } else {
+                                        this.refs.store.show()
+                                    }
+                                }
+                            }}
                             label='设置交易密码'
-                            borderType='four'/> }
+                            borderType='four'/>}
                     <BaseText
-                        onClick={()=>{ if(storeData.isRegister&&storeData.isBindBankcard){
-                             return false;
-						}else{push(url)}  }}
+                        onClick={() => {
+                            if (storeData.isRegister && storeData.isBindBankcard) {
+                                return false;
+                            } else {
+                                push(url)
+                            }
+                        }}
                         label='开通银行存管'
                         content={text}
                         borderType='three'/>
@@ -132,14 +168,16 @@ class SecurityCenter extends React.Component {
             </div>
         )
     }
-    componentWillMount(){
+
+    componentWillMount() {
         this.props.update()
     }
+
     componentDidMount() {
         const {
             user,
             load
-            }=this.props;
+        } = this.props;
         if (!user) {
             this.props.load();
         }
@@ -149,7 +187,7 @@ class SecurityCenter extends React.Component {
         const {
             user,
             pop,
-            } = this.props
+        } = this.props
         let Dom;
         if (user) {
             Dom = this.loadEndDom(user)
@@ -178,7 +216,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    load(){
+    load() {
         dispatch({
             type: 'USER_INFO_WITH_LOGIN'
         })
@@ -189,9 +227,9 @@ const mapDispatchToProps = (dispatch) => ({
     pop() {
         dispatch(goBack())
     },
-    update(){
+    update() {
         dispatch({
-            type:'STORE_STATUS_INFO',
+            type: 'STORE_STATUS_INFO',
         })
     }
 })

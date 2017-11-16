@@ -5,6 +5,7 @@ import React from 'react'
 import ConfirmDialog from '../../components/Dialog/confirm'
 import ReddemDialog from '../../components/Dialog/reddemOld'
 import LoadingDialog from '../../components/Dialog/loading'
+import Store from '../../components/Dialog/store'
 import util from '../../utils/utils'
 import styles from './payProcess.styl'
 import cn from 'classnames'
@@ -135,8 +136,20 @@ class PayProcess extends React.Component {
             okText: '忘记密码',
             cancelText: '重试',
             okCallback: (close) => {
-                go("/user/setting/tradePasswordForget/verifyMobile")
-                close&&close()
+                let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+                if(storeData.isRegister&&storeData.isBindBankcard){
+                    go("/user/setting/tradePasswordForget/verifyMobile")
+                    close&&close()
+                } else {
+                    if(storeData.isRegister){
+                        push('/user/setting/cardBind')
+                        close&&close()
+                    }else{
+                        this.refs.store.show()
+                        close&&close()
+                    }
+                }
+
             },
             cancelCallback: () => {
                 this.gotoPay()
@@ -149,8 +162,20 @@ class PayProcess extends React.Component {
             content: '密码输入错误超过5次，请'+ minute +'分钟后重试或点击忘记密码重设密码',
             okText: '忘记密码',
             cancelText: '取消',
-            okCallback: () => {
-                this.props.go('/user/setting/tradePasswordForget')
+            okCallback: (close) => {
+                let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+                if(storeData.isRegister&&storeData.isBindBankcard){
+                    this.props.go("/user/setting/tradePasswordForget/verifyMobile")
+                    close&&close()
+                } else {
+                    if(storeData.isRegister){
+                        push('/user/setting/cardBind')
+                        close&&close()
+                    }else{
+                        this.refs.store.show()
+                        close&&close()
+                    }
+                }
             }
         })
     }
@@ -326,6 +351,7 @@ class PayProcess extends React.Component {
                 <ConfirmDialog ref='confirm' />
                 <ReddemDialog ref='reddem' />
                 <LoadingDialog ref='loading' />
+                <Store ref='store'></Store>
                 { this.options.map((option, index) => {
                     if (this.props.balancePay === false && this.props.BALANCEINDEX === index + 1) {
                         return null

@@ -435,7 +435,7 @@ const mapStateToProps = (state,ownProps) => {
     const user = (userData.code == 100) ? userData.data : {}
     const is_login = (userData.code == 100) ? true : false
     const sessionUser=sessionStorage.getItem("bao-auth");
-    let ListHeight= is_login && sessionUser? document.body.clientHeight-88 : document.body.clientHeight-88-78
+    let ListHeight= is_login && sessionUser? document.body.clientHeight-100 : document.body.clientHeight-88-78
     if (is_login && sessionUser) {
       if (user) {
         if ((user.voucher && user.voucher>0) || user.interestRateSecurities && user.interestRateSecurities>0) {
