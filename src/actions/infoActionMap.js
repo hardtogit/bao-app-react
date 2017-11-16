@@ -479,5 +479,9 @@ export default {
     },
     [actionTypes.FRIDAY_POP]:{   //星期五活动弹窗
         apiFn:Fetch.fridayPop
+    },
+    [actionTypes.IF_SYNC]:{   //星期五活动弹窗
+        apiFn:Fetch.ifSync
     }
+
 }

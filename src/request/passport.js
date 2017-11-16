@@ -5,6 +5,8 @@
 const requests = (Fetch) => {
   // 用户登陆
   Fetch.login = (data) => {return Fetch('passport/login', 'POST', data) }
+  //是否同步
+  Fetch.ifSync =(data) => { console.log(data);return Fetch('common/sync-result','GET',data)}
 
   // 用户注册
   Fetch.register = (data) => { return Fetch('passport/register', 'POST', data) }

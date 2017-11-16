@@ -25,7 +25,8 @@ class RegisterSetPassword extends React.Component {
       this.state={
       init:true,
       checkBox:true,
-      letCheck:false
+      letCheck:false,
+      send:false,
       }
   }
   componentDidMount() {
@@ -74,7 +75,8 @@ class RegisterSetPassword extends React.Component {
       }
 
     }
-  componentWillReceiveProps({data}) {
+  componentWillReceiveProps({data,syncCode}) {
+      let $this=this;
      if (data){
        const code=data.code;
        const alert=this.refs.alert;
@@ -83,8 +85,16 @@ class RegisterSetPassword extends React.Component {
         this.setState({
            init:false
          });
-         this.props.userInfo();
-         this.props.go('/registerSuccess')
+       }
+       if(code==100){
+           if(syncCode&&syncCode.code==100){
+               this.props.userInfo();
+               this.props.go('/registerSuccess')
+           }else{
+               setTimeout(function () {
+                   $this.props.ifSync({access_sys:'platform'})
+               },1000)
+           }
        }
        if (code==300){
          alert.show({
@@ -210,7 +220,9 @@ const mapStateToProps = (state) => {
     mobile:my.getIn(['REGISTER_NUM','mobile']),
     code:my.getIn(['REGISTER_NUM','code']),
     data:my.getIn(['REGISTER','data']),
-    captcha:my.getIn(['GET_CAPTCHA','data'])
+    captcha:my.getIn(['GET_CAPTCHA','data']),
+    authData:my.getIn(['AUTH_COOKIE','data']),
+    syncCode:my.getIn(['IF_SYNC','data'])
   }
 }
 
@@ -233,12 +245,23 @@ const mapDispatchToProps = (dispatch) => ({
       key:'REGISTER'
         })
   },
+  setAuth(){
+    dispatch({
+        type:'AUTH_COOKIE',
+    })
+  },
   getCaptcha(mobile){
     dispatch({
         type:actionTypes.GET_CAPTCHA,
         params:[{mobile:mobile}]
     })
   },
+   ifSync(data){
+    dispatch({
+        type:actionTypes.IF_SYNC,
+        params:[data]
+    })
+      },
   userInfo(){
       dispatch({type:actionTypes.USER_INFO})
   }

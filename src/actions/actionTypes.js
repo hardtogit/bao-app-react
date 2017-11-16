@@ -309,3 +309,4 @@ export const NEW_USER_ACTIVITY='NEW_USER_ACTIVITY'
 export const UPLOAD_FEED_BACK_IMG='UPLOAD_FEED_BACK_IMG'
 export const FRIDAY_POP='FRIDAY_POP' //星期五活动弹窗
 export const FRIDAY_COINLIST='FRIDAY_COINLIST' //星期五活动弹窗
+export const IF_SYNC='IF_SYNC'//是否同步
