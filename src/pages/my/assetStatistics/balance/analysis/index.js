@@ -60,7 +60,7 @@ class Index extends React.Component {
         }
         return (
             <div className={styles.bg}>
-                <NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/moneyLog')}}>资产分析</NavBar>
+                <NavBar onLeft={pop} >资产分析</NavBar>
                 <Box>
                 {
                     Dom

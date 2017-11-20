@@ -235,7 +235,7 @@ class DirectBuy extends React.Component {
             payPwd='',
             type=2;
         const borrowPwd=this.props.location.state;
-        const url=util.combineUrl(`${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd})
+        const url=util.combineUrl(`${hostName}/mobile_api/directInvest/buy/${id}`,{num,payPwd,type,couponId,borrowPwd,access_sys:'platform'})
         this.setState({
             url,
             payTop:'0px'
@@ -483,7 +483,8 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
                 payPwd,
                 borrowPwd,
                 type: 3,
-                couponId
+                couponId,
+                access_sys:'platform'
             }]
         })
     },

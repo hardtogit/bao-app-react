@@ -111,7 +111,7 @@ class CreditorBuy extends React.Component{
             }=data,
             payPass='',
             type=2;
-        const url=util.combineUrl(`${hostName}/mobile_api/creditors/pay-bond/${id}`,{copies,payPass,type})
+        const url=util.combineUrl(`${hostName}/mobile_api/creditors/pay-bond/${id}`,{copies,payPass,type,access_sys:'platform'})
         this.setState({
             url,
             payTop:'0px'
@@ -223,7 +223,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             params: [creditorId, {
                 copies,
                 payPass,
-                type: 3
+                type: 3,
+                access_sys:'platform'
             }]
         })
     },
