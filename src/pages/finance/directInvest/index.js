@@ -231,13 +231,13 @@ class DirectInvestCell extends React.Component{
                                            }
                                         });
                                     }
-                                    if(flag){
+                                    // if(flag){
                                         return <p>{borrow_interest_rate_one}<span>%</span>{borrow_interest_rate_two=="0.00"?'':<span style={{position:'relative',top:'-12px',left:'-4px'}}>+{borrow_interest_rate_two}%</span>}</p>
 
-                                    }else{
-                                        return <p>{rate}<span>%</span></p>
-
-                                    }
+                                    // }else{
+                                    //     return <p>{rate}<span>%</span></p>
+                                    //
+                                    // }
 
                                 })()
 

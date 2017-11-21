@@ -29,18 +29,35 @@ class Index extends React.Component {
     }
     componentWillMount(){
         this.props.update()
+        this.props.queryUpload()
     }
     componentDidMount() {
         window['closeFn'] = this.closeFn;
         this.props.load();
     }
     goCash=(balance)=>{
+        let $this=this;
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isBindBankcard&&storeData.isRegister){
-            if(storeData.isUploadIdcard){
-                this.money(balance)
-            }else{
-                this.props.push('/user/IdCardUpload');
+            if($this.props.uploadData){
+                if($this.props.uploadData.code==100){
+                    switch ($this.props.uploadData.data.status){
+                        case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
+                            break;
+                        case '0':$this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                            $this.props.queryUpload()
+                            break;
+                        case '1':$this.money(balance)
+                            break;
+                        case '9':$this.props.push('/user/IdCardUpload');
+                            break;
+                        default:
+                            $this.props.push('/user/IdCardUpload');
+                    }
+                }else{
+                    $this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                    $this.props.queryUpload()
+                }
             }
         }else{
             if(storeData.isRegister){
@@ -258,7 +275,8 @@ const BanckStyle = {
 };
 const Rechargeinit = (state, own)=>({
     balance: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
-    cookie: state.infodata.getIn(['AUTH_COOKIE', 'data'])
+    cookie: state.infodata.getIn(['AUTH_COOKIE', 'data']),
+    uploadData: state.infodata.getIn(['QUERY_UPLOAD', 'data'])
 })
 const Rechargeinitfn = (dispath, own)=>({
     load(){
@@ -286,6 +304,11 @@ const Rechargeinitfn = (dispath, own)=>({
     update(){
         dispath({
             type:'STORE_STATUS_INFO',
+        })
+    },
+    queryUpload(){
+        dispath({
+            type:'QUERY_UPLOAD'
         })
     }
 })

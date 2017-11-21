@@ -38,23 +38,9 @@ class Index extends Component {
         //组件接收到新的props调用
         if(nextProps.data){
             if(nextProps.data.code==100){
-                if($this.state.sendFlag){
-                    $this.props.update()
-                    $this.setState({
-                        sendFlag:false
-                    })
-                }
-                if(nextProps.countData){
-                  if(nextProps.countData.data.isUploadIdcard){
                       this.refs.loading.hide()
-                      this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功')
-                  }else{
-                      setTimeout(function(){
-                          $this.props.update()
-                      },1000)
-                  }
+                      this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功,已提交审核。')
 
-                }
             }else{
                 this.refs.loading.hide()
                 this.refs.alert.show({

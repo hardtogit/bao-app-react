@@ -142,6 +142,8 @@ class DirectInvestCell extends React.Component{
             title,
             status,//4 还款中 3复审中
             start_time,//开始时间
+            reveal_rate,
+            active_rate
             } = this.props.data
         const nowDate =Date.parse(new Date()); //当前时间戳
         const beginDate=Date.parse(new Date(start_time)); //格式时间戳
@@ -159,7 +161,7 @@ class DirectInvestCell extends React.Component{
                     </div>
                     <div className={styles.cellBody}>
                         <div>
-                           <p>{rate}<span>%</span></p>
+                            <p style={{fontSize: '20px',color: '#ff7700'}}>{reveal_rate}<span>%</span>{active_rate=="0.00"?'':<span style={{position:'relative',top:'-12px',left:'-4px'}}>+{active_rate}%</span>}</p>
                             <p>{month}个月</p>
                         </div>
                         <div>

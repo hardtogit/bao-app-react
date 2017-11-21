@@ -23,6 +23,7 @@ class Index extends React.Component{
     }
     componentDidMount(){
        let result=$.extend({}, this.state, this.props.location.query || {});
+       console.log(result)
         this.setState(result);
     }
     render(){

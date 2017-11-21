@@ -482,6 +482,10 @@ export default {
     },
     [actionTypes.IF_SYNC]:{   //星期五活动弹窗
         apiFn:Fetch.ifSync
+    },
+    [actionTypes.QUERY_UPLOAD]:{   //星期五活动弹窗
+        apiFn:Fetch.queryUpload
     }
+
 
 }

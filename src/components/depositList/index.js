@@ -73,7 +73,7 @@ class Index extends Component{
         )
     }
     oneDomB=(i,item,isFriday)=>{
-       const {title,rate,month,id,soldOut,isBuy}=item;
+       const {title,rate,month,id,soldOut,isBuy,reveal_rate,active_rate}=item;
        let text='买入';
        if (isBuy&&soldOut==0){
            text='已售罄'
@@ -88,8 +88,8 @@ class Index extends Component{
                 <div className={style.msBox}>
                     <div className={style.interest}>
                         <p className={style.interestText}>
-                            {rate}
-                            <span>%</span>
+
+                            <div style={{fontSize: '20px',color: '#ff7700'}}>{reveal_rate}<span>%</span>{active_rate=="0.00"?'':<span style={{position:'relative',top:'-12px',left:'-4px'}}>+{active_rate}%</span>}</div>
                         </p>
                         <p>
                             {month}个月

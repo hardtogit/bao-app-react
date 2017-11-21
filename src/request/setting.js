@@ -91,5 +91,8 @@ const requests = (Fetch) => {
   Fetch.storeVerifyCode=(data)=>{ return Fetch('api/supervise/users/verifySms','POST',data)}
   //绑定银行卡
   Fetch.storeBindCar=(data)=>{ return Fetch('api/supervise/users/bindBankcard','POST',data)}
+  //是否上传身份证成功
+  Fetch.queryUpload=(data)=>{ return Fetch('api/supervise/users/uploadIdCardResult','GET',data)}
+
 };
 export default requests
