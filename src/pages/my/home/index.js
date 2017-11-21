@@ -143,7 +143,7 @@ class Index extends React.Component {
                             <Link to={`/user/rechargeOld`}>
                                 <img src={recharge}/>
                                 <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>平台余额</p>
+                                    <p className={styles.listTitle}>托管账户余额</p>
                                     <p className={styles.listColor}
                                        style={{"color": "#888"}}>{balance_platform == 0 && '立即充值' || balance_platform}</p>
                                 </div>

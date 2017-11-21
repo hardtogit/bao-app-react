@@ -18,7 +18,7 @@ class PayProcess extends React.Component {
             chosen: props.BALANCEINDEX,
             disable: []
         }
-        this.options = ['平台余额', '连连支付']
+        this.options = ['托管账户余额', '连连支付']
     }
     static propTypes = {
         type: PropTypes.string, // demand deposit creditors directInvest
