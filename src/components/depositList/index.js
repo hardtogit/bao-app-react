@@ -89,7 +89,7 @@ class Index extends Component{
                     <div className={style.interest}>
                         <p className={style.interestText}>
 
-                            <div style={{fontSize: '20px',color: '#ff7700'}}>{reveal_rate}<span>%</span>{active_rate=="0.00"?'':<span style={{position:'relative',top:'-12px',left:'-4px'}}>+{active_rate}%</span>}</div>
+                            <p style={{fontSize: '20px',color: '#ff7700'}}>{reveal_rate}<span>%</span>{active_rate=="0.00"?'':<span style={{position:'relative',top:'-12px',left:'-4px'}}>+{active_rate}%</span>}</p>
                         </p>
                         <p>
                             {month}个月
