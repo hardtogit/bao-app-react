@@ -24,7 +24,7 @@ import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
     constructor(props){
         super(props)
-        this.state={id:'',term:'',pwd:''}
+        this.state={id:'',term:'',pwd:'',from:'platform'}
     }
     appoint = (fn,value) => {
         const {
@@ -48,7 +48,11 @@ class DirectInvestCell extends React.Component{
                     this.succsseFn();
                     let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
                     if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-                    this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
+                        if(this.state.from=='platform'){
+                            this.props.push({pathname:`/directBuyOld/${id}/${term}`,state:pwd})
+                        }else{
+                            this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
+                        }
                     }else{
                         this.refs.store.show()
                     }
@@ -115,6 +119,16 @@ class DirectInvestCell extends React.Component{
                 })
             }else{
                 if (is_assign) {
+                    if(flag){
+                        this.setState({
+                            from:'platform'
+                        })
+                    }else{
+                        this.setState({
+                            from:'store'
+                        })
+                    }
+
                     //弹出约标密码框
                     this.props.passwordRef.show({
                         title:'约标密码',
