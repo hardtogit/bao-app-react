@@ -142,6 +142,11 @@ class Index extends Component{
                 end,
                 routeParams:{
                     id
+                },
+                location:{
+                    query:{
+                        access_sys
+                    }
                 }
             }=this.props;
             if (tabPage==1&&listData){
@@ -149,7 +154,7 @@ class Index extends Component{
                       EvtHeight=this.refs.content.offsetHeight+94,
                       offHeight=EvtHeight-Height-bodyHeight;
                   if (offHeight<10&&!pending&&!end){
-                      getList(id);
+                      getList(id,access_sys);
                   }
 
             }
@@ -209,7 +214,6 @@ class Index extends Component{
                 <DepTime type={'B'} startTime={interest_start_time} endTime={interest_end_time} Grade={credit_rating}
                          repayment={repayment} lx={type}/>
             </div>
-
                 {(()=>{
                     let arr = activityName.split("|");
                     let flag=false;
@@ -288,18 +292,26 @@ class Index extends Component{
                     </div>
                 </div>
                 <div className={classNames(styles.tabBox,tabPage!=1&&styles.none)}>
-                        {listData&&listData.map((item,i)=>{
-                            const {name,date,amount}=item;
-                            return(<div className={styles.tabListBox} key={i}>
+                        {
+                            (()=>{
+                                let Dom=[];
+                            listData&&listData.map((item,i)=>{
+                            // const {name,date,amount}=item;
+                            Dom.push(
+                                <div className={styles.tabListBox} key={i}>
                                 <div className={styles.tabListLeft}>
-                                    <p>{name}</p>
-                                    <p>{date}</p>
+                                    <p>{item.name}</p>
+                                    <p>{item.date}</p>
                                 </div>
                                 <div className={styles.tabListRight}>
-                                    {amount}元
+                                    {item.amount}元
                                 </div>
                             </div>)
-                        })}
+                           })
+                            return Dom;
+                            })()
+
+                        }
                     {
                         loadList
                     }
@@ -362,10 +374,10 @@ class Index extends Component{
        }=this.props;
         let Dom=this.loadDom();
         let demoDom;
-        if (infoData){
+         if (infoData){
             Dom=this.loadEndDom();
-            demoDom=this.demoDom();
-        }
+            // demoDom=this.demoDom();
+         }
        return(
          <div>
         <div className={styles.body} ref="body">
