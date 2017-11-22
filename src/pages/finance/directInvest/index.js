@@ -15,7 +15,7 @@ import CusDialog from '../../../components/Dialog/alert.js'
 import Scroll from '../../../components/scroll/index.js'
 import Store from '../../../components/Dialog/store'
 import Loading from '../../../components/pageLoading'
-import PassWord from '../../../components/Dialog/reddem.js'
+import PassWord from '../../../components/Dialog/reddemOld.js'
 import type_hongwu from '../../../assets/images/type_hongwu.png'
 import type_danbao from '../../../assets/images/type_danbao.png'
 import type_xinyong from '../../../assets/images/type_xinyong.png'
@@ -47,14 +47,27 @@ class DirectInvestCell extends React.Component{
                 if (verifyAssign.code==100&&id!=''){
                     this.succsseFn();
                     let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-                    if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-                        if(this.state.from=='platform'){
+                    if(this.state.from=='platform'){
+                        if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
                             this.props.push({pathname:`/directBuyOld/${id}/${term}`,state:pwd})
+                            return;
                         }else{
-                            this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
+                            if(storeData.isRegister){
+                                push('/user/setting/cardBind')
+                            }else{
+                                this.refs.store.show()
+                            }
                         }
                     }else{
-                        this.refs.store.show()
+                        if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
+                            this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+                        }else{
+                            if(storeData.isRegister){
+                                this.props.push({pathname:`/directBuy/${id}/${term}`,state:pwd})
+                            }else{
+                                this.refs.store.show()
+                            }
+                        }
                     }
                 }else if (verifyAssign.code!=100){
                     this.props.passwordRef.hide()
@@ -99,7 +112,6 @@ class DirectInvestCell extends React.Component{
                 }
             }
         }
-
 
     }
     yz=(success,flag)=>{

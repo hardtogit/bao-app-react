@@ -39,7 +39,7 @@ class Index extends Component{
 
         }=this.props;
         getData(id,access_sys);
-        getList(id);
+        getList(id,access_sys);
         this.addScroll();
     }
     componentDidUpdate(){
@@ -393,10 +393,10 @@ const dispatchFn=(diapatch)=>({
               params:[id,access_sys]
           })
        },
-       getList(id){
+       getList(id,access_sys){
             diapatch({
                 type:'FETCH_DIRECT_BUY_RECORD_DATA',
-                params:[id]
+                params:[id,access_sys]
             })
        },
     clearData(){

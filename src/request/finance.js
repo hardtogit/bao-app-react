@@ -17,8 +17,13 @@ const requests = (Fetch) => {
     }
   }
   // 直投项目投资记录
-  Fetch.directInvestInvestRecords = (page, directInvestId) => {
-      return Fetch(`directInvest/projects-records/${directInvestId}?page=${page}`)
+  Fetch.directInvestInvestRecords = (page, directInvestId,access_sys) => {
+    if(access_sys){
+        return Fetch(`directInvest/projects-records/${directInvestId}?page=${page}&access_sys=platform`)
+    }else{
+        return Fetch(`directInvest/projects-records/${directInvestId}?page=${page}`)
+    }
+
   }
   // 零钱宝详情
   Fetch.demandDetail = () => { return Fetch('demand/detail', 'GET') }
