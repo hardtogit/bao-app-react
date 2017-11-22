@@ -24,7 +24,7 @@ import setUrl from '../../../components/setUrl'
 class DirectInvestCell extends React.Component{
     constructor(props){
         super(props)
-        this.state={id:'',term:'',pwd:'',from:'platform'}
+        this.state={id:'',term:'',pwd:''}
     }
     appoint = (fn,value) => {
         const {
@@ -40,6 +40,7 @@ class DirectInvestCell extends React.Component{
             this.props.sendAssign(id,value);
         })
     }
+    from='platform'
     componentWillReceiveProps(props){
             const {verifyAssign}=props;
             const {id,term,pwd}=this.state;
@@ -47,7 +48,7 @@ class DirectInvestCell extends React.Component{
                 if (verifyAssign.code==100&&id!=''){
                     this.succsseFn();
                     let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-                    if(this.state.from=='platform'){
+                    if(this.from=='platform'){
                         if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
                             this.props.push({pathname:`/directBuyOld/${id}/${term}`,state:pwd})
                             return;
@@ -79,7 +80,6 @@ class DirectInvestCell extends React.Component{
             }
     }
     toBuy=(event,flag)=>{
-        console.log(flag)
         event.stopPropagation();
         this.yz(this.qgSuccess,flag)
     }
@@ -116,6 +116,7 @@ class DirectInvestCell extends React.Component{
     }
     yz=(success,flag)=>{
         const is_login = true;
+        let $this=this;
         const {
             is_assign,//是否是约标
             is_overdue,//是否已过投标期限
@@ -125,20 +126,17 @@ class DirectInvestCell extends React.Component{
         if (is_login) {
             if (is_overdue) {
                 //提示过期
-                this.props.wrongRef.show({
+                // alert('c')
+                $this.props.wrongRef.show({
                     content:'投标时间已过',
                     okText:'知道了'
                 })
             }else{
                 if (is_assign) {
                     if(flag){
-                        this.setState({
-                            from:'platform'
-                        })
+                        this.from="platform"
                     }else{
-                        this.setState({
-                            from:'store'
-                        })
+                        this.from="store"
                     }
 
                     //弹出约标密码框
@@ -366,11 +364,14 @@ class DirectInvestList extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            init:false
+            init:false,
+            flag:0
         }
     }
     componentDidMount() {
-      this.setState({init:true})
+      this.setState({
+          init:true,
+      })
     }
     setUserCardInfo=()=>{
         const {user} =this.props
