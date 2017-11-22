@@ -10,6 +10,7 @@ import Calculator from '../../../components/Calculator'
 import Store from '../../../components/Dialog/store'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
+import {Link} from 'react-router'
 import SwitchPanel from '../../../components/switchPanel/index'
 import classNames from 'classnames'
 import LoadList from '../../../components/scroll/config'
@@ -186,6 +187,7 @@ class Index extends Component{
             listData,
             pop,
             push,
+            backgroundColor,
             routeParams:{
                 id
             }
@@ -195,8 +197,11 @@ class Index extends Component{
         }=this.state;
         const Bdatas=[{name:'借款总额',val:total},{name:'剩余金额',val:total-fundraising},{name:'投资期限',val:term+'个月'}],
               loadList=this.btDom();
+        let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
         return(<div ref="content">
-            <NavBar onLeft={pop}>
+            <NavBar leftNode={<Link className={styles.leftNode} to="/home/productIndex">
+                <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>
+            </Link>}>
                 <div className={styles.title}>{name}</div>
             </NavBar>
             <div ref='topHeight'>

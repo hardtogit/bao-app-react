@@ -17,6 +17,7 @@ import Header from '../../../../components/depositBanner'
 import DepTime from '../../../../components/depTime'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {Link} from 'react-router'
 class ProductDetail extends React.Component {
 
   state = {
@@ -222,6 +223,7 @@ class ProductDetail extends React.Component {
         datas,
         pop,
         datasB,
+        backgroundColor,
         params:{type:lx,id}
     }=this.props;
     const {
@@ -245,10 +247,14 @@ class ProductDetail extends React.Component {
             Dom=this.loadEnd(depositbs.list,depositbs.list[id].isBuy,datasB.data.remain)
         }
     }
+    let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
     return (
       <div className={styles.root}>
           <Store ref="store"></Store>
-        <NavBar onLeft={pop}>{type=='A'&&(id==5&&'新手标计划详情'||'定存宝A计划详情')||'定存宝B计划详情'}</NavBar>
+          <NavBar leftNode={<Link className={styles.leftNode} to="/home/productIndex">
+              <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>
+          </Link>}>
+            {type=='A'&&(id==5&&'新手标计划详情'||'定存宝A计划详情')||'定存宝B计划详情'}</NavBar>
           {
               Dom
           }
