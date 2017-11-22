@@ -445,9 +445,9 @@ class DepositBuy extends React.Component {
         {type:lx,productId}=this.props.params;
         let url;
        if (lx=='B'){
-           url=util.combineUrl(`${hostName}/mobile_api/api/depositbs/buy`,{productId,num:quantity,password,type,couponId})
+           url=util.combineUrl(`${hostName}/mobile_api/api/depositbs/buy`,{productId,num:quantity,password,type,couponId,access_sys:'platform'})
        }else {
-           url=util.combineUrl(`${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId})
+           url=util.combineUrl(`${hostName}/mobile_api/deposit/buy`,{productId,quantity,password,type,couponId,access_sys:'platform'})
        }
         this.setState({
             url,

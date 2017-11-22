@@ -38,8 +38,11 @@ class Index extends Component {
         //组件接收到新的props调用
         if(nextProps.data){
             if(nextProps.data.code==100){
-                      this.refs.loading.hide()
-                      this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功,已提交审核。')
+                setTimeout(function () {
+                    $this.refs.loading.hide();
+                    $this.props.update()
+                    $this.props.replace('/successTemplate?title=身份证上传成功&text=上传成功,已提交审核。')
+                },5000)
 
             }else{
                 this.refs.loading.hide()

@@ -39,24 +39,28 @@ class Index extends React.Component {
         let $this=this;
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(storeData.isBindBankcard&&storeData.isRegister){
-            if($this.props.uploadData){
-                if($this.props.uploadData.code==100){
-                    switch ($this.props.uploadData.data.status){
-                        case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
-                            break;
-                        case '0':$this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
-                            $this.props.queryUpload()
-                            break;
-                        case '1':$this.money(balance)
-                            break;
-                        case '9':$this.props.push('/user/IdCardUpload');
-                            break;
-                        default:
-                            $this.props.push('/user/IdCardUpload');
+            if(storeData.isUploadIdcard){
+                $this.money(balance)
+            }else{
+                if($this.props.uploadData){
+                    if($this.props.uploadData.code==100){
+                        switch ($this.props.uploadData.data.status){
+                            case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
+                                break;
+                            case '0':$this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                                $this.props.queryUpload()
+                                break;
+                            case '1':$this.money(balance)
+                                break;
+                            case '9':$this.props.push('/user/IdCardUpload');
+                                break;
+                            default:
+                                $this.props.push('/user/IdCardUpload');
+                        }
+                    }else{
+                        $this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                        $this.props.queryUpload()
                     }
-                }else{
-                    $this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
-                    $this.props.queryUpload()
                 }
             }
         }else{
