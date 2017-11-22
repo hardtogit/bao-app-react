@@ -14,6 +14,7 @@ import arrow2 from '../../../../assets/images/arrow2.png'
 import Calculator from '../../../../components/Calculator'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {Link} from 'react-router'
 class BorrowPeople extends React.Component{
   render(){
     const {data} =this.props
@@ -206,13 +207,18 @@ class CreditorDetails extends React.Component{
   render(){
     let {
       data,
-      push
+      push,
+        backgroundColor,
     } = this.props;
 
-    const selectID =this.state.selectID
-    return(
+    const selectID =this.state.selectID;
+      let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
+
+      return(
       <div className={styles.root}>
-          <NavBar onLeft={()=>this.props.goBack()}>
+          <NavBar leftNode={<Link className={styles.leftNode} to="/home/productIndex">
+              <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>
+          </Link>}>
               产品详情
           </NavBar>
         <div className={styles.scroll}>

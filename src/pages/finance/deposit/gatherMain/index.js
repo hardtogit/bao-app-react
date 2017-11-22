@@ -23,6 +23,7 @@ import Header from '../../../../components/depositBanner'
 import SimpleDepTime from '../../../../components/simpleDepTime'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {Link} from 'react-router'
 class GatherMain extends React.Component {
 
   state = {
@@ -224,6 +225,7 @@ class GatherMain extends React.Component {
     const {
         data,
         pop,
+        backgroundColor,
     }=this.props;
     const {
         type
@@ -232,9 +234,13 @@ class GatherMain extends React.Component {
     if (data){
         Dom=this.loadEnd()
     }
+      let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
     return (
       <div className={styles.root}>
-        <NavBar onLeft={pop}>{type==5?'新手标计划详情':"聚点+详情"}</NavBar>
+          <NavBar leftNode={<Link className={styles.leftNode} to="/home/productIndex">
+              <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>
+            </Link>}>{type==5?'新手标计划详情':"聚点+详情"}
+          </NavBar>
           {
               Dom
           }

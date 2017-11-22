@@ -7,6 +7,20 @@
   overflow: auto;
   z-index: 1;
 }
+.backBefore,.backAfter{
+  border: 10px solid transparent;
+  border-right: 10px solid #00a6e2;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  content: ' ';
+}
+.backBefore {
+  border-right-color: #fff;
+  left: 2px;
+}
 .scroll{
   flex:1;
   margin-top: 44px;
