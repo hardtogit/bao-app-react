@@ -189,6 +189,9 @@ class DirectBuy extends React.Component {
       if(!this.state.checkBox){
           return false
       }
+      if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance){
+          return false
+      }
     return this.state.quantity && detail.left_quantity && this.state.quantity <= detail.left_quantity ? true : false
   }
 

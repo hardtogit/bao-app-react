@@ -97,7 +97,7 @@ class DepositIndex extends React.Component {
         if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
             this.props.push(`/deposit-buy/${index}/B/${id}`)
         }else{
-            if(storeData.isRegister){
+            if(storeData&&storeData.isRegister){
                 push('/user/setting/cardBind')
             }else{
                 this.refs.store.show()

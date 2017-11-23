@@ -95,7 +95,7 @@ class DirectInvestCell extends React.Component{
                 this.props.isAuth.Verification(`/directBuyOld/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
                 return;
             }else{
-                if(storeData.isRegister){
+                if(storeData&&storeData.isRegister){
                     push('/user/setting/cardBind')
                 }else{
                     this.refs.store.show()
@@ -105,7 +105,7 @@ class DirectInvestCell extends React.Component{
             if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
                  this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
             }else{
-                if(storeData.isRegister){
+                if(storeData&&storeData.isRegister){
                     push('/user/setting/cardBind')
                 }else{
                     this.refs.store.show()

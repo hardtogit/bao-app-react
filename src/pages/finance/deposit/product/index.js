@@ -208,7 +208,7 @@ class ProductDetail extends React.Component {
       if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
           this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
       }else{
-          if(storeData.isRegister){
+          if(storeData&&storeData.isRegister){
               push('/user/setting/cardBind')
           }else{
               this.refs.store.show()

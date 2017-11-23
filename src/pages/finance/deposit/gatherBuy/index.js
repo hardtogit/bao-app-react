@@ -299,6 +299,9 @@ class Index extends React.Component {
        if(!this.state.checkBox){
            return false
        }
+       if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance){
+           return false;
+       }
         return quantity &&
         quantity <= (quantityDataB && quantityDataB.data.quantity|| 0) ? true : false
   }

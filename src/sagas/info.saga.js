@@ -87,6 +87,10 @@ function* takeRequest (action) {
            yield put({
                type:'CLEAR_STORE_DATA'
            })
+           yield put({
+               type:'CLEAR_DATA',
+               key:'FETCH_DIRECTLIST_DATA'
+           })
            sessionStorage.removeItem("bao-auth");
            sessionStorage.removeItem("bao-user");
        }
