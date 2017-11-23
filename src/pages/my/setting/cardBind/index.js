@@ -114,12 +114,12 @@ class Index extends Component{
                 }else{
                     if(this.state.bindTime>=3){
                         if(nextProps.bindFlag&&nextProps.bindFlag.code!='0001'){
-                        this.refs.alert.open(nextProps.bindFlag.msg);
+                        this.refs.tip.show({content:nextProps.bindFlag.msg,okText:'确定'});
                         this.setState({
                             submitting:false
                         })
                         }else{
-                            this.refs.alert.open('绑定银行卡失败');
+                            this.refs.tip.show({content:'绑定银行卡失败',okText:'确定'});
                             this.setState({
                                 submitting:false
                             })
@@ -343,7 +343,7 @@ class Index extends Component{
                       忘记预留手机怎么办？
                 </div>
                 <div className={styles.submit}>
-                    <Button ref="bottom" style={{marginTop:'15px'}} onClick={this.submit}
+                    <Button ref="bottom" style={{marginTop:'15px'}} onClick={()=>{if(this.state.submitting){console.log('ss') ;return false;}else{this.submit()}}}
                             className={styles.bottom}
                             text={this.state.submitting ? <LoadingButton text='绑定中...' /> : '下一步'}
                     />
