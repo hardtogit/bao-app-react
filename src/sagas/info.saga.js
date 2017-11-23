@@ -70,6 +70,10 @@ function* takeRequest (action) {
                type:'AUTH_COOKIE',
                lx:'set'
            })
+           yield put({
+               type:'CLEAR_DATA',
+               key:'FETCH_DIRECTLIST_DATA'
+           })
        }
        if (action.type==actionTypes.SAFE_CARD_INFO&&(response.code==101||response.code==301)){
            sessionStorage.setItem("bao-bank",JSON.stringify(response.data));
