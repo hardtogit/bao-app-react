@@ -139,7 +139,7 @@ class GatherMain extends React.Component {
                   </p>
               </div>
               <div className={styles.profitContent}>
-                  <p className={styles.profitText}>投资10000元，{month}个月后到期预计预期可赚</p>
+                  <p className={styles.profitText}>投资10000元，{month}个月后到期预期可赚</p>
                   <p className={styles.profitText1}>具体收益以实际到账为准</p>
                   <p className={styles.profitNum}>
                       {this.moneyFn(rate,month)}

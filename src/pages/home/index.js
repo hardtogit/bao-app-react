@@ -149,14 +149,14 @@ class FinancialIndex extends Component{
     };
     getMessage=(depositbs)=>{
         for (let i=0;i<depositbs.length;i++){
-            if (depositbs[i].month=='3'){
+            if (depositbs[i].month=='6'){
                 return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
             }
         }
     }
     getGatherMessage=(gatherData)=>{
         for (let i=0;i<gatherData.length;i++){
-            if (gatherData[i].month=='6'){
+            if (gatherData[i].month=='3'){
                 return{gatherTitle:gatherData[i].month+'月期'+gatherData[i].title, gatherRate:gatherData[i].rate}
             }
         }
@@ -186,10 +186,10 @@ class FinancialIndex extends Component{
         const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,2);this.props.push('/home/productIndex')},50,2);
         return(<ul className={style.productUl}>
             {
-                Gather
+                Depot1
             }
             {
-                Depot1
+                Gather
             }
             {
                 Depot2
@@ -215,12 +215,14 @@ class FinancialIndex extends Component{
             {rz}
             {
                 newDep
-            }{
-            Gather
             }
             {
-             Depot1
+                Depot1
             }
+            {
+            Gather
+            }
+
         </ul>)
     }
     noLogin=()=>{
@@ -236,12 +238,14 @@ class FinancialIndex extends Component{
             }
             {
                 newDep
-            }{
-            Gather
-        }
+            }
             {
                 Depot1
             }
+            {
+            Gather
+            }
+
         </ul>)
     }
     showList=()=>{
