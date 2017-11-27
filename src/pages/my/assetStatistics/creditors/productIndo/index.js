@@ -6,14 +6,15 @@ import NavBar from '../../../../../components/NavBar'
 import styles from './index.less'
 import arrow2 from '../../../../../assets/images/arrow2.png'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import {Link} from 'react-router'
 import Loading from '../../../../../components/pageLoading'
 
 class Index extends Component{
     componentWillMount(){
         const id=this.props.params.id;
-        this.props.getInfo(id)
+        const access_sys=this.props.location.query.access_sys
+        this.props.getInfo(id,access_sys)
     }
     componentWillUnmount(){
         this.props.clearData()
@@ -28,7 +29,13 @@ class Index extends Component{
             },
             params:{
                 id
-            }
+            },
+            location:{
+                query:{
+                access_sys
+             }
+            },
+            push
         }=this.props;
         const {name,total,rate,term,type,interest_start_time,interest_end_time,repayment}=data;
         return(<div className={styles.content}>
@@ -103,7 +110,14 @@ class Index extends Component{
                     {repayment}
                     </span>
             </div>
-            <Link to={"/user/zqSecurityPlan/"+id+""}>
+            <Link onClick={()=>{
+                 if(access_sys){
+                  push("/user/zqSecurityPlan/"+id+"?access_sys=platform")
+                 }else{
+                  push("/user/zqSecurityPlan/"+id+"")
+                 }
+
+                   }} >
                 <div className={styles.modeBox}>
                  <span>
                    产品合同
@@ -138,14 +152,17 @@ const datas=(state)=>({
     infoData:state.infodata.getIn(['CREDITORS_PRODUCTINFO','data'])
 })
 const dispatchFn=(dispatch)=>({
-    getInfo(id){
+    getInfo(id,access_sys){
         dispatch({
             type:'CREDITORS_PRODUCTINFO',
-            params:[id]
+            params:[id,access_sys]
         })
     },
     pop(){
         dispatch(goBack())
+    },
+    push(url){
+        dispatch(push(url))
     },
     clearData(){
         dispatch({

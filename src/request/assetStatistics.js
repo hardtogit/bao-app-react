@@ -53,7 +53,13 @@ const requests = (Fetch) => {
   // 直投产品信息
   Fetch.directInvestProductInfo = (id) => { return Fetch('directInvest/index/' + id, 'GET') }
   // 债权产品信息
-  Fetch.creditorsProductInfo = (id) => { return Fetch('creditors?id=' + id, 'GET') }
+  Fetch.creditorsProductInfo = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('creditors?id=' + id+'&access_sys=platform', 'GET')
+      }else{
+          return Fetch('creditors?id=' + id, 'GET')
+      }
+     }
   // 债权资产详情
   Fetch.creditorsPropertyDetail = (id,access_sys) => {
     if(access_sys){
@@ -80,7 +86,14 @@ const requests = (Fetch) => {
   // 我的直投概要
   Fetch.myDirectInvestSummary = () => { return Fetch('directInvest/detail', 'GET') }
   // 债权合同
-  Fetch.creditorsContract = (id) => { return Fetch('creditors/contract/' + id, 'GET') }
+  Fetch.creditorsContract = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('creditors/contract/' + id+'?access_sys=platform', 'GET')
+      }else{
+          return Fetch('creditors/contract/' + id, 'GET')
+      }
+
+  }
   // 直投合同
   Fetch.directInvestContract = (id) => { return Fetch('directInvest/contract/' + id, 'GET') }
   // 我的债权转让列表

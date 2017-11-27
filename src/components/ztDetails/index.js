@@ -26,13 +26,23 @@ class Index extends React.Component {
     goProductDetail=(id)=>{
         const {
             push,
-            type
+            type,
+            location:{
+                query:{
+                    access_sys
+                }
+            }
         }=this.props;
         //跳转
         if (type<=3){
             push('/user/productInfo/'+id);
         }else {
-            push('/user/zqProductInfo/'+id);
+            if(access_sys){
+                push('/user/zqProductInfo/'+id+'?access_sys='+access_sys);
+            }else{
+                push('/user/zqProductInfo/'+id);
+            }
+
         }
     };
     timer=(date)=>{

@@ -160,6 +160,7 @@ class FinancialIndex extends Component{
                 return{gatherTitle:gatherData[i].month+'月期'+gatherData[i].title, gatherRate:gatherData[i].rate}
             }
         }
+        return {};
     };
     getGatherNewMessage=(gatherData)=>{
         for (let i=0;i<gatherData.length;i++){
@@ -181,7 +182,7 @@ class FinancialIndex extends Component{
     oldList=()=>{
         const {gatherTitle,gatherRate}=this.state;
         const {rate,title}=this.state;
-        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
+        const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
         const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,2);this.props.push('/home/productIndex')},50,2);
         return(<ul className={style.productUl}>
@@ -201,7 +202,7 @@ class FinancialIndex extends Component{
         const {rate,title}=this.state;
         const {activity}=this.props;
         const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
-        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
+        const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
         const newDep=this.newDep();
         const isAuth=auth;
         let rz;
@@ -229,7 +230,7 @@ class FinancialIndex extends Component{
         const {gatherTitle,gatherRate}=this.state;
         const {rate,title}=this.state;
         const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
-        const Gather=this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})
+        const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
         const newDep=this.newDep();
         const noImg=this.newImg();
         return(<ul className={style.productUl}>
