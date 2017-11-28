@@ -329,7 +329,7 @@ class FinancialIndex extends Component{
     }
     newImg=()=>{
         return(<li className={style.headerLi}>
-            <Link to="/register">
+            <Link onClick={()=>{ window.location.href='https://www.bao.cn/special/newHandActivities/index.html'}} >
                 <img src={newHead} className={style.headerImg}/>
             </Link>
         </li>)
