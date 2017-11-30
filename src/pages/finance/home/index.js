@@ -7,6 +7,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import {connect} from 'react-redux'
 import styles from './index.css'
 import classNames from 'classnames'
+import utils from '../../../utils/utils'
+import Guide from '../../../components/Dialog/guide'
 //定存宝
 //import DepositIndex from '../deposit/index'
 import DepositPlanB from '../deposit/planB'
@@ -44,6 +46,12 @@ class financeIndex extends Component{
          proIndexs(proIndex);
 	 }
 	 componentDidMount(){
+	 	if (utils.getCookie('storeGuide')){
+
+		}else{
+            this.refs.guide.show()
+			utils.setCookie('storeGuide','flag',360*100)
+		}
 
 	 }
 	 handleSelect(index,last){
@@ -60,6 +68,7 @@ class financeIndex extends Component{
 		 }=this.state;
 		 return(
 		<div>
+		<Guide ref='guide'></Guide>
 		<div className={styles.bg}></div>	 
 		<Tabs 
 		className={styles.financeIndex}

@@ -769,4 +769,27 @@ utils.composeKeyWithParams = function (key, params) {
   const suffix = params.reduce((accumulate, value) => accumulate + `_${value}`, '')
   return key + suffix
 }
+utils.setCookie=function(name,value,days) {
+    var Days = days;
+    var exp  = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    if((typeof value == "string")&&(value.length > 0)){
+        console.log('s')
+        document.cookie = name + "="+ escape(value) + ";expires=" + exp.toGMTString();
+    }else{
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=utils.getCookie(name);
+        if(cval!=null)
+
+            document.cookie=name +"="+cval+";expires="+exp.toGMTString();
+    }
+}
+utils.getCookie=function(name) {
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+    if(arr != null) {
+        return unescape(arr[2]);
+    }
+    return null;
+}
 export default utils
