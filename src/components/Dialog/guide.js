@@ -6,16 +6,13 @@
  */
 import React from 'react'
 import cn from 'classnames'
-import Boron from '../../customized_node_modules/boron'
-import Dialog from './index'
-import helper from './helper.js'
-import {Link} from 'react-router'
 import styles from './index.styl'
 import PropTypes from 'prop-types'
 import one from './images/qietu_03.png'
 import btn from './images/qietu_15.png'
 import two from './images/dcb_03.png'
 import three from './images/qietu_06.png'
+import four from './images/qietu_11.png'
 export default class Success extends React.Component {
     constructor(props) {
         super(props)
@@ -53,7 +50,7 @@ export default class Success extends React.Component {
 
     }
     handleClick=()=>{
-        if(this.state.index>=2){
+        if(this.state.index>=3){
             this.hide();
         }else{
             this.setState({
@@ -77,6 +74,7 @@ export default class Success extends React.Component {
                 <div className={cn(styles.guide,index>0&&styles.leave||'')}><img className={cn(styles.guideOne)} src={one} alt=""/></div>
                 <div className={cn(styles.guide,index>1&&styles.leave||'',index<1&&styles.enter||'')}><img className={cn(styles.guideTwo)} src={two} alt=""/></div>
                 <div className={cn(styles.guide,index>2&&styles.leave||'',index<2&&styles.enter||'')}><img className={cn(styles.guideThree)} src={three} alt=""/></div>
+                <div className={cn(styles.guide,index>3&&styles.leave||'',index<3&&styles.enter||'')}><img className={cn(styles.guideFour)} src={four} alt=""/></div>
                 <div className={styles.btn}><img onClick={this.handleClick} src={btn} alt=""/> </div>
                 <div style={{position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px', zIndex: '1040', backgroundColor: 'rgba(0, 0, 0, 0.498039)'}}></div>
             </div>

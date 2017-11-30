@@ -34,7 +34,7 @@ class DepositIndex extends React.Component {
                 <img src={Coupon1} className={styles.bj}/>
                 <div className={styles.text}>
                      <span>
-                    新用户注册注册即送<span className={styles.money}>800</span>￥
+                    新用户注册即送<span className={styles.money}>800</span>￥
                 </span>
                     <span className={styles.right}>
                     点击<br/>领取

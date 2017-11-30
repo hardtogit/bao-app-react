@@ -774,7 +774,6 @@ utils.setCookie=function(name,value,days) {
     var exp  = new Date();
     exp.setTime(exp.getTime() + Days*24*60*60*1000);
     if((typeof value == "string")&&(value.length > 0)){
-        console.log('s')
         document.cookie = name + "="+ escape(value) + ";expires=" + exp.toGMTString();
     }else{
         var exp = new Date();
