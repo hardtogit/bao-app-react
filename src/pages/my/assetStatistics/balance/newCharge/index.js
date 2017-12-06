@@ -59,18 +59,24 @@ class Index extends Component{
                     this.setState({
                         time:this.state.time+1
                     });
-                    if(nextProps.verifyData&&nextProps.verifyData.code=='0001'){
+                    if(nextProps.verifyData&&nextProps.verifyData.code=='100'){
                          this.props.push('/user/reChargeSuccess')
                     }else{
                         if(this.state.time>=3){
-                            if(nextProps.verifyData&&nextProps.verifyData.code!='0001'){
+                            if(nextProps.verifyData&&nextProps.verifyData.code!='100'){
                                 //this.props.push('/user/reChargeFail')
                                 $this.refs.loading.hide()
-                                $this.refs.tip.open(nextProps.verifyData.msg)
+                                this.refs.alert.show({
+                                    content: nextProps.verifyData.msg,
+                                    okText: '确定',
+                                })
                             }else{
                                 //this.props.push('/user/reChargeFail')
                                 $this.refs.loading.hide()
-                                $this.refs.tip.open('充值失败')
+                                this.refs.alert.show({
+                                    content: '充值失败',
+                                    okText: '确定',
+                                })
                             }
                             this.setState({
                                 time:0

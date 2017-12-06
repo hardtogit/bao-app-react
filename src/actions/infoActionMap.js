@@ -361,7 +361,7 @@ export default {
         apiFn:Fetch.regVerify
     },
     [actionTypes.RECHARGE_VERIFY]:{//验证存管短信是否发送成功
-        apiFn:Fetch.regVerify
+        apiFn:Fetch.rechargeVerify
     },
     [actionTypes.CODE_RIGHT_VERIFY]:{//验证验证码是否正确
         apiFn:Fetch.regVerify

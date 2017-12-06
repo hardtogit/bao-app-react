@@ -340,6 +340,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         }),
         dispatch({
             type:'CLEAR_INFO_DATA',
+            key:'CHANGE_CODE_RIGHT_VERIFY'
+        }),
+        dispatch({
+            type:'CLEAR_INFO_DATA',
             key:'CHANGE_CODE_VERIFY'
          }),
         dispatch({

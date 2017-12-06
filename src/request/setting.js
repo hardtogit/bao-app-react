@@ -75,6 +75,8 @@ const requests = (Fetch) => {
   Fetch.regStore=(data)=>{return Fetch('api/supervise/users/register','POST',data)}
   //验证存管
   Fetch.regVerify=(id)=>{ return Fetch(`api/common/msg-result/${id.id}`,'GET')}
+  //存管充值验证
+  Fetch.rechargeVerify=(id)=>{ return Fetch(`api/common/msg-result-new/${id.id}`,'GET')}
   //获取省份
   Fetch.getProvince=(data)=>{ return Fetch('api/supervise/outlets/provinceList','GET',data)}
   //获取城市
