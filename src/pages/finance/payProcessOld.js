@@ -61,7 +61,7 @@ class PayProcess extends React.Component {
         if (nextProps.balancePayData&&nextProps.depositbsBuyResultData){
             const code = nextProps.balancePayData.code;
             if (code==100&&nextProps.depositbsBuyResultData.data.status==1){
-                go('/depositInvestSuccess/B');
+                go('/depositInvestSuccessOld/B');
                 nextProps.clear();
             }else {
                 if (this.props.time<=3){

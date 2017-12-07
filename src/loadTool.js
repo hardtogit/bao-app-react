@@ -85,6 +85,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/finance/directInvest/directBuyOld').default);
         }, 'DirectBuyOld');
     },//存管充值
+    DepositInvestSuccessOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/investSuccessOld').default);
+        }, 'DepositInvestSuccessOld');
+    },//存管充值
     CreditorBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/creditors/buyOld').default);
