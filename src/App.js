@@ -133,7 +133,7 @@ import {FindMessage,InviteFriends,AnnounceMent,MessageDetail} from './pages/rout
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld} from './loadTool'
 
 // 工厂方法创建saga中间件
 const a=window.location.href.split('.')[1]+'.cn';
@@ -336,6 +336,7 @@ export default class App extends React.Component {
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
+            <Route path="depositInvestSuccessOld/:type" getComponent={DepositInvestSuccessOld}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directBuyOld(/:id(/:month))" getComponent={DirectBuyOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
