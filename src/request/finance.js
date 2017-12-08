@@ -107,6 +107,8 @@ const requests = (Fetch) => {
   Fetch.serviceChargeRule=(data)=>{return Fetch('api/supervise/account/withdrawFee','POST',data)}//获取手续费规则
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
   Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/users/uploadIdCard','POST',data)}//身份证上传
+  Fetch.getDefaultTab=(data)=>{return Fetch('api/setting/defaultShow','get',data)}//获取默认tab
+
 }
 
 export default requests

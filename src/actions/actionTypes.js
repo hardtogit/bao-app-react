@@ -311,3 +311,4 @@ export const FRIDAY_POP='FRIDAY_POP' //星期五活动弹窗
 export const FRIDAY_COINLIST='FRIDAY_COINLIST' //星期五活动弹窗
 export const IF_SYNC='IF_SYNC'//是否同步
 export const QUERY_UPLOAD='QUERY_UPLOAD'//查询是否上传身份证
+export const GET_DEFAULT_TAB='GET_DEFAULT_TAB' //获取产品页默认tab

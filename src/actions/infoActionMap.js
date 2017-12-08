@@ -485,7 +485,9 @@ export default {
     },
     [actionTypes.QUERY_UPLOAD]:{   //星期五活动弹窗
         apiFn:Fetch.queryUpload
+    },
+    [actionTypes.GET_DEFAULT_TAB]:{   //星期五活动弹窗
+        apiFn:Fetch.getDefaultTab
     }
-
 
 }

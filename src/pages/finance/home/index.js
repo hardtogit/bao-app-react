@@ -38,6 +38,41 @@ class financeIndex extends Component{
              tabs:[DepositGather,DepositPlanB,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
+	 componentWillReceiveProps(nextProps){
+     	if(sessionStorage.getItem('setDefaultIndex')){
+     		return false;
+		}else{
+            if(nextProps.defaultIndex&&nextProps.defaultIndex.data){
+                if(nextProps.defaultIndex.data.productIndexTabIndex=='聚点+'){
+                    this.setState({
+                        Index:0
+                    })
+                    this.props.proIndexs(0);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else if(nextProps.defaultIndex.data.productIndexTabIndex=='定存宝B'){
+                    this.setState({
+                        Index:1
+                    })
+                    this.props.proIndexs(1);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else if(nextProps.defaultIndex.data.productIndexTabIndex=='直投项目'){
+                    this.setState({
+                        Index:2
+                    })
+                    this.props.proIndexs(2);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else{
+                    this.setState({
+                        Index:3
+                    })
+                    sessionStorage.setItem('setDefaultIndex',true)
+                    this.props.proIndexs(3);
+                }
+
+            }
+		}
+
+	 }
 	 componentWillMount(){
      	const {proIndex,proIndexs}=this.props;
          this.setState({
@@ -46,6 +81,7 @@ class financeIndex extends Component{
          proIndexs(proIndex);
 	 }
 	 componentDidMount(){
+	 	this.props.getDefault();
 	 	if (utils.getCookie('storeGuide')){
 
 		}else{
@@ -105,7 +141,8 @@ class financeIndex extends Component{
 	 }
 }
 const financeIndexInit=(state,own)=>({
-	  proIndex:state.global.getIn(['PRODUCT_INDEX'])
+	  proIndex:state.global.getIn(['PRODUCT_INDEX']),
+	  defaultIndex:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
 })
 const financeIndexInitfn=(dispath,owb)=>({
     proIndexs(index){
@@ -113,6 +150,11 @@ const financeIndexInitfn=(dispath,owb)=>({
             type:'PRODUCT_INDEX',
             index:index
         })
+	},
+	getDefault(){
+    	dispath({
+			type:'GET_DEFAULT_TAB',
+		})
 	}
 })
 export default connect(financeIndexInit,financeIndexInitfn)(wrap(financeIndex))
