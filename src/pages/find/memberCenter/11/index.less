@@ -1,0 +1,258 @@
+.bg{
+  background: #F6F6F9;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  overflow: auto;
+}
+.dhOver{
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: -8px;
+  right: 5px;
+  background: url("../../../../assets/images/storeOver.png");
+  background-size:100%  100%;
+}
+.coinMain{
+  width: 100%;
+  margin-top:44px;
+}
+.coinText{
+  width: 100%;
+  text-align: center;
+}
+.coinText img{
+  margin-top: 55px;
+}
+.coinText h1{
+  font-size: 16px;
+  color: #181818;
+}
+.coinText h2{
+  font-size: 28px;
+  color: #000;
+  margin-top: 20px;
+}
+.coinText p{
+  font-size: 16px;
+  color: #626262;
+  margin-top: 10px;
+}
+.noneCoin{
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: #626262;
+  margin-top: 55px;
+}
+.coinlist{
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  padding: 15px;
+}
+.coinBox{
+  padding: 15px 15px 0px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  .coinContent{
+    border-bottom: 1px solid #ddd;
+    margin-right: -15px;
+    padding-right: 15px;
+  }
+  .coinContent:last-child{
+    border-bottom: 0px;
+  }
+  .coinTitle{
+    font-size: 16px;
+    color: #000000;
+    .consume{
+      float: right;
+    }
+  }
+  .coinAddress{
+    padding: 10px 0px;
+    font-size: 12px;
+    color: #AAAAAA;
+  }
+  .coinTime{
+    font-size: 11px;
+    color: #AAAAAA;
+    padding-bottom: 15px;
+  }
+}
+.listleft{
+  top:12px;
+  position: absolute;
+}
+.listleft p{
+  font-size: 12px;
+  color: #aaa;
+}
+.potop{
+  position: relative;
+  top: -8px;
+}
+.listleft h1{
+  font-size: 16px;
+  font-weight: normal;
+  color: #000;
+}
+.listright{
+  float: right;
+  padding-right: 15px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.listright p{
+  font-size: 18px;
+  color: #000;
+}
+.rightNode{
+  width: 30px;
+}
+.top{
+  position: relative;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 103px;
+  background: #F76260;
+  img{
+    position: absolute;
+    left: 23px;
+    bottom: 24px;
+    display: inline-block;
+    width: 60px;
+  };
+  span.coins{
+    position: absolute;
+    top: 35px;
+    left: 105px;
+    font-size: 21px;
+    color: #fff;
+  };
+  span.sign{
+    position: absolute;
+    right: 15px;
+    top:32px;
+    display: inline-block;
+    height: 32px;
+    width: 76px;
+    text-align: center;
+    line-height: 32px;
+    box-sizing: border-box;
+    font-size: 17px;
+    color: #fff;
+    border:1px solid #fff;
+    border-radius: 4px;
+  };
+  span.coins_desc{
+    position: absolute;
+    left: 105px;
+    top: 58px;
+    color: #FDB7B3;
+    font-size: 14px;
+  }
+}
+.items{
+  width: 100%;
+  height: 40px;
+  background: white;
+  overflow: hidden;
+  position: relative;
+  .scrollBar{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  ul{
+    height: 40px;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    li{
+      white-space :nowrap;
+      box-sizing: border-box;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      display: inline-block;
+      font-size: 16px;
+      color: #333;
+      margin-left: 15px;
+      &.active{
+        color: #F76260;
+        border-bottom: 2px solid #F76260;
+      }
+    }
+  }
+}
+.products{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .productBox{
+    position: relative;
+    list-style: none;
+    overflow: hidden;
+    height: 240px;
+    width: 50%;
+    background: white;
+    margin-top: 14px;
+    border-right: 7px solid #F6F6F9;
+    box-sizing: border-box;
+    display: inline-block;
+    &:nth-of-type(2n){
+      border-left: 7px solid #F6F6F9;
+      border-right: 0;
+    };
+    .products_img{
+      max-width: 100%;
+      width: 100%;
+      height:180px;
+    };
+    p{
+      text-align: center;
+      &.name{
+        font-size: 14px;
+        color: #000;
+        margin-top: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      };
+      &.money{
+        font-size: 14px;
+        color: #f76260;
+        padding-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+          padding-right: 2px;
+          display: inline-block;
+          width: 18px;
+        }
+      }
+    }
+  }
+}
+.block{
+  display: block;
+}
+.hide{
+  display: none;
+}

@@ -345,14 +345,12 @@ class Index extends React.Component {
             nobjs,
             fridayPopData
         } = this.props;
-
         let Dom;
 
         let PopDom;
         if (fridayPopData && fridayPopData.data && fridayPopData.data.coin != 0) {
             PopDom = this.fridayPopDom(fridayPopData.data);
         }
-
 
         if (nobjs) {
             Dom = this.loadingEndDom(nobjs.data);
@@ -371,7 +369,6 @@ class Index extends React.Component {
                     {this.state.ifShow && PopDom}
                 </div>
             </div>
-
         )
     }
 }

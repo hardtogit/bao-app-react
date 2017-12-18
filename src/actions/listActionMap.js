@@ -151,5 +151,14 @@ export default {
     },
     [actionTypes.FRIDAY_COINLIST]:{    //周五活动币列表
         apiFn:Fetch.fridayCoinList
-    }
+    },
+    [actionTypes.GET_RATE_COUPONS]:{    //会员中心加息券列表
+        apiFn:Fetch.getRateCoupons
+    },
+    [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心加息券列表
+        apiFn:Fetch.getVoucherCoupons
+    },
+    [actionTypes.GET_GOODS_LIST]:{    //会员中心加息券列表
+        apiFn:Fetch.getGoodsList
+    },
 }

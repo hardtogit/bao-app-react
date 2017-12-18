@@ -485,7 +485,13 @@ export default {
     },
     [actionTypes.QUERY_UPLOAD]:{   //星期五活动弹窗
         apiFn:Fetch.queryUpload
-    }
+    },
+    [actionTypes.GET_VIP]:{   //获取用户VIP信息
+        apiFn:Fetch.getVipInfo
+    },
+    [actionTypes.GET_GOODS_TYPE_LIST]:{   //获取用户VIP信息
+        apiFn:Fetch.getGoodsTypeList
+    },
 
 
 }

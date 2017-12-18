@@ -791,4 +791,5 @@ utils.getCookie=function(name) {
     }
     return null;
 }
+utils.rootImgUrl='https://bao-image.oss-cn-hangzhou.aliyuncs.com/uploadfile/img/';
 export default utils

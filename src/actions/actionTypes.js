@@ -22,6 +22,11 @@ export const SET_READ='SET_READ' //设置为已读
 export const CLEAR_DATA='CLEAR_DATA' //清空data
 export const CLEAR_DATA_ALL='CLEAR_DATA_ALL' //彻底清空list
 export const CLEAR_ID='CLEAR_ID' //清空详情对象
+export const GET_VIP='GET_VIP' //用户VIP信息
+export const GET_RATE_COUPONS='GET_RATE_COUPONS' //加息券列表
+export const GET_VOUCHER_COUPONS='GET_VOUCHER_COUPONS' //抵用券列表
+export const GET_GOODS_LIST='GET_GOODS_LIST' //抵用券列表
+export const GET_GOODS_TYPE_LIST='GET_GOODS_TYPE_LIST' //抵用券列表
 /**************************** 账户中心 ********************************************/
 export const USER_LOGIN_FLOW = 'USER_LOGIN_FLOW';//用户登录
 export const LOGIN_STORAGE='LOGIN_STORAGE'//设置登陆信息
