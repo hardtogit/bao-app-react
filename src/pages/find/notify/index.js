@@ -40,7 +40,6 @@ class findNotify extends Component{
                         {
                             massageTitle
                         }
-
                     </div>
                     <div className={styles.massageBody} dangerouslySetInnerHTML={{__html:content}}>
 

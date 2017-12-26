@@ -288,16 +288,21 @@
     width:100%;
     list-style: none;
     margin:0 auto;
+    padding: 0 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content:flex-start;
 }
+.shop a{
+    display: block;
+    width:27.3%;
+    margin: 0 3%;
+}
 .shop li{
-    width:26%;
+    width:100%;
+    hieght:144px;
     padding: 15px 10px;
     margin: 10px 0;
-    margin-right: 3.5%;
-    margin-left: 3.5%;
     border: 1px solid #dedede;
     border-radius: 9px;
     color:#333;

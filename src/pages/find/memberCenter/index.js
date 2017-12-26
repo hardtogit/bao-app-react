@@ -13,6 +13,7 @@ import tab4 from '../../../assets/images/find/tab4.png'
 import content1 from '../../../assets/images/find/content1.png'
 import ku from '../../../assets/images/find/ku.png'
 import noSignTable from '../../../assets/images/find/noSignTable.png'
+import Loading from '../../../components/pageLoading'
 import {goBack,push} from 'react-router-redux'
 class memberCenter extends Component{
     constructor(props){
@@ -21,6 +22,7 @@ class memberCenter extends Component{
             index:0,
         }
     }
+
     componentWillMount(){
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
         if (userInfo){
@@ -40,13 +42,16 @@ class memberCenter extends Component{
         return(
             <ul className={styles.shop}>
                 {rateCouponsData&&rateCouponsData.map((item,i)=>{
+                    const {coupon_id,coupon_money,coupon_name,receive_way,info_term,info_limit,is_has}=item;
                     return(
-                        <li key={i}>
-                            <div className={styles.shopImg2}>
-                                <p>￥<span className={styles.quanTxt}>{item.coupon_money}</span></p>
-                            </div>
-                            <p className={styles.shopTitle1}>{item.coupon_name}</p>
-                        </li>
+                        <Link to={`/find/ticketDetail/${coupon_name}/${coupon_id}/${coupon_money}/${receive_way}/${info_term}/${info_limit}/${is_has}`}>
+                            <li key={i}>
+                                <div className={styles.shopImg2}>
+                                    <p>￥<span className={styles.quanTxt}>{coupon_money}</span></p>
+                                </div>
+                                <p className={styles.shopTitle1}>{coupon_name}</p>
+                            </li>
+                        </Link>
                     )
                 })}
             </ul>
@@ -61,6 +66,38 @@ class memberCenter extends Component{
             </div>
         )
     };
+    cashDomHas=()=>{
+        const {
+            voucherData,
+        }=this.props;
+        return(
+            <ul className={styles.shop}>
+                {voucherData&&voucherData.map((item,i)=>{
+                    const {coupon_id,coupon_money,coupon_name,minimum_money,receive_way,info_term,info_limit,is_has}=item;
+                    return(
+                        <Link to={`/find/ticketDetail/${coupon_name}/${coupon_id}/${coupon_money}/${receive_way}/${info_term}/${info_limit}/${is_has}/${item}`}>
+                            <li key={i}>
+                                <div className={styles.shopImg}>
+                                    <p>￥<span className={styles.quanTxt}>{coupon_money}</span></p>
+                                </div>
+                                <p className={styles.shopTitle1}>{coupon_name}</p>
+                                <p className={styles.shopTitle2}>满{minimum_money}可用</p>
+                            </li>
+                        </Link>
+                    )
+                })}
+            </ul>
+        )
+    };
+    cashDomNo=()=>{
+        return(
+            <div className={styles.noRate}>
+                <img src={ku} />
+                <p className={styles.rateTxt}>您的会员为：普通会员，暂无抵用券可供选择领取</p>
+                <p className={styles.farfrom}>距抵用券领取尚差年化金额：500,000.00元</p>
+            </div>
+        )
+    };
     oneDom=(data)=>{
         let {
             index
@@ -69,11 +106,18 @@ class memberCenter extends Component{
             rateCouponsData,
             voucherData
         }=this.props;
-        let rateDom;
+        console.log(rateCouponsData,
+            voucherData)
+        let rateDom,cashDom;
         if(rateCouponsData&&rateCouponsData.size!=0){
             rateDom = this.rateDomHas();
         }else{
             rateDom = this.rateDomNo();
+        }
+        if(voucherData&&voucherData.size!=0){
+            cashDom = this.cashDomHas();
+        }else{
+            cashDom = this.cashDomNo();
         }
         const {
             user_name,
@@ -159,19 +203,10 @@ class memberCenter extends Component{
                             <span className={styles.rightTxt}>领取规则></span>
                         </Link>
                     </div>
-                    <ul className={styles.shop}>
-                        {voucherData&&voucherData.map((item,i)=>{
-                            return(
-                                <li key={i}>
-                                    <div className={styles.shopImg}>
-                                        <p>￥<span className={styles.quanTxt}>{item.coupon_money}</span></p>
-                                    </div>
-                                    <p className={styles.shopTitle1}>{item.coupon_name}</p>
-                                    <p className={styles.shopTitle2}>满{item.minimum_money}可用</p>
-                                </li>
-                            )
-                        })}
-                    </ul>
+                    {
+                        cashDom
+                    }
+
                 </div>
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
@@ -216,25 +251,35 @@ class memberCenter extends Component{
             </div>
         )
     }
-
+    loadingDom(){
+        return(<Loading/>)
+    }
     render(){
         const {
             pop,
             VipData,
+            voucherData,
+            rateCouponsData
         }=this.props;
         let Dom;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-        if (userInfo){
-            if(VipData){
-                Dom= this.oneDom(VipData.data);
+
+        if(VipData && voucherData && rateCouponsData){
+            if (userInfo){
+                if(VipData){
+                    Dom= this.oneDom(VipData.data);
+                }
+            }else {
+                Dom= this.twoDom();
             }
-        }else {
-            Dom= this.twoDom();
+        }else{
+            Dom= this.loadingDom();
         }
 
         return(
             <div className={styles.findMessage} >
-                <div className={styles.findMessageHeader}><NavBar title="会员中心" onLeft={pop} backgroundColor="#41403e"/>
+                <div className={styles.findMessageHeader}>
+                    <NavBar title="会员中心" onLeft={pop} backgroundColor="#41403e" color="#d0a15e" />
                 </div>
                 {
                     Dom

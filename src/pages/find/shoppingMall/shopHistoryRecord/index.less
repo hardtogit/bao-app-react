@@ -115,7 +115,7 @@
   color: #000;
 }
 .rightNode{
-  width: 30px;
+  width: 20px;
 }
 .top{
   position: relative;
@@ -175,10 +175,12 @@
   }
   ul{
     height: 40px;
+    width:100%;
     display: -webkit-inline-flex;
     display: inline-flex;
     flex-wrap: nowrap;
     overflow: auto;
+    justify-content: space-around;
     -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar{
       display: none;
@@ -194,65 +196,83 @@
       color: #333;
       margin-left: 15px;
       &.active{
-        color: #F76260;
+        color:#F76260;
         border-bottom: 2px solid #F76260;
       }
     }
   }
 }
-.products{
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  .productBox{
-    position: relative;
-    list-style: none;
-    overflow: hidden;
-    height: 240px;
-    width: 50%;
-    background: white;
-    margin-top: 14px;
-    border-right: 7px solid #F6F6F9;
-    box-sizing: border-box;
-    display: inline-block;
-    &:nth-of-type(2n){
-      border-left: 7px solid #F6F6F9;
-      border-right: 0;
-    };
-    .products_img{
-      max-width: 100%;
-      width: 100%;
-      height:180px;
-    };
-    p{
-      text-align: center;
-      &.name{
-        font-size: 14px;
-        color: #000;
-        margin-top: 5px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      };
-      &.money{
-        font-size: 14px;
-        color: #f76260;
-        padding-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-          padding-right: 2px;
-          display: inline-block;
-          width: 18px;
-        }
-      }
-    }
-  }
-}
+
 .block{
   display: block;
 }
 .hide{
   display: none;
+}
+.currentCion{
+  padding: 20px;
+  width: 100%;
+  background-color: #fff;
+}
+.currentCion p{
+  margin: 10px;
+}
+.p1{
+  color:#999;
+  text-align: center;
+}
+
+.p2{
+  color:#fe684b;
+  text-align: center;
+  font-size: 38px;
+}
+.cionBox{
+  width:90%;
+  height:140px;
+  font-size: 14px;
+  margin: 20px auto 0;
+  padding-top: 20px;
+  padding-left: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  p{
+    line-height: 26px;
+  }
+  .amount{
+    color:#fe684b;
+    font-size: 24px;
+  }
+  .coinBtm{
+    width:100%;
+    height: 35px;
+    line-height: 35px;
+    background-color: #fe684b;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    color:#fff;
+    .ucltype{
+      float:left;
+      font-size: 12px;
+    }
+    .addtime{
+      float:right;
+      font-size: 12px;
+    }
+  }
+  img{
+    display: none;
+  }
+
+  .goImg{
+    position: absolute;
+    width: 60px;
+    right: 0;
+    top:30px;
+    display: block;
+  }
 }

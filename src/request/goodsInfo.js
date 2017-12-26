@@ -11,6 +11,14 @@ const requests = (Fetch) => {
       }
       return Fetch(`api/userVip/goodsList?page=${page}&page_size=${page_size}${Tag}`, 'GET')
   };
+    //点币记录
+    Fetch.getCoinRecordList = () => {return Fetch(`api/userVip/coinList`, 'GET')};
+    //兑换记录
+    Fetch.getCashRecordList = () => {return Fetch(`api/userVip/cashList`, 'GET')};
+    //兑换详情
+    Fetch.getCashDetail = (id) => {return Fetch(`api/userVip/cashInfo?id=${id}`, 'GET')};
+    //商城通知列表
+    Fetch.getNoticeList = () => {return Fetch(`api/userVip/noticeList`, 'GET')};
 
 }
 

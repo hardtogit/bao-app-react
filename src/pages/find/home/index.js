@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import NavBar from '../../../components/NavBar'
-import Swiper from '../../../components/swiper/index';
+import Swiper from '../../../components/mySwiper/index';
 import b1 from '../../../assets/images/find/b1.png';
 import Notice from '../../../assets/images/find/notice.png'
 import Mall from '../../../assets/images/find/mall.png'
@@ -19,6 +19,7 @@ import special4 from '../../../assets/images/find/special4.png'
 import special5 from '../../../assets/images/find/special5.png'
 import special6 from '../../../assets/images/find/special6.png'
 import private1 from '../../../assets/images/find/private2.png'
+import Sign from '../../../components/Sign/index'
 import coin from '../../../assets/images/find/coin.png'
 import shop from '../../../assets/images/find/shop.png'
 import ac1 from '../../../assets/images/find/ac1.png'
@@ -30,8 +31,49 @@ import Loading from '../../../components/pageLoading'
 import setAuthUrl from '../../../components/setAuthUrl/index'
 
 class findHome extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            signNumbers:'',
+            coins:'',
+            isSign:false,
+            index:0,
+            id:0
+        }
+    }
     componentDidMount(){
         this.props.getGoodsList();
+    }
+    componentWillReceiveProps(next){
+        const {user}=next;
+        if (user){
+            user.code==100&&this.set(user.data);
+        }
+    }
+    set=(userInfo)=>{
+        this.setState({
+            signNumbers:userInfo.signNumbers,
+            coins:userInfo.coins,
+            isSign:userInfo.isSign,
+        })
+    }
+    doSign=()=>{
+        this.refs.SignModel.show();
+    };
+    signSuccess=(data)=>{
+        this.setState({
+            isSign:true,
+            coins:data.data.coins
+        });
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        userInfo.isSign=true;
+        userInfo.coins=data.data.coins;
+        sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
+        this.refs.SignModel.hide();
+    }
+    qdDom=()=>{
+        let {coins,signNumbers,isSign} = this.state;
+        return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
     }
     loadingDom(){
         return(<Loading/>)
@@ -47,14 +89,29 @@ class findHome extends Component{
         }else {
             inviteUrl = "/find/inviteRule";
         }
+        let productList=[]
+
+        goodsListData&&goodsListData.map((item,i)=>{
+            if(i<4){
+             productList.push( <li key={i}>
+                 <p className={styles.shopTitle1}>{item.product_name}</p>
+                 <p className={styles.shopTitle2}>
+                     <span>{item.price}</span>
+                     <span><img src={coin} /></span>
+                     <img src={private1} className={styles.specialIcon}/>
+                 </p>
+                 <img src={item.image} className={styles.shopImg}/>
+             </li>)
+            }
+        })
         return(
             <div>
-                <Swiper className={styles.swiperBg} >
+                <Swiper className={styles.swiperBg} autoPlay={false}>
                     <div className='banner-box' style={{textAlign:"center"}}>
-                        <img src={b1} className='banner-img' style={{width:"86%",marginLeft:"7%"}} />
+                        <img src={b1} className='banner-img'  />
                     </div>
                     <div  className='banner-box' style={{textAlign:"center"}}>
-                        <img src={b1} className='banner-img' style={{width:"86%",marginLeft:"7%"}} />
+                        <img src={b1} className='banner-img' />
                     </div>
                 </Swiper>
                 <div className={styles.tabContainer}>
@@ -74,10 +131,10 @@ class findHome extends Component{
                             </Link>
                         </li>
                         <li className={styles.indexCavli}>
-                            <Link to="/find/inviteFriends" className={styles.Link}>
+                            <span onClick={!this.state.isSign&&this.doSign}>
                                 <img src={Signon}/>
-                                <p>签到</p>
-                            </Link>
+                                <p>{this.state.isSign&&'已签到'||'签到'}</p>
+                            </span>
                         </li>
                         <li className={styles.indexCavli}>
                             <Link to="/find/memberCenter" className={styles.Link}>
@@ -159,21 +216,7 @@ class findHome extends Component{
                         </Link>
                     </div>
                     <ul className={styles.shop}>
-                        {
-                            goodsListData&&goodsListData.map((item,i)=>{
-                                return(
-                                    <li key={i}>
-                                        <p className={styles.shopTitle1}>{item.product_name}</p>
-                                        <p className={styles.shopTitle2}>
-                                            <span>{item.price}</span>
-                                            <span><img src={coin} /></span>
-                                            <img src={private1} className={styles.specialIcon}/>
-                                        </p>
-                                        <img src={item.image} className={styles.shopImg}/>
-                                    </li>
-                                )
-                            })
-                        }
+                        {productList}
                     </ul>
                 </div>
                 <div className={styles.findItem}>
@@ -197,8 +240,16 @@ class findHome extends Component{
             )
     }
      render(){
-         let contentDom;
-         contentDom = this.loadingEndDom();
+         let {coins} = this.state;
+         const {
+             goodsListData,
+         }=this.props;
+         let contentDom,qdDom;
+         if (goodsListData&&(coins||coins==0)){
+             contentDom=this.loadingEndDom();
+             qdDom=this.qdDom();
+         }
+
          return(
              <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
@@ -210,6 +261,9 @@ class findHome extends Component{
                     {
                         contentDom
                     }
+                    {
+                        qdDom
+                    }
                 </div>
              </div>
          )
@@ -217,11 +271,17 @@ class findHome extends Component{
 }
 const initMymassege=(state,own)=>({
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    user:state.infodata.getIn(['USER_INFO','data'])
 })
 const initMymassegefn=(dispatch,own)=>({
     getGoodsList(){
         dispatch({
             type:'GET_GOODS_LIST'
+        })
+    },
+    getUser(){
+        dispatch({
+            type:'USER_INFO'
         })
     },
     pop(){

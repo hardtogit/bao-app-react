@@ -129,7 +129,7 @@ ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectPr
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
-import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,MoreBasic,Help,TicketRule,RateTicketRule,InviteFriends,Messages,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
+import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
@@ -297,12 +297,15 @@ export default class App extends React.Component {
                   <Route path="notify" component={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="shoppingMall" component={ShoppingMall}></Route>
                   <Route path="shoppingMall/productList" component={ShopProductList}></Route>
+                  <Route path="shoppingMall/shopHistoryRecord" component={ShopHistoryRecord}></Route>
+                  <Route path="shoppingMall/shopMessage" component={ShopMessage}></Route>
+                  <Route path="shoppingMall/cashDetail/:id" component={CashDetail}></Route>
                   <Route path="memberCenter" component={MemberCenter}></Route>
                   <Route path="moreBasic" component={MoreBasic}></Route>
                   <Route path="help" component={Help}></Route>
                   <Route path="ticketRule" component={TicketRule}></Route>
                   <Route path="rateTicketRule" component={RateTicketRule}></Route>
-                  <Route path="rateTicketRule" component={RateTicketRule}></Route>
+                  <Route path="ticketDetail/:coupon_name/:coupon_id/:coupon_money/:receive_way/:info_term/:info_limit/:is_has/:item" component={TicketDetail}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messages" component={Messages} ></Route>
                   <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

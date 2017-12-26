@@ -268,14 +268,16 @@
     width:14px;
     margin-left: 1px;
 }
-.shop .imgBox{
+.imgBox{
     width:100%;
     height:130px;
     text-align: center;
     margin-top: 40px;
 }
-.shop  .imgBox .shopImg{
+
+.shopImg{
     height:120px;
+    margin:  0 auto;
 }
 .specialIcon{
     height: 14px;
@@ -309,6 +311,9 @@
 .hotActive li img{
     width:100%;
     margin: 0 auto;
+}
+.rightRili{
+    width:24px;
 }
 
 

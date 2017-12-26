@@ -161,4 +161,13 @@ export default {
     [actionTypes.GET_GOODS_LIST]:{    //会员中心加息券列表
         apiFn:Fetch.getGoodsList
     },
+    [actionTypes.GET_COIN_RECORD_LIST]:{   //商城历史记录点币记录
+        apiFn:Fetch.getCoinRecordList
+    },
+    [actionTypes.GET_CASH_RECORD_LIST]:{   //商城历史记录兑换记录
+        apiFn:Fetch.getCashRecordList
+    },
+    [actionTypes.GET_NOTICE_LIST]:{   //商城通知
+        apiFn:Fetch.getNoticeList
+    },
 }

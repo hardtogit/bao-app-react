@@ -492,6 +492,15 @@ export default {
     [actionTypes.GET_GOODS_TYPE_LIST]:{   //获取用户VIP信息
         apiFn:Fetch.getGoodsTypeList
     },
+    [actionTypes.GET_CASH_DETALE]:{   //获取兑换详情
+        apiFn:Fetch.getCashDetail
+    },
+    [actionTypes.VOUCHER_GET]:{   //获取兑换详情
+        apiFn:Fetch.voucherGet
+    },
+    [actionTypes.RATE_GET]:{   //获取兑换详情
+        apiFn:Fetch.rateGet
+    },
 
 
 }

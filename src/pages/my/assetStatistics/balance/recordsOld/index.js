@@ -39,7 +39,6 @@ class Index extends React.Component {
             filterShow:false
         });
         this.props.clearData();
-        // return;
 
         this.props.getList(flag);
     };

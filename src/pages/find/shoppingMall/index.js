@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
-import Swiper from '../../../components/swiper/index';
+import Swiper from '../../../components/mySwiper/index';
 import b1 from '../../../assets/images/find/b1.png';
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
@@ -11,13 +11,8 @@ import st3 from '../../../assets/images/find/st3.png'
 import st4 from '../../../assets/images/find/st4.png'
 import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
-import shop from '../../../assets/images/find/shop.png'
-import limit from '../../../assets/images/find/limit.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
-import classNames from 'classnames'
-import Loading from '../../../components/pageLoading'
-import setAuthUrl from '../../../components/setAuthUrl/index'
 import utils from '../../../utils/utils'
 class shoppingMall extends Component{
     componentWillMount(){
@@ -30,36 +25,47 @@ class shoppingMall extends Component{
             goodsTypeListData,
             goodsListData,
         }=this.props;
-        if(goodsTypeListData){
-            console.log(goodsTypeListData.data[0].label_child);
-        }
+        let productList=[];
 
-
+        goodsListData&&goodsListData.map((item,i)=>{
+            if(i<4){
+                productList.push(
+                    <li key={i}>
+                        <p className={styles.shopTitle1}>{item.product_name}</p>
+                        <p className={styles.shopTitle2}>
+                            <span>{item.price}</span>
+                            <span><img src={coin} /></span>
+                            <img src={private1} className={styles.specialIcon}/>
+                        </p>
+                        <div className={styles.imgBox}>
+                            <img src={utils.rootImgUrl + item.image } className={styles.shopImg}/>
+                        </div>
+                    </li>
+                )
+            }
+        })
         return(
             <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
-                    <NavBar title="商城" onLeft={pop} backgroundColor="#41403e"/>
-                    {/*<NavBar  backgroundColor='#fff' leftNode={pop}>*/}
-                        {/*<span className={styles.title}>积分商城</span>*/}
-                    {/*</NavBar>*/}
+                    <NavBar title="商城" onLeft={pop} backgroundColor="#fff"
+                            color="#41403e"
+                    />
                 </div>
                 <div className={styles.findContent} >
-                    <Swiper className={styles.swiperBg} >
+                    <Swiper className={styles.swiperBg} autoPlay={false}>
                         <div className='banner-box' style={{textAlign:"center"}}>
-                            <img src={b1} className='banner-img' style={{width:"86%",marginLeft:"7%"}} />
+                            <img src={b1} className='banner-img'  />
                         </div>
                         <div  className='banner-box' style={{textAlign:"center"}}>
-                            <img src={b1} className='banner-img' style={{width:"86%",marginLeft:"7%"}} />
+                            <img src={b1} className='banner-img' />
                         </div>
                     </Swiper>
                     <div className={styles.tabContainer}>
                         <ul className={styles.productTab}>
                             <li className={styles.indexCavli}>
-                                <Link to='/find/notify' className={styles.Link}>
-                                     <span className={styles.cavContent}>
-                                     <img src={st1}/>
-                                     <p>记录</p>
-                                     </span>
+                                <Link to='/find/shoppingMall/shopHistoryRecord' className={styles.Link}>
+                                         <img src={st1}/>
+                                         <p>记录</p>
                                 </Link>
                             </li>
                             <li className={styles.indexCavli}>
@@ -69,7 +75,7 @@ class shoppingMall extends Component{
                                 </Link>
                             </li>
                             <li className={styles.indexCavli}>
-                                <Link to="/find/inviteFriends" className={styles.Link}>
+                                <Link to="/find/shoppingMall/shopMessage" className={styles.Link}>
                                     <img src={st3}/>
                                     <p>通知</p>
                                 </Link>
@@ -93,21 +99,7 @@ class shoppingMall extends Component{
                                     </div>
                                     <ul className={styles.shop}>
                                         {
-                                            goodsListData&&goodsListData.map((item,i)=>{
-                                                return(
-                                                    <li key={i}>
-                                                        <p className={styles.shopTitle1}>{item.product_name}</p>
-                                                        <p className={styles.shopTitle2}>
-                                                            <span>{item.price}</span>
-                                                            <span><img src={coin} /></span>
-                                                            <img src={private1} className={styles.specialIcon}/>
-                                                        </p>
-                                                        <div className={styles.imgBox}>
-                                                            <img src={utils.rootImgUrl + item.image } className={styles.shopImg}/>
-                                                        </div>
-                                                    </li>
-                                                )
-                                            })
+                                            productList
                                         }
                                     </ul>
                                 </div>
