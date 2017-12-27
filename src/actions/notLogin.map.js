@@ -38,3 +38,4 @@ export const GATHER_CONTRACT='GATHER_CONTRACT'//聚点+合同
 export const IF_SYNC='IF_SYNC'//是否同步
 export const AUTH_COOKIE='AUTH_COOKIE'//獲取auth
 export const GET_DEFAULT_TAB='GET_DEFAULT_TAB'//获取默认tab
+export const GET_PREHEAT_INFO='GET_PREHEAT_INFO' //预热活动列表

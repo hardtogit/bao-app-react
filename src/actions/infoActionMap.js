@@ -488,6 +488,10 @@ export default {
     },
     [actionTypes.GET_DEFAULT_TAB]:{   //星期五活动弹窗
         apiFn:Fetch.getDefaultTab
-    }
+    },
+    [actionTypes.GET_PREHEAT_INFO]:{    //周五活动币列表
+        apiFn:Fetch.getPreheatInfo
+    },
+
 
 }

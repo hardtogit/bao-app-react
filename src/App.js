@@ -81,6 +81,8 @@ import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
 //发现模块
 import findIndex from './pages/find'
 import Invite from './pages/find/invite/index'
+import preheat from './pages/wechatPreheat/index'
+import preheatConfirm from './pages/wechatPreheat/preheatConfirm/index'
 
 // 我的模块
 import verifyPhone from './pages/my/setting/verifyPhone'
@@ -136,8 +138,8 @@ GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCh
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -300,6 +302,7 @@ export default class App extends React.Component {
                   <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+
               </Route>
 
               /*已完成*/
@@ -364,6 +367,8 @@ export default class App extends React.Component {
             <Route path="invite" component={Invite}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
+            <Route path="preheat" component={preheat}></Route>
+            <Route path="preheatConfirm" component={preheatConfirm}></Route>
           </Route>
             <Redirect from='/*' to='/' />
         </Router>

@@ -22,6 +22,7 @@ export const SET_READ='SET_READ' //设置为已读
 export const CLEAR_DATA='CLEAR_DATA' //清空data
 export const CLEAR_DATA_ALL='CLEAR_DATA_ALL' //彻底清空list
 export const CLEAR_ID='CLEAR_ID' //清空详情对象
+export const GET_PREHEAT_INFO='GET_PREHEAT_INFO' //预热活动列表
 /**************************** 账户中心 ********************************************/
 export const USER_LOGIN_FLOW = 'USER_LOGIN_FLOW';//用户登录
 export const LOGIN_STORAGE='LOGIN_STORAGE'//设置登陆信息

@@ -1,0 +1,151 @@
+.bg{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background:#ec4504;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+
+.ban{
+    width: 100%;
+}
+.main{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.titlebg{
+    width:100%;
+    height:50px;
+    background-image: url("../../assets/images/weChat/title1bg.png");
+    background-size: 100% 100%;
+}
+.titlebg p{
+    color:#fff;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+}
+.titleBox{
+    position: relative;
+    margin-top: -5px;
+}
+.cloud1{
+    width:55px;
+    position: absolute;
+    top:36px;
+    left:0;
+}
+.firstBox {
+    width: 90%;
+    height: 410px;
+    margin: 0 auto;
+    margin-top: -25px;
+    background-image: url("../../assets/images/weChat/bg1.png");
+    background-size: 100% 100%;
+    padding-top: 50px;
+    text-align: center;
+}
+.title1{
+    width:65%;
+}
+.timeTxt{
+    color:#fff;
+    font-size: 12px;
+    width:65%;
+    height: 35px;
+    line-height: 35px;
+    margin: 10px auto;
+    background-image: url("../../assets/images/weChat/timebg.png");
+    background-size: 100% 100%;
+}
+.title2{
+    width: 76%;
+}
+.title3{
+    width: 70%;
+    padding-left: 15px;
+}
+.go_btn{
+    width:70%;
+    margin: 0 auto;
+    margin-top: 5px;
+    height: 40px;
+}
+.go_btn img{
+    width: 100%;
+}
+.know{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.know2{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.shadow{
+    position: absolute;
+    top:0;
+    left: 0;
+    width:100%;
+    height:100%;
+    background-color: #000;
+    opacity: .6;
+    z-index: 1000;
+}
+.popWraper{
+    position:fixed;
+    top:14%;
+    left:0;
+    width:100%;
+    z-index: 1005;
+}
+.needPop{
+    width:305px;
+    height:332px;
+    margin: 0 auto;
+    color:#fff;
+    background-image: url("../../assets/images/weChat/pop.png");
+    background-size: 100% 100%;
+    padding: 100px 30px 40px;
+}
+.needPop .titleTxt{
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
+.needPop .contentTxt{
+    font-size: 12px;
+    line-height: 20px;
+    width:258px;
+}
+.closeBtn{
+    width:50px;
+}
+.closeWraper{
+    width:100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.active{
+    display: none;
+}
+.contentTxtSuc{
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    width:235px;
+}
+.titleTxtsc{
+    font-size: 16px;
+    line-height: 80px;
+    text-align: center;
+}
