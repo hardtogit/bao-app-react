@@ -16,11 +16,24 @@
 }
 .messageContent .massageList{
     background-color: #fff;
+    width:90%;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-top: 20px;
     padding-left: 15px;
+    border-top:2px solid #ccc;
 }
 .messageContent .massageOne{
-   border-bottom:1px #efefef solid; 
    position: relative;
+}
+.active{
+    background-color: #fff;
+    width:90%;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-left: 15px;
+    border-top:2px solid #fe684b;
 }
 .massageOne .massageTitle{
     padding:15px 0px 10px 0px; 
@@ -39,7 +52,6 @@
 .massageOne .massageNew{
      display: inline-block;
     font-size: 16px;
-    padding-left: 50px;
     word-wrap: break-word;
     word-break: normal;
     padding-right: 25px;
@@ -52,10 +64,17 @@
 }
 .massageOne .massageBody{
     padding-bottom: 10px;
+    margin-bottom: 10px;
     font-size: 12px;
     color: #aaa;
     line-height: 18px;
+    height:36px;
+    width:94%;
     padding-right: 32px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .massageOne .massagefooter{
     font-size: 12px;

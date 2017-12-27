@@ -7,6 +7,7 @@ import shoppingMall from '../routes/find/shoppingMall'
 import shopProductList from '../routes/find/productList'
 import shopHistoryRecord from '../routes/find/shopHistoryRecord'
 import shopMessage from '../routes/find/shopMessage'
+import shopMessageDetail from '../routes/find/shopMessageDetail'
 import cashDetail from '../routes/find/cashDetail'
 import memberCenter from '../routes/find/memberCenter'
 import moreBasic from '../routes/find/moreBasic'
@@ -52,6 +53,11 @@ export const ShopProductList=(props)=>{
 export const ShopMessage=(props)=>{
     return<Bundle load={shopMessage}>
         {(ShopMessage)=><ShopMessage {...props}/>}
+    </Bundle>
+};
+export const ShopMessageDetail=(props)=>{
+    return<Bundle load={shopMessageDetail}>
+        {(ShopMessageDetail)=><ShopMessageDetail {...props}/>}
     </Bundle>
 };
 export const ShopHistoryRecord=(props)=>{

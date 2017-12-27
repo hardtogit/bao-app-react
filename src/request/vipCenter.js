@@ -6,9 +6,11 @@ const requests = (Fetch) => {
   //抵用券列表
   Fetch.getVoucherCoupons = () => {return Fetch(`api/userVip/voucherWait`, 'GET')}
   //抵用券领取
-  Fetch.voucherGet = (id) => {return Fetch(`api/userVip/voucherReceive`, 'GET')}
+  Fetch.voucherGet = (id) => {return Fetch(`api/userVip/voucherReceive?coupon_id=${id}`, 'GET')}
     //抵用券领取
-  Fetch.rateGet = () => {return Fetch(`api/userVip/couponReceive?coupon_id=${id}`, 'GET')}
+  Fetch.rateGet = (id) => {return Fetch(`api/userVip/couponReceive?coupon_id=${id}`, 'GET')}
+    //基础特权
+    Fetch.getPrivilegeBasic = () => {return Fetch(`api/userVip/privilegeBasic`, 'GET')}
 
 }
 

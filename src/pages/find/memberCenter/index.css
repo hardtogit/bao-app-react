@@ -135,9 +135,21 @@
     float: left;
     width: 60px;
 }
-.cardleft img{
+.cardleft .headImg{
     width: 60px;
+    height:66px;
+    background-image: url("../../../assets/images/find/vbg.png");
+    background-size: 100% 100%;
+    position: relative;
 }
+.cardleft .headImg .vimg{
+    height:14px;
+    width:20px;
+    position: absolute;
+    bottom: 0;
+    left:20px;
+}
+
 .cardright{
     float: left;
     margin-left: 10px;
@@ -256,7 +268,7 @@
 .false{
     display: none;
 }
-.contentItem img{
+.basicImg{
     width:40%;
 }
 .farfrom{

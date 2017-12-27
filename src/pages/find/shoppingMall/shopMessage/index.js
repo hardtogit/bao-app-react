@@ -5,11 +5,10 @@ import classNames from 'classnames'
 import Scroll from '../../../../components/scroll'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
-class announceMent extends Component{
-    push=(data)=>{
-        sessionStorage.setItem("bao-noticeData",JSON.stringify(data));
-        this.props.push();
-    }
+class shopMessage extends Component{
+    push=(id)=>{
+        this.props.push(id);
+    };
     render(){
         const{
            listData,
@@ -26,24 +25,22 @@ class announceMent extends Component{
                isLoading={pending} distance={20} endType={end} endload={<div>没有更多了哦</div>}>
               {
                   listData&&listData.map((item,i)=>{
-                      const {title,content,description,date,msgKey,id,type,is_read}=item,
-                            data={title,msgKey,description,type,id,date};
+                      const {id,title,status,ctime,day,info}=item;
                       return(
-                          <div className={styles.massageList} key={i} onClick={()=>{this.push(data)}}>
+                          <div className={status == 1 && styles.massageList || styles.active} key={i} onClick={()=>{this.push(id)}}>
                             <div className={styles.massageOne}>
-                            <div className={styles.massageTitle}>
-                            <div  className={styles.Link} >
-                            <span className={classNames(styles.massageIcon,type==1&&styles.system||styles.notice)}>{is_read=='0'&&'New'||type==1&&'系统'||'公告'}</span>
-                            <span className={styles.massageNew}>{title}</span>
-                            </div>
-                            </div>
-                            <div className={styles.massageBody}>
-                            {content}
-                            </div>
-                            <div className={styles.massagefooter}>
-                             {date}
-                            </div>
-                            <span className={styles.glyphiconChevronRight}></span>
+                                <div className={styles.massageTitle}>
+                                    <div  className={styles.Link} >
+                                        <p className={styles.massageNew}>{title}{status}{id}</p>
+                                    </div>
+                                </div>
+                                <div className={styles.massageBody}>
+                                {info}
+                                </div>
+                                <div className={styles.massagefooter}>
+                                 {ctime}
+                                </div>
+                                <span className={styles.glyphiconChevronRight}></span>
                             </div>
                         </div>
                       )
@@ -69,8 +66,8 @@ const initAnmentfn=(dispath,own) =>({
     pop(){
            dispath(goBack())
     },
-    push(){
-      dispath(push('/find/messagedetail'))
+    push(id){
+      dispath(push(`/find/shoppingMall/shopMessageDetail/${id}`))
     }
 })
-export default connect(initAnment,initAnmentfn)(announceMent)
+export default connect(initAnment,initAnmentfn)(shopMessage)

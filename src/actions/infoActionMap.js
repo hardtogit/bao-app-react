@@ -501,6 +501,12 @@ export default {
     [actionTypes.RATE_GET]:{   //获取兑换详情
         apiFn:Fetch.rateGet
     },
+    [actionTypes.GET_NOTICE_DETAIL]:{   //商城通知详情
+        apiFn:Fetch.getNoticeDetail
+    },
+    [actionTypes.GET_PRIV_BASIC]:{   //用户基础特权
+        apiFn:Fetch.getPrivilegeBasic
+    },
 
 
 }

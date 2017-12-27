@@ -1,0 +1,57 @@
+.finderDetail{
+    padding-top: 44px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+.finderDetailHeader{
+     position: relative;
+    z-index: 999;
+}
+.detailWraper{
+    width:100%;
+    text-align: center;
+}
+.xiongImg{
+    width:30%;
+    margin-top: 20px;
+}
+.detailMain{
+    width:90%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+.detailMain .detailTitle{
+    width:100%;
+    height:50px;
+    background-image: url("../../../../assets/images/find/titlebg.png");
+    background-size: 100% 100%;
+}
+.detailMain .detailTitle p{
+    height: 50px;
+    line-height: 50px;
+    color:#fff;
+}
+.content{
+    text-align: left;
+    padding: 20px 20px 40px;
+    font-size: 14px;
+}
+.detailBtm{
+    width:100%;
+    height:26px;
+    background-color: #fe684b;
+    position: absolute;
+    bottom: 0;
+}
+.detailBtm p{
+    color: #fff;
+    font-size: 12px;
+    line-height: 26px;
+}

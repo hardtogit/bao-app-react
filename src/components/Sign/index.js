@@ -57,7 +57,7 @@ export default class SignModel extends React.PureComponent {
                         <img className={style.t} src={toptitle} alt=""/>
                     }
                     <div className={style.msBox}>
-                        <p>连续签到5天</p>
+                        <p>每连续签到5天</p>
                         <p>额外获得50点币</p>
                         <hr/>
                     </div>

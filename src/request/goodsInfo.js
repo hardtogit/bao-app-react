@@ -19,6 +19,10 @@ const requests = (Fetch) => {
     Fetch.getCashDetail = (id) => {return Fetch(`api/userVip/cashInfo?id=${id}`, 'GET')};
     //商城通知列表
     Fetch.getNoticeList = () => {return Fetch(`api/userVip/noticeList`, 'GET')};
+    //商城通知详情
+    Fetch.getNoticeDetail = (id) => {return Fetch(`api/userVip/noticeDetail?id=${id}`, 'GET')};
+    //商城帮助问题
+    Fetch.getHelpList = () => {return Fetch(`api/userVip/helpList`, 'GET')};
 
 }
 

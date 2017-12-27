@@ -11,15 +11,20 @@ class ticketRule extends Component{
         this.state = {
             error: false,
             open: false,
-            buttonClickStatus: true//确认开启是否能点击
+            buttonClickStatus: true//确认开启是否能点击,
+
         }
     }
     componentWillMount(){
 
     }
-    componentWillReceiveProps = ({voucherInfo}) => {
-        if (voucherInfo&&voucherInfo.code == 100) {
-                 this.refs.confirm.show({
+    componentDidMount(){
+
+    }
+    componentWillReceiveProps = ({voucherInfo,rateInfo}) => {
+        if(voucherInfo){
+            if (voucherInfo.code == 100) {
+                this.refs.confirm.show({
                     title: '领取成功',
                     okText: '确定',
                     okCallback: () => {
@@ -29,17 +34,43 @@ class ticketRule extends Component{
                     cancelCallback: () => {
                     }
                 })
-        }else{
-            this.refs.confirm.show({
-                title: '领取失败',
-                okText: '确定',
-                okCallback: () => {
-                },
-                cancelText: '取消',
-                cancelCallback: () => {
-                }
-            })
+            }else{
+                this.refs.confirm.show({
+                    title: '领取失败',
+                    okText: '确定',
+                    okCallback: () => {
+                    },
+                    cancelText: '取消',
+                    cancelCallback: () => {
+                    }
+                })
+            }
         }
+        if(rateInfo){
+            if (rateInfo.code == 100) {
+                this.refs.confirm.show({
+                    title: '领取成功',
+                    okText: '确定',
+                    okCallback: () => {
+                        this.props.push('/find/memberCenter')
+                    },
+                    cancelText: '取消',
+                    cancelCallback: () => {
+                    }
+                })
+            }else{
+                this.refs.confirm.show({
+                    title: '领取失败',
+                    okText: '确定',
+                    okCallback: () => {
+                    },
+                    cancelText: '取消',
+                    cancelCallback: () => {
+                    }
+                })
+            }
+        }
+
     };
     submit=(id,ticketName)=>{
         if(ticketName == "抵用券"){
@@ -66,23 +97,31 @@ class ticketRule extends Component{
         const {
             pop,
             voucherInfo,
+            rateInfo
         }=this.props;
 
+        const {
+            coupon_id,
+            coupon_name,
+            coupon_money,
+            receive_way,
+            info_term,
+            info_limit,
+            is_has,
+        }=JSON.parse(sessionStorage.getItem("bao-ticketData"));
+        let ticketNum;
+        let ticketName1;
         let btnDom;
-        console.log(voucherInfo);
-        let coupon_name = this.props.params.coupon_name;
-        let coupon_id = this.props.params.coupon_id;
-        let ticketNum = coupon_name.split("元")[0];
-        let ticketName = coupon_name.split("元")[1];
-        let receive_way = this.props.params.receive_way;
-        let info_term = this.props.params.info_term;
-        let info_limit = this.props.params.info_limit;
-        let is_has = this.props.params.is_has;
-        if(is_has == 1){
-            btnDom = this.hasBtnDom(coupon_id);
-        }else if(is_has == 0){
-            btnDom = this.nohasBtnDom(coupon_id,ticketName);
+        let ticketName = coupon_name.substring(coupon_name.length-3);
+        if(ticketName == "加息券"){
+            ticketNum = coupon_name.split("%")[0];
+            ticketName1 = "%" + ticketName;
+        }else if(ticketName == "抵用券"){
+            ticketNum = coupon_name.split("元")[0];
+            ticketName1 = "元" + ticketName;
         }
+
+
         return(
              <div className={styles.findMessage} >
                  <div className={styles.findMessageHeader}>
@@ -90,7 +129,7 @@ class ticketRule extends Component{
                 </div>
                 <div className={styles.messageContent}>
                     <div className={styles.tacket}>
-                       <p className={styles.cashName}>￥<span className={styles.ticketNum}>{ticketNum}</span>{ticketName}</p>
+                       <p className={styles.cashName}><span className={styles.ticketNum}>{ticketNum}</span>{ticketName1}</p>
                        <p className={styles.cashFrom}>获取来源：{receive_way}</p>
                     </div>
                     <div className={styles.bottomWraper}>
@@ -99,8 +138,9 @@ class ticketRule extends Component{
                         <p>{info_limit}</p>
                     </div>
                     {
-                        btnDom
+                        {is_has} == 1 && this.hasBtnDom() || this.nohasBtnDom(coupon_id,ticketName)
                     }
+
                     <Confirm ref="confirm"/>
                 </div>
             </div>
