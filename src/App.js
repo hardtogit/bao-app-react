@@ -138,8 +138,8 @@ GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCh
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld} from './loadTool'
 
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -368,7 +368,7 @@ export default class App extends React.Component {
 
             <Route path='financialindex' component={financialIndex}></Route>
             <Route path="preheat" component={preheat}></Route>
-            <Route path="preheatConfirm" component={preheatConfirm}></Route>
+            <Route path="preheatConfirm/:id" component={preheatConfirm}></Route>
           </Route>
             <Redirect from='/*' to='/' />
         </Router>

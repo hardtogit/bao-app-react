@@ -73,7 +73,6 @@ class Index extends React.Component{
             listData,
         }=this.props;
         let {index,num} = this.state;
-        console.log(index,num);
         let popDom;
         if(num == 1){
             popDom = this.needDom()
@@ -96,13 +95,13 @@ class Index extends React.Component{
                                     </div>
                                     <div className={styles.firstBox}>
                                         <img src={item.id == 10 && txt1 || txt2} className={styles.title1} />
-                                        <div className={styles.timeTxt}>活动时间：1月8日-1月12日</div>
+                                        <div className={styles.timeTxt}>活动时间：{item.startTime}-{item.endTime}</div>
                                         <img src={item.id == 10 && img01 || img02} className={styles.title2} />
                                         <p className={styles.know}>当前剩余份数：{item.giftCount}</p>
                                         <div className={item.butStatus == 2 && styles.go_btn || styles.active}>
                                             <img src={before} />
                                         </div>
-                                        <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push("/preheatConfirm")}>
+                                        <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push(`/preheatConfirm/${item.id}`)}>
                                             <img src={go} />
                                         </div>
                                         <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login")}>

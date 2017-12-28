@@ -492,6 +492,12 @@ export default {
     [actionTypes.GET_PREHEAT_INFO]:{    //周五活动币列表
         apiFn:Fetch.getPreheatInfo
     },
+    [actionTypes.PREHEAT_RECEIVE]:{    //周五活动币列表
+        apiFn:Fetch.preheatReceive
+    },
+    [actionTypes.PREHEAT_STATUS]:{    //周五活动币列表
+        apiFn:Fetch.preheatStatus
+    },
 
 
 }
