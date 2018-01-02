@@ -8,8 +8,8 @@ const requests = (Fetch) => {
     // 活动列表
     Fetch.getPreheatInfo = () => { return Fetch(`api/active/getPreheatInfo`, 'GET') }
     //领取
-    Fetch.preheatReceive = () => { return Fetch(`api/active/receive`, 'GET') }
+    Fetch.preheatReceive = (id,consignee,phone,address) => { return Fetch(`api/active/receive?activityId=${id}&consignee=${consignee}&phone=${phone}&address=${address}`, 'GET') }
     //领取
-    Fetch.preheatStatus = () => { return Fetch(`api/active/getStatus`, 'GET') }
+    Fetch.preheatStatus = (id) => { return Fetch(`api/active/getStatus?activityId=${id}`, 'GET') }
 }
 export default requests

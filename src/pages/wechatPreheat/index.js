@@ -89,7 +89,7 @@ class Index extends React.Component{
                                 <div key={i}>
                                     <div className={styles.titleBox}>
                                         <div className={styles.titlebg}>
-                                            <p>{i == 0&&"第一波"||"第二波"}</p>
+                                            <p>{item.id == 9&&"第一波"||"第二波"}</p>
                                         </div>
                                         <img src={cloud1} className={styles.cloud1} />
                                     </div>

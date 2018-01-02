@@ -46,6 +46,9 @@ class Index extends React.Component{
 
     handleSubmit=(event)=> {
         const{
+            id
+        }=this.props.params;
+        const{
             pop,
             receiveData,
             statusData,
@@ -58,9 +61,9 @@ class Index extends React.Component{
                     index: 2
                 });
             }else{
-                this.props.preheatReceive();
+                this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add);
                 if(receiveData && receiveData.data == 100){
-                    this.props.preheatStatus();
+                    this.props.preheatStatus(id);
                     if(statusData && statusData.code == 100){
                         this.setState({
                             windowPop: 1
@@ -113,10 +116,18 @@ class Index extends React.Component{
         )
     }
     failPopDom=()=>{
+        const{
+            receiveData
+        }=this.props;
+        let data;
+        if(receiveData){
+            data = receiveData.code;
+        }
         return(
             <div className={styles.popWraper}>
                 <div className={styles.needPopfail}>
                     <p className={styles.titleTxtsc}>领取失败</p>
+                    <p style={{textAlign:"center"}}>{data == 301&& "您已经领取过该礼物了" ||(data == 302&&"尚未达到领取标准，再接再厉哦"||(data == 303&&"礼物已经被领取完了"))}</p>
                 </div>
                 <div className={styles.closeWraper}>
                     <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
@@ -138,11 +149,14 @@ class Index extends React.Component{
             windowPop
         }=this.state;
         let popDom;
-        if(receiveData && receiveData.data == 100){
-           this.props.preheatStatus();
-        }else{
-            popDom=this.failPopDom();
+        if(receiveData){
+            if(receiveData.data == 100){
+                this.props.preheatStatus(id);
+            }else{
+                popDom=this.failPopDom();
+            }
         }
+
         if(statusData && statusData.code == 100){
             popDom=this.successPopDom();
         }
@@ -209,14 +223,20 @@ const mapStateToProps=(state)=>({
     statusData:state.infodata.getIn(['PREHEAT_STATUS','data']),
 });
 const mapFnToProps=(dispatch)=>({
-    preheatReceive(){
+    preheatReceive(id,consignee,phone,address){
         dispatch({
-            type:'PREHEAT_RECEIVE'
+            type:'PREHEAT_RECEIVE',
+            params:[id,
+                consignee,
+                phone,
+                address
+            ]
         })
     },
-    preheatStatus(){
+    preheatStatus(id){
         dispatch({
-            type:'PREHEAT_STATUS'
+            type:'PREHEAT_STATUS',
+            params:[id]
         })
     },
     pop(){
