@@ -104,7 +104,7 @@ class Index extends Component{
                            >
                                {dataOne&&dataOne.map((item,i)=>{
                                    return(
-                                       <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=持有中&data='+JSON.stringify(item))}}>
+                                       <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"持有中"})); push('/user/gatherMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                        <div className={styles.item_header}>
                                            <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
@@ -151,7 +151,7 @@ class Index extends Component{
                        >
                            {dataThree&&dataThree.map((item,i)=>{
                                return(
-                                   <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=退出中&data='+JSON.stringify(item))}}>
+                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"退出中"})); push('/user/gatherMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                            <div className={styles.item_header}>
                                                <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
@@ -198,7 +198,7 @@ class Index extends Component{
                        >
                            {dataTwo&&dataTwo.map((item,i)=>{
                                return(
-                                   <div key={i} className={styles.box} onClick={()=>{push('/user/gatherMyDetail?type=已退出&data='+JSON.stringify(item))}}>
+                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"已退出"})); push('/user/gatherMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                            <div className={styles.item_header}>
                                                <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
@@ -314,6 +314,12 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'CLEAR_DATA',
             key:'GATHER_MY_LIST_THREE'
+        })
+    },
+    saveGather(data){
+        dispatch({
+            type:"SAVE_GATHER_DATA",
+            data:data
         })
     }
 });
