@@ -113,7 +113,7 @@ class Index extends React.Component{
                                         <div  className={item.butStatus == 4 && styles.go_btn || styles.active}>
                                             <img src={finished} />
                                         </div>
-                                        <p className={styles.know1} onClick={()=>{this.changeBar(1,1)}}>领取须知</p>
+                                        <p className={styles.know1} onClick={()=>{this.changeBar(1,1)}}>领取须知 ></p>
                                     </div>
                                 </div>
                             )
