@@ -43,6 +43,7 @@ class findHome extends Component{
     }
     componentDidMount(){
         this.props.getGoodsList();
+        this.props.getUser();
     }
     componentWillReceiveProps(next){
         const {user}=next;
@@ -237,7 +238,7 @@ class findHome extends Component{
                     </ul>
                 </div>
             </div>
-            )
+        )
     }
      render(){
          let {coins} = this.state;
@@ -249,7 +250,6 @@ class findHome extends Component{
              contentDom=this.loadingEndDom();
              qdDom=this.qdDom();
          }
-
          return(
              <div className={styles.finderHome}>
 

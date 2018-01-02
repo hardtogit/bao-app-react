@@ -49,6 +49,7 @@ class Index extends React.Component {
         }else if(status == 3){
             messageData = data3;
         }
+        handleDom = this.nohandleDom();
       return(<div>
           <div className={styles.deTop}>
               <div className={styles.zhuangtai}>
@@ -112,6 +113,10 @@ class Index extends React.Component {
                     <p>工作人员正在加紧处理</p>
                     <p>请耐心等候哦！</p>
                 </div>
+                <div className={styles.cancelBtn}>
+                    取消兑换
+                </div>
+
             </div>
         )
     };

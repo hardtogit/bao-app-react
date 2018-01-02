@@ -37,3 +37,4 @@ export const GATHER_BID_DETAIL='GATHER_BID_DETAIL'//标的详情
 export const GATHER_CONTRACT='GATHER_CONTRACT'//聚点+合同
 export const IF_SYNC='IF_SYNC'//是否同步
 export const AUTH_COOKIE='AUTH_COOKIE'//獲取auth
+export const GET_GOODS_LIST='GET_GOODS_LIST'

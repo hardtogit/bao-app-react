@@ -160,9 +160,7 @@ class Index extends React.Component {
         }
 		return (
 			<div className={classs.bg} >
-				<NavBar rightNode={
-				                <img src={rili} className={classs.rightNode}/>
-				        }
+				<NavBar
                         backgroundColor="#fff"
                         color="#000"
                         onLeft={pop}>历史记录</NavBar>
