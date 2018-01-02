@@ -94,7 +94,7 @@ class Index extends React.Component{
                                         <img src={cloud1} className={styles.cloud1} />
                                     </div>
                                     <div className={styles.firstBox}>
-                                        <img src={item.id == 10 && txt1 || txt2} className={styles.title1} />
+                                        <img src={item.id == 9 && txt1 || txt2} className={styles.title1} />
                                         <div className={styles.timeTxt}>活动时间：{item.startTime}-{item.endTime}</div>
                                         <img src={item.id == 10 && img02 || img01} className={styles.title2} />
                                         <p className={styles.know}>当前剩余份数：{item.giftCount}</p>
