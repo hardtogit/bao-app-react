@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Scroll from '../../components/scroll/index'
-import banner from '../../assets/images/weChat/banner1.png'
+import banner from '../../assets/images/weChat/banner2.png'
 import txt1 from '../../assets/images/weChat/txt1.png'
 import txt2 from '../../assets/images/weChat/txt2.png'
 import cloud1 from '../../assets/images/weChat/cloud1.png'
@@ -96,7 +96,7 @@ class Index extends React.Component{
                                     <div className={styles.firstBox}>
                                         <img src={item.id == 10 && txt1 || txt2} className={styles.title1} />
                                         <div className={styles.timeTxt}>活动时间：{item.startTime}-{item.endTime}</div>
-                                        <img src={item.id == 10 && img01 || img02} className={styles.title2} />
+                                        <img src={item.id == 10 && img02 || img01} className={styles.title2} />
                                         <p className={styles.know}>当前剩余份数：{item.giftCount}</p>
                                         <div className={item.butStatus == 2 && styles.go_btn || styles.active}>
                                             <img src={before} />
