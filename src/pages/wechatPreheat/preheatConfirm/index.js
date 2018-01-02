@@ -150,7 +150,7 @@ class Index extends React.Component{
         }=this.state;
         let popDom;
         if(receiveData){
-            if(receiveData.data == 100){
+            if(receiveData.code == 100){
                 this.props.preheatStatus(id);
             }else{
                 popDom=this.failPopDom();
@@ -175,7 +175,7 @@ class Index extends React.Component{
                                 <li>
                                     <label>
                                         <span>收货物品：</span>
-                                        <input type="text" className={styles.goodsName} value={id==10&&"新春对联"||"精美日历"} readOnly="readOnly" />
+                                        <input type="text" className={styles.goodsName} value={id==10&&"新春对联"||"精美台历"} readOnly="readOnly" />
                                     </label>
                                 </li>
                                 <li>

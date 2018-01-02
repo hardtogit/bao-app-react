@@ -17,8 +17,8 @@ import scratcheCard from './scratcheCard.js'
 import shopping from './shopping'
 import weChat from './weChat'
 
-const ROOT_URL = '/mobile_api/'
-// const ROOT_URL = '/'
+// const ROOT_URL = '/mobile_api/'
+const ROOT_URL = '/'
 const transferObjectToFormat = (o) => {
   let result = []
   Object.keys(o).map(key => result.push(key + '=' + encodeURIComponent(o[key])))

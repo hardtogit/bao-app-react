@@ -17,7 +17,7 @@ import close from '../../assets/images/weChat/close.png'
 import before from '../../assets/images/weChat/before.png'
 import go from '../../assets/images/weChat/go.png'
 import over from '../../assets/images/weChat/over.png'
-import finished from '../../assets/images/weChat/finished.png'
+import finished from '../../assets/images/weChat/over1.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
 class Index extends React.Component{
@@ -104,7 +104,7 @@ class Index extends React.Component{
                                         <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push(`/preheatConfirm/${item.id}`)}>
                                             <img src={go} />
                                         </div>
-                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login")}>
+                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/preheatConfirm/$"+item.id)}>
                                             <img src={go} />
                                         </div>
                                         <div  className={item.butStatus == 3 && styles.go_btn || styles.active}>
@@ -113,13 +113,13 @@ class Index extends React.Component{
                                         <div  className={item.butStatus == 4 && styles.go_btn || styles.active}>
                                             <img src={finished} />
                                         </div>
-                                        <p className={styles.know} onClick={()=>{this.changeBar(1,1)}}>领取须知</p>
+                                        <p className={styles.know1} onClick={()=>{this.changeBar(1,1)}}>领取须知</p>
                                     </div>
                                 </div>
                             )
                         })
                     }
-
+                   <p className={styles.bottomTxt}>本活动最终解释权归宝点网所有</p>
                     <div className={index==0&&styles.active||null}>
                         <div className={styles.shadow}></div>
                         {
