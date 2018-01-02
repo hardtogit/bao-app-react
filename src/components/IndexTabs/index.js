@@ -80,7 +80,7 @@ class IndexTabs extends React.Component {
                 //self.host='https://react.10.devbao.cn'
                 selfHost=window.location.protocol+'//demo-pc.devbao.cn'
             }
-             setAuthUrl(selfHost+'/special/fiveYears/home/wap/index.html')
+             setAuthUrl(selfHost+'/special/fiveYears/home/wap/index.html?time='+new Date().getTime())
         }else{
             this.refs.picture.style.right='10px'
         }
@@ -210,12 +210,12 @@ class IndexTabs extends React.Component {
                         </Link>
                     </div>
                 </div>
-
+                <div ref="picture" style={{ zIndex:'100',position:'fixed', right:'10px', bottom:'60px',width :'60px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
             </div>
         );
     }
 }
-//<div ref="picture" style={{ zIndex:'100',position:'fixed', right:'10px', bottom:'60px',width :'44px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
+
 const datas=(state)=>({
     userInfo:state.infodata.getIn(['USER_INFO','data']),
     codeState:state.infodata.getIn(['WECHAT_ACCOUNT_SYNC','data'])
