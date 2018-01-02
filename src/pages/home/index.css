@@ -18,6 +18,21 @@
     display: block;
     background-color: #fff;
 }
+.indexCav .indexCavul li{
+    position: relative;
+}
+.indexCav .indexCavul li .left{
+    position: absolute;
+    height: 100%;
+    top:0;
+    left:0
+}
+.indexCav .indexCavul li .right{
+    position: absolute;
+    height: 100%;
+    top:0;
+    right:0
+}
 .indexCav .indexCavli{
     display: inline-block;
     width: 33.3%;
@@ -38,12 +53,13 @@
     display: inline-block;
     width: 15px;
     vertical-align: middle;
-    margin-top: -2px;
+    margin-top: -4px;
     margin-right: 3px;
 }
 .boder{
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5; 
+    /*border-left: 1px solid #e5e5e5;*/
+    /*border-image: url("../../assets/images/line.png");*/
+    /*border-right: 1px solid #e5e5e5; */
 }
 .productList{
     width: 100%;

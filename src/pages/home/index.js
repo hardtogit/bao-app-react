@@ -7,9 +7,10 @@ import Loaders from '../../customized_node_modules/halogen'
 import {Link} from 'react-router'
 import {push} from 'react-router-redux'
 import Classnames from 'classnames'
-import gz from '../../assets/images/gz.png'
-import hj from '../../assets/images/hj.png'
-import yq from '../../assets/images/yq.png'
+import gz from '../../assets/images/left.png'
+import hj from '../../assets/images/middle.png'
+import yq from '../../assets/images/right.png'
+import line from "../../assets/images/line.png"
 import newHead from '../../assets/images/newHand.png'
 import noisAuth from '../../assets/images/realName.png'
 import setAuthUrl from '../../components/setAuthUrl/index'
@@ -482,7 +483,7 @@ class FinancialIndex extends Component{
                         <li className={style.indexCavli}>
                             <a href="https://www.bao.cn/special/gzbj/index.html">
                  <span className={style.cavContent}>
-                 <img src={gz}/>
+                 <img src={gz} style={{width:"14px"}}/>
                  <span>国资控股</span>
                  </span>
                             </a>
@@ -490,15 +491,17 @@ class FinancialIndex extends Component{
                         <li className={style.indexCavli}>
                             <a href="https://static.bao.cn/static/web/zt/325_mobile/index.html">
                    <span className={classNames(style.cavContent,style.boder)}>
-                 <img src={hj}/>
+                 <img src={hj} style={{width:"18px"}}/>
                  <span>互金会员</span>
                  </span>
                             </a>
+                            <img className={style.left} src={line} alt=""/>
+                            <img className={style.right} src={line} alt=""/>
                         </li>
                         <li className={style.indexCavli}>
                             <Link to="/find/inviteFriends">
                    <span className={style.cavContent}>
-                 <img src={yq}/>
+                 <img src={yq} style={{width:"14px"}}/>
                  <span>邀请有礼</span>
                  </span>
                             </Link>
