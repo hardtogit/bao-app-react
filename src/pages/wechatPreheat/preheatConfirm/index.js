@@ -144,10 +144,8 @@ class Index extends React.Component{
         }=this.state;
         let popDom;
         if(receiveData){
-            console.log(receiveData.code);
             if(receiveData && receiveData.code == 100){
                 if(statusData && statusData.code == 100){
-                    console.log("popDom");
                     popDom=this.successPopDom();
                 }
             }else{
