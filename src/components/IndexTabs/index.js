@@ -41,6 +41,7 @@ class IndexTabs extends React.Component {
         this.startY=e.touches[0].pageY;
         this.bottom=parseInt(this.refs.picture.style.bottom.replace('px','')) ;
         this.right=parseInt(this.refs.picture.style.right.replace('px',''))
+        e.preventDefault()
     };
     touchMove=(e)=>{
         if(this.right+this.startX-e.touches[0].pageX>0&&this.right+this.startX-e.touches[0].pageX<this.clientWidth-44){

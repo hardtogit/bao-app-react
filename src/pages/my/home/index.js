@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
 import Sign from '../../../components/Sign/index'
 
-import styles from './index.css'
+import styles from './index.less'
 
 import xing from '../../../assets/images/my-index/2.png' // 会员标记
 import moneySolar from '../../../assets/images/my-index/9.png'  //回款日历
@@ -25,6 +26,9 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 import poppic1 from '../../../assets/images/my-index/pop1.png'
 import close from '../../../assets/images/my-index/close.png'
 import gift from '../../../assets/images/my-index/gift.png'
+import user_bg from '../../../assets/images/my-index/user_bg.png'
+import vip from '../../../assets/images/my-index/vip.png'
+import setting from '../../../assets/images/my-index/setting.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
@@ -96,18 +100,21 @@ class Index extends React.Component {
         } = data;
         return (
             <div>
-                <div className={styles.header}>账户</div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
                 <div className={styles.userAccount}>
-                    <div className={styles.headImg}><img src={avatar}/></div>
-                    <div className={styles.nameCenter}>
-                        <p>{username}</p>
-                        <p onClick={e => e.stopPropagation()}><Link><img src={xing}/>普通会员</Link></p>
+                    <img className={styles.userBg} src={user_bg} alt=""/>
+                    <div className={styles.userInfoBg}>
+
                     </div>
-                    <div className={styles.rightArrows}>
-                        <Link to='/user/setting'>
-                            <span className={styles.arrows}></span>
-                        </Link>
+                    <div className={styles.userInfo}>
+                        <div className={styles.name}>{username}</div>
+                        <div className={styles.vip}><div className={styles.left}><img src={vip} alt=""/></div> <div className={styles.right}>普通会员</div></div>
+                    </div>
+                    <div className={styles.settingBg}>
+                    </div>
+                    <div className={styles.setting} onClick={()=>{this.props.push('/user/setting') }}>
+                        <img src={setting} alt=""/>
+                        <span>设置</span>
                     </div>
                 </div>
 
@@ -391,5 +398,8 @@ const myIndexInitfn = (dispath, own) => ({
             type: "FRIDAY_POP"
         })
     },
+    push(url){
+        dispath(push(url))
+    }
 })
 export default connect(myIndexInit, myIndexInitfn)(Index)

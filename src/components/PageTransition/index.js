@@ -50,12 +50,11 @@ class PageTransition extends React.Component {
       }else {
         if (pathnamePath.indexOf('/home')!=0){
             this.setState({
-                transitionGroup:'swap-left'
+                transitionGroup:'swap-right'
             })
         }else {
-
             this.setState({
-                transitionGroup:''
+                transitionGroup:'swap-right'
             })
         }
           this.setState({
