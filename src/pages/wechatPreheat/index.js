@@ -40,7 +40,7 @@ class Index extends React.Component{
             <div className={styles.popWraper}>
                 <div className={styles.needPop}>
                     <p className={styles.titleTxt}>领取须知</p>
-                    <p className={styles.contentTxt}>1.用户年前待收≥100元即可领取新春礼物；</p>
+                    <p className={styles.contentTxt}>1.用户当前待收≥100元即可领取新春礼物；</p>
                     <p className={styles.contentTxt}>2.新春礼物限量150份，先到先得，领完即止；</p>
                     <p className={styles.contentTxt}>3.每名用户限领一份宝点新春礼物；</p>
                     <p className={styles.contentTxt}>4.为了保证能顺利收到礼物，请务必填写正确的收货信息；</p>
