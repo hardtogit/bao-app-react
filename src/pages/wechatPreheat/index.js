@@ -76,8 +76,6 @@ class Index extends React.Component{
         let popDom;
         if(num == 1){
             popDom = this.needDom()
-        }else if(num == 2){
-            popDom = this.successPopDom()
         }
         return(
             <div>
@@ -104,7 +102,7 @@ class Index extends React.Component{
                                         <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push(`/preheatConfirm/${item.id}`)}>
                                             <img src={go} />
                                         </div>
-                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/preheatConfirm/$"+item.id)}>
+                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/preheatConfirm/"+item.id)}>
                                             <img src={go} />
                                         </div>
                                         <div  className={item.butStatus == 3 && styles.go_btn || styles.active}>

@@ -21,6 +21,7 @@ class Index extends React.Component{
             add:"",
             index:0,
             windowPop:0,
+            num:0
         }
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -49,7 +50,6 @@ class Index extends React.Component{
             id
         }=this.props.params;
         const{
-            pop,
             receiveData,
             statusData,
         }=this.props;
@@ -62,18 +62,12 @@ class Index extends React.Component{
                 });
             }else{
                 this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add);
-                if(receiveData && receiveData.data == 100){
-                    this.props.preheatStatus(id);
-                    if(statusData && statusData.code == 100){
-                        this.setState({
-                            windowPop: 1
-                        });
-                    }
-                }else{
-                    this.setState({
-                        windowPop: 1
-                    });
-                }
+                this.props.preheatStatus(id);
+
+                this.setState({
+                    windowPop: 1
+                });
+
             }
         }else{
             this.setState({
@@ -150,16 +144,18 @@ class Index extends React.Component{
         }=this.state;
         let popDom;
         if(receiveData){
-            if(receiveData.code == 100){
-                this.props.preheatStatus(id);
+            console.log(receiveData.code);
+            if(receiveData && receiveData.code == 100){
+                if(statusData && statusData.code == 100){
+                    console.log("popDom");
+                    popDom=this.successPopDom();
+                }
             }else{
                 popDom=this.failPopDom();
             }
         }
 
-        if(statusData && statusData.code == 100){
-            popDom=this.successPopDom();
-        }
+
 
         if(index == 1 ||index == 2){
             this.timeOut = setTimeout(() => this.tick(), 1000);
