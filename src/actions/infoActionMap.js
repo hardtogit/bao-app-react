@@ -508,5 +508,12 @@ export default {
         apiFn:Fetch.getPrivilegeBasic
     },
 
+    [actionTypes.GET_RATE_COUPONS]:{    //会员中心加息券列表
+        apiFn:Fetch.getRateCoupons
+    },
+    [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心抵用券列表
+        apiFn:Fetch.getVoucherCoupons
+    },
+
 
 }
