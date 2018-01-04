@@ -38,3 +38,7 @@ export const GATHER_CONTRACT='GATHER_CONTRACT'//聚点+合同
 export const IF_SYNC='IF_SYNC'//是否同步
 export const AUTH_COOKIE='AUTH_COOKIE'//獲取auth
 export const GET_GOODS_LIST='GET_GOODS_LIST'
+export const GET_VIP='GET_VIP'
+export const GET_PRIV_BASIC='GET_PRIV_BASIC'
+export const GET_RATE_COUPONS='GET_RATE_COUPONS'
+export const GET_VOUCHER_COUPONS='GET_VOUCHER_COUPONS'

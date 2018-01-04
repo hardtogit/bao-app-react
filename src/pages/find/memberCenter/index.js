@@ -28,13 +28,13 @@ class memberCenter extends Component{
     }
 
     componentWillMount(){
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-        if (userInfo){
+        // let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        // if (userInfo){
             this.props.getVip();
             this.props.getRateCoupons();
             this.props.getVoucherCoupons();
             this.props.getPrivilegeBasic();
-        }
+        // }
     }
     push=(data)=>{
         sessionStorage.setItem("bao-ticketData",JSON.stringify(data));
@@ -348,18 +348,15 @@ class memberCenter extends Component{
         }=this.props;
         let Dom;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-
-        if(VipData && voucherData && rateCouponsData){
             if (userInfo){
-                if(VipData){
+                if(VipData && voucherData && rateCouponsData){
                     Dom= this.oneDom(VipData.data);
+                }else {
+                    Dom= this.loadingDom();
                 }
-            }else {
-                Dom= this.twoDom();
+            }else{
+                    Dom= this.twoDom();
             }
-        }else{
-            Dom= this.loadingDom();
-        }
 
         return(
             <div className={styles.findMessage} >
