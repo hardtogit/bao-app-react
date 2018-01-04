@@ -102,7 +102,7 @@ class Index extends React.Component{
                     <p className={styles.contentTxtSuc}>请耐心等待！</p>
                 </div>
                 <div className={styles.closeWraper}>
-                    <Link to={"/preheat"}>
+                    <Link to={"/home/preheat"}>
                         <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
                     </Link>
                 </div>

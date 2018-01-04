@@ -176,6 +176,8 @@ export default class App extends React.Component {
                   <Route path='productIndex' component={ProductIndex}/>
                   <Route path='findIndex' component={FindHome}/>
                   <Route path='myIndex' component={MyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path="preheat" component={Preheat}></Route>
+                  <Route path="preheatConfirm/:id" component={PreheatConfirm}></Route>
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} >
@@ -367,8 +369,7 @@ export default class App extends React.Component {
             <Route path="invite" component={Invite}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
-            <Route path="preheat" component={Preheat}></Route>
-            <Route path="preheatConfirm/:id" component={PreheatConfirm}></Route>
+
           </Route>
             <Redirect from='/*' to='/' />
         </Router>
