@@ -79,9 +79,9 @@ class IndexTabs extends React.Component {
             } else {// 本地测试地址test
                 //selfHost='http://localhost:3000'
                 //self.host='https://react.10.devbao.cn'
-                selfHost=window.location.protocol+'//demo-pc.devbao.cn'
+                selfHost='https://xiangguo.pc.51.devbao.cn'
             }
-             setAuthUrl(selfHost+'/special/fiveYears/home/wap/index.html?time='+new Date().getTime())
+             setAuthUrl(selfHost+'/special/NewYearDay/2018/wap/index.html')
         }else{
             this.refs.picture.style.right='10px'
         }
