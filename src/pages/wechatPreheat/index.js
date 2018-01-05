@@ -99,10 +99,10 @@ class Index extends React.Component{
                                         <div className={item.butStatus == 2 && styles.go_btn || styles.active}>
                                             <img src={before} />
                                         </div>
-                                        <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push(`/home/preheatConfirm/${item.id}`)}>
+                                        <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>this.props.push(`/user/preheatConfirm/${item.id}`)}>
                                             <img src={go} />
                                         </div>
-                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/home/preheatConfirm/"+item.id)}>
+                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/user/preheatConfirm/"+item.id)}>
                                             <img src={go} />
                                         </div>
                                         <div  className={item.butStatus == 3 && styles.go_btn || styles.active}>
