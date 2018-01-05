@@ -346,6 +346,9 @@ class memberCenter extends Component{
         let Dom;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
             if (userInfo){
+                console.log(VipData)
+                console.log(voucherData)
+                console.log(rateCouponsData)
                 if(VipData && voucherData && rateCouponsData){
                     Dom= this.oneDom(VipData.data);
                 }else {
@@ -370,8 +373,8 @@ class memberCenter extends Component{
 const initMymassege=(state,own)=>({
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
     PrivilegeBasicData: state.infodata.getIn(['GET_PRIV_BASIC', 'data']),
-    rateCouponsData:state.listdata.getIn(['GET_RATE_COUPONS','data']),
-    voucherData:state.listdata.getIn(['GET_VOUCHER_COUPONS','data']),
+    rateCouponsData:state.infodata.getIn(['GET_RATE_COUPONS','data']),
+    voucherData:state.infodata.getIn(['GET_VOUCHER_COUPONS','data']),
 })
 const initMymassegefn=(dispatch,own)=>({
     getVip(){
