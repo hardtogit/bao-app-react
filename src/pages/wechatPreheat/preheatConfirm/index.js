@@ -164,7 +164,6 @@ class Index extends React.Component{
                 <div className={styles.bg}>
                     <NavBar title="确认领取" onLeft={pop} backgroundColor="#fff" color="#000"/>
                     <div className={styles.container}>
-                        <form onSubmit={this.handleSubmit}>
                             <ul>
                                 <li>
                                     <label>
@@ -190,9 +189,13 @@ class Index extends React.Component{
                                         <input type="text" value={this.state.add} onChange={this.handleChange3} placeholder="请详细填写收货地址"/>
                                     </label>
                                 </li>
-                                <div style={{textAlign:"center"}}><input type="submit" className={styles.subBtn} value="确认领取" /></div>
+                                <div style={{textAlign:"center"}}>
+                                    <div className={styles.subBtn}  onClick={this.handleSubmit} >
+                                        确认领取
+                                    </div>
+
+                                </div>
                             </ul>
-                        </form>
                         <div className={index==0 && styles.tipWraper || styles.active}>
                             <div className={styles.tip}>{index == 1 && "请填写完整信息！"||"请输入正确的手机号码！"}</div>
                         </div>
