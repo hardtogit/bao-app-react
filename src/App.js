@@ -180,7 +180,7 @@ export default class App extends React.Component {
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} >
                   <Route path="preheat" component={Preheat}></Route>
-                  <Route path="preheatConfirm/:id" component={PreheatConfirm}></Route>
+                  <Route path="preheatConfirm/:id" component={PreheatConfirm} ></Route>
                   <Route path='active' component={active} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path='analysis' component={Analysis} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/

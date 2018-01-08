@@ -24,6 +24,10 @@ class Index extends React.Component{
     componentDidMount(){
         this.props.getPreheatInfo();
     }
+    // componentWillReceiveProps(){
+    //     sessionStorage.setItem("bao-auth","true")
+    //
+    // }
     constructor(props){
         super(props);
         this.state = {
@@ -101,11 +105,18 @@ class Index extends React.Component{
                                             <img src={before} />
                                         </div>
                                         <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>{
-                                            sessionStorage.setItem("bao-auth","true"),
-                                            this.props.push("/user/preheatConfirm/"+item.id)}}>
+                                            if(sessionStorage.getItem("bao-auth")){
+                                                this.props.push("/user/preheatConfirm/"+item.id)
+                                            }else{
+                                                this.props.push("/login?baoBackUrl="+"/user/preheatConfirm/"+item.id)
+                                            }
+                                        }
+                                        }
+                                        >
                                             <img src={go} />
                                         </div>
-                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>this.props.push("/login?baoBackUrl="+"/user/preheatConfirm/"+item.id)}>
+                                        <div  className={item.butStatus == 1 && styles.go_btn || styles.active} onClick={()=>{
+                                            this.props.push("/login?baoBackUrl="+"/user/preheatConfirm/"+item.id)}}>
                                             <img src={go} />
                                         </div>
                                         <div  className={item.butStatus == 3 && styles.go_btn || styles.active}>
