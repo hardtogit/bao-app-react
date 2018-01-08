@@ -53,6 +53,8 @@ class Index extends React.Component{
             receiveData,
             statusData,
         }=this.props;
+
+        let baoAuth= this.props.location.query.baoAuth;
         if(this.state.name && this.state.tel && this.state.add){
             let TelRegex = /^1[34578]\d{9}$/;
             let tel = this.state.tel;
@@ -61,13 +63,11 @@ class Index extends React.Component{
                     index: 2
                 });
             }else{
-                this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add);
-                this.props.preheatStatus(id);
-
+                this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add,baoAuth);
+                this.props.preheatStatus(id,baoAuth);
                 this.setState({
                     windowPop: 1
                 });
-
             }
         }else{
             this.setState({
@@ -142,6 +142,7 @@ class Index extends React.Component{
             index,
             windowPop
         }=this.state;
+
         let popDom;
         if(receiveData){
             if(receiveData && receiveData.code == 100){
@@ -152,8 +153,6 @@ class Index extends React.Component{
                 popDom=this.failPopDom();
             }
         }
-
-
 
         if(index == 1 ||index == 2){
             this.timeOut = setTimeout(() => this.tick(), 1000);
@@ -191,10 +190,7 @@ class Index extends React.Component{
                                     </label>
                                 </li>
                                 <div style={{textAlign:"center"}}><input type="submit" className={styles.subBtn} value="确认领取" /></div>
-
                             </ul>
-
-
                         </form>
                         <div className={index==0 && styles.tipWraper || styles.active}>
                             <div className={styles.tip}>{index == 1 && "请填写完整信息！"||"请输入正确的手机号码！"}</div>
@@ -217,20 +213,22 @@ const mapStateToProps=(state)=>({
     statusData:state.infodata.getIn(['PREHEAT_STATUS','data']),
 });
 const mapFnToProps=(dispatch)=>({
-    preheatReceive(id,consignee,phone,address){
+    preheatReceive(id,consignee,phone,address,baoAuth){
         dispatch({
             type:'PREHEAT_RECEIVE',
             params:[id,
                 consignee,
                 phone,
-                address
+                address,
+                baoAuth
             ]
         })
     },
-    preheatStatus(id){
+    preheatStatus(id,baoAuth){
         dispatch({
             type:'PREHEAT_STATUS',
-            params:[id]
+            params:[id,
+                baoAuth]
         })
     },
     pop(){
