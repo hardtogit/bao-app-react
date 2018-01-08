@@ -101,6 +101,7 @@ class Index extends React.Component{
                                             <img src={before} />
                                         </div>
                                         <div  className={item.butStatus == 5 && styles.go_btn || styles.active}   onClick={()=>{
+                                            sessionStorage.setItem("bao-auth","true"),
                                             this.props.push("/user/preheatConfirm/"+item.id)}}>
                                             <img src={go} />
                                         </div>
