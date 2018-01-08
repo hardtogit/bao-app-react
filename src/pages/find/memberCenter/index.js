@@ -47,7 +47,7 @@ class memberCenter extends Component{
         }=this.props;
         return(
             <ul className={styles.shop}>
-                {rateCouponsData&&rateCouponsData.map((item,i)=>{
+                {rateCouponsData&&rateCouponsData.data.map((item,i)=>{
                     const {coupon_id,coupon_money,coupon_name,receive_way,info_term,info_limit,is_has}=item,
                         data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,is_has};
                     return(
@@ -80,7 +80,7 @@ class memberCenter extends Component{
         }=this.props;
         return(
             <ul className={styles.shop}>
-                {voucherData&&voucherData.map((item,i)=>{
+                {voucherData&&voucherData.data.map((item,i)=>{
                     const {coupon_id,coupon_money,coupon_name,minimum_money,receive_way,info_term,info_limit,is_has}=item,
                         data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,is_has};
                     return(
@@ -153,6 +153,7 @@ class memberCenter extends Component{
             }
         }
         console.log(vip_level);
+        console.log(birthday);
         console.log(holiday);
         console.log(mall);
         console.log(withdrawal);
