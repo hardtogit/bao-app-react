@@ -54,7 +54,8 @@ class Index extends React.Component{
             statusData,
         }=this.props;
 
-        let baoAuth= this.props.location.query.baoAuth;
+        // let baoAuth= this.props.location.query.baoAuth;
+        let baoAuth= "wwertrtyt";
         if(this.state.name && this.state.tel && this.state.add){
             let TelRegex = /^1[34578]\d{9}$/;
             let tel = this.state.tel;
@@ -63,8 +64,8 @@ class Index extends React.Component{
                     index: 2
                 });
             }else{
-                this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add,baoAuth);
-                this.props.preheatStatus(id,baoAuth);
+                this.props.preheatReceive(id,this.state.name,this.state.tel,this.state.add);
+                this.props.preheatStatus(id);
                 this.setState({
                     windowPop: 1
                 });
@@ -213,22 +214,19 @@ const mapStateToProps=(state)=>({
     statusData:state.infodata.getIn(['PREHEAT_STATUS','data']),
 });
 const mapFnToProps=(dispatch)=>({
-    preheatReceive(id,consignee,phone,address,baoAuth){
+    preheatReceive(id,consignee,phone,address){
         dispatch({
             type:'PREHEAT_RECEIVE',
             params:[id,
                 consignee,
                 phone,
-                address,
-                baoAuth
-            ]
+                address]
         })
     },
-    preheatStatus(id,baoAuth){
+    preheatStatus(id){
         dispatch({
             type:'PREHEAT_STATUS',
-            params:[id,
-                baoAuth]
+            params:[id]
         })
     },
     pop(){
