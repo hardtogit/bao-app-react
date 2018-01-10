@@ -110,18 +110,30 @@ class Index extends React.Component {
                         </Link>
                     </div>
                 </div>
+                <Link to="/user/analysis">
+                    <div className={styles.myProduct}>
+                        <div className={styles.mpLeft}>
+                            <p className={styles.one}>总资产 (元)</p>
+                            <p className={styles.two}>{amount}</p>
+                        </div>
+                        <div className={styles.mpright}>
+                            <p>账户安全保障中</p>
+                            <div className={styles.rightArrows}>
+                                <span className={styles.arrows}></span>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
 
                 <div className={styles.contents}>
-                    <Link to="/user/analysis">
-                        <div className={styles.myProduct}>
+                    <Link to={`/user/calendar`}>
+                        <div className={styles.myProduct} style={{height:"65px"}}>
                             <div className={styles.mpLeft}>
-                                <p>{amount}</p>
+                                <p className={styles.one}>账户余额 (元)</p>
+                                <p className={styles.two}>{amount}</p>
                             </div>
                             <div className={styles.mpright}>
-                                <p>账户安全保障中</p>
-                                <div className={styles.rightArrows}>
-                                    <span className={styles.arrows}></span>
-                                </div>
+                               <Link to="/user/rechargeMain" className={styles.a}><div className={styles.rechange}>充值</div> </Link><Link to="/user/cashMain" className={styles.a}><div className={styles.withdrawals}>提现</div> </Link>
                             </div>
                         </div>
                     </Link>
@@ -138,28 +150,7 @@ class Index extends React.Component {
                             </div>
                         </div>
                     </Link>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to={`/user/rechargeOld`}>
-                                <img src={recharge}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>托管账户余额</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{balance_platform == 0 && '立即充值' || balance_platform}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to={`/user/recharge`}>
-                                <img src={recharge}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>存管余额</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{balance == 0 && '立即充值' || balance}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
+
                     <div className={styles.myProduct}>
                         <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
                             <Link to={`/user/autoBuy`}>

@@ -38,7 +38,6 @@ body{
     background: #fff;
     border-bottom: 1px solid #E4E4E4;
     border-top: 1px solid #E4E4E4;
-    margin-top: 15px;
 }
 .headImg{
     width: 55px;
@@ -106,6 +105,7 @@ body{
 .myProduct{
     width: 100%;
     overflow: hidden;
+    background-color: #fff;
     border-bottom: 1px solid #E4E4E4;
 }
 .mpLeft{
@@ -113,11 +113,44 @@ body{
     float: left;
     padding-left: 15px;
 }
+.mpLeft .one{
+    height: auto;
+    line-height: 1;
+    font-size: 12px;
+    color: #999;
+    margin: 12px 0 6px 0;
+}
+.mpLeft .two{
+    height: auto;
+    line-height: 1;
+}
 .mpright{
     float: left;
     width: 50%;
     padding:  0 15px;
     position: relative;
+}
+.mpright .a{
+    display: inline-block;
+    float: right;
+    margin-top: 16px;
+}
+.mpright .withdrawals{
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid #ff7701;
+    background-color: #fff;
+    color:#ff7701 ;
+}
+.mpright .rechange{
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid #ff7701;
+    background-color: #ff7701;
+    color:#fff ;
+    margin-left: 6px;
 }
 .myProduct P{
     height: 65px;
