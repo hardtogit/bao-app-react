@@ -121,6 +121,11 @@ class Login extends React.Component {
         if (pathname.indexOf(loginOut)!=-1){
             Fn=()=>{this.props.go('/home')}
         }
+        let baoBackUrl=this.props.location.query.baoBackUrl
+        if(baoBackUrl){
+            Fn=()=>{window.location.href=baoBackUrl}
+        }
+
         return (
             <Page>
                   <div className={commonStyles.topBar}>
