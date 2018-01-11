@@ -151,5 +151,6 @@ export default {
     },
     [actionTypes.FRIDAY_COINLIST]:{    //周五活动币列表
         apiFn:Fetch.fridayCoinList
-    }
+    },
+
 }

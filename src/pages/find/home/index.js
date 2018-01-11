@@ -107,17 +107,17 @@ class findHome extends Component{
          }
          return(
              <div className={styles.finderHome}>
-            <div className={styles.finderHomeHeader}>
-           <NavBar leftNode={null} backgroundColor='#fff'>
-                <span className={styles.title}>发现</span>
-            </NavBar>
-            </div> 
-            <div className={styles.findContent}>
-             {
-                 contentDom
-             }
-            </div>
-                 <Tab/>
+                    <div className={styles.finderHomeHeader}>
+                   <NavBar leftNode={null} backgroundColor='#fff'>
+                        <span className={styles.title}>发现</span>
+                    </NavBar>
+                    </div>
+                    <div className={styles.findContent}>
+                     {
+                         contentDom
+                     }
+                    </div>
+                    <Tab/>
             </div>
          )
      }
