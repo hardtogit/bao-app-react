@@ -498,6 +498,12 @@ export default {
     [actionTypes.PREHEAT_STATUS]:{    //周五活动币列表
         apiFn:Fetch.preheatStatus
     },
+    [actionTypes.GET_CASH_LOG]:{    //周五活动币列表
+        apiFn:Fetch.getCashLog
+    },
+    [actionTypes.CANCEL_CASH]:{    //周五活动币列表
+        apiFn:Fetch.cancelCash
+    },
 
 
 }

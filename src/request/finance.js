@@ -69,6 +69,8 @@ const requests = (Fetch) => {
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+  Fetch.getCashLog=(data)=>{return Fetch('api/withdraw/list','GET',data)}
+  Fetch.cancelCash=(data)=>{return Fetch('api/withdraw/revoke','GET',data)}
   Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}?access_sys=platform`,'GET')}
