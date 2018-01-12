@@ -6,6 +6,7 @@
  */
 import React,{Component} from 'react'
 import styles from './index.less'
+import cs from 'classnames'
 import NavBar from '../../../../../components/NavBar'
 import LoadingPage from '../../../../../components/pageLoading'
 import utils from '../../../../../utils/utils'
@@ -19,49 +20,11 @@ class Box extends Component{
             isOpen: false
         }
     }
-    handleCancel=(id)=>{
-        this.props.parent.refs.alert.show({
-                content:"确定取消该提现申请？",
-                okText:"确定",
-                cancel:"取消",
-                okCallback:()=>{
-                    this.props.cancelFn({txid:id})
-                }
-            })
-    };
-    componentWillReceiveProps(nextProps){
-        alert('s')
-        const {
-            cancelData
-        }=nextProps
-        if(cancelData){
-            if(cancelData.code==100){
-                // this.props.clearCancelData();
-                this.props.parent.refs.alert.show({
-                    content:"撤销成功",
-                    okText:"确定",
-                    okCallback:()=>{
-                        // this.props.getList();
-                    }
-                })
-            }else{
-                // this.props.clearCancelData();
-                this.props.parent.refs.alert.show({
-                    content:"撤销失败",
-                    okText:"确定",
-                    okCallback:()=>{
-                        // this.props.getList();
-                    }
-                })
-            }
-        }
-    }
     render(){
         const {
             label,
             data,
         }=this.props;
-        console.log(data)
      return(
          <div className={styles.cashBox}>
          <div className={styles.month}>{label}</div>
@@ -82,7 +45,7 @@ class Box extends Component{
                                  {(()=>{
                                      switch (item.txwithdrawstatus){
                                          case 0:
-                                             return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={()=>{this.handleCancel(item.txid)}}>撤销</span></div>
+                                             return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={()=>{this.props.cancelFn(item.txid)}}>撤销</span></div>
                                          case 1:
                                              return <div className={styles.statusText}><span className={styles.blue}>处理中</span></div>;
                                              break;
@@ -104,7 +67,7 @@ class Box extends Component{
                                  })()}
                              </div>
                          </div>
-
+                        <Alert ref="alert"></Alert>
                      </div>)
                  })
              }
@@ -117,36 +80,84 @@ class Index extends Component{
     constructor(props) {//构造器
         super(props)
         this.state = {
-            isOpen: false
+            filterShow:false,
+            flag:""
         }
     }
     static defaultProps = {//设置初始props
+    };
+    filters=()=>{
+        this.setState({
+            filterShow:!this.state.filterShow
+        })
+    };
+    componentWillReceiveProps(nextProps){
+       const {
+           cancelData
+       }=nextProps;
+        if(cancelData&&cancelData.code==100){
+            this.props.clearCancelData()
+            this.refs.tip.show({
+                content:"撤销成功",
+                okText:"确定",
+                okCallback:()=>{
+                    this.props.getList();
+                }
+            });
+        }else if(cancelData&&cancelData.code!=100){
+            this.props.clearCancelData()
+            this.refs.tip.show({
+                content:"撤销失败",
+                okText:"确定",
+                okCallback:()=>{
+                    this.props.getList();
+                }
+            });
+        }
     }
-    componentWillMount(){
-        this.props.getList();
-    }
-    componentDidMount(){
-        //组件渲染完成时调用
-    }
-    componentWillUnmount(){
-        //组件将要被移除时调用
-    }
-
+    cancelCashFn=(id)=>{
+        this.refs.alert.show({
+            content:"确定取消该提现申请？",
+            okText:"确定",
+            cancel:"取消",
+            okCallback:()=>{
+                this.props.cancelCash({txid:id})
+            }
+        });
+    };
+    choose=(type)=>{
+        this.setState({
+            flag:type
+        });
+        this.props.getList({type:type})
+        this.filters();
+    };
     render(){
         const{
-            pop,data,cancelCash,cancelData
+            pop,data
         }=this.props;
         return(
             <div className={styles.container}>
-                <NavBar onLeft={pop} rightNode={<div>筛选</div>}>
+                <NavBar onLeft={pop} rightNode={<div onClick={this.filters}>筛选</div>}>
                     提现明细
                 </NavBar>
+                <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
+                    <ul>
+                        <li onClick={()=>{this.choose('')}} className={cs(this.state.flag===""?styles.current:"")}>全部</li>
+                        <li onClick={()=>{this.choose(0)}} className={cs(this.state.flag===0?styles.current:"")}>申请中</li>
+                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag==1?styles.current:"")}>处理中</li>
+                        <li onClick={()=>{this.choose(2)}} className={cs(this.state.flag==2?styles.current:"")}>处理成功</li>
+                        <li onClick={()=>{this.choose(3)}} className={cs(this.state.flag==3?styles.current:"")}>审核不通过</li>
+                        <li onClick={()=>{this.choose(4)}} className={cs(this.state.flag==4?styles.current:"")}>会员自行取消</li>
+                        <li onClick={()=>{this.choose(5)}} className={cs(this.state.flag==5?styles.current:"")}>银行处理失败</li>
+                    </ul>
+                </div>
                 <div className={styles.content}>
                     {(()=>{
                       if(data&&data.code==100){
                           let BoxList=[];
                           for (let label in data.data){
-                              BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={cancelCash} parent={this} cancelData={cancelData}></Box>)
+                              BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
                           }
                           return BoxList;
                       }else{
@@ -155,6 +166,7 @@ class Index extends Component{
                     })()}
                 </div>
                 <Alert ref="alert"></Alert>
+                <Alert ref="tip"></Alert>
             </div>
         )
     }
