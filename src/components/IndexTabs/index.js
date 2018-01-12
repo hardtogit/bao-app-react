@@ -74,6 +74,8 @@ class IndexTabs extends React.Component {
             var selfHost='';
             if ('demo-react.devbao.cn' == host) {
                 selfHost=window.location.protocol+'//demo-pc.devbao.cn'
+            } else if('bug-react.devbao.cn' == host) {
+                selfHost=window.location.protocol+'//bug-pc.devbao.cn'
             } else if ("mobile.bao.cn" == host) {
                 selfHost=window.location.protocol+'//www.bao.cn'
             } else {// 本地测试地址test
