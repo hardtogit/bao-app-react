@@ -51,6 +51,9 @@ class Index extends React.Component {
             cancelCallback: () => {
             }
         })
+    };
+    componentWillUnmount(){
+        this.props.clean()
     }
     componentWillReceiveProps(next){
         const {cashData,push,cashSetting}=next;
@@ -238,6 +241,12 @@ const Rechargeinitfn=(dispath)=>({
     get(){
         dispath({
             type:'WITHDRAW'
+        })
+    },
+    clean(){
+        dispath({
+            type:'CLEAR_INFO_DATA',
+            key:"CASH",
         })
     },
     getDefault(){

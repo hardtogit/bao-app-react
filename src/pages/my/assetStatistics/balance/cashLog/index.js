@@ -11,6 +11,7 @@ import NavBar from '../../../../../components/NavBar'
 import LoadingPage from '../../../../../components/pageLoading'
 import utils from '../../../../../utils/utils'
 import {connect} from 'react-redux'
+import nullImg from "../../../../../assets/images/record.png";
 import Alert from '../../../../../components/Dialog/alert'
 import {goBack,push} from 'react-router-redux'
 class Item extends Component{
@@ -243,7 +244,7 @@ class Index extends Component{
             okText:"确定",
             cancel:"取消",
             okCallback:()=>{
-                this.props.cancelCash({txid:id})
+                this.props.cancelCash({txid:id,access_sys:"platform"})
             }
         });
     };
@@ -274,11 +275,15 @@ class Index extends Component{
                     {(()=>{
                       if(!pending){
                           if(data&&data.code==100){
-                              let BoxList=[];
-                              for (let label in data.data){
-                                  BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
+                              if(data.data.length===0){
+                                  return <div><img className={styles.nodata} src={nullImg} alt=""/></div>
+                              }else{
+                                  let BoxList=[];
+                                  for (let label in data.data){
+                                      BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
+                                  }
+                                  return BoxList;
                               }
-                              return BoxList;
                           }
                       }else{
                           return <LoadingPage></LoadingPage>

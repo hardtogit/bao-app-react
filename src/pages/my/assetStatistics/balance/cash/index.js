@@ -59,8 +59,16 @@ class Index extends React.Component {
     }
 
     componentWillReceiveProps(next){
-        const {cashData,push,cardInfo,nowCard,rule}=next;
-        const $this=this
+        const {cashData,push,cardInfo,nowCard,rule,cashSetting}=next;
+        if(cashSetting){
+            if(cashSetting.code==100){
+                this.setState({
+                    minimum:parseInt(cashSetting.data.withdrawSingleMinMoney),
+                    maximum:parseInt(cashSetting.data.withdrawSingleTimeMoney)
+                })
+            }
+        }
+        const $this=this;
         if(cardInfo&&cardInfo.data){
             this.setState({
                 bank:cardInfo.data[0].bankName,

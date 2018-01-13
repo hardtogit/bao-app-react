@@ -21,7 +21,7 @@ class Index extends Component{
         }
     }
     componentDidMount(){
-
+     this.props.load();
     }
     goCash=(balance)=>{
         let $this=this;
@@ -143,7 +143,7 @@ class Index extends Component{
                             <div className={styles.store}>
                                 存
                             </div>
-                            <div className={styles.detail} onClick={()=>{push('/user/moneyLogOld')}}>
+                            <div className={styles.detail} onClick={()=>{push('/user/moneyLog')}}>
                                 余额明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
@@ -179,7 +179,7 @@ class Index extends Component{
                             <div className={styles.store}>
                                 托
                             </div>
-                            <div className={styles.detail} onClick={()=>{push('/user/moneyLog')}}>
+                            <div className={styles.detail} onClick={()=>{push('/user/moneyLogOld')}}>
                                 余额明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
@@ -217,6 +217,11 @@ const mapDispatchProps=(dispatch)=>({
     },
     push(url){
         dispatch(push(url))
+    },
+    load(){
+        dispatch({
+            type: "USER_INFO_WITH_LOGIN"
+        })
     },
     queryUpload(){
         dispath({

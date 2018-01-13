@@ -33,7 +33,7 @@ class PageTransition extends React.Component {
       const {
           pathnamePath,
       }=this.state;
-      if (action=='PUSH'){
+      if (action=='PUSH'||action=='REPLACE'){
         if (pathname.indexOf('/home')!=0){
             this.setState({
                 transitionGroup:'swap-left'

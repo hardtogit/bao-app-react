@@ -136,7 +136,6 @@ class Index extends React.Component {
                 </Link>
 
                 <div className={styles.contents}>
-                    <Link to={`/user/calendar`}>
                         <div className={styles.myProduct} style={{height:"65px"}}>
                             <div className={styles.mpLeft}>
                                 <p className={styles.one}>账户余额 (元)</p>
@@ -165,7 +164,6 @@ class Index extends React.Component {
                                <Link to="/user/rechargeMain" className={styles.a}><div className={styles.rechange}>充值</div> </Link><Link to="/user/cashMain" className={styles.a}><div className={styles.withdrawals}>提现</div> </Link>
                             </div>
                         </div>
-                    </Link>
                     <Link to={`/user/calendar`}>
                         <div className={styles.myProduct}>
                             <div className={styles.mpLeft}>
