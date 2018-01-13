@@ -208,7 +208,7 @@ class Index extends Component{
     }
 }
 const mapStateToProps=(state)=>({
-       userInfo:state.infodata.getIn(['USER_INFO','data']),
+       userInfo:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
        uploadData: state.infodata.getIn(['QUERY_UPLOAD', 'data'])
 });
 const mapDispatchProps=(dispatch)=>({

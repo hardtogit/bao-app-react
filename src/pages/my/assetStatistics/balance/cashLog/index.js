@@ -139,7 +139,14 @@ class Item extends Component{
                         {(()=>{
                             switch (item.txwithdrawstatus){
                                 case 0:
-                                    return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={(event)=>{event.stopPropagation(); this.props.cancelFn(item.txid)}}>撤销</span></div>
+                                    return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={(event)=>{event.stopPropagation();
+                                    if(item.access_sys=='platform'){
+                                        this.props.cancelFn(item.txid,"platform")
+                                    }else{
+                                        this.props.cancelFn(item.txid,"")
+                                    }
+
+                                     }}>撤销</span></div>
                                 case 1:
                                     return <div className={styles.statusText}><span className={styles.blue}>处理中</span></div>;
                                     break;
@@ -238,13 +245,18 @@ class Index extends Component{
             });
         }
     }
-    cancelCashFn=(id)=>{
+    cancelCashFn=(id,from)=>{
         this.refs.alert.show({
             content:"确定取消该提现申请？",
             okText:"确定",
             cancel:"取消",
             okCallback:()=>{
-                this.props.cancelCash({txid:id,access_sys:"platform"})
+                if(from=="platform"){
+                    this.props.cancelCash({txid:id,access_sys:"platform"})
+                }else{
+                    this.props.cancelCash({txid:id})
+                }
+
             }
         });
     };
