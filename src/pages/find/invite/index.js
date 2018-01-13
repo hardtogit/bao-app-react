@@ -3,7 +3,7 @@ import NavBar from '../../../components/NavBar/index'
 import styles from './index.css'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import pic1 from '../../../assets/images/invite/pic1.png'
+import pic1 from '../../../assets/images/invite/invite_pic1.png'
 import pic2 from '../../../assets/images/invite/pic2.png'
 import pic3 from '../../../assets/images/invite/pic3.png'
 import arrow from '../../../assets/images/invite/arrow.png'
@@ -257,7 +257,7 @@ class Index extends React.Component {
                 </div>
                 <table className={styles.table}>
                     <tr>
-                        <td className={styles.numTd}><span>1</span></td> <td className={styles.text}>邀友见面礼<br/>享30%收益返现</td> <td><img src={pic1} alt=""/></td>
+                        <td className={styles.numTd}><span>1</span></td> <td className={styles.text}>邀友见面礼<br/>享35%收益返现</td> <td><img src={pic1} alt=""/></td>
                     </tr>
                     <tr>
                         <td className={styles.numTd}><span>2</span></td> <td className={styles.text}>奖励加码<br/>50元红包返现</td> <td><img src={pic2} alt=""/></td>
