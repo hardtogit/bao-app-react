@@ -12,12 +12,14 @@
       padding: 10px 12px;
 
     }
+    .box{
+      border-bottom: 1px solid #ddd;
+    }
     .cashContent{
       background-color: #fff;
       padding: 15px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #ddd;
       .left{
         flex: 1;
         .text{
@@ -95,9 +97,9 @@
       transform:translate3d(0,100%,0);
       transition: all cubic-bezier(.1,.7,.1,1) 600ms;
       width: 100%;
-      padding: 20px 15px;
+      padding: 0 15px;
       background: #fff;
-      height: 120px;
+      height: 44px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -117,6 +119,52 @@
           color:#00a6e2;
         }
       }
+    }
+  }
+  .lineContainer{
+    background-color: #fff;
+    padding: 15px;
+    .lineUl{
+      .lineLi{
+        position: relative;
+        padding-left: 14px;
+        border-left: 2px solid #00a6e2;
+        margin-left: 4px;
+        padding-bottom: 15px;
+        &:last-child{
+          border-left: 2px solid transparent;
+        }
+        .point{
+          position: absolute;
+          display: block;
+          left: -6px;
+          top: -2px;
+          width: 10px;
+          height: 10px;
+          border-radius: 100%;
+          background-color: #00a6e2;
+        }
+        .stepName{
+          font-size: 14px;
+          color:#00a6e2;
+          position: relative;
+          top:-6px;
+          &.red{
+            color: #f76260;
+        }
+        }
+        .time{
+          font-size: 11px;
+          color: #aaa;
+          position: relative;
+          top:-2px
+        }
+      }
+    }
+  }
+  .hidden{
+    .lineContainer{
+      display: none;
     }
   }
 }

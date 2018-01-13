@@ -13,9 +13,164 @@ import utils from '../../../../../utils/utils'
 import {connect} from 'react-redux'
 import Alert from '../../../../../components/Dialog/alert'
 import {goBack,push} from 'react-router-redux'
+class Item extends Component{
+    constructor(props) {//构造器
+        super(props);
+        this.state = {
+            isOpen: false
+        }
+    }
+    handleClick=()=>{
+        this.setState({
+            isOpen:!this.state.isOpen
+        })
+    };
+    dateLine=(status,startTime,endTime)=>{
+        switch(status) {
+            case 0:
+                return "";
+                break;
+            case 1:return(<div className={styles.lineContainer}>
+                            <ul className={styles.lineUl}>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>提交申请</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(startTime*1000))}</p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>处理中</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(endTime*1000))}</p>
+                                </li>
+                            </ul>
+                         </div>);
+                break;
+            case 2:return(<div className={styles.lineContainer}>
+                            <ul className={styles.lineUl}>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>提交申请</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(startTime*1000))}</p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>信息核实成功</p>
+                                    <p className={styles.time} style={{height:"13px"}}></p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>处理成功</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(endTime*1000))}</p>
+                                </li>
+                            </ul>
+                         </div>);
+                 break;
+            case 3:return(<div className={styles.lineContainer}>
+                            <ul className={styles.lineUl}>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>提交申请</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(startTime*1000))}</p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={cs([styles.stepName,styles.red])}>审核不通过</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(endTime*1000))}</p>
+                                </li>
+                            </ul>
+                          </div>);
+                 break;
+            case 4:return(<div className={styles.lineContainer}>
+                            <ul className={styles.lineUl}>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>提交申请</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(startTime*1000))}</p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>已取消</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(endTime*1000))}</p>
+                                </li>
+                            </ul>
+                         </div>);
+                 break;
+            case 5:return(<div className={styles.lineContainer}>
+                            <ul className={styles.lineUl}>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>提交申请</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(startTime*1000))}</p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={styles.stepName}>信息核实成功</p>
+                                    <p className={styles.time} style={{height:"13px"}}></p>
+                                </li>
+                                <li className={styles.lineLi}>
+                                    <span className={styles.point}></span>
+                                    <p className={cs([styles.stepName,styles.red])}>银行处理失败</p>
+                                    <p className={styles.time}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(endTime*1000))}</p>
+                                </li>
+                            </ul>
+                        </div>);
+                 break;
+            default:return "";
+                 break;
+        }
+    };
+    render(){
+        const {
+            item
+        }=this.props;
+        return(<div  className={cs([styles.box,this.state.isOpen?"":styles.hidden])} onClick={this.handleClick}>
+            <div className={styles.cashContent}>
+                <div className={styles.left}>
+                    <ul className={styles.cashUl}>
+                        <li className={styles.text}>提现金额  {item.access_sys=='platform'&&<span className={styles.plat}>托管</span>||<span className={styles.store}>存管</span> }   </li>
+                        <li className={styles.money}>￥{item.txwithdrawmoney} </li>
+                        <li className={styles.bankName}>{item.bankName} (尾号{item.bank_card.substr(item.bank_card.length-4)})</li>
+                        <li className={styles.time}>申请时间：{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(item.txaddtime*1000))}</li>
+                    </ul>
+                </div>
+                <div className={styles.right}>
+                    <div className={styles.status}>
+                        {(()=>{
+                            switch (item.txwithdrawstatus){
+                                case 0:
+                                    return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={(event)=>{event.stopPropagation(); this.props.cancelFn(item.txid)}}>撤销</span></div>
+                                case 1:
+                                    return <div className={styles.statusText}><span className={styles.blue}>处理中</span></div>;
+                                    break;
+                                case 2:
+                                    return <div className={styles.statusText}><span className={styles.blue}>处理成功</span></div>;
+                                    break;
+                                case 3:
+                                    return <div className={styles.statusText}><span className={styles.red}>审核不通过</span></div>;
+                                    break;
+                                case 4:
+                                    return <div className={styles.statusText}><span className={styles.blue}>已取消</span></div>;
+                                    break;
+                                case 5:
+                                    return <div className={styles.statusText}><span className={styles.red}>银行处理失败</span></div>;
+                                default:
+                                    return <div className={styles.statusText}><span className={styles.blue}>提现失败</span></div>;
+                                    break
+                            }
+                        })()}
+                    </div>
+                </div>
+                <Alert ref="alert"></Alert>
+            </div>
+            {this.dateLine(item.txwithdrawstatus,item.txaddtime,item.txdealtime)}
+        </div>)
+    }
+
+
+}
 class Box extends Component{
     constructor(props) {//构造器
-        super(props)
+        super(props);
         this.state = {
             isOpen: false
         }
@@ -31,44 +186,8 @@ class Box extends Component{
              {
                  data.map((item,i)=>{
                    return(
-                     <div key={i} className={styles.cashContent}>
-                         <div className={styles.left}>
-                             <ul className={styles.cashUl}>
-                                 <li className={styles.text}>提现金额  {item.access_sys=='platform'&&<span className={styles.plat}>托管</span>||<span className={styles.store}>存管</span> }   </li>
-                                 <li className={styles.money}>￥{item.txwithdrawmoney} </li>
-                                 <li className={styles.bankName}>{item.bankName} (尾号{item.bank_card.substr(item.bank_card.length-4)})</li>
-                                 <li className={styles.time}>申请时间：{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(item.txaddtime*1000))}</li>
-                             </ul>
-                         </div>
-                         <div className={styles.right}>
-                             <div className={styles.status}>
-                                 {(()=>{
-                                     switch (item.txwithdrawstatus){
-                                         case 0:
-                                             return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={()=>{this.props.cancelFn(item.txid)}}>撤销</span></div>
-                                         case 1:
-                                             return <div className={styles.statusText}><span className={styles.blue}>处理中</span></div>;
-                                             break;
-                                         case 2:
-                                             return <div className={styles.statusText}><span className={styles.blue}>处理成功</span></div>;;
-                                             break;
-                                         case 3:
-                                             return <div className={styles.statusText}><span className={styles.red}>审核不通过</span></div>;;
-                                             break;
-                                         case 4:
-                                             return <div className={styles.statusText}><span className={styles.blue}>已取消</span></div>;;
-                                             break;
-                                         case 5:
-                                             return <div className={styles.statusText}><span className={styles.red}>银行处理失败</span></div>;;
-                                         default:
-                                             return <div className={styles.statusText}><span className={styles.blue}>提现失败</span></div>;
-                                             break
-                                     }
-                                 })()}
-                             </div>
-                         </div>
-                        <Alert ref="alert"></Alert>
-                     </div>)
+                       <Item key={i} item={item}  cancelFn={this.props.cancelFn}></Item>
+                     )
                  })
              }
          </div>)
@@ -78,10 +197,10 @@ class Box extends Component{
 
 class Index extends Component{
     constructor(props) {//构造器
-        super(props)
+        super(props);
         this.state = {
             filterShow:false,
-            flag:""
+            flag:3
         }
     }
     static defaultProps = {//设置初始props
@@ -91,6 +210,9 @@ class Index extends Component{
             filterShow:!this.state.filterShow
         })
     };
+    componentDidMount(){
+        this.props.getList(3)
+    }
     componentWillReceiveProps(nextProps){
        const {
            cancelData
@@ -101,7 +223,7 @@ class Index extends Component{
                 content:"撤销成功",
                 okText:"确定",
                 okCallback:()=>{
-                    this.props.getList();
+                    this.props.getList({type:this.state.flag});
                 }
             });
         }else if(cancelData&&cancelData.code!=100){
@@ -110,7 +232,7 @@ class Index extends Component{
                 content:"撤销失败",
                 okText:"确定",
                 okCallback:()=>{
-                    this.props.getList();
+                   // this.props.getList({type:this.state.flag});
                 }
             });
         }
@@ -134,7 +256,7 @@ class Index extends Component{
     };
     render(){
         const{
-            pop,data
+            pop,data,pending
         }=this.props;
         return(
             <div className={styles.container}>
@@ -143,23 +265,21 @@ class Index extends Component{
                 </NavBar>
                 <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
                     <ul>
-                        <li onClick={()=>{this.choose('')}} className={cs(this.state.flag===""?styles.current:"")}>全部</li>
-                        <li onClick={()=>{this.choose(0)}} className={cs(this.state.flag===0?styles.current:"")}>申请中</li>
-                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag==1?styles.current:"")}>处理中</li>
-                        <li onClick={()=>{this.choose(2)}} className={cs(this.state.flag==2?styles.current:"")}>处理成功</li>
-                        <li onClick={()=>{this.choose(3)}} className={cs(this.state.flag==3?styles.current:"")}>审核不通过</li>
-                        <li onClick={()=>{this.choose(4)}} className={cs(this.state.flag==4?styles.current:"")}>会员自行取消</li>
-                        <li onClick={()=>{this.choose(5)}} className={cs(this.state.flag==5?styles.current:"")}>银行处理失败</li>
+                        <li onClick={()=>{this.choose(3)}} className={cs(this.state.flag===3?styles.current:"")}>全部数据</li>
+                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag===1?styles.current:"")}>存管数据</li>
+                        <li onClick={()=>{this.choose(2)}} className={cs(this.state.flag==2?styles.current:"")}>托管数据</li>
                     </ul>
                 </div>
                 <div className={styles.content}>
                     {(()=>{
-                      if(data&&data.code==100){
-                          let BoxList=[];
-                          for (let label in data.data){
-                              BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
+                      if(!pending){
+                          if(data&&data.code==100){
+                              let BoxList=[];
+                              for (let label in data.data){
+                                  BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
+                              }
+                              return BoxList;
                           }
-                          return BoxList;
                       }else{
                           return <LoadingPage></LoadingPage>
                       }
@@ -173,7 +293,8 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>({
     data:state.infodata.getIn(['GET_CASH_LOG','data']),
-    cancelData:state.infodata.getIn(['CANCEL_CASH','data'])
+    cancelData:state.infodata.getIn(['CANCEL_CASH','data']),
+    pending:state.infodata.getIn(['GET_CASH_LOG','pending'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){

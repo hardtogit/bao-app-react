@@ -23,11 +23,13 @@ class Index extends React.Component {
             number:"",
             charge:'',
             bankCard:'',
-            bankIcon:''
+            bankIcon:'',
+            minimum:50,
+            maximum:50000
         }
     }
     componentWillMount(){
-
+        this.props.getDefault()
     }
     componentWillUnmount(){
         this.props.clean('NEW_CASH')
@@ -92,6 +94,15 @@ class Index extends React.Component {
             }else if(cashData.code=='303'){
                 this.alert(cashData.msg);
                 this.refs.loading.hide()
+            }else if(cashData.code=='304'){
+                this.alert(cashData.msg);
+                this.refs.loading.hide()
+            }else if(cashData.code=='312'){
+                this.alert(cashData.msg);
+                this.refs.loading.hide()
+            }else if(cashData.code=='313'){
+                this.alert(cashData.msg);
+                this.refs.loading.hide()
             }else{
                 this.alert('提现失败');
                 this.refs.loading.hide()
@@ -131,7 +142,11 @@ class Index extends React.Component {
           this.setState({
               disabled:true
           })
-      }else if (val>200000){
+      }else if (val<this.state.minimum){
+          this.setState({
+              disabled:true
+          })
+      }else if (val>this.state.maximum){
           this.setState({
               disabled:true
           })
@@ -146,7 +161,7 @@ class Index extends React.Component {
               disabled:false
           })
       }
-        this.props.serviceChargeRule({device:'WAP',transferAmount:val})
+        // this.props.serviceChargeRule({device:'WAP',transferAmount:val})
     }
     blur=(e)=>{
         const val=e.target.value,
@@ -154,10 +169,10 @@ class Index extends React.Component {
             tipbar=this.refs.tipbar;
         if (!reg.test(val)){
             tipbar.open('请输入正确的格式!');
-        }else if(val<50){
-            tipbar.open('金额必须大于50')
-        }else if(val>200000){
-            tipbar.open('单笔金额不能大于20万')
+        }else if(val<this.state.minimum){
+            tipbar.open('金额必须大于'+this.state.minimum)
+        }else if(val>this.state.maximum){
+            tipbar.open('单笔金额不能大于'+this.state.maximum)
         }
         else if (val>parseFloat(this.state.money)){
             tipbar.open('超出余额！')
@@ -191,7 +206,8 @@ class Index extends React.Component {
             money,
             bank,
             number,
-            bankIcon
+            bankIcon,
+            minimum
         }=this.state;
         return (
             <div className={styles.bg}>
@@ -204,7 +220,7 @@ class Index extends React.Component {
                        </div>
                        <div className={styles.withdrawalsInfo}>
                            <span>提现金额（元）</span>
-                           <span className={styles.withdrawalsText}>提现金额不得低于50元</span>
+                           <span className={styles.withdrawalsText}>提现金额不得低于{minimum}元</span>
                        </div>
                        <div className={styles.withdrawalsInput}>
                            <span>￥</span>
@@ -243,6 +259,7 @@ const Rechargeinit=(state)=>({
     cardInfo:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
     nowCard:state.regStore.getIn(['CHOICE_CARD','cardInfo']),
     rule:state.infodata.getIn(['SERVICE_CHARGE_RULE','data']),
+    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
 });
 const Rechargeinitfn=(dispatch)=>({
      pop(){
@@ -277,6 +294,11 @@ const Rechargeinitfn=(dispatch)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:key
+        })
+    },
+    getDefault(){
+        dispatch({
+            type:'GET_DEFAULT_TAB',
         })
     },
     serviceChargeRule(data){
