@@ -44,6 +44,7 @@ class findHome extends Component{
     componentDidMount(){
         this.props.getGoodsList();
         this.props.getUser();
+        this.props.getHotActivityList();
     }
     componentWillReceiveProps(next){
         const {user}=next;
@@ -82,6 +83,7 @@ class findHome extends Component{
     loadingEndDom(){
         const {
             goodsListData,
+            activityData
         }=this.props;
         let inviteUrl;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
@@ -91,7 +93,6 @@ class findHome extends Component{
             inviteUrl = "/find/inviteRule";
         }
         let productList=[]
-
         goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
              productList.push( <li key={i}>
@@ -103,6 +104,17 @@ class findHome extends Component{
                  </p>
                  <img src={item.image} className={styles.shopImg}/>
              </li>)
+            }
+        })
+        let activityList=[]
+        activityData&&activityData.data.map((item,i)=>{
+            if(i<2){
+                activityList.push(
+                    <li key={i}>
+                        <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
+                        <img src={item.image_wap}/>
+                    </li>
+                )
             }
         })
         return(
@@ -223,18 +235,12 @@ class findHome extends Component{
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>热门活动</span>
-                        <Link to='/find/shoppingMall'>
+                        <Link to='/find/hotActivity'>
                             <span className={styles.rightTxt}>更多></span>
                         </Link>
                     </div>
                     <ul className={styles.hotActive}>
-                        <li>
-                            <img src={ac1}/>
-                        </li>
-                        <li>
-                            <div className={styles.shadow}>活动已结束</div>
-                            <img src={ac2}/>
-                        </li>
+                        {activityList}
                     </ul>
                 </div>
             </div>
@@ -244,7 +250,9 @@ class findHome extends Component{
          let {coins} = this.state;
          const {
              goodsListData,
+             activityData
          }=this.props;
+         console.log(activityData)
          let contentDom,qdDom;
          if (goodsListData&&(coins||coins==0)){
              contentDom=this.loadingEndDom();
@@ -252,7 +260,6 @@ class findHome extends Component{
          }
          return(
              <div className={styles.finderHome}>
-
                 <div className={styles.findContent} >
                     {
                         contentDom
@@ -267,7 +274,8 @@ class findHome extends Component{
 }
 const initMymassege=(state,own)=>({
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
-    user:state.infodata.getIn(['USER_INFO','data'])
+    user:state.infodata.getIn(['USER_INFO','data']),
+    activityData:state.infodata.getIn(['GET_HOT_ACTIVITY','data'])
 })
 const initMymassegefn=(dispatch,own)=>({
     getGoodsList(){
@@ -280,8 +288,11 @@ const initMymassegefn=(dispatch,own)=>({
             type:'USER_INFO'
         })
     },
-    pop(){
-        dispatch(goBack())
-    }
+    getHotActivityList(){
+        dispatch({
+            type:'GET_HOT_ACTIVITY'
+        })
+    },
+
 })
 export default connect(initMymassege,initMymassegefn)(findHome)

@@ -23,6 +23,12 @@ const requests = (Fetch) => {
     Fetch.getNoticeDetail = (id) => {return Fetch(`api/userVip/noticeDetail?id=${id}`, 'GET')};
     //商城帮助问题
     Fetch.getHelpList = () => {return Fetch(`api/userVip/helpList`, 'GET')};
+    //热门活动列表
+    Fetch.getHotActivityList = () => {return Fetch(`api/userVip/activityList`, 'GET')};
+    //地址列表
+    Fetch.getAddressList = () => {return Fetch(`api/userVip/listAddress`, 'GET')};
+    //设置默认地址
+    Fetch.setAddress = (id,isDefault) => {return Fetch(`api/userVip/setAddress?address_id=${id}&is_default=${isDefault}`, 'GET')};
 
 }
 

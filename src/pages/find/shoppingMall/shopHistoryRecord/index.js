@@ -62,7 +62,7 @@ class Index extends React.Component {
 
         return(
             <Scroll height={Height} fetch={()=>{this.props.getCoinRecordList()}}
-                    isLoading={pending} distance={20} endType={end}
+                    isLoading={pending('GET_COIN_RECORD_LIST')} distance={20} endType={end('GET_COIN_RECORD_LIST')}
             >
                 {
                     coinRecordListData&&coinRecordListData.map((item,i)=>{

@@ -154,11 +154,28 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/user/choiceMyCard').default);
         }, 'ChoiceMyCard');
-    }//我的银行卡
+    },//我的银行卡
+    HotActivity  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/hotActivity').default);
+        }, 'HotActivity');
+    },//热门活动
+
+    Address  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/address').default);
+        }, 'Address');
+    },//地址
+    EditAddress  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/editAddress').default);
+        }, 'EditAddress');
+    }//地址
+
 
 //成功失败模版
 export const SuccessTemplate  = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/template/successTemplate').default);
     }, 'SuccessTemplate');
-}//成功模版
+}

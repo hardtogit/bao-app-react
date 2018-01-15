@@ -5,50 +5,71 @@ import {Link} from "react-router";
 import classs from './index.less'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
-import Sign from '../../../../components/Sign/index'
 import shoppCenter from '../../../../assets/images/shopp-center/shoppCenter.png'
-import coinTotal from '../../../../assets/images/shopp-center/total.png'
-import icon  from '../../../../assets/images/shopp-center/icon.png'
 import private1 from '../../../../assets/images/find/private2.png'
 import coin from '../../../../assets/images/find/coin.png'
+import select from '../../../../assets/images/find/select.png'
 import Loading from '../../../../components/pageLoading/index'
 import Scroll from '../../../../components/scroll/index'
 import utils from '../../../../utils/utils'
+import cs from "classnames";
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            signNumbers:'',
-            coins:'',
-            isSign:'',
             index:0,
-            id:0
+            id:0,
+            filterShow:false,
+            flag1:999,
+            init:false,
+            params:[]
 		}
 	}
 	componentWillMount(){
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-        if (userInfo){
-            this.set(userInfo);
-        }
         this.props.getGoodsTypeList();
-        this.props.getGoodsList();
+        // this.props.getGoodsList();
     }
 	componentDidMount() {
     }
 	componentWillUnmount() {}
-    componentWillReceiveProps(next){
-        const {user}=next;
-        if (user){
-            user.code==100&&this.set(user.data);
+    componentWillReceiveProps(nextProps){
+	    const {typeData}=nextProps;
+	    let arr={};
+	    if(typeData&&typeData.code==100) {
+            typeData.data.map(({label_type}) => {
+                arr[label_type]=''
+            });
+            this.setState({
+                params:arr
+            })
         }
     }
-    set=(userInfo)=>{
+    filters=()=>{
         this.setState({
-            signNumbers:userInfo.signNumbers,
-            coins:userInfo.coins,
-            isSign:userInfo.isSign,
+            filterShow:!this.state.filterShow
         })
-    }
+    };
+    choose=(flag1,label)=>{
+        this.setState({
+            flag1:flag1
+        });
+        this.setState((preState)=>{
+            let params=Object.assign(preState.params,{[label]:flag1});
+            console.log(params)
+        });
+    };
+    confirm=(flag2)=>{
+        this.refs.scroll.setState({
+            init:true
+        });
+        this.setState({
+            filterShow:false
+        });
+        this.props.clearData();
+        console.log(this.state)
+        // this.props.getList(flag);
+    };
+
 	changeBar=(index)=>{
 	    this.setState({index});
     }
@@ -64,11 +85,9 @@ class Index extends React.Component {
             pending,
             end
         }=this.props;
-	    const {index}=this.state;
-
-        console.log(index)
-            let cloneData=typeData.data[0].label_child.slice(0);
-            cloneData.unshift({id:'0',name:'全部',type_str:'area_type'});
+	    const {index,flag1}=this.state;
+        let cloneData=typeData.data[0].label_child.slice(0);
+        cloneData.unshift({id:'0',name:'全部',type_str:'area_type'});
 	    return(<div>
             {
                 cloneData.map(({id},i)=>{
@@ -77,7 +96,8 @@ class Index extends React.Component {
                         npending=pending('GET_GOODS_LIST'+i),
                         nend=end('GET_GOODS_LIST'+i);
                     return( <div key={i} className={classs.products}>
-                        <Scroll height={Height} fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,id)}}
+                        <Scroll  ref='scroll' height={Height}
+                                  fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,id)}}
                                 isLoading={npending} distance={20} endType={nend} endload={<div></div>}
                         >
                                 {
@@ -113,7 +133,6 @@ class Index extends React.Component {
         }=this.props;
         const Dom=this.ScrollDom();
       return(<Box>
-
           <div className={classs.items}>
               <div className={classs.scrollBar}>
               <ul ref="ul">
@@ -129,7 +148,6 @@ class Index extends React.Component {
               {
                   Dom
               }
-
       </Box>)
     }
 
@@ -143,16 +161,43 @@ class Index extends React.Component {
         if (typeData){
             Dom=this.loadEndDom();
         }
+        const {
+            params
+        }=this.state;
+        console.log(typeData);
 		return (
 			<div className={classs.bg} >
-				<NavBar rightNode={
-				            <Link to="/user/shopCenter">
-				                <img src={shoppCenter} className={classs.rightNode}/>
-				            </Link>
-				        }
-                        backgroundColor="#F76260"
+				<NavBar onRight={this.filters} rightNode={<img src={select} className={classs.rightNode}/>}
+                        backgroundColor="#fff"
+                        color="#333"
                         onLeft={pop}>产品列表</NavBar>
                 {Dom}
+                <div className={cs(classs.filter,this.state.filterShow?classs.active:"hide")}>
+                    {
+                        typeData&&typeData.data.map((item,i)=>(
+                            <div key={i}>
+                                <p className={classs.selectTitle}>{item.label_name}</p>
+                                <ul className={classs.select}>
+                                    <li onClick={()=>{this.choose('',item.label_type)}} className={cs(params[item.label_type]?classs.noselect:classs.current)}>全部</li>
+                                    {
+                                        typeData&&typeData.data[i].label_child.map(({id,name},i)=>(
+                                            <li key={i} onClick={()=>{this.choose(id,item.label_type)}} className={cs(params[item.label_type]==id?classs.current:classs.noselect)}>{name}</li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        ))
+                    }
+                    <p className={classs.selectTitle}>积分区间</p>
+                    <div className={classs.coinselect}>
+                        <input ref="priceStart" type="text"/>
+                        <span>-</span>
+                        <input ref="priceEnd" type="text"/>
+                    </div>
+                    <div className={classs.btnWrap}>
+                        <div className={classs.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
+                    </div>
+                </div>
 			</div>
 		)
 	}
@@ -175,7 +220,6 @@ const dispatchFn=(dispatch)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-
     getGoodsList(key,id){
         dispatch({
             type:'GET_GOODS_LIST',
@@ -184,6 +228,12 @@ const dispatchFn=(dispatch)=>({
                 10,
                 id
             ]
+        })
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GET_GOODS_LIST'
         })
     },
 

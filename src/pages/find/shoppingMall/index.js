@@ -24,10 +24,10 @@ class shoppingMall extends Component{
             pop,
             goodsTypeListData,
             goodsListData,
-        }=this.props;
-        let productList=[];
+        }=this.props
 
-        goodsListData&&goodsListData.map((item,i)=>{
+        let productList=[];
+        goodsListData&&goodsListData.data.map((item,i)=>{
             if(i<4){
                 productList.push(
                     <li key={i}>
@@ -69,7 +69,7 @@ class shoppingMall extends Component{
                                 </Link>
                             </li>
                             <li className={styles.indexCavli}>
-                                <Link to='/find/shoppingMall' className={styles.Link}>
+                                <Link to='/find/address' className={styles.Link}>
                                     <img src={st2}/>
                                     <p>地址</p>
                                 </Link>
@@ -105,7 +105,6 @@ class shoppingMall extends Component{
                                 </div>
                             )
                         })}
-
                 </div>
             </div>
         )
@@ -113,7 +112,7 @@ class shoppingMall extends Component{
 }
 const mapStateToProps=(state)=>({
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
-    goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    goodsListData: state.infodata.getIn(['GET_GOODS_LIST', 'data']),
 });
 const mapDispatchToProps=(dispatch,own)=>({
     getGoodsTypeList(){
@@ -125,7 +124,6 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'GET_GOODS_LIST',
             params:[
-                10,
                 id
             ]
         })

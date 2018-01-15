@@ -514,6 +514,18 @@ export default {
     [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心抵用券列表
         apiFn:Fetch.getVoucherCoupons
     },
+    [actionTypes.GET_HOT_ACTIVITY]:{    //热门活动列表
+        apiFn:Fetch.getHotActivityList
+    },
+    [actionTypes.GET_GOODS_LIST]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
+    [actionTypes.GET_ADDRESS_LIST]:{    //收货地址列表
+        apiFn:Fetch.getAddressList
+    },
+    [actionTypes.SET_ADDRESS]:{    //设置默认地址
+        apiFn:Fetch.setAddress
+    },
 
 
 }

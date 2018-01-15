@@ -115,7 +115,7 @@
   color: #000;
 }
 .rightNode{
-  width: 30px;
+  width: 24px;
 }
 .top{
   position: relative;
@@ -308,4 +308,88 @@
 }
 .hide{
   display: none;
+}
+.active{
+  transform:translate3d(0,0,0);
+}
+.filter {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .4);
+  transition: all cubic-bezier(.1, .7, .1, 1) 400ms;
+  z-index: 10000;
+  .selectTitle{
+    background-color: #fff;
+    padding-left: 24px;
+    font-size: 14px;
+    padding-top: 15px;
+    color: #626262;
+  }
+}
+.select{
+  width: 100%;
+  padding: 4px 15px;
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  li{
+    padding: 0 10px;
+    list-style: none;
+    text-align: center;
+    color: #626262;
+    font-size: 14px;
+    &.current{
+      color:#f67f75;
+      padding: 5px 10px;
+      margin: 0 8px;
+      border-radius: 3px;
+      border:1px solid #f56f64;
+      background-color:#fbe9e7;
+    }
+    &.noselect{
+      padding: 5px 10px;
+      margin: 5px 8px;
+      border-radius: 3px;
+      border:1px solid #ddd;
+    }
+  }
+}
+.coinselect{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #fff;
+  padding-left: 20px;
+}
+.coinselect input{
+  width:35%;
+  height:28px;
+  border: 1px solid #ddd;
+  outline: none;
+  margin: 10px 3px;
+  padding: 5px 5px;
+  font-size: 12px;
+  color:#626262;
+}
+.coinselect span{
+
+}
+.confirmBtn{
+  width:95px;
+  height:34px;
+  line-height: 34px;
+  text-align: center;
+  background: #fe684b;
+  color:#fff;
+  font-size: 14px;
+  margin-left: 20px;
+}
+.btnWrap{
+  width:100%;
+  background: #fff;
+  padding-bottom: 20px;
 }

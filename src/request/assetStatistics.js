@@ -1,7 +1,6 @@
 /**
  * assetStatistics request interface
  */
-
 const requests = (Fetch) => {
   // 理财金详情
   Fetch.privilegeDetail = () => { return Fetch('/privilege/detail', 'GET') }
@@ -18,7 +17,6 @@ const requests = (Fetch) => {
       }else{
           return Fetch(`balance/records?page=${page}&type=${type}`, 'GET')
       }
-
   }
   // 连连支付
   Fetch.authCookie = () => {return Fetch(`common/auth-cookie`, 'GET') }

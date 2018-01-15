@@ -33,7 +33,7 @@ class Index extends React.Component {
     choose=(flag)=>{
         this.refs.scroll.setState({
             init:true
-        })
+        });
         this.setState({
             flag:flag,
             filterShow:false
