@@ -20,6 +20,9 @@ class Index extends Component{
 
         }
     }
+    componentWillMount(){
+        this.props.getDefault()
+    }
     componentDidMount(){
      this.props.load();
     }
@@ -108,7 +111,17 @@ class Index extends Component{
         //}
     }
     render() {
-        const {pop,push,userInfo}=this.props
+        const {pop,push,userInfo}=this.props;
+        let disable1=true;
+        let disable2=true;
+        if(userInfo&&cashSetting){
+            if(userInfo.data.banlance<cashSetting.data.withdrawSingleMinMoney){
+                disable1=false
+            }
+            if(userInfo.data.balance_platform<cashSetting.data.withdrawSingleMinMoney){
+                disable2=false
+            }
+        }
         return(
             <div className={styles.container}>
                 <Store ref="store"></Store>
@@ -156,19 +169,8 @@ class Index extends Component{
                                 <p className={styles.money}>{userInfo&&userInfo.data.balance}</p>
                             </div>
                         </div>
-                        <div className={styles.footer} onClick={()=>{
-                            let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-                            if(storeData.isBindBankcard&&storeData.isRegister){
-                                this.props.push('/user/withdrawals')
-                            }else{
-                                if(storeData.isRegister){
-                                    this.props.push('/user/setting/cardBind')
-                                }else{
-                                    this.refs.store.show();
-                                }
-                            }
-                        }}>
-                            <div className={styles.btn} onClick={()=>this.goCash(userInfo&&userInfo.data.balance)}>
+                        <div className={styles.footer} >
+                            <div className={classNames([styles.btn,disable1&&styles.disable||""])  } onClick={()=>{if(disable1) return; this.goCash(userInfo&&userInfo.data.balance)}}>
                                 提现
                             </div>
                         </div>
@@ -193,7 +195,8 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer}>
-                            <div className={classNames([styles.btn])} onClick={()=>{
+                            <div className={classNames([styles.btn,disable2&&styles.disable||""])} onClick={()=>{
+                                if(disable2) return false;
                                 this.goCashOld(userInfo&&userInfo.data.balance_platform)
                             }}>
                                 提现
@@ -209,7 +212,8 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>({
        userInfo:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
-       uploadData: state.infodata.getIn(['QUERY_UPLOAD', 'data'])
+       uploadData: state.infodata.getIn(['QUERY_UPLOAD', 'data']),
+       cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
 });
 const mapDispatchProps=(dispatch)=>({
     pop(){
@@ -221,6 +225,11 @@ const mapDispatchProps=(dispatch)=>({
     load(){
         dispatch({
             type: "USER_INFO_WITH_LOGIN"
+        })
+    },
+    getDefault(){
+        dispatch({
+            type:'GET_DEFAULT_TAB',
         })
     },
     queryUpload(){
