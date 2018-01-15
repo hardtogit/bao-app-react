@@ -7,6 +7,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
+import Alert from '../../../../../components/Dialog/alert'
 import NavBar from '../../../../../components/NavBar'
 import Store from '../../../../../components/Dialog/store'
 import styles from './index.less'
@@ -23,6 +24,7 @@ class Index extends Component{
     }
     componentWillMount(){
         this.props.getDefault()
+        this.props.queryUpload()
     }
     componentDidMount(){
      this.props.load();
@@ -54,7 +56,7 @@ class Index extends Component{
                         switch ($this.props.uploadData.data.status){
                             case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
                                 break;
-                            case '0':$this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                            case '0':$this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
                                 $this.props.queryUpload()
                                 break;
                             case '1':$this.money(balance)
@@ -65,7 +67,7 @@ class Index extends Component{
                                 $this.props.push('/user/IdCardUpload');
                         }
                     }else{
-                        $this.refs.alert.show({content:'审核中，请稍后再试',okText:'确定'})
+                        $this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
                         $this.props.queryUpload()
                     }
                 }
@@ -90,7 +92,7 @@ class Index extends Component{
             if (storeData.isRegister) {
                 this.props.push('/user/setting/cardBind')
             } else {
-                this.refs.tip.show();
+                this.refs.store.show();
             }
         }
     }
@@ -131,6 +133,7 @@ class Index extends Component{
         return(
             <div className={styles.container}>
                 <Store ref="store"></Store>
+                <Alert ref="alert"></Alert>
                 <NavBar onLeft={pop} rightNode={<div>明细</div>} onRight={()=>{push('/user/cashLog')}}>
                     提现
                 </NavBar>
@@ -239,7 +242,7 @@ const mapDispatchProps=(dispatch)=>({
         })
     },
     queryUpload(){
-        dispath({
+        dispatch({
             type:'QUERY_UPLOAD'
         })
     }

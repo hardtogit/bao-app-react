@@ -120,7 +120,7 @@ class Index extends Component{
                                     if (storeData.isRegister) {
                                         this.props.push('/user/setting/cardBind')
                                     } else {
-                                        this.refs.tip.show();
+                                        this.refs.store.show();
                                     }
                                 }
                             }}>
