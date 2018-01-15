@@ -26,8 +26,8 @@ class Item extends Component{
             isOpen:!this.state.isOpen
         })
     };
-    dateLine=(status,startTime,endTime)=>{
-        switch(status) {
+    dateLine=(status,startTime,txdoing_time,endTime)=>{
+        switch(parseInt(status)) {
             case 0:
                 return "";
                 break;
@@ -56,7 +56,7 @@ class Item extends Component{
                                 <li className={styles.lineLi}>
                                     <span className={styles.point}></span>
                                     <p className={styles.stepName}>信息核实成功</p>
-                                    <p className={styles.time} style={{height:"13px"}}></p>
+                                    <p className={styles.time} style={{height:"13px"}}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(txdoing_time*1000))}</p>
                                 </li>
                                 <li className={styles.lineLi}>
                                     <span className={styles.point}></span>
@@ -106,7 +106,7 @@ class Item extends Component{
                                 <li className={styles.lineLi}>
                                     <span className={styles.point}></span>
                                     <p className={styles.stepName}>信息核实成功</p>
-                                    <p className={styles.time} style={{height:"13px"}}></p>
+                                    <p className={styles.time} style={{height:"13px"}}>{utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(txdoing_time*1000))}</p>
                                 </li>
                                 <li className={styles.lineLi}>
                                     <span className={styles.point}></span>
@@ -170,7 +170,7 @@ class Item extends Component{
                 </div>
                 <Alert ref="alert"></Alert>
             </div>
-            {this.dateLine(item.txwithdrawstatus,item.txaddtime,item.txdealtime)}
+            {this.dateLine(item.txwithdrawstatus,item.txaddtime,item.txdoing_time,item.txdealtime)}
         </div>)
     }
 
