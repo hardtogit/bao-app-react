@@ -17,7 +17,8 @@ class Index extends Component{
     constructor(props) {//构造器
         super(props);
         this.state = {
-
+          disable1:true,
+          disable2:true
         }
     }
     componentWillMount(){
@@ -25,6 +26,21 @@ class Index extends Component{
     }
     componentDidMount(){
      this.props.load();
+    }
+    componentWillReceiveProps(nextProps){
+        const {userInfo,cashSetting}=nextProps;
+        if(userInfo&&cashSetting){
+            if(parseFloat(userInfo.data.balance)>=parseInt(cashSetting.data.withdrawSingleMinMoney)){
+                this.setState({
+                    disable1:false
+                })
+            }
+            if(parseFloat(userInfo.data.balance_platform)>=parseInt(cashSetting.data.withdrawSingleMinMoney)){
+                this.setState({
+                    disable2:false
+                })
+            }
+        }
     }
     goCash=(balance)=>{
         let $this=this;
@@ -111,17 +127,7 @@ class Index extends Component{
         //}
     }
     render() {
-        const {pop,push,userInfo}=this.props;
-        let disable1=true;
-        let disable2=true;
-        if(userInfo&&cashSetting){
-            if(userInfo.data.banlance<cashSetting.data.withdrawSingleMinMoney){
-                disable1=false
-            }
-            if(userInfo.data.balance_platform<cashSetting.data.withdrawSingleMinMoney){
-                disable2=false
-            }
-        }
+        const {pop,push,userInfo,cashSetting}=this.props;
         return(
             <div className={styles.container}>
                 <Store ref="store"></Store>
@@ -170,7 +176,7 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer} >
-                            <div className={classNames([styles.btn,disable1&&styles.disable||""])  } onClick={()=>{if(disable1) return; this.goCash(userInfo&&userInfo.data.balance)}}>
+                            <div className={classNames([styles.btn,this.state.disable1&&styles.disable||""])  } onClick={()=>{if(this.state.disable1) return; this.goCash(userInfo&&userInfo.data.balance)}}>
                                 提现
                             </div>
                         </div>
@@ -195,8 +201,8 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer}>
-                            <div className={classNames([styles.btn,disable2&&styles.disable||""])} onClick={()=>{
-                                if(disable2) return false;
+                            <div className={classNames([styles.btn,this.state.disable2&&styles.disable||""])} onClick={()=>{
+                                if(this.state.disable2) return false;
                                 this.goCashOld(userInfo&&userInfo.data.balance_platform)
                             }}>
                                 提现
