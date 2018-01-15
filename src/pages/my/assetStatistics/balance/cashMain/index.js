@@ -176,7 +176,7 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer} >
-                            <div className={classNames([styles.btn,this.state.disable1&&styles.disable||""])  } onClick={()=>{if(this.state.disable1) return; this.goCash(userInfo&&userInfo.data.balance)}}>
+                            <div className={classNames([styles.btn,this.state.disable1&&styles.disable||""])  } onClick={()=>{if(this.state.disable1) {return false;} this.goCash(userInfo&&userInfo.data.balance)}}>
                                 提现
                             </div>
                         </div>
@@ -202,7 +202,7 @@ class Index extends Component{
                         </div>
                         <div className={styles.footer}>
                             <div className={classNames([styles.btn,this.state.disable2&&styles.disable||""])} onClick={()=>{
-                                if(this.state.disable2) return false;
+                                if(this.state.disable2) {return false;}
                                 this.goCashOld(userInfo&&userInfo.data.balance_platform)
                             }}>
                                 提现
