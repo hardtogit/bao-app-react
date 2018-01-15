@@ -137,7 +137,7 @@ class Item extends Component{
                 <div className={styles.right}>
                     <div className={styles.status}>
                         {(()=>{
-                            switch (item.txwithdrawstatus){
+                            switch (parseInt(item.txwithdrawstatus)){
                                 case 0:
                                     return <div className={styles.statusText}><span className={styles.orange}>申请中</span><span className={styles.cancel} onClick={(event)=>{event.stopPropagation();
                                     if(item.access_sys=='platform'){
