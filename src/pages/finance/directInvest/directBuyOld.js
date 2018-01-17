@@ -394,6 +394,8 @@ class DirectBuy extends React.Component {
 
                         <PayProcess
                             ref='payProcess'
+                            productId={this.props.params.id}
+                            num={this.state.quantity}
                             type='directInvest'
                             go={this.props.push}
                             getChoose={this.getChoose}

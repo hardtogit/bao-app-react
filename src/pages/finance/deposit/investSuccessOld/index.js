@@ -6,6 +6,7 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import NavBar from '../../../../components/NavBar'
 import styles from './index.styl'
 import TimeLine from '../../../../components/TimeLine'
+import RedPacket from '../../../../components/RedPacket'
 class InvestSuccess extends React.Component {
     constructor(props) {
         super(props)
@@ -20,6 +21,7 @@ class InvestSuccess extends React.Component {
             this.props.clearData('DEPOSITBS_BUYRESULT');
         }
     }
+
     listA=(data)=>{
         const {
             buy_time,
@@ -93,9 +95,11 @@ class InvestSuccess extends React.Component {
             data = depositsbBuyData && depositsbBuyData.data.additional || {}
             dataArry=this.listB(data)
         }
+        const { packetData }=this.props;
         return (
             <div className={styles.root}>
                 <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
+                <RedPacket  productId={this.props.location.query.productId} num={this.props.location.query.num} productType={1}></RedPacket>
                 <div className={styles.content}>
                     <div className={styles.amount}>
                         <span>投资金额</span>
@@ -115,7 +119,7 @@ class InvestSuccess extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         depositBuyData: state.infodata.getIn([actionTypes.DEPOSIT_BUY, 'data']),
-        depositsbBuyData:state.infodata.getIn([actionTypes.DEPOSITBS_BUYRESULT, 'data'])
+        depositsbBuyData:state.infodata.getIn([actionTypes.DEPOSITBS_BUYRESULT, 'data']),
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -504,6 +504,13 @@ export default {
     [actionTypes.CANCEL_CASH]:{    //周五活动币列表
         apiFn:Fetch.cancelCash
     },
+    [actionTypes.GET_PACKET]:{    //获取投资红包
+        apiFn:Fetch.getPacket
+    },
+    [actionTypes.OPEN_PACKET]:{    //打开投资红包
+        apiFn:Fetch.openPacket
+    },
+
 
 
 }

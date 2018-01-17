@@ -110,7 +110,8 @@ const requests = (Fetch) => {
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
   Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/users/uploadIdCard','POST',data)}//身份证上传
   Fetch.getDefaultTab=(data)=>{return Fetch('api/setting/defaultShow','get',data)}//获取默认tab
-
+  Fetch.getPacket=(data)=>{return Fetch('api/activity/redpackeView','get',data)}//获取投资后的红包
+  Fetch.openPacket=(data)=>{return Fetch('api/activity/un_redpacket','get',data)}//拆开投资后的红包
 }
 
 export default requests

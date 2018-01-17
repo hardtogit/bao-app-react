@@ -318,3 +318,5 @@ export const GET_DEFAULT_TAB='GET_DEFAULT_TAB' //获取产品页默认tab
 export const SAVE_GATHER_DATA='SAVE_GATHER_DATA'//存储聚点+数据
 export const GET_CASH_LOG='GET_CASH_LOG'//获取提现列表
 export const CANCEL_CASH='CANCEL_CASH'//取消提现
+export const GET_PACKET='GET_PACKET'//获取投资后的红包
+export const OPEN_PACKET='OPEN_PACKET' //打开投资后赠送的红包

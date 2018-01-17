@@ -481,6 +481,8 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail;
+    const{id}=this.props.params;
+
       //let banksList={}
       if(this.props.banks&&this.props.banks.data){
         let  banksList=this.props.banks.data
@@ -522,7 +524,9 @@ class DirectBuy extends React.Component {
           </div>
 
             <PayProcess
-            ref='payProcess' 
+            ref='payProcess'
+            productId={id}
+            num={this.state.quantity}
             type='directInvest'
             go={this.props.push}
             getChoose={this.getChoose}
