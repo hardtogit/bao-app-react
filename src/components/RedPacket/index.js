@@ -15,7 +15,7 @@ class Index extends React.Component{
     constructor(props){
         super(props)
         this.state= {
-
+           time:0
         }
     }
     componentWillMount(){
@@ -49,12 +49,21 @@ class Index extends React.Component{
         },0)
     };
     openPacket=()=>{
-        this.props.openPacket({id:this.props.packetData.data.id})
+        this.props.openPacket({money:this.props.packetData.data.money})
     };
     componentWillReceiveProps(nextProps){
         const{openData,packetData}=nextProps;
         if(packetData&&packetData.data.id){
             this.show()
+        }else if(packetData&&packetData.data.code!=100){
+            if(this.state.time<3){
+                setTimeout(()=>{
+                    this.props.getPacket({productId:this.props.productId,num:this.props.num,productType:this.props.productType})
+                },1000);
+                this.setState({
+                    time:this.state.time+1
+                })
+            }
         }
         if(openData&&openData.code==100){
          this.open();
@@ -136,10 +145,10 @@ const mapDispatchToProps=(dispatch)=>({
             params:[data]
         })
     },
-    openPacket(id){
+    openPacket(data){
         dispatch({
             type:'OPEN_PACKET',
-            params:[id]
+            params:[data]
         })
     },
     clean(key){
