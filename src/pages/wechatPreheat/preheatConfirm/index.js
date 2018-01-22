@@ -97,14 +97,12 @@ class Index extends React.Component{
     }
     componentWillReceiveProps(nextProps){
         const{receiveData,statusData}=nextProps;
-
         if(receiveData){
             if(receiveData && receiveData.code == 100){
                 if(statusData && statusData.code == 100){
                     this.setState({
                         status:1
                     })
-
                 }
                 if(statusData && statusData.code == 301){
                     this.setState({
@@ -123,7 +121,6 @@ class Index extends React.Component{
                 this.setState({
                     status:2
                 })
-
             }
         }
 
@@ -157,7 +154,7 @@ class Index extends React.Component{
             <div className={styles.popWraper}>
                 <div className={styles.needPopfail}>
                     <p className={styles.titleTxtsc}>领取失败</p>
-                    <p style={{textAlign:"center"}}>{data == 301&& "您已经领取过该礼物了" ||(data == 302&&"尚未达到领取标准，再接再厉哦"||(data == 303&&"礼物已经被领取完了")||(data == 300&&"活动未开始"))}</p>
+                    <p style={{textAlign:"center"}}>{data == 301&& "您已经领取过该礼物了" ||(data == 302&&"尚未达到领取标准，再接再厉哦"||(data == 303&&"礼物已经被领取完了"||(data == 300&&"活动未开始")))}</p>
                 </div>
                 <div className={styles.closeWraper}>
                     <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
@@ -177,7 +174,7 @@ class Index extends React.Component{
             <div className={styles.popWraper}>
                 <div className={styles.needPopfail}>
                     <p className={styles.titleTxtsc}>领取中</p>
-                    <p style={{textAlign:"center"}}>{data == 301&& "正在领取请稍后"}</p>
+                    <p style={{textAlign:"center"}}>正在领取请稍后</p>
                 </div>
                 <div className={styles.closeWraper}>
                     <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
@@ -191,8 +188,6 @@ class Index extends React.Component{
         }=this.props.params;
         const{
             pop,
-            receiveData,
-            statusData,
         }=this.props;
         const{
             index,
@@ -200,6 +195,7 @@ class Index extends React.Component{
             status
         }=this.state;
         let popDom;
+        console.log(status);
         if(status == 0){
             popDom=this.handlePopDom();
         }
