@@ -21,7 +21,9 @@ class Index extends React.Component{
             add:"",
             index:0,
             windowPop:0,
-            num:0
+            num:0,
+            time:0,
+            status:0
         }
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -54,7 +56,6 @@ class Index extends React.Component{
             statusData,
         }=this.props;
 
-        // let baoAuth= this.props.location.query.baoAuth;
         let baoAuth= "wwertrtyt";
         if(this.state.name && this.state.tel && this.state.add){
             let TelRegex = /^1[34578]\d{9}$/;
@@ -94,6 +95,40 @@ class Index extends React.Component{
     componentWillUnmount() {
         clearInterval(this.timeOut);
     }
+    componentWillReceiveProps(nextProps){
+        const{receiveData,statusData}=nextProps;
+
+        if(receiveData){
+            if(receiveData && receiveData.code == 100){
+                if(statusData && statusData.code == 100){
+                    this.setState({
+                        status:1
+                    })
+
+                }
+                if(statusData && statusData.code == 301){
+                    this.setState({
+                        status:0
+                    })
+                    if(this.state.time <3){
+                        setTimeout(()=>{
+                            this.props.preheatStatus(id);
+                        },1000)
+                        this.state({
+                            time:this.state.time+1
+                        })
+                    }
+                }
+            }else{
+                this.setState({
+                    status:2
+                })
+
+            }
+        }
+
+
+    }
     successPopDom=()=>{
         return(
             <div className={styles.popWraper}>
@@ -122,7 +157,27 @@ class Index extends React.Component{
             <div className={styles.popWraper}>
                 <div className={styles.needPopfail}>
                     <p className={styles.titleTxtsc}>领取失败</p>
-                    <p style={{textAlign:"center"}}>{data == 301&& "您已经领取过该礼物了" ||(data == 302&&"尚未达到领取标准，再接再厉哦"||(data == 303&&"礼物已经被领取完了"))}</p>
+                    <p style={{textAlign:"center"}}>{data == 301&& "您已经领取过该礼物了" ||(data == 302&&"尚未达到领取标准，再接再厉哦"||(data == 303&&"礼物已经被领取完了")||(data == 300&&"活动未开始"))}</p>
+                </div>
+                <div className={styles.closeWraper}>
+                    <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
+                </div>
+            </div>
+        )
+    }
+    handlePopDom=()=>{
+        const{
+            statusData
+        }=this.props;
+        let data;
+        if(statusData){
+            data = statusData.code;
+        }
+        return(
+            <div className={styles.popWraper}>
+                <div className={styles.needPopfail}>
+                    <p className={styles.titleTxtsc}>领取中</p>
+                    <p style={{textAlign:"center"}}>{data == 301&& "正在领取请稍后"}</p>
                 </div>
                 <div className={styles.closeWraper}>
                     <img src={close} className={styles.closeBtn} onClick={()=>{this.changeBar(0)}} />
@@ -141,18 +196,18 @@ class Index extends React.Component{
         }=this.props;
         const{
             index,
-            windowPop
+            windowPop,
+            status
         }=this.state;
-
         let popDom;
-        if(receiveData){
-            if(receiveData && receiveData.code == 100){
-                if(statusData && statusData.code == 100){
-                    popDom=this.successPopDom();
-                }
-            }else{
-                popDom=this.failPopDom();
-            }
+        if(status == 0){
+            popDom=this.handlePopDom();
+        }
+        if(status == 1){
+            popDom=this.successPopDom();
+        }
+        if(status == 2){
+            popDom=this.failPopDom();
         }
 
         if(index == 1 ||index == 2){
@@ -193,7 +248,6 @@ class Index extends React.Component{
                                     <div className={styles.subBtn}  onClick={this.handleSubmit} >
                                         确认领取
                                     </div>
-
                                 </div>
                             </ul>
                         <div className={index==0 && styles.tipWraper || styles.active}>
@@ -204,7 +258,6 @@ class Index extends React.Component{
                         <div className={styles.shadow}></div>
                         {
                             popDom
-                            // this.successPopDom()
                         }
                     </div>
                 </div>
