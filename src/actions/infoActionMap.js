@@ -495,6 +495,9 @@ export default {
     [actionTypes.GET_CASH_DETALE]:{   //获取兑换详情
         apiFn:Fetch.getCashDetail
     },
+    [actionTypes.CANCEL_CASH]:{   //取消兑换
+        apiFn:Fetch.cancelCash
+    },
     [actionTypes.VOUCHER_GET]:{   //获取兑换详情
         apiFn:Fetch.voucherGet
     },
@@ -525,6 +528,18 @@ export default {
     },
     [actionTypes.SET_ADDRESS]:{    //设置默认地址
         apiFn:Fetch.setAddress
+    },
+    [actionTypes.EDIT_ADDRESS]:{    //编辑地址
+        apiFn:Fetch.editAddress
+    },
+    [actionTypes.ADD_ADDRESS]:{    //新增地址
+        apiFn:Fetch.addAddress
+    },
+    [actionTypes.DEL_ADDRESS]:{    //删除地址
+        apiFn:Fetch.delAddress
+    },
+    [actionTypes.PRODUCT_DETAIL]:{    //删除地址
+        apiFn:Fetch.productDetail
     },
 
 

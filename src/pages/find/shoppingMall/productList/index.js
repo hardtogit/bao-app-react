@@ -53,6 +53,7 @@ class Index extends React.Component {
         this.setState({
             flag1:flag1
         });
+        // this.refs.priceStart
         this.setState((preState)=>{
             let params=Object.assign(preState.params,{[label]:flag1});
             console.log(params)
@@ -112,7 +113,7 @@ class Index extends React.Component {
                                             </p>
                                             <Link to={`/user/goodsDetail/${product_id}`}>
                                                 <div className={classs.imgBox}>
-                                                    <img className={classs.products_img} src={utils.rootImgUrl + image } />
+                                                    <img className={classs.products_img} src={image } />
                                                 </div>
                                             </Link>
                                             <div className={classs.productBottomBox}><span className={classs.productBottomTxt}>距结束04天</span></div>
@@ -164,7 +165,6 @@ class Index extends React.Component {
         const {
             params
         }=this.state;
-        console.log(typeData);
 		return (
 			<div className={classs.bg} >
 				<NavBar onRight={this.filters} rightNode={<img src={select} className={classs.rightNode}/>}

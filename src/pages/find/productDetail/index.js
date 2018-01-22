@@ -1,0 +1,234 @@
+import React from 'react' //点币首页
+import NavBar from '../../../components/NavBar/index';
+import {Link} from "react-router";
+import styles from './index.less'
+import {connect} from 'react-redux'
+import {goBack,push} from 'react-router-redux'
+import Loading from '../../../components/pageLoading/index'
+import wrap from '../../../utils/pageWrapper';
+import utils from '../../../utils/utils';
+import Alert from '../../../components/Dialog/alert'
+import proImg from '../../../assets/images/find/product.png'
+import privateImg from '../../../assets/images/find/private2.png'
+import cs from "classnames";
+
+class Index extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state={
+			flag:false,
+			num:1,
+            flag1:"",
+		}
+        this.handleChange1 = this.handleChange1.bind(this);
+	}
+	componentWillMount(){
+		this.remove();
+		const inspect = this.dataInspect();
+		if (!inspect){
+            const {
+                id
+            }=this.props.params;
+            this.props.productDetail(id)
+		}
+	}
+	componentDidMount() {
+	}
+	componentWillUnmount() {}
+    componentWillReceiveProps(nextProps){
+        const {infoDate}=nextProps;
+        let arr={};
+        if(infoDate&&infoDate.code==100) {
+            infoDate.data.product_property.map(({property_value}) => {
+                arr[property_value]=''
+            });
+            this.setState({
+                params:arr
+            })
+        }
+    }
+    handleChange1=(event) =>{
+        this.setState({
+            num: event.target.value,
+        });
+    };
+    changeBar=(index,cash_limit_num)=>{
+		if(index < 0 ){
+            this.refs.alert.show({
+                content:'数目不能小于0!',
+                okText:'确定'
+            })
+		}else if(index > cash_limit_num){
+            this.refs.alert.show({
+                content:'每人只限购'+cash_limit_num+'件!',
+                okText:'确定'
+            })
+		}else{
+            this.setState({
+                num:index
+            });
+		}
+    }
+    remove=()=>{
+        sessionStorage.removeItem("bao-product");
+        this.props.clearData();
+    }
+	dataInspect=()=>{
+        const infoDate=sessionStorage.getItem("bao-product");
+        const {
+            id
+        }=this.props.params;
+        if (infoDate){
+            if (JSON.parse(infoDate).id==id){
+                return true;
+            }
+        }
+        return false;
+	}
+	setData=()=>{
+		const {
+			data
+		}=this.props.infoData;
+        sessionStorage.setItem("bao-product",JSON.stringify(data));
+	}
+	loadDom=()=>{
+		return <Loading/>
+	}
+    vaold=()=>{
+        const {
+            infoData
+        }=this.props;
+        const productData=infoData&&infoData.data||JSON.parse(sessionStorage.getItem("bao-product"));
+		const {
+            id,
+            count
+		}=productData;
+		if (count==0){
+			this.refs.alert.show({
+                content:'对不起你兑换的物品数量不足!',
+                okText:'确定'
+			})
+		}else {
+			this.props.push(`/user/trueExchangeConfirm/${id}`)
+		}
+	}
+    choose=(flag1,label)=>{
+        this.setState({
+            flag1:flag1
+        });
+        this.setState((preState)=>{
+            let params=Object.assign(preState.params,{[label]:flag1});
+            console.log(params)
+        });
+    };
+	loadEndDom=(data)=>{
+        const {
+            num
+        }=this.state;
+        const{
+            image,
+            product_id,
+            product_name,
+            product_info,
+            price,
+            alone_price,
+            stock,
+            cash_limit_time,
+            cash_limit_num,
+            label_name,
+            product_property,
+            down_time,
+            server_time
+		}=data;
+
+        let restTime = utils.millisecondToDate(down_time - server_time);
+		return (<div>
+			<NavBar backgroundColor="#fff" color="#333" onLeft={this.props.pop}>{product_name}</NavBar>
+			<div className={styles.goodsTop}>
+				<div className={styles.goodsImg}>
+					<img src={image} className={styles.productImg}/>
+					<div className={styles.numDiv}><div className={styles.dayNum}>距结束{restTime}</div></div>
+				</div>
+				<div className={styles.proTitle}>
+					<p className={styles.titleTop}>
+						<span className={styles.titieTxt}>{product_name}</span>
+						<span className={styles.limitTxt}>每人每天限购{cash_limit_num}件</span>
+					</p>
+					<p className={styles.titleBottom}>
+						<span className={styles.priceTxt}>{alone_price}点币</span>
+						<img src={privateImg}  className={styles.priceImg} />
+						<span className={styles.priceTxt1}>{price}点币</span>
+					</p>
+				</div>
+			</div>
+			<div className={styles.propertyDiv}>
+				<p className={styles.num1}>数量：<span className={styles.num2}>{num}</span></p>
+				<p className={styles.numSelect}>
+					<span onClick={()=>{this.changeBar(num-1)}}>-</span>
+					<input type="text" className={styles.productNum} value={this.state.num}  onChange={this.handleChange1}/>
+					<span onClick={()=>{this.changeBar(num+1,cash_limit_num)}}>+</span>
+				</p>
+                {
+                    product_property&&product_property.map((item,i)=>(
+						<div className={styles.propertyItem} key={i}>
+							<p className={styles.nump}>{item.type_name}：<span className={styles.num2}>选择</span></p>
+							<p className={styles.propertyValue}>
+								{
+                                    item.property_value.split("|").map((item,i)=>(
+										<span key={i}  onClick={()=>{this.choose(id,product_property)}} >{item}</span>
+									))
+								}
+							</p>
+						</div>
+                    ))
+                }
+			</div>
+		</div>)
+	}
+	render() {
+		const {
+            infoData
+		}=this.props;
+		const inspect=this.dataInspect();
+		let Dom=this.loadDom();
+		if (infoData){
+			Dom=this.loadEndDom(infoData.data);
+			this.setData();
+		}
+		 if (inspect){
+             Dom=this.loadEndDom();
+		 }
+		return (
+			<div className={styles.bg} >
+				{
+                    Dom
+				}
+				<Alert ref="alert"/>
+			</div>
+		)
+	}
+}
+const datas=(state)=>({
+       infoData:state.infodata.getIn(['PRODUCT_DETAIL','data'])
+});
+const dispatchFn=(dispatch)=>({
+	  pop(){
+	  	dispatch(goBack())
+	  },
+    productDetail(id){
+	  	dispatch({
+	  		type:'PRODUCT_DETAIL',
+            params:[id]
+		})
+	  },
+	push(url){
+	  	dispatch(push(url))
+	},
+    clearData(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'PRODUCT_DETAIL'
+        })
+    }
+});
+export default connect(datas,dispatchFn)(Index)

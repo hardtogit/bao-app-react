@@ -152,11 +152,11 @@ class memberCenter extends Component{
 
             }
         }
-        console.log(vip_level);
-        console.log(birthday);
-        console.log(holiday);
-        console.log(mall);
-        console.log(withdrawal);
+        // console.log(vip_level);
+        // console.log(birthday);
+        // console.log(holiday);
+        // console.log(mall);
+        // console.log(withdrawal);
 
         return(
             <div className={styles.tabContainer}>
@@ -211,14 +211,14 @@ class memberCenter extends Component{
             voucherData,
             PrivilegeBasicData
         }=this.props;
-        console.log(PrivilegeBasicData);
+        // console.log(PrivilegeBasicData);
         let rateDom,cashDom,basicDom;
-        if(rateCouponsData&&rateCouponsData.size!=0){
+        if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
         }else{
             rateDom = this.rateDomNo();
         }
-        if(voucherData&&voucherData.size!=0){
+        if(voucherData&&voucherData.data.length!=0){
             cashDom = this.cashDomHas();
         }else{
             cashDom = this.cashDomNo();

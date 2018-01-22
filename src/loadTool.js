@@ -170,7 +170,17 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/editAddress').default);
         }, 'EditAddress');
-    }//地址
+    },//编辑地址
+    AddAddress  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/addAddress').default);
+        }, 'AddAddress');
+    },//新增地址
+    ProductDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/productDetail').default);
+        }, 'ProductDetail');
+    }//新增地址
 
 
 //成功失败模版

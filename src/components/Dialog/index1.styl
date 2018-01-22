@@ -1,0 +1,286 @@
+.modal {
+	br 5
+	pt 1
+	position relative
+	background-image url("./images/confirmPop.png")
+	background-size 100% 100%
+	height 220px
+	width 300px
+}
+
+.title {
+	pt 18
+	text-align center
+	color #fff
+	fs 17
+}
+.close {
+	position absolute
+	left 0px
+	top 0px
+	padding 10px 5px
+	.closeIcon {
+		width 15px
+	}
+}
+.tip{
+	font-size: 12px;
+	text-align: center;
+	padding: 6px;
+	color: #888
+}
+.content {
+	mt 60
+	mb 25
+	pl 20
+	pr 20
+	text-align center
+}
+
+.contentWrap {
+	text-align left
+	line-height 20px
+	color #888
+	display inline-block
+}
+
+.bottom {
+	h 42
+	span{
+		float left
+		text-align center
+		line-height 42px
+		fs 17
+		width 130px
+		margin 0 10px
+
+	}
+}
+
+.okBtn {
+    color #fff
+    fs 17
+    flex 1
+    bg #fe684b
+    line-height 42px
+    text-align center
+    display block
+}
+
+.cancelBtn {
+    color #666666
+    fs 17
+    flex 1
+    bg transparent
+    line-height 42px
+    text-align center
+    display block
+    border 1px solid #dedede
+}
+
+.reddemModal {
+	position: relative
+
+    .deleteIconWrap {
+		position absolute
+		top 10px
+		left 10px
+		w 30
+		h 30
+		display block
+    }
+
+	.deleteIcon {
+		w 20
+		h 20
+		mt 5
+		ml 5
+	}
+
+	.money {
+     	color #ff7700
+     	fs 28
+    }
+
+	.inputWrap {
+		//margin 0 15px 20px
+		margin 0 auto
+		border-width 1px
+		border-style solid
+		bc #00a6e2
+		h 42
+		w 275
+		display flex
+		.input{
+			flex 1
+			outline none
+		}
+	}
+
+
+	.errorText {
+		dispaly block
+		color #ff7700
+		mt 10
+		padding 0 15px
+	}
+
+	.detailText {
+		padding 0 15px 15px
+	}
+}
+.successDialog {
+	bg transparent
+}
+
+.successModal {
+  bg rgba(0,0,0,.7)
+  br 10
+  w 122
+  h 122
+  text-align center
+}
+
+.successIcon {
+  w 50
+  h 38
+  mt 28
+}
+
+.successTitle {
+  text-align center
+  fs 16
+  mt 14
+  line-height 0
+  color #fff
+  display block
+}
+
+.asList {
+
+	& > li {
+		display block
+		h 50
+		text-align center
+		fs 16
+		line-height 50px
+	}
+}
+
+.selectItem {
+	fs 20
+	color #00a6e2
+}
+
+.disableItem {
+	color #ddd
+}
+.c_container{
+	position fixed
+	width 100%
+	height 400px
+	background-color #fff
+	bottom 0
+}
+.c_header{
+	text-align center
+	height 40px
+	line-height 40px
+	border-bottom 1px solid #ddd
+}
+	.c_header span{
+		float:left
+		font-size 24px
+		margin-left 15px
+	}
+.c_body{
+	height 360px
+	overflow scroll
+    padding-left 10px
+}
+.c_item{
+	height 50px
+	display flex
+	border-bottom 1px solid #ddd;
+	align-items center
+ .c_left{
+    flex 0 34px;
+ }
+ .c_right{
+    flex 1;
+	 .c_top{
+		 font-size 14px;
+		 margin-bottom 4px
+	 }
+	 .c_bottom{
+		 font-size 14px;
+		 color #888;
+	 }
+ }
+}
+.c_icon{
+		float: left;
+		width: 28px;
+	    margin-right 6px;
+	}
+.card_close{
+	position absolute
+	left 0
+	color:#777
+}
+
+.myModal{
+	position fixed
+	left 0
+	top:0
+	bottom 0px
+	right 0
+	z-index 1040
+}
+.guideOne{
+	width 42%
+	position absolute
+	z-index 1042
+}
+.guideTwo{
+	width  42%
+	position absolute
+	z-index 1042
+	left 24%
+}
+.guideThree{
+	width 50%
+	position absolute
+	z-index 1042
+	right 0
+}
+.guideFour{
+	width 76%
+	position absolute
+	z-index 10425
+	left 12%
+	top:100px
+}
+.btn{
+	position absolute
+	z-index 1042
+	width 100%
+	text-align center
+	bottom: 80px
+	img{
+		width 160px
+		margin 0 auto
+	}
+}
+.guide{
+	transition: all 1.2s ease;
+	position absolute
+	z-index 1046
+	width 100%
+}
+.leave{
+	transform: translate3d(-100%, 0, 0);
+}
+.enter{
+	transform :translate3d(100%,0,0)
+}

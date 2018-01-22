@@ -3,26 +3,45 @@ import NavBar from '../../../../components/NavBar/index';
 import styles from './index.less'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
+import Confirm from '../../../../components/Dialog/confirmNew';
 import Loading from '../../../../components/pageLoading/index'
 import add from '../../../../assets/images/find/add3.png'
 import handling from '../../../../assets/images/find/handling.png'
 import nothandle from '../../../../assets/images/find/nothandle.png'
+let delId = 0;
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 	componentWillMount(){
+    }
+	componentDidMount() {
         const {
             id
         }=this.props.params;
         this.props.getCashDetail(id);
     }
-	componentDidMount() {
-    }
 	componentWillUnmount() {}
-    componentWillReceiveProps(next){
-
+    componentWillReceiveProps(cancelData){
+        if(cancelData.status&&cancelData.id==delId){
+            delId = 0;
+            this.props.getAddress();
+        }
     }
+    del = (id)=>{
+        this.refs.confirm.show({
+            title: '取消兑换',
+            content: '确认取消该商品兑换？',
+            okText: '确定',
+            cancelText:"取消",
+            confirmTxt:"",
+            okCallback: () => {
+                delId = id;
+                this.props.cancelCash(id);
+                this.props.pop();
+            }
+        });
+    };
 
 	loadDom=()=>{
 	    return <Loading/>
@@ -39,6 +58,7 @@ class Index extends React.Component {
         let messageData;
         if(status == 0){
             messageData = data0;
+            console.log(messageData)
             handleDom = this.nohandleDom();
         }else if(status == 1){
             messageData = data1;
@@ -49,7 +69,6 @@ class Index extends React.Component {
         }else if(status == 3){
             messageData = data3;
         }
-        handleDom = this.nohandleDom();
       return(<div>
           <div className={styles.deTop}>
               <div className={styles.zhuangtai}>
@@ -106,6 +125,9 @@ class Index extends React.Component {
         )
     };
     nohandleDom=()=>{
+        const {
+            id
+        }=this.props.params;
         return(
             <div>
                 <div className={styles.handleImgBox}>
@@ -113,9 +135,10 @@ class Index extends React.Component {
                     <p>工作人员正在加紧处理</p>
                     <p>请耐心等候哦！</p>
                 </div>
-                <div className={styles.cancelBtn}>
+                <div className={styles.cancelBtn}  onClick={()=>{this.del(id)}}>
                     取消兑换
                 </div>
+                <Confirm ref="confirm"/>
 
             </div>
         )
@@ -143,8 +166,21 @@ class Index extends React.Component {
 		)
 	}
 }
+const cancelModel = (data)=>{
+    if(data && 100==data.code){
+        return {
+            status:true,
+            id:data.id
+        };
+    }
+    else
+        return {
+            status:false
+        };
+};
 const datas=(state)=>({
     CashDetailData: state.infodata.getIn(['GET_CASH_DETALE', 'data']),
+    cancelData: cancelModel(state.infodata.getIn(['CANCEL_CASH', 'data'])),
 });
 const dispatchFn=(dispatch)=>({
     getCashDetail(id){
@@ -155,6 +191,15 @@ const dispatchFn=(dispatch)=>({
             ]
         })
     },
+    cancelCash(id){
+        dispatch({
+            type:'CANCEL_CASH',
+            params:[
+                id
+            ]
+        })
+    },
+
     pop(){
         dispatch(goBack())
     },

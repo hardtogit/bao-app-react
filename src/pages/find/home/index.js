@@ -95,15 +95,19 @@ class findHome extends Component{
         let productList=[]
         goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
-             productList.push( <li key={i}>
-                 <p className={styles.shopTitle1}>{item.product_name}</p>
-                 <p className={styles.shopTitle2}>
-                     <span>{item.price}</span>
-                     <span><img src={coin} /></span>
-                     <img src={private1} className={styles.specialIcon}/>
-                 </p>
-                 <img src={item.image} className={styles.shopImg}/>
-             </li>)
+             productList.push(
+                 <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                         <li>
+                         <p className={styles.shopTitle1}>{item.product_name}</p>
+                         <p className={styles.shopTitle2}>
+                             <span>{item.price}</span>
+                             <span><img src={coin} /></span>
+                             <img src={private1} className={styles.specialIcon}/>
+                         </p>
+                         <img src={item.image} className={styles.shopImg}/>
+                     </li>
+                 </Link>
+             )
             }
         })
         let activityList=[]
@@ -252,7 +256,6 @@ class findHome extends Component{
              goodsListData,
              activityData
          }=this.props;
-         console.log(activityData)
          let contentDom,qdDom;
          if (goodsListData&&(coins||coins==0)){
              contentDom=this.loadingEndDom();

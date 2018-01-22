@@ -61,9 +61,16 @@ const Fetch = (url, type, data, headers) => {
           options.body =JSON.stringify(data)
        }
     } else if (type && type.toUpperCase() === 'GET') {
-      url = data
-        ? url + '?' + transferObjectToFormat(data)
-        : url
+        if(url.indexOf('?')!=-1){
+            url = data
+                ? url + '&' + transferObjectToFormat(data)
+                : url
+        }else{
+            url = data
+                ? url + '?' + transferObjectToFormat(data)
+                : url
+        }
+
     }
     // return json format result in default
     fetch(ROOT_URL + url, options)

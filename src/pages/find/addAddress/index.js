@@ -12,26 +12,28 @@ import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
 import Tipbar from '../../../components/Tipbar/index'
 import Success from '../../../components/Dialog/success'
-import Confirm from '../../../components/Dialog/confirm';
-import Alert from '../../../components/Dialog/alert'
 import Util from '../../../utils/utils'
 class Index extends React.Component{
     constructor(props){
         super(props);
-
+        const{
+            address,
+            phone,
+            consignee,
+            is_default,
+            id
+        }=this.props.params;
         this.state = {
-            id:JSON.parse(sessionStorage.baoEditSite).id,
-            mobile:JSON.parse(sessionStorage.baoEditSite).phone,
-            address:JSON.parse(sessionStorage.baoEditSite).address,
-            realname:JSON.parse(sessionStorage.baoEditSite).consignee,
-            is_default:JSON.parse(sessionStorage.baoEditSite).is_default,
             index:0,
-            windowPop:0,
             num:0
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit=(event)=> {
+        const{
+            addData
+        }=this.props;
         let mobile =  this.refs.siteBox.mobile.value;
         let realname =  this.refs.siteBox.realname.value;
         let address =  this.refs.siteBox.address.value;
@@ -42,49 +44,28 @@ class Index extends React.Component{
         }else if(!address){
             this.showTips("请输入详细地址！");
         }else{
-            this.props.editAddress(realname,mobile,address,this.state.id,this.state.is_default);
+            this.props.addAddress(realname,mobile,address,"0" )
         }
     };
+
     showTips= (tip)=>{
         this.refs.tipbar.open(tip)
     };
-    componentWillReceiveProps=({editData,pop})=>{
-        if(editData){
+    componentWillReceiveProps=({addData,pop})=>{
+        if(addData){
             this.refs.success.show({
-                text: '编辑地址成功',
+                text: '添加地址成功',
                 callback: () => {this.props.pop();}
             });
         }
-        if(del&&del.code==100){
-            this.refs.success.show({
-                text: '删除成功',
-                callback: () => {this.props.pop();}
-            });
-        }
-        if(del&&del.code!=100){
-            this.refs.alert.show({
-                title: '',
-                content: '删除地址失败',
-                okText: '确定',
-                okCallback: () => {}
-            })
-        }
     };
-    del=()=>{
-        this.refs.confirm.show({
-            title: '',
-            content: '确认删除该地址？',
-            okText: '删除',
-            cancelText:"取消",
-            okCallback: () => {
-                this.props.delSite(this.state.id)
-            }
-        });
-    };
-    componentWillUnmount(){
-        this.props.clearData();
+    componentWillMount(){
+
     }
     componentDidMount() {
+        this.props.clearData();
+    }
+    componentWillUnmount() {
 
     }
     render(){
@@ -95,25 +76,24 @@ class Index extends React.Component{
         return(
             <div>
                 <div className={styles.bg}>
-                    <NavBar title="编辑地址" onLeft={pop} backgroundColor="#fff" color="#000"/>
+                    <NavBar title="新增地址" onLeft={pop} backgroundColor="#fff" color="#000"/>
                     <Tipbar ref='tipbar' className={styles.tips} />
-                    <Confirm ref="confirm"/>
                     <Success ref="success" />
-                    <Alert ref="alert"/>
                     <div className={styles.container}>
-                        <form ref="siteBox">
+                        <form  ref="siteBox">
                             <ul>
                                 <li>
                                     <span>收货人&emsp;</span>
-                                    <input type="text" name="realname" placeholder="请输入收货人" defaultValue={this.state.realname} />
+                                    <input type="text"  name="realname" placeholder="请输入姓名"/>
                                 </li>
                                 <li>
                                     <span>收货电话</span>
-                                    <input type="text" name="mobile" placeholder="请输入联系电话" maxLength="11"  defaultValue={this.state.mobile}/>
+                                    <input type="text"  name="mobile"  placeholder="请输入11位手机号码"/>
                                 </li>
                                 <li>
                                     <span className={styles.addTitle}>收货地址</span>
-                                    <textarea name="address" className={styles.addtxt} type="text" cols="80" rows="5" placeholder="请确保收货地址无误"  defaultValue={this.state.address}/>
+                                    <textarea rows="2" cols="20"  name="address"  className={styles.addtxt} placeholder="请详细填写收货地址">
+                                        </textarea>
                                     <div style={{clear:"both"}}></div>
                                 </li>
                             </ul>
@@ -138,17 +118,16 @@ const addModel = (data)=>{
     }
 };
 const mapStateToProps=(state)=>({
-    editData:addModel(state.infodata.getIn(['EDIT_ADDRESS','data'])),
+    addData:addModel(state.infodata.getIn(['ADD_ADDRESS','data'])),
 });
 const mapFnToProps=(dispatch)=>({
-    editAddress(consignee,phone,address,address_id,is_default){
+    addAddress(consignee,phone,address,is_default){
         dispatch({
-            type:'EDIT_ADDRESS',
+            type:'ADD_ADDRESS',
             params:[
                 consignee,
                 phone,
                 address,
-                address_id,
                 is_default
             ]
         })
@@ -159,10 +138,10 @@ const mapFnToProps=(dispatch)=>({
     push(url){
         dispatch(push(url))
     },
-    clearData(){
+     clearData(){
         dispatch({
             type:'CLEAR_INFO_DATA',
-            key:'EDIT_ADDRESS'
+            key:'ADD_ADDRESS'
         })
     }
 });

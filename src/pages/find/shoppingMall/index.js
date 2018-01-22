@@ -24,23 +24,26 @@ class shoppingMall extends Component{
             pop,
             goodsTypeListData,
             goodsListData,
-        }=this.props
+        }=this.props;
 
         let productList=[];
         goodsListData&&goodsListData.data.map((item,i)=>{
             if(i<4){
                 productList.push(
-                    <li key={i}>
-                        <p className={styles.shopTitle1}>{item.product_name}</p>
-                        <p className={styles.shopTitle2}>
-                            <span>{item.price}</span>
-                            <span><img src={coin} /></span>
-                            <img src={private1} className={styles.specialIcon}/>
-                        </p>
-                        <div className={styles.imgBox}>
-                            <img src={utils.rootImgUrl + item.image } className={styles.shopImg}/>
-                        </div>
-                    </li>
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                        <li>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image } className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+
                 )
             }
         })

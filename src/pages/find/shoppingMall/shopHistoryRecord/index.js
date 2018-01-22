@@ -9,42 +9,25 @@ import rili from '../../../../assets/images/find/rili111.png'
 import go from '../../../../assets/images/find/go01.png'
 import Loading from '../../../../components/pageLoading/index'
 import Scroll from '../../../../components/scroll/index'
+import Pi from '../../../../components/PickerColumn/index'
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            signNumbers:'',
-            coins:'',
-            isSign:'',
             index:0,
             id:0
 		}
 	}
 	componentWillMount(){
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
-        if (userInfo){
-            this.set(userInfo);
-        }
         this.props.getCoinRecordList();
         this.props.getCashRecordList();
         this.props.getVip();
     }
 	componentDidMount() {
+
     }
 	componentWillUnmount() {}
-    componentWillReceiveProps(next){
-        const {user}=next;
-        if (user){
-            user.code==100&&this.set(user.data);
-        }
-    }
-    set=(userInfo)=>{
-        this.setState({
-            signNumbers:userInfo.signNumbers,
-            coins:userInfo.coins,
-            isSign:userInfo.isSign,
-        })
-    }
+
 	changeBar=(index)=>{
 	    this.setState({index});
     }
@@ -86,6 +69,7 @@ class Index extends React.Component {
         const Height = document.body.clientHeight - 44-170;
         const {
             cashRecordListData,
+            coinRecordListData,
             pending,
             end
         }=this.props;
@@ -146,7 +130,9 @@ class Index extends React.Component {
           </div>
       </Box>)
     }
-
+   ok=(date)=>{
+        console.log(date)
+   }
 	render() {
         const {
             pop,
@@ -160,10 +146,16 @@ class Index extends React.Component {
         }
 		return (
 			<div className={classs.bg} >
+                <Pi ref="picker" okCallBack={this.ok}></Pi>
 				<NavBar
                         backgroundColor="#fff"
                         color="#000"
-                        onLeft={pop}>历史记录</NavBar>
+                        onLeft={pop}
+                        rightNode={<img src={rili} className={classs.rightNode}/>}
+                        onRight={()=>{ this.refs.picker.togglePicker()} }
+                >
+                    历史记录
+                </NavBar>
                 {Dom}
 			</div>
 		)
@@ -190,7 +182,7 @@ const dispatchFn=(dispatch)=>({
             dispatch({
                 type:'GET_CASH_RECORD_LIST'
             })
-        },
+    },
     getVip(){
         dispatch({
             type:'GET_VIP'
