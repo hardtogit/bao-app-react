@@ -53,7 +53,8 @@ class Index extends React.Component {
         this.setState({
             flag1:flag1
         });
-        // this.refs.priceStart
+        var priceStart = this.refs.priceStart.value();
+        console.log(priceStart)
         this.setState((preState)=>{
             let params=Object.assign(preState.params,{[label]:flag1});
             console.log(params)
@@ -189,10 +190,10 @@ class Index extends React.Component {
                         ))
                     }
                     <p className={classs.selectTitle}>积分区间</p>
-                    <div className={classs.coinselect}>
-                        <input ref="priceStart" type="text"/>
+                    <div className={classs.coinselect}  ref="priceBox">
+                        <input ref="priceStart" type="text" name="priceStart"/>
                         <span>-</span>
-                        <input ref="priceEnd" type="text"/>
+                        <input ref="priceEnd" type="text"  name="priceEnd"/>
                     </div>
                     <div className={classs.btnWrap}>
                         <div className={classs.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
