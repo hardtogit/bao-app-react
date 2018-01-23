@@ -27,10 +27,11 @@ class Index extends React.Component {
 	}
 	componentWillMount(){
         this.props.getGoodsTypeList();
-        // this.props.getGoodsList();
     }
-	componentDidMount() {
-
+    componentDidMount=()=>{
+        this.setState({
+            init:true
+        })
     }
 	componentWillUnmount() {}
     componentWillReceiveProps(nextProps){
@@ -69,18 +70,18 @@ class Index extends React.Component {
         const{
             params
         }=this.state;
+        console.log("1",params)
         let priceStart = this.refs.priceBox.priceStart.value;
         let priceEnd = this.refs.priceBox.priceEnd.value;
         params.price_start = priceStart;
         params.price_end = priceEnd;
-        this.props.clearData(this.state.index);
+        // this.props.clearData(this.state.index);
         this.refs.scroll.setState({
             init:true,
-            first:true
+            first:false
         });
-        // this.props.getGoodsList("GET_GOODS_LIST",params)
+        console.log("2",params)
     };
-
 	changeBar=(index)=>{
 	    this.setState({index});
     }
@@ -97,7 +98,7 @@ class Index extends React.Component {
             end
         }=this.props;
 	    const {index,params}=this.state;
-        console.log(params)
+	    console.log("3",params)
         let cloneData=typeData.data[0].label_child.slice(0);
         cloneData.unshift({id:'',name:'全部',type_str:'area_type'});
 	    return(<div>
@@ -109,7 +110,7 @@ class Index extends React.Component {
                         nend=end('GET_GOODS_LIST'+i);
                     return( <div key={i} className={classs.products}>
                         <Scroll  ref='scroll' height={Height}
-                                  fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,{area_type_id:id},this.state.params)}}
+                                  fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,{area_type_id:id},params)}}
                                 isLoading={npending} distance={20} endType={nend} endload={<div></div>}
                         >
                                 {
@@ -239,7 +240,7 @@ const dispatchFn=(dispatch)=>({
         })
     },
     getGoodsList(key,type_id, data){
-        console.log(data)
+        console.log("data",data)
         dispatch({
             type:'GET_GOODS_LIST',
             OtherKey:key,
