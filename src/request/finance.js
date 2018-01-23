@@ -69,6 +69,8 @@ const requests = (Fetch) => {
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+  Fetch.getCashLog=(data)=>{return Fetch('api/withdraw/list','GET',data)}
+  Fetch.cancelCash=(data)=>{return Fetch('api/withdraw/revoke','GET',data)}
   Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}?access_sys=platform`,'GET')}
@@ -103,7 +105,7 @@ const requests = (Fetch) => {
   Fetch.unbindCard=(data)=>{return Fetch('api/supervise/users/unbindBankcard','POST',data)}//解绑银行卡
   Fetch.storeBindMobileModify=(data)=>{return Fetch('api/supervise/users/mobileModify','POST',data)}//解绑银行卡
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
-  Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw','POST',data)}//新的提现接口
+  Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw?isNew=true','POST',data)}//新的提现接口
   Fetch.serviceChargeRule=(data)=>{return Fetch('api/supervise/account/withdrawFee','POST',data)}//获取手续费规则
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
   Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/users/uploadIdCard','POST',data)}//身份证上传

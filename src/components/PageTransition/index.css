@@ -1,7 +1,7 @@
 /* POP */
 :global .swap-right-enter {
   z-index: 1024;
-  opacity: 0.01;
+  opacity: 1;
   transform: translate3d(-100%, 0, 0);
   transition: all .3s ease;
 }
@@ -18,14 +18,14 @@
 }
 
 :global .swap-right-leave.swap-right-leave-active {
-  opacity: 0.01;
+  opacity: 1;
   transform: translate3d(100%, 0, 0);
 }
 
 /* PUSH */
 :global .swap-left-enter {
   z-index: 1024;
-  opacity: 0.01;
+  opacity: 1;
   transform: translate3d(100%, 0, 0);
   transition: all .3s ease;
 }
@@ -34,15 +34,14 @@
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
-
 :global .swap-left-leave {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  transition: all .3s ease-in;
+  transition: all .3s ease;
 }
 
 :global .swap-left-leave.swap-left-leave-active {
-  opacity: 0.01;
+  opacity: 1;
   transform: translate3d(-100%, 0, 0);
 }
 /*:global .example-enter {

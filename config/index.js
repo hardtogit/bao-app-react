@@ -14,7 +14,7 @@ const config = {
 	// requestUrl: 'http://51-api.dev.vdai.cn/',//开发环境测试
 	// requestUrl:'http://api.51.devbao.cn/' //51接口
     //requestUrl: 'https://staging-react.devbao.cn/',//外网测试
-    //requestUrl: 'http://zhaosigui.api.baod.com/',//外网测试
-    //requestUrl:'http://zhouyangzhi.api.dev.devbao.cn/'
+    // requestUrl: 'http://zhaosigui.api.10.baod.com/',//外网测试
+    //  requestUrl:'https://zhaosigui.pc.10.devbao.cn/'
 };
 module.exports = config;
