@@ -26,7 +26,6 @@ const transferObjectToFormat = (o) => {
 }
 
 const Fetch = (url, type, data, headers) => {
-
   return new Promise((resolve, reject) => {
     let options = {
         credentials:"include",
