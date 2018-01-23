@@ -29,22 +29,21 @@ class Index extends React.Component {
         this.props.getGoodsTypeList();
     }
     componentDidMount=()=>{
-        this.setState({
-            init:true
-        })
+
     }
 	componentWillUnmount() {}
     componentWillReceiveProps(nextProps){
 	    const {typeData}=nextProps;
 	    let arr={};
-	    if(typeData&&typeData.code==100) {
+	    if(typeData&&typeData.code==100&&!this.state.init) {
             typeData.data.map(({label_type},i) => {
                 if(i!=0){
                     arr[label_type]=''
                 }
             });
             this.setState({
-                params:arr
+                params:arr,
+                init:true
             })
         }
     }
@@ -75,7 +74,7 @@ class Index extends React.Component {
         let priceEnd = this.refs.priceBox.priceEnd.value;
         params.price_start = priceStart;
         params.price_end = priceEnd;
-        // this.props.clearData(this.state.index);
+        this.props.clearData(this.state.index);
         this.refs.scroll.setState({
             init:true,
             first:false
