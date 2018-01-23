@@ -110,3 +110,18 @@
     margin: 20px 0;
     line-height: 20px;
 }
+.ruleTable li{
+    height:30px;
+}
+.ruleTable li span{
+    display: block;
+    float: left;
+    width:20%;
+    text-align: center;
+}
+.ruleTh{
+    color:#d7b27c;
+}
+.ruleTh img{
+    width:18px;
+}

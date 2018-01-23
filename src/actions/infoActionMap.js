@@ -489,6 +489,9 @@ export default {
     [actionTypes.GET_VIP]:{   //获取用户VIP信息
         apiFn:Fetch.getVipInfo
     },
+    [actionTypes.GET_PRIV_PROFIT]:{   //特权规则-收益
+        apiFn:Fetch.getPrivilegeProfit
+    },
     [actionTypes.GET_GOODS_TYPE_LIST]:{   //获取用户VIP信息
         apiFn:Fetch.getGoodsTypeList
     },

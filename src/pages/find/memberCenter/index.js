@@ -276,13 +276,12 @@ class memberCenter extends Component{
                     </div>
                     {
                         basicDom
-
                     }
                 </div>
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>抵用券</span>
-                        <Link to="/find/ticketRule" className={styles.Link}>
+                        <Link to={`/find/rateTicketRule/2`} className={styles.Link}>
                             <span className={styles.rightTxt}>领取规则></span>
                         </Link>
                     </div>
@@ -294,7 +293,7 @@ class memberCenter extends Component{
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>加息券</span>
-                        <Link to="/find/rateTicketRule" className={styles.Link}>
+                        <Link to={`/find/rateTicketRule/1`} className={styles.Link}>
                             <span className={styles.rightTxt}>领取规则></span>
                         </Link>
                     </div>

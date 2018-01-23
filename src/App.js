@@ -305,7 +305,7 @@ export default class App extends React.Component {
                   <Route path="moreBasic" component={MoreBasic}></Route>
                   <Route path="help" component={Help}></Route>
                   <Route path="ticketRule" component={TicketRule}></Route>
-                  <Route path="rateTicketRule" component={RateTicketRule}></Route>
+                  <Route path="rateTicketRule/:id" component={RateTicketRule}></Route>
                   <Route path="ticketDetail" component={TicketDetail}></Route>
                   <Route path="hotActivity" getComponents={HotActivity}></Route>
                   <Route path="address" getComponents={Address}></Route>

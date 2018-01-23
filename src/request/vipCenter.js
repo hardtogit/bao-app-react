@@ -13,6 +13,8 @@ const requests = (Fetch) => {
     Fetch.getPrivilegeBasic = () => {return Fetch(`api/userVip/privilegeBasic`, 'GET')}
     //VIP与对应年化的关系
     Fetch.getVipAnnual = () => {return Fetch(`api/userVip/vipAnnual`, 'GET')}
+    //特权规则 收益
+    Fetch.getPrivilegeProfit = () => {return Fetch(`api/userVip/privilegeProfit`, 'GET')}
 
 }
 

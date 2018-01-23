@@ -72,11 +72,16 @@ class Scroll extends Component{
     }
     componentDidUpdate(prevProps,prevState){
        const iniTzt=this.state.init;
-        if(prevProps.isLoading&&iniTzt){
+        if((prevProps.isLoading&&iniTzt)||(!this.state.first&&iniTzt)){
             const Self=this
              setTimeout(()=>{
              Self.getListall()
              },0)
+            if(!this.state.first&&iniTzt){
+                this.setState({
+                    first:true
+                })
+            }
         }else if(prevProps.isLoading&&!iniTzt){
              setTimeout(()=>{
              const height=this.refs.listBox.offsetHeight;

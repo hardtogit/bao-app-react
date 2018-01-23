@@ -38,6 +38,7 @@ export const GET_NOTICE_LIST='GET_NOTICE_LIST' //商城通知列表
 export const GET_NOTICE_DETAIL='GET_NOTICE_DETAIL' //商城通知详情
 export const GET_HELP_LIST='GET_HELP_LIST' //商城帮助问题
 export const GET_PRIV_BASIC='GET_PRIV_BASIC' //会员基础特权
+export const GET_PRIV_PROFIT='GET_PRIV_PROFIT' //会员基础特权
 export const GET_HOT_ACTIVITY='GET_HOT_ACTIVITY' //热门活动列表
 export const GET_ADDRESS_LIST='GET_ADDRESS_LIST' //收货地址列表
 export const SET_ADDRESS='SET_ADDRESS' //设置默认地址
