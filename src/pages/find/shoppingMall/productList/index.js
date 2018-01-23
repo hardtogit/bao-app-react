@@ -60,7 +60,6 @@ class Index extends React.Component {
         this.setState((preState)=>{
             params=Object.assign(preState.params,{[label]:flag1});
         });
-
     };
     confirm=()=>{
         this.setState({
@@ -69,7 +68,6 @@ class Index extends React.Component {
         const{
             params
         }=this.state;
-        console.log("1",params)
         let priceStart = this.refs.priceBox.priceStart.value;
         let priceEnd = this.refs.priceBox.priceEnd.value;
         params.price_start = priceStart;
@@ -79,10 +77,10 @@ class Index extends React.Component {
             init:true,
             first:false
         });
-        console.log("2",params)
     };
 	changeBar=(index)=>{
 	    this.setState({index});
+        this.props.clearData(this.state.index);
     }
 	loadDom=()=>{
 	    return <Loading/>
@@ -97,7 +95,6 @@ class Index extends React.Component {
             end
         }=this.props;
 	    const {index,params}=this.state;
-	    console.log("3",params)
         let cloneData=typeData.data[0].label_child.slice(0);
         cloneData.unshift({id:'',name:'全部',type_str:'area_type'});
 	    return(<div>
@@ -239,7 +236,6 @@ const dispatchFn=(dispatch)=>({
         })
     },
     getGoodsList(key,type_id, data){
-        console.log("data",data)
         dispatch({
             type:'GET_GOODS_LIST',
             OtherKey:key,
