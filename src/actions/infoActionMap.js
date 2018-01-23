@@ -517,11 +517,11 @@ export default {
     [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心抵用券列表
         apiFn:Fetch.getVoucherCoupons
     },
+    [actionTypes.GET_VIP_ANNUAL]:{    //会员中心抵用券列表
+        apiFn:Fetch.getVipAnnual
+    },
     [actionTypes.GET_HOT_ACTIVITY]:{    //热门活动列表
         apiFn:Fetch.getHotActivityList
-    },
-    [actionTypes.GET_GOODS_LIST]:{    //商品列表
-        apiFn:Fetch.getGoodsList
     },
     [actionTypes.GET_ADDRESS_LIST]:{    //收货地址列表
         apiFn:Fetch.getAddressList

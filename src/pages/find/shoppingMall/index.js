@@ -27,7 +27,7 @@ class shoppingMall extends Component{
         }=this.props;
 
         let productList=[];
-        goodsListData&&goodsListData.data.map((item,i)=>{
+        goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
                 productList.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -115,7 +115,7 @@ class shoppingMall extends Component{
 }
 const mapStateToProps=(state)=>({
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
-    goodsListData: state.infodata.getIn(['GET_GOODS_LIST', 'data']),
+    goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
 });
 const mapDispatchToProps=(dispatch,own)=>({
     getGoodsTypeList(){

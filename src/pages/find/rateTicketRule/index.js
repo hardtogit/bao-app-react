@@ -38,9 +38,14 @@ const initMymassege=(state,own)=>{
 
     }
 }
-const initMymassegefn=(dispath,own)=>({
+const initMymassegefn=(dispatch,own)=>({
     pop(){
-         dispath(goBack())
-    }
+        dispatch(goBack())
+    },
+    getVipAnnual(){
+        dispatch({
+            type:'GET_VIP_ANNUAL'
+        })
+    },
 })
 export default connect(initMymassege,initMymassegefn)(rateTicketRule)

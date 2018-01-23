@@ -33,6 +33,7 @@ export const CANCEL_CASH='CANCEL_CASH' //兑换记录
 export const GET_CASH_DETALE='GET_CASH_DETALE' //兑换详情
 export const VOUCHER_GET='VOUCHER_GET' //领取抵用券
 export const RATE_GET='RATE_GET' //领取加息券
+export const GET_VIP_ANNUAL='GET_VIP_ANNUAL' //领取加息券
 export const GET_NOTICE_LIST='GET_NOTICE_LIST' //商城通知列表
 export const GET_NOTICE_DETAIL='GET_NOTICE_DETAIL' //商城通知详情
 export const GET_HELP_LIST='GET_HELP_LIST' //商城帮助问题
