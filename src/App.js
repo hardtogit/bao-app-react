@@ -136,11 +136,11 @@ import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPa
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld,ReChangeMain,OldCharge,
-CashMain,CashLog} from './loadTool'
+CashMain,CashLog,CashRule,ReChargeRule} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -189,6 +189,7 @@ export default class App extends React.Component {
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
                   <Route path="rechargeOld" getComponent={ReChargeOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值老主页*/
                   <Route path="rechargeMain" getComponent={ReChangeMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值总页面*/
+                  <Route path="reChargeRule" getComponent={ReChargeRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值规则*/
                   <Route path="newRecharge" getComponent={NewCharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值*/
                   <Route path="oldRecharge" getComponent={OldCharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*老充值*/
                   <Route path="reChargeSuccess" getComponent={ReChargeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值成功*/
@@ -291,7 +292,8 @@ export default class App extends React.Component {
                   <Route path='withdrawals' components={Withdrawals} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='withdrawalsOld' getComponents={CashOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='cashMain' getComponents={CashMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='cashLog' getComponents={CashLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashLog/:type' getComponents={CashLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashRule' getComponents={CashRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="setting/feedback" component={FeedbackIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*意见反馈*/
 
                    <Route path="setting/Detail" component={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

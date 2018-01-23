@@ -27,7 +27,7 @@ class Index extends Component{
         return(
             <div className={styles.container}>
                 <Store ref="store"></Store>
-                <NavBar onLeft={pop}>
+                <NavBar onLeft={pop} rightNode={<div>规则</div>} onRight={()=>{push('/user/reChargeRule')}}>
                     充值
                 </NavBar>
                 <div className={styles.content}>
@@ -59,7 +59,7 @@ class Index extends Component{
                                 存
                             </div>
                             <div className={styles.detail} onClick={()=>{push('/user/moneyLog')}}>
-                                余额明细 <span className={styles.arrow}></span>
+                                充值明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
                         <div className={styles.body}>
@@ -95,7 +95,7 @@ class Index extends Component{
                                 托
                             </div>
                             <div className={styles.detail} onClick={()=>{push('/user/moneyLogOld')}}>
-                                余额明细 <span className={styles.arrow}></span>
+                                充值明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
                         <div className={styles.body}>

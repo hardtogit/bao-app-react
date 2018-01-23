@@ -219,7 +219,11 @@ class Index extends Component{
         })
     };
     componentDidMount(){
-        this.props.getList(3)
+        const{params:{
+            type
+        }}=this.props;
+
+        this.props.getList({type:type})
     }
     componentWillReceiveProps(nextProps){
        const {
@@ -273,7 +277,7 @@ class Index extends Component{
         }=this.props;
         return(
             <div className={styles.container}>
-                <NavBar onLeft={pop} rightNode={<div onClick={this.filters}>筛选</div>}>
+                <NavBar onLeft={pop} >
                     提现明细
                 </NavBar>
                 <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>

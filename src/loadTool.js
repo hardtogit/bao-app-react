@@ -85,6 +85,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/assetStatistics/balance/cashLog').default);
         }, 'CashLog');
     },//提现记录
+    CashRule  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/cashRule').default);
+        }, 'CashRule');
+    },//提现规则
     ReChargeOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeOld').default);
@@ -92,7 +97,7 @@ export const GatherDetail  = (location, cb) => {
     },//存管充值
     ReChangeMain = (location, cb) =>{
         require.ensure([], require => {
-            cb(null, require('./pages/my/assetStatistics/balance/rechangeMain').default);
+            cb(null, require('./pages/my/assetStatistics/balance/reChangeMain').default);
         }, 'ReChangeMain');
     },//充值总入口
     CashMain = (location, cb) =>{
@@ -100,6 +105,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/assetStatistics/balance/cashMain').default);
         }, 'CashMain');
     },//提现总入口
+    ReChargeRule = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeRule').default);
+        }, 'ReChargeRule');
+    },//充值总入口
     DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/directInvest/directBuyOld').default);

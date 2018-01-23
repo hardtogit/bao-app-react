@@ -134,7 +134,7 @@ class Index extends Component{
             <div className={styles.container}>
                 <Store ref="store"></Store>
                 <Alert ref="alert"></Alert>
-                <NavBar onLeft={pop} rightNode={<div>明细</div>} onRight={()=>{push('/user/cashLog')}}>
+                <NavBar onLeft={pop} rightNode={<div>规则</div>} onRight={()=>{push('/user/cashRule')}}>
                     提现
                 </NavBar>
                 <div className={styles.content}>
@@ -165,8 +165,8 @@ class Index extends Component{
                             <div className={styles.store}>
                                 存
                             </div>
-                            <div className={styles.detail} onClick={()=>{push('/user/moneyLog')}}>
-                                余额明细 <span className={styles.arrow}></span>
+                            <div className={styles.detail} onClick={()=>{push('/user/cashLog/1')}}>
+                                提现明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
                         <div className={styles.body}>
@@ -190,8 +190,8 @@ class Index extends Component{
                             <div className={styles.store}>
                                 托
                             </div>
-                            <div className={styles.detail} onClick={()=>{push('/user/moneyLogOld')}}>
-                                余额明细 <span className={styles.arrow}></span>
+                            <div className={styles.detail} onClick={()=>{push('/user/cashLog/2')}}>
+                                提现明细 <span className={styles.arrow}></span>
                             </div>
                         </div>
                         <div className={styles.body}>
