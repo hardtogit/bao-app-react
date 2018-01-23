@@ -183,6 +183,9 @@ class Index extends React.Component {
                     ))
                 }
 			</div>
+            <div className={styles.detailImg}>
+                <p>商品详情</p>
+            </div>
 		</div>)
 	}
 	render() {

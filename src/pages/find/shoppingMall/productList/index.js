@@ -30,6 +30,7 @@ class Index extends React.Component {
         // this.props.getGoodsList();
     }
 	componentDidMount() {
+
     }
 	componentWillUnmount() {}
     componentWillReceiveProps(nextProps){
@@ -53,23 +54,30 @@ class Index extends React.Component {
         this.setState({
             flag1:flag1
         });
-        var priceStart = this.refs.priceStart.value();
-        console.log(priceStart)
+        let params;
         this.setState((preState)=>{
-            let params=Object.assign(preState.params,{[label]:flag1});
-            console.log(params)
+            params=Object.assign(preState.params,{[label]:flag1});
         });
+
     };
-    confirm=(flag2)=>{
+    confirm=()=>{
         this.refs.scroll.setState({
             init:true
         });
         this.setState({
             filterShow:false
         });
+        const{
+            params
+        }=this.state;
+        let priceStart = this.refs.priceBox.priceStart.value;
+        let priceEnd = this.refs.priceBox.priceEnd.value;
+        params.price_start = priceStart;
+        params.price_end = priceEnd;
+        console.log(params)
+
         this.props.clearData();
-        console.log(this.state)
-        // this.props.getList(flag);
+        this.props.getGoodsList("GET_GOODS_LIST",params)
     };
 
 	changeBar=(index)=>{
@@ -87,7 +95,8 @@ class Index extends React.Component {
             pending,
             end
         }=this.props;
-	    const {index,flag1}=this.state;
+	    const {index}=this.state;
+
         let cloneData=typeData.data[0].label_child.slice(0);
         cloneData.unshift({id:'0',name:'全部',type_str:'area_type'});
 	    return(<div>
@@ -99,12 +108,13 @@ class Index extends React.Component {
                         nend=end('GET_GOODS_LIST'+i);
                     return( <div key={i} className={classs.products}>
                         <Scroll  ref='scroll' height={Height}
-                                  fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,id)}}
+                                  fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,{area_type_id:id})}}
                                 isLoading={npending} distance={20} endType={nend} endload={<div></div>}
                         >
                                 {
                                     nlistData&&nlistData.map((item,i)=>{
-                                        const {product_id,product_name,image,price}=item;
+                                        const {product_id,product_name,image,price,down_time,server_time}=item;
+                                        let restTime = utils.millisecondToDate(down_time - server_time);
                                         return(<div className={classs.productBox} key={i}>
                                             <p className={classs.shopTitle1}>{product_name}</p>
                                             <p className={classs.shopTitle2}>
@@ -117,7 +127,7 @@ class Index extends React.Component {
                                                     <img className={classs.products_img} src={image } />
                                                 </div>
                                             </Link>
-                                            <div className={classs.productBottomBox}><span className={classs.productBottomTxt}>距结束04天</span></div>
+                                            <div className={classs.productBottomBox}><span className={classs.productBottomTxt}>距结束{restTime}</span></div>
                                         </div>)
                                     })
                                 }
@@ -190,11 +200,11 @@ class Index extends React.Component {
                         ))
                     }
                     <p className={classs.selectTitle}>积分区间</p>
-                    <div className={classs.coinselect}  ref="priceBox">
-                        <input ref="priceStart" type="text" name="priceStart"/>
+                    <form className={classs.coinselect}  ref="priceBox">
+                        <input type="text" name="priceStart"/>
                         <span>-</span>
-                        <input ref="priceEnd" type="text"  name="priceEnd"/>
-                    </div>
+                        <input type="text"  name="priceEnd"/>
+                    </form>
                     <div className={classs.btnWrap}>
                         <div className={classs.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
                     </div>
@@ -221,13 +231,12 @@ const dispatchFn=(dispatch)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(key,id){
+    getGoodsList(key,data){
         dispatch({
             type:'GET_GOODS_LIST',
             OtherKey:key,
             params:[
-                10,
-                id
+               data
             ]
         })
     },

@@ -4,15 +4,18 @@ const requests = (Fetch) => {
   //商品类型列表
   Fetch.getGoodsTypeList = () => {return Fetch(`api/userVip/typeList`, 'GET')};
     // 商品列表
-  Fetch.getGoodsList=(page,page_size = 10,area_type_id,data)=>{
-      let Tag='';
-      if (area_type_id){
-          Tag='&area_type_id='+area_type_id
-      }
-      return Fetch(`api/userVip/goodsList?page=${page}&page_size=${page_size}${Tag}`, 'GET',data)
-  };
+      Fetch.getGoodsList=(page,data)=>{
+          return Fetch(`api/userVip/goodsList?page=${page}`, 'GET',data)
+      };
     //点币记录
-    Fetch.getCoinRecordList = (page,page_size=10) => {return Fetch(`api/userVip/coinList?page=${page}&page_size=${page_size}`, 'GET')};
+    Fetch.getCoinRecordList = (page,Sdate) => {
+        if(Sdate){
+            return Fetch(`api/userVip/coinList?page=${page}&Sdate=${Sdate}`, 'GET')
+        }else{
+            return Fetch(`api/userVip/coinList?page=${page}`, 'GET')
+        }
+        // return Fetch(`api/userVip/coinList`, 'GET',data)
+    };
     //兑换记录
     Fetch.getCashRecordList = (page,page_size=10) => {return Fetch(`api/userVip/cashList?page=${page}&page_size=${page_size}`, 'GET')};
     //兑换详情
@@ -39,8 +42,6 @@ const requests = (Fetch) => {
     Fetch.delAddress = (address_id) => {return Fetch(`api/userVip/delAddress?address_id=${address_id}`, 'GET')};
     //商品详情
     Fetch.productDetail = (product_id) => {return Fetch(`api/userVip/goodsDetail?product_id=${product_id}`, 'GET')};
-
-
 }
 
 export default requests

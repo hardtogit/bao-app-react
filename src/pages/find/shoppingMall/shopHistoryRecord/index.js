@@ -30,6 +30,7 @@ class Index extends React.Component {
 
 	changeBar=(index)=>{
 	    this.setState({index});
+	    sessionStorage.setItem("index",index)
     }
 	loadDom=()=>{
 	    return <Loading/>
@@ -131,7 +132,20 @@ class Index extends React.Component {
       </Box>)
     }
    ok=(date)=>{
-        console.log(date)
+	    this.setState(
+            {
+                index:sessionStorage.getItem("index")
+            }
+        );
+       let Sdate = date.year +"-"+ date.month +"-"+ date.day;
+       if(this.state.index == 0){
+           this.props.clearData("GET_COIN_RECORD_LIST");
+           this.props.getCoinRecordList(Sdate);
+       }else if(this.state.index == 1){
+           this.props.clearData("GET_CASH_RECORD_LIST")
+           this.props.getCashRecordList(Sdate);
+       }
+
    }
 	render() {
         const {
@@ -173,16 +187,31 @@ const datas=(state)=>({
     },
 });
 const dispatchFn=(dispatch)=>({
-    getCoinRecordList(){
+    getCoinRecordList(date){
         dispatch({
-            type:'GET_COIN_RECORD_LIST'
+            type:'GET_COIN_RECORD_LIST',
+            params:[
+                // page,
+                // page_size = 10,
+                date
+            ]
         })
     },
-    getCashRecordList(){
+    getCashRecordList(date){
             dispatch({
-                type:'GET_CASH_RECORD_LIST'
+                type:'GET_CASH_RECORD_LIST',
+                params:[
+                    date
+                ]
             })
     },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
+    },
+
     getVip(){
         dispatch({
             type:'GET_VIP'
