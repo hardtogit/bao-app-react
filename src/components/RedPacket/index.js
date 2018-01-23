@@ -63,6 +63,13 @@ class Index extends React.Component{
                 this.setState({
                     time:this.state.time+1
                 })
+            }else{
+                if(packetData&&packetData.code==301){
+                    this.refs.alert.show({
+                        content:"正在处理中，结果请到红包活动专题页中查看",
+                        okText:'确定',
+                    })
+                }
             }
         }
         if(openData&&openData.code==100){
