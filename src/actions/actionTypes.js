@@ -320,3 +320,5 @@ export const GET_CASH_LOG='GET_CASH_LOG'//获取提现列表
 export const CANCEL_CASH='CANCEL_CASH'//取消提现
 export const GET_PACKET='GET_PACKET'//获取投资后的红包
 export const OPEN_PACKET='OPEN_PACKET' //打开投资后赠送的红包
+export const GET_RECHARGE_LOG='GET_RECHARGE_LOG' //获取充值明细
+export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//获取充值按钮状态

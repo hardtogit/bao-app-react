@@ -100,6 +100,16 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/assetStatistics/balance/reChangeMain').default);
         }, 'ReChangeMain');
     },//充值总入口
+    ReChargeLog = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeLog').default);
+        }, 'ReChargeLog');
+    },//充值明细
+    Main = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/main').default);
+        }, 'Main');
+    },//余额总入口
     CashMain = (location, cb) =>{
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/cashMain').default);

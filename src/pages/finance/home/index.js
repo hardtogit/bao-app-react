@@ -79,14 +79,17 @@ class financeIndex extends Component{
              Index:proIndex
          });
          proIndexs(proIndex);
+         this.props.getStatus()
 	 }
 	 componentDidMount(){
 	 	this.props.getDefault();
 	 	if (utils.getCookie('storeGuide')){
 
 		}else{
-            this.refs.guide.show()
-			utils.setCookie('storeGuide','flag',360*100)
+	 		if(statusData&&statusData.data.hide_platform_recharge_withdraw){
+                this.refs.guide.show()
+                utils.setCookie('storeGuide','flag',360*100)
+			}
 		}
 
 	 }
@@ -142,7 +145,8 @@ class financeIndex extends Component{
 }
 const financeIndexInit=(state,own)=>({
 	  proIndex:state.global.getIn(['PRODUCT_INDEX']),
-	  defaultIndex:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
+	  defaultIndex:state.infodata.getIn(['GET_DEFAULT_TAB','data']),
+	  statusData:state.infodata.getIn(['GET_CHARGE_STATUS','data'])
 })
 const financeIndexInitfn=(dispath,owb)=>({
     proIndexs(index){
@@ -154,6 +158,11 @@ const financeIndexInitfn=(dispath,owb)=>({
 	getDefault(){
     	dispath({
 			type:'GET_DEFAULT_TAB',
+		})
+	},
+	getStatus(){
+		dispath({
+			type:'GET_CHARGE_STATUS'
 		})
 	}
 })

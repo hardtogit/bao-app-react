@@ -41,3 +41,4 @@ export const GET_DEFAULT_TAB='GET_DEFAULT_TAB'//获取默认tab
 export const GET_PREHEAT_INFO='GET_PREHEAT_INFO' //预热活动列表
 export const PREHEAT_RECEIVE='PREHEAT_RECEIVE' //预热活动列表
 export const PREHEAT_STATUS='PREHEAT_STATUS' //预热活动列表
+export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//回去新老用户标识

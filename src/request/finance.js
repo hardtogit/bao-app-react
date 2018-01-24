@@ -70,6 +70,7 @@ const requests = (Fetch) => {
   // 提现
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
   Fetch.getCashLog=(data)=>{return Fetch('api/withdraw/list','GET',data)}
+  Fetch.getReChargeLog=(data)=>{return Fetch('api/recharge/list','GET',data)}
   Fetch.cancelCash=(data)=>{return Fetch('api/withdraw/revoke','GET',data)}
   Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}

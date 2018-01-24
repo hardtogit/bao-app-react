@@ -510,7 +510,11 @@ export default {
     [actionTypes.OPEN_PACKET]:{    //打开投资红包
         apiFn:Fetch.openPacket
     },
-
-
+    [actionTypes.GET_RECHARGE_LOG]:{    //打开投资红包
+        apiFn:Fetch.getReChargeLog
+    },
+    [actionTypes.GET_CHARGE_STATUS]:{    //获取平台充值按钮状态
+        apiFn:Fetch.getChargeStatus
+    },
 
 }
