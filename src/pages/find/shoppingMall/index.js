@@ -123,11 +123,11 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(id){
+    getGoodsList(data){
         dispatch({
             type:'GET_GOODS_LIST',
             params:[
-                id
+                data
             ]
         })
     },

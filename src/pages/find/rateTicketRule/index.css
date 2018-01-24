@@ -102,22 +102,32 @@
     margin: 0 auto;
     background-image: url("../../../assets/images/find/ticket.png");
     background-size: 100% 100%;
-    padding: 20px;
+    padding: 13px;
     color: #333;
     font-size: 12px;
 }
 .tacket p{
-    margin: 20px 0;
+    margin: 10px 0;
     line-height: 20px;
 }
 .ruleTable li{
     height:30px;
+    line-height: 30px;
+}
+.ruleTable li:nth-child(odd){
+    background-color: #edecec;
+}
+.ruleTable li:first-child{
+    background: none;
 }
 .ruleTable li span{
     display: block;
     float: left;
-    width:20%;
+    width:19%;
     text-align: center;
+}
+.ruleTable li span:first-child{
+    width:23%;
 }
 .ruleTh{
     color:#d7b27c;

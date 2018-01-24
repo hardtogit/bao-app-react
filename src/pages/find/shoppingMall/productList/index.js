@@ -78,9 +78,21 @@ class Index extends React.Component {
             first:false
         });
     };
-	changeBar=(index)=>{
-	    this.setState({index});
+	changeBar=(index,typeData)=>{
         this.props.clearData(this.state.index);
+	    this.setState({index});
+        let arr1={};
+        if(typeData&&typeData.code==100) {
+            typeData.data.map(({label_type},i) => {
+                if(i!=0){
+                    arr1[label_type]=''
+                }
+            });
+            this.setState({
+                params:arr1,
+            })
+        }
+        console.log(this.state.params)
     }
 	loadDom=()=>{
 	    return <Loading/>
@@ -120,7 +132,7 @@ class Index extends React.Component {
                                                 <span><img src={coin} /></span>
                                                 <img src={private1} className={classs.specialIcon}/>
                                             </p>
-                                            <Link to={`/user/goodsDetail/${product_id}`}>
+                                            <Link to={`/find/productDetail/${item.product_id}`}>
                                                 <div className={classs.imgBox}>
                                                     <img className={classs.products_img} src={image } />
                                                 </div>
@@ -149,7 +161,7 @@ class Index extends React.Component {
                   <li className={index==0&&classs.active||null} onClick={()=>{this.changeBar(0)}}>全部</li>
                   {
                       typeData&&typeData.data[0].label_child.map(({id,name},i)=>(
-                          <li key={i} className={index==i+1&&classs.active||null} ref={id} onClick={()=>{this.changeBar(i+1)}}>{name}</li>
+                          <li key={i} className={index==i+1&&classs.active||null} ref={id} onClick={()=>{this.changeBar(i+1,typeData)}}>{name}</li>
                       ))
                   }
               </ul>

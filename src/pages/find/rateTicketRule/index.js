@@ -14,7 +14,31 @@ class rateTicketRule extends Component{
     componentWillMount(){
         this.props.getPrivilegeProfit();
     }
-    loadEndDom=(data)=>{
+    ruleTableDom=(data)=>{
+        return(
+            <ul className={styles.ruleTable}>
+                <li className={styles.ruleTh}>
+                    <span>期限(月)</span>
+                    <span><img src={v3}/></span>
+                    <span><img src={v4}/></span>
+                    <span><img src={v5}/></span>
+                    <span><img src={v6}/></span>
+                </li>
+                {
+                    data&&data.map((item,i)=>(
+                        <li key={i}>
+                            <span>{item.lable_name}</span>
+                            <span>{item.v3}</span>
+                            <span>{item.v4}</span>
+                            <span>{item.v5}</span>
+                            <span>{item.v6}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+        )
+    }
+    loadEndDom=(data,id)=>{
         const {
             pop
         }=this.props;
@@ -23,32 +47,19 @@ class rateTicketRule extends Component{
             info,
             rule_list
         }=data;
+        let ruleTable;
+        if(id == 1){
+            ruleTable =this.ruleTableDom(rule_list)
+        }
         return(
             <div className={styles.findMessage} >
                 <div className={styles.findMessageHeader}><NavBar title={title} backgroundColor="#d0a15e" onLeft={pop}/>
                 </div>
                 <div className={styles.messageContent}>
                     <div className={styles.tacket}>
-                        <ul className={styles.ruleTable}>
-                            <li className={styles.ruleTh}>
-                                <span>期限(月)</span>
-                                <span><img src={v3}/></span>
-                                <span><img src={v4}/></span>
-                                <span><img src={v5}/></span>
-                                <span><img src={v6}/></span>
-                            </li>
-                            {
-                                rule_list&&rule_list.map((item,i)=>(
-                                    <li key={i}>
-                                        <span>{item.lable_name}</span>
-                                        <span>{item.v3}</span>
-                                        <span>{item.v4}</span>
-                                        <span>{item.v5}</span>
-                                        <span>{item.v6}</span>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                        {
+                            ruleTable
+                        }
                         {
                             info&&info.map((item,i)=>(
                                 <p key={i}>{item}</p>
@@ -76,10 +87,10 @@ class rateTicketRule extends Component{
         let Dom;
         if(vipAnnualData){
             if(id == 1){
-                Dom = this.loadEndDom(vipAnnualData.data.coupon)
+                Dom = this.loadEndDom(vipAnnualData.data.coupon,id)
             }
             if(id ==2 ){
-                Dom = this.loadEndDom(vipAnnualData.data.voucher)
+                Dom = this.loadEndDom(vipAnnualData.data.voucher,id)
             }
         }
 

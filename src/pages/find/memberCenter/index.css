@@ -251,6 +251,7 @@
 }
 .TabContent{
     width:100%;
+    height:180px;
     margin-top: 15px;
     border-top:1px solid #ccc;
     padding-top: 30px;
@@ -263,14 +264,13 @@
     height: 100%;
     text-align: center;
     display: block;
+    position: relative;
 }
 
 .false{
     display: none;
 }
-.basicImg{
-    width:40%;
-}
+
 .farfrom{
     display: block;
     width:70%;
@@ -399,4 +399,73 @@
 .rateTxt{
     font-size: 14px;
 }
+.none{
+    display: none;
+}
+.BirNum{
+    position: absolute;
+    top:42%;
+    width: 100%;
+    text-align: center;
+    font-size: 34px;
+    color:#e7be83;
+}
+.basicImg{
+    width:100px;
+    margin: 0 5px;
+}
+.basicImg1{
+    width:90px;
+}
+.chunjieOnly{
+    width:100px;
+    margin: 0 auto;
+    position: relative;
+}
+.BirNum1{
+    position: absolute;
+    top:50%;
+    width: 90%;
+    text-align: center;
+    font-size: 34px;
+    color:#e7be83;
+}
+.jieri{
+    width:100%;
+    height:150px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.chunjieOnly1{
+    width:100px;
+    height:100px;
+    margin: 0 auto;
+    position: relative;
+}
+.discount{
+    width: 220px;
+    height:100px;
+    margin: 0 auto;
+    position: relative;
+}
+.BirNum2{
+    position: absolute;
+    top: 47%;
+    left: 13%;
+    width: 90%;
+    text-align: center;
+    font-size: 14px;
+    color: #e7be83;
+}
+.withDrawNum{
+    position: absolute;
+    top: 9%;
+    left: 23%;
+    width: 90%;
+    text-align: center;
+    font-size: 24px;
+    color: #e7be83;
+}
+
 

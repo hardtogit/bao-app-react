@@ -15,6 +15,16 @@ import v4 from '../../../assets/images/find/4j.png'
 import v5 from '../../../assets/images/find/5j.png'
 import v6 from '../../../assets/images/find/6j.png'
 import content1 from '../../../assets/images/find/content1.png'
+import content11 from '../../../assets/images/find/content11.png'
+import birth from '../../../assets/images/find/birth.png'
+import birth11 from '../../../assets/images/find/birth11.png'
+import noFestival from '../../../assets/images/find/noFestival.png'
+import duanwu from '../../../assets/images/find/duanwu.png'
+import zhongqiu from '../../../assets/images/find/zhongqiu.png'
+import chunjie from '../../../assets/images/find/chunjie.png'
+import noDiscount from '../../../assets/images/find/noDiscount.png'
+import discount from '../../../assets/images/find/discount.png'
+import withdraw from '../../../assets/images/find/withdraw.png'
 import ku from '../../../assets/images/find/ku.png'
 import noSignTable from '../../../assets/images/find/noSignTable.png'
 import Loading from '../../../components/pageLoading'
@@ -107,57 +117,26 @@ class memberCenter extends Component{
             </div>
         )
     };
-    noLevelDom=()=>{
-        const {
-            index
-        } = this.state;
-        return(
-            <div className={styles.TabContent}>
-                <div className={index==0&&styles.contentItem}>
-                    <img className={styles.basicImg} src={content1}/>
-                    <p className={styles.farfrom}>距礼包拆取尚差年化金额：500,000.00元</p>
-                </div>
-                <div className={index==1&&styles.contentItem}>
-                    <img  className={styles.basicImg} src={content1}/>
-                    <p className={styles.farfrom}>距礼包拆取尚差年化金额：400,000.00元</p>
-                </div>
-                <div className={index==2&&styles.contentItem}>
-                    <img className={styles.basicImg} src={content1}/>
-                    <p className={styles.farfrom}>距礼包拆取尚差年化金额：300,000.00元</p>
-                </div>
-                <div className={index==3&&styles.contentItem}>
-                    <img  className={styles.basicImg} src={content1}/>
-                    <p className={styles.farfrom}>距礼包拆取尚差年化金额：200,000.00元</p>
-                </div>
-            </div>
-        )
-    };
+    //普通会员特权
     PrivilegeBasicDom=(data)=>{
         const {
             index
         } = this.state;
         const {
-            VipData,
-        }=this.props;
+            // vip_level,
+            annual_gap
+        }=this.props.VipData.data;
         const {
             birthday,
             holiday,
             mall,
             withdrawal
         } = data;
-        let vip_level;
-        vip_level= VipData.data.vip_level;
-        if(VipData){
-            if(vip_level == "0"){
-
-            }
-        }
-        // console.log(vip_level);
-        // console.log(birthday);
-        // console.log(holiday);
-        // console.log(mall);
-        // console.log(withdrawal);
-
+        let vip_level =3;
+        let birthdayVip = birthday.rule_list;
+        let holidayVip = holiday.rule_list;
+        let mallVip = mall.rule_list;
+        let withdrawalVip = withdrawal.rule_list;
         return(
             <div className={styles.tabContainer}>
                 <div className={styles.TabTitle}>
@@ -186,20 +165,45 @@ class memberCenter extends Component{
                 </div>
                 <div className={styles.TabContent}>
                     <div className={index==0&&styles.contentItem}>
-                        <img className={styles.basicImg} src={content1}/>
-                        <p className={styles.farfrom}>距礼包拆取尚差年化金额：500,000.00元</p>
+                        <img src={vip_level==0&&content11||birth11}  />
+                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <p className={vip_level!=0&&styles.BirNum||styles.none}>{vip_level==1&&birthdayVip.v1||(vip_level==2&&birthdayVip.v2||(vip_level==3&&birthdayVip.v3||(vip_level==4&&birthdayVip.v4||(vip_level==5&&birthdayVip.v5||(vip_level==6&&birthdayVip.v6)))))}</p>
                     </div>
                     <div className={index==1&&styles.contentItem}>
-                        <img  className={styles.basicImg} src={content1}/>
-                        <p className={styles.farfrom}>距礼包拆取尚差年化金额：400,000.00元</p>
+                        <img  className={vip_level!=0&&styles.none} src={noFestival} style={{width:"280px"}}/>
+                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <div className={(vip_level==1||vip_level==2)&&styles.chunjieOnly||styles.none}>
+                            <img  className={styles.basicImg} src={chunjie} style={{width:"100px"}}/>
+                            <p className={styles.BirNum1}>{vip_level==1&&holidayVip.cj.v1||(vip_level==2&&holidayVip.cj.v2)}  </p>
+                        </div>
+                        <div className={(vip_level>=3)&&styles.jieri||styles.none}>
+                            <div className={styles.chunjieOnly1}>
+                                <img  className={styles.basicImg1} src={duanwu} />
+                                <p className={styles.BirNum1}>{vip_level==3&&holidayVip.dw.v3||(vip_level==4&&holidayVip.dw.v4||(vip_level==5&&holidayVip.dw.v5||(vip_level==6&&holidayVip.dw.v6)))}  </p>
+                            </div>
+                            <div className={styles.chunjieOnly1}>
+                                <img  className={styles.basicImg1} src={zhongqiu} />
+                                <p className={styles.BirNum1}>{vip_level==3&&holidayVip.zq.v3||(vip_level==4&&holidayVip.zq.v4||(vip_level==5&&holidayVip.zq.v5||(vip_level==6&&holidayVip.zq.v6)))}  </p>
+                            </div>
+                            <div className={styles.chunjieOnly1}>
+                                <img  className={styles.basicImg1} src={chunjie} />
+                                <p className={styles.BirNum1}>{vip_level==3&&holidayVip.cj.v3||(vip_level==4&&holidayVip.cj.v4||(vip_level==5&&holidayVip.cj.v5||(vip_level==6&&holidayVip.cj.v6)))}  </p>
+                            </div>
+                        </div>
                     </div>
                     <div className={index==2&&styles.contentItem}>
-                        <img className={styles.basicImg} src={content1}/>
-                        <p className={styles.farfrom}>距礼包拆取尚差年化金额：300,000.00元</p>
+                        <img  className={(vip_level==0||vip_level==1||vip_level==2)&&styles.basicImg||styles.none} src={noDiscount} style={{width:"200px"}}/>
+                        <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <div className={(vip_level>2)&&styles.discount||styles.none}>
+                            <img  className={styles.basicImg} src={discount} style={{width:"220px"}}/>
+                            <p className={styles.BirNum2}>{vip_level==3&&mallVip.v3||(vip_level==4&&mallVip.v4||(vip_level==5&&mallVip.v5||(vip_level==6&&mallVip.v6)))}  </p>
+                        </div>
                     </div>
                     <div className={index==3&&styles.contentItem}>
-                        <img  className={styles.basicImg} src={content1}/>
-                        <p className={styles.farfrom}>距礼包拆取尚差年化金额：200,000.00元</p>
+                        <div className={styles.discount}>
+                            <img  src={withdraw}  style={{width:"130px"}}/>
+                            <p className={styles.withDrawNum}>{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}  </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,7 +215,6 @@ class memberCenter extends Component{
             voucherData,
             PrivilegeBasicData
         }=this.props;
-        // console.log(PrivilegeBasicData);
         let rateDom,cashDom,basicDom;
         if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
@@ -264,7 +267,7 @@ class memberCenter extends Component{
                             </span>
                         </div>
                         <div className={styles.promote}>投资升级</div>
-                        <p className={styles.annualMap}>距下一等级尚差待收年化<span style={{color:"#333333"}}>{annual_gap}</span>元</p>
+                        <p className={styles.annualMap}>距下一等级尚差待收年化 <span style={{color:"#333333"}}>{annual_gap}</span> 元</p>
                     </div>
                 </div>
                 <div className={styles.findItem} style={{marginTop:"0"}}>
@@ -344,11 +347,8 @@ class memberCenter extends Component{
             rateCouponsData
         }=this.props;
         let Dom;
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
             if (userInfo){
-                console.log(VipData)
-                console.log(voucherData)
-                console.log(rateCouponsData)
                 if(VipData && voucherData && rateCouponsData){
                     Dom= this.oneDom(VipData.data);
                 }else {
