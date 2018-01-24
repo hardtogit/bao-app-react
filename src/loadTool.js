@@ -180,6 +180,11 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/productDetail').default);
         }, 'ProductDetail');
+    },//新增地址
+    ProductCash  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/productCash').default);
+        }, 'ProductCash');
     }//新增地址
 
 

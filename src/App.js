@@ -133,7 +133,7 @@ import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,S
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash} from './loadTool'
 
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
@@ -312,6 +312,7 @@ export default class App extends React.Component {
                   <Route path="editAddress" getComponents={EditAddress}></Route>
                   <Route path="addAddress" getComponents={AddAddress}></Route>
                   <Route path="productDetail/:id" getComponents={ProductDetail}></Route>
+                  <Route path="productCash/:product_id/:num" getComponents={ProductCash}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messages" component={Messages} ></Route>
                   <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

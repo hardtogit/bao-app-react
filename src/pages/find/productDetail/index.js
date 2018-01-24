@@ -18,7 +18,9 @@ class Index extends React.Component {
 		this.state={
 			flag:false,
 			num:1,
-            flag1:"",
+            params:[],
+            init:false,
+            index:0,
 		}
         this.handleChange1 = this.handleChange1.bind(this);
 	}
@@ -38,9 +40,9 @@ class Index extends React.Component {
     componentWillReceiveProps(nextProps){
         const {infoDate}=nextProps;
         let arr={};
-        if(infoDate&&infoDate.code==100) {
-            infoDate.data.product_property.map(({property_value}) => {
-                arr[property_value]=''
+        if(infoDate&&infoDate.code==100&&!this.state.init) {
+            infoDate.data.product_property.map(({id}) => {
+                arr[id]=''
             });
             this.setState({
                 params:arr
@@ -94,37 +96,45 @@ class Index extends React.Component {
 	loadDom=()=>{
 		return <Loading/>
 	}
-    vaold=()=>{
-        const {
-            infoData
-        }=this.props;
-        const productData=infoData&&infoData.data||JSON.parse(sessionStorage.getItem("bao-product"));
-		const {
-            id,
-            count
-		}=productData;
-		if (count==0){
-			this.refs.alert.show({
-                content:'对不起你兑换的物品数量不足!',
-                okText:'确定'
-			})
-		}else {
-			this.props.push(`/user/trueExchangeConfirm/${id}`)
-		}
-	}
-    choose=(flag1,label)=>{
-        this.setState({
-            flag1:flag1
-        });
+
+    choose=(id,label)=>{
+        let params;
         this.setState((preState)=>{
-            let params=Object.assign(preState.params,{[label]:flag1});
-            console.log(params)
+            params=Object.assign(preState.params,{[id] : label});
         });
+    };
+    confirm=(product_id,product_property)=>{
+       const{
+           params,
+           num,
+           type_name
+       }=this.state;
+        let params1 = [];//去除undefined后的结果
+        let str="";
+        for(let i=0;i<params.length;i++){
+            if(typeof(params[i])!='undefined'){
+                params1.push(params[i]);
+                str=str+i+"|"+params[i]+"||"
+            }
+        }
+        if(params1.length < product_property.length ){
+            this.refs.alert.show({
+                content:'请选择商品属性！！',
+                okText:'确定'
+            })
+        }else{
+            sessionStorage.setItem("propertyStr",str);
+            this.props.push("/find/productCash/"+product_id+"/"+num)
+        }
     };
 	loadEndDom=(data)=>{
         const {
-            num
+            num,
+            params
         }=this.state;
+        console.log("111",params)
+        var ss = this.refs.property;
+        console.log("221",ss)
         const{
             image,
             product_id,
@@ -169,13 +179,13 @@ class Index extends React.Component {
 					<span onClick={()=>{this.changeBar(num+1,cash_limit_num)}}>+</span>
 				</p>
                 {
-                    product_property&&product_property.map((item,i)=>(
+                    product_property&&product_property.map(({type_name,property_value,id}=item,i)=>(
 						<div className={styles.propertyItem} key={i}>
-							<p className={styles.nump}>{item.type_name}：<span className={styles.num2}>选择</span></p>
+							<p className={styles.nump} ref="property">{type_name}：<span className={styles.num2}>{params[id]&&params[id]||"选择"}</span></p>
 							<p className={styles.propertyValue}>
 								{
-                                    item.property_value.split("|").map((item,i)=>(
-										<span key={i}  onClick={()=>{this.choose(id,product_property)}} >{item}</span>
+                                    property_value.split("|").map((item,i)=>(
+										<span key={i}  onClick={()=>{this.choose(id,item)}} className={cs(params[id]==item?styles.current:"")} >{item}</span>
 									))
 								}
 							</p>
@@ -184,9 +194,8 @@ class Index extends React.Component {
                 }
 			</div>
             <div className={styles.detailImg}>
-                <p>商品详情</p>
-                    product_info
-
+                <p className={styles.infoTitle}>商品详情</p>
+                <div dangerouslySetInnerHTML={{ __html: product_info }} className={styles.infoContent}></div>
             </div>
 		</div>)
 	}
@@ -209,6 +218,9 @@ class Index extends React.Component {
                     Dom
 				}
 				<Alert ref="alert"/>
+                <div className={styles.Botton}>
+                    <p onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>确认兑换</p>
+                </div>
 			</div>
 		)
 	}
