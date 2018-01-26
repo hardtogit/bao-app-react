@@ -13,12 +13,13 @@ import utils from '../../../../../utils/utils'
 import {connect} from 'react-redux'
 import nullImg from "../../../../../assets/images/record.png";
 import Alert from '../../../../../components/Dialog/alert'
+import DatePicker from '../../../../../components/DatePicker'
 import {goBack,push} from 'react-router-redux'
 class Item extends Component{
     constructor(props) {//构造器
         super(props);
         this.state = {
-            isOpen: false
+            isOpen: false,
         }
     }
     handleClick=()=>{
@@ -208,22 +209,26 @@ class Index extends Component{
         super(props);
         this.state = {
             filterShow:false,
-            flag:3
+            flag:3,
+            date:''
         }
     }
     static defaultProps = {//设置初始props
     };
     filters=()=>{
-        this.setState({
-            filterShow:!this.state.filterShow
-        })
+        this.refs.datePicker.toggle();
     };
+    confirm=(data)=>{
+        this.setState({
+            date:data.year+"年"+data.month+"月"
+        })
+    }
     componentDidMount(){
         const{params:{
             type
         }}=this.props;
 
-        this.props.getList({type:type})
+        this.props.getList({type:type,})
     }
     componentWillReceiveProps(nextProps){
        const {
@@ -264,39 +269,43 @@ class Index extends Component{
             }
         });
     };
-    choose=(type)=>{
-        this.setState({
-            flag:type
-        });
-        this.props.getList({type:type})
-        this.filters();
-    };
     render(){
         const{
             pop,data,pending
         }=this.props;
+        let dealData={};
+        const{
+            date
+        }=this.state;
+        if(data&&date){
+            if(data.data[date]){
+                dealData={
+                    [date]:data.data[date]
+                }
+            }else{
+                dealData=[]
+            }
+        }else if(data){
+            dealData=data.data
+        }
         return(
             <div className={styles.container}>
-                <NavBar onLeft={pop} >
+                <NavBar onLeft={pop} rightNode={<div>筛选</div>} onRight={this.filters} >
                     提现明细
                 </NavBar>
-                <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
-                    <ul>
-                        <li onClick={()=>{this.choose(3)}} className={cs(this.state.flag===3?styles.current:"")}>全部数据</li>
-                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag===1?styles.current:"")}>存管数据</li>
-                        <li onClick={()=>{this.choose(2)}} className={cs(this.state.flag==2?styles.current:"")}>托管数据</li>
-                    </ul>
-                </div>
+                <DatePicker ref="datePicker"
+                            onConfirm={this.confirm} >
+                </DatePicker>
                 <div className={styles.content}>
                     {(()=>{
                       if(!pending){
-                          if(data&&data.code==100){
-                              if(data.data.length===0){
+                          if(dealData){
+                              if(dealData.length===0){
                                   return <div><img className={styles.nodata} src={nullImg} alt=""/></div>
                               }else{
                                   let BoxList=[];
-                                  for (let label in data.data){
-                                      BoxList.push(<Box key={label} label={label} data={data.data[label]} cancelFn={this.cancelCashFn} ></Box>)
+                                  for (let label in dealData){
+                                      BoxList.push(<Box key={label} label={label} data={dealData[label]} cancelFn={this.cancelCashFn} ></Box>)
                                   }
                                   return BoxList;
                               }

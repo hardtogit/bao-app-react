@@ -56,6 +56,7 @@ class financeIndex extends Component{
                     this.props.proIndexs(1);
                     sessionStorage.setItem('setDefaultIndex',true)
                 }else if(nextProps.defaultIndex.data.productIndexTabIndex=='直投项目'){
+                	alert('s')
                     this.setState({
                         Index:2
                     })
@@ -74,7 +75,7 @@ class financeIndex extends Component{
 
 	 }
 	 componentWillMount(){
-     	const {proIndex,proIndexs}=this.props;
+     	const {proIndex,proIndexs,statusData}=this.props;
          this.setState({
              Index:proIndex
          });
@@ -82,16 +83,15 @@ class financeIndex extends Component{
          this.props.getStatus()
 	 }
 	 componentDidMount(){
-	 	this.props.getDefault();
+         this.props.getDefault();
+         const {statusData}=this.props;
 	 	if (utils.getCookie('storeGuide')){
-
 		}else{
 	 		if(statusData&&statusData.data.hide_platform_recharge_withdraw){
                 this.refs.guide.show()
                 utils.setCookie('storeGuide','flag',360*100)
 			}
 		}
-
 	 }
 	 handleSelect(index,last){
 		 this.setState({
