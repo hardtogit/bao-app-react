@@ -1,238 +1,118 @@
-import React, {Component, PropTypes} from 'react';
-import styles from './index.less';
-import classNames from 'classnames';
-class PickerColumn extends Component {
-    static propTypes = {
-        options: PropTypes.array.isRequired,
-        name: PropTypes.string.isRequired,
-        value: PropTypes.any.isRequired,
-        itemHeight: PropTypes.number.isRequired,
-        columnHeight: PropTypes.number.isRequired,
-        onChange: PropTypes.func.isRequired
-    };
+/**
+ * Created by xiangguo .
+ * time:2018/1/25 0025.
+ * email:413401168@qq.com.
+ * use:auto...
+ */
+import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames'
+import Picker from "../../components/PickerLine"
+import styles from './index.less'
+class Index extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0,
-            ...this.computeTranslate(props)
-        };
-    }
-    componentWillReceiveProps(nextProps) {
-        if (this.state.isMoving) {
-            return;
+        console.log(new Date().getDate().toString())
+        this.state={
+            open:false,
+            valueGroups: {
+            },
+            optionGroups:{
+            },
         }
-        this.setState(this.computeTranslate(nextProps));
     }
-    computeTranslate = (props) => {
-        const {options, value, itemHeight, columnHeight} = props;
-        let selectedIndex = options.indexOf(value);
-        if (selectedIndex < 0) {
-            // throw new ReferenceError();
-            console.warn('Warning: "' + this.props.name+ '" doesn\'t contain an option of "' + value + '".');
-            this.onValueSelected(options[0]);
-            selectedIndex = 0;
+    propTypes = {
+        visible: PropTypes.bool.isRequired,
+        onConfirm: PropTypes.func.isRequired,
+        onCancel: PropTypes.func.isRequired,
+    };
+    static defaultProps= {
+        labels:"year,month,day"
+    }
+    addStr=(str)=>{
+        str=parseInt(str)
+        if(str<10){
+            return "0"+str.toString()
+        }else{
+            return str.toString()
         }
-        return {
-            scrollerTranslate: columnHeight / 2 - itemHeight / 2 - selectedIndex * itemHeight,
-            minTranslate: columnHeight / 2 - itemHeight * options.length + itemHeight / 2,
-            maxTranslate: columnHeight / 2 - itemHeight / 2
-        };
     };
-    onValueSelected = (newValue) => {
-        this.props.onChange(this.props.name, newValue);
-    };
-    handleTouchStart = (event) => {
-        const startTouchY = event.targetTouches[0].pageY;
-        this.setState(({scrollerTranslate}) => ({
-            startTouchY,
-            startScrollerTranslate: scrollerTranslate,
-            isMoving:true
-        }));
-    };
-    handleTouchMove = (event) => {
-        event.preventDefault();
-        const touchY = event.targetTouches[0].pageY;
-        this.setState(({isMoving, startTouchY, startScrollerTranslate, minTranslate, maxTranslate}) => {
-            if (!isMoving) {
-                return {
-                    isMoving: true
+    componentWillMount(){
+        const dataSource={
+            year:{
+                list:this.generateNumberArray(1970, 2040),
+                defaultValue: new Date().getFullYear().toString(),
+                displayValue (item) {
+                    return item;
+                }
+            },
+            month: {
+                list:this.generateNumberArray(1, 12),
+                defaultValue: this.addStr((new Date().getMonth()+1).toString()),
+                displayValue (item) {
+                    return item;
+                }
+            },
+            day: {
+                list:this.generateNumberArray(1, 31),
+                defaultValue: this.addStr(new Date().getDate().toString()),
+                displayValue (item) {
+                    return item;
+                }
+            },
+            h:{
+                list:this.generateNumberArray(0, 23),
+                defaultValue:this.addStr(new Date().getHours().toString()),
+                displayValue (item) {
+                    return item;
+                }
+            },
+            m:{
+                list:this.generateNumberArray(0, 59),
+                defaultValue:this.addStr(new Date().getMinutes().toString()),
+                displayValue (item) {
+                    return item;
+                }
+            },
+            s:{
+                list:this.generateNumberArray(0, 59),
+                defaultValue:this.addStr(new Date().getSeconds().toString()),
+                displayValue (item) {
+                    return item;
                 }
             }
-            let nextScrollerTranslate = startScrollerTranslate + touchY - startTouchY;
-            if (nextScrollerTranslate < minTranslate) {
-                nextScrollerTranslate = minTranslate - Math.pow(minTranslate - nextScrollerTranslate, 0.8);
-            } else if (nextScrollerTranslate > maxTranslate) {
-                nextScrollerTranslate = maxTranslate + Math.pow(nextScrollerTranslate - maxTranslate, 0.8);
-            }
-            return {
-                scrollerTranslate: nextScrollerTranslate
-            };
-        });
-    };
-    handleTouchEnd = (event) => {
-        if (!this.state.isMoving) {
-            return;
         }
+        const valueSource={
+            year: (new Date().getFullYear()).toString(),
+            month: (new Date().getMonth()+1).toString(),
+            day:(new Date().getDate()).toString(),
+            h:this.addStr(new Date().getHours().toString()),
+            m:this.addStr(new Date().getMinutes().toString()),
+            s:this.addStr(new Date().getSeconds().toString())
+        }
+        let selectDataSource={};
+        let selectValueSource={}
+        let arr=this.props.labels.split(',')
+        arr.map((label)=>{
+            if(dataSource.hasOwnProperty(label)){
+                selectDataSource[label]=dataSource[label]
+            }
+            if(valueSource.hasOwnProperty(label)){
+                selectValueSource[label]=valueSource[label]
+            }
+        });
+        console.log(selectDataSource)
         this.setState({
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0
-        });
-        setTimeout(() => {
-            const {options, itemHeight} = this.props;
-            const {scrollerTranslate, minTranslate, maxTranslate} = this.state;
-            let activeIndex;
-            if (scrollerTranslate > maxTranslate) {
-                activeIndex = 0;
-            } else if (scrollerTranslate < minTranslate) {
-                activeIndex = options.length - 1;
-            } else {
-                activeIndex = - Math.floor((scrollerTranslate - maxTranslate+itemHeight/2) / itemHeight);
-            }
-            this.onValueSelected(options[activeIndex]);
-        }, 0);
-    };
-    handleTouchCancel = (event) => {
-        if (!this.state.isMoving) {
-            return;
+            optionGroups:selectDataSource
+        })
+    }
+    generateNumberArray=(begin, end)=> {
+        let array = [];
+        for (let i = begin; i <= end; i++) {
+            array.push((i < 10 ? '0' : '') + i);
         }
-        this.setState((startScrollerTranslate) => ({
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0,
-            scrollerTranslate: startScrollerTranslate
-        }));
+        return array;
     };
-    handleItemClick = (option) => {
-        if (option !== this.props.value) {
-            this.onValueSelected(option);
-        }
-    };
-    renderItems() {
-        const {options, itemHeight, value} = this.props;
-        return options.map((option, index) => {
-            const style = {
-                height: itemHeight + 'px',
-                lineHeight: itemHeight + 'px'
-            };
-            return (
-                <div
-                    key={index}
-                    className={classNames(styles.pickerItem,option === value ? styles.pickerItemSelected: '')}
-                    style={style}
-                    onClick={() => this.handleItemClick(option)}>{option}</div>
-            );
-        });
-    }
-    render() {
-        const translateString = `translate3d(0, ${this.state.scrollerTranslate}px, 0)`;
-        const style = {
-            MsTransform: translateString,
-            MozTransform: translateString,
-            OTransform: translateString,
-            WebkitTransform: translateString,
-            transform: translateString
-        };
-        if (this.state.isMoving) {
-            style.transitionDuration = '0ms';
-        }
-        return(
-            <div className={styles.pickerColumn}>
-                <div
-                    className={styles.pickerScroller}
-                    style={style}
-                    onTouchStart={this.handleTouchStart}
-                    onTouchMove={this.handleTouchMove}
-                    onTouchEnd={this.handleTouchEnd}
-                    onTouchCancel={this.handleTouchCancel}>
-                    {this.renderItems()}
-                </div>
-            </div>
-        )
-    }
-}
-class Picker extends Component {
-    static propTyps = {
-        optionGroups: PropTypes.object.isRequired,
-        valueGroups: PropTypes.object.isRequired,
-        onChange: PropTypes.func.isRequired,
-        itemHeight: PropTypes.number,
-        height: PropTypes.number
-    };
-    static defaultProps = {
-        itemHeight: 36,
-        height: 216
-    };
-    renderInner() {
-        const {optionGroups, valueGroups, itemHeight, height, onChange} = this.props;
-        const highlightStyle = {
-            height: itemHeight,
-            marginTop: -(itemHeight / 2)
-        };
-        const columnNodes = [];
-        for (let name in optionGroups) {
-            columnNodes.push(
-                <PickerColumn
-                    key={name}
-                    name={name}
-                    options={optionGroups[name]}
-                    value={valueGroups[name]}
-                    itemHeight={itemHeight}
-                    columnHeight={height}
-                    onChange={onChange} />
-            );
-        }
-        return (
-            <div className={styles.pickerInner}>
-                {columnNodes}
-                <div className={styles.pickerHighlight} style={highlightStyle}></div>
-            </div>
-        );
-    }
-    render() {
-        const style = {
-            height: this.props.height
-        };
-        const {optionGroups} = this.props;
-        const labels=[];
-        for (let name in optionGroups) {
-            labels.push(name)
-        }
-        return (
-            <div className={styles.pickerContainer} style={style}>
-                {this.renderInner()}
-            </div>
-        );
-    }
-}
-function generateNumberArray(begin, end) {
-    let array = [];
-    for (let i = begin; i <= end; i++) {
-        array.push((i < 10 ? '0' : '') + i);
-    }
-    return array;
-}
-export default class DatePicker extends Component {
-    constructor(props) {
-        super(props);
-        let dateArr=props.date?props.date.split('-'):'';
-        console.log(new Date().getFullYear());
-        this.state = {
-            isPickerShow: false,
-            valueGroups: {
-                year: dateArr[0]|| (new Date().getFullYear()).toString(),
-                month: dateArr[1]||(new Date().getMonth()+1).toString(),
-                day: dateArr[2]||(new Date().getDate()).toString()
-            },
-            optionGroups: {
-                year: generateNumberArray(1970, 2040),
-                month: generateNumberArray(1, 12),
-                day: generateNumberArray(1, 31)
-            }
-        };
-    }
     isRun=(year)=>{
         if(year%100===0){
             if(year%400==0){
@@ -248,88 +128,168 @@ export default class DatePicker extends Component {
             }
         }
     };
-    componentDidMount(){
-        this.handleChange('year',this.state.valueGroups.year);
-        this.handleChange('month',this.state.valueGroups.month)
+    handleCancel () {
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
+        this.toggle()
     }
+    handleConfirm() {
+        if (this.props.onConfirm) {
+            this.props.onConfirm(this.state.valueGroups);
+        }
+        this.toggle()
+    }
+    toggle=()=>{
+        this.setState({
+            open:!this.state.open
+        })
+    };
     handleChange = (name, value) => {
-        this.setState(({valueGroups, optionGroups}) => {
+        this.setState(({optionGroups,valueGroups}) => {
             const nextState = {
-                valueGroups: {
+                valueGroups:{
                     ...valueGroups,
-                    [name]: value
+                    [name]:value
                 }
             };
-            if (name === 'year' && valueGroups.month === '02') {
-                if (parseInt(value) % 4 === 0) {
-                    console.log('s')
-                    nextState.optionGroups = {
-                        ...optionGroups,
-                        day: generateNumberArray(1, 29)
-                    };
-                } else {
-                    nextState.optionGroups = {
-                        ...optionGroups,
-                        day: generateNumberArray(1, 28)
-                    };
-                }
-            } else if (name === 'month') {
-                if (value === '02') {
-                    if(this.isRun(valueGroups.year)){
+            if(this.props.labels.split(',').indexOf('day')!=-1){
+                if (name === 'year' && valueGroups.month === '02') {
+                    if (parseInt(value) % 4 === 0) {
+                        console.log('s')
                         nextState.optionGroups = {
                             ...optionGroups,
-                            day: generateNumberArray(1, 29)
+                            day:{
+                                list:this.generateNumberArray(1, 29),
+                                defaultValue:valueGroups.day,
+                                displayValue (item) {
+                                    return item;
+                                }
+                            }
                         };
-                    }else{
+                    } else {
                         nextState.optionGroups = {
                             ...optionGroups,
-                            day: generateNumberArray(1, 28)
+                            day: {
+                                list:this.generateNumberArray(1, 28),
+                                defaultValue:valueGroups.day,
+                                displayValue (item) {
+                                    return item;
+                                }
+                            }
                         };
                     }
-                } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) > -1 &&
-                    ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) < 0) {
+                } else if (name === 'month') {
+                    if (value === '02') {
+                        if(this.isRun(valueGroups.year)){
+                            nextState.optionGroups = {
+                                ...optionGroups,
+                                day:{
+                                    list:this.generateNumberArray(1, 29),
+                                    defaultValue:valueGroups.day,
+                                    displayValue (item) {
+                                        return item;
+                                    }
+                                }
+                            };
+                        }else{
+                            nextState.optionGroups = {
+                                ...optionGroups,
+                                day: {
+                                    list:this.generateNumberArray(1, 28),
+                                    defaultValue:valueGroups.day,
+                                    displayValue (item) {
+                                        return item;
+                                    }
+                                }
+                            };
+                        }
+                    } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) > -1 &&
+                        ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) < 0) {
+                        nextState.optionGroups = {
+                            ...optionGroups,
+                            day:{
+                                list:this.generateNumberArray(1, 31),
+                                defaultValue:valueGroups.day,
+                                displayValue (item) {
+                                    return item;
+                                }
+                            }
+                        };
+                    } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) < 0 &&
+                        ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) > -1) {
+                        nextState.optionGroups = {
+                            ...optionGroups,
+                            day: {
+                                list:this.generateNumberArray(1, 30),
+                                defaultValue:valueGroups.day,
+                                displayValue (item) {
+                                    return item;
+                                }
+                            }
+                        };
+                    }
+                }else if(name==="day"){
                     nextState.optionGroups = {
                         ...optionGroups,
-                        day: generateNumberArray(1, 31)
-                    };
-                } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) < 0 &&
-                    ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) > -1) {
-                    nextState.optionGroups = {
-                        ...optionGroups,
-                        day: generateNumberArray(1, 30)
+                        day: {
+                            ...optionGroups.day,
+                            defaultValue:value,
+                        }
                     };
                 }
             }
             return nextState;
         });
     };
-    togglePicker = () => {
-        this.setState(({isPickerShow}) => ({
-            isPickerShow: !isPickerShow
-        }));
-    };
-    handleOk=()=>{
-        this.props.okCallBack(this.state.valueGroups);
-        this.togglePicker();
+    componentDidUpdate () {
+        if (this.refs.confirmButton &&
+            !this.refs.confirmButton.onclick) {
+            this.refs.confirmButton.onclick = (e) => {
+                e.stopPropagation();
+                this.handleConfirm();
+            }
+            this.refs.cancelButton.onclick =(e) => {
+                e.stopPropagation();
+                this.handleCancel();
+            }
+        }
     }
-    render() {
-        const {isPickerShow, optionGroups, valueGroups} = this.state;
-        const maskStyle = {
-            display: isPickerShow ? 'block' : 'none'
-        };
+    render () {
+        const isZh = !navigator.language ||
+            navigator.language.toLowerCase() === 'zh-cn' ||
+            navigator.language.toLowerCase() === 'zh';
+        let text1 = !isZh ? 'Cancel' : '取消';
+        let text2 = !isZh ? 'Finish' : '完成';
+        const {optionGroups}=this.state;
+        console.log(optionGroups)
         return (
-            <div className={styles.pickerModalContainer}>
-                <div className={classNames(styles.pickerModal,isPickerShow?styles.pickerModalToggle:'')}>
-                    <header>
-                        <div className={styles.cancel}> <div className={styles.btn} onClick={this.togglePicker}>取消</div></div>
-                        <div className={styles.confirm} ><div className={styles.btn} onClick={this.handleOk}>确定</div></div>
-                    </header>
-                    <Picker
-                        optionGroups={optionGroups}
-                        valueGroups={valueGroups}
-                        onChange={this.handleChange} />
+            <div style={{position:"fixed",width:"100%",top:0,bottom:0,display:'none'}} className={this.state.open&&styles.pickerModalToggle||''}>
+                <div style={{position:"relative",width:"100%",height:"100%"}}>
+                    <div className={classNames([styles.pickerModal])}>
+                        <div className={styles.ui_popup_title}>
+                            <span ref="cancelButton">{text1}</span>
+                            <span ref="confirmButton">{text2}</span>
+                        </div>
+                        <div className={styles.ui_popup_content}>
+                            {(()=>{
+                                let pickerArr=[]
+                                for(name in optionGroups){
+                                    pickerArr.push(
+                                        <Picker
+                                            onChange={this.handleChange}
+                                            data={optionGroups[name]}
+                                            type={name}
+                                        />
+                                    )
+                                }
+                                return pickerArr
+                            })()}
+                        </div>
+                    </div>
                 </div>
             </div>
-        );
+        )
     }
 }
+export default Index;

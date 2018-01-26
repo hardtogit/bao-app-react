@@ -8,16 +8,11 @@ const requests = (Fetch) => {
           return Fetch(`api/userVip/goodsList?page=${page}`, 'GET',data)
       };
     //点币记录
-    Fetch.getCoinRecordList = (page,Sdate) => {
-        if(Sdate){
-            return Fetch(`api/userVip/coinList?page=${page}&Sdate=${Sdate}`, 'GET')
-        }else{
-            return Fetch(`api/userVip/coinList?page=${page}`, 'GET')
-        }
-        // return Fetch(`api/userVip/coinList`, 'GET',data)
+    Fetch.getCoinRecordList = (page,data) => {
+        return Fetch(`api/userVip/coinList?page=${page}`, 'GET',data)
     };
     //兑换记录
-    Fetch.getCashRecordList = (page,page_size=10) => {return Fetch(`api/userVip/cashList?page=${page}&page_size=${page_size}`, 'GET')};
+    Fetch.getCashRecordList = (page,data) => {return Fetch(`api/userVip/cashList?page=${page}`, 'GET',data)};
     //兑换详情
     Fetch.getCashDetail = (id) => {return Fetch(`api/userVip/cashInfo?id=${id}`, 'GET')};
     //取消兑换

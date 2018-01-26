@@ -317,6 +317,8 @@ class memberCenter extends Component{
         let {
             index
         } = this.state;
+        let loginUrl;
+        loginUrl = "/login?baoBackUrl="+"/find/memberCenter"
         return(
             <div className={styles.messageContent}>
                 <div className={styles.memberTop1}>
@@ -324,7 +326,7 @@ class memberCenter extends Component{
                         <div className={styles.cardContent}>
                             <img src={noheadImg} className={styles.cardleft} />
                             <span className={styles.cardright}>
-                                <Link to="/login" className={styles.Link}>
+                                <Link to={loginUrl} className={styles.Link}>
                                      <p className={styles.cardrighttop1}>立即登录</p>
                                 </Link>
                                  <p className={styles.cardrightbelow}>秒速登录，体验更多功能</p>

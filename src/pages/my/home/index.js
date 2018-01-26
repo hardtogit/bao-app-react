@@ -32,7 +32,7 @@ class Index extends React.Component {
         super(props);
         this.state = {
             ifSet: true,
-            ifShow: true
+            ifShow: false
         }
     }
 

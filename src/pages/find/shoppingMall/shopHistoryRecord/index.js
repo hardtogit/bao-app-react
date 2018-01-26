@@ -15,13 +15,18 @@ class Index extends React.Component {
 		super(props);
 		this.state = {
             index:0,
-            id:0
+            id:0,
+            params:{
+                time_start:"",
+                time_end:""
+            }
 		}
 	}
 	componentWillMount(){
         this.props.getCoinRecordList();
         this.props.getCashRecordList();
         this.props.getVip();
+        sessionStorage.setItem("index",this.state.index);
     }
 	componentDidMount() {
 
@@ -37,15 +42,17 @@ class Index extends React.Component {
     }
     coinDom=()=>{
         const Height = document.body.clientHeight - 44;
-        let {index} = this.state;
         const {
             coinRecordListData,
             pending,
             end
         }=this.props;
+        const{
+            params
+        }=this.state;
 
         return(
-            <Scroll height={Height} fetch={()=>{this.props.getCoinRecordList()}}
+            <Scroll height={Height} fetch={()=>{this.props.getCoinRecordList(params)}}
                     isLoading={pending('GET_COIN_RECORD_LIST')} distance={20} endType={end('GET_COIN_RECORD_LIST')}
             >
                 {
@@ -70,13 +77,15 @@ class Index extends React.Component {
         const Height = document.body.clientHeight - 44-170;
         const {
             cashRecordListData,
-            coinRecordListData,
             pending,
             end
         }=this.props;
+        const{
+            params
+        }=this.state;
 
         return(
-            <Scroll height={Height} fetch={()=>{this.props.getCashRecordList()}}
+            <Scroll height={Height} fetch={()=>{this.props.getCashRecordList(params)}}
                     isLoading={pending('GET_CASH_RECORD_LIST')} distance={20} endType={end('GET_CASH_RECORD_LIST')}
             >
                 {
@@ -131,20 +140,21 @@ class Index extends React.Component {
           </div>
       </Box>)
     }
-   ok=(date)=>{
-	    this.setState(
-            {
-                index:sessionStorage.getItem("index")
-            }
-        );
-       let Sdate = date.year +"-"+ date.month +"-"+ date.day;
-       if(this.state.index == 0){
-           this.props.clearData("GET_COIN_RECORD_LIST");
-           this.props.getCoinRecordList(Sdate);
-       }else if(this.state.index == 1){
-           this.props.clearData("GET_CASH_RECORD_LIST")
-           this.props.getCashRecordList(Sdate);
-       }
+   ok=(date1,date2)=>{
+	    console.log("date",date1,date2);
+       // let time_start = date1.year +"-"+ date1.month +"-"+ date1.day;
+       // let time_end = date2.year +"-"+ date2.month +"-"+ date2.day;
+       //  this.setState({
+       //      params:{
+       //          time_start:time_start,
+       //          time_end:time_end
+       //      }
+       //  })
+       // if(this.state.index == 0){
+       //     this.props.clearData("GET_COIN_RECORD_LIST")
+       // }else if(this.state.index == 1){
+       //     this.props.clearData("GET_CASH_RECORD_LIST")
+       // }
 
    }
 	render() {
@@ -160,13 +170,13 @@ class Index extends React.Component {
         }
 		return (
 			<div className={classs.bg} >
-                <Pi ref="picker" okCallBack={this.ok}></Pi>
+                <Pi ref="picker" onConfirm={this.ok}></Pi>
 				<NavBar
                         backgroundColor="#fff"
                         color="#000"
                         onLeft={pop}
                         rightNode={<img src={rili} className={classs.rightNode}/>}
-                        onRight={()=>{ this.refs.picker.togglePicker()} }
+                        onRight={()=>{ this.refs.picker.toggle()} }
                 >
                     历史记录
                 </NavBar>
@@ -187,21 +197,19 @@ const datas=(state)=>({
     },
 });
 const dispatchFn=(dispatch)=>({
-    getCoinRecordList(date){
+    getCoinRecordList(data){
         dispatch({
             type:'GET_COIN_RECORD_LIST',
             params:[
-                // page,
-                // page_size = 10,
-                date
+                data
             ]
         })
     },
-    getCashRecordList(date){
+    getCashRecordList(data){
             dispatch({
                 type:'GET_CASH_RECORD_LIST',
                 params:[
-                    date
+                    data
                 ]
             })
     },
