@@ -112,8 +112,8 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer}>
-                            <div className={classNames([styles.disable,(btnInfo&&btnInfo.data.hide_platform_recharge_withdraw)&&styles.btn])} onClick={() => {
-                                if(btnInfo&&btnInfo.data.hide_platform_recharge_withdraw){
+                            <div className={classNames([styles.disable,(btnInfo&&!btnInfo.data.hide_platform_recharge_withdraw)&&styles.btn])} onClick={() => {
+                                if(btnInfo&&!btnInfo.data.hide_platform_recharge_withdraw){
                                     let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
                                     if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
                                         push('/user/oldRecharge')
