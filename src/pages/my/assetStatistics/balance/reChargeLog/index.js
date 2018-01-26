@@ -115,6 +115,7 @@ class Index extends Component{
         this.refs.datePicker.toggle();
     };
     confirm=(data)=>{
+        console.log(data)
         this.setState({
             date:data.year+"年"+data.month+"月"
         })
@@ -189,7 +190,7 @@ class Index extends Component{
                 <NavBar onLeft={pop} rightNode={<div>筛选</div>} onRight={this.filters}>
                     充值明细
                 </NavBar>
-                <DatePicker ref="datePicker"
+                <DatePicker ref="datePicker" labels="year,month"
                             onConfirm={this.confirm} >
                 </DatePicker>
                 <div className={styles.content}>
