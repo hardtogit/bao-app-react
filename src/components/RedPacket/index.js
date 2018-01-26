@@ -53,16 +53,23 @@ class Index extends React.Component{
     };
     componentWillReceiveProps(nextProps){
         const{openData,packetData}=nextProps;
-        if(packetData&&packetData.data.id){
+        if(packetData&&packetData.code==100){
             this.show()
-        }else if(packetData&&packetData.data.code!=100){
+        }else if(packetData&&packetData.code!=100){
             if(this.state.time<3){
                 setTimeout(()=>{
                     this.props.getPacket({productId:this.props.productId,num:this.props.num,productType:this.props.productType})
-                },1000);
+                },2000);
                 this.setState({
                     time:this.state.time+1
                 })
+            }else{
+                if(packetData&&packetData.code==301){
+                    this.refs.alert.show({
+                        content:"正在处理中，结果请到红包活动专题页中查看",
+                        okText:'确定',
+                    })
+                }
             }
         }
         if(openData&&openData.code==100){
