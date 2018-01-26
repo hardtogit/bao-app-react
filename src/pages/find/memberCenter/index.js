@@ -108,12 +108,18 @@ class memberCenter extends Component{
             </ul>
         )
     };
-    cashDomNo=()=>{
+    cashDomNo=(data)=>{
+        const {
+            user_name,
+            vip_level,
+            annual_total,
+            annual_gap
+        } = data;
         return(
             <div className={styles.noRate}>
                 <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：普通会员，暂无抵用券可供选择领取</p>
-                <p className={styles.farfrom}>距抵用券领取尚差年化金额：500,000.00元</p>
+                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无抵用券可供选择领取</p>
+                <p className={styles.farfrom}>距抵用券领取尚差年化金额：{annual_gap}元</p>
             </div>
         )
     };
@@ -215,6 +221,12 @@ class memberCenter extends Component{
             voucherData,
             PrivilegeBasicData
         }=this.props;
+        const {
+            user_name,
+            vip_level,
+            annual_total,
+            annual_gap
+        } = data;
         let rateDom,cashDom,basicDom;
         if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
@@ -224,18 +236,12 @@ class memberCenter extends Component{
         if(voucherData&&voucherData.data.length!=0){
             cashDom = this.cashDomHas();
         }else{
-            cashDom = this.cashDomNo();
+            cashDom = this.cashDomNo(data);
         }
         if(PrivilegeBasicData){
             basicDom = this.PrivilegeBasicDom(PrivilegeBasicData.data);
         }
-        const {
-            user_name,
-            vip_level,
-            annual_total,
-            coin_total,
-            annual_gap
-        } = data;
+
         let vimg;
         if(vip_level == 1){
             vimg = v1;
@@ -273,7 +279,7 @@ class memberCenter extends Component{
                 <div className={styles.findItem} style={{marginTop:"0"}}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>基础特权</span>
-                        <Link to="/find/moreBasic" className={styles.Link}>
+                        <Link to="/find/basicPrivaligeDetail" className={styles.Link}>
                             <span className={styles.rightTxt}>更多></span>
                         </Link>
                     </div>
@@ -331,8 +337,6 @@ class memberCenter extends Component{
                     <p className={styles.noSignTxt}>宝点网根据用户年化待收将用户划分为7个会员等级，不同等级的用户可享不同的特权，更多特权等级信息请登录后查看。</p>
                     <img src={noSignTable} className={styles.noSignImg} />
                 </div>
-
-
             </div>
         )
     }

@@ -132,9 +132,6 @@ class Index extends React.Component {
             num,
             params
         }=this.state;
-        console.log("111",params)
-        var ss = this.refs.property;
-        console.log("221",ss)
         const{
             image,
             product_id,

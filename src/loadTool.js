@@ -180,12 +180,17 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/productDetail').default);
         }, 'ProductDetail');
-    },//新增地址
+    },//产品详情
     ProductCash  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/productCash').default);
         }, 'ProductCash');
-    }//新增地址
+    },//产品兑换
+    BasicPrivaligeDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/basicPrivaligeDetail').default);
+        }, 'BasicPrivaligeDetail');
+    }//会员基础特权更多
 
 
 //成功失败模版

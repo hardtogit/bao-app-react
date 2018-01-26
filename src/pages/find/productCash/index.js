@@ -3,15 +3,10 @@ import { connect } from 'react-redux'
 import {push, goBack} from 'react-router-redux'
 import NavBar from '../../../components/NavBar/index';
 import Box from '../../../components/ContentBox/index';
-import CheckBox from '../../../components/CheckBoxBlue/index';
 import Alert from '../../../components/Dialog/alert';
 import Confirm from '../../../components/Dialog/confirm';
 import {Link} from "react-router";
 import styles from './index.css'
-import classnames from 'classnames';
-import nullIcon from '../../../assets/images/record.png';
-import deleteImg from '../../../assets/images/find/delete.png'
-import editImg from '../../../assets/images/find/edit.png'
 let delId = 0;
 class Index extends React.Component {
 	constructor(props) {
@@ -24,6 +19,7 @@ class Index extends React.Component {
 	    const{product_id}=this.props.params;
         this.props.getAddress();
         this.props.productDetail(product_id);
+        this.props.getVip();
     }
 	componentWillUnmount() {}
     componentWillReceiveProps=({set,del})=>{
@@ -31,17 +27,18 @@ class Index extends React.Component {
             flag
         }=this.state;
     };
+    confirmBtn=()=>{
 
-
+    }
     nullAddress=()=>{
         return(<div className={styles.nullDom}>
-            <img src={nullIcon}/>
+            <Link to={`/find/addAddress`}  >
+                <div className={styles.addAddress}>+添加地址</div>
+            </Link>
         </div>)
     }
     hasAddress=()=>{
         const {address} = this.props;
-
-
         let addressList=[];
         address&&address.map((item,i)=>{
             if(i == 0){
@@ -97,8 +94,6 @@ class Index extends React.Component {
                 typeArr.push(ass[1])
             }
         })
-        console.log(typeArr)
-
         return(<div className={styles.productInfo}>
             <div className={styles.productImg}>
                 <img src={image} />
@@ -122,14 +117,20 @@ class Index extends React.Component {
         </div>)
     }
 	render() {
-        const {address,pop,productData} = this.props;
-        let Dom = this.nullAddress();
+        const {address,pop,productData,VipData} = this.props;
+        let Dom;
         let productDom;
+        let coinNum;
         if(productData){
             productDom= this.produceDom(productData.data);
         }
         if (address.length!=0){
             Dom=this.hasAddress();
+        }else{
+            Dom=this.nullAddress();
+        }
+        if(VipData){
+            coinNum = VipData.data.coin_total;
         }
 		return (
 			<div className={styles.bg}>
@@ -143,11 +144,10 @@ class Index extends React.Component {
                 <Alert ref="alert"/>
                 <Confirm ref="confirm"/>
                 <div className={styles.addBtnDiv}>
-                    <Link to={`/find/addAddress`}  >
-                        <div className={styles.addBtn}>
-                            添加新地址
-                        </div>
-                    </Link>
+                    <p className={styles.coinNum}>您的当前可用点币：{coinNum}</p>
+                    <div className={styles.addBtn}  onClick={()=>{this.confirmBtn()}}>
+                        确认兑换
+                    </div>
                 </div>
 			</div>
 		)
@@ -164,7 +164,8 @@ const siteModel=(data)=>{
 const mapStateToProps = (state) => {
 	return {
 		address:siteModel(state.infodata.getIn(['GET_ADDRESS_LIST','data'])),
-        productData:state.infodata.getIn(['PRODUCT_DETAIL','data'])
+        productData:state.infodata.getIn(['PRODUCT_DETAIL','data']),
+        VipData: state.infodata.getIn(['GET_VIP', 'data']),
 	}
 };
 
@@ -180,12 +181,9 @@ const mapDispatchToProps = (dispatch) => ({
             params:[id]
         })
     },
-
-    delSite(id){
+    getVip(){
         dispatch({
-            type:"DEL_ADDRESS",
-            params:[id],
-            id:id
+            type:'GET_VIP'
         })
     },
     pop() {
