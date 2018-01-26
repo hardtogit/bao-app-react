@@ -293,7 +293,7 @@ class Index extends Component{
                 <NavBar onLeft={pop} rightNode={<div>筛选</div>} onRight={this.filters} >
                     提现明细
                 </NavBar>
-                <DatePicker ref="datePicker"
+                <DatePicker ref="datePicker" labels="year,month"
                             onConfirm={this.confirm} >
                 </DatePicker>
                 <div className={styles.content}>
