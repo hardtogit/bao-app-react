@@ -46,6 +46,7 @@ export const EDIT_ADDRESS='EDIT_ADDRESS' //编辑地址
 export const ADD_ADDRESS='ADD_ADDRESS' //新增地址
 export const DEL_ADDRESS='DEL_ADDRESS' //删除地址
 export const PRODUCT_DETAIL='PRODUCT_DETAIL' //商品详情
+export const CASH_PRODUCT='CASH_PRODUCT' //商品兑换
 /**************************** 账户中心 ********************************************/
 export const USER_LOGIN_FLOW = 'USER_LOGIN_FLOW';//用户登录
 export const LOGIN_STORAGE='LOGIN_STORAGE'//设置登陆信息

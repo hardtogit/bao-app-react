@@ -37,6 +37,8 @@ const requests = (Fetch) => {
     Fetch.delAddress = (address_id) => {return Fetch(`api/userVip/delAddress?address_id=${address_id}`, 'GET')};
     //商品详情
     Fetch.productDetail = (product_id) => {return Fetch(`api/userVip/goodsDetail?product_id=${product_id}`, 'GET')};
+    //商品兑换
+    Fetch.cashProduct = (data) => {return Fetch(`api/userVip/cashGoods`, 'GET',data)};
 }
 
 export default requests

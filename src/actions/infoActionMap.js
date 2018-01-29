@@ -544,6 +544,9 @@ export default {
     [actionTypes.PRODUCT_DETAIL]:{    //删除地址
         apiFn:Fetch.productDetail
     },
+    [actionTypes.CASH_PRODUCT]:{    //商品兑换
+        apiFn:Fetch.cashProduct
+    },
 
 
 }

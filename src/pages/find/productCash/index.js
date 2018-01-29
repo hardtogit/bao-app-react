@@ -12,7 +12,8 @@ class Index extends React.Component {
 	constructor(props) {
 		super(props)
         this.state={
-		    flag:true
+		    flag:true,
+            addressId:""
         }
 	}
 	componentDidMount() {
@@ -22,13 +23,44 @@ class Index extends React.Component {
         this.props.getVip();
     }
 	componentWillUnmount() {}
-    componentWillReceiveProps=({set,del})=>{
-	    const {
-            flag
-        }=this.state;
+    componentWillReceiveProps=(nextProps)=>{
+        const{address,cashData}=nextProps;
+        if(address.length>0){
+	        this.setState({
+                addressId:address[0].id
+            })
+        }
+        if(cashData&&cashData.code==300){
+            this.refs.alert.show({
+                content:cashData.msg,
+                okText:'确定'
+            })
+        }
+        if(cashData&&cashData.code==100){
+            this.refs.alert.show({
+                content:"兑换成功，请到兑换记录中查看！",
+                okText:'确定'
+            })
+        }
     };
     confirmBtn=()=>{
-
+        const{product_id,num}=this.props.params;
+        const {address} = this.props;
+        const {addressId} = this.state;
+        let proprety = sessionStorage.getItem("propertyStr");
+        proprety= proprety.substring(0,proprety.length-2)
+        if(address&&address.length==0){
+            this.refs.alert.show({
+                content:'请选择地址!',
+                okText:'确定'
+            })
+        }else{
+            this.refs.alert.show({
+                content:'确认兑换该商品吗!',
+                okText:'确定',
+                okCallback: this.props.cashProduct(product_id,addressId,num,proprety)
+            })
+        }
     }
     nullAddress=()=>{
         return(<div className={styles.nullDom}>
@@ -43,8 +75,8 @@ class Index extends React.Component {
         address&&address.map((item,i)=>{
             if(i == 0){
                 addressList.push(
-                    <div className={styles.item} key={i}>
-                        <p  className={styles.name}>{item.consignee}<span className={styles.phone}>{item.phone}</span></p>
+                    <div className={styles.item} key={i} >
+                        <p  className={styles.name} >{item.consignee}<span className={styles.phone}>{item.phone}</span></p>
                         <p className={styles.site}>{item.address}</p>
                         <div className={styles.eidt_bg}>
                             <div className={styles.delDiv} >
@@ -86,7 +118,6 @@ class Index extends React.Component {
         }=this.props.params;
         let proprety = sessionStorage.getItem("propertyStr");
         let proList = proprety.split("||");
-        console.log(proList)
         let typeArr=[]
         proList.map((item,i)=>{
             if(i<proList.length-1){
@@ -166,6 +197,7 @@ const mapStateToProps = (state) => {
 		address:siteModel(state.infodata.getIn(['GET_ADDRESS_LIST','data'])),
         productData:state.infodata.getIn(['PRODUCT_DETAIL','data']),
         VipData: state.infodata.getIn(['GET_VIP', 'data']),
+        cashData: state.infodata.getIn(['CASH_PRODUCT', 'data']),
 	}
 };
 
@@ -173,6 +205,19 @@ const mapDispatchToProps = (dispatch) => ({
 	getAddress(){
 		dispatch({
 			type:"GET_ADDRESS_LIST"
+		})
+	},
+    cashProduct(product_id,addressId,num,proprety){
+		dispatch({
+			type:"CASH_PRODUCT",
+            params:[
+                {
+                    product_id:product_id,
+                    address_id:addressId,
+                    num:num,
+                    product_property:proprety
+                }
+            ]
 		})
 	},
     productDetail(id){
