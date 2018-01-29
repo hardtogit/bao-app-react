@@ -14,7 +14,8 @@ class Index extends React.Component {
         super(props);
         console.log(new Date().getDate().toString())
         this.state={
-            open:false,
+            open1:false,
+            open2:false,
             valueGroups: {
             },
             optionGroups:{
@@ -142,7 +143,8 @@ class Index extends React.Component {
     }
     toggle=()=>{
         this.setState({
-            open:!this.state.open
+            open1:!this.state.open1,
+            open2:!this.state.open2
         })
     };
     handleChange = (name, value) => {
@@ -256,35 +258,64 @@ class Index extends React.Component {
         }
     }
     render () {
-        const isZh = !navigator.language ||
-            navigator.language.toLowerCase() === 'zh-cn' ||
-            navigator.language.toLowerCase() === 'zh';
-        let text1 = !isZh ? 'Cancel' : '取消';
-        let text2 = !isZh ? 'Finish' : '完成';
+        // const isZh = !navigator.language ||
+        //     navigator.language.toLowerCase() === 'zh-cn' ||
+        //     navigator.language.toLowerCase() === 'zh';
+        // let text1 = !isZh ? 'Cancel' : '取消';
+        // let text2 = !isZh ? 'Finish' : '完成';
         const {optionGroups}=this.state;
         console.log(optionGroups)
         return (
-            <div style={{position:"fixed",width:"100%",top:0,bottom:0,display:'none'}} className={this.state.open&&styles.pickerModalToggle||''}>
-                <div style={{position:"relative",width:"100%",height:"100%"}}>
-                    <div className={classNames([styles.pickerModal])}>
-                        <div className={styles.ui_popup_title}>
-                            <span ref="cancelButton">{text1}</span>
-                            <span ref="confirmButton">{text2}</span>
+            <div>
+                <div style={{position:"fixed",width:"100%",top:0,bottom:0,display:'none'}} className={this.state.open&&styles.pickerModalToggle||''}>
+                    <div style={{position:"relative",width:"100%",height:"100%"}}>
+                        <div className={classNames([styles.pickerModal])}>
+                            <div className={styles.ui_popup_title}>
+                                <span ref="cancelButton">取消</span>
+                                <span>开始日期</span>
+                                <span ref="confirmButton">下一步</span>
+                            </div>
+                            <div className={styles.ui_popup_content}>
+                                {(()=>{
+                                    let pickerArr=[]
+                                    for(name in optionGroups){
+                                        pickerArr.push(
+                                            <Picker
+                                                onChange={this.handleChange}
+                                                data={optionGroups[name]}
+                                                type={name}
+                                            />
+                                        )
+                                    }
+                                    return pickerArr
+                                })()}
+                            </div>
                         </div>
-                        <div className={styles.ui_popup_content}>
-                            {(()=>{
-                                let pickerArr=[]
-                                for(name in optionGroups){
-                                    pickerArr.push(
-                                        <Picker
-                                            onChange={this.handleChange}
-                                            data={optionGroups[name]}
-                                            type={name}
-                                        />
-                                    )
-                                }
-                                return pickerArr
-                            })()}
+                    </div>
+                </div>
+                <div style={{position:"fixed",width:"100%",top:0,bottom:0,display:'none'}} className={this.state.open&&styles.pickerModalToggle||''}>
+                    <div style={{position:"relative",width:"100%",height:"100%"}}>
+                        <div className={classNames([styles.pickerModal])}>
+                            <div className={styles.ui_popup_title}>
+                                <span ref="cancelButton">取消</span>
+                                <span>结束日期</span>
+                                <span ref="confirmButton">完成</span>
+                            </div>
+                            <div className={styles.ui_popup_content}>
+                                {(()=>{
+                                    let pickerArr=[]
+                                    for(name in optionGroups){
+                                        pickerArr.push(
+                                            <Picker
+                                                onChange={this.handleChange}
+                                                data={optionGroups[name]}
+                                                type={name}
+                                            />
+                                        )
+                                    }
+                                    return pickerArr
+                                })()}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -157,7 +157,7 @@ const siteModel=(data)=>{
 	}
 };
 const setModel=(data)=>{
-    if(data&&data.cpde==100){
+    if(data&&data.code==100){
         return data;
     }else
         return false;
