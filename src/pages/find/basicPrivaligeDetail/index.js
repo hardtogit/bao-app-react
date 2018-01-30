@@ -7,7 +7,7 @@ import Scroll from '../../../components/scroll'
 import ticket from '../../../assets/images/find/ticket.png'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
-class ticketRule extends Component{
+class Index extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -129,12 +129,12 @@ class ticketRule extends Component{
         )
     }
 }
-const initMymassege=(state,own)=>{
+const mapStateToProps=(state,own)=>{
     return{
         privilegeBasicData: state.infodata.getIn(['GET_PRIV_BASIC', 'data']),
     }
 }
-const initMymassegefn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     getPrivilegeBasic(){
         dispatch({
             type:'GET_PRIV_BASIC'
@@ -144,4 +144,4 @@ const initMymassegefn=(dispatch,own)=>({
         dispatch(goBack())
     }
 })
-export default connect(initMymassege,initMymassegefn)(ticketRule)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

@@ -547,6 +547,9 @@ export default {
     [actionTypes.CASH_PRODUCT]:{    //商品兑换
         apiFn:Fetch.cashProduct
     },
+    [actionTypes.GET_HELP_LIST]:{   //商城帮助问题
+        apiFn:Fetch.getHelpList
+    },
 
 
 }

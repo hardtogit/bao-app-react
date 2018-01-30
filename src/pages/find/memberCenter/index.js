@@ -14,9 +14,7 @@ import v3 from '../../../assets/images/find/3j.png'
 import v4 from '../../../assets/images/find/4j.png'
 import v5 from '../../../assets/images/find/5j.png'
 import v6 from '../../../assets/images/find/6j.png'
-import content1 from '../../../assets/images/find/content1.png'
 import content11 from '../../../assets/images/find/content11.png'
-import birth from '../../../assets/images/find/birth.png'
 import birth11 from '../../../assets/images/find/birth11.png'
 import noFestival from '../../../assets/images/find/noFestival.png'
 import duanwu from '../../../assets/images/find/duanwu.png'
@@ -75,15 +73,6 @@ class memberCenter extends Component{
             </ul>
         )
     };
-    rateDomNo=()=>{
-        return(
-            <div className={styles.noRate}>
-                <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：普通会员，暂无加息券可供选择领取</p>
-                <p className={styles.farfrom}>距加息券领取尚差年化金额：500,000.00元</p>
-            </div>
-        )
-    };
     cashDomHas=()=>{
         const {
             voucherData,
@@ -108,7 +97,7 @@ class memberCenter extends Component{
             </ul>
         )
     };
-    cashDomNo=(data)=>{
+    cashDomNo=(data,ticketName)=>{
         const {
             user_name,
             vip_level,
@@ -119,7 +108,7 @@ class memberCenter extends Component{
             <div className={styles.noRate}>
                 <img src={ku} />
                 <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无抵用券可供选择领取</p>
-                <p className={styles.farfrom}>距抵用券领取尚差年化金额：{annual_gap}元</p>
+                <p className={styles.farfrom}>距{ticketName}领取尚差年化金额：{annual_gap}元</p>
             </div>
         )
     };
@@ -231,12 +220,14 @@ class memberCenter extends Component{
         if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
         }else{
-            rateDom = this.rateDomNo();
+            let ticketName = "加息券";
+            rateDom = this.cashDomNo(data,ticketName);
         }
         if(voucherData&&voucherData.data.length!=0){
             cashDom = this.cashDomHas();
         }else{
-            cashDom = this.cashDomNo(data);
+            let ticketName = "抵用券";
+            cashDom = this.cashDomNo(data,ticketName);
         }
         if(PrivilegeBasicData){
             basicDom = this.PrivilegeBasicDom(PrivilegeBasicData.data);

@@ -14,7 +14,7 @@ class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            index:0,
+            index:sessionStorage.getItem("index")&&sessionStorage.getItem("index")||0,
             id:0,
             params:{
                 time_start:"",
@@ -35,13 +35,19 @@ class Index extends React.Component {
 
 	changeBar=(index)=>{
 	    this.setState({index});
-	    sessionStorage.setItem("index",index)
+	    sessionStorage.setItem("index",index);
+         this.setState({
+             params:{
+                 time_start:"",
+                 time_end:""
+             }
+         });
     }
 	loadDom=()=>{
 	    return <Loading/>
     }
     coinDom=()=>{
-        const Height = document.body.clientHeight - 44;
+        const Height = document.body.clientHeight - 215;
         const {
             coinRecordListData,
             pending,
@@ -52,7 +58,7 @@ class Index extends React.Component {
         }=this.state;
 
         return(
-            <Scroll height={Height} fetch={()=>{this.props.getCoinRecordList(params)}}
+            <Scroll ref="scroll" height={Height} fetch={()=>{this.props.getCoinRecordList(params)}}
                     isLoading={pending('GET_COIN_RECORD_LIST')} distance={20} endType={end('GET_COIN_RECORD_LIST')}
             >
                 {
@@ -74,7 +80,7 @@ class Index extends React.Component {
         )
     }
     cashDom=()=>{
-        const Height = document.body.clientHeight - 44-170;
+        const Height = document.body.clientHeight - 215;
         const {
             cashRecordListData,
             pending,
@@ -85,7 +91,7 @@ class Index extends React.Component {
         }=this.state;
 
         return(
-            <Scroll height={Height} fetch={()=>{this.props.getCashRecordList(params)}}
+            <Scroll ref="scroll" height={Height} fetch={()=>{this.props.getCashRecordList(params)}}
                     isLoading={pending('GET_CASH_RECORD_LIST')} distance={20} endType={end('GET_CASH_RECORD_LIST')}
             >
                 {
@@ -140,21 +146,28 @@ class Index extends React.Component {
           </div>
       </Box>)
     }
-   ok=(date1,date2)=>{
-	    console.log("date",date1,date2);
-       // let time_start = date1.year +"-"+ date1.month +"-"+ date1.day;
-       // let time_end = date2.year +"-"+ date2.month +"-"+ date2.day;
-       //  this.setState({
-       //      params:{
-       //          time_start:time_start,
-       //          time_end:time_end
-       //      }
-       //  })
-       // if(this.state.index == 0){
-       //     this.props.clearData("GET_COIN_RECORD_LIST")
-       // }else if(this.state.index == 1){
-       //     this.props.clearData("GET_CASH_RECORD_LIST")
-       // }
+    ok=(date1,date2)=>{
+       let time_start = date1.year +"-"+ date1.month +"-"+ date1.day;
+       let time_end = date2.year +"-"+ date2.month +"-"+ date2.day;
+        this.setState({
+            params:{
+                time_start:time_start,
+                time_end:time_end
+            }
+        });
+       if(this.state.index == 0){
+           this.props.clearData("GET_COIN_RECORD_LIST");
+           this.refs.scroll.setState({
+               init:true,
+               first:false
+           });
+       }else if(this.state.index == 1){
+           this.props.clearData("GET_CASH_RECORD_LIST");
+           this.refs.scroll.setState({
+               init:true,
+               first:false
+           });
+       }
 
    }
 	render() {
@@ -185,7 +198,7 @@ class Index extends React.Component {
 		)
 	}
 }
-const datas=(state)=>({
+const mapStateToProps=(state)=>({
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
     coinRecordListData:state.listdata.getIn(['GET_COIN_RECORD_LIST','data']),
     cashRecordListData:state.listdata.getIn(['GET_CASH_RECORD_LIST','data']),
@@ -196,20 +209,20 @@ const datas=(state)=>({
         return state.listdata.getIn([key,'pageEnd'])
     },
 });
-const dispatchFn=(dispatch)=>({
+const mapDispatchToProps=(dispatch)=>({
     getCoinRecordList(data){
         dispatch({
             type:'GET_COIN_RECORD_LIST',
             params:[
-                data
-            ]
+                Object.assign({page_size:10},data)
+                ]
         })
     },
     getCashRecordList(data){
             dispatch({
                 type:'GET_CASH_RECORD_LIST',
                 params:[
-                    data
+                    Object.assign({page_size:10},data)
                 ]
             })
     },
@@ -219,7 +232,6 @@ const dispatchFn=(dispatch)=>({
             key:key
         })
     },
-
     getVip(){
         dispatch({
             type:'GET_VIP'
@@ -232,4 +244,4 @@ const dispatchFn=(dispatch)=>({
         dispatch(goBack())
     },
 });
-export default connect(datas,dispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

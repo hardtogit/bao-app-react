@@ -26,7 +26,6 @@ export default class QuestionAndAnswer extends React.PureComponent {
         const{
             index
         } = this.state;
-        console.log(index)
         return (
             <div className={styles.root}>
                 <p className={styles.question}>

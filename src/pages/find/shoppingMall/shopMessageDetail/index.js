@@ -5,7 +5,7 @@ import Loading from '../../../../components/pageLoading/index'
 import detail from '../../../../assets/images/find/detail.png'
 import styles from './index.css'
 import {goBack} from 'react-router-redux'
-class messageDetail extends Component{
+class Index extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -69,10 +69,10 @@ class messageDetail extends Component{
         )
     }
 }
-const messageDetailInit=(state,own)=>({
+const mapStateToProps=(state,own)=>({
     shopMessageData: state.infodata.getIn(['GET_NOTICE_DETAIL', 'data']),
 })
-const messageDetailInitfn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     getNoticeDetail(id){
         dispatch({
             type:'GET_NOTICE_DETAIL',
@@ -86,4 +86,4 @@ const messageDetailInitfn=(dispatch,own)=>({
         dispatch(goBack())
     }
 })
-export default connect(messageDetailInit,messageDetailInitfn)(messageDetail)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

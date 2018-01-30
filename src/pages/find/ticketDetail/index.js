@@ -5,7 +5,7 @@ import yesBtn from '../../../assets/images/find/yesBtn.png'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
 import Confirm from '../../../components/Dialog/confirm';
-class ticketRule extends Component{
+class Index extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -147,13 +147,13 @@ class ticketRule extends Component{
         )
     }
 }
-const initMymassege=(state,own)=>{
+const mapStateToProps=(state,own)=>{
     return{
         voucherInfo: state.infodata.getIn(['VOUCHER_GET', 'data']),
         rateInfo: state.infodata.getIn(['RATE_GET', 'data']),
     }
 }
-const initMymassegefn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     voucherGet(id) {
         dispatch({
             type: "VOUCHER_GET",
@@ -177,4 +177,4 @@ const initMymassegefn=(dispatch,own)=>({
         dispatch(push(url))
     },
 })
-export default connect(initMymassege,initMymassegefn)(ticketRule)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

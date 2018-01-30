@@ -178,11 +178,11 @@ const cancelModel = (data)=>{
             status:false
         };
 };
-const datas=(state)=>({
+const mapStateToProps=(state)=>({
     CashDetailData: state.infodata.getIn(['GET_CASH_DETALE', 'data']),
     cancelData: cancelModel(state.infodata.getIn(['CANCEL_CASH', 'data'])),
 });
-const dispatchFn=(dispatch)=>({
+const mapDispatchToProps=(dispatch)=>({
     getCashDetail(id){
         dispatch({
             type:'GET_CASH_DETALE',
@@ -204,4 +204,4 @@ const dispatchFn=(dispatch)=>({
         dispatch(goBack())
     },
 });
-export default connect(datas,dispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

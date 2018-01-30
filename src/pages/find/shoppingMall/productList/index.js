@@ -1,11 +1,11 @@
 import React from 'react' //点币首页
 import NavBar from '../../../../components/NavBar/index';
 import Box from '../../../../components/ContentBox/index'
+import LoadImg from '../../../../components/lazyLoad'
 import {Link} from "react-router";
 import classs from './index.less'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
-import shoppCenter from '../../../../assets/images/shopp-center/shoppCenter.png'
 import private1 from '../../../../assets/images/find/private2.png'
 import coin from '../../../../assets/images/find/coin.png'
 import select from '../../../../assets/images/find/select.png'
@@ -98,7 +98,7 @@ class Index extends React.Component {
 	    return <Loading/>
     }
     ScrollDom=()=>{
-	    const Height = document.body.clientHeight - 44;
+	    const Height = document.body.clientHeight - 100;
 	    let {
             typeData,
             getGoodsList,
@@ -134,7 +134,7 @@ class Index extends React.Component {
                                             </p>
                                             <Link to={`/find/productDetail/${item.product_id}`}>
                                                 <div className={classs.imgBox}>
-                                                    <img className={classs.products_img} src={image } />
+                                                    <LoadImg  className={classs.products_img} src={image} scrollDom={this.refs.scroll}  ></LoadImg>
                                                 </div>
                                             </Link>
                                             <div className={classs.productBottomBox}><span className={classs.productBottomTxt}>距结束{restTime}</span></div>
@@ -229,7 +229,7 @@ class Index extends React.Component {
 		)
 	}
 }
-const datas=(state)=>({
+const mapStateToProps=(state)=>({
       typeData:state.infodata.getIn(['GET_GOODS_TYPE_LIST','data']),
       listData(key){
           return state.listdata.getIn([key,'data'])
@@ -241,7 +241,7 @@ const datas=(state)=>({
           return state.listdata.getIn([key,'pageEnd'])
       },
 });
-const dispatchFn=(dispatch)=>({
+const mapDispatchToProps=(dispatch)=>({
     getGoodsTypeList(){
         dispatch({
             type:'GET_GOODS_TYPE_LIST'
@@ -252,7 +252,7 @@ const dispatchFn=(dispatch)=>({
             type:'GET_GOODS_LIST',
             OtherKey:key,
             params:[
-               Object.assign(type_id,data)
+               Object.assign({page_size:10},type_id,data)
             ]
         })
     },
@@ -270,4 +270,4 @@ const dispatchFn=(dispatch)=>({
         dispatch(goBack())
     },
 });
-export default connect(datas,dispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

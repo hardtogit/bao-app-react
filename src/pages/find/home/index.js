@@ -1,9 +1,7 @@
 import React,{Component} from 'react'
-import ReactDOM from "react-dom"
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
 import b1 from '../../../assets/images/find/b1.png';
 import Notice from '../../../assets/images/find/notice.png'
@@ -21,15 +19,8 @@ import special6 from '../../../assets/images/find/special6.png'
 import private1 from '../../../assets/images/find/private2.png'
 import Sign from '../../../components/Sign/index'
 import coin from '../../../assets/images/find/coin.png'
-import shop from '../../../assets/images/find/shop.png'
-import ac1 from '../../../assets/images/find/ac1.png'
-import ac2 from '../../../assets/images/find/ac2.png'
-import Tab from "../../../components/BottomTabs";
 import styles from './index.css'
-import classNames from 'classnames'
 import Loading from '../../../components/pageLoading'
-import setAuthUrl from '../../../components/setAuthUrl/index'
-
 class findHome extends Component{
     constructor(props) {
         super(props);

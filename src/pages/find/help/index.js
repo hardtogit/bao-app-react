@@ -5,23 +5,23 @@ import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
 import xiong from '../../../assets/images/find/xiong.png'
 import QuestionsAndAnswers from '../../../components/QuestionsAndAnswers'
+import Loading from '../../../components/pageLoading'
 class shoppingMall extends Component{
     componentDidMount(){
         this.props.getHelpList()
     }
     loadingDom=()=>{
+        return <Loading/>
+    }
+    loadEndDom=()=>{
         const{
             ListData
         }=this.props;
-        let queData;
-        if(ListData.size!= 0 && ListData._tail.array){
-            queData = ListData._tail.array;
-        }
         return(
             <div className={styles.findContent} >
                 <img src={xiong} className={styles.xiong}/>
                 <div className={styles.queWraper}>
-                    {queData&&queData.map((item,i)=>{
+                    {ListData&&ListData.data.map((item,i)=>{
                         return(
                             <QuestionsAndAnswers key={i} question={item.title} answer={item.answer}></QuestionsAndAnswers>
                             )
@@ -36,7 +36,9 @@ class shoppingMall extends Component{
             ListData
         }=this.props;
         let Dom;
-        if(ListData){
+        if(ListData&&ListData.code == 100){
+            Dom=this.loadEndDom();
+        }else{
             Dom=this.loadingDom();
         }
         return(
@@ -55,7 +57,7 @@ class shoppingMall extends Component{
     }
 }
 const mapStateToProps=(state)=>({
-    ListData: state.listdata.getIn(['GET_HELP_LIST', 'data']),
+    ListData: state.infodata.getIn(['GET_HELP_LIST', 'data']),
 });
 const mapDispatchToProps=(dispatch,own)=>({
     getHelpList(){

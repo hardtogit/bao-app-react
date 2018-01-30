@@ -1,9 +1,9 @@
 import React,{Component} from 'react'
-import ReactDOM from "react-dom"
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
+import Loading from '../../../components/pageLoading'
 import b1 from '../../../assets/images/find/b1.png';
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
@@ -13,15 +13,16 @@ import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
-import utils from '../../../utils/utils'
-class shoppingMall extends Component{
+class Index extends Component{
     componentWillMount(){
         this.props.getGoodsTypeList();
         this.props.getGoodsList();
     }
-    render(){
+    loadingDom=()=>{
+        return <Loading/>
+    }
+    loadEndDom=()=>{
         const {
-            pop,
             goodsTypeListData,
             goodsListData,
         }=this.props;
@@ -47,6 +48,41 @@ class shoppingMall extends Component{
                 )
             }
         })
+        return(
+            <div>
+                {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
+                    return(
+                        <div className={styles.findItem} key={i}>
+                            <div className={styles.itemTitle}>
+                                <span className={styles.leftTxt}>{item.name}</span>
+                                <Link to='/find/shoppingMall/productList'>
+                                    <span className={styles.rightTxt}>更多></span>
+                                </Link>
+                            </div>
+                            <ul className={styles.shop}>
+                                {
+                                    productList
+                                }
+                            </ul>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+    render(){
+        const {
+            pop,
+            goodsTypeListData,
+            goodsListData,
+        }=this.props;
+        let Dom;
+        if(goodsTypeListData&&goodsListData){
+            Dom = this.loadEndDom();
+        }else{
+            Dom = this.loadingDom();
+        }
+
         return(
             <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
@@ -91,23 +127,9 @@ class shoppingMall extends Component{
                             </li>
                         </ul>
                     </div>
-                        {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
-                            return(
-                                <div className={styles.findItem} key={i}>
-                                    <div className={styles.itemTitle}>
-                                        <span className={styles.leftTxt}>{item.name}</span>
-                                        <Link to='/find/shoppingMall/productList'>
-                                            <span className={styles.rightTxt}>更多></span>
-                                        </Link>
-                                    </div>
-                                    <ul className={styles.shop}>
-                                        {
-                                            productList
-                                        }
-                                    </ul>
-                                </div>
-                            )
-                        })}
+                    {
+                        Dom
+                    }
                 </div>
             </div>
         )
@@ -138,4 +160,4 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch(push(url))
     }
 });
-export default connect(mapStateToProps,mapDispatchToProps)(shoppingMall)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

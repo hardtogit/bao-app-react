@@ -7,7 +7,7 @@ import v5 from '../../../assets/images/find/5j.png'
 import v6 from '../../../assets/images/find/6j.png'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
-class rateTicketRule extends Component{
+class Index extends Component{
     constructor(props){
         super(props)
     }
@@ -104,12 +104,12 @@ class rateTicketRule extends Component{
         )
     }
 }
-const initMymassege=(state,own)=>{
+const mapStateToProps=(state,own)=>{
     return{
         vipAnnualData: state.infodata.getIn(['GET_PRIV_PROFIT', 'data']),
     }
 }
-const initMymassegefn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
         dispatch(goBack())
     },
@@ -119,4 +119,4 @@ const initMymassegefn=(dispatch,own)=>({
         })
     },
 })
-export default connect(initMymassege,initMymassegefn)(rateTicketRule)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

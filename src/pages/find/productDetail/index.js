@@ -222,10 +222,10 @@ class Index extends React.Component {
 		)
 	}
 }
-const datas=(state)=>({
+const mapStateToProps=(state)=>({
        infoData:state.infodata.getIn(['PRODUCT_DETAIL','data'])
 });
-const dispatchFn=(dispatch)=>({
+const mapDispatchToProps=(dispatch)=>({
 	  pop(){
 	  	dispatch(goBack())
 	  },
@@ -245,4 +245,4 @@ const dispatchFn=(dispatch)=>({
         })
     }
 });
-export default connect(datas,dispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

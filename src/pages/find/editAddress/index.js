@@ -140,7 +140,7 @@ const addModel = (data)=>{
 const mapStateToProps=(state)=>({
     editData:addModel(state.infodata.getIn(['EDIT_ADDRESS','data'])),
 });
-const mapFnToProps=(dispatch)=>({
+const mapDispatchToProps=(dispatch)=>({
     editAddress(consignee,phone,address,address_id,is_default){
         dispatch({
             type:'EDIT_ADDRESS',
@@ -166,4 +166,4 @@ const mapFnToProps=(dispatch)=>({
         })
     }
 });
-export default connect(mapStateToProps,mapFnToProps)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

@@ -1,12 +1,10 @@
 const requests = (Fetch) => {
-  // 商品列表
-  // Fetch.getGoodsList = () => {return Fetch(`api/userVip/goodsList?area_type_id=26`, 'GET')};
-  //商品类型列表
-  Fetch.getGoodsTypeList = () => {return Fetch(`api/userVip/typeList`, 'GET')};
+    //商品类型列表
+    Fetch.getGoodsTypeList = () => {return Fetch(`api/userVip/typeList`, 'GET')};
     // 商品列表
-      Fetch.getGoodsList=(page,data)=>{
-          return Fetch(`api/userVip/goodsList?page=${page}`, 'GET',data)
-      };
+    Fetch.getGoodsList=(page,data)=>{
+        return Fetch(`api/userVip/goodsList?page=${page}`, 'GET',data)
+    };
     //点币记录
     Fetch.getCoinRecordList = (page,data) => {
         return Fetch(`api/userVip/coinList?page=${page}`, 'GET',data)

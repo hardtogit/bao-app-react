@@ -6,7 +6,7 @@ import Scroll from '../../../components/scroll'
 import ticket from '../../../assets/images/find/ticket.png'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
-class ticketRule extends Component{
+class Index extends Component{
     constructor(props){
         super(props)
     }
@@ -31,14 +31,14 @@ class ticketRule extends Component{
         )
     }
 }
-const initMymassege=(state,own)=>{
+const mapStateToProps=(state,own)=>{
     return{
 
     }
 }
-const initMymassegefn=(dispath,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
-         dispath(goBack())
+        dispatch(goBack())
     }
 })
-export default connect(initMymassege,initMymassegefn)(ticketRule)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)
