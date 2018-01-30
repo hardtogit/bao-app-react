@@ -54,7 +54,14 @@ const requests = (Fetch) => {
   // 验证约标密码
   Fetch.verifyAssign = (data) => { return Fetch(`directInvest/buy-verify/${data.id}`, 'POST', data) }
   // 可用优惠券
-  Fetch.availableCoupons = (product, month) => { return Fetch(`voucher/coupons?product=${product}&month=${month}`, 'GET') }
+  Fetch.availableCoupons = (product, month,access_sys) => {
+      if(access_sys){
+          return Fetch(`voucher/coupons?product=${product}&month=${month}&type=1`, 'GET')
+      }else{
+          return Fetch(`voucher/coupons?product=${product}&month=${month}&type=0`, 'GET')
+      }
+
+  }
   // 轮播图
   Fetch.banners = () => { return Fetch('common/banner?cateId=1', 'GET') }
   // 直投剩余份数

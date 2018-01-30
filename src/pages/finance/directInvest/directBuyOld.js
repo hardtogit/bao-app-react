@@ -246,6 +246,16 @@ class DirectBuy extends React.Component {
     }
     renderDiscountBar = () => {
         // 还未加载完抵用券和加息券，渲染占位View
+        let {use}=this.props;
+        if (use){
+            if (use.code==100&&use.data.is){
+                return (<div
+                    className={styles.coupon}
+                >
+                    <span>{use.data.name}</span>
+                </div>)
+            }
+        }
         if (this.state.couponsFetching) {
             return (
                 <div className={styles.discountBarTouch}>
@@ -255,6 +265,16 @@ class DirectBuy extends React.Component {
         }
         const coupon = this.getCoupon()
         if (! coupon || this.state.quantity < 1) {
+            const {use}=this.props;
+            if (use){
+                if (use.code==100&&use.data.is){
+                    return (<div
+                        className={styles.coupon}
+                    >
+                        <span>{use.data.name}</span>
+                    </div>)
+                }
+            }
             let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
             const availableVouchers = vouchers.filter(this.voucherIsAvailable)
             const unavailableVouchers = vouchers.filter(this.voucherIsNotAvailable).map(voucher => {
@@ -462,13 +482,13 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     getAvailableCoupons(month) {
         dispatch({
             type: actionTypes.AVAILABLE_COUPONS,
-            params: ['直投',month]
+            params: ['直投',month,'platform']
         })
     },
     getUse(id){
         dispatch({
             type: actionTypes.DIRECT_INVEST_COUPON,
-            params: [id]
+            params: [id,'platform']
         })
     },
     push(path){

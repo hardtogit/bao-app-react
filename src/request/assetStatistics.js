@@ -138,7 +138,13 @@ const requests = (Fetch) => {
     }
      };
   // 获取已使用优惠券信息
-  Fetch.directInvestCoupon = (id) => { return Fetch(`directInvest/coupon/${id}`, 'GET') }
+  Fetch.directInvestCoupon = (id,access_sys) => {
+      if(access_sys){
+          return Fetch(`directInvest/coupon/${id}?access_sys=${access_sys}`, 'GET')
+      }else{
+          return Fetch(`directInvest/coupon/${id}`, 'GET') }
+      }
+
   // 绑定银行卡
   Fetch.bindCardInfo = (type, way) => { return Fetch (`/user/bind-bank-info?type=${type}&way=${way}`, 'GET') }
   // 回款日历

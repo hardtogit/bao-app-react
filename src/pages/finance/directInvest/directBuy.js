@@ -372,6 +372,16 @@ class DirectBuy extends React.Component {
 
     const coupon = this.getCoupon()
     if (! coupon || this.state.quantity < 1) {
+        const{use}=this.props;
+        if (use){
+            if (use.code==100&&use.data.is){
+                return (<div
+                    className={styles.coupon}
+                >
+                    <span>{use.data.name}</span>
+                </div>)
+            }
+        }
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
       const availableVouchers = vouchers.filter(this.voucherIsAvailable)
