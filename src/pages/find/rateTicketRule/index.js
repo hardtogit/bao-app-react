@@ -83,7 +83,6 @@ class Index extends Component{
         const{
             id
         }= this.props.params;
-        console.log(id)
         let Dom;
         if(vipAnnualData){
             if(id == 1){

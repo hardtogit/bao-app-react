@@ -8,6 +8,7 @@ import tab1 from '../../../assets/images/find/tab1.png'
 import tab2 from '../../../assets/images/find/tab2.png'
 import tab3 from '../../../assets/images/find/tab3.png'
 import tab4 from '../../../assets/images/find/tab4.png'
+import v0 from '../../../assets/images/find/v0.png'
 import v1 from '../../../assets/images/find/1j.png'
 import v2 from '../../../assets/images/find/2j.png'
 import v3 from '../../../assets/images/find/3j.png'
@@ -232,9 +233,11 @@ class memberCenter extends Component{
         if(PrivilegeBasicData){
             basicDom = this.PrivilegeBasicDom(PrivilegeBasicData.data);
         }
-
+        // let vip_level = 0
         let vimg;
-        if(vip_level == 1){
+        if(vip_level == 0){
+            vimg = v0;
+        }else if(vip_level == 1){
             vimg = v1;
         }else if(vip_level == 2){
             vimg = v2;

@@ -3,7 +3,7 @@ import NavBar from '../../../../components/NavBar/index';
 import Box from '../../../../components/ContentBox/index'
 import LoadImg from '../../../../components/lazyLoad'
 import {Link} from "react-router";
-import classs from './index.less'
+import styles from './index.less'
 import {connect} from 'react-redux'
 import {push,goBack} from 'react-router-redux'
 import private1 from '../../../../assets/images/find/private2.png'
@@ -92,7 +92,6 @@ class Index extends React.Component {
                 params:arr1,
             })
         }
-        console.log(this.state.params)
     }
 	loadDom=()=>{
 	    return <Loading/>
@@ -116,7 +115,7 @@ class Index extends React.Component {
                     const nlistData=listData('GET_GOODS_LIST'+i),
                         npending=pending('GET_GOODS_LIST'+i),
                         nend=end('GET_GOODS_LIST'+i);
-                    return( <div key={i} className={classs.products}>
+                    return( <div key={i} className={styles.products}>
                         <Scroll  ref='scroll' height={Height}
                                   fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,{area_type_id:id},params)}}
                                 isLoading={npending} distance={20} endType={nend} endload={<div></div>}
@@ -125,19 +124,19 @@ class Index extends React.Component {
                                     nlistData&&nlistData.map((item,i)=>{
                                         const {product_id,product_name,image,price,down_time,server_time}=item;
                                         let restTime = utils.millisecondToDate(down_time - server_time);
-                                        return(<div className={classs.productBox} key={i}>
-                                            <p className={classs.shopTitle1}>{product_name}</p>
-                                            <p className={classs.shopTitle2}>
+                                        return(<div className={styles.productBox} key={i}>
+                                            <p className={styles.shopTitle1}>{product_name}</p>
+                                            <p className={styles.shopTitle2}>
                                                 <span>{price}</span>
                                                 <span><img src={coin} /></span>
-                                                <img src={private1} className={classs.specialIcon}/>
+                                                <img src={private1} className={styles.specialIcon}/>
                                             </p>
                                             <Link to={`/find/productDetail/${item.product_id}`}>
-                                                <div className={classs.imgBox}>
-                                                    <LoadImg  className={classs.products_img} src={image} scrollDom={this.refs.scroll}  ></LoadImg>
+                                                <div className={styles.imgBox}>
+                                                    <LoadImg  className={styles.products_img} src={image} scrollDom={this.refs.scroll}  ></LoadImg>
                                                 </div>
                                             </Link>
-                                            <div className={classs.productBottomBox}><span className={classs.productBottomTxt}>距结束{restTime}</span></div>
+                                            <div className={styles.productBottomBox}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
                                         </div>)
                                     })
                                 }
@@ -149,19 +148,18 @@ class Index extends React.Component {
     }
     loadEndDom=()=>{
         let {index} = this.state;
-
         const {
             typeData
         }=this.props;
         const Dom=this.ScrollDom();
       return(<Box>
-          <div className={classs.items}>
-              <div className={classs.scrollBar}>
+          <div className={styles.items}>
+              <div className={styles.scrollBar}>
               <ul ref="ul">
-                  <li className={index==0&&classs.active||null} onClick={()=>{this.changeBar(0)}}>全部</li>
+                  <li className={index==0&&styles.active||null} onClick={()=>{this.changeBar(0)}}>全部</li>
                   {
                       typeData&&typeData.data[0].label_child.map(({id,name},i)=>(
-                          <li key={i} className={index==i+1&&classs.active||null} ref={id} onClick={()=>{this.changeBar(i+1,typeData)}}>{name}</li>
+                          <li key={i} className={index==i+1&&styles.active||null} ref={id} onClick={()=>{this.changeBar(i+1,typeData)}}>{name}</li>
                       ))
                   }
               </ul>
@@ -191,12 +189,12 @@ class Index extends React.Component {
             if(i!=0){
                 typeList.push(
                     <div key={i}>
-                        <p className={classs.selectTitle}>{item.label_name}</p>
-                        <ul className={classs.select}>
-                            <li onClick={()=>{this.choose('',item.label_type)}} className={cs(params[item.label_type]?classs.noselect:classs.current)}>全部</li>
+                        <p className={styles.selectTitle}>{item.label_name}</p>
+                        <ul className={styles.select}>
+                            <li onClick={()=>{this.choose('',item.label_type)}} className={cs(params[item.label_type]?styles.noselect:styles.current)}>全部</li>
                             {
                                 typeData&&typeData.data[i].label_child.map(({id,name},i)=>(
-                                    <li key={i} onClick={()=>{this.choose(id,item.label_type)}} className={cs(params[item.label_type]==id?classs.current:classs.noselect)}>{name}</li>
+                                    <li key={i} onClick={()=>{this.choose(id,item.label_type)}} className={cs(params[item.label_type]==id?styles.current:styles.noselect)}>{name}</li>
                                 ))
                             }
                         </ul>
@@ -205,24 +203,24 @@ class Index extends React.Component {
             }
         })
 		return (
-			<div className={classs.bg} >
-				<NavBar onRight={this.filters} rightNode={<img src={select} className={classs.rightNode}/>}
+			<div className={styles.bg} >
+				<NavBar onRight={this.filters} rightNode={<img src={select} className={styles.rightNode}/>}
                         backgroundColor="#fff"
                         color="#333"
                         onLeft={pop}>产品列表</NavBar>
                 {Dom}
-                <div className={cs(classs.filter,this.state.filterShow?classs.active:"hide")}>
+                <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
                     {
                         typeList
                     }
-                    <p className={classs.selectTitle}>积分区间</p>
-                    <form className={classs.coinselect}  ref="priceBox">
+                    <p className={styles.selectTitle}>积分区间</p>
+                    <form className={styles.coinselect}  ref="priceBox">
                         <input type="text" name="priceStart"/>
                         <span>-</span>
                         <input type="text"  name="priceEnd"/>
                     </form>
-                    <div className={classs.btnWrap}>
-                        <div className={classs.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
+                    <div className={styles.btnWrap}>
+                        <div className={styles.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
                     </div>
                 </div>
 			</div>

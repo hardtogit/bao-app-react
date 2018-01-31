@@ -26,6 +26,7 @@ export const GET_VIP='GET_VIP' //用户VIP信息
 export const GET_RATE_COUPONS='GET_RATE_COUPONS' //加息券列表
 export const GET_VOUCHER_COUPONS='GET_VOUCHER_COUPONS' //抵用券列表
 export const GET_GOODS_LIST='GET_GOODS_LIST' //抵用券列表
+export const GET_GOODS_LIST_NEW='GET_GOODS_LIST_NEW' //抵用券列表
 export const GET_GOODS_TYPE_LIST='GET_GOODS_TYPE_LIST' //抵用券列表
 export const GET_COIN_RECORD_LIST='GET_COIN_RECORD_LIST' //点币记录
 export const GET_CASH_RECORD_LIST='GET_CASH_RECORD_LIST' //兑换记录

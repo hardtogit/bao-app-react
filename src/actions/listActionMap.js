@@ -155,6 +155,9 @@ export default {
     [actionTypes.GET_GOODS_LIST]:{    //商品列表
         apiFn:Fetch.getGoodsList
     },
+    [actionTypes.GET_GOODS_LIST_NEW]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
     [actionTypes.GET_COIN_RECORD_LIST]:{   //商城历史记录点币记录
         apiFn:Fetch.getCoinRecordList
     },

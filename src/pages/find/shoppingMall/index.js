@@ -13,10 +13,11 @@ import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
-class Index extends Component{
+class shoppingMall extends Component{
     componentWillMount(){
         this.props.getGoodsTypeList();
         this.props.getGoodsList();
+        this.props.getGoodsListNew();
     }
     loadingDom=()=>{
         return <Loading/>
@@ -25,9 +26,10 @@ class Index extends Component{
         const {
             goodsTypeListData,
             goodsListData,
+            goodsListNewData
         }=this.props;
-
         let productList=[];
+        let productListNew=[];
         goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
                 productList.push(
@@ -48,26 +50,49 @@ class Index extends Component{
                 )
             }
         })
+        goodsListNewData&&goodsListNewData.map((item,i)=>{
+            if(i<4){
+                productListNew.push(
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                        <li>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image } className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+
+                )
+            }
+        })
         return(
             <div>
                 {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
-                    return(
-                        <div className={styles.findItem} key={i}>
-                            <div className={styles.itemTitle}>
-                                <span className={styles.leftTxt}>{item.name}</span>
-                                <Link to='/find/shoppingMall/productList'>
-                                    <span className={styles.rightTxt}>更多></span>
-                                </Link>
+                    if(i<2){
+                        return(
+                            <div className={styles.findItem} key={i}>
+                                <div className={styles.itemTitle}>
+                                    <span className={styles.leftTxt}>{item.name}</span>
+                                    <Link to='/find/shoppingMall/productList'>
+                                        <span className={styles.rightTxt}>更多></span>
+                                    </Link>
+                                </div>
+                                <ul className={styles.shop}>
+                                    {
+                                        item.id=='26'&&productList||productListNew
+                                    }
+                                </ul>
                             </div>
-                            <ul className={styles.shop}>
-                                {
-                                    productList
-                                }
-                            </ul>
-                        </div>
-                    )
+                        )
+                    }
                 })}
             </div>
+
         )
     }
     render(){
@@ -75,14 +100,16 @@ class Index extends Component{
             pop,
             goodsTypeListData,
             goodsListData,
+            goodsListNewData
         }=this.props;
+        console.log(goodsListNewData)
+        console.log(goodsListData)
         let Dom;
-        if(goodsTypeListData&&goodsListData){
-            Dom = this.loadEndDom();
+        if(goodsTypeListData&&goodsListData ){
+            Dom = this.loadEndDom()
         }else{
-            Dom = this.loadingDom();
+            Dom = this.loadingDom()
         }
-
         return(
             <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
@@ -138,6 +165,7 @@ class Index extends Component{
 const mapStateToProps=(state)=>({
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    goodsListNewData: state.listdata.getIn(['GET_GOODS_LIST_NEW', 'data']),
 });
 const mapDispatchToProps=(dispatch,own)=>({
     getGoodsTypeList(){
@@ -145,11 +173,19 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(data){
+    getGoodsList(){
         dispatch({
             type:'GET_GOODS_LIST',
             params:[
-                data
+                {area_type_id:26}
+            ]
+        })
+    },
+    getGoodsListNew(){
+        dispatch({
+            type:'GET_GOODS_LIST_NEW',
+            params:[
+                {area_type_id:27}
             ]
         })
     },
@@ -160,4 +196,4 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch(push(url))
     }
 });
-export default connect(mapStateToProps,mapDispatchToProps)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(shoppingMall)

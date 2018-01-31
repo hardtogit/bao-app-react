@@ -7,7 +7,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../../assets/images/defaultImg.png'
-import errorImg from '../../assets/images/about1.png'
+import errorImg from '../../assets/images/errorImg.png'
 class Index extends React.Component {
     constructor(props){
         super(props)
@@ -40,7 +40,7 @@ class Index extends React.Component {
                     $this.setState({
                         src:$this.props.src
                     })
-                },false)
+                },false);
                 img.addEventListener('error',function () {
                     $this.setState({
                         src:errorImg
