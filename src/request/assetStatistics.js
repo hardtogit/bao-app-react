@@ -51,7 +51,13 @@ const requests = (Fetch) => {
   // 自动投标详情
   Fetch.autoBidDetail = (data) => { return Fetch('directInvest/auto-bid/detail', 'GET',data) }
   // 直投产品信息
-  Fetch.directInvestProductInfo = (id) => { return Fetch('directInvest/index/' + id, 'GET') }
+  Fetch.directInvestProductInfo = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('directInvest/index/' + id+'?access_sys=platform', 'GET')
+      }else{
+          return Fetch('directInvest/index/' + id, 'GET')
+      }
+  }
   // 债权产品信息
   Fetch.creditorsProductInfo = (id,access_sys) => {
       if(access_sys){

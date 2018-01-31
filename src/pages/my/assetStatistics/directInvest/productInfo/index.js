@@ -10,7 +10,12 @@ import Loading from '../../../../../components/pageLoading'
 class Index extends Component{
     componentWillMount(){
        const id=this.props.params.id;
-       this.props.getInfo(id)
+       const access_sys=this.props.location.query.access_sys;
+       if(access_sys){
+           this.props.getInfo(id,access_sys)
+       }else{
+           this.props.getInfo(id)
+       }
     }
     componentWillUnmount(){
         this.props.clearData()
@@ -147,10 +152,10 @@ const datas=(state)=>({
       infoData:state.infodata.getIn(['DIRECT_INVEST_PRODUCT_INFO','data'])
 })
 const dispatchFn=(dispatch)=>({
-       getInfo(id){
+       getInfo(id,access_sys){
            dispatch({
                type:'DIRECT_INVEST_PRODUCT_INFO',
-               params:[id]
+               params:[id,access_sys]
            })
        },
     pop(){
