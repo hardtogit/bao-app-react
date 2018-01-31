@@ -550,6 +550,9 @@ export default {
     [actionTypes.GET_HELP_LIST]:{   //商城帮助问题
         apiFn:Fetch.getHelpList
     },
+    [actionTypes.GET_FIND_BANNER]:{   //发现Banner
+        apiFn:Fetch.findBanner
+    },
 
 
 }

@@ -36,6 +36,7 @@ class findHome extends Component{
         this.props.getGoodsList();
         this.props.getUser();
         this.props.getHotActivityList();
+        this.props.findBanner();
     }
     componentWillReceiveProps(next){
         const {user}=next;
@@ -63,18 +64,19 @@ class findHome extends Component{
         userInfo.coins=data.data.coins;
         sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
         this.refs.SignModel.hide();
-    }
+    };
     qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
         return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
-    }
-    loadingDom(){
+    };
+    loadingDom=()=>{
         return(<Loading/>)
-    }
+    };
     loadingEndDom(){
         const {
             goodsListData,
-            activityData
+            activityData,
+            bannerData
         }=this.props;
         let inviteUrl;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
@@ -115,12 +117,13 @@ class findHome extends Component{
         return(
             <div>
                 <Swiper className={styles.swiperBg} autoPlay={false}>
-                    <div className='banner-box' style={{textAlign:"center"}}>
-                        <img src={b1} className='banner-img'  />
-                    </div>
-                    <div  className='banner-box' style={{textAlign:"center"}}>
-                        <img src={b1} className='banner-img' />
-                    </div>
+                    {
+                        bannerData&&bannerData.data.map((item,i)=>(
+                            <div className='banner-box' style={{textAlign:"center"}} key={i}>
+                                <img src={item.image_wap} className='banner-img'  />
+                            </div>
+                        ))
+                    }
                 </Swiper>
                 <div className={styles.tabContainer}>
                     <ul className={styles.productTab}>
@@ -269,7 +272,8 @@ class findHome extends Component{
 const initMymassege=(state,own)=>({
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
     user:state.infodata.getIn(['USER_INFO','data']),
-    activityData:state.infodata.getIn(['GET_HOT_ACTIVITY','data'])
+    activityData:state.infodata.getIn(['GET_HOT_ACTIVITY','data']),
+    bannerData:state.infodata.getIn(['GET_FIND_BANNER','data'])
 })
 const initMymassegefn=(dispatch,own)=>({
     getGoodsList(){
@@ -285,6 +289,11 @@ const initMymassegefn=(dispatch,own)=>({
     getHotActivityList(){
         dispatch({
             type:'GET_HOT_ACTIVITY'
+        })
+    },
+    findBanner(){
+        dispatch({
+            type:'GET_FIND_BANNER'
         })
     },
 

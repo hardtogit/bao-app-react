@@ -1,4 +1,6 @@
 const requests = (Fetch) => {
+    //商品兑换
+    Fetch.findBanner = () => {return Fetch(`api/userVip/userIndexBanner`, 'GET')};
     //商品类型列表
     Fetch.getGoodsTypeList = () => {return Fetch(`api/userVip/typeList`, 'GET')};
     // 商品列表
