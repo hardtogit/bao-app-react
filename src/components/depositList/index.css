@@ -1,0 +1,99 @@
+.depositUl {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+}
+.depositUl .depositli {
+  display: block;
+  padding: 0px 15px;
+  background-color: #ffffff;
+  margin-top: 8px;
+}
+.depositUl .depositli:first-child {
+  margin-top: 0px;
+}
+.depositUl .title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+.depositUl .title .hongwu {
+  display: inline-block;
+  width: 42px;
+  height: 16px;
+  float: right;
+}
+.depositUl .title .hongwu img {
+  width: 100%;
+  height: 100%;
+}
+.depositUl .msBox {
+  padding-top: 8px;
+  padding-bottom: 10px;
+  position: relative;
+}
+.depositUl .msBox .interest {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 55%;
+}
+.depositUl .msBox .interest p {
+  display: inline-block;
+  font-size: 16px;
+  color: #333;
+}
+.depositUl .msBox .interest p:first-child {
+  width: 68%;
+}
+.depositUl .msBox .interest p:first-child span {
+  font-size: 14px;
+}
+.depositUl .msBox .interest .interestText {
+  font-size: 20px;
+  color: #f70;
+}
+.depositUl .msBox .interest .msText {
+  font-size: 12px;
+  color: #aaa;
+}
+.depositUl .msBox .buyBtn {
+  display: inline-block;
+  height: 26px;
+  width: 55px;
+  background: #f70;
+  border: 0px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+}
+.depositUl .msBox .buyText {
+  display: inline-block;
+  height: 26px;
+  width: 55px;
+  border: 0px;
+  border-radius: 3px;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+  position: absolute;
+  right: 0px;
+  bottom: 7px;
+  line-height: 26px;
+}
+.depositUl .overSold {
+  display: inline-block;
+  height: 26px;
+  width: 55px;
+  border: 0px;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+  position: absolute;
+  right: 0px;
+  bottom: 7px;
+  line-height: 30px;
+}

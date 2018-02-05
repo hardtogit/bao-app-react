@@ -1,0 +1,37 @@
+.selectBox {
+  width: 100%;
+  height: 100%;
+}
+.selectBox .cancel {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
+  font-weight: 500;
+  padding: 1px;
+  width: 100%;
+  border-color: #d1d3d6;
+  color: #007aff;
+  font-size: 21px;
+  line-height: 42px;
+  height: 44px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 8px;
+}
+.selectBox .select {
+  width: 100%;
+  background: #f1f2f3;
+  border-radius: 4px;
+}
+.selectBox .select li {
+  height: 44px;
+  line-height: 44px;
+  font-size: 16px;
+  list-style: none;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.selectBox .select li:last-child {
+  border-bottom: none;
+}

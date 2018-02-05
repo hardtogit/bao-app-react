@@ -1,0 +1,240 @@
+.leftCav {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 8px;
+  line-height: 44px;
+}
+.bankInput {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #F0EFF5;
+  left: 0px;
+  z-index: 999;
+  transition: all linear .5s;
+  -moz-transition: all linear .5s;
+  -webkit-transition: all linear .5s;
+  -o-transition: all linear .5s;
+}
+.sqBox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #F0EFF5;
+  left: 0px;
+  z-index: 99;
+}
+.bankcardAddContent {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-top: 44px;
+  overflow: auto;
+}
+.bankcardAddContent .inputBox {
+  padding-top: 15px;
+}
+.bankcardAddContent .inputBox .text {
+  padding: 0px 15px;
+  font-size: 14px;
+  color: #888;
+}
+.bankcardAddContent .inputBox .inputOne {
+  padding: 0px 15px;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  background-color: #fff;
+  position: relative;
+  min-height: 44px;
+}
+.bankcardAddContent .inputBox .inputOne .inputContent {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 44px;
+  margin-left: 55px;
+}
+.bankcardAddContent .inputBox .inputOne .inputTitle {
+  position: absolute;
+  left: 15px;
+  line-height: 44px;
+}
+.bankcardAddContent .inputBox .inputOne .inputJt {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  margin-top: -12px;
+}
+.bankcardAddContent .inputBox .inputOne .inputJt:after {
+  content: "";
+  display: inline-block;
+  border-width: 10px;
+  border-color: transparent transparent transparent #fff;
+  border-style: solid;
+  position: absolute;
+  right: -1px;
+  top: 2px;
+}
+.bankcardAddContent .inputBox .inputOne .inputJt:before {
+  content: "";
+  display: inline-block;
+  border-width: 12px;
+  border-color: transparent transparent transparent #ccc;
+  border-style: solid;
+}
+.bankcardAddContent .inputBox .inputOne .inputTitleC {
+  position: absolute;
+  left: 0px;
+  line-height: 44px;
+}
+.bankcardAddContent .inputBox .inputIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  background: url('../../../../assets/images/notice.png') center center no-repeat;
+  background-size: 100% 100%;
+}
+.bankcardAddContent .inputBox .inputSr {
+  border: 0px;
+  padding-left: 55px;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+  line-height: 44px;
+}
+.bankcardAddContent .inputBox .inputCh {
+  margin-bottom: 12px;
+  position: relative;
+}
+.bankcardAddContent .inputBox .inputCh > img {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  width: 30px;
+  margin-top: -15px;
+}
+.bankcardAddContent .inputBox .mg {
+  margin-top: 12px;
+}
+.bankcardAddContent .btBox {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 12px;
+}
+.bankcardAddContent .bt {
+  width: 100%;
+  line-height: 40px;
+  text-align: center;
+  background-color: #00a6e2;
+  color: #fff;
+  border: 1px #00a6e2 solid;
+  border-radius: 5px;
+}
+.bankcardAddContent .bt[disabled] {
+  border-color: #90D1ED;
+  background-color: #90D1ED;
+}
+.bankcardAddContent .bt > span {
+  display: inline-block;
+}
+.bankcardAddContent .bt1 {
+  background-color: #ffffff;
+  line-height: 40px;
+  text-align: center;
+  border: 1px #ffffff solid;
+  border-radius: 5px;
+  margin-top: 12px;
+  width: 100%;
+}
+.bankcardAddContent .sqText {
+  margin-top: 50px;
+}
+.bankcardAddContent .sqText > p {
+  text-align: center;
+  line-height: 30px;
+}
+.bankcardAddContent .sqText > .sqTel {
+  font-size: 14px;
+}
+.bankcardAddContent .tsBox {
+  padding: 25px 15px;
+}
+.bankcardAddContent .tsBox > ul {
+  display: block;
+  width: 100%;
+}
+.bankcardAddContent .tsBox > ul > li {
+  display: inline-block;
+  width: 33.333%;
+  padding: 10px 8px;
+}
+.bankcardAddContent .tsBox > ul > li > img {
+  width: 100%;
+}
+.bankcardAddContent .tsBox > ul > li > p {
+  text-align: center;
+  font-size: 12px;
+  line-height: 22px;
+  color: #666;
+}
+.bankcardAddContent .mg {
+  margin-top: 12px;
+}
+.bankBox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+  transition: all linear .5s;
+  -moz-transition: all linear .5s;
+  -webkit-transition: all linear .5s;
+  -o-transition: all linear .5s;
+}
+.bankBox .bankContent {
+  position: absolute;
+  padding-top: 44px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.bankBox .bankContent .bankList {
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+}
+.bankBox .bankContent .bankList .bank {
+  width: 100%;
+  display: inline-block;
+  padding: 5px 0px;
+  border-bottom: 1px #ddd solid;
+  position: relative;
+}
+.bankBox .bankContent .bankList .bank .bankImg {
+  display: inline-block;
+  width: 30px;
+  vertical-align: middle;
+}
+.bankBox .bankContent .bankList .bank .bankImg > img {
+  width: 100%;
+}
+.bankBox .bankContent .bankList .bank .bankText {
+  margin-left: 8px;
+}
+.bankBox .bankContent .bankList .bank .choosed {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../../../../assets/images/good.png") center center no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  margin-top: -8px;
+}

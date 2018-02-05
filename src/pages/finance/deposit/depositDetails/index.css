@@ -1,0 +1,11 @@
+.body {
+  background-color: #ffffff;
+  height: 100%;
+  position: absolute;
+  padding-top: 44px;
+}
+.body p {
+  padding: 15px 15px 0px 15px;
+  font-size: 13px;
+  color: #888888;
+}

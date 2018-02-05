@@ -1,0 +1,25 @@
+.input_group {
+  padding-left: 15px;
+  background-color: #fff;
+}
+.input_group .inputs {
+  border-bottom: 1px solid #ddd;
+  display: flex;
+}
+.input_group .inputs input {
+  flex: 1;
+  border: none;
+  padding: 12px 6px;
+}
+.input_group .inputs span {
+  padding: 12px 10px 12px 0;
+  color: #888;
+}
+.input_group .inputs:last-child {
+  border: none;
+}
+.submit {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 5%;
+}

@@ -1,0 +1,124 @@
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 44px;
+  overflow: auto;
+}
+.content .textBox {
+  background-color: #fff;
+}
+.content .textBox textarea {
+  width: 100%;
+  height: 200px;
+  font-size: 16px;
+  padding: 8px 15px;
+  border: 0px;
+  outline: none;
+  resize: none;
+}
+.content .choose {
+  width: 100%;
+  padding: 8px 15px;
+}
+.content .choose .OneInput {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: url('../../../../assets/images/imageplus.png') center center no-repeat;
+  background-size: 100% 100%;
+  border: 1px solid #ddd;
+  position: relative;
+}
+.content .choose .OneInput > input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 99;
+}
+.content .choose .OneInput > span {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.content .choose .OneInput > span > img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.content .maginL {
+  margin-left: 12px;
+}
+.content .sendBox {
+  width: 100%;
+  padding: 12px 15px;
+}
+.content .sendBt {
+  width: 100%;
+  line-height: 40px;
+  background-color: #00a6e2;
+  border: 1px #00a6e2 solid;
+  color: #fff;
+  border-radius: 5px;
+}
+.content .sendBt[disabled] {
+  border: 1px #90D1ED solid;
+  background-color: #90D1ED;
+}
+.content .contact {
+  display: flex;
+  padding: 15px;
+}
+.content .contact label {
+  flex: 0 1 112px;
+  width: 1%;
+  line-height: 28px;
+  color: #666;
+}
+.content .contact label span {
+  color: #ff0000;
+}
+.content .contact input {
+  flex: 8 1 auto;
+  border: 2px solid #90D1ED;
+  border-radius: 4px;
+  background-color: transparent;
+  height: 32px;
+  width: 1%;
+  text-indent: 10px;
+}
+.content .contact input:focus {
+  outline: none;
+}
+.backdrop {
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.backdrop .text {
+  color: #fff;
+  margin: 200px auto 0 auto;
+  text-align: center;
+}
+.loading {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+.loading > span {
+  display: inline-block;
+}
