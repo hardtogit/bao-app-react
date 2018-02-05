@@ -101,7 +101,13 @@ const requests = (Fetch) => {
 
   }
   // 直投合同
-  Fetch.directInvestContract = (id) => { return Fetch('directInvest/contract/' + id, 'GET') }
+  Fetch.directInvestContract = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('directInvest/contract/' + id +"?access_sys=platform", 'GET')
+      }else{
+          return Fetch('directInvest/contract/' + id, 'GET')
+      }
+  }
   // 我的债权转让列表
   Fetch.creditorsList = (page) => { return Fetch('creditors/list?page=' + page, 'GET') }
   // 我的直投列表

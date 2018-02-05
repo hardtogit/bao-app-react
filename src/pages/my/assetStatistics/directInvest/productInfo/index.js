@@ -30,6 +30,11 @@ class Index extends Component{
             },
             params:{
                 id
+            },
+            location:{
+                query:{
+                    access_sys
+                }
             }
         }=this.props;
         const {name,total,rate,term,type,interest_start_time,interest_end_time,repayment}=data;
@@ -117,7 +122,7 @@ class Index extends Component{
                     {repayment}
                     </span>
             </div>
-            <Link to={"/user/securityPlan/"+id+""}>
+            <Link to={access_sys&&"/user/securityPlan/"+id+"?access_sys=platform"||"/user/securityPlan/"+id+""}>
                 <div className={styles.modeBox}>
                  <span>
                    产品合同

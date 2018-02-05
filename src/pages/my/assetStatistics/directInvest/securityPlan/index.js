@@ -414,7 +414,8 @@ const zhDate=(date)=>{
 class Index extends Component{
     componentWillMount(){
         const id=this.props.params.id;
-        this.props.getInfo(id);
+        const access_sys=this.props.location.query.access_sys;
+        this.props.getInfo(id,access_sys);
     }
     componentDidMount(){
 
@@ -457,10 +458,10 @@ const datas=(state)=>({
       infoData:state.infodata.getIn(['DIRECT_INVEST_CONTRACT','data'])
 });
 const dispatchFn=(dispatch)=>({
-      getInfo(id){
+      getInfo(id,access_sys){
           dispatch({
               type:'DIRECT_INVEST_CONTRACT',
-              params:[id]
+              params:[id,access_sys]
           })
       },
     pop(){
