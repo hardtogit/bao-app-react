@@ -62,8 +62,7 @@ class Index extends React.Component {
         this.setState({
             flag:false
         })
-        if(args[0])
-            this.props.setDeafult([args[1]]);
+        this.props.setDeafult(args[1]);
     };
     del = (id)=>{
         this.refs.confirm.show({
@@ -191,7 +190,9 @@ const mapDispatchToProps = (dispatch) => ({
     setDeafult(params){
         dispatch({
             type:"SET_ADDRESS",
-            params:params
+            params:[
+                params
+            ]
         })
     },
     delSite(id){

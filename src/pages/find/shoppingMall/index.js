@@ -66,7 +66,6 @@ class shoppingMall extends Component{
                             </div>
                         </li>
                     </Link>
-
                 )
             }
         })
@@ -102,8 +101,6 @@ class shoppingMall extends Component{
             goodsListData,
             goodsListNewData
         }=this.props;
-        console.log(goodsListNewData)
-        console.log(goodsListData)
         let Dom;
         if(goodsTypeListData&&goodsListData ){
             Dom = this.loadEndDom()

@@ -66,6 +66,7 @@
 .ruleTable tr td{
     text-align: center;
     color:#404040;
+    width: 50%;
 }
 .infoTxt{
     margin-top: 20px;

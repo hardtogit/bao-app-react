@@ -274,7 +274,7 @@ class memberCenter extends Component{
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>基础特权</span>
                         <Link to="/find/basicPrivaligeDetail" className={styles.Link}>
-                            <span className={styles.rightTxt}>更多></span>
+                            <span className={styles.rightTxt}>领取规则></span>
                         </Link>
                     </div>
                     {
