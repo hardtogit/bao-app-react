@@ -128,7 +128,7 @@ class memberCenter extends Component{
             mall,
             withdrawal
         } = data;
-        let vip_level =3;
+        let vip_level =2;
         let birthdayVip = birthday.rule_list;
         let holidayVip = holiday.rule_list;
         let mallVip = mall.rule_list;
@@ -162,12 +162,13 @@ class memberCenter extends Component{
                 <div className={styles.TabContent}>
                     <div className={index==0&&styles.contentItem}>
                         <img src={vip_level==0&&content11||birth11}  />
-                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{birthday.annual_gap}元</p>
                         <p className={vip_level!=0&&styles.BirNum||styles.none}>{vip_level==1&&birthdayVip.v1||(vip_level==2&&birthdayVip.v2||(vip_level==3&&birthdayVip.v3||(vip_level==4&&birthdayVip.v4||(vip_level==5&&birthdayVip.v5||(vip_level==6&&birthdayVip.v6)))))}</p>
+                        <p className={vip_level!=0&&styles.BirInfo||styles.none}>生日当天将会为您送上{vip_level==1&&birthdayVip.v1||(vip_level==2&&birthdayVip.v2||(vip_level==3&&birthdayVip.v3||(vip_level==4&&birthdayVip.v4||(vip_level==5&&birthdayVip.v5||(vip_level==6&&birthdayVip.v6)))))}元生日大礼包~</p>
                     </div>
                     <div className={index==1&&styles.contentItem}>
-                        <img  className={vip_level!=0&&styles.none} src={noFestival} style={{width:"280px"}}/>
-                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <img  className={vip_level!=0&&styles.none||""} src={noFestival} style={{width:"280px"}}/>
+                        <p className={vip_level==0&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{holiday.annual_gap.cj}元</p>
                         <div className={(vip_level==1||vip_level==2)&&styles.chunjieOnly||styles.none}>
                             <img  className={styles.basicImg} src={chunjie} style={{width:"100px"}}/>
                             <p className={styles.BirNum1}>{vip_level==1&&holidayVip.cj.v1||(vip_level==2&&holidayVip.cj.v2)}  </p>
@@ -186,6 +187,7 @@ class memberCenter extends Component{
                                 <p className={styles.BirNum1}>{vip_level==3&&holidayVip.cj.v3||(vip_level==4&&holidayVip.cj.v4||(vip_level==5&&holidayVip.cj.v5||(vip_level==6&&holidayVip.cj.v6)))}  </p>
                             </div>
                         </div>
+                        <p  className={vip_level!=0&&styles.BirInfo||styles.none}>{(vip_level==1||vip_level==2)&&"每逢春节可获得等级对应价值的节日礼包~"||"每逢春节、端午、中秋可分别获得等级对应价值的节日礼包~"}</p>
                     </div>
                     <div className={index==2&&styles.contentItem}>
                         <img  className={(vip_level==0||vip_level==1||vip_level==2)&&styles.basicImg||styles.none} src={noDiscount} style={{width:"200px"}}/>
@@ -200,6 +202,7 @@ class memberCenter extends Component{
                             <img  src={withdraw}  style={{width:"130px"}}/>
                             <p className={styles.withDrawNum}>{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}  </p>
                         </div>
+                        <p  className={vip_level!=0&&styles.BirInfo||styles.none}>您每月可享受{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}次免费提现次数~</p>
                     </div>
                 </div>
             </div>

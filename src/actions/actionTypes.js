@@ -16,6 +16,7 @@ export const Tab_CAV='Tab_CAV';//产品头部选项卡
 /*************************** 发现 ******************************************/
 export const FETCH_ACTIVE_LIST= 'FETCH_ACTIVE_LIST'; //开始请求活动列表
 export const GET_FIND_BANNER= 'GET_FIND_BANNER'; //发现Banner
+export const GET_MALL_BANNER= 'GET_MALL_BANNER'; //商城Banner
 export const FETCH_ACTIVE_MASSAGE = 'FETCH_ACTIVE_MASSAGE'; //开始请求消息
 export const FETCH_MY_MASSAGE_S = 'FETCH_MY_MASSAGE_S';
 export const FETCH_ANNOUNCEMENT_S = 'FETCH_ANNOUNCEMENT_S';

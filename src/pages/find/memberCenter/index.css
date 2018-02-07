@@ -410,6 +410,12 @@
     font-size: 34px;
     color:#e7be83;
 }
+.BirInfo{
+    text-align: center;
+    font-size: 14px;
+    color:#d0a15e;
+    margin-top: 10px;
+}
 .basicImg{
     width:100px;
     margin: 0 5px;
@@ -448,6 +454,7 @@
     height:100px;
     margin: 0 auto;
     position: relative;
+    margin-bottom: 30px;
 }
 .BirNum2{
     position: absolute;

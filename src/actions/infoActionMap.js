@@ -553,6 +553,9 @@ export default {
     [actionTypes.GET_FIND_BANNER]:{   //发现Banner
         apiFn:Fetch.findBanner
     },
+    [actionTypes.GET_MALL_BANNER]:{   //商城Banner
+        apiFn:Fetch.mallBanner
+    },
 
 
 }

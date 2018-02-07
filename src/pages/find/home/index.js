@@ -32,7 +32,7 @@ class findHome extends Component{
             id:0
         }
     }
-    componentDidMount(){
+    componentWillMount(){
         this.props.getGoodsList();
         this.props.getUser();
         this.props.getHotActivityList();
@@ -65,6 +65,10 @@ class findHome extends Component{
         sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
         this.refs.SignModel.hide();
     };
+    handleBasic=(index)=>{
+        this.props.push("/find/memberCenter")
+        sessionStorage.setItem("basicIndex",index)
+    }
     qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
         return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
@@ -85,7 +89,7 @@ class findHome extends Component{
         }else {
             inviteUrl = "/find/inviteRule";
         }
-        let productList=[]
+        let productList=[];
         goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
              productList.push(
@@ -102,27 +106,43 @@ class findHome extends Component{
                  </Link>
              )
             }
-        })
-        let activityList=[]
+        });
+        let activityList=[];
         activityData&&activityData.data.map((item,i)=>{
             if(i<2){
-                activityList.push(
-                    <li key={i}>
-                        <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
-                        <img src={item.image_wap}/>
-                    </li>
-                )
+                if(item.status == 1){
+                    activityList.push(
+                        <Link to={item.url_wap} key={i}>
+                        <li>
+                            <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
+                            <img src={item.image_wap}/>
+                        </li>
+                        </Link>
+                    )
+                }else{
+                    activityList.push(
+                        <li key={i} >
+                            <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
+                            <img src={item.image_wap}/>
+                        </li>
+                    )
+                }
+
             }
-        })
+        });
+        let bannerList=[];
+        bannerData&&bannerData.data.map((item,i)=>(
+            bannerList.push(
+                <div className='banner-box' style={{textAlign:"center"}} key={i}>
+                    <img src={item.image_wap} className='banner-img'  />
+                </div>
+            )
+        ));
         return(
             <div>
                 <Swiper className={styles.swiperBg} autoPlay={false}>
                     {
-                        bannerData&&bannerData.data.map((item,i)=>(
-                            <div className='banner-box' style={{textAlign:"center"}} key={i}>
-                                <img src={item.image_wap} className='banner-img'  />
-                            </div>
-                        ))
+                        bannerList
                     }
                 </Swiper>
                 <div className={styles.tabContainer}>
@@ -191,11 +211,11 @@ class findHome extends Component{
                         </Link>
                     </div>
                     <ul className={styles.special}>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
                             <img src={special1}/>
                             <p>生日特权</p>
                         </li>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
                             <img src={special2}/>
                             <p>节日礼包</p>
                         </li>
@@ -254,6 +274,8 @@ class findHome extends Component{
          if (goodsListData&&(coins||coins==0)){
              contentDom=this.loadingEndDom();
              qdDom=this.qdDom();
+         }else{
+             contentDom=this.loadingDom();
          }
          return(
              <div className={styles.finderHome}>
@@ -295,6 +317,9 @@ const initMymassegefn=(dispatch,own)=>({
         dispatch({
             type:'GET_FIND_BANNER'
         })
+    },
+    push(url){
+        dispatch(push(url))
     },
 
 })

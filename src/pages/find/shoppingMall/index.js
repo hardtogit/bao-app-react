@@ -18,6 +18,7 @@ class shoppingMall extends Component{
         this.props.getGoodsTypeList();
         this.props.getGoodsList();
         this.props.getGoodsListNew();
+        this.props.mallBanner();
     }
     loadingDom=()=>{
         return <Loading/>
@@ -99,7 +100,7 @@ class shoppingMall extends Component{
             pop,
             goodsTypeListData,
             goodsListData,
-            goodsListNewData
+            bannerData
         }=this.props;
         let Dom;
         if(goodsTypeListData&&goodsListData ){
@@ -107,6 +108,14 @@ class shoppingMall extends Component{
         }else{
             Dom = this.loadingDom()
         }
+        let bannerList=[];
+        bannerData&&bannerData.data.map((item,i)=>(
+            bannerList.push(
+                <div className='banner-box' style={{textAlign:"center"}} key={i}>
+                    <img src={item.image_wap} className='banner-img'  />
+                </div>
+            )
+        ));
         return(
             <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
@@ -116,12 +125,9 @@ class shoppingMall extends Component{
                 </div>
                 <div className={styles.findContent} >
                     <Swiper className={styles.swiperBg} autoPlay={false}>
-                        <div className='banner-box' style={{textAlign:"center"}}>
-                            <img src={b1} className='banner-img'  />
-                        </div>
-                        <div  className='banner-box' style={{textAlign:"center"}}>
-                            <img src={b1} className='banner-img' />
-                        </div>
+                        {
+                            bannerList
+                        }
                     </Swiper>
                     <div className={styles.tabContainer}>
                         <ul className={styles.productTab}>
@@ -163,6 +169,7 @@ const mapStateToProps=(state)=>({
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
     goodsListNewData: state.listdata.getIn(['GET_GOODS_LIST_NEW', 'data']),
+    bannerData:state.infodata.getIn(['GET_MALL_BANNER','data'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
     getGoodsTypeList(){
@@ -191,6 +198,11 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     push(url){
         dispatch(push(url))
-    }
+    },
+    mallBanner(){
+        dispatch({
+            type:'GET_MALL_BANNER'
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(shoppingMall)
