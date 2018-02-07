@@ -18,7 +18,7 @@ const requests = (Fetch) => {
     //兑换详情
     Fetch.getCashDetail = (id) => {return Fetch(`api/userVip/cashInfo?id=${id}`, 'GET')};
     //取消兑换
-    Fetch.cancelCash = (id) => {return Fetch(`api/userVip/cashReback?id=${id}`, 'GET')};
+    Fetch.cancelCashGoods = (id) => {return Fetch(`api/userVip/cashReback?id=${id}`, 'GET')};
     //商城通知列表
     Fetch.getNoticeList = () => {return Fetch(`api/userVip/noticeList`, 'GET')};
     //商城通知详情

@@ -1,5 +1,4 @@
 import React from 'react'
-import cs from 'classnames'
 import styles from './index.styl'
 import PropTypes from 'prop-types'
 export default class NavBar extends React.PureComponent {

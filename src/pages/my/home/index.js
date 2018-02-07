@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
 import Sign from '../../../components/Sign/index'
 
-import styles from './index.css'
+import styles from './index.less'
 
 import xing from '../../../assets/images/my-index/2.png' // 会员标记
 import moneySolar from '../../../assets/images/my-index/9.png'  //回款日历
@@ -25,6 +26,9 @@ import DepositTreasureB from '../../../assets/images/my-index/16.png'
 import poppic1 from '../../../assets/images/my-index/pop1.png'
 import close from '../../../assets/images/my-index/close.png'
 import gift from '../../../assets/images/my-index/gift.png'
+import user_bg from '../../../assets/images/my-index/user_bg.png'
+import vip from '../../../assets/images/my-index/vip.png'
+import setting from '../../../assets/images/my-index/setting.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
@@ -35,7 +39,6 @@ class Index extends React.Component {
             ifShow: false
         }
     }
-
     loadingDom() {
         return (<Loading/>)
     }
@@ -94,34 +97,71 @@ class Index extends React.Component {
             isBuyDemand,
             depositb
         } = data;
+        const{
+            userInfo
+        }=this.props
         return (
             <div>
-                <div className={styles.header}>账户</div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
                 <div className={styles.userAccount}>
-                    <div className={styles.headImg}><img src={avatar}/></div>
-                    <div className={styles.nameCenter}>
-                        <p>{username}</p>
-                        <p onClick={e => e.stopPropagation()}><Link><img src={xing}/>普通会员</Link></p>
+                    <img className={styles.userBg} src={user_bg} alt=""/>
+                    <div className={styles.userInfoBg}>
+
                     </div>
-                    <div className={styles.rightArrows}>
-                        <Link to='/user/setting'>
-                            <span className={styles.arrows}></span>
-                        </Link>
+                    <div className={styles.userInfo}>
+                        <div className={styles.name}>{username}</div>
+                        <div className={styles.vip}><div className={styles.left}><img src={vip} alt=""/></div> <div className={styles.right}>普通会员</div></div>
+                    </div>
+                    <div className={styles.settingBg}>
+                    </div>
+                    <div className={styles.setting} onClick={()=>{this.props.push('/user/setting') }}>
+                        <img src={setting} alt=""/>
+                        <span>设置</span>
                     </div>
                 </div>
+                <Link to="/user/analysis">
+                    <div className={styles.myProduct}>
+                        <div className={styles.mpLeft}>
+                            <p className={styles.one}>总资产 (元)</p>
+                            <p className={styles.two}>{amount}</p>
+                        </div>
+                        <div className={styles.mpright}>
+                            <p>账户安全保障中</p>
+                            <div className={styles.rightArrows}>
+                                <span className={styles.arrows}></span>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
 
                 <div className={styles.contents}>
-                    <Link to="/user/analysis">
-                        <div className={styles.myProduct}>
+                    <Link to={`/user/main`}>
+                        <div className={styles.myProduct} style={{height:"65px"}}>
                             <div className={styles.mpLeft}>
-                                <p>{amount}</p>
+                                <p className={styles.one}>账户余额 (元)</p>
+                                <p className={styles.two}>{(()=>{
+                                    if(userInfo) {
+                                        let value = JSON.stringify(parseInt(userInfo.data.balance * 100 + userInfo.data.balance_platform * 100) / 100);
+                                        if(value.split('.')[1]){
+                                            switch (value.split('.')[1].length) {
+                                                case 1:
+                                                    return value + '0';
+                                                    break
+                                                case 2:
+                                                    return value;
+                                                    break
+                                                default:
+                                                    return value + ".00"
+                                                    break
+                                            }
+                                        }else{
+                                            return value + ".00"
+                                        }
+                                    }
+                                })()}</p>
                             </div>
                             <div className={styles.mpright}>
-                                <p>账户安全保障中</p>
-                                <div className={styles.rightArrows}>
-                                    <span className={styles.arrows}></span>
-                                </div>
+                               <Link to="/user/rechargeMain" className={styles.a}><div className={styles.rechange}>充值</div> </Link><Link to="/user/cashMain" className={styles.a}><div className={styles.withdrawals}>提现</div> </Link>
                             </div>
                         </div>
                     </Link>
@@ -138,28 +178,7 @@ class Index extends React.Component {
                             </div>
                         </div>
                     </Link>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to={`/user/rechargeOld`}>
-                                <img src={recharge}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>托管账户余额</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{balance_platform == 0 && '立即充值' || balance_platform}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to={`/user/recharge`}>
-                                <img src={recharge}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>存管余额</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{balance == 0 && '立即充值' || balance}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
+
                     <div className={styles.myProduct}>
                         <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
                             <Link to={`/user/autoBuy`}>
@@ -375,7 +394,8 @@ class Index extends React.Component {
 
 const myIndexInit = (state, own) => ({
     nobjs: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
-    fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data'])
+    fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data']),
+    userInfo:state.infodata.getIn(['USER_INFO','data'])
 })
 const myIndexInitfn = (dispath, own) => ({
     load() {
@@ -388,5 +408,8 @@ const myIndexInitfn = (dispath, own) => ({
             type: "FRIDAY_POP"
         })
     },
+    push(url){
+        dispath(push(url))
+    }
 })
 export default connect(myIndexInit, myIndexInitfn)(Index)

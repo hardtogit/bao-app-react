@@ -61,7 +61,7 @@ class PayProcess extends React.Component {
         if (nextProps.balancePayData&&nextProps.depositbsBuyResultData){
             const code = nextProps.balancePayData.code;
             if (code==100&&nextProps.depositbsBuyResultData.data.status==1){
-                go('/depositInvestSuccess/B');
+                go('/depositInvestSuccessOld/B?productId='+this.props.productId+"&num="+this.props.num);
                 nextProps.clear();
             }else {
                 if (this.props.time<=3){
@@ -86,7 +86,7 @@ class PayProcess extends React.Component {
                 nextProps.changePending();
                 switch(this.props.type) {
                     case 'depositA': go('/depositInvestSuccess/A'); break;
-                    case 'directInvest': go('/directInvestSuccess/A'); break;
+                    case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue+'?productId='+this.props.productId+'&num='+this.props.num+'&access_sys=platform'); break;
                     case 'creditors': go('/creditorInvestSuccess/A'); break;
                     case 'depositB':depositbs(nextProps.balancePayData) ; break;
                 }

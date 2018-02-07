@@ -38,21 +38,60 @@ class financeIndex extends Component{
              tabs:[DepositGather,DepositPlanB,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
+	 componentWillReceiveProps(nextProps){
+     	if(sessionStorage.getItem('setDefaultIndex')){
+     		return false;
+		}else{
+            if(nextProps.defaultIndex&&nextProps.defaultIndex.data){
+                if(nextProps.defaultIndex.data.productIndexTabIndex=='聚点+'){
+                    this.setState({
+                        Index:0
+                    })
+                    this.props.proIndexs(0);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else if(nextProps.defaultIndex.data.productIndexTabIndex=='定存宝B'){
+                    this.setState({
+                        Index:1
+                    })
+                    this.props.proIndexs(1);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else if(nextProps.defaultIndex.data.productIndexTabIndex=='直投项目'){
+                	alert('s')
+                    this.setState({
+                        Index:2
+                    })
+                    this.props.proIndexs(2);
+                    sessionStorage.setItem('setDefaultIndex',true)
+                }else{
+                    this.setState({
+                        Index:3
+                    })
+                    sessionStorage.setItem('setDefaultIndex',true)
+                    this.props.proIndexs(3);
+                }
+
+            }
+		}
+
+	 }
 	 componentWillMount(){
-     	const {proIndex,proIndexs}=this.props;
+     	const {proIndex,proIndexs,statusData}=this.props;
          this.setState({
              Index:proIndex
          });
          proIndexs(proIndex);
+         this.props.getStatus()
 	 }
 	 componentDidMount(){
+         this.props.getDefault();
+         const {statusData}=this.props;
 	 	if (utils.getCookie('storeGuide')){
-
 		}else{
-            this.refs.guide.show()
-			utils.setCookie('storeGuide','flag',360*100)
+	 		if(statusData&&!statusData.data.hide_platform_recharge_withdraw){
+                this.refs.guide.show()
+                utils.setCookie('storeGuide','flag',360*100)
+			}
 		}
-
 	 }
 	 handleSelect(index,last){
 		 this.setState({
@@ -105,7 +144,9 @@ class financeIndex extends Component{
 	 }
 }
 const financeIndexInit=(state,own)=>({
-	  proIndex:state.global.getIn(['PRODUCT_INDEX'])
+	  proIndex:state.global.getIn(['PRODUCT_INDEX']),
+	  defaultIndex:state.infodata.getIn(['GET_DEFAULT_TAB','data']),
+	  statusData:state.infodata.getIn(['GET_CHARGE_STATUS','data'])
 })
 const financeIndexInitfn=(dispath,owb)=>({
     proIndexs(index){
@@ -113,6 +154,16 @@ const financeIndexInitfn=(dispath,owb)=>({
             type:'PRODUCT_INDEX',
             index:index
         })
+	},
+	getDefault(){
+    	dispath({
+			type:'GET_DEFAULT_TAB',
+		})
+	},
+	getStatus(){
+		dispath({
+			type:'GET_CHARGE_STATUS'
+		})
 	}
 })
 export default connect(financeIndexInit,financeIndexInitfn)(wrap(financeIndex))

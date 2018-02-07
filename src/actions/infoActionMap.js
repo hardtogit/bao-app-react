@@ -498,8 +498,8 @@ export default {
     [actionTypes.GET_CASH_DETALE]:{   //获取兑换详情
         apiFn:Fetch.getCashDetail
     },
-    [actionTypes.CANCEL_CASH]:{   //取消兑换
-        apiFn:Fetch.cancelCash
+    [actionTypes.CANCEL_CASH_GOODS]:{   //取消兑换
+        apiFn:Fetch.cancelCashGoods
     },
     [actionTypes.VOUCHER_GET]:{   //获取兑换详情
         apiFn:Fetch.voucherGet
@@ -556,6 +556,35 @@ export default {
     [actionTypes.GET_MALL_BANNER]:{   //商城Banner
         apiFn:Fetch.mallBanner
     },
-
+    [actionTypes.GET_DEFAULT_TAB]:{   //星期五活动弹窗
+        apiFn:Fetch.getDefaultTab
+    },
+    [actionTypes.GET_PREHEAT_INFO]:{    //周五活动币列表
+        apiFn:Fetch.getPreheatInfo
+    },
+    [actionTypes.PREHEAT_RECEIVE]:{    //领取礼品
+        apiFn:Fetch.preheatReceive
+    },
+    [actionTypes.PREHEAT_STATUS]:{    //查询领取状态
+        apiFn:Fetch.preheatStatus
+    },
+    [actionTypes.GET_CASH_LOG]:{    //提现列表
+        apiFn:Fetch.getCashLog
+    },
+    [actionTypes.CANCEL_CASH]:{    //取消提现
+        apiFn:Fetch.cancelCash
+    },
+    [actionTypes.GET_PACKET]:{    //获取投资红包
+        apiFn:Fetch.getPacket
+    },
+    [actionTypes.OPEN_PACKET]:{    //打开投资红包
+        apiFn:Fetch.openPacket
+    },
+    [actionTypes.GET_RECHARGE_LOG]:{    //打开投资红包
+        apiFn:Fetch.getReChargeLog
+    },
+    [actionTypes.GET_CHARGE_STATUS]:{    //获取平台充值按钮状态
+        apiFn:Fetch.getChargeStatus
+    },
 
 }

@@ -81,6 +81,8 @@ import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
 //发现模块
 import findIndex from './pages/find'
 import Invite from './pages/find/invite/index'
+import preheat from './pages/wechatPreheat/index'
+import preheatConfirm from './pages/wechatPreheat/preheatConfirm/index'
 
 // 我的模块
 import verifyPhone from './pages/my/setting/verifyPhone'
@@ -129,11 +131,11 @@ ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectPr
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
-import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail} from './pages/routeComponent/findComponent'
+import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,PreheatConfirm} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
 
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
@@ -177,13 +179,20 @@ export default class App extends React.Component {
               </Route>
               <Route path='/productList' component={ProductList}/>
               <Route path="user" component={User} >
+                  <Route path="preheat" component={Preheat}></Route>
+                  <Route path="preheatConfirm/:id" component={PreheatConfirm} ></Route>
                   <Route path='active' component={active} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path='analysis' component={Analysis} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/
                   <Route path="calendarMonths/:year/:month" component={CalendarMonths} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历日期选择*/
                   <Route path="recharge" component={Recharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值*/
                   <Route path="rechargeOld" getComponent={ReChargeOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值老主页*/
+                  <Route path="rechargeMain" getComponent={ReChangeMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值总页面*/
+                  <Route path="main" getComponent={Main} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值总页面*/
+                  <Route path="rechargeLog/:type" getComponent={ReChargeLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值总页面*/
+                  <Route path="reChargeRule" getComponent={ReChargeRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*充值规则*/
                   <Route path="newRecharge" getComponent={NewCharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值*/
+                  <Route path="oldRecharge" getComponent={OldCharge} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*老充值*/
                   <Route path="reChargeSuccess" getComponent={ReChargeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值成功*/
                   <Route path="reChargeFail" getComponent={ReChargeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*新充值失败*/
                   <Route path="idCardUpload" getComponent={IdCardUpload} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传*/
@@ -320,6 +329,7 @@ export default class App extends React.Component {
                   <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+
               </Route>
 
               /*已完成*/
@@ -356,6 +366,7 @@ export default class App extends React.Component {
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
+            <Route path="depositInvestSuccessOld/:type" getComponent={DepositInvestSuccessOld}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directBuyOld(/:id(/:month))" getComponent={DirectBuyOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -383,6 +394,7 @@ export default class App extends React.Component {
             <Route path="invite" component={Invite}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
+
           </Route>
             <Redirect from='/*' to='/' />
         </Router>

@@ -105,3 +105,13 @@ export const MessageDetail=(props)=>{
         {(MessageDetail)=><MessageDetail {...props}/>}
     </Bundle>
 };
+export const Preheat=(props)=>{
+    return<Bundle load={preheat}>
+        {(Preheat)=><Preheat {...props}/>}
+    </Bundle>
+};
+export const PreheatConfirm=(props)=>{
+    return<Bundle load={preheatConfirm}>
+        {(PreheatConfirm)=><PreheatConfirm {...props}/>}
+    </Bundle>
+};

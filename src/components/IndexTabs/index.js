@@ -41,6 +41,7 @@ class IndexTabs extends React.Component {
         this.startY=e.touches[0].pageY;
         this.bottom=parseInt(this.refs.picture.style.bottom.replace('px','')) ;
         this.right=parseInt(this.refs.picture.style.right.replace('px',''))
+        e.preventDefault()
     };
     touchMove=(e)=>{
         if(this.right+this.startX-e.touches[0].pageX>0&&this.right+this.startX-e.touches[0].pageX<this.clientWidth-44){
@@ -73,14 +74,16 @@ class IndexTabs extends React.Component {
             var selfHost='';
             if ('demo-react.devbao.cn' == host) {
                 selfHost=window.location.protocol+'//demo-pc.devbao.cn'
+            } else if('bug-react.devbao.cn' == host) {
+                selfHost=window.location.protocol+'//bug-pc.devbao.cn'
             } else if ("mobile.bao.cn" == host) {
                 selfHost=window.location.protocol+'//www.bao.cn'
             } else {// 本地测试地址test
                 //selfHost='http://localhost:3000'
                 //self.host='https://react.10.devbao.cn'
-                selfHost=window.location.protocol+'//demo-pc.devbao.cn'
+                selfHost='https://xiangguo.pc.51.devbao.cn'
             }
-             setAuthUrl(selfHost+'/special/fiveYears/home/wap/index.html')
+             setAuthUrl(selfHost+'/special/NewYearDay/2018/wap/index.html')
         }else{
             this.refs.picture.style.right='10px'
         }
@@ -210,12 +213,12 @@ class IndexTabs extends React.Component {
                         </Link>
                     </div>
                 </div>
-
+                <div ref="picture" style={{ zIndex:'100',position:'fixed', right:'10px', bottom:'60px',width :'60px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
             </div>
         );
     }
 }
-//<div ref="picture" style={{ zIndex:'100',position:'fixed', right:'10px', bottom:'60px',width :'44px'}} onClick={this.handClick} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} className={styles.picture}><img src={znq} alt=""/></div>
+
 const datas=(state)=>({
     userInfo:state.infodata.getIn(['USER_INFO','data']),
     codeState:state.infodata.getIn(['WECHAT_ACCOUNT_SYNC','data'])

@@ -140,11 +140,13 @@ class findHome extends Component{
         ));
         return(
             <div>
-                <Swiper className={styles.swiperBg} autoPlay={false}>
-                    {
-                        bannerList
-                    }
-                </Swiper>
+                { bannerData&&<Swiper className={styles.swiperBg} autoPlay={false}>
+                        {
+                            bannerList
+                        }
+                    </Swiper>
+                }
+
                 <div className={styles.tabContainer}>
                     <ul className={styles.productTab}>
                         <li className={styles.indexCavli}>

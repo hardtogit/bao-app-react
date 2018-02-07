@@ -95,6 +95,7 @@ const requests = (Fetch) => {
   Fetch.storeBindCar=(data)=>{ return Fetch('api/supervise/users/bindBankcard','POST',data)}
   //是否上传身份证成功
   Fetch.queryUpload=(data)=>{ return Fetch('api/supervise/users/uploadIdCardResult','GET',data)}
-
+  //获取平台充值按钮状态
+   Fetch.getChargeStatus=(data)=>{ return Fetch('api/setting/login','GET',data)}
 };
 export default requests

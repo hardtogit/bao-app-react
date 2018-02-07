@@ -1,0 +1,286 @@
+//打开红包
+html, body {
+  width: 100%;
+  height: 100%;
+}
+@media screen and (min-width:320px){html{font-size:21.33px}
+  body{font-size:16px}
+}
+@media screen and (min-width:360px){html{font-size:24px}
+  body{font-size:16px}
+}
+@media screen and (min-width:375px){html{font-size:25px}
+  body{font-size:16px}
+}
+@media screen and (min-width:384px){html{font-size:25.6px}
+  body{font-size:16px}
+}
+@media screen and (min-width:400px){html{font-size:26.67px}
+  body{font-size:16px}
+}
+@media screen and (min-width:414px){html{font-size:27.6px}
+  body{font-size:16px}
+}
+@media screen and (min-width:424px){html{font-size:28.27px}
+  body{font-size:16px}
+}
+@media screen and (min-width:480px){html{font-size:32px}
+  body{font-size:15.36px}
+}
+@media screen and (min-width:540px){html{font-size:36px}
+  body{font-size:17.28px}
+}
+@media screen and (min-width:720px){html{font-size:48px}
+  body{font-size:23.04px}
+}
+@media screen and (min-width:750px){html{font-size:50px}
+  body{font-size:24px}
+}
+:global .hidepc {
+  /*display: none;*/
+  opacity: 0;
+}
+:global .modal {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  background-color: #000;
+  opacity: .7;
+}
+:global .box {
+  position: absolute;
+  z-index: 1000;
+  //display: none;
+}
+:global .open_packet{
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding-top: 200%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 12;
+}
+:global .draw-gift {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+:global .draw-gift .draw-img {
+  width: 100%;
+  position: relative;
+  margin-top: 6.5rem;
+}
+
+:global .draw-gift .draw-img .draw-down {
+  position: absolute;
+  width: 9rem;
+  height: 11.8rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(./img/open-no.png);
+  left: 50%;
+  margin-left: -4.5rem;
+  z-index: 10;
+  /*-webkit-animation:draw-down 0.5s ease 1.2s 1 alternate;*/
+  /*-webkit-animation-timing-function:cubic-bezier(0.25,0.1,0.25,1);*/
+}
+
+@-webkit-keyframes draw-down {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+:global .draw-gift .draw-img .draw-down2 {
+  position: absolute;
+  width: 9rem;
+  height: 11.8rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(./img/open-before.png);
+  left: 50%;
+  margin-left: -4.5rem;
+  z-index: 10;
+  /*-webkit-animation:draw-down2 0.5s ease 1.4s 1 alternate;*/
+  /*-webkit-animation-timing-function:cubic-bezier(0.25,0.1,0.25,1);*/
+}
+:global .draw-gift .draw-img .draw-text {
+  position: absolute;
+  width: 9rem;
+  height: 4rem;
+  left: 50%;
+  margin-left: -4.5rem;
+  top:5rem;
+  opacity: 0;
+  z-index: 20;
+  text-align: center;
+  .text1{
+    color:#ffed02;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.6rem;
+  }
+  .text2{
+    color:#ffed02;
+    font-size: 0.6rem;
+  }
+  /*-webkit-animation:draw-down2 0.5s ease 1.4s 1 alternate;*/
+  /*-webkit-animation-timing-function:cubic-bezier(0.25,0.1,0.25,1);*/
+}
+:global .draw-gift .draw-img .draw-next{
+  position: absolute;
+  width: 8rem;
+  height: 1.8rem;
+  left: 50%;
+  line-height: 1.8rem;
+  text-align: center;
+  margin-left: -4rem;
+  color: #fcca70;
+  display:none ;
+  top:14rem;
+  font-size: 0.9rem;
+  letter-spacing: 4px;
+  background-color: #d01f27;
+}
+@-webkit-keyframes draw-down2 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+:global .draw-gift .draw-img .draw-mid {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  //background-image: url(../img/open.png);
+  left: 50%;
+  margin-left: -1.5rem;
+  z-index: 100;
+  top: 1.9rem;
+  /*animation:open 0.3s linear 1s 3 alternate;*/
+}
+
+:global .draw-gift .draw-img .draw-mid-move {
+  -webkit-animation: open 0.2s linear 0.5s infinite alternate;
+  -webkit-animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: open 0.2s linear 0.5s infinite alternate;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes open {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+@-webkit-keyframes open {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.9);
+  }
+}
+
+:global .draw-gift .draw-img .draw-up {
+  position: absolute;
+  width: 9rem;
+  height: 2rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(./img/open-back-1.png);
+  left: 50%;
+  margin-left: -4.5rem;
+  top: 0;
+  z-index: 8;
+  opacity: 0;
+}
+:global .packer_close{
+  position: absolute;
+  right: 2.5rem;
+  bottom: 2rem;
+  width: 2rem;
+  z-index: 30;
+}
+:global .draw-gift .draw-img .draw-up-up {
+  position: absolute;
+  width: 9rem;
+  height: 4.12rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(./img/open-back-2.png);
+  left: 50%;
+  margin-left: -4.5rem;
+  top: 0;
+  /*-webkit-transform: rotateX(180deg);*/
+  /*-webkit-transform-style: flat;*/
+  /*-webkit-transform-origin: bottom;*/
+  /*-webkit-animation: draw-up-up 1s linear 0s 0.5 normal;*/
+  /*backface-visibility: visible;*/
+  /*-webkit-animation-timing-function:cubic-bezier(0.25,0.1,0.25,1);*/
+  opacity: 0;
+  z-index: 3;
+}
+
+:global .draw-gift .draw-img .draw-list {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  //background-image: url(../img/draw-list-bg.jpg);
+  left: 50%;
+  margin-left: -4rem;
+  top: 3.5rem;
+  display: none;
+  z-index: 8;
+}
+:global .draw-list{
+  opacity: 0;
+}
+:global .draw-gift .draw-img .draw-list img {
+  vertical-align: middle;
+  position: absolute;
+  width: 100%;
+  /*top: 1.6rem; */
+}
+
+:global #draw-btn {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 0.65rem;
+  color: #333;
+  top: 17rem;
+}

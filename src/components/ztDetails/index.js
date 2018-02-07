@@ -33,16 +33,20 @@ class Index extends React.Component {
                 }
             }
         }=this.props;
+
         //跳转
         if (type<=3){
-            push('/user/productInfo/'+id);
+            if(access_sys){
+                push('/user/productInfo/'+id+'?access_sys='+access_sys);
+            }else{
+                push('/user/productInfo/'+id);
+            }
         }else {
             if(access_sys){
                 push('/user/zqProductInfo/'+id+'?access_sys='+access_sys);
             }else{
                 push('/user/zqProductInfo/'+id);
             }
-
         }
     };
     timer=(date)=>{
@@ -272,7 +276,6 @@ class Index extends React.Component {
     }
     //加载完资产详情页面后，发起请求
     componentDidMount(){
-        console.log(this.props) ;
         const Id=this.props.id;
 
         const{type,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;

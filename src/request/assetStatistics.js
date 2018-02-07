@@ -39,7 +39,7 @@ const requests = (Fetch) => {
   // 安全卡
   Fetch.securityCard = (data) => { return Fetch('user/security-card-info', 'GET',data) }
   // 余额提现
-  Fetch.cash = (data) => {  return Fetch('balance/cash?access_sys=platform', 'POST', data) }
+  Fetch.cash = (data) => {  return Fetch('balance/cash?access_sys=platform&isNew=true', 'POST', data) }
   // 是否有提现正在处理中
   Fetch.hasCash = () => { return Fetch('balance/has-cash', 'GET')}
   // 直投转让
@@ -49,7 +49,13 @@ const requests = (Fetch) => {
   // 自动投标详情
   Fetch.autoBidDetail = (data) => { return Fetch('directInvest/auto-bid/detail', 'GET',data) }
   // 直投产品信息
-  Fetch.directInvestProductInfo = (id) => { return Fetch('directInvest/index/' + id, 'GET') }
+  Fetch.directInvestProductInfo = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('directInvest/index/' + id+'?access_sys=platform', 'GET')
+      }else{
+          return Fetch('directInvest/index/' + id, 'GET')
+      }
+  }
   // 债权产品信息
   Fetch.creditorsProductInfo = (id,access_sys) => {
       if(access_sys){
@@ -93,7 +99,13 @@ const requests = (Fetch) => {
 
   }
   // 直投合同
-  Fetch.directInvestContract = (id) => { return Fetch('directInvest/contract/' + id, 'GET') }
+  Fetch.directInvestContract = (id,access_sys) => {
+      if(access_sys){
+          return Fetch('directInvest/contract/' + id +"?access_sys=platform", 'GET')
+      }else{
+          return Fetch('directInvest/contract/' + id, 'GET')
+      }
+  }
   // 我的债权转让列表
   Fetch.creditorsList = (page) => { return Fetch('creditors/list?page=' + page, 'GET') }
   // 我的直投列表
@@ -136,7 +148,13 @@ const requests = (Fetch) => {
     }
      };
   // 获取已使用优惠券信息
-  Fetch.directInvestCoupon = (id) => { return Fetch(`directInvest/coupon/${id}`, 'GET') }
+  Fetch.directInvestCoupon = (id,access_sys) => {
+      if(access_sys){
+          return Fetch(`directInvest/coupon/${id}?access_sys=${access_sys}`, 'GET')
+      }else{
+          return Fetch(`directInvest/coupon/${id}`, 'GET') }
+      }
+
   // 绑定银行卡
   Fetch.bindCardInfo = (type, way) => { return Fetch (`/user/bind-bank-info?type=${type}&way=${way}`, 'GET') }
   // 回款日历

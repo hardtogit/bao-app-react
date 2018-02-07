@@ -1,0 +1,47 @@
+.root {
+  h 100%
+  bg #f0eff5
+  pt 44
+}
+
+.content {
+  bg #fff
+  mt 15
+  border-top $border
+  border-bottom $border
+  pb 8
+}
+
+.amount {
+  h 44
+  padding: 0 15px
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom $border
+  & > span {
+    &:nth-child(1) {
+      font-size: 14px
+      color #888
+    }
+    &:nth-child(2) {
+      font-size: 16px
+    }
+  }
+}
+
+.timeLine {
+  padding 26px 0 0 15px
+}
+
+.finish {
+  center
+  margin 40px 15px 0
+  border-radius: 3px
+  color #fff
+  bg $main
+  h 50
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

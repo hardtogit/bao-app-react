@@ -17,6 +17,7 @@ import scratcheCard from './scratcheCard.js'
 import shopping from './shopping'
 import getVipInfo from './vipCenter'
 import getGoodsList from './goodsInfo'
+import weChat from './weChat'
 
 // const ROOT_URL = '/mobile_api/'
 const ROOT_URL = '/'
@@ -27,7 +28,6 @@ const transferObjectToFormat = (o) => {
 }
 
 const Fetch = (url, type, data, headers) => {
-
   return new Promise((resolve, reject) => {
     let options = {
         credentials:"include",
@@ -106,4 +106,5 @@ shopping(Fetch)
 invite(Fetch)
 getVipInfo(Fetch)
 getGoodsList(Fetch)
+weChat(Fetch)
 export default Fetch

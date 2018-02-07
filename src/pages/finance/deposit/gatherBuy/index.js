@@ -507,7 +507,7 @@ class Index extends React.Component {
     }
   render() {
     const {
-      params: { id ,type:lx},
+      params: { id ,type:lx,productId},
       deposit,
       new_deposit,
       quantityDataB,
@@ -561,6 +561,8 @@ class Index extends React.Component {
         </div>
             <PayProcess
                 ref='payProcess'
+                productId={productId}
+                num={this.state.quantity}
                 type={`gather`}
                 data={this.props.quantityDataB&&this.props.quantityDataB.data}
                 go={this.props.push}

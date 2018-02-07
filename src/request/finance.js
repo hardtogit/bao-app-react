@@ -54,7 +54,14 @@ const requests = (Fetch) => {
   // 验证约标密码
   Fetch.verifyAssign = (data) => { return Fetch(`directInvest/buy-verify/${data.id}`, 'POST', data) }
   // 可用优惠券
-  Fetch.availableCoupons = (product, month) => { return Fetch(`voucher/coupons?product=${product}&month=${month}`, 'GET') }
+  Fetch.availableCoupons = (product, month,access_sys) => {
+      if(access_sys){
+          return Fetch(`voucher/coupons?product=${product}&month=${month}&type=1`, 'GET')
+      }else{
+          return Fetch(`voucher/coupons?product=${product}&month=${month}&type=0`, 'GET')
+      }
+
+  }
   // 轮播图
   Fetch.banners = () => { return Fetch('common/banner?cateId=1', 'GET') }
   // 直投剩余份数
@@ -69,6 +76,9 @@ const requests = (Fetch) => {
   Fetch.redeem = (data) =>{return Fetch('demand/redemption','POST',data)}
   // 提现
   Fetch.withdraw=()=>{return Fetch('balance/withdraw','GET')}
+  Fetch.getCashLog=(data)=>{return Fetch('api/withdraw/list','GET',data)}
+  Fetch.getReChargeLog=(data)=>{return Fetch('api/recharge/list','GET',data)}
+  Fetch.cancelCash=(data)=>{return Fetch('api/withdraw/revoke','GET',data)}
   Fetch.depositbs=()=>{return Fetch('api/depositbs?access_sys=platform','GET')}
   Fetch.depositbsDetails=(id)=>{return Fetch(`api/depositbs/product/${id}?access_sys=platform`,'GET')}
   Fetch.depositbsInvest=(id,type)=>{return Fetch(`api/depositbs/invest/${type}/${id}?access_sys=platform`,'GET')}
@@ -103,10 +113,13 @@ const requests = (Fetch) => {
   Fetch.unbindCard=(data)=>{return Fetch('api/supervise/users/unbindBankcard','POST',data)}//解绑银行卡
   Fetch.storeBindMobileModify=(data)=>{return Fetch('api/supervise/users/mobileModify','POST',data)}//解绑银行卡
   Fetch.newRecharge=(data)=>{return Fetch('api/supervise/account/recharge','POST',data)}//新的充值接口
-  Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw','POST',data)}//新的提现接口
+  Fetch.newCash=(data)=>{return Fetch('api/supervise/account/withdraw?isNew=true','POST',data)}//新的提现接口
   Fetch.serviceChargeRule=(data)=>{return Fetch('api/supervise/account/withdrawFee','POST',data)}//获取手续费规则
   Fetch.freeAccredit=(data)=>{return Fetch('api/supervise/users/freeAuth','POST',data)}//免密授权
   Fetch.idCardUpload=(data)=>{return Fetch('api/supervise/users/uploadIdCard','POST',data)}//身份证上传
+  Fetch.getDefaultTab=(data)=>{return Fetch('api/setting/defaultShow','get',data)}//获取默认tab
+  Fetch.getPacket=(data)=>{return Fetch('api/activity/redpackeView','get',data)}//获取投资后的红包
+  Fetch.openPacket=(data)=>{return Fetch('api/activity/un_redpacket','get',data)}//拆开投资后的红包
 }
 
 export default requests

@@ -180,7 +180,7 @@ const cancelModel = (data)=>{
 };
 const mapStateToProps=(state)=>({
     CashDetailData: state.infodata.getIn(['GET_CASH_DETALE', 'data']),
-    cancelData: cancelModel(state.infodata.getIn(['CANCEL_CASH', 'data'])),
+    cancelData: cancelModel(state.infodata.getIn(['CANCEL_CASH_GOODS', 'data'])),
 });
 const mapDispatchToProps=(dispatch)=>({
     getCashDetail(id){
@@ -193,7 +193,7 @@ const mapDispatchToProps=(dispatch)=>({
     },
     cancelCash(id){
         dispatch({
-            type:'CANCEL_CASH',
+            type:'CANCEL_CASH_GOODS',
             params:[
                 id
             ]

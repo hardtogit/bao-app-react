@@ -492,7 +492,7 @@ class DepositBuy extends React.Component {
     }
   render() {
     const {
-      params: { id ,type:lx},
+      params: { id ,type:lx,productId},
       deposit,
       new_deposit,
       quantityData,
@@ -577,6 +577,8 @@ class DepositBuy extends React.Component {
         </div>
         <PayProcess
           ref='payProcess'
+          productId={productId}
+          num={this.state.quantity}
           type={`deposit${lx}`}
           go={this.props.push}
           getChoose={this.getChoose}

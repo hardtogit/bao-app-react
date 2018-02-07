@@ -6,7 +6,7 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import NavBar from '../../../../components/NavBar'
 import styles from '../../deposit/investSuccess/index.styl'
 import TimeLine from '../../../../components/TimeLine'
-
+import RedPacket from '../../../../components/RedPacket'
 class InvestSuccess extends React.Component {
   constructor(props) {
     super(props)
@@ -23,6 +23,7 @@ class InvestSuccess extends React.Component {
     return (
       <div className={styles.root}>
         <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
+        <RedPacket  productId={this.props.location.query.productId} num={this.props.location.query.num} productType={this.props.location.query.access_sys&&4||3}></RedPacket>
         <div className={styles.content}>
           <div className={styles.amount}>
             <span>投资金额</span>

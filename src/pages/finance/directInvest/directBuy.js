@@ -372,6 +372,16 @@ class DirectBuy extends React.Component {
 
     const coupon = this.getCoupon()
     if (! coupon || this.state.quantity < 1) {
+        const{use}=this.props;
+        if (use){
+            if (use.code==100&&use.data.is){
+                return (<div
+                    className={styles.coupon}
+                >
+                    <span>{use.data.name}</span>
+                </div>)
+            }
+        }
       let vouchers = this.state.vouchers.sort((a, b) => { return Number(b.amount) - Number(a.amount)})
 
       const availableVouchers = vouchers.filter(this.voucherIsAvailable)
@@ -481,6 +491,8 @@ class DirectBuy extends React.Component {
     }
   render(){
     const detail = this.props.detail;
+    const{id}=this.props.params;
+
       //let banksList={}
       if(this.props.banks&&this.props.banks.data){
         let  banksList=this.props.banks.data
@@ -522,7 +534,9 @@ class DirectBuy extends React.Component {
           </div>
 
             <PayProcess
-            ref='payProcess' 
+            ref='payProcess'
+            productId={id}
+            num={this.state.quantity}
             type='directInvest'
             go={this.props.push}
             getChoose={this.getChoose}

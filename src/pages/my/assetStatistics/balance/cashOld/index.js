@@ -23,8 +23,13 @@ class Index extends React.Component {
             disabled:true,
             money:'',
             bank:'',
-            number:""
+            number:"",
+            minimum:50,
+            maximum:50000
         }
+    }
+    componentWillMount(){
+        this.props.getDefault()
     }
     componentDidMount(){
         const user=JSON.parse(sessionStorage.getItem('bao-user'))&&JSON.parse(sessionStorage.getItem('bao-user'))||this.props.userinfo;
@@ -46,9 +51,20 @@ class Index extends React.Component {
             cancelCallback: () => {
             }
         })
+    };
+    componentWillUnmount(){
+        this.props.clean()
     }
     componentWillReceiveProps(next){
-        const {cashData,push}=next;
+        const {cashData,push,cashSetting}=next;
+        if(cashSetting){
+            if(cashSetting.code==100){
+                this.setState({
+                    minimum:parseInt(cashSetting.data.withdrawSingleMinMoney),
+                    maximum:parseInt(cashSetting.data.withdrawSingleTimeMoney)
+                })
+            }
+        }
         if (cashData){
             const {code}=cashData;
             if (code==300){
@@ -63,6 +79,14 @@ class Index extends React.Component {
                 this.alert('未绑卡提现!')
             }else if (code==305){
                 this.alert('没安全卡提现!')
+            }else if (code==310){
+                this.alert('超出每日提现次数!')
+            }else if (code==311){
+                this.alert('超出每日提现总额!')
+            }else if (code==312){
+                this.alert('超出单笔最大提现金额!')
+            }else if (code==313){
+                this.alert('不能低于单笔最小提现金额!')
             }else if (code==100){
                 const time=Date.parse(new Date()),
                     cash_amount=this.state.val;
@@ -81,7 +105,7 @@ class Index extends React.Component {
                 val
             }=this.state,
             pwd=this.refs.reddem.password;
-        this.props.send(val,utils.md5(pwd));
+        this.props.send(val,utils.md5(pwd),true);
         this.refs.reddem.hide();
     }
     change=(e)=>{
@@ -95,11 +119,11 @@ class Index extends React.Component {
             this.setState({
                 disabled:true
             })
-        }else if(val>200000){
+        }else if(val>this.state.maximum){
             this.setState({
                 disabled:true
             })
-        }else if (val<50){
+        }else if (val<this.state.minimum){
             this.setState({
                 disabled:true
             })
@@ -126,13 +150,13 @@ class Index extends React.Component {
             this.setState({
                 disabled:true
             })
-        }else if(val>200000){
-            tipbar.open('单笔金额不能大于20万')
-        }else if (val<50){
+        }else if(val>this.state.maximum){
+            tipbar.open('单笔金额不能大于'+this.state.maximum)
+        }else if (val<this.state.minimum){
             this.setState({
                 disabled:true
             })
-            tipbar.open('金额必须大于50')
+            tipbar.open('金额必须大于'+this.state.minimum)
         }else if (val>parseFloat(this.state.money)){
             this.setState({
                 disabled:true
@@ -154,7 +178,8 @@ class Index extends React.Component {
             disabled,
             money,
             bank,
-            number
+            number,
+            minimum
         }=this.state;
         return (
             <div className={styles.bg}>
@@ -167,7 +192,7 @@ class Index extends React.Component {
                         </div>
                         <div className={styles.withdrawalsInfo}>
                             <span>提现金额（元）</span>
-                            <span className={styles.withdrawalsText}>提现金额不得低于50元</span>
+                            <span className={styles.withdrawalsText}>提现金额不得低于{minimum}元</span>
                         </div>
                         <div className={styles.withdrawalsInput}>
                             <span>￥</span>
@@ -200,21 +225,33 @@ class Index extends React.Component {
 const Rechargeinit=(state)=>({
     cashData:state.infodata.getIn(['CASH','data']),
     withdraw:state.infodata.getIn(['WITHDRAW','data']),
-    userinfo:state.infodata.getIn(['USER_INFO','data'])
+    userinfo:state.infodata.getIn(['USER_INFO','data']),
+    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
 });
 const Rechargeinitfn=(dispath)=>({
     pop(){
         dispath(goBack());
     },
-    send(amount,password){
+    send(amount,password,isNew){
         dispath({
             type:'CASH',
-            params:[{amount,password}]
+            params:[{amount,password,isNew}]
         })
     },
     get(){
         dispath({
             type:'WITHDRAW'
+        })
+    },
+    clean(){
+        dispath({
+            type:'CLEAR_INFO_DATA',
+            key:"CASH",
+        })
+    },
+    getDefault(){
+        dispath({
+            type:'GET_DEFAULT_TAB',
         })
     },
     push(time,cash_amount){

@@ -101,8 +101,8 @@ class PayProcess extends React.Component {
               const nowDate=Utils.formatDate('yyyy-MM-dd hh:mm:ss',new Date(this.props.data.server_time*1000))
               const startDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000))
               const endDate=Utils.formatDate('yyyy-MM-dd',new Date(this.props.data.server_time*1000+1000*60*60*24*30*parseInt(this.props.data.month)))
-              go('/depositInvestSuccess/A?money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
-            case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue); break;
+              go('/depositInvestSuccess/A?productId='+this.props.productId+'&num='+this.props.num+'&money='+this.props.inputValue+'&startDate='+startDate+'&endDate='+endDate+'&nowDate='+nowDate); break;
+            case 'directInvest': go('/directInvestSuccess/'+this.props.inputValue+'?productId='+this.props.productId+'&num='+this.props.num); break;
             case 'creditors': go('/creditorInvestSuccess/A?money='+this.props.inputValue); break;
           }
           nextProps.clear();

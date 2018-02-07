@@ -10,7 +10,12 @@ import Loading from '../../../../../components/pageLoading'
 class Index extends Component{
     componentWillMount(){
        const id=this.props.params.id;
-       this.props.getInfo(id)
+       const access_sys=this.props.location.query.access_sys;
+       if(access_sys){
+           this.props.getInfo(id,access_sys)
+       }else{
+           this.props.getInfo(id)
+       }
     }
     componentWillUnmount(){
         this.props.clearData()
@@ -25,6 +30,11 @@ class Index extends Component{
             },
             params:{
                 id
+            },
+            location:{
+                query:{
+                    access_sys
+                }
             }
         }=this.props;
         const {name,total,rate,term,type,interest_start_time,interest_end_time,repayment}=data;
@@ -112,7 +122,7 @@ class Index extends Component{
                     {repayment}
                     </span>
             </div>
-            <Link to={"/user/securityPlan/"+id+""}>
+            <Link to={access_sys&&"/user/securityPlan/"+id+"?access_sys=platform"||"/user/securityPlan/"+id+""}>
                 <div className={styles.modeBox}>
                  <span>
                    产品合同
@@ -147,10 +157,10 @@ const datas=(state)=>({
       infoData:state.infodata.getIn(['DIRECT_INVEST_PRODUCT_INFO','data'])
 })
 const dispatchFn=(dispatch)=>({
-       getInfo(id){
+       getInfo(id,access_sys){
            dispatch({
                type:'DIRECT_INVEST_PRODUCT_INFO',
-               params:[id]
+               params:[id,access_sys]
            })
        },
     pop(){

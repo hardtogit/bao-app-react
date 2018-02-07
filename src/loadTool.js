@@ -70,20 +70,65 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/assetStatistics/balance/newCharge').default);
         }, 'NewCharge');
     },//老余额首页
+    OldCharge  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/oldCharge').default);
+        }, 'OldCharge');
+    },//老余额首页
     CashOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/cashOld').default);
         }, 'CashOld');
     },//老的提现页面
+    CashLog  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/cashLog').default);
+        }, 'CashLog');
+    },//提现记录
+    CashRule  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/cashRule').default);
+        }, 'CashRule');
+    },//提现规则
     ReChargeOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/assetStatistics/balance/reChargeOld').default);
         }, 'ReChargeOld');
     },//存管充值
+    ReChangeMain = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChangeMain').default);
+        }, 'ReChangeMain');
+    },//充值总入口
+    ReChargeLog = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeLog').default);
+        }, 'ReChargeLog');
+    },//充值明细
+    Main = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/main').default);
+        }, 'Main');
+    },//余额总入口
+    CashMain = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/cashMain').default);
+        }, 'CashMain');
+    },//提现总入口
+    ReChargeRule = (location, cb) =>{
+        require.ensure([], require => {
+            cb(null, require('./pages/my/assetStatistics/balance/reChargeRule').default);
+        }, 'ReChargeRule');
+    },//充值总入口
     DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/finance/directInvest/directBuyOld').default);
         }, 'DirectBuyOld');
+    },//存管充值
+    DepositInvestSuccessOld  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/finance/deposit/investSuccessOld').default);
+        }, 'DepositInvestSuccessOld');
     },//存管充值
     CreditorBuyOld  = (location, cb) => {
         require.ensure([], require => {
