@@ -22,6 +22,9 @@ p {
   left: 0;
   overflow: hidden;
 }
+:global .swiper-container{
+  background-color: #fff;
+}
 :global .show{
   display:block
 }

@@ -19,6 +19,7 @@ class shoppingMall extends Component{
         this.props.getGoodsList();
         this.props.getGoodsListNew();
         this.props.mallBanner();
+        this.props.getVip();
     }
     loadingDom=()=>{
         return <Loading/>
@@ -109,26 +110,37 @@ class shoppingMall extends Component{
             Dom = this.loadingDom()
         }
         let bannerList=[];
-        bannerData&&bannerData.data.map((item,i)=>(
+        bannerData&&bannerData.data.map((item,i)=> {
             bannerList.push(
-                <div className='banner-box' style={{textAlign:"center"}} key={i}>
-                    <img src={item.image_wap} className='banner-img'  />
+                <div className='banner-box' style={{textAlign: "center",overflow:"hidden",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",borderTopLeftRadius:"10px",borderTopRightRadius:"10px"}} key={i}>
+                    <img width="100%" src={item.image_wap} className='banner-img' />
                 </div>
             )
-        ));
+        });
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let rightNodeLogin= <span><img src={coin} className={styles.rightNode}/><span className={styles.rightNodeTxt}>2233456</span> </span>
+        let rightNodeNologin=<span className={styles.rightNodeTxt} onClick={()=>{this.props.push("/login?baoBackUrl=/find/shoppingMall")}}>去登录</span>
+        let rightNodeDom;
+        if(userInfo){
+            rightNodeDom=rightNodeLogin;
+        }else{
+            rightNodeDom=rightNodeNologin;
+        }
         return(
             <div className={styles.finderHome}>
                 <div className={styles.finderHomeHeader}>
                     <NavBar title="商城" onLeft={pop} backgroundColor="#fff"
                             color="#41403e"
+                            rightNode={rightNodeDom}
                     />
                 </div>
                 <div className={styles.findContent} >
-                    <Swiper className={styles.swiperBg} autoPlay={false}>
+                    { bannerData&&<Swiper loop={true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
                         {
                             bannerList
                         }
                     </Swiper>
+                    }
                     <div className={styles.tabContainer}>
                         <ul className={styles.productTab}>
                             <li className={styles.indexCavli}>
@@ -166,12 +178,18 @@ class shoppingMall extends Component{
     }
 }
 const mapStateToProps=(state)=>({
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
     goodsListNewData: state.listdata.getIn(['GET_GOODS_LIST_NEW', 'data']),
     bannerData:state.infodata.getIn(['GET_MALL_BANNER','data'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
+        })
+    },
     getGoodsTypeList(){
         dispatch({
             type:'GET_GOODS_TYPE_LIST'

@@ -771,9 +771,9 @@ utils.millisecondToDate=function(mss) {
     var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = (mss % (1000 * 60)) / 1000;
-    // if(hours > 0){
-    //     days++;
-    // }
+    if(days > 0||days <1){
+        days = 1;
+    }
     days = days +"天";
     return days;
 }

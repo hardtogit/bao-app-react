@@ -32,15 +32,16 @@ class memberCenter extends Component{
     constructor(props){
         super(props);
         this.state = {
-            index:0,
+            index:sessionStorage.getItem("basicIndex")&&sessionStorage.getItem("basicIndex")||0,
         }
     }
 
     componentWillMount(){
-            this.props.getVip();
-            this.props.getRateCoupons();
-            this.props.getVoucherCoupons();
-            this.props.getPrivilegeBasic();
+        this.props.getVip();
+        this.props.getRateCoupons();
+        this.props.getVoucherCoupons();
+        this.props.getPrivilegeBasic();
+        sessionStorage.setItem("basicIndex",this.state.index);
     }
     push=(data)=>{
         sessionStorage.setItem("bao-ticketData",JSON.stringify(data));
@@ -49,6 +50,7 @@ class memberCenter extends Component{
 
     changeBar=(index)=>{
         this.setState({index});
+        sessionStorage.setItem("basicIndex",index);
     };
     rateDomHas=()=>{
         const {
@@ -68,7 +70,6 @@ class memberCenter extends Component{
                                 <p className={styles.shopTitle1}>{coupon_name}</p>
                             </li>
                         </Link>
-
                     )
                 })}
             </ul>
@@ -108,7 +109,7 @@ class memberCenter extends Component{
         return(
             <div className={styles.noRate}>
                 <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无抵用券可供选择领取</p>
+                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无{ticketName}可供选择领取</p>
                 <p className={styles.farfrom}>距{ticketName}领取尚差年化金额：{annual_gap}元</p>
             </div>
         )
@@ -128,7 +129,7 @@ class memberCenter extends Component{
             mall,
             withdrawal
         } = data;
-        let vip_level =2;
+        let vip_level = 4;
         let birthdayVip = birthday.rule_list;
         let holidayVip = holiday.rule_list;
         let mallVip = mall.rule_list;
@@ -202,7 +203,7 @@ class memberCenter extends Component{
                             <img  src={withdraw}  style={{width:"130px"}}/>
                             <p className={styles.withDrawNum}>{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}  </p>
                         </div>
-                        <p  className={vip_level!=0&&styles.BirInfo||styles.none}>您每月可享受{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}次免费提现次数~</p>
+                        <p  className={styles.BirInfo}>您每月可享受{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}次免费提现次数~</p>
                     </div>
                 </div>
             </div>
@@ -220,6 +221,9 @@ class memberCenter extends Component{
             annual_total,
             annual_gap
         } = data;
+        const{
+            index
+        }=this.state;
         let rateDom,cashDom,basicDom;
         if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
@@ -236,7 +240,6 @@ class memberCenter extends Component{
         if(PrivilegeBasicData){
             basicDom = this.PrivilegeBasicDom(PrivilegeBasicData.data);
         }
-        // let vip_level = 0
         let vimg;
         if(vip_level == 0){
             vimg = v0;
@@ -269,7 +272,9 @@ class memberCenter extends Component{
                                  <p className={styles.cardrightbelow}>当前待收年化（元）</p>
                             </span>
                         </div>
-                        <div className={styles.promote}>投资升级</div>
+                        <Link to="/home/productIndex">
+                            <div className={styles.promote}>投资升级</div>
+                        </Link>
                         <p className={styles.annualMap}>距下一等级尚差待收年化 <span style={{color:"#333333"}}>{annual_gap}</span> 元</p>
                     </div>
                 </div>
@@ -311,9 +316,6 @@ class memberCenter extends Component{
         )
     }
     twoDom=()=>{
-        let {
-            index
-        } = this.state;
         let loginUrl;
         loginUrl = "/login?baoBackUrl="+"/find/memberCenter"
         return(

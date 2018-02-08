@@ -19,6 +19,13 @@
     overflow: auto;
     margin-top: -16px;
 }
+.rightNode{
+    width:14px;
+}
+.rightNodeTxt{
+    color:#666;
+    font-size: 12px;
+}
 .cavUl{
     display: block;
 }

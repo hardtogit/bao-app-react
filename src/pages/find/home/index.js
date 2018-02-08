@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import Swiper from '../../../components/mySwiper/index';
+import Swiper from 'react-mobile-swiper';
 import b1 from '../../../assets/images/find/b1.png';
 import Notice from '../../../assets/images/find/notice.png'
 import Mall from '../../../assets/images/find/mall.png'
@@ -65,9 +65,10 @@ class findHome extends Component{
         sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
         this.refs.SignModel.hide();
     };
-    handleBasic=(index)=>{
-        this.props.push("/find/memberCenter")
-        sessionStorage.setItem("basicIndex",index)
+    handleBasic=(basicindex)=>{
+        this.props.push("/find/memberCenter");
+        console.log(basicindex)
+        sessionStorage.setItem("basicIndex",JSON.stringify(basicindex));
     }
     qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
@@ -99,7 +100,7 @@ class findHome extends Component{
                          <p className={styles.shopTitle2}>
                              <span>{item.price}</span>
                              <span><img src={coin} /></span>
-                             <img src={private1} className={styles.specialIcon}/>
+                             <img  src={private1} className={styles.specialIcon}/>
                          </p>
                          <img src={item.image} className={styles.shopImg}/>
                      </li>
@@ -131,16 +132,16 @@ class findHome extends Component{
             }
         });
         let bannerList=[];
-        bannerData&&bannerData.data.map((item,i)=>(
+        bannerData&&bannerData.data.map((item,i)=> {
             bannerList.push(
-                <div className='banner-box' style={{textAlign:"center"}} key={i}>
-                    <img src={item.image_wap} className='banner-img'  />
+                <div className='banner-box' style={{textAlign: "center",overflow:"hidden",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",borderTopLeftRadius:"10px",borderTopRightRadius:"10px"}} key={i}>
+                    <img width="100%" src={item.image_wap} className='banner-img' />
                 </div>
             )
-        ));
+        });
         return(
             <div>
-                { bannerData&&<Swiper className={styles.swiperBg} autoPlay={false}>
+                { bannerData&&<Swiper loop={true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
                         {
                             bannerList
                         }
@@ -217,25 +218,25 @@ class findHome extends Component{
                             <img src={special1}/>
                             <p>生日特权</p>
                         </li>
-                        <li onClick={()=>{this.handleBasic(0)}}>
+                        <li onClick={()=>{this.handleBasic(1)}}>
                             <img src={special2}/>
                             <p>节日礼包</p>
                         </li>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(2)}}>
                             <img src={special3}/>
                             <p>商城折扣</p>
                         </li>
                     </ul>
                     <ul className={styles.special}>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(3)}}>
                             <img src={special4}/>
                             <p>免费提现</p>
                         </li>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
                             <img src={special5}/>
                             <p>抵用券</p>
                         </li>
-                        <li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
                             <img src={special6}/>
                             <p>加息券</p>
                         </li>

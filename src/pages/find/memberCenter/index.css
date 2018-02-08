@@ -143,10 +143,10 @@
     position: relative;
 }
 .cardleft .headImg .vimg{
-    height:14px;
+    height:11px;
     width:20px;
     position: absolute;
-    bottom: 0;
+    bottom: 2px;
     left:20px;
 }
 
@@ -412,6 +412,8 @@
 }
 .BirInfo{
     text-align: center;
+    margin: 0 auto;
+    width:70%;
     font-size: 14px;
     color:#d0a15e;
     margin-top: 10px;
@@ -438,7 +440,7 @@
 }
 .jieri{
     width:100%;
-    height:150px;
+    height:105px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
@@ -458,11 +460,11 @@
 }
 .BirNum2{
     position: absolute;
-    top: 47%;
+    top: 56%;
     left: 13%;
     width: 90%;
     text-align: center;
-    font-size: 14px;
+    font-size: 26px;
     color: #e7be83;
 }
 .withDrawNum{

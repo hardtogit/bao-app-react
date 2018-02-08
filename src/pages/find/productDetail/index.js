@@ -54,7 +54,7 @@ class Index extends React.Component {
             num: event.target.value,
         });
     };
-    changeBar=(index,cash_limit_num)=>{
+    changeBar=(index,cash_limit_num,stock)=>{
 		if(index < 0 ){
             this.refs.alert.show({
                 content:'数目不能小于0!',
@@ -65,7 +65,12 @@ class Index extends React.Component {
                 content:'每人只限购'+cash_limit_num+'件!',
                 okText:'确定'
             })
-		}else{
+		}else if(index > stock){
+            this.refs.alert.show({
+                content:'商品库存不足!',
+                okText:'确定'
+            })
+        }else{
             this.setState({
                 num:index
             });
@@ -147,7 +152,6 @@ class Index extends React.Component {
             down_time,
             server_time
 		}=data;
-
         let restTime = utils.millisecondToDate(down_time - server_time);
 		return (<div>
 			<NavBar backgroundColor="#fff" color="#333" onLeft={this.props.pop}>{product_name}</NavBar>
@@ -169,11 +173,11 @@ class Index extends React.Component {
 				</div>
 			</div>
 			<div className={styles.propertyDiv}>
-				<p className={styles.num1}>数量：<span className={styles.num2}>{num}</span></p>
+				<p className={styles.num1}>库存：<span className={styles.num2}>{stock}</span></p>
 				<p className={styles.numSelect}>
 					<span onClick={()=>{this.changeBar(num-1)}}>-</span>
 					<input type="text" className={styles.productNum} value={this.state.num}  onChange={this.handleChange1}/>
-					<span onClick={()=>{this.changeBar(num+1,cash_limit_num)}}>+</span>
+					<span onClick={()=>{this.changeBar(num+1,cash_limit_num,stock)}}>+</span>
 				</p>
                 {
                     product_property&&product_property.map(({type_name,property_value,id}=item,i)=>(
