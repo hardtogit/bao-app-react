@@ -25,6 +25,7 @@ class Index extends React.Component {
         this.handleChange1 = this.handleChange1.bind(this);
 	}
 	componentWillMount(){
+        this.props.getVip();
 		this.remove();
 		const inspect = this.dataInspect();
 		if (!inspect){
@@ -202,32 +203,43 @@ class Index extends React.Component {
 	}
 	render() {
 		const {
-            infoData
+            infoData,
+            VipData
 		}=this.props;
+        let flag;
 		const inspect=this.dataInspect();
-		let Dom=this.loadDom();
-		if (infoData){
+		let Dom;
+		if (VipData&&infoData){
 			Dom=this.loadEndDom(infoData.data);
 			this.setData();
-		}
+            flag = VipData.data.coin_total>infoData.data.alone_price;
+		}else{
+            Dom=this.loadDom();
+        }
 		 if (inspect){
              Dom=this.loadEndDom();
 		 }
+		 console.log(flag)
+
 		return (
 			<div className={styles.bg} >
 				{
                     Dom
 				}
 				<Alert ref="alert"/>
-                <div className={styles.Botton}>
-                    <p onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>确认兑换</p>
+                <div className={flag&&styles.Botton||styles.none}>
+                    <p  onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>确认兑换</p>
+                </div>
+                <div className={!flag&&styles.BottonNo||styles.none}>
+                    <p >点币不足</p>
                 </div>
 			</div>
 		)
 	}
 }
 const mapStateToProps=(state)=>({
-       infoData:state.infodata.getIn(['PRODUCT_DETAIL','data'])
+       infoData:state.infodata.getIn(['PRODUCT_DETAIL','data']),
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
 });
 const mapDispatchToProps=(dispatch)=>({
 	  pop(){
@@ -247,6 +259,11 @@ const mapDispatchToProps=(dispatch)=>({
             type:'CLEAR_INFO_DATA',
             key:'PRODUCT_DETAIL'
         })
-    }
+    },
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

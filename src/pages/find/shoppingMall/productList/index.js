@@ -17,7 +17,7 @@ class Index extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-            index:0,
+            index:sessionStorage.getItem("barIndex")&&sessionStorage.getItem("barIndex")||0,
             id:0,
             filterShow:false,
             flag1:999,
@@ -27,6 +27,7 @@ class Index extends React.Component {
 	}
 	componentWillMount(){
         this.props.getGoodsTypeList();
+        sessionStorage.setItem("barIndex",this.state.index);
     }
     componentDidMount=()=>{
 
@@ -81,6 +82,7 @@ class Index extends React.Component {
 	changeBar=(index,typeData)=>{
         this.props.clearData(this.state.index);
 	    this.setState({index});
+        sessionStorage.setItem("barIndex",index);
         let arr1={};
         if(typeData&&typeData.code==100) {
             typeData.data.map(({label_type},i) => {
@@ -118,7 +120,7 @@ class Index extends React.Component {
                     return( <div key={i} className={styles.products}>
                         <Scroll  ref='scroll' height={Height}
                                   fetch={()=>{getGoodsList('GET_GOODS_LIST'+i,{area_type_id:id},params)}}
-                                isLoading={npending} distance={20} endType={nend} endload={<div></div>}
+                                isLoading={npending} distance={20} endType={nend}
                         >
                                 {
                                     nlistData&&nlistData.map((item,i)=>{

@@ -52,7 +52,6 @@ class Index extends Component{
         let Dom;
         Dom=this.loadDom();
         if (shopMessageData){
-            console.log(shopMessageData);
             Dom=this.loadEndDom(shopMessageData.data.detail);
         }
 

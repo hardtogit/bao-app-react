@@ -120,6 +120,7 @@ class Index extends Component{
             ticketNum = coupon_name.split("元")[0];
             ticketName1 = "元" + ticketName;
         }
+        console.log(is_has)
 
 
         return(

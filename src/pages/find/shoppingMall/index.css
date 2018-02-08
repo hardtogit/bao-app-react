@@ -21,10 +21,14 @@
 }
 .rightNode{
     width:14px;
+    float: left;
 }
 .rightNodeTxt{
     color:#666;
     font-size: 12px;
+    margin-left: 5px;
+    margin-top: 1px;
+    float: left;
 }
 .cavUl{
     display: block;

@@ -87,7 +87,7 @@ class Index extends React.Component {
     }
     hasAddress=()=>{
         const {address} = this.props;
-        return(<div>
+        return(<div style={{paddingBottom:"66px"}}>
             {
                 address&&address.sort((a,b)=>{
                     return b.is_default-a.is_default;

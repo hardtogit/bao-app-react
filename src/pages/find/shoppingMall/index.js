@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
 import Loading from '../../../components/pageLoading'
-import b1 from '../../../assets/images/find/b1.png';
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
 import st3 from '../../../assets/images/find/st3.png'
@@ -16,10 +15,15 @@ import styles from './index.css'
 class shoppingMall extends Component{
     componentWillMount(){
         this.props.getGoodsTypeList();
-        this.props.getGoodsList();
-        this.props.getGoodsListNew();
         this.props.mallBanner();
         this.props.getVip();
+        let area0 = sessionStorage.getItem("area0")
+        let area1 = sessionStorage.getItem("area1")
+        this.props.getGoodsList(area0);
+        this.props.getGoodsListNew(area1);
+    }
+    setArea=(i)=>{
+        sessionStorage.setItem("barIndex",JSON.stringify(i+1))
     }
     loadingDom=()=>{
         return <Loading/>
@@ -30,9 +34,11 @@ class shoppingMall extends Component{
             goodsListData,
             goodsListNewData
         }=this.props;
+        let area0 = sessionStorage.getItem("area0")
+        let area1 = sessionStorage.getItem("area1")
         let productList=[];
         let productListNew=[];
-        goodsListData&&goodsListData.map((item,i)=>{
+        goodsListData&&goodsListData.size>0&&goodsListData._tail.array.map((item,i)=>{
             if(i<4){
                 productList.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -75,17 +81,18 @@ class shoppingMall extends Component{
             <div>
                 {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
                     if(i<2){
+                        sessionStorage.setItem("area"+i,item.id);
                         return(
                             <div className={styles.findItem} key={i}>
                                 <div className={styles.itemTitle}>
                                     <span className={styles.leftTxt}>{item.name}</span>
                                     <Link to='/find/shoppingMall/productList'>
-                                        <span className={styles.rightTxt}>更多></span>
+                                        <span className={styles.rightTxt} onClick={()=>{this.setArea(i)}}>更多></span>
                                     </Link>
                                 </div>
                                 <ul className={styles.shop}>
                                     {
-                                        item.id=='26'&&productList||productListNew
+                                        item.id==area0&&productList||(item.id==area1&&productListNew)
                                     }
                                 </ul>
                             </div>
@@ -101,8 +108,14 @@ class shoppingMall extends Component{
             pop,
             goodsTypeListData,
             goodsListData,
-            bannerData
+            bannerData,
+            VipData
         }=this.props;
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let coinTotal;
+        if(userInfo&&VipData){
+            coinTotal = VipData.data.coin_total;
+        }
         let Dom;
         if(goodsTypeListData&&goodsListData ){
             Dom = this.loadEndDom()
@@ -117,8 +130,8 @@ class shoppingMall extends Component{
                 </div>
             )
         });
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
-        let rightNodeLogin= <span><img src={coin} className={styles.rightNode}/><span className={styles.rightNodeTxt}>2233456</span> </span>
+
+        let rightNodeLogin= <span><img src={coin} className={styles.rightNode}/><span className={styles.rightNodeTxt}>{coinTotal}</span> </span>
         let rightNodeNologin=<span className={styles.rightNodeTxt} onClick={()=>{this.props.push("/login?baoBackUrl=/find/shoppingMall")}}>去登录</span>
         let rightNodeDom;
         if(userInfo){
@@ -195,19 +208,19 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(){
+    getGoodsList(area){
         dispatch({
             type:'GET_GOODS_LIST',
             params:[
-                {area_type_id:26}
+                {area_type_id:area}
             ]
         })
     },
-    getGoodsListNew(){
+    getGoodsListNew(area){
         dispatch({
             type:'GET_GOODS_LIST_NEW',
             params:[
-                {area_type_id:27}
+                {area_type_id:area}
             ]
         })
     },

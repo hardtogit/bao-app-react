@@ -152,6 +152,8 @@ class Index extends React.Component {
         let Dom;
         let productDom;
         let coinNum;
+        let level;
+        let disciuntNum;
         if(productData){
             productDom= this.produceDom(productData.data);
         }
@@ -162,6 +164,8 @@ class Index extends React.Component {
         }
         if(VipData){
             coinNum = VipData.data.coin_total;
+            level = VipData.data.vip_level;
+            disciuntNum = VipData.data.discount_num;
         }
 		return (
 			<div className={styles.bg}>
@@ -171,6 +175,7 @@ class Index extends React.Component {
                     {
                         productDom
                     }
+                    <div className={styles.discount}>会员VIP{level}级{disciuntNum}折优惠</div>
 				</Box>
                 <Alert ref="alert"/>
                 <Confirm ref="confirm"/>

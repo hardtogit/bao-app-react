@@ -3,7 +3,6 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import Swiper from 'react-mobile-swiper';
-import b1 from '../../../assets/images/find/b1.png';
 import Notice from '../../../assets/images/find/notice.png'
 import Mall from '../../../assets/images/find/mall.png'
 import Signon from '../../../assets/images/find/signOn.png'
@@ -67,12 +66,14 @@ class findHome extends Component{
     };
     handleBasic=(basicindex)=>{
         this.props.push("/find/memberCenter");
-        console.log(basicindex)
         sessionStorage.setItem("basicIndex",JSON.stringify(basicindex));
     }
     qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
         return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
+    };
+    go=()=>{
+        this.props.push("/login?baoBackUrl=/home/findIndex")
     };
     loadingDom=()=>{
         return(<Loading/>)
@@ -84,7 +85,7 @@ class findHome extends Component{
             bannerData
         }=this.props;
         let inviteUrl;
-        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
         if (userInfo){
             inviteUrl = "/find/inviteFriends";
         }else {
@@ -165,7 +166,7 @@ class findHome extends Component{
                             </Link>
                         </li>
                         <li className={styles.indexCavli}>
-                            <span onClick={!this.state.isSign&&this.doSign}>
+                            <span onClick={!userInfo&&this.go||(!this.state.isSign&&this.doSign)}>
                                 <img src={Signon}/>
                                 <p>{this.state.isSign&&'已签到'||'签到'}</p>
                             </span>

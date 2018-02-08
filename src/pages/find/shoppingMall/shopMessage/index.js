@@ -2,10 +2,16 @@ import React,{Component} from 'react'
 import NavBar from '../../../../components/NavBar'
 import Loading from '../../../../components/pageLoading'
 import {connect} from 'react-redux'
-import Scroll from '../../../../components/scroll'
+import Scroll from '../../../../components/scroll/index'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
 class Index extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            init:false,
+        }
+    }
     push=(id)=>{
         this.props.push(id);
     };
@@ -21,8 +27,8 @@ class Index extends Component{
         const Height=document.body.clientHeight-44;
         return(
             <div className={styles.messageContent}>
-                <Scroll height={Height} fetch={this.props.getNoticeList()}
-                        isLoading={pending} distance={20} endType={end} endload={<div>没有更多了哦</div>}>
+                <Scroll height={Height} fetch={()=>{this.props.getNoticeList()}}
+                        isLoading={pending} distance={20} endType={end}>
                     {
                         listData&&listData.map((item,i)=>{
                             const {id,title,status,ctime,day,info}=item;
@@ -52,19 +58,10 @@ class Index extends Component{
     }
     render(){
         const{
-           listData,
-           pending,
-           end,
             pop
         }=this.props;
         let Dom;
-        if(listData){
-            Dom = this.loadEndDom();
-            console.log(listData)
-        }else{
-            Dom = this.loadingDom();
-        }
-
+        Dom = this.loadEndDom();
         return(
             <div className={styles.announceMent}>
             <div className={styles.announceMentHeader}><NavBar title="商城通知" onLeft={pop} backgroundColor="#fff" color="#666"/></div>

@@ -20,7 +20,7 @@ const requests = (Fetch) => {
     //取消兑换
     Fetch.cancelCashGoods = (id) => {return Fetch(`api/userVip/cashReback?id=${id}`, 'GET')};
     //商城通知列表
-    Fetch.getNoticeList = () => {return Fetch(`api/userVip/noticeList`, 'GET')};
+    Fetch.getNoticeList = (page,page_size=10) => {return Fetch(`api/userVip/noticeList?page=${page}?page_size=${page_size}`, 'GET')};
     //商城通知详情
     Fetch.getNoticeDetail = (id) => {return Fetch(`api/userVip/noticeDetail?id=${id}`, 'GET')};
     //商城帮助问题

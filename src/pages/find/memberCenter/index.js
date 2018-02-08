@@ -196,6 +196,7 @@ class memberCenter extends Component{
                             <img  className={styles.basicImg} src={discount} style={{width:"220px"}}/>
                             <p className={styles.BirNum2}>{vip_level==3&&mallVip.v3||(vip_level==4&&mallVip.v4||(vip_level==5&&mallVip.v5||(vip_level==6&&mallVip.v6)))}  </p>
                         </div>
+                        <p  className={(vip_level>2)&&styles.BirInfo||styles.none}>您可在宝点网商城享受全场{vip_level==3&&mallVip.v3||(vip_level==4&&mallVip.v4||(vip_level==5&&mallVip.v5||(vip_level==6&&mallVip.v6)))}折优惠</p>
                     </div>
                     <div className={index==3&&styles.contentItem}>
                         <div className={styles.discount}>
@@ -351,6 +352,7 @@ class memberCenter extends Component{
             rateCouponsData
         }=this.props;
         let Dom;
+
         let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
             if (userInfo){
                 if(VipData && voucherData && rateCouponsData){
