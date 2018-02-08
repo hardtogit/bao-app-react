@@ -120,7 +120,7 @@ class memberCenter extends Component{
             index
         } = this.state;
         const {
-            // vip_level,
+            vip_level,
             annual_gap
         }=this.props.VipData.data;
         const {
@@ -129,7 +129,6 @@ class memberCenter extends Component{
             mall,
             withdrawal
         } = data;
-        let vip_level = 4;
         let birthdayVip = birthday.rule_list;
         let holidayVip = holiday.rule_list;
         let mallVip = mall.rule_list;
