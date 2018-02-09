@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
 import Loading from '../../../components/pageLoading'
+import LoadImg from '../../../components/lazyLoad'
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
 import st3 from '../../../assets/images/find/st3.png'
@@ -41,7 +42,7 @@ class shoppingMall extends Component{
         goodsListData&&goodsListData.size>0&&goodsListData._tail.array.map((item,i)=>{
             if(i<4){
                 productList.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
                         <li>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
@@ -50,18 +51,17 @@ class shoppingMall extends Component{
                                 <img src={private1} className={styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
+                               <img src={item.image } className={styles.shopImg}/>
                             </div>
                         </li>
                     </Link>
-
                 )
             }
         })
         goodsListNewData&&goodsListNewData.map((item,i)=>{
             if(i<4){
                 productListNew.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
                         <li>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
@@ -132,12 +132,9 @@ class shoppingMall extends Component{
         });
 
         let rightNodeLogin= <span><img src={coin} className={styles.rightNode}/><span className={styles.rightNodeTxt}>{coinTotal}</span> </span>
-        let rightNodeNologin=<span className={styles.rightNodeTxt} onClick={()=>{this.props.push("/login?baoBackUrl=/find/shoppingMall")}}>去登录</span>
         let rightNodeDom;
         if(userInfo){
             rightNodeDom=rightNodeLogin;
-        }else{
-            rightNodeDom=rightNodeNologin;
         }
         return(
             <div className={styles.finderHome}>

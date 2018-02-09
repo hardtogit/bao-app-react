@@ -75,6 +75,9 @@ class findHome extends Component{
     go=()=>{
         this.props.push("/login?baoBackUrl=/home/findIndex")
     };
+    toActivity=(url)=>{
+        window.location.href=url;
+    };
     loadingDom=()=>{
         return(<Loading/>)
     };
@@ -95,7 +98,7 @@ class findHome extends Component{
         goodsListData&&goodsListData.map((item,i)=>{
             if(i<4){
              productList.push(
-                 <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                 <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"255px"}}  key={i}>
                          <li>
                          <p className={styles.shopTitle1}>{item.product_name}</p>
                          <p className={styles.shopTitle2}>
@@ -112,23 +115,12 @@ class findHome extends Component{
         let activityList=[];
         activityData&&activityData.data.map((item,i)=>{
             if(i<2){
-                if(item.status == 1){
-                    activityList.push(
-                        <Link to={item.url_wap} key={i}>
-                        <li>
-                            <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
-                            <img src={item.image_wap}/>
-                        </li>
-                        </Link>
-                    )
-                }else{
-                    activityList.push(
-                        <li key={i} >
-                            <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
-                            <img src={item.image_wap}/>
-                        </li>
-                    )
-                }
+                activityList.push(
+                    <li key={i} onClick={item.status&&(()=>{this.toActivity(item.url_wap)})}>
+                        <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
+                        <img src={item.image_wap}/>
+                    </li>
+                )
 
             }
         });

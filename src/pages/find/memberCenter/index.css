@@ -460,11 +460,11 @@
 }
 .BirNum2{
     position: absolute;
-    top: 56%;
-    left: 13%;
+    top: 50%;
+    left: 14%;
     width: 90%;
     text-align: center;
-    font-size: 26px;
+    font-size: 32px;
     color: #e7be83;
 }
 .withDrawNum{

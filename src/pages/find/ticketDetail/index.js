@@ -75,7 +75,7 @@ class Index extends Component{
     submit=(id,ticketName)=>{
         if(ticketName == "抵用券"){
             this.props.voucherGet(id);
-        }else if(ticketName == "兑换券"){
+        }else if(ticketName == "加息券"){
             this.props.rateGet(id);
         }
     };

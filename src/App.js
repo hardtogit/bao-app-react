@@ -317,14 +317,14 @@ export default class App extends React.Component {
                   <Route path="rateTicketRule/:id" component={RateTicketRule}></Route>
                   <Route path="ticketDetail" component={TicketDetail}></Route>
                   <Route path="hotActivity" getComponents={HotActivity}></Route>
-                  <Route path="address" getComponents={Address}></Route>
-                  <Route path="editAddress" getComponents={EditAddress}></Route>
-                  <Route path="addAddress" getComponents={AddAddress}></Route>
+                  <Route path="address" getComponents={Address}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="editAddress" getComponents={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="addAddress" getComponents={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="basicPrivaligeDetail" getComponents={BasicPrivaligeDetail}></Route>
-                  <Route path="productDetail/:id" getComponents={ProductDetail}></Route>
-                  <Route path="productCash/:product_id/:num" getComponents={ProductCash}></Route>
+                  <Route path="productDetail/:id" getComponents={ProductDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messages" component={Messages} ></Route>
+                  <Route path="messages" component={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

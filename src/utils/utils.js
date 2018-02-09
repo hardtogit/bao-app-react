@@ -767,11 +767,8 @@ utils.formatDate=function(fmt,date){
     把毫秒数改为天数，小时大于0默认默认加1天
  */
 utils.millisecondToDate=function(mss) {
-    var days = parseInt(mss / (1000 * 60 * 60 * 24));
-    var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = (mss % (1000 * 60)) / 1000;
-    if(days > 0||days <1){
+    let days = parseInt(mss / (60 * 60 * 24));
+    if(days > 0&&days <1){
         days = 1;
     }
     days = days +"天";
