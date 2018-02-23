@@ -16,7 +16,7 @@ import v4 from '../../../assets/images/find/4j.png'
 import v5 from '../../../assets/images/find/5j.png'
 import v6 from '../../../assets/images/find/6j.png'
 import content11 from '../../../assets/images/find/content11.png'
-import birth11 from '../../../assets/images/find/birth11.png'
+import birth11 from '../../../assets/images/find/birth1111.png'
 import noFestival from '../../../assets/images/find/noFestival.png'
 import duanwu from '../../../assets/images/find/duanwu.png'
 import zhongqiu from '../../../assets/images/find/zhongqiu.png'
@@ -59,8 +59,8 @@ class memberCenter extends Component{
         return(
             <ul className={styles.shop}>
                 {rateCouponsData&&rateCouponsData.data.map((item,i)=>{
-                    const {coupon_id,coupon_money,coupon_name,receive_way,info_term,info_limit,is_has}=item,
-                        data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,is_has};
+                    const {coupon_id,coupon_money,coupon_name,receive_way,info_term,info_limit,info_product,is_has}=item,
+                        data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,info_product,is_has};
                     return(
                         <Link key={i}>
                            <li  onClick={()=>{this.push(data)}}>
@@ -82,8 +82,8 @@ class memberCenter extends Component{
         return(
             <ul className={styles.shop}>
                 {voucherData&&voucherData.data.map((item,i)=>{
-                    const {coupon_id,coupon_money,coupon_name,minimum_money,receive_way,info_term,info_limit,is_has}=item,
-                        data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,is_has};
+                    const {coupon_id,coupon_money,coupon_name,minimum_money,receive_way,info_term,info_limit,info_product,is_has}=item,
+                        data={coupon_id,coupon_name,coupon_money,receive_way,info_term,info_limit,info_product,is_has};
                     return(
                         <Link key={i}>
                            <li onClick={()=>{this.push(data)}}>

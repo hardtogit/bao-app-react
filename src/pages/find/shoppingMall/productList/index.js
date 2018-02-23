@@ -9,6 +9,7 @@ import {push,goBack} from 'react-router-redux'
 import private1 from '../../../../assets/images/find/private2.png'
 import coin from '../../../../assets/images/find/coin.png'
 import select from '../../../../assets/images/find/select.png'
+import qiang from '../../../../assets/images/find/qiang.png'
 import Loading from '../../../../components/pageLoading/index'
 import Scroll from '../../../../components/scroll/index'
 import utils from '../../../../utils/utils'
@@ -124,22 +125,26 @@ class Index extends React.Component {
                         >
                                 {
                                     nlistData&&nlistData.map((item,i)=>{
-                                        const {product_id,product_name,image,price,down_time,server_time}=item;
+                                        const {product_id,product_name,image,price,alone_price,down_time,server_time,label_name}=item;
                                         let restTime = utils.millisecondToDate(down_time - server_time);
-                                        return(<div className={styles.productBox} key={i}>
+                                        return(
+                                            <Link to={`/find/productDetail/${item.product_id}`}  key={i}>
+                                            <div className={styles.productBox}>
+                                                <span className={label_name!=""&&styles.label||styles.none}>{label_name}</span>
                                             <p className={styles.shopTitle1}>{product_name}</p>
                                             <p className={styles.shopTitle2}>
-                                                <span>{price}</span>
+                                                <span>{alone_price}</span>
                                                 <span><img src={coin} /></span>
                                                 <img src={private1} className={styles.specialIcon}/>
                                             </p>
-                                            <Link to={`/find/productDetail/${item.product_id}`}>
                                                 <div className={styles.imgBox}>
                                                     <LoadImg  className={styles.products_img} src={image} scrollDom={this.refs.scroll}  ></LoadImg>
                                                 </div>
+                                            <div className={down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                                            <img src={qiang} className={down_time!=0&&styles.qiang||styles.none}/>
+                                        </div>
                                             </Link>
-                                            <div className={styles.productBottomBox}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                                        </div>)
+                                        )
                                     })
                                 }
                         </Scroll>
@@ -215,11 +220,12 @@ class Index extends React.Component {
                     {
                         typeList
                     }
-                    <p className={styles.selectTitle}>积分区间</p>
+                    <p className={styles.selectTitle}>点币区间</p>
                     <form className={styles.coinselect}  ref="priceBox">
                         <input type="text" name="priceStart"/>
                         <span>-</span>
                         <input type="text"  name="priceEnd"/>
+                        <span className={styles.coinWords}>点币</span>
                     </form>
                     <div className={styles.btnWrap}>
                         <div className={styles.confirmBtn} onClick={()=>{this.confirm()}}>确认</div>
@@ -262,7 +268,6 @@ const mapDispatchToProps=(dispatch)=>({
             key:'GET_GOODS_LIST'+i
         })
     },
-
       push(url){
         dispatch(push(url))
       },

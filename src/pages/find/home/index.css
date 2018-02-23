@@ -234,6 +234,7 @@
     padding: 20px 15px;
     color:#333;
     font-size: 14px;
+    position: relative;
 }
 .shop li:nth-child(odd){
     border-bottom:1px solid #dedede;
@@ -241,6 +242,15 @@
 }
 .shop li:nth-child(even){
     border-bottom:1px solid #dedede;
+}
+.shop li .label{
+    position: absolute;
+    display: block;
+    width:40px;
+    height:20px;
+    background-color: #f56c62;
+    color:#fff;
+    font-size: 14px;
 }
 .shop .shopTitle1{
     font-size: 12px;
@@ -302,5 +312,32 @@
     width:100%;
     height:100%;
     margin: 0 auto;
+}
+.none{
+    display:none;
+}
+.productBottomBox{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    text-align: center;
+}
+.productBottomTxt{
+    display: block;
+    width:45%;
+    height: 16px;
+    line-height: 16px;
+    margin: 0 auto;
+    background-color: #858585;
+    color:#fff;
+    font-size: 12px;
+}
+.qiang{
+    width:50px;
+    height:50px;
+    position: absolute;
+    bottom:25px;
+    right: 10px;
 }
 

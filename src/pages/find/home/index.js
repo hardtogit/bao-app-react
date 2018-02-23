@@ -18,8 +18,10 @@ import special6 from '../../../assets/images/find/special6.png'
 import private1 from '../../../assets/images/find/private2.png'
 import Sign from '../../../components/Sign/index'
 import coin from '../../../assets/images/find/coin.png'
+import qiang from '../../../assets/images/find/qiang.png'
 import styles from './index.css'
 import Loading from '../../../components/pageLoading'
+import utils from '../../../utils/utils'
 class findHome extends Component{
     constructor(props) {
         super(props);
@@ -96,17 +98,21 @@ class findHome extends Component{
         }
         let productList=[];
         goodsListData&&goodsListData.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
              productList.push(
                  <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"255px"}}  key={i}>
                          <li>
+                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                          <p className={styles.shopTitle1}>{item.product_name}</p>
                          <p className={styles.shopTitle2}>
-                             <span>{item.price}</span>
+                             <span>{item.alone_price}</span>
                              <span><img src={coin} /></span>
                              <img  src={private1} className={styles.specialIcon}/>
                          </p>
                          <img src={item.image} className={styles.shopImg}/>
+                         <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                         <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
                      </li>
                  </Link>
              )

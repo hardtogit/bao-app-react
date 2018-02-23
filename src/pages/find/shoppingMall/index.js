@@ -20,12 +20,56 @@ class shoppingMall extends Component{
         this.props.getVip();
         let area0 = sessionStorage.getItem("area0")
         let area1 = sessionStorage.getItem("area1")
-        this.props.getGoodsList(area0);
-        this.props.getGoodsListNew(area1);
+        // this.props.getGoodsList("GET_GOODS_LIST"+area0,area0);
+        // this.props.getGoodsListNew(area1);
     }
     setArea=(i)=>{
         sessionStorage.setItem("barIndex",JSON.stringify(i+1))
     }
+    componentWillReceiveProps=(nextProps)=>{
+        // const {i,area}=nextProps;
+        // this.props.getGoodsList("GET_GOODS_LIST"+i,area);
+        // let areaArr = sessionStorage.getItem("area").split(",");
+        // console.log(areaArr)
+        // areaArr.map((item,i)=>(
+        //     this.props.getGoodsList('GET_GOODS_LIST'+0,areaArr[0]),
+        //     this.props.getGoodsList('GET_GOODS_LIST'+1,areaArr[1])
+        // ))
+    }
+    productListDom=(id,index)=>{
+        const {
+            goodsListData
+        }=this.props;
+        const nlistData=goodsListData('GET_GOODS_LIST'+index);
+        this.props.getGoodsList('GET_GOODS_LIST'+index,id);
+        let productList=[];
+        nlistData&&nlistData.size>0&&nlistData._tail.array.map((item,i)=>{
+            if(i<4){
+                productList.push(
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
+                        <li>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.alone_price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image} className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+                )
+            }
+        })
+        return(
+            <div>
+                {
+                    productList
+                }
+            </div>
+        )
+    };
     loadingDom=()=>{
         return <Loading/>
     }
@@ -35,69 +79,37 @@ class shoppingMall extends Component{
             goodsListData,
             goodsListNewData
         }=this.props;
-        let area0 = sessionStorage.getItem("area0")
-        let area1 = sessionStorage.getItem("area1")
-        let productList=[];
-        let productListNew=[];
-        goodsListData&&goodsListData.size>0&&goodsListData._tail.array.map((item,i)=>{
-            if(i<4){
-                productList.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
-                        <li>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
-                                <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                               <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                        </li>
-                    </Link>
-                )
-            }
-        })
-        goodsListNewData&&goodsListNewData.map((item,i)=>{
-            if(i<4){
-                productListNew.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
-                        <li>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
-                                <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                        </li>
-                    </Link>
-                )
-            }
-        })
+        let arr=[];
         return(
             <div>
                 {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
-                    if(i<2){
-                        sessionStorage.setItem("area"+i,item.id);
-                        return(
-                            <div className={styles.findItem} key={i}>
-                                <div className={styles.itemTitle}>
-                                    <span className={styles.leftTxt}>{item.name}</span>
-                                    <Link to='/find/shoppingMall/productList'>
-                                        <span className={styles.rightTxt} onClick={()=>{this.setArea(i)}}>更多></span>
-                                    </Link>
-                                </div>
-                                <ul className={styles.shop}>
-                                    {
-                                        item.id==area0&&productList||(item.id==area1&&productListNew)
-                                    }
-                                </ul>
+                    let arrArea = arr.push(item.id);
+                    // console.log(arr)
+                    let id = item.id;
+                    // console.log(item.id)
+                    return(
+                        <div className={styles.findItem} key={i}>
+                            <div className={styles.itemTitle}>
+                                <span className={styles.leftTxt}>{item.name}</span>
+                                <Link to='/find/shoppingMall/productList'>
+                                    <span className={styles.rightTxt} onClick={()=>{this.setArea(i)}}>{i}+更多></span>
+                                </Link>
                             </div>
-                        )
-                    }
+                            <ul className={styles.shop}>
+                                {
+                                    arr.map((item,index)=>{
+                                        console.log(i==index)
+                                        if(i==0){
+                                            this.productListDom(id,index)
+                                        }
+                                    })
+                                    // this.productListDom(id,i)
+                                    // item.id==area0&&productList||(item.id==area1&&productListNew)
+
+                                }
+                            </ul>
+                        </div>
+                    )
                 })}
             </div>
 
@@ -155,8 +167,8 @@ class shoppingMall extends Component{
                         <ul className={styles.productTab}>
                             <li className={styles.indexCavli}>
                                 <Link to='/find/shoppingMall/shopHistoryRecord' className={styles.Link}>
-                                         <img src={st1}/>
-                                         <p>记录</p>
+                                    <img src={st1}/>
+                                    <p>记录</p>
                                 </Link>
                             </li>
                             <li className={styles.indexCavli}>
@@ -190,7 +202,10 @@ class shoppingMall extends Component{
 const mapStateToProps=(state)=>({
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
-    goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    // goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    goodsListData(key){
+        return state.listdata.getIn([key,'data'])
+    },
     goodsListNewData: state.listdata.getIn(['GET_GOODS_LIST_NEW', 'data']),
     bannerData:state.infodata.getIn(['GET_MALL_BANNER','data'])
 });
@@ -205,9 +220,10 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(area){
+    getGoodsList(key,area){
         dispatch({
             type:'GET_GOODS_LIST',
+            OtherKey:key,
             params:[
                 {area_type_id:area}
             ]

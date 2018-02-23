@@ -767,7 +767,7 @@ utils.formatDate=function(fmt,date){
     把毫秒数改为天数，小时大于0默认默认加1天
  */
 utils.millisecondToDate=function(mss) {
-    let days = parseInt(mss / (60 * 60 * 24));
+    let days = Math.ceil(mss / (60 * 60 * 24));
     if(days > 0&&days <1){
         days = 1;
     }

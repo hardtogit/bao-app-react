@@ -38,6 +38,7 @@ class Index extends Component{
                 this.refs.confirm.show({
                     title: '领取失败',
                     okText: '确定',
+                    content:voucherInfo.msg,
                     okCallback: () => {
                     },
                     cancelText: '取消',
@@ -47,6 +48,7 @@ class Index extends Component{
             }
         }
         if(rateInfo){
+
             if (rateInfo.code == 100) {
                 this.refs.confirm.show({
                     title: '领取成功',
@@ -59,9 +61,11 @@ class Index extends Component{
                     }
                 })
             }else{
+                console.log("111")
                 this.refs.confirm.show({
                     title: '领取失败',
                     okText: '确定',
+                    content:"111",
                     okCallback: () => {
                     },
                     cancelText: '取消',
@@ -107,6 +111,7 @@ class Index extends Component{
             receive_way,
             info_term,
             info_limit,
+            info_product,
             is_has,
         }=JSON.parse(sessionStorage.getItem("bao-ticketData"));
         let ticketNum;
@@ -121,6 +126,11 @@ class Index extends Component{
             ticketName1 = "元" + ticketName;
         }
         console.log(is_has)
+        if(is_has==1){
+            btnDom=this.hasBtnDom();
+        }else{
+            btnDom=this.nohasBtnDom(coupon_id,ticketName)
+        }
 
 
         return(
@@ -137,9 +147,10 @@ class Index extends Component{
                         <p className={styles.firstP}>使用规则：</p>
                         <p>{info_term}</p>
                         <p>{info_limit}</p>
+                        <p>{info_product}</p>
                     </div>
                     {
-                        {is_has} == 1 && this.hasBtnDom() || this.nohasBtnDom(coupon_id,ticketName)
+                        btnDom
                     }
 
                     <Confirm ref="confirm"/>

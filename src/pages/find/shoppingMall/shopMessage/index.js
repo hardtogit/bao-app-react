@@ -12,6 +12,17 @@ class Index extends Component{
             init:false,
         }
     }
+    componentDidMount(){
+    }
+    componentWillMount(){
+        this.props.clearData()
+    }
+    componentWillReceiveProps(){
+        this.refs.scroll.setState({
+            init:true,
+            first:false
+        });
+    }
     push=(id)=>{
         this.props.push(id);
     };
@@ -27,7 +38,7 @@ class Index extends Component{
         const Height=document.body.clientHeight-44;
         return(
             <div className={styles.messageContent}>
-                <Scroll height={Height} fetch={()=>{this.props.getNoticeList()}}
+                <Scroll height={Height} ref="scroll" fetch={()=>{this.props.getNoticeList()}}
                         isLoading={pending} distance={20} endType={end}>
                     {
                         listData&&listData.map((item,i)=>{
@@ -37,7 +48,7 @@ class Index extends Component{
                                     <div className={styles.massageOne}>
                                         <div className={styles.massageTitle}>
                                             <div  className={styles.Link} >
-                                                <p className={styles.massageNew}>{title}{status}{id}</p>
+                                                <p className={styles.massageNew}>{title}</p>
                                             </div>
                                         </div>
                                         <div className={styles.massageBody}>
@@ -81,6 +92,12 @@ const mapDispatchToProps=(dispatch,own) =>({
     getNoticeList(){
         dispatch({
             type:'GET_NOTICE_LIST'
+        })
+    },
+    clearData(){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:'GET_NOTICE_LIST'
         })
     },
     pop(){
