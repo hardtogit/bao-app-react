@@ -125,6 +125,11 @@ class Index extends Component{
                         }
                     }
                 }
+            }else{
+                this.setState({
+                    pending:false
+                });
+                this.refs.alert.open(nextProps.data.msg)
             }
         }
     }
