@@ -25,7 +25,7 @@ class shoppingMall extends Component{
     }
     setArea=(i)=>{
         sessionStorage.setItem("barIndex",JSON.stringify(i+1))
-    }
+    };
     componentWillReceiveProps=(nextProps)=>{
         // const {i,area}=nextProps;
         // this.props.getGoodsList("GET_GOODS_LIST"+i,area);
@@ -35,7 +35,7 @@ class shoppingMall extends Component{
         //     this.props.getGoodsList('GET_GOODS_LIST'+0,areaArr[0]),
         //     this.props.getGoodsList('GET_GOODS_LIST'+1,areaArr[1])
         // ))
-    }
+    };
     productListDom=(id,index)=>{
         const {
             goodsListData
