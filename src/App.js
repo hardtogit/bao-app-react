@@ -138,8 +138,8 @@ GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCh
 SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
 
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -329,7 +329,6 @@ export default class App extends React.Component {
                   <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-
               </Route>
 
               /*已完成*/
