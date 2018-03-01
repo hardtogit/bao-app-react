@@ -29,6 +29,8 @@ import gift from '../../../assets/images/my-index/gift.png'
 import user_bg from '../../../assets/images/my-index/user_bg.png'
 import vip from '../../../assets/images/my-index/vip.png'
 import setting from '../../../assets/images/my-index/setting.png'
+import news from '../../../assets/images/my-index/news.png'
+import headIcon from '../../../assets/images/my-index/head_icon.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
@@ -104,19 +106,21 @@ class Index extends React.Component {
             <div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
                 <div className={styles.userAccount}>
-                    <img className={styles.userBg} src={user_bg} alt=""/>
-                    <div className={styles.userInfoBg}>
-
-                    </div>
+                    <img  className={styles.userBg} src={user_bg} alt=""/>
+                    <img onClick={()=>{this.props.push('/user/setting') }} className={styles.setting} src={setting} alt=""/>
+                    <img onClick={()=>{this.props.push('/find/message') }} className={styles.news} src={news} alt=""/>
                     <div className={styles.userInfo}>
+                        <div className={styles.img_c}>
+                            <img src={headIcon} alt=""/>
+                        </div>
                         <div className={styles.name}>{username}</div>
-                        <div className={styles.vip}><div className={styles.left}><img src={vip} alt=""/></div> <div className={styles.right}>普通会员</div></div>
                     </div>
+
                     <div className={styles.settingBg}>
                     </div>
-                    <div className={styles.setting} onClick={()=>{this.props.push('/user/setting') }}>
-                        <img src={setting} alt=""/>
-                        <span>设置</span>
+                    <div className={styles.settings}>
+                        <img src={vip} alt=""/>
+                        <span>普通会员</span>
                     </div>
                 </div>
                 <Link to="/user/analysis">
