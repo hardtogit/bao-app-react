@@ -11,17 +11,24 @@ class Index extends Component{
         this.state = {
             error: false,
             open: false,
-            buttonClickStatus: true//确认开启是否能点击,
-
         }
     }
     componentWillMount(){
-
+        this.props.getRateInfo();
+        this.props.getVoucherInfo();
+        // this.props.clearData("VOUCHER_GET");
+        // this.props.clearData("RATE_GET")
+    }
+    componentWillUnmount(){
+        this.props.clearData('VOUCHER_GET');
+        this.props.clearData('RATE_GET')
     }
     componentDidMount(){
 
     }
     componentWillReceiveProps = ({voucherInfo,rateInfo}) => {
+        console.log(voucherInfo)
+        console.log(rateInfo)
         if(voucherInfo){
             if (voucherInfo.code == 100) {
                 this.refs.confirm.show({
@@ -48,7 +55,6 @@ class Index extends Component{
             }
         }
         if(rateInfo){
-
             if (rateInfo.code == 100) {
                 this.refs.confirm.show({
                     title: '领取成功',
@@ -61,11 +67,10 @@ class Index extends Component{
                     }
                 })
             }else{
-                console.log("111")
                 this.refs.confirm.show({
                     title: '领取失败',
                     okText: '确定',
-                    content:"111",
+                    content:rateInfo.msg,
                     okCallback: () => {
                     },
                     cancelText: '取消',
@@ -85,7 +90,7 @@ class Index extends Component{
     };
     nohasBtnDom=(id,ticketName)=>{
         return(
-            <div className={styles.yesBtn} onClick={() => {this.submit(id,ticketName)}} disabled={!this.state.buttonClickStatus}>
+            <div className={styles.yesBtn} onClick={() => {this.submit(id,ticketName)}} >
                 确认领取
             </div>
         )
@@ -97,13 +102,32 @@ class Index extends Component{
             </div>
         )
     };
+    noBtnDom=(id,ticketName)=>{
+        let vipLevel = sessionStorage.getItem("vipLevel");
+        let cueTxt;
+        if(vipLevel == 0){
+            cueTxt = "普通会员不可领取"
+        }else{
+            cueTxt = "已达每月领券上限"
+        }
+        return(
+            <div>
+                <div className={styles.noBtn} onClick={() => {this.submit(id,ticketName)}}>
+                    确认领取
+                </div>
+                <p className={styles.noBtnTxt}>{cueTxt}</p>
+            </div>
+        )
+    };
+
     render(){
         const {
             pop,
+            voucherInfoData,
+            rateInfoData,
             voucherInfo,
             rateInfo
         }=this.props;
-
         const {
             coupon_id,
             coupon_name,
@@ -114,24 +138,38 @@ class Index extends Component{
             info_product,
             is_has,
         }=JSON.parse(sessionStorage.getItem("bao-ticketData"));
-        let ticketNum;
-        let ticketName1;
-        let btnDom;
+        let vipLevel = sessionStorage.getItem("vipLevel");
+        let ticketNum,ticketName1,btnDom;
         let ticketName = coupon_name.substring(coupon_name.length-3);
         if(ticketName == "加息券"){
             ticketNum = coupon_name.split("%")[0];
             ticketName1 = "%" + ticketName;
+            if(rateInfoData){
+                if(vipLevel == 0||rateInfoData.data.can==0){
+                    btnDom=this.noBtnDom();
+                }else{
+                    if(is_has==1){
+                        btnDom=this.hasBtnDom();
+                    }else{
+                        btnDom=this.nohasBtnDom(coupon_id,ticketName)
+                    }
+                }
+            }
         }else if(ticketName == "抵用券"){
             ticketNum = coupon_name.split("元")[0];
             ticketName1 = "元" + ticketName;
+            if(voucherInfoData){
+                if(vipLevel == 0||voucherInfoData.data.can==0){
+                    btnDom=this.noBtnDom();
+                }else{
+                    if(is_has==1){
+                        btnDom=this.hasBtnDom();
+                    }else{
+                        btnDom=this.nohasBtnDom(coupon_id,ticketName)
+                    }
+                }
+            }
         }
-        console.log(is_has)
-        if(is_has==1){
-            btnDom=this.hasBtnDom();
-        }else{
-            btnDom=this.nohasBtnDom(coupon_id,ticketName)
-        }
-
 
         return(
              <div className={styles.findMessage} >
@@ -152,7 +190,6 @@ class Index extends Component{
                     {
                         btnDom
                     }
-
                     <Confirm ref="confirm"/>
                 </div>
             </div>
@@ -163,6 +200,8 @@ const mapStateToProps=(state,own)=>{
     return{
         voucherInfo: state.infodata.getIn(['VOUCHER_GET', 'data']),
         rateInfo: state.infodata.getIn(['RATE_GET', 'data']),
+        voucherInfoData:state.infodata.getIn(['GET_VOUCHER_INFO','data']),
+        rateInfoData:state.infodata.getIn(['GET_RATE_INFO','data']),
     }
 }
 const mapDispatchToProps=(dispatch,own)=>({
@@ -182,11 +221,27 @@ const mapDispatchToProps=(dispatch,own)=>({
          ]
         })
     },
+    getRateInfo(){
+        dispatch({
+            type:'GET_RATE_INFO'
+        })
+    },
+    getVoucherInfo(){
+        dispatch({
+            type:'GET_VOUCHER_INFO'
+        })
+    },
     pop(){
         dispatch(goBack())
     },
     push(url) {
         dispatch(push(url))
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
     },
 })
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

@@ -159,12 +159,12 @@ class Index extends React.Component {
 			<div className={styles.goodsTop}>
 				<div className={styles.goodsImg}>
 					<img src={image} className={styles.productImg}/>
-					<div className={styles.numDiv}><div className={styles.dayNum}>距结束{restTime}</div></div>
+					<div className={down_time!=0&&styles.numDiv||styles.none} ><div className={styles.dayNum}>距结束{restTime}</div></div>
 				</div>
 				<div className={styles.proTitle}>
 					<p className={styles.titleTop}>
 						<span className={styles.titieTxt}>{product_name}</span>
-						<span className={styles.limitTxt}>每人每天限购{cash_limit_num}件</span>
+
 					</p>
 					<p className={styles.titleBottom}>
 						<span className={styles.priceTxt}>{alone_price}点币</span>
@@ -174,12 +174,6 @@ class Index extends React.Component {
 				</div>
 			</div>
 			<div className={styles.propertyDiv}>
-				<p className={styles.num1}>库存：<span className={styles.num2}>{stock}</span></p>
-				<p className={styles.numSelect}>
-					<span onClick={()=>{this.changeBar(num-1)}}>-</span>
-					<input type="text" className={styles.productNum} value={this.state.num}  onChange={this.handleChange1}/>
-					<span onClick={()=>{this.changeBar(num+1,cash_limit_num,stock)}}>+</span>
-				</p>
                 {
                     product_property&&product_property.map(({type_name,property_value,id}=item,i)=>(
 						<div className={styles.propertyItem} key={i}>
@@ -194,6 +188,14 @@ class Index extends React.Component {
 						</div>
                     ))
                 }
+                <p className={styles.num1}>数目：<span className={styles.num2}>{this.state.num}</span></p>
+                <p className={styles.numSelect}>
+                    <span className={styles.numBorder} onClick={()=>{this.changeBar(num-1)}}>-</span>
+                    <input type="text" className={styles.productNum} value={this.state.num}  onChange={this.handleChange1}/>
+                    <span className={styles.numBorder} onClick={()=>{this.changeBar(num+1,cash_limit_num,stock)}}>+</span>
+                    <span className={styles.limitTxt}>每人每天限购{cash_limit_num}件</span>
+                    <span className={styles.limitTxt}>剩余数量{stock}件&emsp;&emsp;</span>
+                </p>
 			</div>
             <div className={styles.detailImg}>
                 <p className={styles.infoTitle}>商品详情</p>
@@ -219,7 +221,6 @@ class Index extends React.Component {
 		 if (inspect){
              Dom=this.loadEndDom();
 		 }
-		 console.log(flag)
 
 		return (
 			<div className={styles.bg} >

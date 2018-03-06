@@ -131,6 +131,7 @@ class Index extends React.Component {
                                             <Link to={`/find/productDetail/${item.product_id}`}  key={i}>
                                             <div className={styles.productBox}>
                                                 <span className={label_name!=""&&styles.label||styles.none}>{label_name}</span>
+                                                {/*<span className={styles.label}>特价</span>*/}
                                             <p className={styles.shopTitle1}>{product_name}</p>
                                             <p className={styles.shopTitle2}>
                                                 <span>{alone_price}</span>

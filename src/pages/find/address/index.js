@@ -123,6 +123,18 @@ class Index extends React.Component {
             }
         </div>)
     }
+    handleAdd=()=>{
+        const {address} = this.props;
+        if(address.length>=5){
+            this.refs.alert.show({
+                title: '',
+                content: '最多只能添加5个地址！',
+                okText: '确定',
+            })
+        }else{
+            this.props.push("/find/addAddress")
+        }
+    };
 	render() {
         const {address,pop} = this.props;
         let Dom = this.nullAddress();
@@ -138,11 +150,9 @@ class Index extends React.Component {
                 <Alert ref="alert"/>
                 <Confirm ref="confirm"/>
                 <div className={styles.addBtnDiv}>
-                    <Link to={`/find/addAddress`}  >
-                        <div className={styles.addBtn}>
-                            添加新地址
-                        </div>
-                    </Link>
+                    <div className={styles.addBtn} onClick={()=>{this.handleAdd()}}>
+                        添加新地址
+                    </div>
                 </div>
 			</div>
 		)
@@ -188,6 +198,7 @@ const mapDispatchToProps = (dispatch) => ({
 		})
 	},
     setDeafult(params){
+	    console.log(params)
         dispatch({
             type:"SET_ADDRESS",
             params:[

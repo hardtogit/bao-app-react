@@ -135,11 +135,11 @@ import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,S
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
 
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -292,6 +292,9 @@ export default class App extends React.Component {
                   <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='withdrawals' components={Withdrawals} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path='withdrawalsOld' getComponents={CashOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashMain' getComponents={CashMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashLog/:type' getComponents={CashLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashRule' getComponents={CashRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="setting/feedback" component={FeedbackIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*意见反馈*/
 
                    <Route path="setting/Detail" component={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -321,6 +324,7 @@ export default class App extends React.Component {
                   <Route path="editAddress" getComponents={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="addAddress" getComponents={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="basicPrivaligeDetail" getComponents={BasicPrivaligeDetail}></Route>
+                  <Route path="overallRule" getComponents={OverallRule}></Route>
                   <Route path="productDetail/:id" getComponents={ProductDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

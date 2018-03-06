@@ -235,7 +235,12 @@ export const GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/basicPrivaligeDetail').default);
         }, 'BasicPrivaligeDetail');
-    }//会员基础特权更多
+    },//会员基础特权更多OverallRule
+    OverallRule  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/find/overallRule').default);
+        }, 'OverallRule');
+    }//会员基础特权更多OverallRule
 
 
 //成功失败模版

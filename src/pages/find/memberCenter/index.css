@@ -202,7 +202,7 @@
     width: 100%;
     background-color: #fff;
     margin-top: 10px;
-    padding-bottom: 13px;
+    padding-bottom: 26px;
 }
 .itemTitle{
     width:92%;
@@ -215,6 +215,12 @@
     float: left;
     color:#333;
     font-size: 14px;
+}
+.leftTxtCue{
+    float: left;
+    margin-left: 5px;
+    color:#333;
+    font-size: 12px;
 }
 .rightTxt{
     float: right;
@@ -475,6 +481,10 @@
     text-align: center;
     font-size: 24px;
     color: #e7be83;
+}
+.right{
+    font-size: 12px;
+    color:#d0a15e;
 }
 
 

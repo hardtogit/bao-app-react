@@ -489,6 +489,9 @@ export default {
     [actionTypes.GET_VIP]:{   //获取用户VIP信息
         apiFn:Fetch.getVipInfo
     },
+    [actionTypes.GET_VIP_STR]:{   //获取用户VIP信息
+        apiFn:Fetch.getVipStr
+    },
     [actionTypes.GET_PRIV_PROFIT]:{   //特权规则-收益
         apiFn:Fetch.getPrivilegeProfit
     },
@@ -501,10 +504,10 @@ export default {
     [actionTypes.CANCEL_CASH_GOODS]:{   //取消兑换
         apiFn:Fetch.cancelCashGoods
     },
-    [actionTypes.VOUCHER_GET]:{   //获取兑换详情
+    [actionTypes.VOUCHER_GET]:{   //领取抵用券
         apiFn:Fetch.voucherGet
     },
-    [actionTypes.RATE_GET]:{   //获取兑换详情
+    [actionTypes.RATE_GET]:{   //领取加息券
         apiFn:Fetch.rateGet
     },
     [actionTypes.GET_NOTICE_DETAIL]:{   //商城通知详情
@@ -520,7 +523,13 @@ export default {
     [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心抵用券列表
         apiFn:Fetch.getVoucherCoupons
     },
-    [actionTypes.GET_VIP_ANNUAL]:{    //会员中心抵用券列表
+    [actionTypes.GET_RATE_INFO]:{    //加息券领取情况
+        apiFn:Fetch.getRateInfo
+    },
+    [actionTypes.GET_VOUCHER_INFO]:{    //抵用券领取情况
+        apiFn:Fetch.getVoucherInfo
+    },
+    [actionTypes.GET_VIP_ANNUAL]:{    //会员年化
         apiFn:Fetch.getVipAnnual
     },
     [actionTypes.GET_HOT_ACTIVITY]:{    //热门活动列表

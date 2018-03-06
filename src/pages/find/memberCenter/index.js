@@ -22,7 +22,7 @@ import duanwu from '../../../assets/images/find/duanwu.png'
 import zhongqiu from '../../../assets/images/find/zhongqiu.png'
 import chunjie from '../../../assets/images/find/chunjie.png'
 import noDiscount from '../../../assets/images/find/noDiscount.png'
-import discount from '../../../assets/images/find/discount.png'
+import discount from '../../../assets/images/find/discount1.png'
 import withdraw from '../../../assets/images/find/withdraw.png'
 import ku from '../../../assets/images/find/ku.png'
 import noSignTable from '../../../assets/images/find/noSignTable.png'
@@ -41,11 +41,16 @@ class memberCenter extends Component{
         this.props.getRateCoupons();
         this.props.getVoucherCoupons();
         this.props.getPrivilegeBasic();
+        let userInfo = sessionStorage.getItem("bao-auth");
+        if(userInfo){
+            this.props.getRateInfo();
+            this.props.getVoucherInfo();
+        }
         sessionStorage.setItem("basicIndex",this.state.index);
     }
     push=(data)=>{
         sessionStorage.setItem("bao-ticketData",JSON.stringify(data));
-        this.props.push();
+        this.props.push('/find/ticketDetail');
     };
 
     changeBar=(index)=>{
@@ -120,9 +125,11 @@ class memberCenter extends Component{
             index
         } = this.state;
         const {
-            vip_level,
+            // vip_level,
             annual_gap
         }=this.props.VipData.data;
+        let vip_level= 4;
+        sessionStorage.setItem("vipLevel",vip_level);
         const {
             birthday,
             holiday,
@@ -194,9 +201,9 @@ class memberCenter extends Component{
                         <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
                         <div className={(vip_level>2)&&styles.discount||styles.none}>
                             <img  className={styles.basicImg} src={discount} style={{width:"220px"}}/>
-                            <p className={styles.BirNum2}>{vip_level==3&&mallVip.v3||(vip_level==4&&mallVip.v4||(vip_level==5&&mallVip.v5||(vip_level==6&&mallVip.v6)))}  </p>
+                            <p className={styles.BirNum2}>{vip_level==3&&(mallVip.v3)*10||(vip_level==4&&(mallVip.v4)*10||(vip_level==5&&(mallVip.v5)*10||(vip_level==6&&(mallVip.v6)*10)))}  </p>
                         </div>
-                        <p  className={(vip_level>2)&&styles.BirInfo||styles.none}>您可在宝点网商城享受全场{vip_level==3&&mallVip.v3||(vip_level==4&&mallVip.v4||(vip_level==5&&mallVip.v5||(vip_level==6&&mallVip.v6)))}折优惠</p>
+                        <p  className={(vip_level>2)&&styles.BirInfo||styles.none}>您可在宝点网商城享受全场{vip_level==3&&(mallVip.v3)*10||(vip_level==4&&(mallVip.v4)*10||(vip_level==5&&(mallVip.v5)*10||(vip_level==6&&(mallVip.v6)*10)))}折优惠</p>
                     </div>
                     <div className={index==3&&styles.contentItem}>
                         <div className={styles.discount}>
@@ -213,7 +220,9 @@ class memberCenter extends Component{
         const {
             rateCouponsData,
             voucherData,
-            PrivilegeBasicData
+            PrivilegeBasicData,
+            voucherInfoData,
+            rateInfoData
         }=this.props;
         const {
             user_name,
@@ -224,6 +233,22 @@ class memberCenter extends Component{
         const{
             index
         }=this.state;
+        let voucherTxt,rateTxt;
+        if(voucherInfoData){
+            if(voucherInfoData.data.has == 0){
+                voucherTxt = "(本月您可领取"+voucherInfoData.data.total+"张抵用券)";
+            }else{
+                voucherTxt = "(本月您还可领取"+voucherInfoData.data.can+"张抵用券)";
+            }
+        }
+        if(rateInfoData){
+
+            if(rateInfoData.data.has == 0){
+                rateTxt = "(本月您可领取"+rateInfoData.data.total+"张加息券)";
+            }else{
+                rateTxt = "(本月您还可领取"+rateInfoData.data.can+"张加息券)";
+            }
+        }
         let rateDom,cashDom,basicDom;
         if(rateCouponsData&&rateCouponsData.data.length!=0){
             rateDom = this.rateDomHas();
@@ -292,6 +317,7 @@ class memberCenter extends Component{
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>抵用券</span>
+                        <span className={styles.leftTxtCue}>{voucherTxt}</span>
                         <Link to={`/find/rateTicketRule/2`} className={styles.Link}>
                             <span className={styles.rightTxt}>领取规则></span>
                         </Link>
@@ -304,6 +330,7 @@ class memberCenter extends Component{
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
                         <span className={styles.leftTxt}>加息券</span>
+                        <span className={styles.leftTxtCue}>{rateTxt}</span>
                         <Link to={`/find/rateTicketRule/1`} className={styles.Link}>
                             <span className={styles.rightTxt}>领取规则></span>
                         </Link>
@@ -352,22 +379,23 @@ class memberCenter extends Component{
             rateCouponsData
         }=this.props;
         let Dom;
-
         let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
-            if (userInfo){
-                if(VipData && voucherData && rateCouponsData){
-                    Dom= this.oneDom(VipData.data);
-                }else {
-                    Dom= this.loadingDom();
-                }
-            }else{
-                    Dom= this.twoDom();
+        if (userInfo){
+            if(VipData && voucherData && rateCouponsData){
+                Dom= this.oneDom(VipData.data);
+            }else {
+                Dom= this.loadingDom();
             }
+        }else{
+                Dom= this.twoDom();
+        }
+
+        let rightNodeTxt= <span className={styles.right}>等级规则</span>
 
         return(
             <div className={styles.findMessage} >
                 <div className={styles.findMessageHeader}>
-                    <NavBar title="会员中心" onLeft={pop} backgroundColor="#41403e" color="#d0a15e" />
+                    <NavBar title="会员中心" onLeft={pop} backgroundColor="#41403e" color="#d0a15e" rightNode={rightNodeTxt} onRight={()=>{ this.props.push('/find/overallRule')} } />
                 </div>
                 {
                     Dom
@@ -381,6 +409,8 @@ const initMymassege=(state,own)=>({
     PrivilegeBasicData: state.infodata.getIn(['GET_PRIV_BASIC', 'data']),
     rateCouponsData:state.infodata.getIn(['GET_RATE_COUPONS','data']),
     voucherData:state.infodata.getIn(['GET_VOUCHER_COUPONS','data']),
+    voucherInfoData:state.infodata.getIn(['GET_VOUCHER_INFO','data']),
+    rateInfoData:state.infodata.getIn(['GET_RATE_INFO','data']),
 })
 const initMymassegefn=(dispatch,own)=>({
     getVip(){
@@ -403,11 +433,21 @@ const initMymassegefn=(dispatch,own)=>({
             type:'GET_VOUCHER_COUPONS'
         })
     },
+    getRateInfo(){
+        dispatch({
+            type:'GET_RATE_INFO'
+        })
+    },
+    getVoucherInfo(){
+        dispatch({
+            type:'GET_VOUCHER_INFO'
+        })
+    },
     pop(){
         dispatch(goBack())
     },
-    push(){
-        dispatch(push('/find/ticketDetail'))
+    push(url){
+        dispatch(push(url))
     }
 })
 export default connect(initMymassege,initMymassegefn)(memberCenter)

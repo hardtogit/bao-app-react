@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
 import Loading from '../../../components/pageLoading'
-import LoadImg from '../../../components/lazyLoad'
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
 import st3 from '../../../assets/images/find/st3.png'
@@ -20,42 +19,109 @@ class shoppingMall extends Component{
         this.props.getVip();
         let area0 = sessionStorage.getItem("area0")
         let area1 = sessionStorage.getItem("area1")
-        // this.props.getGoodsList("GET_GOODS_LIST"+area0,area0);
-        // this.props.getGoodsListNew(area1);
+        let area2 = sessionStorage.getItem("area2")
+        let area3 = sessionStorage.getItem("area3")
+        this.props.getGoodsList(area0);
+        this.props.getGoodsListNew(area1);
+        this.props.getGoodsListNewOne(area2);
+        this.props.getGoodsListNewTwo(area3);
     }
     setArea=(i)=>{
         sessionStorage.setItem("barIndex",JSON.stringify(i+1))
-    };
-    componentWillReceiveProps=(nextProps)=>{
-        // const {i,area}=nextProps;
-        // this.props.getGoodsList("GET_GOODS_LIST"+i,area);
-        // let areaArr = sessionStorage.getItem("area").split(",");
-        // console.log(areaArr)
-        // areaArr.map((item,i)=>(
-        //     this.props.getGoodsList('GET_GOODS_LIST'+0,areaArr[0]),
-        //     this.props.getGoodsList('GET_GOODS_LIST'+1,areaArr[1])
-        // ))
-    };
-    productListDom=(id,index)=>{
+    }
+    loadingDom=()=>{
+        return <Loading/>
+    }
+    loadEndDom=()=>{
         const {
-            goodsListData
+            goodsTypeListData,
+            goodsListData,
+            goodsListNewData,
+            goodsListNewOneData,
+            goodsListNewTwoData
         }=this.props;
-        const nlistData=goodsListData('GET_GOODS_LIST'+index);
-        this.props.getGoodsList('GET_GOODS_LIST'+index,id);
+        let area0 = sessionStorage.getItem("area0")
+        let area1 = sessionStorage.getItem("area1")
+        let area2 = sessionStorage.getItem("area2")
+        let area3 = sessionStorage.getItem("area3")
         let productList=[];
-        nlistData&&nlistData.size>0&&nlistData._tail.array.map((item,i)=>{
+        let productListNew=[];
+        let productListNewOne=[];
+        let productListNewTwo=[];
+        goodsListData&&goodsListData.size>0&&goodsListData._tail.array.map((item,i)=>{
             if(i<4){
                 productList.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"224px"}}  key={i}>
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
                         <li>
+                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
-                                <span>{item.alone_price}</span>
+                                <span>{item.price}</span>
                                 <span><img src={coin} /></span>
                                 <img src={private1} className={styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
-                                <img src={item.image} className={styles.shopImg}/>
+                                <img src={item.image } className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+                )
+            }
+        })
+        goodsListNewData&&goodsListNewData.map((item,i)=>{
+            if(i<4){
+                productListNew.push(
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                        <li>
+                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image } className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+                )
+            }
+        })
+        goodsListNewOneData&&goodsListNewOneData.map((item,i)=>{
+            if(i<4){
+                productListNewOne.push(
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                        <li>
+                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image } className={styles.shopImg}/>
+                            </div>
+                        </li>
+                    </Link>
+                )
+            }
+        })
+        goodsListNewTwoData&&goodsListNewTwoData.map((item,i)=>{
+            if(i<4){
+                productListNewTwo.push(
+                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
+                        <li>
+                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
+                            <p className={styles.shopTitle1}>{item.product_name}</p>
+                            <p className={styles.shopTitle2}>
+                                <span>{item.price}</span>
+                                <span><img src={coin} /></span>
+                                <img src={private1} className={styles.specialIcon}/>
+                            </p>
+                            <div className={styles.imgBox}>
+                                <img src={item.image } className={styles.shopImg}/>
                             </div>
                         </li>
                     </Link>
@@ -64,52 +130,23 @@ class shoppingMall extends Component{
         })
         return(
             <div>
-                {
-                    productList
-                }
-            </div>
-        )
-    };
-    loadingDom=()=>{
-        return <Loading/>
-    }
-    loadEndDom=()=>{
-        const {
-            goodsTypeListData,
-            goodsListData,
-            goodsListNewData
-        }=this.props;
-        let arr=[];
-        return(
-            <div>
                 {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
-                    let arrArea = arr.push(item.id);
-                    // console.log(arr)
-                    let id = item.id;
-                    // console.log(item.id)
-                    return(
-                        <div className={styles.findItem} key={i}>
-                            <div className={styles.itemTitle}>
-                                <span className={styles.leftTxt}>{item.name}</span>
-                                <Link to='/find/shoppingMall/productList'>
-                                    <span className={styles.rightTxt} onClick={()=>{this.setArea(i)}}>{i}+更多></span>
-                                </Link>
+                        sessionStorage.setItem("area"+i,item.id);
+                        return(
+                            <div className={styles.findItem} key={i}>
+                                <div className={styles.itemTitle}>
+                                    <span className={styles.leftTxt}>{item.name}</span>
+                                    <Link to='/find/shoppingMall/productList'>
+                                        <span className={styles.rightTxt} onClick={()=>{this.setArea(i)}}>更多></span>
+                                    </Link>
+                                </div>
+                                <ul className={styles.shop}>
+                                    {
+                                        item.id==area0&&productList||(item.id==area1&&productListNew||(item.id==area2&&productListNewOne||(item.id==area3&&productListNewTwo)))
+                                    }
+                                </ul>
                             </div>
-                            <ul className={styles.shop}>
-                                {
-                                    arr.map((item,index)=>{
-                                        console.log(i==index)
-                                        if(i==0){
-                                            this.productListDom(id,index)
-                                        }
-                                    })
-                                    // this.productListDom(id,i)
-                                    // item.id==area0&&productList||(item.id==area1&&productListNew)
-
-                                }
-                            </ul>
-                        </div>
-                    )
+                        )
                 })}
             </div>
 
@@ -144,9 +181,12 @@ class shoppingMall extends Component{
         });
 
         let rightNodeLogin= <span><img src={coin} className={styles.rightNode}/><span className={styles.rightNodeTxt}>{coinTotal}</span> </span>
+        let rightNodeNologin=<span className={styles.rightNodeTxt} onClick={()=>{this.props.push("/login?baoBackUrl=/find/shoppingMall")}}>去登录</span>
         let rightNodeDom;
         if(userInfo){
             rightNodeDom=rightNodeLogin;
+        }else{
+            rightNodeDom=rightNodeNologin;
         }
         return(
             <div className={styles.finderHome}>
@@ -202,11 +242,10 @@ class shoppingMall extends Component{
 const mapStateToProps=(state)=>({
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
     goodsTypeListData: state.infodata.getIn(['GET_GOODS_TYPE_LIST', 'data']),
-    // goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
-    goodsListData(key){
-        return state.listdata.getIn([key,'data'])
-    },
+    goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
     goodsListNewData: state.listdata.getIn(['GET_GOODS_LIST_NEW', 'data']),
+    goodsListNewOneData: state.listdata.getIn(['GET_GOODS_LIST_NEW_ONE', 'data']),
+    goodsListNewTwoData: state.listdata.getIn(['GET_GOODS_LIST_NEW_TWO', 'data']),
     bannerData:state.infodata.getIn(['GET_MALL_BANNER','data'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
@@ -220,10 +259,9 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_GOODS_TYPE_LIST'
         })
     },
-    getGoodsList(key,area){
+    getGoodsList(area){
         dispatch({
             type:'GET_GOODS_LIST',
-            OtherKey:key,
             params:[
                 {area_type_id:area}
             ]
@@ -232,6 +270,22 @@ const mapDispatchToProps=(dispatch,own)=>({
     getGoodsListNew(area){
         dispatch({
             type:'GET_GOODS_LIST_NEW',
+            params:[
+                {area_type_id:area}
+            ]
+        })
+    },
+    getGoodsListNewOne(area){
+        dispatch({
+            type:'GET_GOODS_LIST_NEW_ONE',
+            params:[
+                {area_type_id:area}
+            ]
+        })
+    },
+    getGoodsListNewTwo(area){
+        dispatch({
+            type:'GET_GOODS_LIST_NEW_TWO',
             params:[
                 {area_type_id:area}
             ]

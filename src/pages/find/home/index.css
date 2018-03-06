@@ -245,12 +245,15 @@
 }
 .shop li .label{
     position: absolute;
+    top:0;
     display: block;
-    width:40px;
-    height:20px;
+    width:30px;
+    height:18px;
+    line-height: 18px;
     background-color: #f56c62;
     color:#fff;
-    font-size: 14px;
+    text-align: center;
+    font-size: 12px;
 }
 .shop .shopTitle1{
     font-size: 12px;
@@ -329,7 +332,7 @@
     height: 16px;
     line-height: 16px;
     margin: 0 auto;
-    background-color: #858585;
+    background-color: #f56c62;
     color:#fff;
     font-size: 12px;
 }

@@ -104,6 +104,7 @@ class findHome extends Component{
                  <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"255px"}}  key={i}>
                          <li>
                              <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
+                             {/*<span className={styles.label}>特价</span>*/}
                          <p className={styles.shopTitle1}>{item.product_name}</p>
                          <p className={styles.shopTitle2}>
                              <span>{item.alone_price}</span>
@@ -243,7 +244,7 @@ class findHome extends Component{
                 </div>
                 <div className={styles.findItem}>
                     <div className={styles.itemTitle}>
-                        <span className={styles.leftTxt}>会员商城</span>
+                        <span className={styles.leftTxt}>商城</span>
                         <Link to='/find/shoppingMall'>
                             <span className={styles.rightTxt}>更多></span>
                         </Link>

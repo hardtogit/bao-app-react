@@ -72,6 +72,11 @@
     margin-top: 20px;
     line-height: 20px;
 }
+.infoTxtWithdraw{
+    margin-top: 20px;
+    line-height: 20px;
+    color:red;
+}
 .has{
     display: block;
 }

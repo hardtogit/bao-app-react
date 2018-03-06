@@ -16,13 +16,18 @@ class Index extends React.Component {
             addressId:""
         }
 	}
+    componentWillMount(){
+        // this.props.clearData("RATE_GET")
+    }
 	componentDidMount() {
 	    const{product_id}=this.props.params;
         this.props.getAddress();
         this.props.productDetail(product_id);
         this.props.getVip();
     }
-	componentWillUnmount() {}
+	componentWillUnmount() {
+
+    }
     componentWillReceiveProps=(nextProps)=>{
         const{address,cashData}=nextProps;
         if(address.length>0){

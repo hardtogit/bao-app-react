@@ -96,7 +96,7 @@ class Index extends Component{
                             <tr><td>v5</td><td>{withdrawal.rule_list.v5}次</td></tr>
                             <tr><td>v6</td><td>{withdrawal.rule_list.v6}次</td></tr>
                         </table>
-                        <p className={styles.infoTxt}>
+                        <p className={styles.infoTxtWithdraw}>
                             {withdrawal.info}
                         </p>
                     </div>

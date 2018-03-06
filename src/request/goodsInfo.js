@@ -30,7 +30,7 @@ const requests = (Fetch) => {
     //地址列表
     Fetch.getAddressList = () => {return Fetch(`api/userVip/listAddress`, 'GET')};
     //设置默认地址
-    Fetch.setAddress = (id) => {return Fetch(`api/userVip/setAddress?address_id=${id}&is_default=0`, 'GET')};
+    Fetch.setAddress = (id) => {return Fetch(`api/userVip/setAddress?address_id=${id}&is_default=1`, 'GET')};
     //编辑地址
     Fetch.editAddress = (consignee,phone,address,id,isDefault) => {return Fetch(`api/userVip/edAddress?consignee=${consignee}&phone=${phone}&address=${address}&address_id=${id}&is_default=${isDefault}`, 'GET')};
     //添加新地址
