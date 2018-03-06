@@ -125,10 +125,9 @@ class memberCenter extends Component{
             index
         } = this.state;
         const {
-            // vip_level,
+            vip_level,
             annual_gap
         }=this.props.VipData.data;
-        let vip_level= 4;
         sessionStorage.setItem("vipLevel",vip_level);
         const {
             birthday,

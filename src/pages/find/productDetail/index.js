@@ -128,6 +128,11 @@ class Index extends React.Component {
                 content:'请选择商品属性！！',
                 okText:'确定'
             })
+        }else if(num == 0){
+            this.refs.alert.show({
+                content:'商品数目不能为0！！',
+                okText:'确定'
+            })
         }else{
             sessionStorage.setItem("propertyStr",str);
             this.props.push("/find/productCash/"+product_id+"/"+num)
@@ -229,7 +234,7 @@ class Index extends React.Component {
 				}
 				<Alert ref="alert"/>
                 <div className={flag&&styles.Botton||styles.none}>
-                    <p  onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>确认兑换</p>
+                    <p  onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>立即兑换</p>
                 </div>
                 <div className={!flag&&styles.BottonNo||styles.none}>
                     <p >点币不足</p>

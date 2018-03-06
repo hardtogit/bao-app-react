@@ -10,8 +10,10 @@ import st3 from '../../../assets/images/find/st3.png'
 import st4 from '../../../assets/images/find/st4.png'
 import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
+import qiang from '../../../assets/images/find/qiang.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
+import utils from '../../../utils/utils'
 class shoppingMall extends Component{
     componentWillMount(){
         this.props.getGoodsTypeList();
@@ -49,6 +51,7 @@ class shoppingMall extends Component{
         let productListNewOne=[];
         let productListNewTwo=[];
         goodsListData&&goodsListData.size>0&&goodsListData._tail.array.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productList.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -63,12 +66,15 @@ class shoppingMall extends Component{
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
                             </div>
+                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
                         </li>
                     </Link>
                 )
             }
         })
         goodsListNewData&&goodsListNewData.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNew.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -83,12 +89,15 @@ class shoppingMall extends Component{
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
                             </div>
+                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
                         </li>
                     </Link>
                 )
             }
         })
         goodsListNewOneData&&goodsListNewOneData.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNewOne.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -103,12 +112,15 @@ class shoppingMall extends Component{
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
                             </div>
+                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
                         </li>
                     </Link>
                 )
             }
         })
         goodsListNewTwoData&&goodsListNewTwoData.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNewTwo.push(
                     <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
@@ -123,6 +135,8 @@ class shoppingMall extends Component{
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
                             </div>
+                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
+                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
                         </li>
                     </Link>
                 )
