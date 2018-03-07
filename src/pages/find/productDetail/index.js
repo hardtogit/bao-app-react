@@ -26,7 +26,8 @@ class Index extends React.Component {
 	}
 	componentWillMount(){
         this.props.getVip();
-		this.remove();
+        sessionStorage.removeItem("bao-product");
+        this.props.clearData();
 		const inspect = this.dataInspect();
 		if (!inspect){
             const {
@@ -34,6 +35,7 @@ class Index extends React.Component {
             }=this.props.params;
             this.props.productDetail(id)
 		}
+
 	}
 	componentDidMount() {
 	}
@@ -77,10 +79,7 @@ class Index extends React.Component {
             });
 		}
     }
-    remove=()=>{
-        sessionStorage.removeItem("bao-product");
-        this.props.clearData();
-    }
+
 	dataInspect=()=>{
         const infoDate=sessionStorage.getItem("bao-product");
         const {
@@ -125,12 +124,12 @@ class Index extends React.Component {
         }
         if(params1.length < product_property.length ){
             this.refs.alert.show({
-                content:'请选择商品属性！！',
+                content:'请选择商品属性',
                 okText:'确定'
             })
         }else if(num == 0){
             this.refs.alert.show({
-                content:'商品数目不能为0！！',
+                content:'商品数目不能为0',
                 okText:'确定'
             })
         }else{
@@ -271,5 +270,11 @@ const mapDispatchToProps=(dispatch)=>({
             type:'GET_VIP'
         })
     },
+    // clearData(key){
+    //     dispatch({
+    //         type:'CLEAR_DATA',
+    //         key:key
+    //     })
+    // },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

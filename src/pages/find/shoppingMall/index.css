@@ -289,6 +289,10 @@
 .shop .shopTitle2 span{
     float: left;
 }
+.shop .shopTitle2 span:nth-child(2){
+    float: left;
+    margin-left: 4px;
+}
 .shop .shopTitle2 span img{
     width:14px;
     margin-left: 1px;
@@ -371,6 +375,7 @@
     width: 100%;
     text-align: center;
     padding-top:20px;
+    padding-bottom: 40px;
 }
 .noCry{
     width:115px;

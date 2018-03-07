@@ -84,17 +84,17 @@ class Index extends React.Component {
         this.props.clearData(this.state.index);
 	    this.setState({index});
         sessionStorage.setItem("barIndex",index);
-        let arr1={};
-        if(typeData&&typeData.code==100) {
-            typeData.data.map(({label_type},i) => {
-                if(i!=0){
-                    arr1[label_type]=''
-                }
-            });
-            this.setState({
-                params:arr1,
-            })
-        }
+        // let arr1={};
+        // if(typeData&&typeData.code==100) {
+        //     typeData.data.map(({label_type},i) => {
+        //         if(i!=0){
+        //             arr1[label_type]=''
+        //         }
+        //     });
+        //     this.setState({
+        //         params:arr1,
+        //     })
+        // }
     }
 	loadDom=()=>{
 	    return <Loading/>
@@ -134,8 +134,8 @@ class Index extends React.Component {
                                                 {/*<span className={styles.label}>特价</span>*/}
                                             <p className={styles.shopTitle1}>{product_name}</p>
                                             <p className={styles.shopTitle2}>
-                                                <span>{alone_price}</span>
                                                 <span><img src={coin} /></span>
+                                                <span>{alone_price}</span>
                                                 <img src={private1} className={styles.specialIcon}/>
                                             </p>
                                                 <div className={styles.imgBox}>

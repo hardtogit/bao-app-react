@@ -11,6 +11,7 @@ class Index extends Component{
         this.state = {
             error: false,
             open: false,
+            flag:true
         }
     }
     componentWillMount(){
@@ -27,19 +28,25 @@ class Index extends Component{
 
     }
     componentWillReceiveProps = ({voucherInfo,rateInfo}) => {
-
-        if(voucherInfo){
+        const {
+            flag
+        }=this.state;
+        if(voucherInfo&&!flag){
             if (voucherInfo.code == 100) {
                 this.refs.confirm.show({
                     title: '领取成功',
                     okText: '确定',
                     okCallback: () => {
                         this.props.push('/find/memberCenter')
-                        this.props.clearData('VOUCHER_GET');
+                        this.setState({
+                            flag:true
+                        })
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
-                        this.props.clearData('VOUCHER_GET');
+                        this.setState({
+                            flag:true
+                        })
                     }
                 })
             }else{
@@ -48,27 +55,35 @@ class Index extends Component{
                     okText: '确定',
                     content:voucherInfo.msg,
                     okCallback: () => {
-                        this.props.clearData('VOUCHER_GET');
+                        this.setState({
+                            flag:true
+                        })
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
-                        this.props.clearData('VOUCHER_GET');
+                        this.setState({
+                            flag:true
+                        })
                     }
                 })
             }
         }
-        if(rateInfo){
+        if(rateInfo&&!flag){
             if (rateInfo.code == 100) {
                 this.refs.confirm.show({
                     title: '领取成功',
                     okText: '确定',
                     okCallback: () => {
                         this.props.push('/find/memberCenter')
-                        this.props.clearData('RATE_GET')
+                        this.setState({
+                            flag:true
+                        })
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
-                        this.props.clearData('RATE_GET')
+                        this.setState({
+                            flag:true
+                        })
                     }
                 })
             }else{
@@ -77,11 +92,15 @@ class Index extends Component{
                     okText: '确定',
                     content:rateInfo.msg,
                     okCallback: () => {
-                        this.props.clearData('RATE_GET')
+                        this.setState({
+                            flag:true
+                        })
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
-                        this.props.clearData('RATE_GET')
+                        this.setState({
+                            flag:true
+                        })
                     }
                 })
             }
@@ -89,6 +108,9 @@ class Index extends Component{
 
     };
     submit=(id,ticketName)=>{
+        this.setState({
+            flag:false
+        })
         if(ticketName == "抵用券"){
             this.props.voucherGet(id);
         }else if(ticketName == "加息券"){

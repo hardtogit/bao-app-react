@@ -1,8 +1,8 @@
 .bg{
     background: #f0eff5;
     position: absolute;
-    left: 0px;
-   top: 0px;
+    left: 0;
+   top: 0;
    width: 100%;
    height: 100vh;
    overflow: auto;
@@ -183,10 +183,15 @@
 .productDetail div{
   float: left;
 }
+.productDetail div:nth-child(2){
+  margin-top: 3px;
+  margin-left: 24px;
+}
 .nump{
   font-size: 12px;
   color: #666;
   padding-left: 10px;
+  margin-top: 4px;
 }
 .proceTxt{
   font-size: 12px;
@@ -210,4 +215,12 @@
   color:#fe684b;
   font-size: 16px;
   padding-left: 20px;
+}
+.discount span:first-child{
+  float: left;
+  color:#666;
+}
+.discount span:nth-child(2){
+  float: right;
+  margin-right: 20px;
 }

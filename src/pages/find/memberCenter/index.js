@@ -24,8 +24,9 @@ import chunjie from '../../../assets/images/find/chunjie.png'
 import noDiscount from '../../../assets/images/find/noDiscount.png'
 import discount from '../../../assets/images/find/discount1.png'
 import withdraw from '../../../assets/images/find/withdraw.png'
-import ku from '../../../assets/images/find/ku.png'
+import ku from '../../../assets/images/find/wuJiaXi.png'
 import noSignTable from '../../../assets/images/find/noSignTable.png'
+import geted from '../../../assets/images/find/geted.png'
 import Loading from '../../../components/pageLoading'
 import {goBack,push} from 'react-router-redux'
 class memberCenter extends Component{
@@ -73,6 +74,7 @@ class memberCenter extends Component{
                                     <p>￥<span className={styles.quanTxt}>{coupon_money}</span></p>
                                 </div>
                                 <p className={styles.shopTitle1}>{coupon_name}</p>
+                               <img src={geted} className={is_has==1&&styles.getedImg||styles.none} />
                             </li>
                         </Link>
                     )
@@ -97,6 +99,8 @@ class memberCenter extends Component{
                                 </div>
                                 <p className={styles.shopTitle1}>{coupon_name}</p>
                                 <p className={styles.shopTitle2}>满{minimum_money}可用</p>
+                               <img src={geted} className={is_has==1&&styles.getedImg||styles.none} />
+
                             </li>
                         </Link>
                     )
@@ -113,11 +117,11 @@ class memberCenter extends Component{
         } = data;
         let gapNum;
         gapNum = 100000 - annual_total;
-
         return(
             <div className={styles.noRate}>
                 <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无加息券可供选择领取</p>
+                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员</p>
+                <p className={styles.rateTxt2}>暂无加息券可供选择领取</p>
                 <p className={styles.farfrom}>距加息券领取尚差年化金额：{gapNum}元</p>
             </div>
         )

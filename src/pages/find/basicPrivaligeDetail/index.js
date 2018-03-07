@@ -30,7 +30,6 @@ class Index extends Component{
             mall,
             withdrawal
         }=data;
-        console.log(birthday.rule_list)
         const {
             index
         }=this.state;
@@ -74,12 +73,12 @@ class Index extends Component{
                     <div className={index == 2 &&styles.has||styles.no}>
                         <table className={styles.ruleTable}>
                             <tr><td>等级</td><td>商场折扣</td></tr>
-                            <tr><td>v1</td><td>{mall.rule_list.v1}</td></tr>
-                            <tr><td>v2</td><td>{mall.rule_list.v2}</td></tr>
-                            <tr><td>v3</td><td>{mall.rule_list.v3}</td></tr>
-                            <tr><td>v4</td><td>{mall.rule_list.v4}</td></tr>
-                            <tr><td>v5</td><td>{mall.rule_list.v5}</td></tr>
-                            <tr><td>v6</td><td>{mall.rule_list.v6}</td></tr>
+                            <tr><td>v1</td><td>{mall.rule_list.v1==1&&"无"||mall.rule_list.v1*10+"折"}</td></tr>
+                            <tr><td>v2</td><td>{mall.rule_list.v2==1&&"无"||mall.rule_list.v2*10+"折"}</td></tr>
+                            <tr><td>v3</td><td>{mall.rule_list.v3==1&&"无"||mall.rule_list.v3*10+"折"}</td></tr>
+                            <tr><td>v4</td><td>{mall.rule_list.v4==1&&"无"||mall.rule_list.v4*10+"折"}</td></tr>
+                            <tr><td>v5</td><td>{mall.rule_list.v5==1&&"无"||mall.rule_list.v5*10+"折"}</td></tr>
+                            <tr><td>v6</td><td>{mall.rule_list.v6==1&&"无"||mall.rule_list.v6*10+"折"}</td></tr>
                         </table>
                         <p className={styles.infoTxt}>
                             {mall.info}

@@ -107,8 +107,8 @@ class findHome extends Component{
                              {/*<span className={styles.label}>特价</span>*/}
                          <p className={styles.shopTitle1}>{item.product_name}</p>
                          <p className={styles.shopTitle2}>
-                             <span>{item.alone_price}</span>
                              <span><img src={coin} /></span>
+                             <span>{item.alone_price}</span>
                              <img  src={private1} className={styles.specialIcon}/>
                          </p>
                          <img src={item.image} className={styles.shopImg}/>

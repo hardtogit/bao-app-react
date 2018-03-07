@@ -1,7 +1,7 @@
 import React from 'react'
 import Loaders from '../../customized_node_modules/halogen'
 import styles from './index.css'
-import nullIcon from '../../assets/images/find/noCry.png'
+import nullIcon from '../../assets/images/find/sp.png'
 class ScrollConfig {
    static loadingInitDom(){
         const Loading=Loaders['BeatLoader'];

@@ -16,7 +16,7 @@
     height: 100%;
 }
 .nullTxt{
- color: #666;
+    color: #666;
     margin-top: 10px;
 }
 .nullIcon{
@@ -30,7 +30,7 @@
     transform: translate(-50%,-50%);
 }
 .nullIcon img{
-    width: 110px;
+    width: 170px;
 }
 .block{
     display: block;

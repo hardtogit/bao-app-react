@@ -337,6 +337,7 @@
     border-radius: 9px;
     color:#333;
     font-size: 14px;
+    position: relative;
 }
 .shop p{
     text-align: center;
@@ -361,6 +362,12 @@
     background-image: url("../../../assets/images/find/quan1.png") ;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+}
+.shop li .getedImg{
+    width:50px;
+    position: absolute;
+    top:0;
+    right: 0;
 }
 .shop .shopImg p{
     text-align: center;
@@ -408,14 +415,16 @@
     text-align: center;
     padding: 40px 0;
 }
-.noRate p{
-    margin-top: 15px;
-}
 .noRate img{
-    width:100px;
+    width:160px;
 }
 .rateTxt{
     font-size: 14px;
+    margin-top: 15px;
+}
+.rateTxt2{
+    font-size: 14px;
+    margin-top: 5px;
 }
 .none{
     display: none;

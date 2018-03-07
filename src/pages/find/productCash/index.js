@@ -13,11 +13,10 @@ class Index extends React.Component {
 		super(props)
         this.state={
 		    flag:true,
-            addressId:""
         }
 	}
     componentWillMount(){
-        // this.props.clearData("RATE_GET")
+        this.props.clearData("CASH_PRODUCT")
     }
 	componentDidMount() {
 	    const{product_id}=this.props.params;
@@ -25,46 +24,53 @@ class Index extends React.Component {
         this.props.productDetail(product_id);
         this.props.getVip();
     }
-	componentWillUnmount() {
-
-    }
-    componentWillReceiveProps=(nextProps)=>{
-        const{address,cashData}=nextProps;
-        if(address.length>0){
-	        this.setState({
-                addressId:address[0].id
-            })
-        }
-        if(cashData&&cashData.code==300){
+    componentWillReceiveProps(nextProps){
+        const {
+            flag
+        }=this.state;
+        const{cashData}=nextProps;
+        if(cashData&&cashData.code==300&&!flag){
             this.refs.alert.show({
                 content:cashData.msg,
-                okText:'确定'
+                okText:'确定',
+                okCallback:()=>{
+                    this.setState({
+                        flag:true
+                    })
+                }
             })
         }
         if(cashData&&cashData.code==100){
             this.refs.alert.show({
                 content:"兑换成功，请到兑换记录中查看！",
-                okText:'确定'
+                okText:'确定',
+                okCallback:()=>{
+                    this.setState({
+                        flag:true
+                    })
+                }
             })
         }
-    };
+    }
     confirmBtn=()=>{
         const{product_id,num}=this.props.params;
-        const {address} = this.props;
-        const {addressId} = this.state;
+        const {address,cashData} = this.props;
+        this.setState({
+            flag:false
+        });
+        let addressId;
+        if(address.length>0){
+            addressId = address[0].id;
+        }
         let proprety = sessionStorage.getItem("propertyStr");
-        proprety= proprety.substring(0,proprety.length-2)
+        proprety= proprety.substring(0,proprety.length-2);
         if(address&&address.length==0){
             this.refs.alert.show({
                 content:'请选择地址!',
                 okText:'确定'
             })
         }else{
-            this.refs.alert.show({
-                content:'确认兑换该商品吗!',
-                okText:'确定',
-                okCallback: this.props.cashProduct(product_id,addressId,num,proprety)
-            })
+            this.props.cashProduct(product_id,addressId,num,proprety);
         }
     }
     nullAddress=()=>{
@@ -130,35 +136,53 @@ class Index extends React.Component {
                 typeArr.push(ass[1])
             }
         })
-        return(<div className={styles.productInfo}>
-            <div className={styles.productImg}>
-                <img src={image} />
-            </div>
-            <div className={styles.productDetail}>
-                <div>
-                    <p className={styles.nameTxt}>{product_name}</p>
-                    <p>
-                        {
-                        product_property&&product_property.map(({type_name,property_value,id}=item,i)=>(
-                                <span className={styles.nump} ref="property">{type_name}：{typeArr[i]}</span>
-                        ))
-                    }
-                    </p>
+        return(
+            <div>
+                <div className={styles.productInfo}>
+                    <div className={styles.productImg}>
+                        <img src={image} />
+                    </div>
+                    <div className={styles.productDetail}>
+                        <div>
+                            <p className={styles.nameTxt}>{product_name}</p>
+                            <p>
+                                {
+                                    product_property&&product_property.map(({type_name,property_value,id}=item,i)=>(
+                                        <p className={styles.nump} ref="property">{type_name}：{typeArr[i]}</p>
+                                    ))
+                                }
+                            </p>
+                        </div>
+                        <div>
+                            {/*<p className={styles.proceTxt}>{alone_price}点币</p>*/}
+                            <p className={styles.numTxt}>*{num}</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <p className={styles.proceTxt}>{alone_price}点币</p>
-                    <p className={styles.numTxt}>*{num}</p>
-                </div>
+                <div className={styles.discount}><span>商品合计</span><span>{alone_price}点币</span></div>
             </div>
-        </div>)
+            )
     }
 	render() {
-        const {address,pop,productData,VipData} = this.props;
+        const {address,pop,productData,VipData,cashData} = this.props;
         let Dom;
         let productDom;
         let coinNum;
         let level;
         let disciuntNum;
+        // if(cashData&&cashData.code==300){
+        //     this.refs.alert.show({
+        //         content:cashData.msg,
+        //         okText:'确定'
+        //     })
+        // }
+        // if(cashData&&cashData.code==100){
+        //     this.refs.alert.show({
+        //         content:"兑换成功，请到兑换记录中查看！",
+        //         okText:'确定',
+        //         okCallback:this.props.pop()
+        //     })
+        // }
         if(productData){
             productDom= this.produceDom(productData.data);
         }
@@ -180,7 +204,7 @@ class Index extends React.Component {
                     {
                         productDom
                     }
-                    <div className={styles.discount}>会员VIP{level}级{disciuntNum}折优惠</div>
+                    <div className={styles.discount}>{disciuntNum==10&&"当前等级无优惠"||"会员VIP"+level+"级"+disciuntNum+"折优惠"}</div>
 				</Box>
                 <Alert ref="alert"/>
                 <Confirm ref="confirm"/>
@@ -246,6 +270,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     push(url){
         dispatch(push(url))
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
     },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index)

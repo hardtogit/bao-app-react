@@ -11,7 +11,7 @@ import st4 from '../../../assets/images/find/st4.png'
 import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
 import qiang from '../../../assets/images/find/qiang.png'
-import noCry from '../../../assets/images/find/noCry.png'
+import noCry from '../../../assets/images/find/sp.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
 import utils from '../../../utils/utils'
@@ -55,6 +55,8 @@ class shoppingMall extends Component{
         let area1 = sessionStorage.getItem("area1")
         let area2 = sessionStorage.getItem("area2")
         let area3 = sessionStorage.getItem("area3")
+        let level = sessionStorage.getItem("vipLevel")
+        console.log(level)
         let productList=[];
         let productListNew=[];
         let productListNewOne=[];
@@ -68,9 +70,9 @@ class shoppingMall extends Component{
                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
                                 <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
+                                <span>{item.price}</span>
+                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
@@ -91,9 +93,9 @@ class shoppingMall extends Component{
                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
                                 <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
+                                <span>{item.price}</span>
+                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
@@ -114,9 +116,9 @@ class shoppingMall extends Component{
                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
                                 <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
+                                <span>{item.price}</span>
+                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
@@ -137,9 +139,9 @@ class shoppingMall extends Component{
                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
                             <p className={styles.shopTitle1}>{item.product_name}</p>
                             <p className={styles.shopTitle2}>
-                                <span>{item.price}</span>
                                 <span><img src={coin} /></span>
-                                <img src={private1} className={styles.specialIcon}/>
+                                <span>{item.price}</span>
+                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
                             </p>
                             <div className={styles.imgBox}>
                                 <img src={item.image } className={styles.shopImg}/>
