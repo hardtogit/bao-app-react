@@ -367,6 +367,18 @@
     bottom:25px;
     right: 10px;
 }
+.noWraper {
+    width: 100%;
+    text-align: center;
+    padding-top:20px;
+}
+.noCry{
+    width:115px;
+}
+.noTxt{
+    padding-top: 10px;
+    color:#666;
+}
 
 
 

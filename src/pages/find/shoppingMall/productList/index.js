@@ -11,7 +11,7 @@ import coin from '../../../../assets/images/find/coin.png'
 import select from '../../../../assets/images/find/select.png'
 import qiang from '../../../../assets/images/find/qiang.png'
 import Loading from '../../../../components/pageLoading/index'
-import Scroll from '../../../../components/scroll/index'
+import Scroll from '../../../../components/scrollNew/index'
 import utils from '../../../../utils/utils'
 import cs from "classnames";
 class Index extends React.Component {

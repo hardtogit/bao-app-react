@@ -11,6 +11,7 @@ import st4 from '../../../assets/images/find/st4.png'
 import coin from '../../../assets/images/find/coin.png'
 import private1 from '../../../assets/images/find/private2.png'
 import qiang from '../../../assets/images/find/qiang.png'
+import noCry from '../../../assets/images/find/noCry.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
 import utils from '../../../utils/utils'
@@ -33,6 +34,14 @@ class shoppingMall extends Component{
     }
     loadingDom=()=>{
         return <Loading/>
+    }
+    noGoosDom=()=>{
+        return(
+            <div className={styles.noWraper}>
+                <img src={noCry} className={styles.noCry}/>
+                <p className={styles.noTxt}>暂无商品哦</p>
+            </div>
+        )
     }
     loadEndDom=()=>{
         const {
@@ -142,6 +151,28 @@ class shoppingMall extends Component{
                 )
             }
         })
+        let dom1,dom2,dom3,dom4;
+        if(productList.length == 0){
+            dom1 = this.noGoosDom();
+        }else{
+            dom1=productList;
+        }
+        if(productListNew.length == 0){
+            dom2 = this.noGoosDom();
+        }else{
+            dom2=productListNew;
+        }
+        if(productListNewOne.length == 0){
+            dom3 = this.noGoosDom();
+        }else{
+            dom3=productListNewOne;
+        }
+        if(productListNewTwo.length == 0){
+            dom4 = this.noGoosDom();
+        }else{
+            dom4=productListNewTwo;
+        }
+
         return(
             <div>
                 {goodsTypeListData&&goodsTypeListData.data[0].label_child.map((item,i)=>{
@@ -156,7 +187,8 @@ class shoppingMall extends Component{
                                 </div>
                                 <ul className={styles.shop}>
                                     {
-                                        item.id==area0&&productList||(item.id==area1&&productListNew||(item.id==area2&&productListNewOne||(item.id==area3&&productListNewTwo)))
+                                        item.id==area0&&dom1||(item.id==area1&&dom2||(item.id==area2&&dom3||(item.id==area3&&dom4)))
+                                        // item.id==area0&&this.noGoosDom()
                                     }
                                 </ul>
                             </div>

@@ -104,18 +104,21 @@ class memberCenter extends Component{
             </ul>
         )
     };
-    cashDomNo=(data,ticketName)=>{
+    cashDomNo=(data)=>{
         const {
             user_name,
             vip_level,
             annual_total,
             annual_gap
         } = data;
+        let gapNum;
+        gapNum = 100000 - annual_total;
+
         return(
             <div className={styles.noRate}>
                 <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无{ticketName}可供选择领取</p>
-                <p className={styles.farfrom}>距{ticketName}领取尚差年化金额：{annual_gap}元</p>
+                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员，暂无加息券可供选择领取</p>
+                <p className={styles.farfrom}>距加息券领取尚差年化金额：{gapNum}元</p>
             </div>
         )
     };
@@ -126,7 +129,8 @@ class memberCenter extends Component{
         } = this.state;
         const {
             vip_level,
-            annual_gap
+            annual_gap,
+            annual_total
         }=this.props.VipData.data;
         sessionStorage.setItem("vipLevel",vip_level);
         const {
@@ -197,7 +201,7 @@ class memberCenter extends Component{
                     </div>
                     <div className={index==2&&styles.contentItem}>
                         <img  className={(vip_level==0||vip_level==1||vip_level==2)&&styles.basicImg||styles.none} src={noDiscount} style={{width:"200px"}}/>
-                        <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距礼包拆取尚差年化金额：{annual_gap}元</p>
+                        <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距享受折扣尚差年化金额：{100000 - annual_total}元</p>
                         <div className={(vip_level>2)&&styles.discount||styles.none}>
                             <img  className={styles.basicImg} src={discount} style={{width:"220px"}}/>
                             <p className={styles.BirNum2}>{vip_level==3&&(mallVip.v3)*10||(vip_level==4&&(mallVip.v4)*10||(vip_level==5&&(mallVip.v5)*10||(vip_level==6&&(mallVip.v6)*10)))}  </p>
@@ -287,7 +291,9 @@ class memberCenter extends Component{
                         <div className={styles.cardContent}>
                             <div className={styles.cardleft}>
                                 <div className={styles.headImg}>
+                                    <div className={styles.levelImg}>
                                         <img src={vimg}  className={styles.vimg} />
+                                    </div>
                                 </div>
                                 <span style={{color:"#333",fontSize:"12px"}}>{user_name}</span>
                             </div>

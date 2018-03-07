@@ -16,8 +16,8 @@ class Index extends Component{
     componentWillMount(){
         this.props.getRateInfo();
         this.props.getVoucherInfo();
-        // this.props.clearData("VOUCHER_GET");
-        // this.props.clearData("RATE_GET")
+        this.props.clearData("VOUCHER_GET");
+        this.props.clearData("RATE_GET");
     }
     componentWillUnmount(){
         this.props.clearData('VOUCHER_GET');
@@ -27,8 +27,7 @@ class Index extends Component{
 
     }
     componentWillReceiveProps = ({voucherInfo,rateInfo}) => {
-        console.log(voucherInfo)
-        console.log(rateInfo)
+
         if(voucherInfo){
             if (voucherInfo.code == 100) {
                 this.refs.confirm.show({
@@ -36,9 +35,11 @@ class Index extends Component{
                     okText: '确定',
                     okCallback: () => {
                         this.props.push('/find/memberCenter')
+                        this.props.clearData('VOUCHER_GET');
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
+                        this.props.clearData('VOUCHER_GET');
                     }
                 })
             }else{
@@ -47,9 +48,11 @@ class Index extends Component{
                     okText: '确定',
                     content:voucherInfo.msg,
                     okCallback: () => {
+                        this.props.clearData('VOUCHER_GET');
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
+                        this.props.clearData('VOUCHER_GET');
                     }
                 })
             }
@@ -61,9 +64,11 @@ class Index extends Component{
                     okText: '确定',
                     okCallback: () => {
                         this.props.push('/find/memberCenter')
+                        this.props.clearData('RATE_GET')
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
+                        this.props.clearData('RATE_GET')
                     }
                 })
             }else{
@@ -72,9 +77,11 @@ class Index extends Component{
                     okText: '确定',
                     content:rateInfo.msg,
                     okCallback: () => {
+                        this.props.clearData('RATE_GET')
                     },
                     cancelText: '取消',
                     cancelCallback: () => {
+                        this.props.clearData('RATE_GET')
                     }
                 })
             }
@@ -119,7 +126,6 @@ class Index extends Component{
             </div>
         )
     };
-
     render(){
         const {
             pop,
@@ -128,6 +134,7 @@ class Index extends Component{
             voucherInfo,
             rateInfo
         }=this.props;
+
         const {
             coupon_id,
             coupon_name,
