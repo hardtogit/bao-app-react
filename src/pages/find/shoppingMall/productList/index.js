@@ -33,7 +33,12 @@ class Index extends React.Component {
     componentDidMount=()=>{
 
     }
-	componentWillUnmount() {}
+	componentWillUnmount() {
+        this.props.clearData(0);
+        this.props.clearData(1);
+        this.props.clearData(2);
+        this.props.clearData(3);
+    }
     componentWillReceiveProps(nextProps){
 	    const {typeData}=nextProps;
 	    let arr={};

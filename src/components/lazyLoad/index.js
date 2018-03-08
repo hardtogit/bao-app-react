@@ -26,9 +26,18 @@ class Index extends React.Component {
     componentDidMount(){
         const $this=this;
         if($($this.refs.img).offset().top<document.body.clientHeight){
-            this.setState({
-                src:this.props.src
-            })
+            let img=new Image();
+            img.src=$this.props.src;
+            img.addEventListener('load',function () {
+                $this.setState({
+                    src:$this.props.src
+                })
+            },false);
+            img.addEventListener('error',function () {
+                $this.setState({
+                    src:errorImg
+                })
+            },false)
         }
         $(this.props.scrollDom.refs.scroll).scroll(function () {
             if($this.state.src==$this.props.src||$this.state.src==errorImg){
