@@ -47,8 +47,8 @@ export default class Index extends React.Component {
                     <p className={styles.shopTitle2}>
                         <span><img src={coin} /></span>
                         <span>{alone_price}</span>
-                        <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
-                        <span className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.originTxt}>{price}</span>
+                        <img src={private1} className={(!level||level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
+                        <span className={(!level||level=="1"||level=="2"||level=="0")&&styles.none||styles.originTxt}>{price}</span>
                     </p>
                     <div className={styles.imgBox}>
                         <img  className={styles.products_img} src={image}  />

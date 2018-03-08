@@ -181,8 +181,8 @@ class Index extends React.Component {
 					</p>
 					<p className={styles.titleBottom}>
 						<span className={styles.priceTxt}>{alone_price}点币</span>
-						<img src={privateImg}  className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.priceImg} />
-						<span className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.priceTxt1}>{price}点币</span>
+						<img src={privateImg}  className={(!level||level=="1"||level=="2"||level=="0")&&styles.none||styles.priceImg} />
+						<span className={(!level||level=="1"||level=="2"||level=="0")&&styles.none||styles.priceTxt1}>{price}点币</span>
 					</p>
 				</div>
 			</div>
