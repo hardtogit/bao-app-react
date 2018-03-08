@@ -25,9 +25,12 @@ class Index extends React.Component {
         this.handleChange1 = this.handleChange1.bind(this);
 	}
 	componentWillMount(){
-        this.props.getVip();
+        let userInfo = sessionStorage.getItem("bao-auth");
+        console.log(userInfo)
+        if(userInfo){
+            this.props.getVip();
+        }
         sessionStorage.removeItem("bao-product");
-        this.props.clearData();
 		const inspect = this.dataInspect();
 		if (!inspect){
             const {
@@ -215,10 +218,13 @@ class Index extends React.Component {
         let flag;
 		const inspect=this.dataInspect();
 		let Dom;
-		if (VipData&&infoData){
+        let userInfo = sessionStorage.getItem("bao-auth");
+		if (infoData){
 			Dom=this.loadEndDom(infoData.data);
+			if(VipData&&userInfo){
+                flag = VipData.data.coin_total>infoData.data.alone_price;
+            }
 			this.setData();
-            flag = VipData.data.coin_total>infoData.data.alone_price;
 		}else{
             Dom=this.loadDom();
         }
@@ -232,10 +238,12 @@ class Index extends React.Component {
                     Dom
 				}
 				<Alert ref="alert"/>
-                <div className={flag&&styles.Botton||styles.none}>
-                    <p  onClick={()=>{this.confirm(infoData.data.product_id,infoData.data.product_property)}}>立即兑换</p>
+                <div className={styles.Botton||styles.none}>
+                    <p  onClick={()=>{
+                        this.confirm(infoData.data.product_id,infoData.data.product_property)
+                    }}>立即兑换</p>
                 </div>
-                <div className={!flag&&styles.BottonNo||styles.none}>
+                <div className={userInfo&&!flag&&styles.BottonNo||styles.none}>
                     <p >点币不足</p>
                 </div>
 			</div>
@@ -259,12 +267,7 @@ const mapDispatchToProps=(dispatch)=>({
 	push(url){
 	  	dispatch(push(url))
 	},
-    clearData(){
-        dispatch({
-            type:'CLEAR_INFO_DATA',
-            key:'PRODUCT_DETAIL'
-        })
-    },
+
     getVip(){
         dispatch({
             type:'GET_VIP'

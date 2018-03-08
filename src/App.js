@@ -325,7 +325,7 @@ export default class App extends React.Component {
                   <Route path="addAddress" getComponents={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="basicPrivaligeDetail" getComponents={BasicPrivaligeDetail}></Route>
                   <Route path="overallRule" getComponents={OverallRule}></Route>
-                  <Route path="productDetail/:id" getComponents={ProductDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="productDetail/:id" getComponents={ProductDetail} ></Route>
                   <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messages" component={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
