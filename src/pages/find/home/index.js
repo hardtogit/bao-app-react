@@ -15,10 +15,7 @@ import special3 from '../../../assets/images/find/special3.png'
 import special4 from '../../../assets/images/find/special4.png'
 import special5 from '../../../assets/images/find/special5.png'
 import special6 from '../../../assets/images/find/special6.png'
-import private1 from '../../../assets/images/find/private2.png'
 import Sign from '../../../components/Sign/index'
-import coin from '../../../assets/images/find/coin.png'
-import qiang from '../../../assets/images/find/qiang.png'
 import styles from './index.css'
 import Loading from '../../../components/pageLoading'
 import Product from '../../../components/Product'
@@ -117,7 +114,6 @@ class findHome extends Component{
                         <img src={item.image_wap}/>
                     </li>
                 )
-
             }
         });
         let bannerList=[];
