@@ -30,7 +30,7 @@ import user_bg from '../../../assets/images/my-index/user_bg.png'
 import vip from '../../../assets/images/my-index/vip.png'
 import setting from '../../../assets/images/my-index/setting.png'
 import news from '../../../assets/images/my-index/news.png'
-import headIcon from '../../../assets/images/my-index/head_icon.png'
+import headIcon from '../../../assets/images/my-index/avatar.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
@@ -104,8 +104,8 @@ class Index extends React.Component {
             VipData
         }=this.props;
         let vipLevel;
-        if(VipData&&VipData.code == 100){
-            vipLevel= VipData.data.vip_level;
+        if(VipData){
+            vipLevel=VipData.data.vip_level;
         }
         return (
             <div>
@@ -301,16 +301,16 @@ class Index extends React.Component {
                     </div>
 
                     <div className={styles.myProduct}>
-                        <div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>
-                            <Link to={`/user/coinShop`}>
-                                <img src={someCoins}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>积分商城</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>
-                                </div>
-                            </Link>
-                        </div>
+                        {/*<div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>*/}
+                            {/*<Link to={`/user/coinShop`}>*/}
+                                {/*<img src={someCoins}/>*/}
+                                {/*<div className={styles.myListText}>*/}
+                                    {/*<p className={styles.listTitle}>积分商城</p>*/}
+                                    {/*<p className={styles.listColor}*/}
+                                       {/*style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>*/}
+                                {/*</div>*/}
+                            {/*</Link>*/}
+                        {/*</div>*/}
                         <div className={styles.myList} style={{"display": "none"}}>
                             <img src={manageMoney}/>
                             <div className={styles.myListText}>

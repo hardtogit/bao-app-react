@@ -19,6 +19,10 @@ class Index extends Component{
         this.props.getVoucherInfo();
         this.props.clearData("VOUCHER_GET");
         this.props.clearData("RATE_GET");
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        if(userInfo){
+            this.props.getVip();
+        }
     }
     componentWillUnmount(){
         this.props.clearData('VOUCHER_GET');
@@ -132,9 +136,16 @@ class Index extends Component{
         )
     };
     noBtnDom=(id,ticketName)=>{
-        let vipLevel = sessionStorage.getItem("vipLevel");
+        const {
+            VipData
+        }=this.props;
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
+        }
         let cueTxt;
-        if(vipLevel == 0){
+        if(level == 0){
             cueTxt = "普通会员不可领取"
         }else{
             cueTxt = "已达每月领券上限"
@@ -153,8 +164,7 @@ class Index extends Component{
             pop,
             voucherInfoData,
             rateInfoData,
-            voucherInfo,
-            rateInfo
+            VipData
         }=this.props;
 
         const {
@@ -167,14 +177,18 @@ class Index extends Component{
             info_product,
             is_has,
         }=JSON.parse(sessionStorage.getItem("bao-ticketData"));
-        let vipLevel = sessionStorage.getItem("vipLevel");
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
+        }
         let ticketNum,ticketName1,btnDom;
         let ticketName = coupon_name.substring(coupon_name.length-3);
         if(ticketName == "加息券"){
             ticketNum = coupon_name.split("%")[0];
             ticketName1 = "%" + ticketName;
             if(rateInfoData){
-                if(vipLevel == 0||rateInfoData.data.can==0){
+                if(level == 0||rateInfoData.data.can==0){
                     btnDom=this.noBtnDom();
                 }else{
                     if(is_has==1){
@@ -188,7 +202,7 @@ class Index extends Component{
             ticketNum = coupon_name.split("元")[0];
             ticketName1 = "元" + ticketName;
             if(voucherInfoData){
-                if(vipLevel == 0||voucherInfoData.data.can==0){
+                if(level == 0||voucherInfoData.data.can==0){
                     btnDom=this.noBtnDom();
                 }else{
                     if(is_has==1){
@@ -231,6 +245,7 @@ const mapStateToProps=(state,own)=>{
         rateInfo: state.infodata.getIn(['RATE_GET', 'data']),
         voucherInfoData:state.infodata.getIn(['GET_VOUCHER_INFO','data']),
         rateInfoData:state.infodata.getIn(['GET_RATE_INFO','data']),
+        VipData: state.infodata.getIn(['GET_VIP', 'data']),
     }
 }
 const mapDispatchToProps=(dispatch,own)=>({
@@ -270,6 +285,11 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'CLEAR_DATA',
             key:key
+        })
+    },
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
         })
     },
 })

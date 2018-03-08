@@ -29,6 +29,10 @@ class Index extends React.Component {
 	componentWillMount(){
         this.props.getGoodsTypeList();
         sessionStorage.setItem("barIndex",this.state.index);
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        if(userInfo){
+            this.props.getVip();
+        }
     }
     componentDidMount=()=>{
 
@@ -115,10 +119,15 @@ class Index extends React.Component {
             getGoodsList,
             listData,
             pending,
-            end
+            end,
+            VipData
         }=this.props;
 	    const {index,params}=this.state;
-        let level = sessionStorage.getItem("vipLevel");
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
+        }
         let cloneData=typeData.data[0].label_child.slice(0);
         cloneData.unshift({id:'',name:'全部',type_str:'area_type'});
 	    return(<div>
@@ -248,6 +257,7 @@ class Index extends React.Component {
 }
 const mapStateToProps=(state)=>({
       typeData:state.infodata.getIn(['GET_GOODS_TYPE_LIST','data']),
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
       listData(key){
           return state.listdata.getIn([key,'data'])
       },
@@ -284,6 +294,11 @@ const mapDispatchToProps=(dispatch)=>({
       },
     pop(){
         dispatch(goBack())
+    },
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
+        })
     },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

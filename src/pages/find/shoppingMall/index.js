@@ -52,13 +52,18 @@ class shoppingMall extends Component{
             goodsListData,
             goodsListNewData,
             goodsListNewOneData,
-            goodsListNewTwoData
+            goodsListNewTwoData,
+            VipData
         }=this.props;
         let area0 = sessionStorage.getItem("area0")
         let area1 = sessionStorage.getItem("area1")
         let area2 = sessionStorage.getItem("area2")
         let area3 = sessionStorage.getItem("area3")
-        let level = sessionStorage.getItem("vipLevel")
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
+        }
         let productList=[];
         let productListNew=[];
         let productListNewOne=[];

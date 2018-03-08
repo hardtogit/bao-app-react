@@ -36,6 +36,10 @@ class findHome extends Component{
         this.props.getUser();
         this.props.getHotActivityList();
         this.props.findBanner();
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        if(userInfo){
+            this.props.getVip();
+        }
     }
     componentWillReceiveProps(next){
         const {user}=next;
@@ -85,11 +89,15 @@ class findHome extends Component{
         const {
             goodsListData,
             activityData,
-            bannerData
+            bannerData,
+            VipData
         }=this.props;
         let inviteUrl;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
-        let level = sessionStorage.getItem("vipLevel")
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
+        }
         if (userInfo){
             inviteUrl = "/find/inviteFriends";
         }else {
@@ -283,9 +291,15 @@ const initMymassege=(state,own)=>({
     goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
     user:state.infodata.getIn(['USER_INFO','data']),
     activityData:state.infodata.getIn(['GET_HOT_ACTIVITY','data']),
-    bannerData:state.infodata.getIn(['GET_FIND_BANNER','data'])
+    bannerData:state.infodata.getIn(['GET_FIND_BANNER','data']),
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
 })
 const initMymassegefn=(dispatch,own)=>({
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
+        })
+    },
     getGoodsList(){
         dispatch({
             type:'GET_GOODS_LIST'
