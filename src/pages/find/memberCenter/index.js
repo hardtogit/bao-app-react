@@ -42,6 +42,7 @@ class memberCenter extends Component{
         this.props.getRateCoupons();
         this.props.getVoucherCoupons();
         this.props.getPrivilegeBasic();
+        this.props.getPrivilegeProfit();
         let userInfo = sessionStorage.getItem("bao-auth");
         if(userInfo){
             this.props.getRateInfo();
@@ -61,6 +62,7 @@ class memberCenter extends Component{
     rateDomHas=()=>{
         const {
             rateCouponsData,
+
         }=this.props;
         return(
             <ul className={styles.shop}>
@@ -109,6 +111,9 @@ class memberCenter extends Component{
         )
     };
     cashDomNo=(data)=>{
+        const{
+            vipAnnualData
+        }=this.props;
         const {
             user_name,
             vip_level,
@@ -120,9 +125,8 @@ class memberCenter extends Component{
         return(
             <div className={styles.noRate}>
                 <img src={ku} />
-                <p className={styles.rateTxt}>您的会员为：{vip_level==0&&"普通"||vip_level+"级"}会员</p>
                 <p className={styles.rateTxt2}>暂无加息券可供选择领取</p>
-                <p className={styles.farfrom}>距加息券领取尚差年化金额：{gapNum}元</p>
+                <p className={styles.farfrom}>距加息券领取尚差年化金额：{vipAnnualData.data.coupon.annual_gap}元</p>
             </div>
         )
     };
@@ -205,7 +209,7 @@ class memberCenter extends Component{
                     </div>
                     <div className={index==2&&styles.contentItem}>
                         <img  className={(vip_level==0||vip_level==1||vip_level==2)&&styles.basicImg||styles.none} src={noDiscount} style={{width:"200px"}}/>
-                        <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距享受折扣尚差年化金额：{100000 - annual_total}元</p>
+                        <p className={(vip_level==0||vip_level==1||vip_level==2)&&styles.farfrom||styles.none}>距享受折扣尚差年化金额：{mall.annual_gap}元</p>
                         <div className={(vip_level>2)&&styles.discount||styles.none}>
                             <img  className={styles.basicImg} src={discount} style={{width:"220px"}}/>
                             <p className={styles.BirNum2}>{vip_level==3&&(mallVip.v3)*10||(vip_level==4&&(mallVip.v4)*10||(vip_level==5&&(mallVip.v5)*10||(vip_level==6&&(mallVip.v6)*10)))}  </p>
@@ -213,8 +217,8 @@ class memberCenter extends Component{
                         <p  className={(vip_level>2)&&styles.BirInfo||styles.none}>您可在宝点网商城享受全场{vip_level==3&&(mallVip.v3)*10||(vip_level==4&&(mallVip.v4)*10||(vip_level==5&&(mallVip.v5)*10||(vip_level==6&&(mallVip.v6)*10)))}折优惠</p>
                     </div>
                     <div className={index==3&&styles.contentItem}>
-                        <div className={styles.discount}>
-                            <img  src={withdraw}  style={{width:"130px"}}/>
+                        <div className={styles.withDraw}>
+                            <img  src={withdraw} />
                             <p className={styles.withDrawNum}>{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}  </p>
                         </div>
                         <p  className={styles.BirInfo}>您每月可享受{vip_level==0&&withdrawalVip.v0||(vip_level==1&&withdrawalVip.v1||(vip_level==2&&withdrawalVip.v2||(vip_level==3&&withdrawalVip.v3||(vip_level==4&&withdrawalVip.v4||(vip_level==5&&withdrawalVip.v5||(vip_level==6&&withdrawalVip.v6))))))}次免费提现次数~</p>
@@ -420,6 +424,7 @@ const initMymassege=(state,own)=>({
     voucherData:state.infodata.getIn(['GET_VOUCHER_COUPONS','data']),
     voucherInfoData:state.infodata.getIn(['GET_VOUCHER_INFO','data']),
     rateInfoData:state.infodata.getIn(['GET_RATE_INFO','data']),
+    vipAnnualData: state.infodata.getIn(['GET_PRIV_PROFIT', 'data']),
 })
 const initMymassegefn=(dispatch,own)=>({
     getVip(){
@@ -450,6 +455,11 @@ const initMymassegefn=(dispatch,own)=>({
     getVoucherInfo(){
         dispatch({
             type:'GET_VOUCHER_INFO'
+        })
+    },
+    getPrivilegeProfit(){
+        dispatch({
+            type:'GET_PRIV_PROFIT'
         })
     },
     pop(){

@@ -84,6 +84,10 @@ class Index extends React.Component {
         this.props.clearData(this.state.index);
 	    this.setState({index});
         sessionStorage.setItem("barIndex",index);
+        // this.refs.scroll.setState({
+        //     init:true,
+        //     first:false
+        // });
         // let arr1={};
         // if(typeData&&typeData.code==100) {
         //     typeData.data.map(({label_type},i) => {
@@ -109,6 +113,7 @@ class Index extends React.Component {
             end
         }=this.props;
 	    const {index,params}=this.state;
+        let level = sessionStorage.getItem("vipLevel");
         let cloneData=typeData.data[0].label_child.slice(0);
         cloneData.unshift({id:'',name:'全部',type_str:'area_type'});
 	    return(<div>
@@ -131,12 +136,12 @@ class Index extends React.Component {
                                             <Link to={`/find/productDetail/${item.product_id}`}  key={i}>
                                             <div className={styles.productBox}>
                                                 <span className={label_name!=""&&styles.label||styles.none}>{label_name}</span>
-                                                {/*<span className={styles.label}>特价</span>*/}
                                             <p className={styles.shopTitle1}>{product_name}</p>
                                             <p className={styles.shopTitle2}>
                                                 <span><img src={coin} /></span>
                                                 <span>{alone_price}</span>
-                                                <img src={private1} className={styles.specialIcon}/>
+                                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
+                                                <span className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.originTxt}>{price}</span>
                                             </p>
                                                 <div className={styles.imgBox}>
                                                     <LoadImg  className={styles.products_img} src={image} scrollDom={this.refs.scroll}  ></LoadImg>

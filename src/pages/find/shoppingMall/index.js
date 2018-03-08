@@ -3,14 +3,13 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import Swiper from '../../../components/mySwiper/index';
+import Product from '../../../components/Product'
 import Loading from '../../../components/pageLoading'
 import st1 from '../../../assets/images/find/st1.png'
 import st2 from '../../../assets/images/find/st2.png'
 import st3 from '../../../assets/images/find/st3.png'
 import st4 from '../../../assets/images/find/st4.png'
 import coin from '../../../assets/images/find/coin.png'
-import private1 from '../../../assets/images/find/private2.png'
-import qiang from '../../../assets/images/find/qiang.png'
 import noCry from '../../../assets/images/find/sp.png'
 import {goBack,push} from 'react-router-redux'
 import styles from './index.css'
@@ -19,7 +18,6 @@ class shoppingMall extends Component{
     componentWillMount(){
         this.props.getGoodsTypeList();
         this.props.mallBanner();
-        this.props.getVip();
         let area0 = sessionStorage.getItem("area0")
         let area1 = sessionStorage.getItem("area1")
         let area2 = sessionStorage.getItem("area2")
@@ -28,6 +26,11 @@ class shoppingMall extends Component{
         this.props.getGoodsListNew(area1);
         this.props.getGoodsListNewOne(area2);
         this.props.getGoodsListNewTwo(area3);
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        if(userInfo){
+            this.props.getVip();
+        }
+
     }
     setArea=(i)=>{
         sessionStorage.setItem("barIndex",JSON.stringify(i+1))
@@ -56,7 +59,6 @@ class shoppingMall extends Component{
         let area2 = sessionStorage.getItem("area2")
         let area3 = sessionStorage.getItem("area3")
         let level = sessionStorage.getItem("vipLevel")
-        console.log(level)
         let productList=[];
         let productListNew=[];
         let productListNewOne=[];
@@ -65,22 +67,9 @@ class shoppingMall extends Component{
             let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productList.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
-                        <li>
-                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span><img src={coin} /></span>
-                                <span>{item.price}</span>
-                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
-                        </li>
-                    </Link>
+                    <Product  key={i} load={false} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+
+                    </Product>
                 )
             }
         })
@@ -88,22 +77,9 @@ class shoppingMall extends Component{
             let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNew.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
-                        <li>
-                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span><img src={coin} /></span>
-                                <span>{item.price}</span>
-                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
-                        </li>
-                    </Link>
+                    <Product  key={i} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+
+                    </Product>
                 )
             }
         })
@@ -111,22 +87,9 @@ class shoppingMall extends Component{
             let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNewOne.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
-                        <li>
-                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span><img src={coin} /></span>
-                                <span>{item.price}</span>
-                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
-                        </li>
-                    </Link>
+                    <Product  key={i} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+
+                    </Product>
                 )
             }
         })
@@ -134,22 +97,9 @@ class shoppingMall extends Component{
             let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
                 productListNewTwo.push(
-                    <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%"}}  key={i}>
-                        <li>
-                            <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
-                            <p className={styles.shopTitle1}>{item.product_name}</p>
-                            <p className={styles.shopTitle2}>
-                                <span><img src={coin} /></span>
-                                <span>{item.price}</span>
-                                <img src={private1} className={(level=="1"||level=="2"||level=="0")&&styles.none||styles.specialIcon}/>
-                            </p>
-                            <div className={styles.imgBox}>
-                                <img src={item.image } className={styles.shopImg}/>
-                            </div>
-                            <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                            <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
-                        </li>
-                    </Link>
+                    <Product  key={i} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+
+                    </Product>
                 )
             }
         })
@@ -233,8 +183,6 @@ class shoppingMall extends Component{
         let rightNodeDom;
         if(userInfo){
             rightNodeDom=rightNodeLogin;
-        }else{
-            rightNodeDom=rightNodeNologin;
         }
         return(
             <div className={styles.finderHome}>

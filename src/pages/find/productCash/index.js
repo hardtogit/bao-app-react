@@ -47,7 +47,8 @@ class Index extends React.Component {
                 okCallback:()=>{
                     this.setState({
                         flag:true
-                    })
+                    });
+                    this.props.pop();
                 }
             })
         }

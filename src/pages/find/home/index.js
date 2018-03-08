@@ -21,6 +21,7 @@ import coin from '../../../assets/images/find/coin.png'
 import qiang from '../../../assets/images/find/qiang.png'
 import styles from './index.css'
 import Loading from '../../../components/pageLoading'
+import Product from '../../../components/Product'
 import utils from '../../../utils/utils'
 class findHome extends Component{
     constructor(props) {
@@ -91,6 +92,7 @@ class findHome extends Component{
         }=this.props;
         let inviteUrl;
         let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level = sessionStorage.getItem("vipLevel")
         if (userInfo){
             inviteUrl = "/find/inviteFriends";
         }else {
@@ -101,21 +103,8 @@ class findHome extends Component{
             let restTime = utils.millisecondToDate(item.down_time - item.server_time);
             if(i<4){
              productList.push(
-                 <Link to={`/find/productDetail/${item.product_id}`} style={{width:"50%",height:"255px"}}  key={i}>
-                         <li>
-                             <span className={item.label_name!=""&&styles.label||styles.none}>{item.label_name}</span>
-                             {/*<span className={styles.label}>特价</span>*/}
-                         <p className={styles.shopTitle1}>{item.product_name}</p>
-                         <p className={styles.shopTitle2}>
-                             <span><img src={coin} /></span>
-                             <span>{item.alone_price}</span>
-                             <img  src={private1} className={styles.specialIcon}/>
-                         </p>
-                         <img src={item.image} className={styles.shopImg}/>
-                         <div className={item.down_time!=0&&styles.productBottomBox||styles.none}><span className={styles.productBottomTxt}>距结束{restTime}</span></div>
-                         <img src={qiang} className={item.down_time!=0&&styles.qiang||styles.none}/>
-                     </li>
-                 </Link>
+                 <Product  key={i} load={false} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+                 </Product>
              )
             }
         });

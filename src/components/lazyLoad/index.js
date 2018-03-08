@@ -17,7 +17,8 @@ class Index extends React.Component {
     }
     static propTypes={
         src:PropTypes.string,
-        scrollDom:PropTypes.object
+        scrollDom:PropTypes.object,
+        isScroll:PropTypes.object,
     };
     static defaultProps={
         src:defaultImg
@@ -29,7 +30,7 @@ class Index extends React.Component {
                 src:this.props.src
             })
         }
-        $(this.props.scrollDom.refs.scrollBox).scroll(function () {
+        $(this.props.scrollDom.refs.scroll).scroll(function () {
             if($this.state.src==$this.props.src||$this.state.src==errorImg){
                 return false;
             }

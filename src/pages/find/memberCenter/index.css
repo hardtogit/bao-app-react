@@ -507,6 +507,16 @@
     font-size: 12px;
     color:#d0a15e;
 }
+.withDraw{
+    width: 220px;
+    height:100px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 18px;
+}
+.withDraw img{
+    width: 116px;
+}
 
 
 
