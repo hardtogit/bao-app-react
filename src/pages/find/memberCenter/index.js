@@ -38,15 +38,15 @@ class memberCenter extends Component{
     }
 
     componentWillMount(){
-        this.props.getVip();
-        this.props.getRateCoupons();
-        this.props.getVoucherCoupons();
         this.props.getPrivilegeBasic();
         this.props.getPrivilegeProfit();
         let userInfo = sessionStorage.getItem("bao-auth");
         if(userInfo){
             this.props.getRateInfo();
             this.props.getVoucherInfo();
+            this.props.getVip();
+            this.props.getRateCoupons();
+            this.props.getVoucherCoupons();
         }
         sessionStorage.setItem("basicIndex",this.state.index);
     }

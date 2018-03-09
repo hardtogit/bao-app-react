@@ -18,7 +18,7 @@ export default class Index extends React.Component {
         product_name: PropTypes.string,//背景颜色
         product_id: PropTypes.number,//背景颜色
         id: PropTypes.number,//背景颜色
-        alone_price: PropTypes.number,//背景颜色
+        alone_price: PropTypes.string,//背景颜色
         price: PropTypes.number,//背景颜色
         level: PropTypes.string,//背景颜色
         image: PropTypes.string,//背景颜色
