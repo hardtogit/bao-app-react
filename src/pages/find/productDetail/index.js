@@ -25,6 +25,7 @@ class Index extends React.Component {
         this.handleChange1 = this.handleChange1.bind(this);
 	}
 	componentWillMount(){
+        this.props.clearData("PRODUCT_DETAIL");
         let userInfo = sessionStorage.getItem("bao-auth");
         if(userInfo){
             this.props.getVip();
@@ -279,11 +280,11 @@ const mapDispatchToProps=(dispatch)=>({
             type:'GET_VIP'
         })
     },
-    // clearData(key){
-    //     dispatch({
-    //         type:'CLEAR_DATA',
-    //         key:key
-    //     })
-    // },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

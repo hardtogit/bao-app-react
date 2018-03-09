@@ -32,6 +32,7 @@ class findHome extends Component{
         }
     }
     componentWillMount(){
+        this.props.clearData("GET_GOODS_LIST");
         this.props.getGoodsList();
         this.props.getUser();
         this.props.getHotActivityList();
@@ -322,6 +323,12 @@ const initMymassegefn=(dispatch,own)=>({
     },
     push(url){
         dispatch(push(url))
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
     },
 
 })

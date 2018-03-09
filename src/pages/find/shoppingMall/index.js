@@ -16,6 +16,10 @@ import styles from './index.css'
 import utils from '../../../utils/utils'
 class shoppingMall extends Component{
     componentWillMount(){
+        this.props.clearData("GET_GOODS_LIST");
+        this.props.clearData("GET_GOODS_LIST_NEW");
+        this.props.clearData("GET_GOODS_LIST_NEW_ONE");
+        this.props.clearData("GET_GOODS_LIST_NEW_TWO");
         this.props.getGoodsTypeList();
         this.props.mallBanner();
         let area0 = sessionStorage.getItem("area0")
@@ -301,6 +305,12 @@ const mapDispatchToProps=(dispatch,own)=>({
     mallBanner(){
         dispatch({
             type:'GET_MALL_BANNER'
+        })
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
         })
     },
 });
