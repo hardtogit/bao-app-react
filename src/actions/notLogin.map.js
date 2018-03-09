@@ -56,3 +56,5 @@ export const PREHEAT_STATUS='PREHEAT_STATUS' //预热活动列表
 export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//回去新老用户标识
 export const GET_HELP_LIST='GET_HELP_LIST'//商城帮助信息
 export const PRODUCT_DETAIL='PRODUCT_DETAIL'//商城帮助信息
+export const GET_NOTICE_LIST='GET_NOTICE_LIST'//商城通知
+export const GET_NOTICE_DETAIL='GET_NOTICE_DETAIL'//商城通知
