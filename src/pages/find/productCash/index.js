@@ -175,7 +175,7 @@ class Index extends React.Component {
             productDom= this.produceDom(productData.data);
         }
         let isCoupon = sessionStorage.getItem("isCoupon");
-        if(isCoupon!=1){
+        if(isCoupon==0){
             if (address.length!=0){
                 Dom=this.hasAddress();
             }else{
