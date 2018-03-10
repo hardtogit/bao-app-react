@@ -67,7 +67,7 @@ class Index extends React.Component {
                 content:'数目不能小于0!',
                 okText:'确定'
             })
-		}else if(index > cash_limit_num){
+		}else if(cash_limit_num!=0&&(index > cash_limit_num)){
             this.refs.alert.show({
                 content:'每人只限购'+cash_limit_num+'件!',
                 okText:'确定'
