@@ -208,7 +208,7 @@ class Index extends React.Component {
                     <span className={styles.numBorder} onClick={()=>{this.changeBar(num-1)}}>-</span>
                     <input type="text" className={styles.productNum} value={this.state.num}  onChange={this.handleChange1}/>
                     <span className={styles.numBorder} onClick={()=>{this.changeBar(num+1,cash_limit_num,stock)}}>+</span>
-                    <span className={styles.limitTxt}>每人每天限购{cash_limit_num}件</span>
+                    <span className={cash_limit_num==0&&styles.none||styles.limitTxt}>每人每天限购{cash_limit_num}件</span>
                     <span className={styles.limitTxt}>剩余数量{stock}件&emsp;&emsp;</span>
                 </p>
 			</div>
