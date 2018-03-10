@@ -31,6 +31,7 @@ class Index extends React.Component {
             this.props.getVip();
         }
         sessionStorage.removeItem("bao-product");
+        sessionStorage.removeItem("isCoupon");
 		const inspect = this.dataInspect();
 		if (!inspect){
             const {
@@ -227,6 +228,7 @@ class Index extends React.Component {
 		let Dom;
         let userInfo = sessionStorage.getItem("bao-auth");
 		if (infoData){
+            sessionStorage.setItem("isCoupon",infoData.data.is_coupon);
 			Dom=this.loadEndDom(infoData.data);
 			if(VipData&&userInfo){
                 flag = VipData.data.coin_total>infoData.data.alone_price;

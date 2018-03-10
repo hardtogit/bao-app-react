@@ -40,7 +40,7 @@ class Index extends React.Component {
                 }
             })
         }
-        if(cashData&&cashData.code==100){
+        if(cashData&&cashData.code==100&&!flag){
             this.refs.alert.show({
                 content:"兑换成功，请到兑换记录中查看！",
                 okText:'确定',
@@ -171,27 +171,18 @@ class Index extends React.Component {
         let coinNum;
         let level;
         let disciuntNum;
-        // if(cashData&&cashData.code==300){
-        //     this.refs.alert.show({
-        //         content:cashData.msg,
-        //         okText:'确定'
-        //     })
-        // }
-        // if(cashData&&cashData.code==100){
-        //     this.refs.alert.show({
-        //         content:"兑换成功，请到兑换记录中查看！",
-        //         okText:'确定',
-        //         okCallback:this.props.pop()
-        //     })
-        // }
         if(productData){
             productDom= this.produceDom(productData.data);
         }
-        if (address.length!=0){
-            Dom=this.hasAddress();
-        }else{
-            Dom=this.nullAddress();
+        let isCoupon = sessionStorage.getItem("isCoupon");
+        if(isCoupon!=1){
+            if (address.length!=0){
+                Dom=this.hasAddress();
+            }else{
+                Dom=this.nullAddress();
+            }
         }
+
         if(VipData){
             coinNum = VipData.data.coin_total;
             level = VipData.data.vip_level;
@@ -207,14 +198,15 @@ class Index extends React.Component {
                     }
                     <div className={styles.discount}>{disciuntNum==10&&"当前等级无优惠"||"会员VIP"+level+"级"+disciuntNum+"折优惠"}</div>
 				</Box>
-                <Alert ref="alert"/>
-                <Confirm ref="confirm"/>
                 <div className={styles.addBtnDiv}>
                     <p className={styles.coinNum}>您的当前可用点币：{coinNum}</p>
                     <div className={styles.addBtn}  onClick={()=>{this.confirmBtn()}}>
                         确认兑换
                     </div>
                 </div>
+                <Alert ref="alert"/>
+                <Confirm ref="confirm"/>
+
 			</div>
 		)
 	}
