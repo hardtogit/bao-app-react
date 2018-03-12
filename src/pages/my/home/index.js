@@ -113,7 +113,7 @@ class Index extends React.Component {
                 <div className={styles.userAccount}>
                     <img  className={styles.userBg} src={user_bg} alt=""/>
                     <img onClick={()=>{this.props.push('/user/setting') }} className={styles.setting} src={setting} alt=""/>
-                    <img onClick={()=>{this.props.push('/find/message') }} className={styles.news} src={news} alt=""/>
+                    <img onClick={()=>{this.props.push('/find/messages') }} className={styles.news} src={news} alt=""/>
                     <div className={styles.userInfo}>
                         <div className={styles.img_c}>
                             <img src={headIcon} alt=""/>

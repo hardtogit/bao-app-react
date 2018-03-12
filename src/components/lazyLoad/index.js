@@ -39,7 +39,7 @@ class Index extends React.Component {
                 })
             },false)
         }
-        $(this.props.scrollDom.refs.scroll).scroll(function () {
+        $(this.props.scrollDom.refs.scrollBox).scroll(function () {
             if($this.state.src==$this.props.src||$this.state.src==errorImg){
                 return false;
             }
