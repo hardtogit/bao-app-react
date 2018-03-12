@@ -2,13 +2,13 @@
   position: absolute;
   top:0;
   display: block;
-  width:30px;
   height:16px;
   line-height: 16px;
   background-color: #f56c62;
   color:#fff;
   text-align: center;
   font-size: 12px;
+  padding: 0 5px;
 }
 .none{
   display: none;

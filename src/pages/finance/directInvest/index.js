@@ -297,7 +297,7 @@ class DirectInvestCell extends React.Component{
                     </div>
                     <div className={styles.cellFoot}>
                         <div>
-                            <p>年利率</p>
+                            <p>预期年化利率</p>
                             <p>期限</p>
                         </div>
                         {(()=>{
