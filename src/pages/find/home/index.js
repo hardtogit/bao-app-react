@@ -19,6 +19,7 @@ import Sign from '../../../components/Sign/index'
 import styles from './index.css'
 import Loading from '../../../components/pageLoading'
 import Product from '../../../components/Product'
+import setAuthUrl from '../../../components/setAuthUrl/index'
 import utils from '../../../utils/utils'
 class findHome extends Component{
     constructor(props) {
@@ -72,7 +73,7 @@ class findHome extends Component{
     handleBasic=(basicindex)=>{
         this.props.push("/find/memberCenter");
         sessionStorage.setItem("basicIndex",JSON.stringify(basicindex));
-    }
+    };
     qdDom=()=>{
         let {coins,signNumbers,isSign} = this.state;
         return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
@@ -129,7 +130,8 @@ class findHome extends Component{
         bannerData&&bannerData.data.map((item,i)=> {
             bannerList.push(
                 <div className='banner-box' style={{textAlign: "center",overflow:"hidden",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",borderTopLeftRadius:"10px",borderTopRightRadius:"10px"}} key={i}>
-                    <img width="100%" src={item.image_wap} className='banner-img' />
+                    {/*<span onClick={()=>{setAuthUrl(item.url)}}><img src={item.image_wap} className='banner-img'/></span>*/}
+                    <img onClick={(item.url!="")&&(()=>{this.toActivity(item.url)})} width="100%" src={item.image_wap} className='banner-img' />
                 </div>
             )
         });
