@@ -62,7 +62,7 @@ class Index extends Component{
                 <div className={style.msBox} style={{paddingTop:'0px'}}>
                     <div className={style.interest} style={{width:'100%'}}>
                         <p className={style.msText} style={{width:'37%'}}>
-                            年利率
+                            预期年化利率
                         </p>
                         <p className={style.msText}>
                             {type=='A'&&'到期还本付息'||'每月还息 到期还本'}
@@ -102,7 +102,7 @@ class Index extends Component{
                 <div className={style.msBox} style={{paddingTop:'0px'}}>
                     <div className={style.interest} style={{width:'100%'}}>
                         <p className={style.msText} style={{width:'37%'}}>
-                            年利率
+                            预期年化利率
                         </p>
                         <p className={style.msText}>
                             {type=='A'&&'期限'||'每月还息 到期还本'}

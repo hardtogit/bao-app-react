@@ -237,7 +237,7 @@ class CreditorDetails extends React.Component{
                     <span>{data.left_quantity}</span>
                   </div>
                   <div className={styles.detailinfoText}>
-                    <span>年利率</span>
+                    <span>预期年化利率</span>
                     <span>剩余期限</span>
                     <span>剩余份数</span>
                   </div>
