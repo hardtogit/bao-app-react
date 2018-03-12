@@ -152,5 +152,26 @@ export default {
     [actionTypes.FRIDAY_COINLIST]:{    //周五活动币列表
         apiFn:Fetch.fridayCoinList
     },
+    [actionTypes.GET_GOODS_LIST]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
+    [actionTypes.GET_GOODS_LIST_NEW]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
+    [actionTypes.GET_GOODS_LIST_NEW_ONE]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
+    [actionTypes.GET_GOODS_LIST_NEW_TWO]:{    //商品列表
+        apiFn:Fetch.getGoodsList
+    },
+    [actionTypes.GET_COIN_RECORD_LIST]:{   //商城历史记录点币记录
+        apiFn:Fetch.getCoinRecordList
+    },
+    [actionTypes.GET_CASH_RECORD_LIST]:{   //商城历史记录兑换记录
+        apiFn:Fetch.getCashRecordList
+    },
+    [actionTypes.GET_NOTICE_LIST]:{   //商城通知
+        apiFn:Fetch.getNoticeList
+    },
 
 }

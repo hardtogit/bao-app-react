@@ -33,13 +33,12 @@ class Index extends React.Component {
     choose=(flag)=>{
         this.refs.scroll.setState({
             init:true
-        })
+        });
         this.setState({
             flag:flag,
             filterShow:false
         });
         this.props.clearData();
-        // return;
 
         this.props.getList(flag);
     };

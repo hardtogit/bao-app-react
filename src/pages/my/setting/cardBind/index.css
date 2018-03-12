@@ -1,0 +1,74 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  overflow: auto;
+  padding-top: 44px;
+  background-color: #f0eff5;
+}
+.container .tip {
+  padding: 10px 15px 10px 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #777777;
+}
+.container .form {
+  background-color: #fff;
+}
+.submit {
+  margin: 30px 15px;
+}
+.rightBar {
+  font-size: 16px;
+  padding: 12px 0;
+  margin-left: 15px;
+  border-bottom: 1px solid #ddd;
+}
+.rightBar .rightIcon {
+  float: right;
+}
+.rightBar .rightIcon .text {
+  margin-right: 36px;
+}
+.rightBar .rightIcon .arrow {
+  position: relative;
+  right: 10px;
+}
+.rightBar .rightIcon .arrow:before,
+.rightBar .rightIcon .arrow:after {
+  border: 10px solid transparent;
+  border-left: 10px solid #fff;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: ' ';
+}
+.rightBar .rightIcon .arrow:before {
+  border-left-color: #B6B6B6;
+  right: -2px;
+}
+.problem {
+  padding-left: 15px;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #888888;
+}
+.input:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+.textContent {
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-right: 6px;
+  color: #888;
+  font-size: 14px;
+}
+.protocol {
+  color: #00a6e2;
+}

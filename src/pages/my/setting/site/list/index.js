@@ -171,10 +171,12 @@ const mapDispatchToProps = (dispatch) => ({
 		})
 	},
     setDeafult(params){
+	    console.log("111",params)
         dispatch({
             type:"SITE_SET_DEFAULT",
             params:params
         })
+
     },
     delSite(id){
         dispatch({

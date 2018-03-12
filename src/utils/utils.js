@@ -762,6 +762,20 @@ utils.formatDate=function(fmt,date){
     }
     return fmt;
 }
+
+/**
+    把毫秒数改为天数，小时大于0默认默认加1天
+ */
+utils.millisecondToDate=function(mss) {
+    let days = Math.ceil(mss / (60 * 60 * 24));
+    if(days > 0&&days <1){
+        days = 1;
+    }
+    days = days +"天";
+    return days;
+}
+
+
 /**
   根据action提供的key（当前是action.type）和params生成listdata.{uniqueKey}
 */
@@ -791,4 +805,5 @@ utils.getCookie=function(name) {
     }
     return null;
 }
+utils.rootImgUrl='https://bao-image.oss-cn-hangzhou.aliyuncs.com/uploadfile/img/';
 export default utils

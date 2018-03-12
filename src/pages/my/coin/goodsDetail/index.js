@@ -161,7 +161,7 @@ class Index extends React.Component {
 	}
 }
 const datas=(state)=>({
-       infoData:state.infodata.getIn(['COMMODITY_DETAILS','data'])
+       infoData:state.infodata.getIn(['COMMODITY_DETAILS','data2'])
 });
 const dispatchFn=(dispatch)=>({
 	  pop(){

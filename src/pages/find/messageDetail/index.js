@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
 import styles from './index.css'
 import {goBack} from 'react-router-redux'
-class messageDetail extends Component{
+class Index extends Component{
     constructor(props){
         super(props)
         this.state={
@@ -58,10 +58,10 @@ class messageDetail extends Component{
         )
     }
 }
-const messageDetailInit=(state,own)=>({
+const mapStateToProps=(state,own)=>({
 
 })
-const messageDetailInitfn=(dispath,own)=>({
+const mapDispatchToProps=(dispath,own)=>({
       reader(Id,type){
           dispath({
               type:"SET_READ",
@@ -75,4 +75,4 @@ const messageDetailInitfn=(dispath,own)=>({
           dispath(goBack())
     }
 })
-export default connect(messageDetailInit,messageDetailInitfn)(messageDetail)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

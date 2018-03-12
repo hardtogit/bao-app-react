@@ -486,22 +486,101 @@ export default {
     [actionTypes.QUERY_UPLOAD]:{   //星期五活动弹窗
         apiFn:Fetch.queryUpload
     },
+    [actionTypes.GET_VIP]:{   //获取用户VIP信息
+        apiFn:Fetch.getVipInfo
+    },
+    [actionTypes.GET_VIP_STR]:{   //获取用户VIP信息
+        apiFn:Fetch.getVipStr
+    },
+    [actionTypes.GET_PRIV_PROFIT]:{   //特权规则-收益
+        apiFn:Fetch.getPrivilegeProfit
+    },
+    [actionTypes.GET_GOODS_TYPE_LIST]:{   //获取用户VIP信息
+        apiFn:Fetch.getGoodsTypeList
+    },
+    [actionTypes.GET_CASH_DETALE]:{   //获取兑换详情
+        apiFn:Fetch.getCashDetail
+    },
+    [actionTypes.CANCEL_CASH_GOODS]:{   //取消兑换
+        apiFn:Fetch.cancelCashGoods
+    },
+    [actionTypes.VOUCHER_GET]:{   //领取抵用券
+        apiFn:Fetch.voucherGet
+    },
+    [actionTypes.RATE_GET]:{   //领取加息券
+        apiFn:Fetch.rateGet
+    },
+    [actionTypes.GET_NOTICE_DETAIL]:{   //商城通知详情
+        apiFn:Fetch.getNoticeDetail
+    },
+    [actionTypes.GET_PRIV_BASIC]:{   //用户基础特权
+        apiFn:Fetch.getPrivilegeBasic
+    },
+
+    [actionTypes.GET_RATE_COUPONS]:{    //会员中心加息券列表
+        apiFn:Fetch.getRateCoupons
+    },
+    [actionTypes.GET_VOUCHER_COUPONS]:{    //会员中心抵用券列表
+        apiFn:Fetch.getVoucherCoupons
+    },
+    [actionTypes.GET_RATE_INFO]:{    //加息券领取情况
+        apiFn:Fetch.getRateInfo
+    },
+    [actionTypes.GET_VOUCHER_INFO]:{    //抵用券领取情况
+        apiFn:Fetch.getVoucherInfo
+    },
+    [actionTypes.GET_VIP_ANNUAL]:{    //会员年化
+        apiFn:Fetch.getVipAnnual
+    },
+    [actionTypes.GET_HOT_ACTIVITY]:{    //热门活动列表
+        apiFn:Fetch.getHotActivityList
+    },
+    [actionTypes.GET_ADDRESS_LIST]:{    //收货地址列表
+        apiFn:Fetch.getAddressList
+    },
+    [actionTypes.SET_ADDRESS]:{    //设置默认地址
+        apiFn:Fetch.setAddress
+    },
+    [actionTypes.EDIT_ADDRESS]:{    //编辑地址
+        apiFn:Fetch.editAddress
+    },
+    [actionTypes.ADD_ADDRESS]:{    //新增地址
+        apiFn:Fetch.addAddress
+    },
+    [actionTypes.DEL_ADDRESS]:{    //删除地址
+        apiFn:Fetch.delAddress
+    },
+    [actionTypes.PRODUCT_DETAIL]:{    //删除地址
+        apiFn:Fetch.productDetail
+    },
+    [actionTypes.CASH_PRODUCT]:{    //商品兑换
+        apiFn:Fetch.cashProduct
+    },
+    [actionTypes.GET_HELP_LIST]:{   //商城帮助问题
+        apiFn:Fetch.getHelpList
+    },
+    [actionTypes.GET_FIND_BANNER]:{   //发现Banner
+        apiFn:Fetch.findBanner
+    },
+    [actionTypes.GET_MALL_BANNER]:{   //商城Banner
+        apiFn:Fetch.mallBanner
+    },
     [actionTypes.GET_DEFAULT_TAB]:{   //星期五活动弹窗
         apiFn:Fetch.getDefaultTab
     },
     [actionTypes.GET_PREHEAT_INFO]:{    //周五活动币列表
         apiFn:Fetch.getPreheatInfo
     },
-    [actionTypes.PREHEAT_RECEIVE]:{    //周五活动币列表
+    [actionTypes.PREHEAT_RECEIVE]:{    //领取礼品
         apiFn:Fetch.preheatReceive
     },
-    [actionTypes.PREHEAT_STATUS]:{    //周五活动币列表
+    [actionTypes.PREHEAT_STATUS]:{    //查询领取状态
         apiFn:Fetch.preheatStatus
     },
-    [actionTypes.GET_CASH_LOG]:{    //周五活动币列表
+    [actionTypes.GET_CASH_LOG]:{    //提现列表
         apiFn:Fetch.getCashLog
     },
-    [actionTypes.CANCEL_CASH]:{    //周五活动币列表
+    [actionTypes.CANCEL_CASH]:{    //取消提现
         apiFn:Fetch.cancelCash
     },
     [actionTypes.GET_PACKET]:{    //获取投资红包

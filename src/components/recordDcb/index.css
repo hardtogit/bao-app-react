@@ -1,0 +1,76 @@
+.bg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  background: #F1EFF5;
+  z-index: 1;
+  overflow: auto;
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.tabmenu li .borderBlue {
+  border-bottom: 2px solid #00A6E2;
+}
+.tabmenu li .borderWhite {
+  border-bottom: 2px solid #fff;
+}
+.recordsMain {
+  background: #F1EFF5;
+  margin-top: 88px;
+  overflow: hidden;
+}
+.tablist {
+  width: 100%;
+}
+.tabmenu {
+  width: 100%;
+  background: #fff;
+  list-style: none;
+  overflow: hidden;
+  position: fixed;
+  top: 44px;
+}
+.tabmenu li {
+  float: left;
+  width: 50%;
+  text-align: center;
+  height: 44px;
+  border-bottom: 1px solid #ddd;
+}
+.tabmenu li a {
+  display: block;
+  width: 100%;
+  height: 44px;
+  line-height: 41px;
+  border-bottom: 1px solid #fff;
+  font-size: 16px;
+  color: #626262;
+  text-decoration: none;
+}
+.errorImg {
+  width: 100%;
+  margin-top: 50px;
+}
+.errorImg img {
+  display: block;
+  width: 169px;
+  height: 152px;
+  margin: 0 auto;
+}
+.nullBox {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.nullBox img {
+  width: 161px;
+}

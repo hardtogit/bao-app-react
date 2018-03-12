@@ -1,0 +1,389 @@
+.bg {
+  background: #F6F6F9;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  overflow: auto;
+}
+.dhOver {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: -8px;
+  right: 5px;
+  background: url("../../../../assets/images/storeOver.png");
+  background-size: 100%  100%;
+}
+.coinMain {
+  width: 100%;
+  margin-top: 44px;
+}
+.coinText {
+  width: 100%;
+  text-align: center;
+}
+.coinText img {
+  margin-top: 55px;
+}
+.coinText h1 {
+  font-size: 16px;
+  color: #181818;
+}
+.coinText h2 {
+  font-size: 28px;
+  color: #000;
+  margin-top: 20px;
+}
+.coinText p {
+  font-size: 16px;
+  color: #626262;
+  margin-top: 10px;
+}
+.noneCoin {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: #626262;
+  margin-top: 55px;
+}
+.coinlist {
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  padding: 15px;
+}
+.coinBox {
+  padding: 15px 15px 0px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+.coinBox .coinContent {
+  border-bottom: 1px solid #ddd;
+  margin-right: -15px;
+  padding-right: 15px;
+}
+.coinBox .coinContent:last-child {
+  border-bottom: 0px;
+}
+.coinBox .coinTitle {
+  font-size: 16px;
+  color: #000000;
+}
+.coinBox .coinTitle .consume {
+  float: right;
+}
+.coinBox .coinAddress {
+  padding: 10px 0px;
+  font-size: 12px;
+  color: #AAAAAA;
+}
+.coinBox .coinTime {
+  font-size: 11px;
+  color: #AAAAAA;
+  padding-bottom: 15px;
+}
+.listleft {
+  top: 12px;
+  position: absolute;
+}
+.listleft p {
+  font-size: 12px;
+  color: #aaa;
+}
+.potop {
+  position: relative;
+  top: -8px;
+}
+.listleft h1 {
+  font-size: 16px;
+  font-weight: normal;
+  color: #000;
+}
+.listright {
+  float: right;
+  padding-right: 15px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.listright p {
+  font-size: 18px;
+  color: #000;
+}
+.rightNode {
+  width: 24px;
+}
+.top {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 103px;
+  background: #F76260;
+}
+.top img {
+  position: absolute;
+  left: 23px;
+  bottom: 24px;
+  display: inline-block;
+  width: 60px;
+}
+.top span.coins {
+  position: absolute;
+  top: 35px;
+  left: 105px;
+  font-size: 21px;
+  color: #fff;
+}
+.top span.sign {
+  position: absolute;
+  right: 15px;
+  top: 32px;
+  display: inline-block;
+  height: 32px;
+  width: 76px;
+  text-align: center;
+  line-height: 32px;
+  box-sizing: border-box;
+  font-size: 17px;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+.top span.coins_desc {
+  position: absolute;
+  left: 105px;
+  top: 58px;
+  color: #FDB7B3;
+  font-size: 14px;
+}
+.items {
+  width: 100%;
+  height: 40px;
+  background: white;
+  overflow: hidden;
+  position: relative;
+}
+.items .scrollBar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.items ul {
+  height: 40px;
+  width: 100%;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.items ul::-webkit-scrollbar {
+  display: none;
+}
+.items ul li {
+  white-space: nowrap;
+  box-sizing: border-box;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  display: inline-block;
+  font-size: 16px;
+  color: #333;
+  margin-left: 15px;
+}
+.items ul li.active {
+  border-bottom: 2px solid #F76260;
+}
+.products {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.products .productBox {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  height: 240px;
+  width: 50%;
+  padding: 20px 15px;
+  background: white;
+  border-bottom: 1px solid #dedede;
+  border-right: 1px solid #dedede;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.products .productBox:nth-of-type(2n) {
+  border-bottom: 1px solid #dedede;
+  border-right: 0;
+}
+.products .productBox .shopTitle1 {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.products .productBox .shopTitle2 {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #fe684b;
+}
+.products .productBox .shopTitle2 span {
+  float: left;
+}
+.products .productBox .shopTitle2 span img {
+  width: 14px;
+  margin-left: 1px;
+}
+.products .productBox .shopImg {
+  width: 100%;
+  margin-top: 3px;
+}
+.products .productBox .specialIcon {
+  height: 14px;
+  float: left;
+  margin-left: 4px;
+}
+.products .productBox .imgBox {
+  width: 100%;
+  height: 130px;
+  text-align: center;
+  margin-top: 40px;
+}
+.products .productBox .imgBox .products_img {
+  width: 108px;
+}
+.products .productBox .productBottomBox {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+.products .productBox .productBottomTxt {
+  display: block;
+  width: 45%;
+  height: 16px;
+  line-height: 16px;
+  margin: 0 auto;
+  background-color: #858585;
+  color: #fff;
+  font-size: 12px;
+}
+.products .productBox p.name {
+  font-size: 14px;
+  color: #000;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.products .productBox p.money {
+  font-size: 14px;
+  color: #f76260;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.products .productBox p.money img {
+  padding-right: 2px;
+  display: inline-block;
+  width: 18px;
+}
+.block {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.active {
+  transform: translate3d(0, 0, 0);
+}
+.filter {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+  z-index: 10000;
+}
+.filter .selectTitle {
+  background-color: #fff;
+  padding-left: 24px;
+  font-size: 14px;
+  padding-top: 15px;
+  color: #626262;
+}
+.select {
+  width: 100%;
+  padding: 4px 15px;
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.select li {
+  padding: 0 10px;
+  list-style: none;
+  text-align: center;
+  color: #626262;
+  font-size: 14px;
+}
+.select li.current {
+  color: #f67f75;
+  padding: 5px 10px;
+  margin: 0 8px;
+  border-radius: 3px;
+  border: 1px solid #f56f64;
+  background-color: #fbe9e7;
+}
+.select li.noselect {
+  padding: 5px 10px;
+  margin: 5px 8px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+.coinselect {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #fff;
+  padding-left: 20px;
+}
+.coinselect input {
+  width: 35%;
+  height: 28px;
+  border: 1px solid #ddd;
+  outline: none;
+  margin: 10px 3px;
+  padding: 5px 5px;
+  font-size: 12px;
+  color: #626262;
+}
+.confirmBtn {
+  width: 95px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  background: #fe684b;
+  color: #fff;
+  font-size: 14px;
+  margin-left: 20px;
+}
+.btnWrap {
+  width: 100%;
+  background: #fff;
+  padding-bottom: 20px;
+}

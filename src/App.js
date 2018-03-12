@@ -131,12 +131,11 @@ ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectPr
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
-import {FindMessage,InviteFriends,AnnounceMent,MessageDetail,Preheat,PreheatConfirm} from './pages/routeComponent/findComponent'
+import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,PreheatConfirm} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld,ReChangeMain,OldCharge,
-CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
 
 // 工厂方法创建saga中间件
 const a=window.location.href.split('.')[1]+'.cn';
@@ -307,13 +306,33 @@ export default class App extends React.Component {
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
-                  <Route path="message" component={FindMessage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="notify" component={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="shoppingMall" component={ShoppingMall}></Route>
+                  <Route path="shoppingMall/productList" component={ShopProductList}></Route>
+                  <Route path="shoppingMall/shopHistoryRecord" component={ShopHistoryRecord}></Route>
+                  <Route path="shoppingMall/shopMessage" component={ShopMessage}></Route>
+                  <Route path="shoppingMall/shopMessageDetail/:id" component={ShopMessageDetail}></Route>
+                  <Route path="shoppingMall/cashDetail/:id" component={CashDetail}></Route>
+                  <Route path="memberCenter" component={MemberCenter}></Route>
+                  <Route path="moreBasic" component={MoreBasic}></Route>
+                  <Route path="help" component={Help}></Route>
+                  <Route path="ticketRule" component={TicketRule}></Route>
+                  <Route path="rateTicketRule/:id" component={RateTicketRule}></Route>
+                  <Route path="ticketDetail" component={TicketDetail}></Route>
+                  <Route path="hotActivity" getComponents={HotActivity}></Route>
+                  <Route path="address" getComponents={Address}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="editAddress" getComponents={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="addAddress" getComponents={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="basicPrivaligeDetail" getComponents={BasicPrivaligeDetail}></Route>
+                  <Route path="overallRule" getComponents={OverallRule}></Route>
+                  <Route path="productDetail/:id" getComponents={ProductDetail} ></Route>
+                  <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messages" component={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="inviteRule" component={inviteRule}></Route>
                   <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-
               </Route>
 
               /*已完成*/

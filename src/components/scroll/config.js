@@ -20,7 +20,7 @@ class ScrollConfig {
      static loadingEndDom(){
         return(
             <div className={styles.loadingEnd}>
-            <span className={styles.loadingEndB}>暂无更多</span>
+            <span className={styles.loadingEndB}>没有更多了</span>
             </div>
         ) 
     }

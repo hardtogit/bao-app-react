@@ -2,145 +2,334 @@ import React,{Component} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import NavBar from '../../../components/NavBar'
-import IconMessage from '../../../assets/images/messicon.png'
-import Iconfrend from '../../../assets/images/licaiicon.png'
-import IconJf from '../../../assets/images/jfsc.png'
-import Tab from "../../../components/BottomTabs";
+import Swiper from 'react-mobile-swiper';
+import Notice from '../../../assets/images/find/notice.png'
+import Mall from '../../../assets/images/find/mall.png'
+import Signon from '../../../assets/images/find/signOn.png'
+import Member from '../../../assets/images/find/member.png'
+import newHand from '../../../assets/images/find/newHand.png'
+import invite from '../../../assets/images/find/invite.png'
+import special1 from '../../../assets/images/find/special1.png'
+import special2 from '../../../assets/images/find/special2.png'
+import special3 from '../../../assets/images/find/special3.png'
+import special4 from '../../../assets/images/find/special4.png'
+import special5 from '../../../assets/images/find/special5.png'
+import special6 from '../../../assets/images/find/special6.png'
+import Sign from '../../../components/Sign/index'
 import styles from './index.css'
-import classNames from 'classnames'
 import Loading from '../../../components/pageLoading'
-import setAuthUrl from '../../../components/setAuthUrl/index'
+import Product from '../../../components/Product'
+import utils from '../../../utils/utils'
 class findHome extends Component{
-    componentDidMount(){
-      this.props.load();
-    } 
-    loadingDom(){
-        return(<Loading/>)
+    constructor(props) {
+        super(props);
+        this.state = {
+            signNumbers:'',
+            coins:'',
+            isSign:false,
+            index:0,
+            id:0
+        }
     }
-    go=()=>{
-        const user=sessionStorage.getItem('bao-auth'),
-            {push}=this.props;
+    componentWillMount(){
+        this.props.clearData("GET_GOODS_LIST");
+        this.props.getGoodsList();
+        this.props.getUser();
+        this.props.getHotActivityList();
+        this.props.findBanner();
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        if(userInfo){
+            this.props.getVip();
+        }
+    }
+    componentWillReceiveProps(next){
+        const {user}=next;
         if (user){
-            push('/user/coinShop');
-        }else {
-            sessionStorage.setItem('bao-sc',true);
-            push('/login');
+            user.code==100&&this.set(user.data);
         }
     }
-    loadingEndDom(massegeNum,activeList){  
-        const massegeNums=massegeNum.data,
-              user=sessionStorage.getItem('bao-user');
-        let  massage
-        if(massegeNums){
-            if (massegeNums.msg_count+massegeNums.notice_count!=0){
-                massage=<span className={styles.newsNum}>{parseInt(massegeNums.msg_count+massegeNums.notice_count)}</span>
-            }
+    set=(userInfo)=>{
+        this.setState({
+            signNumbers:userInfo.signNumbers,
+            coins:userInfo.coins,
+            isSign:userInfo.isSign,
+        })
+    }
+    doSign=()=>{
+        this.refs.SignModel.show();
+    };
+    signSuccess=(data)=>{
+        this.setState({
+            isSign:true,
+            coins:data.data.coins
+        });
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-user"));
+        userInfo.isSign=true;
+        userInfo.coins=data.data.coins;
+        sessionStorage.setItem('bao-user',JSON.stringify(userInfo));
+        this.refs.SignModel.hide();
+    };
+    handleBasic=(basicindex)=>{
+        this.props.push("/find/memberCenter");
+        sessionStorage.setItem("basicIndex",JSON.stringify(basicindex));
+    }
+    qdDom=()=>{
+        let {coins,signNumbers,isSign} = this.state;
+        return( <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={(data)=>{this.signSuccess(data)}}/>)
+    };
+    go=()=>{
+        this.props.push("/login?baoBackUrl=/home/findIndex")
+    };
+    toActivity=(url)=>{
+        window.location.href=url;
+    };
+    loadingDom=()=>{
+        return(<Loading/>)
+    };
+    loadingEndDom(){
+        const {
+            goodsListData,
+            activityData,
+            bannerData,
+            VipData
+        }=this.props;
+        let inviteUrl;
+        let userInfo = JSON.parse(sessionStorage.getItem("bao-auth"));
+        let level;
+        if(userInfo&&VipData){
+            level = VipData.data.vip_level;
         }
-        return(
-             <div>
-            <ul className={styles.cavUl}>
-                <li className={styles.cavLi}>
-                <Link to='/find/message' className={styles.Link}>
-                <span>
-                 <img src={IconMessage} className={styles.cavIcon}/>
-                </span>
-                <span className={styles.changeLeft}>
-                 消息动态
-                </span>
-                {user&&massegeNums&&massegeNums.has_new_activity!=0&&massage}
-                <span className={styles.glyphiconChevronRight}></span>
-                </Link>
-                </li>
-                <li className={classNames(styles.cavLi,styles.changeTop)}>
-                 <Link to='/find/inviteFriends' className={styles.Link}>
-                <span>
-                 <img src={Iconfrend} className={styles.cavIcon}/>
-                </span>
-                <span className={styles.changeLeft}>
-                 呼朋唤友同享千元红包
-                </span>
-                <span className={styles.glyphiconChevronRight}></span>
-                </Link>
-                </li>
-                <li className={classNames(styles.cavLi,styles.changeTop)} onClick={this.go}>
-                <span>
-                 <img src={IconJf} className={styles.cavIcon}/>
-                </span>
-                        <span className={styles.changeLeft}>
-                 积分商城换好礼
-                </span>
-                        <span className={styles.glyphiconChevronRight}></span>
-                </li>
-            </ul>
-            {
-             activeList&&activeList.data.map(({title,img,url},i)=>{
-                  return(
-                      <div className={styles.activeBox} key={i}>
-                        <span  className={styles.activeHref} onClick={()=>{setAuthUrl(url)}}>
-                        <p className={styles.activeTitle}>
-                         {title}
-                        </p>
-                        <div className={styles.activeImg}>
-                        <img src={img}/>
-                        </div>
-                        </span>
-                       </div>
-                  )
-              }) 
+        if (userInfo){
+            inviteUrl = "/find/inviteFriends";
+        }else {
+            inviteUrl = "/find/inviteRule";
+        }
+        let productList=[];
+        goodsListData&&goodsListData.map((item,i)=>{
+            let restTime = utils.millisecondToDate(item.down_time - item.server_time);
+            if(i<4){
+             productList.push(
+                 <Product  key={i} load={false} level={level} alone_price={item.alone_price} down_time={item.down_time} image={item.image} label_name={item.label_name} price={item.price} product_id={item.product_id} product_name={item.product_name} restTime={restTime}>
+                 </Product>
+             )
             }
-            </div> 
+        });
+        let activityList=[];
+        activityData&&activityData.data.map((item,i)=>{
+            if(i<2){
+                activityList.push(
+                    <li key={i} onClick={item.status&&(()=>{this.toActivity(item.url_wap)})}>
+                        <div className={item.status!=1 && styles.shadow}>{item.status == '0'&&"活动未开始"||(item.status == '2'&&"活动已结束")}</div>
+                        <img src={item.image_wap}/>
+                    </li>
+                )
+            }
+        });
+        let bannerList=[];
+        bannerData&&bannerData.data.map((item,i)=> {
+            bannerList.push(
+                <div className='banner-box' style={{textAlign: "center",overflow:"hidden",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",borderTopLeftRadius:"10px",borderTopRightRadius:"10px"}} key={i}>
+                    <img width="100%" src={item.image_wap} className='banner-img' />
+                </div>
+            )
+        });
+        return(
+            <div>
+                { bannerData&&<Swiper loop={true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
+                        {
+                            bannerList
+                        }
+                    </Swiper>
+                }
+
+                <div className={styles.tabContainer}>
+                    <ul className={styles.productTab}>
+                        <li className={styles.indexCavli}>
+                            <Link to='/find/messages' className={styles.Link}>
+                                    <span className={styles.cavContent}>
+                                     <img src={Notice}/>
+                                     <p>消息</p>
+                                     </span>
+                            </Link>
+                        </li>
+                        <li className={styles.indexCavli}>
+                            <Link to='/find/shoppingMall' className={styles.Link}>
+                                <img src={Mall}/>
+                                <p>商城</p>
+                            </Link>
+                        </li>
+                        <li className={styles.indexCavli}>
+                            <span onClick={!userInfo&&this.go||(!this.state.isSign&&this.doSign)}>
+                                <img src={Signon}/>
+                                <p>{this.state.isSign&&'已签到'||'签到'}</p>
+                            </span>
+                        </li>
+                        <li className={styles.indexCavli}>
+                            <Link to="/find/memberCenter" className={styles.Link}>
+                                <img src={Member}/>
+                                <p>会员</p>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className={styles.findItem}>
+                    <div className={styles.itemTitle}>
+                        <span className={styles.leftTxt}>优享福利</span>
+                    </div>
+                    <ul className={styles.welfare}>
+                        <a href="https://www.bao.cn/special/newHandActivities/index.html">
+                            <li>
+                                <img src={invite}/>
+                                <div className={styles.info}>
+                                    <p className={styles.topTxt}>新手专享</p>
+                                    <p className={styles.bottomTxt}>800元福利包</p>
+                                </div>
+                            </li>
+                        </a>
+                        <li style={{width:"4%"}}>
+                            <span className={styles.split}></span>
+                        </li>
+                        <Link to={inviteUrl}>
+                            <li>
+                                <img src={newHand}/>
+                                <div  className={styles.info}>
+                                    <p  className={styles.topTxt}>邀友返现</p>
+                                    <p className={styles.bottomTxt}>邀请好友返现</p>
+                                </div>
+                            </li>
+                        </Link>
+                    </ul>
+                </div>
+                <div className={styles.findItem}>
+                    <div className={styles.itemTitle}>
+                        <span className={styles.leftTxt}>会员特权</span>
+                        <Link to='/find/memberCenter'>
+                            <span className={styles.rightTxt}>更多></span>
+                        </Link>
+                    </div>
+                    <ul className={styles.special}>
+                        <li onClick={()=>{this.handleBasic(0)}}>
+                            <img src={special1}/>
+                            <p>生日特权</p>
+                        </li>
+                        <li onClick={()=>{this.handleBasic(1)}}>
+                            <img src={special2}/>
+                            <p>节日礼包</p>
+                        </li>
+                        <li onClick={()=>{this.handleBasic(2)}}>
+                            <img src={special3}/>
+                            <p>商城折扣</p>
+                        </li>
+                    </ul>
+                    <ul className={styles.special}>
+                        <li onClick={()=>{this.handleBasic(3)}}>
+                            <img src={special4}/>
+                            <p>免费提现</p>
+                        </li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
+                            <img src={special5}/>
+                            <p>抵用券</p>
+                        </li>
+                        <li onClick={()=>{this.handleBasic(0)}}>
+                            <img src={special6}/>
+                            <p>加息券</p>
+                        </li>
+                    </ul>
+                </div>
+                <div className={styles.findItem}>
+                    <div className={styles.itemTitle}>
+                        <span className={styles.leftTxt}>商城</span>
+                        <Link to='/find/shoppingMall'>
+                            <span className={styles.rightTxt}>更多></span>
+                        </Link>
+                    </div>
+                    <ul className={styles.shop}>
+                        {productList}
+                    </ul>
+                </div>
+                <div className={styles.findItem}>
+                    <div className={styles.itemTitle}>
+                        <span className={styles.leftTxt}>热门活动</span>
+                        <Link to='/find/hotActivity'>
+                            <span className={styles.rightTxt}>更多></span>
+                        </Link>
+                    </div>
+                    <ul className={styles.hotActive}>
+                        {activityList}
+                    </ul>
+                </div>
+            </div>
         )
     }
      render(){
-         let {
-            ListPending,
-            massegePending,
-            activeList,
-            massegeNum
-         } = this.props;
-         let contentDom;
-         if(ListPending||massegePending || ListPending ==undefined || massegePending==undefined){
-            contentDom=this.loadingDom();
-         }else if(!ListPending&&!massegePending){
-              contentDom=this.loadingEndDom(massegeNum,activeList);
+         let {coins} = this.state;
+         const {
+             goodsListData,
+             activityData
+         }=this.props;
+         let contentDom,qdDom;
+         if (goodsListData&&(coins||coins==0)){
+             contentDom=this.loadingEndDom();
+             qdDom=this.qdDom();
+         }else{
+             contentDom=this.loadingDom();
          }
          return(
              <div className={styles.finderHome}>
-                    <div className={styles.finderHomeHeader}>
-                   <NavBar leftNode={null} backgroundColor='#fff'>
-                        <span className={styles.title}>发现</span>
-                    </NavBar>
-                    </div>
-                    <div className={styles.findContent}>
-                     {
-                         contentDom
-                     }
-                    </div>
-                    <Tab/>
-            </div>
+                <div className={styles.findContent} >
+                    {
+                        contentDom
+                    }
+                    {
+                        qdDom
+                    }
+                </div>
+             </div>
          )
      }
 }
-const findeActiveInin=(state,own)=>{
-    return{
-        ListPending:state.infodata.getIn(['FETCH_ACTIVE_LIST','pending']),
-        massegePending:state.infodata.getIn(['FETCH_ACTIVE_MASSAGE','pending']),
-        activeList:state.infodata.getIn(['FETCH_ACTIVE_LIST','data']),
-        massegeNum:state.infodata.getIn(['FETCH_ACTIVE_MASSAGE','data'])
-    }
-}
-const findeActiveIninfn=(dispatch,own)=>({
-      load(){
-          dispatch({
-               type:'FETCH_ACTIVE_LIST'
-           })
-              dispatch({
-                  type:'FETCH_ACTIVE_MASSAGE'
-              })
-      },
-    push(url){
-          dispatch(push(url))
-    }
+const initMymassege=(state,own)=>({
+    goodsListData: state.listdata.getIn(['GET_GOODS_LIST', 'data']),
+    user:state.infodata.getIn(['USER_INFO','data']),
+    activityData:state.infodata.getIn(['GET_HOT_ACTIVITY','data']),
+    bannerData:state.infodata.getIn(['GET_FIND_BANNER','data']),
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
 })
-export default connect(findeActiveInin,findeActiveIninfn)(findHome)
+const initMymassegefn=(dispatch,own)=>({
+    getVip(){
+        dispatch({
+            type:'GET_VIP'
+        })
+    },
+    getGoodsList(){
+        dispatch({
+            type:'GET_GOODS_LIST'
+        })
+    },
+    getUser(){
+        dispatch({
+            type:'USER_INFO'
+        })
+    },
+    getHotActivityList(){
+        dispatch({
+            type:'GET_HOT_ACTIVITY'
+        })
+    },
+    findBanner(){
+        dispatch({
+            type:'GET_FIND_BANNER'
+        })
+    },
+    push(url){
+        dispatch(push(url))
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_DATA',
+            key:key
+        })
+    },
+
+})
+export default connect(initMymassege,initMymassegefn)(findHome)

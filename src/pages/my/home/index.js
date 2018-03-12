@@ -30,7 +30,7 @@ import user_bg from '../../../assets/images/my-index/user_bg.png'
 import vip from '../../../assets/images/my-index/vip.png'
 import setting from '../../../assets/images/my-index/setting.png'
 import news from '../../../assets/images/my-index/news.png'
-import headIcon from '../../../assets/images/my-index/head_icon.png'
+import headIcon from '../../../assets/images/my-index/avatar.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
@@ -100,8 +100,13 @@ class Index extends React.Component {
             depositb
         } = data;
         const{
-            userInfo
-        }=this.props
+            userInfo,
+            VipData
+        }=this.props;
+        let vipLevel;
+        if(VipData){
+            vipLevel=VipData.data.vip_level;
+        }
         return (
             <div>
                 <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
@@ -118,9 +123,9 @@ class Index extends React.Component {
 
                     <div className={styles.settingBg}>
                     </div>
-                    <div className={styles.settings}>
+                    <div className={styles.settings} onClick={()=>{this.props.push("/find/memberCenter")}}>
                         <img src={vip} alt=""/>
-                        <span>普通会员</span>
+                        <span>{vipLevel==0&&"普通会员"||(vipLevel==1&&"VIP1"||(vipLevel==2&&"VIP2"||(vipLevel==3&&"VIP3"||(vipLevel==4&&"VIP4"||(vipLevel==5&&"VIP5"||(vipLevel==6&&"VIP6"))))))}</span>
                     </div>
                 </div>
                 <Link to="/user/analysis">
@@ -296,16 +301,16 @@ class Index extends React.Component {
                     </div>
 
                     <div className={styles.myProduct}>
-                        <div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>
-                            <Link to={`/user/coinShop`}>
-                                <img src={someCoins}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>积分商城</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>
-                                </div>
-                            </Link>
-                        </div>
+                        {/*<div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>*/}
+                            {/*<Link to={`/user/coinShop`}>*/}
+                                {/*<img src={someCoins}/>*/}
+                                {/*<div className={styles.myListText}>*/}
+                                    {/*<p className={styles.listTitle}>积分商城</p>*/}
+                                    {/*<p className={styles.listColor}*/}
+                                       {/*style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>*/}
+                                {/*</div>*/}
+                            {/*</Link>*/}
+                        {/*</div>*/}
                         <div className={styles.myList} style={{"display": "none"}}>
                             <img src={manageMoney}/>
                             <div className={styles.myListText}>
@@ -354,6 +359,7 @@ class Index extends React.Component {
     componentDidMount() {
         this.props.load();
         this.props.fridayPop();
+        this.props.getVip();
     }
 
     doSign = () => {
@@ -368,14 +374,12 @@ class Index extends React.Component {
             nobjs,
             fridayPopData
         } = this.props;
-
         let Dom;
 
         let PopDom;
         if (fridayPopData && fridayPopData.data && fridayPopData.data.coin != 0) {
             PopDom = this.fridayPopDom(fridayPopData.data);
         }
-
 
         if (nobjs) {
             Dom = this.loadingEndDom(nobjs.data);
@@ -394,7 +398,6 @@ class Index extends React.Component {
                     {this.state.ifShow && PopDom}
                 </div>
             </div>
-
         )
     }
 }
@@ -402,9 +405,15 @@ class Index extends React.Component {
 const myIndexInit = (state, own) => ({
     nobjs: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
     fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data']),
-    userInfo:state.infodata.getIn(['USER_INFO','data'])
+    userInfo:state.infodata.getIn(['USER_INFO','data']),
+    VipData: state.infodata.getIn(['GET_VIP', 'data']),
 })
 const myIndexInitfn = (dispath, own) => ({
+    getVip(){
+        dispath({
+            type:'GET_VIP'
+        })
+    },
     load() {
         dispath({
             type: "USER_INFO_WITH_LOGIN"

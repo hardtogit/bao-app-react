@@ -1,0 +1,172 @@
+.bg {
+  background: #F6F6F9;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  overflow: auto;
+  width: 100%;
+  height: 100vh;
+  padding-top: 44px;
+}
+.bg .goodsTop {
+  width: 100%;
+  background-color: #fff;
+}
+.bg .goodsTop .goodsImg {
+  width: 96%;
+  margin: 0 auto;
+  height: 240px;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+  position: relative;
+}
+.bg .goodsTop .goodsImg .productImg {
+  width: 45%;
+  margin: 0 auto;
+}
+.bg .goodsTop .goodsImg .numDiv {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.bg .goodsTop .goodsImg .dayNum {
+  width: 110px;
+  margin: 0 auto;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #858585;
+}
+.bg .goodsTop .proTitle {
+  width: 100%;
+  padding: 15px 17px;
+}
+.bg .goodsTop .proTitle .titleTop {
+  height: 15px;
+  line-height: 15px;
+  font-size: 12px;
+  color: #333;
+}
+.bg .goodsTop .proTitle .titleTop .titieTxt {
+  float: left;
+}
+.bg .goodsTop .proTitle .titleTop .limitTxt {
+  float: right;
+}
+.bg .goodsTop .proTitle .titleBottom {
+  height: 40px;
+  line-height: 40px;
+}
+.bg .goodsTop .proTitle .titleBottom .priceTxt {
+  font-size: 18px;
+  color: #333;
+  margin-right: 5px;
+}
+.bg .goodsTop .proTitle .titleBottom .priceImg {
+  width: 30px;
+}
+.bg .goodsTop .proTitle .titleBottom .priceTxt1 {
+  color: #666;
+  font-size: 12px;
+  text-decoration: line-through;
+  margin-left: 25px;
+}
+.bg .propertyDiv {
+  width: 100%;
+  background-color: #fff;
+  padding: 15px 17px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.bg .propertyDiv .num1 {
+  font-size: 14px;
+}
+.bg .propertyDiv .num2 {
+  color: #666;
+}
+.bg .propertyDiv .numSelect {
+  height: 40px;
+  padding: 5px 0;
+}
+.bg .propertyDiv .numSelect span {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  margin: 0 3px;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+.bg .propertyDiv .numSelect .productNum {
+  outline: none;
+  float: left;
+  width: 40px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  margin: 0 3px;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+.bg .propertyDiv .propertyItem .nump {
+  font-size: 14px;
+  margin-top: 20px;
+}
+.bg .propertyDiv .propertyItem .propertyValue {
+  height: 40px;
+  padding: 5px 0;
+}
+.bg .propertyDiv .propertyItem .propertyValue span {
+  float: left;
+  padding: 0px 10px;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  margin: 0 3px;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+.bg .propertyDiv .propertyItem .propertyValue .current {
+  float: left;
+  padding: 0px 10px;
+  border: 1px solid #999999;
+  background-color: #fe684b ;
+  color: #fff;
+  border-radius: 3px;
+  margin: 0 3px;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+.bg .detailImg {
+  background: #fff;
+}
+.bg .detailImg .infoTitle {
+  padding-left: 20px;
+}
+.bg .detailImg .infoContent {
+  padding: 0 20px;
+}
+.bg .Botton {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  bottom: 0;
+  text-align: center;
+  background-color: #fff;
+  padding-top: 15px;
+}
+.bg .Botton p {
+  width: 80%;
+  margin: 0 auto;
+  height: 46px;
+  line-height: 46px;
+  background-color: #fe684b;
+  color: #fff;
+  border-radius: 28px;
+  box-shadow: 0 5px 2px #fea999;
+}

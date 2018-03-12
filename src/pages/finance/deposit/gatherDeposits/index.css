@@ -1,0 +1,39 @@
+.body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  overflow: auto;
+  padding-top: 44px;
+  background-color: #f0eff5;
+}
+.body .header {
+  background-color: #00a6e2;
+  color: #fff;
+  padding: 12px 15px 14px 15px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.body .data_list_item {
+  font-size: 15px;
+  height: 70px;
+  margin-top: 10px;
+  background-color: #fff;
+}
+.body .data_list_item .item {
+  display: flex;
+  height: 35px;
+}
+.body .data_list_item .item .left {
+  flex: 1;
+  padding-left: 15px;
+}
+.body .data_list_item .item .right {
+  flex: 1;
+  text-align: right;
+  padding-right: 15px;
+}
+.body .data_list_item .item .right .money {
+  color: #00a6e2;
+}

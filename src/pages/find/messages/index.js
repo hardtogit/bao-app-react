@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Scroll from '../../../components/scroll'
 import styles from './index.css'
 import {goBack,push} from 'react-router-redux'
-class findMessage extends Component{
+class Index extends Component{
     constructor(props){
         super(props)
     }
@@ -96,7 +96,7 @@ class findMessage extends Component{
         )
     }
 }
-const initMymassege=(state,own)=>{
+const mapStateToProps=(state,own)=>{
     return{
      noticeData:state.listdata.getIn(['GET_NOTICE','data','0']),
      listData:state.listdata.getIn(['FETCH_MY_MASSAGE_S','data']),
@@ -104,7 +104,7 @@ const initMymassege=(state,own)=>{
      end:state.listdata.getIn(['FETCH_MY_MASSAGE_S','pageEnd'])
     }
 }
-const initMymassegefn=(dispath,own)=>({
+const mapDispatchToProps=(dispath,own)=>({
       getNotice(){
            dispath({
                type:'GET_NOTICE'
@@ -135,4 +135,4 @@ const initMymassegefn=(dispath,own)=>({
         dispath(push('/find/announcement'))
     }
 })
-export default connect(initMymassege,initMymassegefn)(findMessage)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

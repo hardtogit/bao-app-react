@@ -1,0 +1,209 @@
+.open {
+  position: relative;
+  background: white;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 15px;
+  color: #444;
+}
+.open .switch {
+  display: inline-block;
+  float: right;
+  margin-top: 4px;
+}
+.content {
+  margin-top: 15px;
+}
+.content .times {
+  background: white;
+  width: 100%;
+  padding-left: 15px;
+}
+.content .times li {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  list-style: none;
+  height: 44px;
+  line-height: 44px;
+}
+.content .times li:first-child {
+  border-bottom: 1px solid #ddd;
+}
+.content .times li span {
+  display: inline-block;
+}
+.content .times li span.desc {
+  position: absolute;
+  right: 15px;
+}
+.content .times li input {
+  display: inline-block;
+  padding: 0 15px;
+  height: 42px;
+  width: 50%;
+  position: absolute;
+  left: 35%;
+  top: 0;
+  border: none;
+}
+.content .rest_money {
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-bottom: 22px;
+  font-size: 14px;
+  color: #888;
+}
+.content .rest_money span {
+  color: #f70;
+}
+.content .rate {
+  background: white;
+  padding-left: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.content .rate .duration {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 44px;
+  line-height: 44px;
+  border-bottom: 1px solid #ddd;
+}
+.content .rate .duration img {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  width: 15px;
+}
+.content .rate .duration span {
+  position: absolute;
+  right: 35px;
+  color: #f70;
+  font-size: 14px;
+}
+.content .rate .rate_label {
+  margin-top: 23px;
+  margin-bottom: 10px;
+}
+.content .rate .rate_box {
+  position: relative;
+  left: 0;
+  top: 0;
+  padding-right: 15px;
+  padding-bottom: 23px;
+  display: flex;
+}
+.content .rate .rate_box .minus {
+  min-width: 45px;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+.content .rate .rate_box .minus span {
+  display: inline-block;
+  height: 1px;
+  background: #ddd;
+  width: 20px;
+  margin-top: 21px;
+  margin-left: 10px;
+}
+.content .rate .rate_box input {
+  width: 100%;
+  margin: 0 15px;
+  height: 45px;
+  display: inline-block;
+  text-align: center;
+}
+.content .rate .rate_box .rateInput {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  border: none;
+  height: 40px;
+  top: 2px;
+  margin: 0 0 0 -25%;
+  text-align: center;
+  line-height: 40px;
+  background: white;
+}
+.content .rate .rate_box .add {
+  min-width: 45px;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+.content .rate .rate_box .add span {
+  display: inline-block;
+  height: 1px;
+  background: #ddd;
+  width: 20px;
+  margin-top: 21px;
+  margin-left: 10px;
+}
+.content .rate .rate_box .add span:last-child {
+  position: relative;
+  top: -25px;
+  transform: rotate(90deg);
+}
+.content .types {
+  background: white;
+  padding-left: 15px;
+  margin-bottom: 60px;
+}
+.content .types li {
+  height: 44px;
+  line-height: 44px;
+  width: 100%;
+  color: #000;
+  font-size: 16px;
+  list-style: none;
+}
+.content .types li:first-child {
+  border-bottom: 1px solid #ddd;
+}
+.content .types li span {
+  float: right;
+  margin-right: 15px;
+  color: #888;
+}
+.content .types li span img {
+  display: inline-block;
+  width: 15px;
+  vertical-align: middle;
+}
+.sure {
+  position: fixed;
+  bottom: 0;
+  border: none;
+  color: white;
+  width: 100%;
+  height: 50px;
+  z-index: 1;
+  padding: 0 8px;
+  font-weight: 400;
+  font-size: 18px;
+  background: #00a6e2;
+}
+.sure:disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+.tips {
+  position: relative;
+}
+.box_error {
+  top: 90px;
+}
+.top {
+  top: 96px!important;
+}

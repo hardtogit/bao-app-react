@@ -1,0 +1,85 @@
+.findMessage{
+    padding-top: 44px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.findMessageHeader{
+    position: relative;
+    z-index: 999;
+}
+.messageContent{
+    width: 100%;
+    height: 100%;
+     background-image: url("../../../assets/images/find/rulebg.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #fff;
+    padding-top: 20px;
+}
+
+.Link{
+    color: #000;
+}
+.tacket{
+    width:300px;
+    margin: 0 auto;
+    background-image: url("../../../assets/images/find/ticket.png");
+    background-size: 100% 100%;
+    padding: 20px;
+    padding-bottom: 40px;
+    color: #333;
+    font-size: 12px;
+}
+.tacket .titleBar{
+    width:100%;
+    height:25px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+}
+.tacket .titleBar li.current{
+    border-bottom: 2px solid #d0a15e;
+}
+.ruleTable{
+    width: 86%;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+}
+.ruleTable tr{
+    height:24px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-around;
+}
+.ruleTable tr:first-child{
+    border-bottom: 1px solid #ccc;
+
+}
+.ruleTable tr:nth-child(odd){
+    background-color: #edecec;
+}
+.ruleTable tr td{
+    text-align: center;
+    color:#404040;
+    width: 50%;
+}
+.infoTxt{
+    margin-top: 20px;
+    line-height: 20px;
+}
+.infoTxtWithdraw{
+    margin-top: 20px;
+    line-height: 20px;
+    color:red;
+}
+.has{
+    display: block;
+}
+.no{
+    display:none;
+}

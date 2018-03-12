@@ -125,10 +125,9 @@ class DepositBuy extends React.Component {
                pending:true
            })
        }
-
   }
     componentWillUnmount(){
-    this.props.clearDataInfo();
+        this.props.clearDataInfo();
     }
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;

@@ -1,0 +1,15 @@
+.loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  -moz-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  -o-transform: translate3d(-50%, -50%, 0);
+}
+.loading .loadingText {
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+  color: #666;
+}
