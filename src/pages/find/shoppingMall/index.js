@@ -50,6 +50,9 @@ class shoppingMall extends Component{
             </div>
         )
     }
+    toActivity=(url)=>{
+        window.location.href=url;
+    };
     loadEndDom=()=>{
         const {
             goodsTypeListData,
@@ -182,7 +185,7 @@ class shoppingMall extends Component{
         bannerData&&bannerData.data.map((item,i)=> {
             bannerList.push(
                 <div className='banner-box' style={{textAlign: "center",overflow:"hidden",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",borderTopLeftRadius:"10px",borderTopRightRadius:"10px"}} key={i}>
-                    <img width="100%" src={item.image_wap} className='banner-img' />
+                    <img onClick={(item.url!="")&&(()=>{this.toActivity(item.url)})} width="100%" src={item.image_wap} className='banner-img' />
                 </div>
             )
         });
