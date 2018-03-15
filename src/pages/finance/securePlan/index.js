@@ -10,10 +10,10 @@ import banner from '../../../assets/images/secure_plan_banner.jpg'
 class SecurePlan extends React.PureComponent {
 
   render() {
-    const dispatch = this.props.dispatch
+    const dispatch = this.props.dispatch;
     return (
       <div className={styles.root}>
-        <NavBar onLeft={() => dispatch(goBack())}>安全保障计划</NavBar>
+        <NavBar onLeft={() => dispatch(goBack())}>多重风控保障体系</NavBar>
         <div className={styles.iframe}>
           <iframe src="https://www.bao.cn/special/pandaManage/index.html"   style={{width:'100%',height:'100%',position:'absolute',top:'44px',border:'none',bottom:'44px'}}></iframe>
         </div>

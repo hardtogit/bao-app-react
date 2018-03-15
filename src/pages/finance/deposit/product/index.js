@@ -150,7 +150,7 @@ class ProductDetail extends React.Component {
                       <img src={security}/>
                   </span>
                       <span>
-                         安全保障
+                         风险控制
                      </span>
                   </li>
                   <li onClick={()=>{push('/depositDetails')}}>
