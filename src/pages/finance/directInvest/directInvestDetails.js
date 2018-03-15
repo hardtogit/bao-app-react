@@ -212,7 +212,7 @@ class Index extends Component{
             <div ref='topHeight'>
             <Header rate={rate} data={Bdatas} activityName={activityName} rateA={borrow_interest_rate_one} rateB={borrow_interest_rate_two}/>
             <div className={styles.suBox} onClick={()=>{push('/safeplan')}}>
-                安全保障计划
+                多重风控保障体系
                 <img src={arrow2} className={styles.suJt}/>
             </div>
             <div className={styles.timeBox}>
