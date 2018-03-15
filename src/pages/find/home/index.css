@@ -304,6 +304,7 @@
     height: 74px;
     background-color: #000;
     opacity: 0.4;
+    filter:alpha(opacity=40);
     position: absolute;
     z-index:100;
     color:#fff;
