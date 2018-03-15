@@ -57,9 +57,7 @@ class Index extends Component{
                 </div>
                 <div className={styles.messageContent}>
                     <div className={styles.tacket}>
-                        {
-                            ruleTable
-                        }
+
                         {
                             info&&info.map((item,i)=>(
                                 <p key={i}>{item}</p>
@@ -77,9 +75,6 @@ class Index extends Component{
             pop,
             vipAnnualData
         }=this.props;
-        if(vipAnnualData){
-            console.log(vipAnnualData.data.coupon.rule_list)
-        }
         const{
             id
         }= this.props.params;
