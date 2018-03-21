@@ -21,6 +21,7 @@ import type_danbao from '../../../assets/images/type_danbao.png'
 import type_xinyong from '../../../assets/images/type_xinyong.png'
 import type_diya from '../../../assets/images/type_diya.png'
 import setUrl from '../../../components/setUrl'
+import  {platFormGetAuthDetail,getAuthDetail} from '../../../components/Permission'
 class DirectInvestCell extends React.Component{
     constructor(props){
         super(props)
@@ -89,27 +90,33 @@ class DirectInvestCell extends React.Component{
             term
         }=this.props.data;
         const{push}=this.props
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         if(flag){
-            if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-                this.props.isAuth.Verification(`/directBuyOld/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
-                return;
-            }else{
-                if(storeData&&storeData.isRegister){
-                    push('/user/setting/cardBind')
-                }else{
-                    this.refs.store.show()
-                }
+            switch (platFormGetAuthDetail()){
+                case 1:
+                    this.props.isAuth.Verification(`/directBuyOld/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+                    break;
+                case 2:
+                    push('/user/setting/cardBind');
+                    break;
+                case 3:
+                    this.refs.store.show();
+                    break;
+                default:
+                    break
             }
         }else{
-            if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-                 this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
-            }else{
-                if(storeData&&storeData.isRegister){
-                    push('/user/setting/cardBind')
-                }else{
-                    this.refs.store.show()
-                }
+            switch (getAuthDetail()){
+                case 1:
+                    this.props.isAuth.Verification(`/directBuy/${id}/${term}`,this.props.isAuthPush,this.succsseFn)
+                    break;
+                case 2:
+                    push('/user/setting/cardBind');
+                    break;
+                case 3:
+                    this.refs.store.show();
+                    break;
+                default:
+                    break
             }
         }
 

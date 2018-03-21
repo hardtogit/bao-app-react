@@ -8,7 +8,6 @@
 import React from 'react'
 import styles from './index.less'
 import * as actionTypes from '../../../../actions/actionTypes'
-import Fetch from '../../../../request/fetch'
 import {connect} from 'react-redux'
 import wrap from '../../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
@@ -20,13 +19,9 @@ import Coupon1 from '../../../../assets/images/registerVoucher.png'
 import Store from '../../../../components/Dialog/store'
 import CusDialog from '../../../../components/Dialog/alert.js'
 import Scroll from '../../../../components/scroll/index.js'
-import Loading from '../../../../components/pageLoading'
 import PassWord from '../../../../components/Dialog/reddem.js'
-import type_hongwu from '../../../../assets/images/type_hongwu.png'
-import type_danbao from '../../../../assets/images/type_danbao.png'
-import type_xinyong from '../../../../assets/images/type_xinyong.png'
-import type_diya from '../../../../assets/images/type_diya.png'
 import setUrl from '../../../../components/setUrl'
+import {getAuthDetail} from '../../../../components/Permission'
 class DirectInvestCell extends React.Component{
     constructor(props){
         super(props)
@@ -72,16 +67,18 @@ class DirectInvestCell extends React.Component{
             term
             }=this.props.data;
         const{push}=this.props;
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-        this.props.isAuth.Verification(`/gatherBuy/${id}/2`,this.props.isAuthPush,this.succsseFn)
-        }else{
-            if(storeData&&storeData.isRegister){
-                push('/user/setting/cardBind')
-
-            }else{
-                this.refs.store.show()
-            }
+        switch (getAuthDetail()){
+            case 1:
+                this.props.isAuth.Verification(`/gatherBuy/${id}/2`,this.props.isAuthPush,this.succsseFn)
+                break;
+            case 2:
+                push('/user/setting/cardBind');
+                break;
+            case 3:
+                this.refs.store.show();
+                break;
+            default:
+                break
         }
     }
     yz=(success)=>{

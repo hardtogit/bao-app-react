@@ -17,6 +17,7 @@ import Header from '../../../../components/depositBanner'
 import DepTime from '../../../../components/depTime'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {platFormGetAuthDetail,getAuthDetail} from '../../../../components/Permission'
 import {Link} from 'react-router'
 class ProductDetail extends React.Component {
 
@@ -200,19 +201,18 @@ class ProductDetail extends React.Component {
       </div>)
   }
   purchase=(id,lx,push)=>{
-      let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-      if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-          this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
-          return;
-      }
-      if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
-          this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
-      }else{
-          if(storeData&&storeData.isRegister){
-              push('/user/setting/cardBind')
-          }else{
-              this.refs.store.show()
-          }
+      switch (platFormGetAuthDetail()){
+          case 1:
+              this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
+              break;
+          case 2:
+              push('/user/setting/cardBind');
+              break;
+          case 3:
+              this.refs.store.show();
+              break;
+          default:
+              break
       }
   }
   succsseFn=(url)=>{

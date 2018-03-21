@@ -280,7 +280,7 @@ class Index extends Component{
            const bankCard=saveData&&saveData.carNo?saveData.carNo:'';
            const telNo=saveData&&saveData.telNo?saveData.telNo:'';
             const realName=storeUserInfo&&storeUserInfo.data.realName?storeUserInfo.data.realName:'';
-            const idCard=storeUserInfo&&storeUserInfo.data.idCard?storeUserInfo.data.idCard:'';;
+            const idCard=storeUserInfo&&storeUserInfo.data.idCard?storeUserInfo.data.idCard:'';
         return(
             <div className={styles.container}>
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>

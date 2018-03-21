@@ -23,9 +23,9 @@ import Header from '../../../../components/depositBanner'
 import SimpleDepTime from '../../../../components/simpleDepTime'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {getAuthDetail} from '../../../../components/Permission'
 import {Link} from 'react-router'
 class GatherMain extends React.Component {
-
   state = {
     descActive: false,
     type:2
@@ -205,16 +205,19 @@ class GatherMain extends React.Component {
       </div>)
   }
   purchase=(id,push)=>{
-      let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
       let type=this.props.params.type;
-      if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-          this.refs.isAuth.Verification(`/gatherBuy/${id}/${type}`,push,this.succsseFn,this.props.location.pathname)
-      }else{
-          if(storeData&&storeData.isRegister){
-              push('/user/setting/cardBind')
-          }else{
+      switch (getAuthDetail()){
+          case 1:
+              this.refs.isAuth.Verification(`/gatherBuy/${id}/${type}`,push,this.succsseFn,this.props.location.pathname)
+              break;
+          case 2:
+              push('/user/setting/cardBind');
+              break;
+          case 3:
               this.refs.store.show();
-          }
+              break;
+          default:
+              break
       }
 
   }

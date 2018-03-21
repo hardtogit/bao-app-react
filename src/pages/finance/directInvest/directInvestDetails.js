@@ -17,6 +17,7 @@ import LoadList from '../../../components/scroll/config'
 import nullImg from '../../../assets/images/record.png'
 import IsAuth from '../../../components/isAuth'
 import setUrl from '../../../components/setUrl'
+import {platFormGetAuthDetail,getAuthDetail} from '../../../components/Permission'
 class Index extends Component{
     constructor(props){
         super(props)
@@ -37,7 +38,6 @@ class Index extends Component{
                     access_sys
                 }
             }
-
         }=this.props;
         getData(id,access_sys);
         getList(id,access_sys);
@@ -341,28 +341,34 @@ class Index extends Component{
         </div>)
     }
     purchase=(id,push)=>{
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         const {term}=this.props.infoData.data
         if(this.props.location.query.access_sys){
-            if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-                this.refs.isAuth.Verification(`/directBuyOld/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
-                return;
-            }else{
-                if(storeData.isRegister){
-                    push('/user/setting/cardBind')
-                }else{
-                    this.refs.store.show()
-                }
+            switch (platFormGetAuthDetail()){
+                case 1:
+                    this.refs.isAuth.Verification(`/directBuyOld/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+                    break;
+                case 2:
+                    push('/user/setting/cardBind');
+                    break;
+                case 3:
+                    this.refs.store.show();
+                    break;
+                default:
+                    break
             }
         }else{
-            if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-                this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
-            }else{
-                if(storeData.isRegister){
-                    push('/user/setting/cardBind')
-                }else{
-                    this.refs.store.show()
-                }
+            switch (getAuthDetail()){
+                case 1:
+                    this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
+                    break;
+                case 2:
+                    push('/user/setting/cardBind');
+                    break;
+                case 3:
+                    this.refs.store.show();
+                    break;
+                default:
+                    break
             }
         }
 

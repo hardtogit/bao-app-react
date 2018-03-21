@@ -15,6 +15,7 @@ import Calculator from '../../../../components/Calculator'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
 import {Link} from 'react-router'
+import {platFormGetAuthDetail,getAuthDetail} from "../../../../components/Permission"
 class BorrowPeople extends React.Component{
   render(){
     const {data} =this.props
@@ -165,25 +166,32 @@ class CreditorDetails extends React.Component{
               }else{
                   //推送到购买页面
                   if(this.props.location.query.access_sys){
-                      if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-                          push(`/creditorBuyOld/${id}`);
-                          return;
-                      }else{
-                          if(storeData.isRegister){
-                              push('/user/setting/cardBind')
-                          }else{
-                              this.refs.store.show()
-                          }
+                      switch (platFormGetAuthDetail()){
+                          case 1:
+                              push(`/creditorBuyOld/${id}`);
+                              break;
+                          case 2:
+                              push('/user/setting/cardBind');
+                              break;
+                          case 3:
+                              this.refs.store.show();
+                              break;
+                          default:
+                              break
                       }
                   }else{
-                      if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-                          push(`/creditorBuy/${id}`);
-                      }else{
-                          if(storeData.isRegister){
-                              push('/user/setting/cardBind')
-                          }else{
-                              this.refs.store.show()
-                          }
+                      switch (getAuthDetail()){
+                          case 1:
+                              push(`/creditorBuy/${id}`);
+                              break;
+                          case 2:
+                              push('/user/setting/cardBind');
+                              break;
+                          case 3:
+                              this.refs.store.show();
+                              break;
+                          default:
+                              break
                       }
 
                   }

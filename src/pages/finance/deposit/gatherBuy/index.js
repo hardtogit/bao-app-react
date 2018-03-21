@@ -82,9 +82,9 @@ class Index extends React.Component {
        }
     };
       if(nextProps.quantityDataB&& nextProps.quantityDataB.code=='100'){
-          if(nextProps.quantityDataB.quantity<this.state.quantity){
+          if(nextProps.quantityDataB.data.quantity<this.state.quantity){
               this.setState({
-                  quantity:nextProps.quantityDataB.quantity
+                  quantity:nextProps.quantityDataB.data.quantity
               })
           }
       }

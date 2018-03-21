@@ -21,6 +21,7 @@ import Loading from '../../../../components/pageLoading'
 import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import {platFormGetAuthDetail,getAuthDetail} from  '../../../../components/Permission'
 class CreditorCell extends React.Component{
   toBuy=(event,flag)=>{
     event.stopPropagation()
@@ -31,27 +32,33 @@ class CreditorCell extends React.Component{
           id
       }=this.props.data
       const{push}=this.props
-      let storeData=JSON.parse(sessionStorage.getItem('bao-store'))
       if(flag){
-          if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-              this.props.isAuth.Verification(`/creditorBuyOld/${id}`,this.props.isAuthPush,this.succsseFn);
-              return;
-          }else{
-              if(storeData.isRegister){
-                  push('/user/setting/cardBind')
-              }else{
-                  this.refs.store.show()
-              }
+          switch (platFormGetAuthDetail()){
+              case 1:
+                  this.props.isAuth.Verification(`/creditorBuyOld/${id}`,this.props.isAuthPush,this.succsseFn);
+                  break;
+              case 2:
+                  push('/user/setting/cardBind');
+                  break;
+              case 3:
+                  this.refs.store.show();
+                  break;
+              default:
+                  break
           }
       }else{
-          if(storeData&&storeData.isRegister&&storeData.isBindBankcard){
-              this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
-          }else{
-              if(storeData.isRegister){
-                  push('/user/setting/cardBind')
-              }else{
-                  this.refs.store.show()
-              }
+          switch (getAuthDetail()){
+              case 1:
+                  this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
+                  break;
+              case 2:
+                  push('/user/setting/cardBind');
+                  break;
+              case 3:
+                  this.refs.store.show();
+                  break;
+              default:
+                  break
           }
       }
   }
