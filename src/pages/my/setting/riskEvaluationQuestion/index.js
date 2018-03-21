@@ -35,12 +35,13 @@ class Index extends React.Component {
                 arr.splice(i,0,sessionStorage.getItem("q"+i))
             }
             let answers="";
+            let count=0;
             for(let i=0;i<arr.length;i++){
                 if(arr[i]==null){
-                    console.log(i)
+                    count=count+1;
                     this.refs.alert.show({
                         title: '',
-                        content: '题目没有全部答完',
+                        content: '您尚有'+count+'道题未作答，请作答完毕后再次提交！',
                         okText: '确定',
                         okCallback: () => {}
                     })
