@@ -38,6 +38,7 @@ class CreditorBuy extends React.Component{
     this.props.getCreditorDetail(this.creditorsId)
       this.props.getUser();
       this.props.getMyBankCards()
+      this.props.getEducationInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -206,7 +207,16 @@ class CreditorBuy extends React.Component{
         }
     }
   render(){
-    const detail = this.props.detail
+      const {
+          EducationData
+      } = this.props;
+      let primeContent;
+      if(EducationData&&EducationData.code == 100){
+          if(EducationData.data.has_num != 0){
+              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+          }
+      }
+    const detail = this.props.detail;
       let banksList={};
       if(this.props.banks&&this.props.banks.data){
           banksList=this.props.banks.data
@@ -279,6 +289,7 @@ class CreditorBuy extends React.Component{
             disable={this.canPay() > 0 ? false : true}
             onClick={this.onValid}
             status={this.canPay() > 0 ? '' : 'disable'}/>
+            <p className={styles.primeTxt}>{primeContent}</p>
           <Tipbar ref="tipbar"/>
           <IsAuth ref="isAuth"/>
         </div>
@@ -303,6 +314,7 @@ const mapStateToProps = (state, ownProps) => {
       verifyData:state.infodata.getIn([actionTypes.CREDITOR_PAY_VERIFY,'data']),
       cardVerifyData:state.infodata.getIn([actionTypes.CREDITOR_CARD_VERIFY,'data']),
     creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
+      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
   }
 }
 
@@ -399,7 +411,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             type:'CLEAR_INFO_DATA',
             key:'CREDITORS_BUY'
         })
-    }
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(CreditorBuy))
