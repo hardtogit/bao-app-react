@@ -19,6 +19,9 @@ class Index extends React.Component {
     componentWillMount(){
         this.props.getQuestionList();
         this.props.getEducationInfo();
+        for(let i=0;i<16;i++){
+            sessionStorage.removeItem("q"+Number(i+1));
+        }
     }
     handleConfirm=(countHas)=>{
         if(countHas ==0){
@@ -110,7 +113,6 @@ class Index extends React.Component {
             <div className={styles.questionWraper}>
                 {
                     QuestionData&&QuestionData.data.map((item,i)=>{
-                        sessionStorage.removeItem("q"+Number(i+1));
                         return(
                             <QuestionBox key={i} question={item.question} num={i+1} answer1={item.answer.A} answer2={item.answer.B} answer3={item.answer.C} answer4={item.answer.D}></QuestionBox>
                         )
