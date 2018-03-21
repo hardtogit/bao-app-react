@@ -231,16 +231,30 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/find/productCash').default);
         }, 'ProductCash');
     },//产品兑换
+    //会员基础特权
     BasicPrivaligeDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/basicPrivaligeDetail').default);
         }, 'BasicPrivaligeDetail');
-    },//会员基础特权更多OverallRule
+    },
+    //会员整体规则
     OverallRule  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/find/overallRule').default);
         }, 'OverallRule');
-    }//会员基础特权更多OverallRule
+    },
+    //风险评测
+    RiskEvaluation  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/riskEvaluation').default);
+        }, 'RiskEvaluation');
+    },
+    //风险评测答题
+    RiskEvaluationQuestion  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/riskEvaluationQuestion').default);
+        }, 'RiskEvaluationQuestion');
+    }
 
 
 //成功失败模版

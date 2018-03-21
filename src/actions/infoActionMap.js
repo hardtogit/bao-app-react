@@ -595,5 +595,17 @@ export default {
     [actionTypes.GET_CHARGE_STATUS]:{    //获取平台充值按钮状态
         apiFn:Fetch.getChargeStatus
     },
+    [actionTypes.GET_QIESTION_LIST]:{    //获取风险评测问题列表
+        apiFn:Fetch.getQuestionList
+    },
+    [actionTypes.GET_EDUCATION_INFO]:{    //风险评测个人信息
+        apiFn:Fetch.getEducationInfo
+    },
+    [actionTypes.SUB_ANSWER]:{    //风险评测个人信息
+        apiFn:Fetch.subAnswer
+    },
+    [actionTypes.QUESTION_TOP]:{    //风险评测问题说明信息
+        apiFn:Fetch.questionTop
+    },
 
 }

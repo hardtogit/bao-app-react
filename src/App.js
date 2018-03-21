@@ -135,7 +135,7 @@ import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,S
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main} from './loadTool'
 
 // 工厂方法创建saga中间件
 const a=window.location.href.split('.')[1]+'.cn';
@@ -287,6 +287,8 @@ export default class App extends React.Component {
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/
                   <Route path="setting/myBankCard" getComponent={MyBankCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的银行卡*/
                   <Route path="setting/bankCardManage/:color" getComponent={BankCardManage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*银行卡管理*/
+                  <Route path="setting/riskEvaluation" getComponent={RiskEvaluation}></Route>/*风险测评*/
+                  <Route path="setting/riskEvaluationQuestion" getComponent={RiskEvaluationQuestion}></Route>/*风险测评*/
                   /*已完成*/
 
                   <Route path='cashsuccess' component={cashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

@@ -80,6 +80,10 @@ export const SITE_ADD = 'SITE_ADD';//地址新增
 export const SITE_EDIT = 'SITE_EDIT';//地址编辑
 export const AUTO_BUY_INFO = 'AUTO_BUY_INFO';//自动投标信息
 export const AUTO_BUY = 'AUTO_BUY';//自动投标
+export const GET_QIESTION_LIST = 'GET_QIESTION_LIST';//投资者教育题目
+export const GET_EDUCATION_INFO = 'GET_EDUCATION_INFO';//投资者教育个人信息
+export const SUB_ANSWER = 'SUB_ANSWER';//投资者教育提交答案
+export const QUESTION_TOP = 'QUESTION_TOP';//投资者教育提交答案
 /**************************** 其他 **********************************************/
 /**************************** InfoData reducers **********************************************/
 export const FETCH_INFO_DATA_REQUEST = 'FETCH_INFO_DATA_REQUEST';
