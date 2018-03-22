@@ -217,13 +217,24 @@ class DirectBuy extends React.Component {
         this.setState({
             time:0
         })
-        // 调用支付流程
-        this.refs.payProcess.open({
-            id: this.directInvestId,
-            num: this.state.quantity,
-            couponId: coupon && coupon.id || '',
-            borrowPwd: this.borrowPwd
-        })
+        if(this.state.select==1){
+            this.props.goBankPage({
+                way:1,
+                type:451,
+                returnUrl:'',
+                data:{
+
+                }
+            })
+        }else{
+            // 调用支付流程
+            this.refs.payProcess.open({
+                id: this.directInvestId,
+                num: this.state.quantity,
+                couponId: coupon && coupon.id || '',
+                borrowPwd: this.borrowPwd
+            })
+        }
     }
   changeQuantity = (value) => {
     if (value<=0){
@@ -599,7 +610,8 @@ const mapStateToProps = (state,ownProps)=>{
       use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
       banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
       verifyData:state.infodata.getIn(['PAY_VERIFY','data']),
-      cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data'])
+      cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data']),
+      goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -622,6 +634,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     dispatch({
         type: actionTypes.DIRECT_INVEST_COUPON,
         params: [id]
+    })
+  },
+  goBankPage([data]){
+    dispatch({
+        type:actionTypes.GO_BANK_PAGE,
+        param:[data]
     })
   },
   push(path){

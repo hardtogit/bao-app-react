@@ -82,7 +82,7 @@ class Index extends React.Component {
             this.props.clean("GO_BANK_PAGE")
         }else if(goBankData&&goBankData.code!=100){
             this.props.clean("GO_BANK_PAGE")
-            this.refs.tipbar.open('订单生成失败!');
+            this.alert('订单生成失败!');
         }
         if(cashSetting){
             if(cashSetting.code==100){

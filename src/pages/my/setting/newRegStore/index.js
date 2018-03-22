@@ -67,7 +67,6 @@ class Index extends Component{
     bindBank=(e)=>{
         this.ifPost();
         let carNo=this.refs.form.getValue().bankCard;
-        console.log(carNo)
         if(carNo.length>=3){
             let flag=true;
             if(this.props.bankList){

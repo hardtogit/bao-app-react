@@ -44,19 +44,37 @@ class Index extends React.Component {
         const {
             val
         }=this.state;
-        this.refs.reddem.show({
-            title: '提现',
-            money:val,
-            okCallback:()=>{this.send()} ,
-            cancelCallback: () => {
+        this.props.goBankPage({
+            way:1,
+            type:421,
+            returnUrl:"",
+            data:{
+                device:"WAP",
+                amount:val,
+                isNew:true
             }
         })
+        // this.refs.reddem.show({
+        //     title: '提现',
+        //     money:val,
+        //     okCallback:()=>{this.send()} ,
+        //     cancelCallback: () => {
+        //     }
+        // })
     };
     componentWillUnmount(){
         this.props.clean()
     }
     componentWillReceiveProps(next){
-        const {cashData,push,cashSetting}=next;
+        const {cashData,push,cashSetting,goBankData}=next;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+            this.props.clearData("GO_BANK_PAGE")
+        }else if(goBankData&&goBankData.code!=100){
+            this.props.clearData("GO_BANK_PAGE")
+            this.alert('订单生成失败!');
+        }
         if(cashSetting){
             if(cashSetting.code==100){
                 this.setState({
@@ -108,6 +126,7 @@ class Index extends React.Component {
         this.props.send(val,utils.md5(pwd),true);
         this.refs.reddem.hide();
     }
+
     change=(e)=>{
         const val=e.target.value,
             reg=/^\d+(\.\d{1,2})?$/,
@@ -226,7 +245,8 @@ const Rechargeinit=(state)=>({
     cashData:state.infodata.getIn(['CASH','data']),
     withdraw:state.infodata.getIn(['WITHDRAW','data']),
     userinfo:state.infodata.getIn(['USER_INFO','data']),
-    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
+    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data']),
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
 });
 const Rechargeinitfn=(dispath)=>({
     pop(){
@@ -253,6 +273,12 @@ const Rechargeinitfn=(dispath)=>({
         dispath({
             type:'CLEAR_INFO_DATA',
             key:"CASH",
+        })
+    },
+    clearData(key){
+        dispath({
+            type:'CLEAR_INFO_DATA',
+            key:key
         })
     },
     getDefault(){

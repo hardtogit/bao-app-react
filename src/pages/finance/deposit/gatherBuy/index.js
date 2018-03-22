@@ -471,6 +471,7 @@ class Index extends React.Component {
                   sy=this.expectIncome();
               }
           }
+    console.log(this.props.user.balance+"---"+Number(utils.padMoney(this.getPayTotal())))
 
     return (
       <div className={styles.root}>
@@ -507,6 +508,29 @@ class Index extends React.Component {
           <span>还需支付（元）</span>
           <span>{utils.padMoney(this.getPayTotal())}</span>
         </div>
+            <PayProcess
+                ref='payProcess'
+                productId={productId}
+                num={this.state.quantity}
+                type={`gather`}
+                data={this.props.quantityDataB&&this.props.quantityDataB.data}
+                go={this.props.push}
+                getChoose={this.getChoose}
+                user={this.props.user}
+                banks={this.props.banks&&this.props.banks.data}
+                balance={+this.props.user.balance}
+                onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
+                onRequestCardPay={this.gatherCardBuy}//传递银行卡支付
+                balancePayData={this.props.balanceBuyData}//余额支付数据
+                cardPayData={this.props.cardBuyData}//银行卡支付数据
+                verifyData={this.props.verifyData}//余额是否支付成功验证
+                cardVerifyData={this.props.cardVerifyData}//银行卡是否支付成功验证
+                inputValue={Number(utils.padMoney(this.getPayTotal()))}//传递付款金额
+                balancePayPending={this.state.pending}//控制loading参数
+                changePending={this.changePending}
+                clear={()=>{this.props.clearData()}}
+                money={utils.padMoney(this.getPayTotal())}
+                time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
