@@ -134,7 +134,7 @@ class CreditorDetails extends React.Component{
                   return;
               }else{
                   if(storeData.isRegister){
-                      push('/user/setting/cardBind')
+                      push('/user/setting/authorization')
                   }else{
                       this.refs.store.show()
                   }
@@ -144,7 +144,7 @@ class CreditorDetails extends React.Component{
                   this.refs.isAuth.Verification(`/creditorBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
               }else{
                   if(storeData.isRegister){
-                      push('/user/setting/cardBind')
+                      push('/user/setting/authorization')
                   }else{
                       this.refs.store.show()
                   }
@@ -171,7 +171,7 @@ class CreditorDetails extends React.Component{
                               push(`/creditorBuyOld/${id}`);
                               break;
                           case 2:
-                              push('/user/setting/cardBind');
+                              push('/user/setting/authorization');
                               break;
                           case 3:
                               this.refs.store.show();
@@ -185,7 +185,7 @@ class CreditorDetails extends React.Component{
                               push(`/creditorBuy/${id}`);
                               break;
                           case 2:
-                              push('/user/setting/cardBind');
+                              push('/user/setting/authorization');
                               break;
                           case 3:
                               this.refs.store.show();

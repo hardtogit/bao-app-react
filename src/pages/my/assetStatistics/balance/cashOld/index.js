@@ -238,6 +238,12 @@ const Rechargeinitfn=(dispath)=>({
             params:[{amount,password,isNew}]
         })
     },
+    goBankPage(data){
+        dispath({
+            type:'GO_BANK_PAGE',
+            params:[data]
+        })
+    },
     get(){
         dispath({
             type:'WITHDRAW'

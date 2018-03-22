@@ -17,7 +17,9 @@ class SecurityCenter extends React.Component {
     loadDom() {
         return (<Loading/>)
     }
-
+    componentWillUnmount(){
+       this.props.clearData('GO_BANK_PAGE');
+    }
     loadEndDom(datas) {
         const {
             isAuth,
@@ -37,7 +39,7 @@ class SecurityCenter extends React.Component {
                 break;
             case 2:
                 text = "未授权"
-                url = "/user/setting/cardBind"
+                url = "/user/setting/authorization"
                 break;
             case 3:
                 text = "未开通"
@@ -62,7 +64,7 @@ class SecurityCenter extends React.Component {
                                         push('/user/setting/mobileBind')
                                         break;
                                     case 2:
-                                        push('/user/setting/cardBind');
+                                        push('/user/setting/authorization');
                                         break;
                                     case 3:
                                         this.refs.store.show()
@@ -80,7 +82,7 @@ class SecurityCenter extends React.Component {
                                         push('/user/setting/mobileBindModify');
                                         break;
                                     case 2:
-                                        push('/user/setting/cardBind');
+                                        push('/user/setting/authorization');
                                         break;
                                     case 3:
                                         this.refs.store.show();
@@ -101,7 +103,7 @@ class SecurityCenter extends React.Component {
                                     }
                                     break;
                                 case 2:
-                                    push('/user/setting/cardBind');
+                                    push('/user/setting/authorization');
                                     break;
                                 case 3:
                                     this.refs.store.show()
@@ -126,10 +128,10 @@ class SecurityCenter extends React.Component {
                         <BaseText
                             onClick={() => {
                                 if (storeData.isRegister && storeData.isBindBankcard) {
-                                    push('/user/setting/tradePasswordModify')
+                                    this.changePassWord();
                                 } else {
                                     if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
+                                        push('/user/setting/authorization')
                                     } else {
                                         this.refs.store.show()
                                     }
@@ -142,12 +144,10 @@ class SecurityCenter extends React.Component {
                             onClick={() => {
                                 switch (getAuthDetail()){
                                     case 1:
-                                        if(!storeData.isUploadIdcard){
-                                            push('/user/setting/tradePasswordForget/verifyMobile')
-                                        }
+                                        push('/user/setting/tradePasswordForget/verifyMobile')
                                         break;
                                     case 2:
-                                        push('/user/setting/cardBind');
+                                        push('/user/setting/authorization');
                                         break;
                                     case 3:
                                         this.refs.store.show()
@@ -167,7 +167,7 @@ class SecurityCenter extends React.Component {
                                         }
                                         break;
                                     case 2:
-                                        push('/user/setting/cardBind');
+                                        push('/user/setting/authorization');
                                         break;
                                     case 3:
                                         this.refs.store.show()
@@ -208,7 +208,15 @@ class SecurityCenter extends React.Component {
             this.props.load();
         }
     }
-
+    changePassWord() {
+        this.props.goBankPage({type:2,way:1,data:{device:"WAP"},returnUrl:"www.bao.cn"})
+    }
+    componentWillReceiveProps(nextProps){
+        const {goBankData}=nextProps;
+        if(goBankData&&goBankData.code==100){
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }
+    }
     render() {
         const {
             user,
@@ -237,7 +245,8 @@ class SecurityCenter extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data'])
+        user: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
 
@@ -247,11 +256,23 @@ const mapDispatchToProps = (dispatch) => ({
             type: 'USER_INFO_WITH_LOGIN'
         })
     },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
+        })
+    },
     push(path) {
         dispatch(push(path))
     },
     pop() {
         dispatch(goBack())
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+            })
     },
     update() {
         dispatch({

@@ -75,7 +75,7 @@ class Setting extends React.Component {
                                             push('/user/setting/myBankCard');
                                             break;
 										case 2:
-                                            push('/user/setting/cardBind');
+                                            push('/user/setting/authorization');
                                             break;
 										case 3:
                                             this.refs.store.show()
@@ -95,7 +95,7 @@ class Setting extends React.Component {
                                             push('/user/setting/securityCard')
                                             break;
                                         case 2:
-                                            push('/user/setting/cardBind');
+                                            push('/user/setting/authorization');
                                             break;
                                         case 3:
                                             this.refs.store.show()

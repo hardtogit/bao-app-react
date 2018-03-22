@@ -36,7 +36,7 @@ class Index extends React.Component{
         if (query.hasOwnProperty('banck')){
             window.location.href=query.banck
         }else {
-            push('/user/setting/cardBind')
+            push('/user/setting/authorization')
         }
     }
     render(){

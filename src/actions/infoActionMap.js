@@ -595,5 +595,10 @@ export default {
     [actionTypes.GET_CHARGE_STATUS]:{    //获取平台充值按钮状态
         apiFn:Fetch.getChargeStatus
     },
-
+    [actionTypes.GO_BANK_PAGE]:{
+        apiFn:Fetch.goBankPage
+    },
+    [actionTypes.AUTHORIZATION_TEXT]:{
+        apiFn:Fetch.authorizationText
+    }
 }

@@ -206,7 +206,7 @@ class ProductDetail extends React.Component {
               this.refs.isAuth.Verification(`/deposit-buy/${id}/${lx}/${this.props.params.productId}`, push, this.succsseFn, this.props.location.pathname)
               break;
           case 2:
-              push('/user/setting/cardBind');
+              push('/user/setting/authorization');
               break;
           case 3:
               this.refs.store.show();

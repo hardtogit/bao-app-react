@@ -355,3 +355,5 @@ export const GET_PACKET='GET_PACKET'//获取投资后的红包
 export const OPEN_PACKET='OPEN_PACKET' //打开投资后赠送的红包
 export const GET_RECHARGE_LOG='GET_RECHARGE_LOG' //获取充值明细
 export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//获取充值按钮状态
+export const GO_BANK_PAGE='GO_BANK_PAGE'//去往存管授权页面
+export const AUTHORIZATION_TEXT='AUTHORIZATION_TEXT'//免密授权规则说明

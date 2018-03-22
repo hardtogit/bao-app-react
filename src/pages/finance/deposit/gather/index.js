@@ -72,7 +72,7 @@ class DirectInvestCell extends React.Component{
                 this.props.isAuth.Verification(`/gatherBuy/${id}/2`,this.props.isAuthPush,this.succsseFn)
                 break;
             case 2:
-                push('/user/setting/cardBind');
+                push('/user/setting/authorization');
                 break;
             case 3:
                 this.refs.store.show();

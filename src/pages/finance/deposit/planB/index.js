@@ -95,7 +95,7 @@ class DepositIndex extends React.Component {
                 this.props.push(`/deposit-buy/${index}/B/${id}`)
                 break;
             case 2:
-                push('/user/setting/cardBind');
+                push('/user/setting/authorization');
                 break;
             case 3:
                 this.refs.store.show();

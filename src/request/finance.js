@@ -120,6 +120,8 @@ const requests = (Fetch) => {
   Fetch.getDefaultTab=(data)=>{return Fetch('api/setting/defaultShow','get',data)}//获取默认tab
   Fetch.getPacket=(data)=>{return Fetch('api/activity/redpackeView','get',data)}//获取投资后的红包
   Fetch.openPacket=(data)=>{return Fetch('api/activity/un_redpacket','get',data)}//拆开投资后的红包
+  Fetch.goBankPage=(data)=>{return Fetch('api/supervise/browser/requestUrl','POST',data)}//去往存管页面
+  Fetch.authorizationText=(data)=>{return Fetch('api/common/settings?key=supervise_free_auth','GET',data)}//获取免密授权规则
 }
 
 export default requests

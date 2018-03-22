@@ -58,6 +58,9 @@ class Index extends React.Component {
         },
     }=this.props;
   }
+  componentWillUnmount(){
+      this.props.clean('GO_BANK_PAGE')
+  }
   componentDidMount() {
       this.refs.choice.checked =true
       window['closeFn']=this.closeFn;
@@ -99,94 +102,38 @@ class Index extends React.Component {
             couponsFetching:false
         })
     }
-      const{cardBuyData,balanceBuyData,verifyData,cardVerifyData}=nextProps;
-      //验证余额是否购买成功
-      if(balanceBuyData&&balanceBuyData.status==1){
-          if(this.state.time<=3){
-              this.setState({
-                  time:this.state.time+1
-              });
-              if(verifyData&&verifyData.data.status==1&&verifyData.code=='0001'){
-
-              }else{
-                  if(this.state.time>=3){
-                      if(verifyData&&verifyData.data.status==1&&verifyData.code!='0001'){
-                          this.changePending()
-                      }else{
-                          this.changePending()
-                      }
-                  }else{
-                      setTimeout(function(){
-                          $this.props.payVerify({id:balanceBuyData.msgId})
-                      },2000)
-
-                  }
-              }
-          }
+      const{goBankData}=nextProps;
+      //订单生成成功后跳转
+      if(goBankData&&goBankData.code==100){
+          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+      }else if(goBankData&&goBankData.code!=100){
+          this.refs.tipbar.open('订单生成失败!');
       }
-      //验证银行卡是否购买才成功
-      if (cardBuyData&&cardBuyData.status==1){
-          if(this.state.time<=3){
-              this.setState({
-                  time:this.state.time+1
-              });
-              if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code=='0001'){
-                  const time=Date.parse(new Date()),
-                      cash_amount=this.state.val;
-                  push(time,cash_amount)
-              }else{
-                  if(this.state.time>=3){
-                      if(cardVerifyData&&cardVerifyData.data.status==1&&cardVerifyData.code!='0001'){
-                          this.changePending()
-                      }else{
-                          this.changePending()
-                      }
-
-                  }else{
-                      setTimeout(function(){
-                          $this.props.cardPayVerify({id:cardBuyData.msgId})
-                      },2000)
-
-                  }
-              }
-          }
       }
-
-  }
-    componentWillUnmount(){
-    this.props.clearDataInfo();
-    }
-    //余额购买
-  gatherBalanceBuy = (password, money) => {
-    let coupon = this.props.useCoupon ? this.getCoupon() : null;
-    const {useCoupon,depositId,quantity}=this.state;
-    const {params:{type,productId},balancePay}=this.props;
-    if (!useCoupon&&coupon) {
-        coupon.id = '';
-    }
+  gatherBalanceBuy=()=>{
+      let coupon = this.props.useCoupon ? this.getCoupon() : null;
+      const {useCoupon,depositId,quantity}=this.state;
+      const {params:{type,productId},balancePay}=this.props;
+      if (!useCoupon&&coupon) {
+          coupon.id = '';
+      }
       this.props.clearData()
       this.setState({
           pending:true,
           time:0
       })
-    balancePay(productId,quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
-
+      this.props.goBankPage({
+          type:452,
+          way:1,
+          data:{
+            device:"WAP",
+            productId:productId,
+            quantity:quantity,
+            coupon:coupon&&coupon.id||'',
+          },
+          returnUrl:'www.bao.cn'
+      })
   }
-    //银行卡购买
-  gatherCardBuy=(password,money,bankCard)=>{
-        let coupon = this.props.useCoupon ? this.getCoupon() : null
-        const {useCoupon}=this.state;
-      const {params:{type,productId},balancePay}=this.props;
-        if (!useCoupon&&coupon){
-            coupon.id=''
-        }
-      this.props.clearData()
-        this.setState({
-            pending:true,
-            time:0
-        })
-        this.props.cardPay(bankCard,Number(utils.padMoney(this.getPayTotal())),productId, this.state.quantity, password,sessionStorage.getItem('passwordFactor'), coupon && coupon.id || '',"WAP",sessionStorage.getItem('mapKey'))
-    }
   // 修改购买份数
   changeQuantity = (value) => {
     const {
@@ -368,12 +315,13 @@ class Index extends React.Component {
            coupon.id=''
        }
        // 调用支付流程
-       this.refs.payProcess.open({
-           productId: this.state.depositId,
-           quantity: this.state.quantity,
-           couponId: coupon && coupon.id || '',
-           month: curMonth && curMonth.month || ''
-       })
+       // this.refs.payProcess.open({
+       //     productId: this.state.depositId,
+       //     quantity: this.state.quantity,
+       //     couponId: coupon && coupon.id || '',
+       //     month: curMonth && curMonth.month || ''
+       // })
+       this.gatherBalanceBuy();
    }
   renderDiscountBar = () => {
     // 还未加载完抵用券和加息券，渲染占位View
@@ -559,29 +507,6 @@ class Index extends React.Component {
           <span>还需支付（元）</span>
           <span>{utils.padMoney(this.getPayTotal())}</span>
         </div>
-            <PayProcess
-                ref='payProcess'
-                productId={productId}
-                num={this.state.quantity}
-                type={`gather`}
-                data={this.props.quantityDataB&&this.props.quantityDataB.data}
-                go={this.props.push}
-                getChoose={this.getChoose}
-                user={this.props.user}
-                banks={this.props.banks&&this.props.banks.data}
-                balance={+this.props.user.balance}
-                onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
-                onRequestCardPay={this.gatherCardBuy}//传递银行卡支付
-                balancePayData={this.props.balanceBuyData}//余额支付数据
-                cardPayData={this.props.cardBuyData}//银行卡支付数据
-                verifyData={this.props.verifyData}//余额是否支付成功验证
-                cardVerifyData={this.props.cardVerifyData}//银行卡是否支付成功验证
-                inputValue={Number(utils.padMoney(this.getPayTotal()))}//传递付款金额
-                balancePayPending={this.state.pending}//控制loading参数
-                changePending={this.changePending}
-                clear={()=>{this.props.clearData()}}
-                money={utils.padMoney(this.getPayTotal())}
-                time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
             <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
@@ -614,7 +539,6 @@ const mapStateToProps = (state, ownProps) => {
   const quantityLeftFetching = state.infodata.getIn([actionTypes.DEPOSIT_DETAIL, 'pending'])
   const quantityDataB= state.infodata.getIn([actionTypes.GATHER_DETAIL, 'data'])
   const quantityDataBLeftFetching = state.infodata.getIn([actionTypes.GATHER_DETAIL, 'pending'])
-    console.log(state.infodata.getIn([actionTypes.GATHER_CARD_BUY,'data']))
   return {
     deposit: state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.deposit || [],
     newDeposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit || [],
@@ -633,6 +557,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
+    goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"])
   }
 };
 
@@ -648,7 +573,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   goBack() {
     dispatch(goBack())
   },
-
+  goBankPage(data){
+    dispatch({
+        type:actionTypes.GO_BANK_PAGE,
+        params:[data]
+    })
+  },
   getDepositDetail(id) {
     dispatch({
       type: actionTypes.DEPOSIT_DETAIL,
@@ -662,40 +592,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       params: ['聚点+', month]
     })
   },
-  //余额支付
-  balancePay(productId, num, password, passwordFactor, couponId,device,mapKey) {
-        dispatch({
-            type: actionTypes.GATHER_BALANCE_BUY,
-            params: [{
-                productId,
-                num,
-                password,
-                passwordFactor,
-                couponId,
-                productType:'POINT',
-                device,
-                mapKey:mapKey
-            }]
-        })
-    },
-  //银行卡支付
-  cardPay(bankCard,transferAmount,productId, num, password, passwordFactor, couponId,device,mapKey){
-        dispatch({
-            type:actionTypes.GATHER_CARD_BUY,
-            params:[{
-                bankCard,
-                transferAmount,
-                productId,
-                num,
-                password,
-                passwordFactor,
-                couponId,
-                productType:'POINT',
-                device,
-                mapKey:mapKey
-            }]
-        })
-    },
    //余额购买验证
     payVerify(id){
         dispatch({

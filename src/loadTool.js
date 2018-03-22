@@ -258,4 +258,9 @@ export const SuccessTemplate  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/setting/bankPage').default);
         }, 'BankPage');
+    },
+    Authorization=(location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/authorization').default);
+        }, 'Authorization');
     }

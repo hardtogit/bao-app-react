@@ -348,7 +348,7 @@ class Index extends Component{
                     this.refs.isAuth.Verification(`/directBuyOld/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
                     break;
                 case 2:
-                    push('/user/setting/cardBind');
+                    push('/user/setting/authorization');
                     break;
                 case 3:
                     this.refs.store.show();
@@ -362,7 +362,7 @@ class Index extends Component{
                     this.refs.isAuth.Verification(`/directBuy/${id}/${term}`,push,this.succsseFn,this.props.location.pathname)
                     break;
                 case 2:
-                    push('/user/setting/cardBind');
+                    push('/user/setting/authorization');
                     break;
                 case 3:
                     this.refs.store.show();

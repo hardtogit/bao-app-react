@@ -38,7 +38,7 @@ class CreditorCell extends React.Component{
                   this.props.isAuth.Verification(`/creditorBuyOld/${id}`,this.props.isAuthPush,this.succsseFn);
                   break;
               case 2:
-                  push('/user/setting/cardBind');
+                  push('/user/setting/authorization');
                   break;
               case 3:
                   this.refs.store.show();
@@ -52,7 +52,7 @@ class CreditorCell extends React.Component{
                   this.props.isAuth.Verification(`/creditorBuy/${id}`,this.props.isAuthPush,this.succsseFn);
                   break;
               case 2:
-                  push('/user/setting/cardBind');
+                  push('/user/setting/authorization');
                   break;
               case 3:
                   this.refs.store.show();

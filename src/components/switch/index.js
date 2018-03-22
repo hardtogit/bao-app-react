@@ -61,7 +61,7 @@ export default class Index extends React.Component {
             }
         }else{
             if(storeData.isRegister){
-                this.props.push('/user/setting/cardBind')
+                this.props.push('/user/setting/authorization')
             }else{
                 this.refs.store.show()
                 return false;

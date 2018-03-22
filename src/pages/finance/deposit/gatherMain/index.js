@@ -211,7 +211,7 @@ class GatherMain extends React.Component {
               this.refs.isAuth.Verification(`/gatherBuy/${id}/${type}`,push,this.succsseFn,this.props.location.pathname)
               break;
           case 2:
-              push('/user/setting/cardBind');
+              push('/user/setting/authorization');
               break;
           case 3:
               this.refs.store.show();
