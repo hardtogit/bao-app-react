@@ -51,7 +51,9 @@ class Index extends React.Component {
             data:{
                 device:"WAP",
                 amount:val,
-                isNew:true
+                password:"",
+                isNew:true,
+                access_sys:"platform"
             }
         })
         // this.refs.reddem.show({

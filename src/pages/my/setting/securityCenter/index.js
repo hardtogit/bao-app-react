@@ -209,7 +209,7 @@ class SecurityCenter extends React.Component {
         }
     }
     changePassWord() {
-        this.props.goBankPage({type:2,way:1,data:{device:"WAP"},returnUrl:"www.bao.cn"})
+        this.props.goBankPage({type:2,way:1,data:{device:"WAP"},returnUrl:""})
     }
     componentWillReceiveProps(nextProps){
         const {goBankData}=nextProps;

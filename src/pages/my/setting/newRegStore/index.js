@@ -55,7 +55,7 @@ class Index extends Component{
             return false;
         }
         // if(telNo.)
-    let data={type:1,way:1,data:{realName:realName,idCard:idCard,telNo:telNo,bankCard:bankCard,bankName:bankName,bankCode:bankCode,device:"WAP"},returnUrl:'https://www.bao.cn'};
+    let data={type:1,way:1,data:{realName:realName,idCard:idCard,telNo:telNo,bankCard:bankCard,bankName:bankName,bankCode:bankCode,device:"WAP"},returnUrl:''};
         this.setState({
             time:0,
             pending:true

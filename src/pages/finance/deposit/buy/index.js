@@ -147,7 +147,7 @@ class DepositBuy extends React.Component {
     if (type=='A'){
         balancePay(productId,quantity, utils.md5(password), coupon && coupon.id || '')
     }else {
-        this.props.goBankPage({way:1,type:412,returnUrl:'',data:{productId:productId,quantity:quantity,coupon:coupon&&coupon.id || '',device:'WAP'}});
+        this.props.goBankPage({way:1,type:412,returnUrl:'',data:{productId:productId,quantity:quantity,password:"",access_sys:"platform",type:3,coupon:coupon&&coupon.id || '',device:'WAP'}});
     }
   }
 

@@ -106,8 +106,11 @@ class Index extends React.Component {
       //订单生成成功后跳转
       if(goBankData&&goBankData.code==100){
           this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+          this.props.clean("GO_BANK_PAGE")
+
       }else if(goBankData&&goBankData.code!=100){
           this.refs.tipbar.open('订单生成失败!');
+          this.props.clean("GO_BANK_PAGE")
       }
       }
   gatherBalanceBuy=()=>{
@@ -118,10 +121,10 @@ class Index extends React.Component {
           coupon.id = '';
       }
       this.props.clearData()
-      this.setState({
-          pending:true,
-          time:0
-      })
+      // this.setState({
+      //     pending:true,
+      //     time:0
+      // })
       this.props.goBankPage({
           type:452,
           way:1,
@@ -131,7 +134,7 @@ class Index extends React.Component {
             quantity:quantity,
             coupon:coupon&&coupon.id||'',
           },
-          returnUrl:'www.bao.cn'
+          returnUrl:''
       })
   }
   // 修改购买份数
@@ -470,9 +473,7 @@ class Index extends React.Component {
                 quantity=quantityDataB.data.quantity
                   sy=this.expectIncome();
               }
-          }
-    console.log(this.props.user.balance+"---"+Number(utils.padMoney(this.getPayTotal())))
-
+          };
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
