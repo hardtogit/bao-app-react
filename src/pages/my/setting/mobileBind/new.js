@@ -41,8 +41,8 @@ class MobileBind extends React.Component {
         const alert = this.refs.alert;
         //生成订单后跳转
         if(goBankData&&goBankData.code==100){
-            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
             this.props.clearState()
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
         }else if(goBankData&&goBankData.code!=100){
             this.props.clearState()
             this.refs.tip.open('订单生成失败!');

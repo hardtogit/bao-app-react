@@ -105,9 +105,8 @@ class Index extends React.Component {
       const{goBankData}=nextProps;
       //订单生成成功后跳转
       if(goBankData&&goBankData.code==100){
-          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
           this.props.clean("GO_BANK_PAGE")
-
+          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
       }else if(goBankData&&goBankData.code!=100){
           this.refs.tipbar.open('订单生成失败!');
           this.props.clean("GO_BANK_PAGE")

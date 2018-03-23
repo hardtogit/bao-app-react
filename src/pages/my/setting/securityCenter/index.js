@@ -214,7 +214,10 @@ class SecurityCenter extends React.Component {
     componentWillReceiveProps(nextProps){
         const {goBankData}=nextProps;
         if(goBankData&&goBankData.code==100){
+            this.props.clearData("goBankData");
             this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else{
+
         }
     }
     render() {

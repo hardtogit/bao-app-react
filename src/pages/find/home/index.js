@@ -310,7 +310,8 @@ const initMymassegefn=(dispatch,own)=>({
     },
     getUser(){
         dispatch({
-            type:'USER_INFO'
+            type:'USER_INFO',
+            lx:true
         })
     },
     getHotActivityList(){

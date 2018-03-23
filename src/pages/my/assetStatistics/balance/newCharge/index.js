@@ -58,8 +58,8 @@ class Index extends Component{
         const {goBankData}=nextProps;
         //生成订单后跳转
         if(goBankData&&goBankData.code==100){
-            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
             this.props.clearData("GO_BANK_PAGE")
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
         }else if(goBankData&&goBankData.code!=100){
             this.props.clearData("GO_BANK_PAGE")
             this.refs.alert.show({
