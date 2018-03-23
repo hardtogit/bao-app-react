@@ -105,6 +105,17 @@ class VerifyMobile extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
+        const{goBankData}=nextProps;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+            this.props.clean("GO_BANK_PAGE")
+            // this.props.clearData("GO_BANK_PAGE")
+        }else if(goBankData&&goBankData.code!=100){
+            // this.props.clearData("GO_BANK_PAGE")
+            this.props.clean("GO_BANK_PAGE")
+            this.refs.alert.show({content: '订单生成失败！',okText:'确定'});
+        }
     const alertn=this.refs.alert;
      if(nextProps.data&&this.state.init){
       this.props.send(nextProps.data.data.mobile)
@@ -138,7 +149,15 @@ class VerifyMobile extends React.Component {
                   verifyTime:this.state.verifyTime+1
               })
               if(nextProps.verifyCodeRightData&&nextProps.verifyCodeRightData.code=="0001"){
-                  this.props.push('/user/setting/tradePasswordForget/new?smsReference='+this.state.smsReference)
+                    this.props.goBankPage({
+                       type:3,
+                       way:1,
+                       returnUrl:"",
+                       data:{
+                          device:"WAP"
+                       }
+                    });
+                    this.props.clean("CODE_RIGHT_VERIFY")
               }else{
                   if(this.state.verifyTime>=3){
                       this.refs.alert.show({content: '验证码错误',okText:'确定'});
@@ -177,7 +196,8 @@ const mapStateToProps = (state) => {
     sendData:state.infodata.getIn(['NEW_TRANSACTION_CODE','data']),
     verifySendData:state.infodata.getIn(['SEND_VERIFY','data']),
     verifyCodeData:state.infodata.getIn(['NEW_CHECK_VERIFY_CAPTCHA_W','data']),
-   verifyCodeRightData:state.infodata.getIn(['CODE_RIGHT_VERIFY','data'])
+    verifyCodeRightData:state.infodata.getIn(['CODE_RIGHT_VERIFY','data']),
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
   }
 }
 
@@ -195,6 +215,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     replace(path){
       dispatch(replace(path))
+    },
+    goBankPage(data){
+      dispatch({
+          type:"GO_BANK_PAGE",
+          params:[data]
+      })
     },
     send(mobile){
       dispatch({

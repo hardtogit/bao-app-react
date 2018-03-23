@@ -57,11 +57,11 @@ class DirectBuy extends React.Component {
         //生成订单后跳转
         if(goBankData&&goBankData.code==100){
             this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
-            this.props.clear()
+            this.props.clearState()
             // this.props.clearData("GO_BANK_PAGE")
         }else if(goBankData&&goBankData.code!=100){
             // this.props.clearData("GO_BANK_PAGE")
-            this.props.clear()
+            this.props.clearState()
             this.refs.tipbar.open('订单生成失败!');
         }
         if (!utils.isPlainObject(this.props.detail)) {
@@ -557,7 +557,7 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             key:'DIRECTINVEST_BUY'
         })
     },
-    clear(){
+    clearState(){
       dispatch({
           type:'CLEAR_INFO_DATA',
           key:'GO_BANK_PAGE'

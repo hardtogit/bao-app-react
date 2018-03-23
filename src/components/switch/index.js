@@ -9,6 +9,8 @@ import LoadingDialog from '../Dialog/loading'
 import {goBack,push} from 'react-router-redux'
 import Store from '../Dialog/store'
 import PropTypes from 'prop-types'
+import {getAuthDetail}  from "../../components/Permission"
+
 export default class Index extends React.Component {
     constructor(props){
         super(props);
@@ -54,20 +56,20 @@ export default class Index extends React.Component {
     }
     change=()=>{
         const storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData.isRegister&&storeData.isBindBankcard){
-            if(!storeData.isAuthBid){
-                this.checkAccredit()
-                return;
-            }
-        }else{
-            if(storeData.isRegister){
-                this.props.push('/user/setting/authorization')
-            }else{
-                this.refs.store.show()
+        switch (getAuthDetail()){
+            case 1:
+                break;
+            case 2:
+                push('/user/setting/authorization');
                 return false;
-            }
+                break;
+            case 3:
+                this.refs.store.show();
+                return false;
+                break;
+            default:
+                break
         }
-
         if(!this.props.checkedCanClick && this.state.open){
             return false;
         }

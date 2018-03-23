@@ -19,7 +19,7 @@ class Index extends Component{
         super(props);
         this.state = {
             isOpen: false,
-            disable:true
+            disable:false
         }
     }
     static defaultProps = {
@@ -92,10 +92,10 @@ class Index extends Component{
                 <div >
                     <p className={styles.p}>{authorizationTextData&&authorizationTextData.data}</p>
                     <p></p> 
-                 <div className={styles.choice}>
-                     <input type="checkbox" onChange={this.handChange}/>
-                     我已阅读并同意签署 <Link to="/user/setting/regStore">《宝点网-后台功能免密设置协议》</Link>
-                 </div>
+                 {/*<div className={styles.choice}>*/}
+                     {/*<input type="checkbox" onChange={this.handChange}/>*/}
+                     {/*我已阅读并同意签署 <Link to="/user/setting/regStore">《宝点网-后台功能免密设置协议》</Link>*/}
+                 {/*</div>*/}
                     <div className={styles.btnContainer}>
                     <Button  ref="bottom" style={{marginTop:'15px'}} onClick={this.handClick} disable={disable}
                             className={styles.bottom}

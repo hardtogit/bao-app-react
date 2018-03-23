@@ -131,8 +131,9 @@ class Index extends React.Component {
           data:{
             device:"WAP",
             productId:productId,
-            quantity:quantity,
-            coupon:coupon&&coupon.id||'',
+            productType:'POINT',
+            num:quantity,
+            couponId:coupon&&coupon.id||''
           },
           returnUrl:''
       })

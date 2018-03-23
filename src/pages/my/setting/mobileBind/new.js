@@ -31,22 +31,22 @@ class MobileBind extends React.Component {
         }
     }
     componentDidMount(){
-        if(document.getElementById('kb3')){
-            passGuard3.generate("kb3",kb,0);
-            $(function(){
-                setTimeout(function(){
-                    kb.generate();
-                },100);
-            })
-        }
         const {
             mobile,
             load
         }=this.props;
             load()
     }
-    componentWillReceiveProps({mobile,sendCode,verifySendData,verifyCodeData,verifyCodeRightData,bindResData,verifyBindMobileData}) {
+    componentWillReceiveProps({mobile,sendCode,verifySendData,verifyCodeData,verifyCodeRightData,bindResData,verifyBindMobileData,goBankPage}) {
         const alert = this.refs.alert;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+            this.props.clearState()
+        }else if(goBankData&&goBankData.code!=100){
+            this.props.clearState()
+            this.refs.tip.open('订单生成失败!');
+        }
         if(sendCode){
            if(sendCode.status==1) {
                if(this.state.time<=3){
@@ -87,16 +87,16 @@ class MobileBind extends React.Component {
                         time1:this.state.time1+1
                     });
                     if(verifyCodeRightData&&verifyCodeRightData.code=="0001"){
-                        $('#kb3').val('');
-                        this.props.bindMobile({
-                            newMobile:this.refs.form.getValue().mobile,
-                            password:passGuard3.getOutput(),
-                            passwordFactor:sessionStorage.getItem('passwordFactor'),
-                            mapKey:sessionStorage.getItem('mapKey'),
-                            smsReference:this.state.ref,
-                            device:'WAP'
+                        this.props.goBankPage({
+                            type:474,
+                            way:1,
+                            returnUrl:"",
+                            data:{
+                                newMobile:this.refs.form.getValue().mobile,
+                                smsReference:this.state.ref,
+                                device:'WAP'
+                            }
                         })
-
                     }else{
                         if(this.state.time1>=3){
                             this.setState({
@@ -254,15 +254,6 @@ class MobileBind extends React.Component {
                             mobile: {message: '请输入正确的手机号'} }}
                             borderType='four' />
                         <BaseInput
-                            id="kb3"
-                            name="password"
-                            label="交易密码"
-                            placeholder='请输入交易密码'
-                            borderType='four'
-                            reg={{required:{message:'请输入正确的交易密码'}
-                            }}
-                        />
-                        <BaseInput
                             ref='captcha'
                             name='captcha'
                             label='验证码'
@@ -296,7 +287,8 @@ const mapStateToProps = (state, ownProps) => {
         verifyCodeData:state.infodata.getIn(['STORE_CHANGE_PHONE_VERIFY_CODE','data']),
         verifyCodeRightData:state.infodata.getIn(['CHANGE_CODE_RIGHT_VERIFY','data']),
         bindResData:state.infodata.getIn(['CHANGE_CODE_RIGHT_VERIFY','data']),
-        verifyBindMobileData:state.infodata.getIn(['VERIFY_BIND_MOBILE','data'])
+        verifyBindMobileData:state.infodata.getIn(['VERIFY_BIND_MOBILE','data']),
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
     }
 }
 
@@ -333,6 +325,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
    push(path){
       dispatch(push(path))
    },
+    clearState(){
+       dispatch({
+           type:'CLEAR_INFO_DATA',
+           key:'GO_BANK_PAGE'
+       })
+    },
     cleanData(){
         dispatch({
             type:'CLEAR_INFO_DATA',
@@ -358,6 +356,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             type:'CLEAR_INFO_DATA',
             key:'VERIFY_BIND_MOBILE'
         })
+    },
+    goBankPage(data){
+      dispatch({
+          type:"GO_BANK_PAGE",
+          params:[data]
+      })
+
     },
    bindMobile(data) {
         dispatch({

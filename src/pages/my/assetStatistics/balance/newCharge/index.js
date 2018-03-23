@@ -40,6 +40,8 @@ class Index extends Component{
         this.props.getMyBankCards();
        // this.refs.password.show({})
     }
+    componentWillUnmount(){
+    }
     componentWillReceiveProps(nextProps){
      //组件接收到新的props调用
         const $this=this;
@@ -247,8 +249,10 @@ const mapDispatchToProps=(dispatch,own)=>({
         })
     },
     clearData(key){
-        type:'CLEAR_INFO_DATA'
-        key:key
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+        })
     },
     rechargeVerify(id){
         dispatch({
