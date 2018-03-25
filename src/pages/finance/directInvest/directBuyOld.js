@@ -53,6 +53,17 @@ class DirectBuy extends React.Component {
         this.props.getUser();
     }
     componentWillReceiveProps(nextProps) {
+        const{goBankData}=nextProps
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.clearState()
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+            // this.props.clearData("GO_BANK_PAGE")
+        }else if(goBankData&&goBankData.code!=100){
+            // this.props.clearData("GO_BANK_PAGE")
+            this.props.clearState()
+            this.refs.tipbar.open('订单生成失败!');
+        }
         if (!utils.isPlainObject(this.props.detail)) {
             const quantity = this.props.detail.left_quantity ?
                 this.props.detail.left_quantity < this.state.quantity ?
@@ -107,6 +118,7 @@ class DirectBuy extends React.Component {
     successsFn=()=>{
         let coupon = this.state.useCoupon&&this.getCoupon()||null;
         const {use}=this.props;
+        const {select}=this.state
         if (use){
             if (use.code==100){
                 if (use.data.is&&coupon){
@@ -114,13 +126,29 @@ class DirectBuy extends React.Component {
                 }
             }
         }
-        // 调用支付流程
-        this.refs.payProcess.open({
-            id: this.directInvestId,
-            num: this.state.quantity,
-            couponId: coupon && coupon.id || '',
-            borrowPwd: this.borrowPwd
-        })
+        if(select==1){
+            this.props.goBankPage({
+                data:{
+                id: this.directInvestId,
+                num: this.state.quantity,
+                couponId: coupon && coupon.id || '',
+                borrowPwd: this.borrowPwd,
+                device:'WAP',
+                access_sys:'platform'
+                },
+                way:1,
+                type:411,
+                returnUrl:""
+            })
+        }else{
+            // 调用支付流程
+            this.refs.payProcess.open({
+                id: this.directInvestId,
+                num: this.state.quantity,
+                couponId: coupon && coupon.id || '',
+                borrowPwd: this.borrowPwd
+            })
+        }
     }
     changeQuantity = (value) => {
         if (value<=0){
@@ -466,7 +494,8 @@ const mapStateToProps = (state,ownProps)=>{
         buyData: state.infodata.getIn([actionTypes.DIRECTINVEST_BUY, 'data']),
         selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
         useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
-        use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data'])
+        use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -483,6 +512,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type: actionTypes.AVAILABLE_COUPONS,
             params: ['直投',month,'platform']
+        })
+    },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
         })
     },
     getUse(id){
@@ -522,17 +557,27 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             key:'DIRECTINVEST_BUY'
         })
     },
+    clearState(){
+      dispatch({
+          type:'CLEAR_INFO_DATA',
+          key:'GO_BANK_PAGE'
+      })
+    },
     clearData(){
         dispatch({
             type:'CLEAR_CONPONS'
-        })
+        });
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'AVAILABLE_COUPONS'
-        })
+        });
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'DIRECTINVEST_DETAIL'
+        });
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:"GO_BANK_PAGE"
         })
     }
 })

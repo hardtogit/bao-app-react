@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import styles from './index.less'
 import cunguan_icon from '../../../../../assets/images/my-index/cunguan.png'
 import tuoguan_icon from '../../../../../assets/images/my-index/tuoguan.png'
+import {platFormGetAuthDetail,getAuthDetail} from '../../../../../components/Permission'
 class Index extends Component{
     constructor(props) {//构造器
         super(props);
@@ -76,15 +77,18 @@ class Index extends Component{
                             </div>
                         </div>
                         <div className={styles.footer} onClick={()=>{
-                            let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-                            if(storeData.isBindBankcard&&storeData.isRegister){
-                                this.props.push('/user/newRecharge')
-                            }else{
-                                if(storeData.isRegister){
-                                    this.props.push('/user/setting/cardBind')
-                                }else{
+                            switch (getAuthDetail()){
+                                case 1:
+                                    this.props.push('/user/newRecharge')
+                                    break;
+                                case 2:
+                                    push('/user/setting/authorization');
+                                    break;
+                                case 3:
                                     this.refs.store.show();
-                                }
+                                    break;
+                                default:
+                                    break
                             }
                         }}>
                             <div className={styles.btn}>
@@ -114,19 +118,18 @@ class Index extends Component{
                         <div className={styles.footer}>
                             <div className={classNames([styles.disable,(btnInfo&&!btnInfo.data.hide_platform_recharge_withdraw)&&styles.btn])} onClick={() => {
                                 if(btnInfo&&!btnInfo.data.hide_platform_recharge_withdraw){
-                                    let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
-                                    if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
-                                        push('/user/oldRecharge')
-                                        return;
-                                    }
-                                    if (storeData.isBindBankcard && storeData.isRegister) {
-                                        push('/user/oldRecharge')
-                                    } else {
-                                        if (storeData.isRegister) {
-                                            this.props.push('/user/setting/cardBind')
-                                        } else {
+                                    switch (platFormGetAuthDetail()){
+                                        case 1:
+                                            push('/user/oldRecharge');
+                                            break;
+                                        case 2:
+                                            push('/user/setting/authorization');
+                                            break;
+                                        case 3:
                                             this.refs.store.show();
-                                        }
+                                            break;
+                                        default:
+                                            break
                                     }
                                 }
 

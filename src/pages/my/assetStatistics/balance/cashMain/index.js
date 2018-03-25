@@ -14,6 +14,7 @@ import styles from './index.less'
 import classNames from 'classnames'
 import cunguan_icon from '../../../../../assets/images/my-index/cunguan.png'
 import tuoguan_icon from '../../../../../assets/images/my-index/tuoguan.png'
+import {platFormGetAuthDetail,getAuthDetail} from '../../../../../components/Permission'
 class Index extends Component{
     constructor(props) {//构造器
         super(props);
@@ -47,53 +48,56 @@ class Index extends Component{
     goCash=(balance)=>{
         let $this=this;
         let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData.isBindBankcard&&storeData.isRegister){
-            if(storeData.isUploadIdcard){
-                $this.money(balance)
-            }else{
-                if($this.props.uploadData){
-                    if($this.props.uploadData.code==100){
-                        switch ($this.props.uploadData.data.status){
-                            case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
-                                break;
-                            case '0':$this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
-                                $this.props.queryUpload()
-                                break;
-                            case '1':$this.money(balance)
-                                break;
-                            case '9':$this.props.push('/user/IdCardUpload');
-                                break;
-                            default:
-                                $this.props.push('/user/IdCardUpload');
+        switch (getAuthDetail()){
+            case 1:
+                if(storeData.isUploadIdcard){
+                    $this.money(balance)
+                }else{
+                    if($this.props.uploadData){
+                        if($this.props.uploadData.code==100){
+                            switch ($this.props.uploadData.data.status){
+                                case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
+                                    break;
+                                case '0':$this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
+                                    $this.props.queryUpload()
+                                    break;
+                                case '1':$this.money(balance)
+                                    break;
+                                case '9':$this.props.push('/user/IdCardUpload');
+                                    break;
+                                default:
+                                    $this.props.push('/user/IdCardUpload');
+                            }
+                        }else{
+                            $this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
+                            $this.props.queryUpload()
                         }
-                    }else{
-                        $this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
-                        $this.props.queryUpload()
                     }
                 }
-            }
-        }else{
-            if(storeData.isRegister){
-                this.props.push('/user/setting/cardBind')
-            }else{
+                break;
+            case 2:
+                push('/user/setting/authorization');
+                break;
+            case 3:
                 this.refs.store.show();
-            }
+                break;
+            default:
+                break
         }
     }
     goCashOld = (balance) => {
-        let storeData = JSON.parse(sessionStorage.getItem('bao-store'));
-        if (storeData && storeData.isAuthIdentity && storeData.isSecurityCard) {
-            this.moneyOld(balance)
-            return;
-        }
-        if (storeData.isBindBankcard && storeData.isRegister) {
-            this.moneyOld(balance)
-        } else {
-            if (storeData.isRegister) {
-                this.props.push('/user/setting/cardBind')
-            } else {
+        switch (platFormGetAuthDetail()){
+            case 1:
+                this.moneyOld(balance)
+                break;
+            case 2:
+                push('/user/setting/authorization');
+                break;
+            case 3:
                 this.refs.store.show();
-            }
+                break;
+            default:
+                break
         }
     }
     money = (balance)=> {

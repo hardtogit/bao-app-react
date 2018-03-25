@@ -9,6 +9,7 @@ import Page from '../../../../components/Page'
 import Store from '../../../../components/Dialog/store'
 import commonStyles from '../../../../css/common.styl'
 import utils from '../../../../utils/utils.js'
+import {getAuthDetail} from '../../../../components/Permission'
 import {push, goBack} from 'react-router-redux'
 import Loading from '../../../../components/pageLoading'
 
@@ -16,7 +17,9 @@ class SecurityCenter extends React.Component {
     loadDom() {
         return (<Loading/>)
     }
-
+    componentWillUnmount(){
+       this.props.clearData('GO_BANK_PAGE');
+    }
     loadEndDom(datas) {
         const {
             isAuth,
@@ -30,19 +33,21 @@ class SecurityCenter extends React.Component {
         const storeData = JSON.parse(sessionStorage.getItem('bao-store'));
         let text = '';
         let url = ''
-        if (storeData.isRegister && storeData.isBindBankcard) {
-            text = "已开通"
-        } else {
-            if (storeData.isRegister) {
-                text = "未绑定银行卡"
-                url = "/user/setting/cardBind"
-            } else {
+        switch (getAuthDetail()){
+            case 1:
+                text = "已开通"
+                break;
+            case 2:
+                text = "未授权"
+                url = "/user/setting/authorization"
+                break;
+            case 3:
                 text = "未开通"
                 url = "/user/setting/regStore"
-            }
+                break;
+            default:
+                break
         }
-
-
         return (
             <div>
                 <div style={{marginTop: 15}}>
@@ -54,29 +59,36 @@ class SecurityCenter extends React.Component {
                     {!mobile ?
                         <BaseText
                             onClick={() => {
-                                if (storeData.isRegister && storeData.isBindBankcard ) {
-                                    push('/user/setting/mobileBind')
-                                } else {
-                                    if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
-                                    }
-                                    else {
+                                switch (getAuthDetail()){
+                                    case 1:
+                                        push('/user/setting/mobileBind')
+                                        break;
+                                    case 2:
+                                        push('/user/setting/authorization');
+                                        break;
+                                    case 3:
                                         this.refs.store.show()
-                                    }
+                                        break;
+                                    default:
+                                        break
                                 }
                             }}
                             label='绑定手机'
                             borderType='four'/> :
                         <BaseText
                             onClick={() => {
-                                if (storeData.isRegister && storeData.isBindBankcard) {
-                                    push('/user/setting/mobileBindModify')
-                                } else {
-                                    if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
-                                    } else {
-                                        this.refs.store.show()
-                                    }
+                                switch (getAuthDetail()){
+                                    case 1:
+                                        push('/user/setting/mobileBindModify');
+                                        break;
+                                    case 2:
+                                        push('/user/setting/authorization');
+                                        break;
+                                    case 3:
+                                        this.refs.store.show();
+                                        break;
+                                    default:
+                                        break
                                 }
                             }}
                             label='修改绑定手机'
@@ -84,16 +96,20 @@ class SecurityCenter extends React.Component {
                             borderType='four'/>}
                     <BaseText
                         onClick={() => {
-                            if (storeData.isRegister && storeData.isBindBankcard && !storeData.isUploadIdcard) {
-                                push('/user/IdCardUpload')
-                            }
-                            else if (!storeData.isUploadIdcard) {
-                                if (storeData.isRegister) {
-                                    push('/user/setting/cardBind')
-                                }
-                                else {
+                            switch (getAuthDetail()){
+                                case 1:
+                                    if(!storeData.isUploadIdcard){
+                                        push('/user/setting/securityCard')
+                                    }
+                                    break;
+                                case 2:
+                                    push('/user/setting/authorization');
+                                    break;
+                                case 3:
                                     this.refs.store.show()
-                                }
+                                    break;
+                                default:
+                                    break
                             }
                         }
                         }
@@ -112,10 +128,10 @@ class SecurityCenter extends React.Component {
                         <BaseText
                             onClick={() => {
                                 if (storeData.isRegister && storeData.isBindBankcard) {
-                                    push('/user/setting/tradePasswordModify')
+                                    this.changePassWord();
                                 } else {
                                     if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
+                                        push('/user/setting/authorization')
                                     } else {
                                         this.refs.store.show()
                                     }
@@ -126,28 +142,38 @@ class SecurityCenter extends React.Component {
                     {isSetTradePassword ?
                         <BaseText
                             onClick={() => {
-                                if (storeData.isRegister && storeData.isBindBankcard) {
-                                    push('/user/setting/tradePasswordForget/verifyMobile')
-                                } else {
-                                    if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
-                                    } else {
+                                switch (getAuthDetail()){
+                                    case 1:
+                                        push('/user/setting/tradePasswordForget/verifyMobile')
+                                        break;
+                                    case 2:
+                                        push('/user/setting/authorization');
+                                        break;
+                                    case 3:
                                         this.refs.store.show()
-                                    }
+                                        break;
+                                    default:
+                                        break
                                 }
                             }}
                             label='忘记交易密码'
                             borderType='four'/> :
                         <BaseText
                             onClick={() => {
-                                if (storeData.isRegister && storeData.isBindBankcard) {
-                                    push('/user/setting/tradePasswordSet')
-                                } else {
-                                    if (storeData.isRegister) {
-                                        push('/user/setting/cardBind')
-                                    } else {
+                                switch (getAuthDetail()){
+                                    case 1:
+                                        if(!storeData.isUploadIdcard){
+                                            push('/user/setting/tradePasswordSet')
+                                        }
+                                        break;
+                                    case 2:
+                                        push('/user/setting/authorization');
+                                        break;
+                                    case 3:
                                         this.refs.store.show()
-                                    }
+                                        break;
+                                    default:
+                                        break
                                 }
                             }}
                             label='设置交易密码'
@@ -182,7 +208,18 @@ class SecurityCenter extends React.Component {
             this.props.load();
         }
     }
+    changePassWord() {
+        this.props.goBankPage({type:2,way:1,data:{device:"WAP"},returnUrl:""})
+    }
+    componentWillReceiveProps(nextProps){
+        const {goBankData}=nextProps;
+        if(goBankData&&goBankData.code==100){
+            this.props.clearData("goBankData");
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else{
 
+        }
+    }
     render() {
         const {
             user,
@@ -211,7 +248,8 @@ class SecurityCenter extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data'])
+        user: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
 
@@ -221,11 +259,23 @@ const mapDispatchToProps = (dispatch) => ({
             type: 'USER_INFO_WITH_LOGIN'
         })
     },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
+        })
+    },
     push(path) {
         dispatch(push(path))
     },
     pop() {
         dispatch(goBack())
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+            })
     },
     update() {
         dispatch({

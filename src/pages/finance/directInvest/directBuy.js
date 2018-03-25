@@ -55,8 +55,18 @@ class DirectBuy extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      const {buyData,verifyData,carBuyData,cardVerifyData}=nextProps;
+      const {buyData,verifyData,carBuyData,cardVerifyData,goBankData}=nextProps;
       const $this=this;
+      //生成订单后跳转
+      if(goBankData&&goBankData.code==100){
+          this.props.clearState()
+          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+          // this.props.clearData("GO_BANK_PAGE")
+      }else if(goBankData&&goBankData.code!=100){
+          // this.props.clearData("GO_BANK_PAGE")
+          this.props.clearState()
+          this.refs.tipbar.open('订单生成失败!');
+      }
     if (!utils.isPlainObject(this.props.detail)) {
       const quantity = this.props.detail.left_quantity ?
           this.props.detail.left_quantity < this.state.quantity ?
@@ -217,13 +227,28 @@ class DirectBuy extends React.Component {
         this.setState({
             time:0
         })
-        // 调用支付流程
-        this.refs.payProcess.open({
-            id: this.directInvestId,
-            num: this.state.quantity,
-            couponId: coupon && coupon.id || '',
-            borrowPwd: this.borrowPwd
-        })
+        if(this.state.select==1){
+            this.props.goBankPage({
+                way:1,
+                type:451,
+                returnUrl:'',
+                data:{
+                    productId:this.directInvestId,
+                    num: this.state.quantity,
+                    couponId:coupon && coupon.id || '',
+                    productType:'DIRECT',
+                    device:"WAP",
+                }
+            })
+        }else{
+            // 调用支付流程
+            this.refs.payProcess.open({
+                id: this.directInvestId,
+                num: this.state.quantity,
+                couponId: coupon && coupon.id || '',
+                borrowPwd: this.borrowPwd
+            })
+        }
     }
   changeQuantity = (value) => {
     if (value<=0){
@@ -599,7 +624,8 @@ const mapStateToProps = (state,ownProps)=>{
       use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
       banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
       verifyData:state.infodata.getIn(['PAY_VERIFY','data']),
-      cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data'])
+      cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data']),
+      goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -622,6 +648,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
     dispatch({
         type: actionTypes.DIRECT_INVEST_COUPON,
         params: [id]
+    })
+  },
+  goBankPage(data){
+    dispatch({
+        type:actionTypes.GO_BANK_PAGE,
+        params:[data]
     })
   },
   push(path){
@@ -696,6 +728,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'CARD_PAY_VERIFY'
+        });
+    },
+    clearState(){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'GO_BANK_PAGE'
         });
     },
     clearData(){

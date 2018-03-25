@@ -13,6 +13,7 @@ import Alert from '../../../../components/Dialog/alert'
 import Store from '../../../../components/Dialog/store'
 import {Link} from 'react-router'
 import {push, goBack,replace} from 'react-router-redux'
+import {getAuthDetail} from '../../../../components/Permission'
 import Success from '../../../../components/Dialog/success'
 class Setting extends React.Component {
 	constructor(props){
@@ -68,29 +69,40 @@ class Setting extends React.Component {
 					<div className={styles.listw} style={{height:'430px'}}>
 						<Link >
 							<BaseText
-								onClick={
-                                    ()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-                                    {push('/user/setting/myBankCard')}else{
-                                        if(storeData.isRegister){
-                                            push('/user/setting/cardBind')
-                                        }else{
+								onClick={()=>{
+									switch (getAuthDetail()){
+										case 1:
+                                            push('/user/setting/myBankCard');
+                                            break;
+										case 2:
+                                            push('/user/setting/authorization');
+                                            break;
+										case 3:
                                             this.refs.store.show()
-                                        }
-                                    }
+											break;
+										default:
+										break
+									}
 								}}
 								label='银行卡'
 								borderType='two' />
 						</Link>
 						<Link >
 							<BaseText
-								onClick={  ()=>{if(storeData.isRegister&&storeData.isBindBankcard)
-                                {push('/user/setting/securityCard')}else{
-                                    if(storeData.isRegister){
-                                        push('/user/setting/cardBind')
-                                    }else{
-                                        this.refs.store.show()
+								onClick={()=>{
+									switch (getAuthDetail()){
+                                        case 1:
+                                            push('/user/setting/securityCard')
+                                            break;
+                                        case 2:
+                                            push('/user/setting/authorization');
+                                            break;
+                                        case 3:
+                                            this.refs.store.show()
+                                            break;
+                                        default:
+                                            break
                                     }
-                                }
                                 }}
 								label='安全卡'
 								borderType='four' />

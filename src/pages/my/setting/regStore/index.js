@@ -98,7 +98,7 @@ class Index extends Component{
                         time:this.state.time+1
                     });
                     if(nextProps.flagData&&nextProps.flagData.code=="0001"){
-                        this.props.push('/user/setting/cardBind')
+                        this.props.push('/user/setting/authorization')
                         if(!this.state.ifUpdate){
                             this.props.updateStore();
                         }
