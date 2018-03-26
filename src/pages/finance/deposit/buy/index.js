@@ -73,6 +73,7 @@ class DepositBuy extends React.Component {
           this.props.getDepositds(this.state.productId)
       }
       this.props.userInfo();
+      this.props.getEducationInfo();
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag&&nextProps.quantityDataB) {
@@ -470,7 +471,6 @@ class DepositBuy extends React.Component {
         })
     }
     getChoose=(select)=>{
-      console.log(select)
         this.setState({
             select
         })
@@ -516,8 +516,15 @@ class DepositBuy extends React.Component {
       quantityDataB,
       depositbsBuy,
       depositbsBuyResultData,
-      clearDataResult
+      clearDataResult,
+      EducationData
     } = this.props;
+      let primeContent;
+      if(EducationData&&EducationData.code == 100){
+          if(EducationData.data.has_num != 0){
+              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+          }
+      }
     const {type}=this.state;
       let depositData = {}
       let String='';
@@ -620,6 +627,7 @@ class DepositBuy extends React.Component {
           disable={this.canPay() > 0 ? false : true}
           onClick={this.onValid}
           status={this.canPay() > 0 ? '' : 'disable'}/>
+            <p className={styles.primeTxt}>{primeContent}</p>
         <Tipbar ref='tipbar' />
          <IsAuth ref="isAuth"/>
         </div>
@@ -662,7 +670,8 @@ const mapStateToProps = (state, ownProps) => {
     depositbsBuy:state.infodata.getIn(['DEPOSITBS_BUY','data']),
     depositbsBuyPending:state.infodata.getIn(['DEPOSITBS_BUY','pending']),
     depositbsBuyResultData:state.infodata.getIn(['DEPOSITBS_BUYRESULT','data']),
-    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
   }
 }
 
@@ -761,7 +770,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
           type:'CLEAR_INFO_DATA',
           key:'DEPOSITBS_BUYRESULT'
       })
-  }
+  },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(DepositBuy))

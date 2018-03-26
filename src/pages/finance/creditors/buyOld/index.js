@@ -40,6 +40,7 @@ class CreditorBuy extends React.Component{
         window['closeFn']=this.closeFn;
         this.props.getCreditorDetail(this.creditorsId)
         this.props.getUser();
+        this.props.getEducationInfo();
     }
     componentWillReceiveProps(nextProps) {
         const {goBankData}=nextProps;
@@ -159,7 +160,16 @@ class CreditorBuy extends React.Component{
         }
     }
     render(){
-        const detail = this.props.detail
+        const detail = this.props.detail;
+        const {
+            EducationData
+        } = this.props;
+        let primeContent;
+        if(EducationData&&EducationData.code == 100){
+            if(EducationData.data.has_num != 0){
+                primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+            }
+        }
         return(
             <div className={styles.root}>
                 <div className={styles.bg}>
@@ -220,6 +230,7 @@ class CreditorBuy extends React.Component{
                             disable={this.canPay() > 0 ? false : true}
                             onClick={this.onValid}
                             status={this.canPay() > 0 ? '' : 'disable'}/>
+                        <p className={styles.primeTxt}>{primeContent}</p>
                         <Tipbar ref="tipbar"/>
                         <IsAuth ref="isAuth"/>
                     </div>
@@ -239,6 +250,7 @@ const mapStateToProps = (state, ownProps) => {
         detail: detail && detail.data || {},
         creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
         creditorsBuyData: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'data']),
+        EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
         goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
     }
 }
@@ -276,14 +288,21 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(goBack())
     },
     clearData(key){
-        type:'CLEAR_INFO_DATA'
-        key:key
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+        })
     },
     clear(){
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'CREDITORS_BUY'
         })
-    }
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 })
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(CreditorBuy))

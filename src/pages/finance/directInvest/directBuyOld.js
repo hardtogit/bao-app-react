@@ -51,6 +51,7 @@ class DirectBuy extends React.Component {
         this.props.getAvailableCoupons(this.props.params.month)
         this.props.getUse(this.props.params.id);
         this.props.getUser();
+        this.props.getEducationInfo();
     }
     componentWillReceiveProps(nextProps) {
         const{goBankData}=nextProps
@@ -404,7 +405,16 @@ class DirectBuy extends React.Component {
         this.setState({payTop:'100%',url:''})
     }
     render(){
-        const detail = this.props.detail
+        const detail = this.props.detail;
+        const {
+            EducationData
+        } = this.props;
+        let primeContent;
+        if(EducationData&&EducationData.code == 100){
+            if(EducationData.data.has_num != 0){
+                primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+            }
+        }
         return(
             <div className={styles.root}>
                 <div className={styles.bg}>
@@ -466,6 +476,7 @@ class DirectBuy extends React.Component {
                             onClick={this.onValid}
                             status={this.canPay() > 0 ? '' : 'disable'}
                         />
+                        <p className={styles.primeTxt}>{primeContent}</p>
                     </div>
                     <Tipbar ref="tipbar"/>
                     <IsAuth ref="isAuth"/>
@@ -495,6 +506,7 @@ const mapStateToProps = (state,ownProps)=>{
         selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
         useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
         use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
+        EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
         goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
     }
 }
@@ -579,6 +591,11 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
             type:'CLEAR_INFO_DATA',
             key:"GO_BANK_PAGE"
         })
-    }
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 })
 export default (connect(mapStateToProps, mapDispatchToProps)(wrap(DirectBuy)))

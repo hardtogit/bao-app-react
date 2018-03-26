@@ -114,6 +114,12 @@ class Setting extends React.Component {
 								content={isAuth === 2 && isSetTradePassword && isSetGesturePassword &&'高'||'低'}
 								borderType='four' />
 						</Link>
+						<Link to='/user/setting/riskEvaluation'>
+							<BaseText
+								onClick={()=>{}}
+								label='风险测评'
+								borderType='four' />
+						</Link>
 						<Link to={address}>
 							<BaseText
 								onClick={()=>{}}
