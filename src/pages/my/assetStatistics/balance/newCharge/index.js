@@ -40,6 +40,8 @@ class Index extends Component{
         this.props.getMyBankCards();
        // this.refs.password.show({})
     }
+    componentWillUnmount(){
+    }
     componentWillReceiveProps(nextProps){
      //组件接收到新的props调用
         const $this=this;
@@ -52,6 +54,19 @@ class Index extends Component{
                 singleLimit:nextProps.banks.data[0].singleLimit,
                 dayLimit:nextProps.banks.data[0].dayLimit,
             })
+        }
+        const {goBankData}=nextProps;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.clearData("GO_BANK_PAGE")
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else if(goBankData&&goBankData.code!=100){
+            this.props.clearData("GO_BANK_PAGE")
+            this.refs.alert.show({
+                content:'订单生成失败!',
+                okText: '确定',
+
+            });
         }
         if(nextProps.rechargeData){
             if(nextProps.rechargeData.status==1){
@@ -142,28 +157,21 @@ class Index extends Component{
     }
     handleClick=()=>{
         let $this=this;
+        // $this.props.recharge(data)
         if(this.state.disabled){
             return false
         }
-        this.refs.password.show({
-            title:'充值',
-            money:this.state.recMoney,
-            okCallback:function(a,b){
-               let data;
-                data={
-                    bankCard:$this.state.bankCardNo,
-                    transferAmount:$this.state.recMoney,
-                    passwordFactor:sessionStorage.getItem('passwordFactor'),
-                    device:'WAP',
-                    mapKey:sessionStorage.getItem('mapKey'),
-                    password:b
-                }
-                $this.refs.loading.show("充值中...")
-                $this.props.recharge(data)
-                a()
+        $this.props.goBankPage({
+            way:1,
+            type:462,
+            returnUrl:"",
+            data:{
+                bankCard:$this.state.bankCardNo,
+                transferAmount:$this.state.recMoney,
+                device:'WAP',
             }
-        })
-    }
+        });
+    };
     render(){
         const{
             pop,
@@ -201,7 +209,8 @@ class Index extends Component{
 const mapStateToProps=(state)=>({
     banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
     rechargeData:state.infodata.getIn(['NEW_RECHARGE','data']),
-    verifyData:state.infodata.getIn(['RECHARGE_VERIFY','data'])
+    verifyData:state.infodata.getIn(['RECHARGE_VERIFY','data']),
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
 
 });
 const mapDispatchToProps=(dispatch,own)=>({
@@ -216,6 +225,13 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_MY_CARD_LIST'
         })
     },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
+        })
+    },
+
     recharge(data){
         dispatch({
             type:'NEW_RECHARGE',
@@ -230,6 +246,12 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:'RECHARGE_VERIFY'
+        })
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
         })
     },
     rechargeVerify(id){

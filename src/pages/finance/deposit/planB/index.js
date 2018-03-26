@@ -14,6 +14,7 @@ import Loading from '../../../../components/pageLoading'
 import Couponimg from '../../../../assets/images/coupon1.png'
 import Coupon1 from '../../../../assets/images/registerVoucher.png'
 import setUrl from '../../../../components/setUrl'
+import {platFormGetAuthDetail} from '../../../../components/Permission'
 class DepositIndex extends React.Component {
     state={
         depositbs:''
@@ -89,19 +90,18 @@ class DepositIndex extends React.Component {
             return false
         }
         this.successFn();
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
-        if(storeData&&storeData.isAuthIdentity&&storeData.isSecurityCard){
-            this.props.push(`/deposit-buy/${index}/B/${id}`)
-            return;
-        }
-        if(storeData&&storeData.isRegister&&storeData.isBindBankcard) {
-            this.props.push(`/deposit-buy/${index}/B/${id}`)
-        }else{
-            if(storeData&&storeData.isRegister){
-                push('/user/setting/cardBind')
-            }else{
-                this.refs.store.show()
-            }
+        switch (platFormGetAuthDetail()){
+            case 1:
+                this.props.push(`/deposit-buy/${index}/B/${id}`)
+                break;
+            case 2:
+                this.props.push('/user/setting/authorization');
+                break;
+            case 3:
+                this.refs.store.show();
+                break;
+            default:
+                break
         }
     }
     loadEndDom=(depositbs)=>{

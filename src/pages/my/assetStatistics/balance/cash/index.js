@@ -44,22 +44,46 @@ class Index extends React.Component {
     }
     onValid=()=>{
         const {
-            val
+            val,
+            charge,
+            bankCard
         }=this.state;
-        this.refs.reddem.show({
-            title: '提现',
-            money:val,
-            okCallback:()=>{
-                this.refs.loading.show('处理中...')
-                this.send()} ,
-            cancelCallback: () => {
-
+        this.props.goBankPage({
+            type:461,
+            way:1,
+            returnUrl:"",
+            data:{
+            transferAmount:val,
+            bankCard:bankCard,
+            device:'WAP',
+            feeAmount:charge
             }
         })
+
+
+
+        // this.refs.reddem.show({
+        //     title: '提现',
+        //     money:val,
+        //     okCallback:()=>{
+        //         this.refs.loading.show('处理中...')
+        //         this.send()} ,
+        //     cancelCallback: () => {
+        //
+        //     }
+        // })
     }
 
     componentWillReceiveProps(next){
-        const {cashData,push,cardInfo,nowCard,rule,cashSetting}=next;
+        const {cashData,push,cardInfo,nowCard,rule,cashSetting,goBankData}=next;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.clean("GO_BANK_PAGE")
+            this.props.go('/user/setting/bankPage?url='+goBankData.data.url)
+        }else if(goBankData&&goBankData.code!=100){
+            this.props.clean("GO_BANK_PAGE")
+            this.alert('订单生成失败!');
+        }
         if(cashSetting){
             if(cashSetting.code==100){
                 this.setState({
@@ -267,7 +291,8 @@ const Rechargeinit=(state)=>({
     cardInfo:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
     nowCard:state.regStore.getIn(['CHOICE_CARD','cardInfo']),
     rule:state.infodata.getIn(['SERVICE_CHARGE_RULE','data']),
-    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data'])
+    cashSetting:state.infodata.getIn(['GET_DEFAULT_TAB','data']),
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
 });
 const Rechargeinitfn=(dispatch)=>({
      pop(){
@@ -285,6 +310,12 @@ const Rechargeinitfn=(dispatch)=>({
     getMyBankCards(){
         dispatch({
             type:'GET_MY_CARD_LIST'
+        })
+    },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
         })
     },
     get(){

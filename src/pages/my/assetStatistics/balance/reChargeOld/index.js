@@ -49,7 +49,7 @@ class Index extends React.Component {
             this.money(balance)
         } else {
             if (storeData.isRegister) {
-                this.props.push('/user/setting/cardBind')
+                this.props.push('/user/setting/authorization')
             } else {
                 this.refs.tip.show();
             }
@@ -127,7 +127,7 @@ class Index extends React.Component {
                         this.rechargeFn()
                     } else {
                         if (storeData.isRegister) {
-                            this.props.push('/user/setting/cardBind')
+                            this.props.push('/user/setting/authorization')
                         } else {
                             this.refs.tip.show();
                         }

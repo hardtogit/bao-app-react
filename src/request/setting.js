@@ -72,7 +72,8 @@ const requests = (Fetch) => {
   //上传问题反馈图片
   Fetch.uploadFeedBackImg=(data)=>{return Fetch('oss/upload','POST',data)}
   //注册存管
-  Fetch.regStore=(data)=>{return Fetch('api/supervise/users/register','POST',data)}
+    Fetch.regStore=(data)=>{return Fetch('api/supervise/browser/requestUrl','POST',data)}
+  // Fetch.regStore=(data)=>{return Fetch('api/supervise/users/register','POST',data)}
   //验证存管
   Fetch.regVerify=(id)=>{ return Fetch(`api/common/msg-result/${id.id}`,'GET')}
   //存管充值验证

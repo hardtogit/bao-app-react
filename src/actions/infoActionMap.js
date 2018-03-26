@@ -608,4 +608,10 @@ export default {
         apiFn:Fetch.questionTop
     },
 
+    [actionTypes.GO_BANK_PAGE]:{
+        apiFn:Fetch.goBankPage
+    },
+    [actionTypes.AUTHORIZATION_TEXT]:{
+        apiFn:Fetch.authorizationText
+    }
 }

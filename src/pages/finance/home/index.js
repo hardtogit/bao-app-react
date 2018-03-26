@@ -56,7 +56,6 @@ class financeIndex extends Component{
                     this.props.proIndexs(1);
                     sessionStorage.setItem('setDefaultIndex',true)
                 }else if(nextProps.defaultIndex.data.productIndexTabIndex=='直投项目'){
-                	alert('s')
                     this.setState({
                         Index:2
                     })

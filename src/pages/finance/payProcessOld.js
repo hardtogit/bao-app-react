@@ -142,7 +142,7 @@ class PayProcess extends React.Component {
                     close&&close()
                 } else {
                     if(storeData.isRegister){
-                        push('/user/setting/cardBind')
+                        push('/user/setting/authorization')
                         close&&close()
                     }else{
                         this.refs.store.show()
@@ -169,7 +169,7 @@ class PayProcess extends React.Component {
                     close&&close()
                 } else {
                     if(storeData.isRegister){
-                        push('/user/setting/cardBind')
+                        push('/user/setting/authorization')
                         close&&close()
                     }else{
                         this.refs.store.show()

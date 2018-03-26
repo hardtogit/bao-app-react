@@ -20,6 +20,7 @@ const config = {
 	// requestUrl:'http://api.51.devbao.cn/' //51接口
     //requestUrl: 'https://staging-react.devbao.cn/',//外网测试
     // requestUrl: 'http://zhaosigui.api.10.baod.com/',//外网测试
+    // requestUrl: 'http://zhouyangzhi.api.10.devbao.cn/',//外网测试
     //  requestUrl:'https://zhaosigui.pc.10.devbao.cn/'
     //  requestUrl:'https://zhaosigui.pc.10.devbao.cn/'
     // requestUrl: 'http://jiangzhijie.api.10.devbao.cn/'

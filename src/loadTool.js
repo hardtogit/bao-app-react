@@ -190,6 +190,11 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/my/setting/myBankCard').default);
         }, 'MyBankCard');
     },//我的银行卡
+    NewRegStore  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/newRegStore').default);
+        }, 'NewRegStore');
+    },//新的注册绑卡
     BankCardManage  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('./pages/my/setting/bankCardManage').default);
@@ -262,4 +267,14 @@ export const SuccessTemplate  = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/template/successTemplate').default);
     }, 'SuccessTemplate');
-}
+},
+    BankPage  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/bankPage').default);
+        }, 'BankPage');
+    },
+    Authorization=(location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('./pages/my/setting/authorization').default);
+        }, 'Authorization');
+    }

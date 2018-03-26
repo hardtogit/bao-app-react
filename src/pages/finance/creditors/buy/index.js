@@ -42,6 +42,16 @@ class CreditorBuy extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
+
+      const {goBankData}=nextProps;
+      //生成订单后跳转
+      if(goBankData&&goBankData.code==100){
+          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+          this.props.clearState("GO_BANK_PAGE")
+      }else if(goBankData&&goBankData.code!=100){
+          this.props.clearState("GO_BANK_PAGE")
+          this.refs.tipbar.open('订单生成失败!');
+      }
       const $this=this;
     if (!utils.isPlainObject(nextProps.detail)) {
       const copies = nextProps.detail.left_quantity ?
@@ -124,10 +134,28 @@ class CreditorBuy extends React.Component{
       }
   }
     successsFn=()=>{
-        this.refs.payProcess.open({
-            id: this.creditorsId,
-            copies: this.state.copies
-        })
+        const {copies}=this.state;
+        const {balancePay}=this.props;
+        const coupon = '';//债权转让不能使用优惠卷
+        this.props.clearData()
+        if(this.state.select==1){
+            this.props.goBankPage({
+                way:1,
+                type:453,
+                returnUrl:"",
+                data:{
+                    productId:this.creditorsId,
+                    num:copies,
+                    couponId:coupon && coupon.id || '',
+                    device:"WAP",
+                }
+            })
+        }else{
+            this.refs.payProcess.open({
+                id: this.creditorsId,
+                copies: this.state.copies
+            })
+        }
      }
   canPay = () => {
     // if (utils.isPlainObject(this.props.detail)) return false
@@ -314,6 +342,7 @@ const mapStateToProps = (state, ownProps) => {
       verifyData:state.infodata.getIn([actionTypes.CREDITOR_PAY_VERIFY,'data']),
       cardVerifyData:state.infodata.getIn([actionTypes.CREDITOR_CARD_VERIFY,'data']),
     creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
+      goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
       EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
   }
 }
@@ -333,6 +362,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 device,
                 mapKey:mapKey
             }]
+        })
+    },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
         })
     },
     //银行卡支付
@@ -367,6 +402,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             type:'CREDITOR_CARD_VERIFY',
             params:[id]
         })
+    },
+    clearState(){
+      dispatch({
+          type:"CLEAR_INFO_DATA",
+          key:'GO_BANK_PAGE'
+      })
     },
     clearData(key){
         dispatch({

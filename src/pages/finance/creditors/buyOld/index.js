@@ -43,6 +43,15 @@ class CreditorBuy extends React.Component{
         this.props.getEducationInfo();
     }
     componentWillReceiveProps(nextProps) {
+        const {goBankData}=nextProps;
+        //生成订单后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.clearData("GO_BANK_PAGE")
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else if(goBankData&&goBankData.code!=100){
+            this.props.clearData("GO_BANK_PAGE")
+            this.refs.tipbar.open('订单生成失败!');
+        }
         if (!utils.isPlainObject(nextProps.detail)) {
             const copies = nextProps.detail.left_quantity ?
                 nextProps.detail.left_quantity < this.state.copies ?
@@ -77,10 +86,26 @@ class CreditorBuy extends React.Component{
         }
     }
     successsFn=()=>{
-        this.refs.payProcess.open({
-            id: this.creditorsId,
-            copies: this.state.copies
-        })
+        const {select}=this.state;
+        if (select==1){
+            this.props.goBankPage({
+                way:1,
+                type:413,
+                returnUrl:"",
+                data:{
+                    productId: this.creditorId,
+                    copies:this.state.copies,
+                    type: 3,
+                    payPass:"",
+                    access_sys:'platform'
+                }
+            })
+        }else{
+            this.refs.payProcess.open({
+                id: this.creditorsId,
+                copies: this.state.copies
+            })
+        }
     }
     canPay = () => {
         // if (utils.isPlainObject(this.props.detail)) return false
@@ -226,6 +251,7 @@ const mapStateToProps = (state, ownProps) => {
         creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
         creditorsBuyData: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'data']),
         EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -238,6 +264,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
                 type: 3,
                 access_sys:'platform'
             }]
+        })
+    },
+    goBankPage(data){
+        dispatch({
+            type:'GO_BANK_PAGE',
+            params:[data]
         })
     },
     getCreditorDetail(id) {
@@ -254,6 +286,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     goBack() {
         dispatch(goBack())
+    },
+    clearData(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+        })
     },
     clear(){
         dispatch({

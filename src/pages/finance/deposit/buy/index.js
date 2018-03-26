@@ -40,10 +40,13 @@ class DepositBuy extends React.Component {
        sy:'',
         select:1,
         type:0,
-        buyTime:0
+        buyTime:0,
+        init:false
     }
   }
   componentWillMount(){
+     this.props.clearData("DEPOSITBS_DETAILS")
+      this.props.clearData("USER_INFO")
     const {
         params: {
             id,
@@ -60,6 +63,7 @@ class DepositBuy extends React.Component {
         type
     })
   }
+
   componentDidMount() {
       window['closeFn']=this.closeFn;
       const {type}=this.props.params;
@@ -71,7 +75,6 @@ class DepositBuy extends React.Component {
       this.props.userInfo();
       this.props.getEducationInfo();
   }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag&&nextProps.quantityDataB) {
       this.getAvailableCouponsFlag = true
@@ -82,7 +85,15 @@ class DepositBuy extends React.Component {
            this.props.getAvailableCoupons(this.getCurrentMonth().month)
        }
     }
-
+    const{goBankData}=nextProps;
+    //生成订单后跳转
+      if(goBankData&&goBankData.code==100){
+          this.props.clearData("GO_BANK_PAGE")
+          this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+      }else if(goBankData&&goBankData.code!=100){
+          this.props.clearData("GO_BANK_PAGE")
+          this.refs.tipbar.open('订单生成失败!');
+      }
     if (this.props.quantityLeftFetching == true && 
         nextProps.quantityLeftFetching == false && 
         nextProps.quantityData && 
@@ -127,9 +138,6 @@ class DepositBuy extends React.Component {
            })
        }
   }
-    componentWillUnmount(){
-        this.props.clearDataInfo();
-    }
   depositBuy = (password, money) => {
     let coupon = this.props.useCoupon ? this.getCoupon() : null;
     const {useCoupon,depositId,quantity}=this.state;
@@ -140,7 +148,7 @@ class DepositBuy extends React.Component {
     if (type=='A'){
         balancePay(productId,quantity, utils.md5(password), coupon && coupon.id || '')
     }else {
-        balancePayB(productId,quantity,utils.md5(password),coupon && coupon.id || '')
+        this.props.goBankPage({way:1,type:412,returnUrl:'',data:{productId:productId,quantity:quantity,password:"",access_sys:"platform",type:3,coupon:coupon&&coupon.id || '',device:'WAP'}});
     }
   }
 
@@ -313,18 +321,26 @@ class DepositBuy extends React.Component {
 
   }
    successsFn=()=>{
+       const {select}=this.state;
        let coupon = this.state.useCoupon&&this.getCoupon()||null
        const curMonth = this.getCurrentMonth()
        if (this.props.params.id==5&&coupon){
            coupon.id=''
        }
-       // 调用支付流程
-       this.refs.payProcess.open({
-           productId: this.state.depositId,
-           quantity: this.state.quantity,
-           couponId: coupon && coupon.id || '',
-           month: curMonth && curMonth.month || ''
-       })
+       if (select==1){
+           this.depositBuy();
+       }else {
+          // 调用支付流程
+           this.refs.payProcess.open({
+               productId: this.state.depositId,
+               quantity: this.state.quantity,
+               couponId: coupon && coupon.id || '',
+               month: curMonth && curMonth.month || ''
+           })
+       }
+
+
+
    }
   renderDiscountBar = () => {
     // 还未加载完抵用券和加息券，渲染占位View
@@ -480,7 +496,7 @@ class DepositBuy extends React.Component {
         buyTime++;
         this.setState({
             buyTime
-        })
+        });
        setTimeout(()=>{
             if (buyTime>3){
                 this.setState({
@@ -654,6 +670,7 @@ const mapStateToProps = (state, ownProps) => {
     depositbsBuy:state.infodata.getIn(['DEPOSITBS_BUY','data']),
     depositbsBuyPending:state.infodata.getIn(['DEPOSITBS_BUY','pending']),
     depositbsBuyResultData:state.infodata.getIn(['DEPOSITBS_BUYRESULT','data']),
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
       EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
   }
 }
@@ -709,6 +726,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             ]
         })
     },
+  goBankPage(data){
+      dispatch({
+          type:'GO_BANK_PAGE',
+          params:[data]
+      })
+  },
   setUseCoupons(selectedCoupon) {
     dispatch({
       type: actionTypes.SET_USE_COUPONS,
@@ -718,7 +741,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   clearData(key){
       dispatch({
           type:'CLEAR_INFO_DATA',
-           key
+           key:key
       })
   },
   getDepositds(id){
