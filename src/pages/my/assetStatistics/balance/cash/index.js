@@ -56,7 +56,8 @@ class Index extends React.Component {
             transferAmount:val,
             bankCard:bankCard,
             device:'WAP',
-            feeAmount:charge
+            feeAmount:charge,
+            isNew:1
             }
         })
 
