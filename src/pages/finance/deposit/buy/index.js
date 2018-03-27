@@ -147,7 +147,7 @@ class DepositBuy extends React.Component {
     if (type=='A'){
         balancePay(productId,quantity, utils.md5(password), coupon && coupon.id || '')
     }else {
-        this.props.goBankPage({way:1,type:412,returnUrl:'',data:{productId:productId,quantity:quantity,password:"",access_sys:"platform",type:3,coupon:coupon&&coupon.id || '',device:'WAP'}});
+        this.props.goBankPage({way:1,type:412,returnUrl:'',data:{productId:productId,num:quantity,password:"",access_sys:"platform",type:3,coupon:coupon&&coupon.id || '',device:'WAP'}});
     }
   }
 
@@ -470,7 +470,6 @@ class DepositBuy extends React.Component {
         })
     }
     getChoose=(select)=>{
-      console.log(select)
         this.setState({
             select
         })
@@ -613,6 +612,9 @@ class DepositBuy extends React.Component {
           depositbsBuyResultData={depositbsBuyResultData}
           time={this.state.buyTime}
           clearDataResult={clearDataResult}/>
+
+
+
         <p><Link to={`/agreement`} className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}

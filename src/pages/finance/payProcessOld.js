@@ -48,7 +48,8 @@ class PayProcess extends React.Component {
             // this.changeValueHandler(nextProps.inputValue, nextProps.user.balance, (chosen) => {
             //   this._onSelectPay(chosen)
             // })
-            this.changeValueHandler(nextProps.inputValue, nextProps.balance)
+            this.changeValueHandler(nextProps.inputValue, nextProps.balance);
+            console.log(nextProps.inputValue+"--"+nextProps.balance)
         }
         this.setState({visiblePay: nextProps.visiblePay, visible: nextProps.visiblePay ? true : false})
         if (nextProps.balancePayPending) {

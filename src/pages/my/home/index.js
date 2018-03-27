@@ -22,6 +22,7 @@ import someCoins from '../../../assets/images/my-index/12.png' // 点币
 import interest from '../../../assets/images/my-index/13.png' // 加息券
 import toUse from '../../../assets/images/my-index/14.png' // 抵用券
 import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
+import {getAuthDetail} from '../../../components/Permission'
 import DepositTreasureB from '../../../assets/images/my-index/16.png'
 import poppic1 from '../../../assets/images/my-index/pop1.png'
 import close from '../../../assets/images/my-index/close.png'
@@ -30,6 +31,7 @@ import user_bg from '../../../assets/images/my-index/user_bg.png'
 import vip from '../../../assets/images/my-index/vip.png'
 import setting from '../../../assets/images/my-index/setting.png'
 import news from '../../../assets/images/my-index/news.png'
+import Store from '../../../components/Dialog/store'
 import headIcon from '../../../assets/images/my-index/avatar.png'
 import newpic from '../../../assets/images/my-index/new.png'
 
@@ -187,10 +189,25 @@ class Index extends React.Component {
                             </div>
                         </div>
                     </Link>
-
+                    <Store ref="store"></Store>
                     <div className={styles.myProduct}>
                         <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to={`/user/autoBuy`}>
+                            <Link  onClick={()=>{
+                                switch (getAuthDetail()){
+                                    case 1:
+                                        this.props.push("/user/autoBuy");
+                                        break;
+                                    case 2:
+                                        this.props.push('/user/setting/authorization');
+                                        break;
+                                    case 3:
+                                        this.refs.store.show();
+                                        break;
+                                    default:
+                                        break
+                                }
+
+                            }}>
                                 <img src={directMail}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>自动投标</p>
