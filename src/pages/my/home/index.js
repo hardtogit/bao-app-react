@@ -367,7 +367,6 @@ class Index extends React.Component {
                         </div>
                         <img src={close} className={styles.close} onClick={this.handleClick}/>
                     </div>
-
                 </div>
             </div>
         )

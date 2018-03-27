@@ -58,9 +58,9 @@ class Index extends React.Component {
         },
     }=this.props;
   }
-  componentWillUnmount(){
-      this.props.clean('GO_BANK_PAGE')
-  }
+    componentWillUnmount(){
+        this.props.clean('GO_BANK_PAGE')
+    }
   componentDidMount() {
       this.refs.choice.checked =true
       window['closeFn']=this.closeFn;
@@ -68,6 +68,7 @@ class Index extends React.Component {
       this.props.gatherData(productId)
       this.props.getMyBankCards()
       this.props.userInfo();
+      this.props.getEducationInfo();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -462,7 +463,14 @@ class Index extends React.Component {
       deposit,
       new_deposit,
       quantityDataB,
+        EducationData
     } = this.props;
+    let primeContent;
+    if(EducationData&&EducationData.code == 100){
+        if(EducationData.data.has_num != 0){
+            primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+        }
+    }
     const {type}=this.state;
       let depositData = {}
       let String='';
@@ -542,6 +550,7 @@ class Index extends React.Component {
           disable={this.canPay() > 0 ? false : true}
           onClick={this.onValid}
           status={this.canPay() > 0 ? '' : 'disable'}/>
+            <p className={styles.primeTxt}>{primeContent}</p>
         <Tipbar ref='tipbar' />
          <IsAuth ref="isAuth"/>
         </div>
@@ -582,6 +591,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
+      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
     goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"])
   }
 };
@@ -686,6 +696,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     getMyBankCards(){
         dispatch({
             type:'GET_MY_CARD_LIST'
+        })
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
         })
     },
 })

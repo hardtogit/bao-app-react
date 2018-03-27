@@ -98,5 +98,13 @@ const requests = (Fetch) => {
   Fetch.queryUpload=(data)=>{ return Fetch('api/supervise/users/uploadIdCardResult','GET',data)}
   //获取平台充值按钮状态
    Fetch.getChargeStatus=(data)=>{ return Fetch('api/setting/login','GET',data)}
+  //投资者教育问题列表
+   Fetch.getQuestionList=()=>{ return Fetch('api/education/questionList','GET')}
+  //投资者教育问题列表
+   Fetch.getEducationInfo=()=>{ return Fetch('api/education/info','GET')}
+    //投资者教育问题列表
+    Fetch.subAnswer=(answers)=>{ return Fetch(`api/education/subAnswer?answers=${answers}`,'GET')}
+    //投资者教育问题列表
+    Fetch.questionTop=()=>{ return Fetch(`api/education/questionTop`,'GET')}
 };
 export default requests
