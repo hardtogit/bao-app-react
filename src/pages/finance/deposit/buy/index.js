@@ -312,8 +312,8 @@ class DepositBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-        const {select}=this.state;
-        if (select==1){
+        // const {select}=this.state;
+        if (this.refs.payProcess.state.chosen==1){
             this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
         }else {
             this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
@@ -327,7 +327,8 @@ class DepositBuy extends React.Component {
        if (this.props.params.id==5&&coupon){
            coupon.id=''
        }
-       if (select==1){
+       console.log(this.refs.payProcess.state)
+       if (this.refs.payProcess.state.chosen==1){
            this.depositBuy();
        }else {
           // 调用支付流程

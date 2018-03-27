@@ -49,7 +49,6 @@ class PayProcess extends React.Component {
             //   this._onSelectPay(chosen)
             // })
             this.changeValueHandler(nextProps.inputValue, nextProps.balance);
-            console.log(nextProps.inputValue+"--"+nextProps.balance)
         }
         this.setState({visiblePay: nextProps.visiblePay, visible: nextProps.visiblePay ? true : false})
         if (nextProps.balancePayPending) {
@@ -119,6 +118,7 @@ class PayProcess extends React.Component {
             } else {
                 this.setState({disable: [this.props.BALANCEINDEX]})
             }
+
         } else {
             const index = this.state.disable.indexOf(this.props.BALANCEINDEX)
             let states = {chosen: this.props.BALANCEINDEX}

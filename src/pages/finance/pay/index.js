@@ -13,6 +13,13 @@ class Index extends Component{
         super(props);
         this.state={time:1,flag:0}
     }
+    componentWillReceiveProps(nextProps){
+        console.log('s')
+        const{url,closeFn}=nextProps;
+        if(url){
+            this.refs.iframe.contentWindow.location.replace(url)
+        }
+    }
     loadTime=()=>{
          const {time,flag}=this.state;
          if (flag==0){
@@ -33,7 +40,7 @@ class Index extends Component{
         return(<div className={styles.rechargeBox}>
             <NavBar leftNode={<span className={styles.rechargeTitle}>关闭</span>}
                     onLeft={closeFn} style={{position:'absolute',left:'0px',top:'0px'}}>充值</NavBar>
-            <iframe src={url} className={styles.ifr} onLoad={this.loadTime}></iframe>
+            <iframe ref='iframe'  className={styles.ifr} onLoad={this.loadTime}></iframe>
         </div>)
     }
 }
