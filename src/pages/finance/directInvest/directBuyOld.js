@@ -130,7 +130,7 @@ class DirectBuy extends React.Component {
         if(select==1){
             this.props.goBankPage({
                 data:{
-                id: this.directInvestId,
+                productId: this.directInvestId,
                 num: this.state.quantity,
                 couponId: coupon && coupon.id || '',
                 borrowPwd: this.borrowPwd,
