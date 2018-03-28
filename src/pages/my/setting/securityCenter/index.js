@@ -147,7 +147,7 @@ class SecurityCenter extends React.Component {
                                         push('/user/setting/tradePasswordForget/verifyMobile')
                                         break;
                                     case 2:
-                                        push('/user/setting/authorization');
+                                        push('/user/setting/tradePasswordForget/verifyMobile')
                                         break;
                                     case 3:
                                         this.refs.store.show()
