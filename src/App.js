@@ -15,6 +15,8 @@ import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
 import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO} from './actions/actionTypes'
+
+
 import RelatedProjects from './pages/finance/demand/relatedProjects'
 import DemandInvestFail from './pages/finance/demand/investFail'
 import DemandRedeem from './pages/finance/demand/redeem'
@@ -70,9 +72,13 @@ import siteEdit from './pages/my/setting/site/edit/index'//收货地址编辑
 import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自动投标
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
+
+
+
+
+
+
 import active from './pages/user/active/index'
-import inviteParticulars from './pages/find/invite/particulars' /*邀请明细*/
-import inviteRule from './pages/find/invite/rule' /*邀请规则*/
 import ScratchesRule from './pages/my/scratchesCard/rule' /*刮刮卡规则*/
 import FridayActivityRule from './pages/my/fridayActivity/rule' /*刮刮卡规则*/
 import depositDetails from './pages/finance/deposit/depositDetails/index'  /* 定存宝详情*/
@@ -80,9 +86,6 @@ import planDetails from './pages/finance/deposit/planDetails/index' /* 更多详
 import Cash from './pages/my/assetStatistics/balance/cash/index'/*提现*/
 //发现模块
 import findIndex from './pages/find'
-import Invite from './pages/find/invite/index'
-import preheat from './pages/wechatPreheat/index'
-import preheatConfirm from './pages/wechatPreheat/preheatConfirm/index'
 
 // 我的模块
 import verifyPhone from './pages/my/setting/verifyPhone'
@@ -131,11 +134,13 @@ ProductInfo,DcbContract, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectPr
 AddAccrualIndex,CoinShop,DcContract,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
-import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,PreheatConfirm} from './pages/routeComponent/findComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,NewRegStore,BankPage,Authorization} from './loadTool'
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,NewRegStore,BankPage,Authorization} from './loadTool'
+
+
+import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,PreheatConfirm,InviteRule,InviteParticulars,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule} from './loadTool/find.js';
 
 
 // 工厂方法创建saga中间件
@@ -311,19 +316,19 @@ export default class App extends React.Component {
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
-                  <Route path="notify" component={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="shoppingMall" component={ShoppingMall}></Route>
-                  <Route path="shoppingMall/productList" component={ShopProductList}></Route>
-                  <Route path="shoppingMall/shopHistoryRecord" component={ShopHistoryRecord}></Route>
-                  <Route path="shoppingMall/shopMessage" component={ShopMessage}></Route>
-                  <Route path="shoppingMall/shopMessageDetail/:id" component={ShopMessageDetail}></Route>
-                  <Route path="shoppingMall/cashDetail/:id" component={CashDetail}></Route>
-                  <Route path="memberCenter" component={MemberCenter}></Route>
-                  <Route path="moreBasic" component={MoreBasic}></Route>
-                  <Route path="help" component={Help}></Route>
-                  <Route path="ticketRule" component={TicketRule}></Route>
-                  <Route path="rateTicketRule/:id" component={RateTicketRule}></Route>
-                  <Route path="ticketDetail" component={TicketDetail}></Route>
+                  <Route path="notify" getComponents={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="shoppingMall" getComponents={ShoppingMall}></Route>
+                  <Route path="shoppingMall/productList" getComponents={ShopProductList}></Route>
+                  <Route path="shoppingMall/shopHistoryRecord" getComponents={ShopHistoryRecord}></Route>
+                  <Route path="shoppingMall/shopMessage" getComponents={ShopMessage}></Route>
+                  <Route path="shoppingMall/shopMessageDetail/:id" getComponents={ShopMessageDetail}></Route>
+                  <Route path="shoppingMall/cashDetail/:id" getComponents={CashDetail}></Route>
+                  <Route path="memberCenter" getComponents={MemberCenter}></Route>
+                  <Route path="moreBasic" getComponents={MoreBasic}></Route>
+                  <Route path="help" getComponents={Help}></Route>
+                  <Route path="ticketRule" getComponents={TicketRule}></Route>
+                  <Route path="rateTicketRule/:id" getComponents={RateTicketRule}></Route>
+                  <Route path="ticketDetail" getComponents={TicketDetail}></Route>
                   <Route path="hotActivity" getComponents={HotActivity}></Route>
                   <Route path="address" getComponents={Address}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="editAddress" getComponents={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -332,12 +337,12 @@ export default class App extends React.Component {
                   <Route path="overallRule" getComponents={OverallRule}></Route>
                   <Route path="productDetail/:id" getComponents={ProductDetail} ></Route>
                   <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteFriends" component={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messages" component={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteParticulars" component={inviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteRule" component={inviteRule}></Route>
-                  <Route path="announcement" component={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messagedetail" component={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteFriends" getComponents={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messages" getComponents={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteParticulars" getComponents={InviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteRule" getComponents={InviteRule}></Route>
+                  <Route path="announcement" getComponents={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messagedetail" getComponents={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
 
               /*已完成*/
@@ -399,7 +404,7 @@ export default class App extends React.Component {
             <Route path="financiaIndex" component={financiaIndex}></Route>
 
             <Route path="financiaRecords" component={financiaRecords}></Route>
-            <Route path="invite" component={Invite}></Route>
+            <Route path="invite" getComponents={InviteFriends}></Route>
 
             <Route path='financialindex' component={financialIndex}></Route>
 
