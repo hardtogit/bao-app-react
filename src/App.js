@@ -125,17 +125,24 @@ import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from
 import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,BankPage,Authorization} from './loadTool'
+GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,
+    CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,
+    BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld,
+    ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,BankPage,Authorization
+} from './loadTool'
+
 /****mine****/
 import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,UserNameModify,
     SecurityCenter,LoginPasswordModify,TradePasswordSet,TradePasswordModify,TradePasswordForgetVerifyMobile,
     TradePasswordForget,MobileBind,MobileBindNew,MobileBindModify,Problems,IdentityAuth,BankcardAddIndex,TradePasswordNew
 }from "./loadTool/mine"
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,NewRegStore,BankPage,Authorization} from './loadTool'
-
-
-import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,PreheatConfirm,InviteRule,InviteParticulars,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule} from './loadTool/find.js';
+/****find****/
+import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,
+    MoreBasic,Help,TicketRule,RateTicketRule,TicketDetail,InviteFriends,Messages,AnnounceMent,MessageDetail,Preheat,
+    PreheatConfirm,InviteRule,InviteParticulars,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,
+    BasicPrivaligeDetail,OverallRule
+} from './loadTool/find';
 
 
 // 工厂方法创建saga中间件
@@ -253,7 +260,7 @@ export default class App extends React.Component {
                   <Route path="autoBuy" getComponent={AutoBuyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   <Route path="autoBuyRule" component={autoBuyRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   /*设置界面*/
-                  <Route path="setting" component={Setting} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="setting" getComponents={Setting} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   /*已完成*/
                   <Route path="MyDemandRecords" component={MyDemandRecords}></Route>  /* 零钱宝记录*/
                   <Route path="demandReddem" component={DemandReddem}></Route>/*零钱宝赎回*/
