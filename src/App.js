@@ -70,6 +70,7 @@ import siteEdit from './pages/my/setting/site/edit/index'//收货地址编辑
 import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自动投标
 import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
 /*******************************************************************************************************/
+/***我做的模块****/
 import active from './pages/user/active/index'
 import inviteParticulars from './pages/find/invite/particulars' /*邀请明细*/
 import inviteRule from './pages/find/invite/rule' /*邀请规则*/
@@ -85,34 +86,17 @@ import preheat from './pages/wechatPreheat/index'
 import preheatConfirm from './pages/wechatPreheat/preheatConfirm/index'
 
 // 我的模块
-import verifyPhone from './pages/my/setting/verifyPhone'
-import regStore from './pages/my/setting/regStore'
-import cardBind from './pages/my/setting/cardBind'
-import BindSuccess from './pages/my/setting/bindSuccess'
-import RegStoreSuccess from './pages/my/setting/regStoreSuccess'
+
 import choicePoint from './pages/my/setting/choicePoint'
 import choiceBank from './pages/my/setting/choiceBank'
-import Setting from './pages/my/setting/index'
-import UserNameModify from './pages/my/setting/usernameModify'
-import SecurityCenter from './pages/my/setting/securityCenter'
-import LoginPasswordModify from './pages/my/setting/loginPasswordModify'
-import TradePasswordSet from './pages/my/setting/tradePasswordSet'
-import TradePasswordModify from './pages/my/setting/tradePasswordModify'
-import TradePasswordForgetVerifyMobile from './pages/my/setting/tradePasswordForget/verifyMobile'
-import TradePasswordForget from './pages/my/setting/tradePasswordForget'
-import MobileBind from './pages/my/setting/mobileBind'
-import  MobileBindNew from './pages/my/setting/mobileBind/new'
-import MobileBindModify from './pages/my/setting/mobileBindModify'
-import Problems from './pages/my/setting/problems'
-import IdentityAuth from './pages/my/setting/identityAuth'
 import User from './pages/my/index'
 import IndexTab from './components/IndexTabs'
-import bankcardAddIndex from './pages/my/setting/bankcardAdd/index'
-import tradePasswordNew from './pages/my/setting/tradePasswordSet/new'
 import ruleRate from './pages/my/interestRate/rule'
 import ruleVoucher from './pages/my/voucher/rule'
 import financialIndex from './pages/home/'
 import Home from './pages/home/index';
+
+
 
 import Withdrawals from './pages/my/assetStatistics/balance/cash/index' //提现
 import cashSuccess from './pages/my/assetStatistics/balance/success'  //提现成功
@@ -135,8 +119,12 @@ import {FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,S
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
 GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,NewCharge,ReChargeOld,CashOld,DirectBuyOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
-SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,NewRegStore,BankPage,Authorization} from './loadTool'
-
+SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,BankCardManage,ChoiceMyCard,AutoBuyIndex,MoneyLogOld,HotActivity,Address,EditAddress,AddAddress,ProductDetail,ProductCash,BasicPrivaligeDetail,OverallRule,DepositInvestSuccessOld,ReChangeMain,OldCharge,CashMain,CashLog,CashRule,ReChargeRule,ReChargeLog,Main,BankPage,Authorization} from './loadTool'
+/****mine****/
+import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,UserNameModify,
+    SecurityCenter,LoginPasswordModify,TradePasswordSet,TradePasswordModify,TradePasswordForgetVerifyMobile,
+    TradePasswordForget,MobileBind,MobileBindNew,MobileBindModify,Problems,IdentityAuth,BankcardAddIndex,TradePasswordNew
+}from "./loadTool/mine"
 
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
@@ -258,34 +246,34 @@ export default class App extends React.Component {
                   <Route path="MyDemandRecords" component={MyDemandRecords}></Route>  /* 零钱宝记录*/
                   <Route path="demandReddem" component={DemandReddem}></Route>/*零钱宝赎回*/
                   <Route path='reddemSuccese' component={reddemSuccese}/> /*零钱宝赎回成功*/
-                  <Route path="setting/securityCenter" component={SecurityCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 安全中心*/
+                  <Route path="setting/securityCenter" getComponents={SecurityCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 安全中心*/
                   <Route path="setting/about" component={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*关于*/
                   <Route path="setting/versionInfo" component={VersionInfo}></Route>/*版本介绍*/
-                  <Route path="setting/problems" component={Problems} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*常见问题*/
-                  <Route path="setting/usernameModify" component={UserNameModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 修改用户名*/
+                  <Route path="setting/problems" getComponents={Problems} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*常见问题*/
+                  <Route path="setting/usernameModify" getComponents={UserNameModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 修改用户名*/
                   <Route path="setting/securityCard" component={securityCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /* 安全卡*/
                   <Route path="setting/securityCardChangeApply" component={securityCardChangeApply}></Route> /* 安全卡申请页面*/
-                  <Route path='setting/bankcardAdd' component={bankcardAddIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*添加银行卡*/
-                  <Route path="setting/mobileBindModify" component={MobileBindModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改绑定手机*/
-                  <Route path="setting/loginPasswordModify" component={LoginPasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改密码*/
-                  <Route path="setting/tradePasswordSet" component={TradePasswordSet} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置交易密码*/
-                  <Route path="setting/tradePasswordForget" component={TradePasswordForget} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*忘记交易密码*/
-                  <Route path="setting/tradePasswordForget/verifyMobile" component={TradePasswordForgetVerifyMobile} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机*/
-                  <Route path="setting/tradePasswordForget/new" component={tradePasswordNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置新交易密码 */
-                  <Route path="setting/tradePasswordModify" component={TradePasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改交易密码*/
-                  <Route path="setting/mobileBindModify/new" component={MobileBindNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定新手机*/
-                  <Route path="setting/mobileBind" component={MobileBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*手机号码*/
-                  <Route path="setting/identityAuth" component={IdentityAuth} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份认证*/
+                  <Route path='setting/bankcardAdd' getComponents={BankcardAddIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*添加银行卡*/
+                  <Route path="setting/mobileBindModify" getComponents={MobileBindModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改绑定手机*/
+                  <Route path="setting/loginPasswordModify" getComponents={LoginPasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改密码*/
+                  <Route path="setting/tradePasswordSet" getComponents={TradePasswordSet} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置交易密码*/
+                  <Route path="setting/tradePasswordForget" getComponents={TradePasswordForget} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*忘记交易密码*/
+                  <Route path="setting/tradePasswordForget/verifyMobile" getComponents={TradePasswordForgetVerifyMobile} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机*/
+                  <Route path="setting/tradePasswordForget/new" getComponents={TradePasswordNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置新交易密码 */
+                  <Route path="setting/tradePasswordModify" getComponents={TradePasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改交易密码*/
+                  <Route path="setting/mobileBindModify/new" getComponents={MobileBindNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定新手机*/
+                  <Route path="setting/mobileBind" getComponents={MobileBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*手机号码*/
+                  <Route path="setting/identityAuth" getComponents={IdentityAuth} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份认证*/
                   <Route path="setting/siteList" component={siteList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址列表*/
                   <Route path="setting/siteAdd" component={siteAdd} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址新增*/
                   <Route path="setting/siteEdit" component={siteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
                   <Route path="setting/regStore" getComponents={NewRegStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
                   <Route path="setting/authorization" getComponents={Authorization} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
                   <Route path="setting/bankPage" getComponents={BankPage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
-                  <Route path="setting/regSToreSuccess" component={RegStoreSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存管成功*/
-                  <Route path="setting/cardBind" component={cardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
-                  <Route path="setting/bindSuccess" component={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
-                  <Route path="setting/verifyPhone" component={verifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
+                  <Route path="setting/regSToreSuccess" getComponents={RegStoreSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存管成功*/
+                  <Route path="setting/cardBind" getComponents={CardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/bindSuccess" getComponents={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/verifyPhone" getComponents={VerifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
                   <Route path="setting/choiceBank" component={choiceBank} ></Route>/*选择开户行*/
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/
                   <Route path="setting/myBankCard" getComponent={MyBankCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的银行卡*/
