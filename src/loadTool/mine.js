@@ -149,6 +149,241 @@ export const Setting = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/my/setting/tradePasswordSet/new').default);
         }, 'TradePasswordNew');
-    }//设置新交易密码
+    },//设置新交易密码
+    Active = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/user/active/index').default);
+        }, 'Active');
+    },//新人活动
+    ScratchesRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/scratchesCard/rule').default);
+        }, 'ScratchesRule');
+    },//挂挂卡规则
+    FridayActivityRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/fridayActivity/rule').default);
+        }, 'FridayActivityRule');
+    },//活动规则
+    Cash = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/balance/cash/index').default);
+        }, 'Cash');
+    },//提现
+    User = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/index').default);
+        }, 'User');
+    },//TODO
+    RuleRate = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/interestRate/rule').default);
+        }, 'RuleRate');
+    },//加息劵规则
+    RuleVoucher = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/voucher/rule').default);
+        }, 'RuleVoucher');
+    },//抵用劵规则
+    FinancialIndex = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/home/').default);
+        }, 'FinancialIndex');
+    },//TODO
+    FeedbackIndex = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/feedback').default);
+        }, 'FeedbackIndex');
+    },//意见反馈
+    Withdrawals = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/balance/cash/index').default);
+        }, 'Withdrawals');
+    },//TODO 提现页面
+    CashSuccess = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/balance/success').default);
+        }, 'CashSuccess');
+    },//TODO 提现申请成功
+    Privacy = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/passport/agreement/privacy').default);
+        }, 'Privacy');
+    },//安全隐私条例
+    Service = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/passport/agreement/service').default);
+        }, 'Service');
+    },//宝点网服务协议
+    ShopCenterRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/shopCenter/rule').default);
+        }, 'ShopCenterRule');
+    },//点币使用规则
+    SecurityCardChangeApply = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/securityCard/changeApply').default);
+        }, 'SecurityCardChangeApply');
+    },//更换安全卡申请页面
+    SiteList = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/site/list/index').default);
+        }, 'SiteList');
+    },//收货地址列表
+    SiteAdd = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/site/add/index').default);
+        }, 'SiteAdd');
+    },//收货地址新增
+    SiteEdit = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/site/edit/index').default);
+        }, 'SiteEdit');
+    }//收货地址编辑
 
-
+/****我的相关****/
+export const Detail = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../pages/my/assetStatistics/balance/mine/index').default);
+    }, 'Detail');
+    },//TODO 我的余额
+    Verify = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/balance/charge/recharge.js').default);
+        }, 'Verify');
+    },//充值身份验证
+    Creditors = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/creditors/mine/index').default);
+        }, 'Creditors');
+    },//我的债权转让
+    CreditorsRecords = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/creditors/records/index').default);
+        }, 'CreditorsRecords');
+    },//我的零钱宝
+    MyDemandIndex = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/demand/mine/index').default);
+        }, 'MyDemandIndex');
+    },//我的零钱宝记录
+    MyDemandRecords = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/demand/records/index').default);
+        }, 'MyDemandRecords');
+    },//我的零钱宝赎回记录
+    DemandReddem = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/demand/reddem/index').default);
+        }, 'DemandReddem');
+    },//零钱宝赎回
+    ReddemSuccese = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/demand/redemptionRequest/index').default);
+        }, 'ReddemSuccese');
+    },//零钱宝成功
+    CreditorRights = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/creditorRights/index').default);
+        }, 'CreditorRights');
+    },//债权资产详情
+    HistoryRecord = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/historyRecord/index').default);
+        }, 'HistoryRecord');
+    },//历史记录资产详情
+    About = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/about/index').default);
+        }, 'About');
+    },//关于我们
+    VersionInfo = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/versionInfo/index').default);
+        }, 'VersionInfo');
+    },//版本介绍
+    PastAccrule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/interestRate/overdue/index').default);
+        }, 'PastAccrule');
+    },//过期加息券
+    CoinsRecord = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/records/index').default);
+        }, 'CoinsRecord');
+    },//点币获得记录
+    ExchangeList = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/exchangeList/index').default);
+        }, 'ExchangeList');
+    },//点币兑换记录
+    CoinsRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/rules/index').default);
+        }, 'CoinsRule');
+    },//点币规则
+    TrueExchangeConfirm = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/trueExchangeConfirm/index').default);
+        }, 'TrueExchangeConfirm');
+    },//确认兑换
+    ActiveConfirm = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/activeConfirm').default);
+        }, 'ActiveConfirm');
+    },//TODO 确认兑换
+    ExchangeSuccess = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/exchangeSuccess/index').default);
+        }, 'ExchangeSuccess');
+    },//兑换成功
+    ExchangeFail = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/coin/exchangeFail/index').default);
+        }, 'ExchangeFail');
+    },//兑换失败
+    Vouchers = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/voucher/myVouchers/index').default);
+        }, 'Vouchers');
+    },//抵用券
+    VouchersPast = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/voucher/overdue/index').default);
+        }, 'VouchersPast');
+    },//过期抵用券
+    FinanciaIndex = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/financialManagement/index/index').default);
+        }, 'FinanciaIndex');
+    },//我的理财金
+    FinanciaRecords = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/financialManagement/records/index').default);
+        }, 'FinanciaRecords');
+    },//理财记录
+    RedPacket = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/bonus/myBonuses/index').default);
+        }, 'RedPacket');
+    },//红包
+    RedPacketRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/bonus/myBonuses/rule').default);
+        }, 'RedPacketRule');
+    },//红包规则
+    SecurityCard = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/setting/securityCard/index').default);
+        }, 'SecurityCard');
+    },//安全卡
+    AutoBuy = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/autoBid/index').default);
+        }, 'AutoBuy');
+    },//自动投标
+    AutoBuyRule = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/autoBid/rule').default);
+        }, 'AutoBuyRule');
+    }//自动投标规则
