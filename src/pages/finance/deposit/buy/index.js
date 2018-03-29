@@ -327,7 +327,6 @@ class DepositBuy extends React.Component {
        if (this.props.params.id==5&&coupon){
            coupon.id=''
        }
-       console.log(this.refs.payProcess.state)
        if (this.refs.payProcess.state.chosen==1){
            this.depositBuy();
        }else {

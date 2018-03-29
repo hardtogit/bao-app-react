@@ -15,66 +15,6 @@ import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
 import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO} from './actions/actionTypes'
-
-
-import RelatedProjects from './pages/finance/demand/relatedProjects'
-import DemandInvestFail from './pages/finance/demand/investFail'
-import DemandRedeem from './pages/finance/demand/redeem'
-import DemandBuy from './pages/finance/demand/buy'
-import DemandProduct from './pages/finance/demand/product'
-import DirectInvestSuccess from './pages/finance/directInvest/inviteSuccess'
-import DirectContract from './pages/finance/directInvest/directProductContract.js'
-import CreditorList from './pages/finance/creditors/index/'
-import CreditorDetail from './pages/finance/creditors/product/index.js'
-import CreditorBuy from './pages/finance/creditors/buy/index.js'
-import CreditorProtocol from './pages/finance/creditors/protocol/'
-import CreditorInvestSuccess from './pages/finance/creditors/investSuccess/'
-import ChangePayPwd from './pages/user/changePayPwd/index'
-import PayWeb from './pages/finance/payWeb'
-import DepositInvestSuccess from './pages/finance/deposit/investSuccess'
-
-import CheckPhone from './pages/user/checkPhone/';
-import ChangeLoginPwd from './pages/user/changeLoginPwd/';
-import ChangeUserName from './pages/user/changeUserName/';
-
-/*************************************************我的*****************************************************/
-// import Detail from './pages/my/assetStatistics/balance/mine/index' /*我的余额*/
-// import Verify from './pages/my/assetStatistics/balance/charge/recharge.js' /*充值身份验证*/
-// import Creditors from './pages/my/assetStatistics/creditors/mine/index' /*我的债权转让*/
-// import CreditorsRecords from './pages/my/assetStatistics/creditors/records/index' /*我的债权记录*/
-// import MyDemandIndex from './pages/my/assetStatistics/demand/mine/index' /*我的零钱宝*/
-// import MyDemandRecords from './pages/my/assetStatistics/demand/records/index' /*我的零钱宝记录*/
-// import DemandReddem from './pages/my/assetStatistics/demand/reddem/index' /*零钱宝赎回*/
-// import reddemSuccese from './pages/my/assetStatistics/demand/redemptionRequest/index' /*零钱宝成功*/
-// import CreditorRights from './pages/my/assetStatistics/directInvest/creditorRights/index' /*债权资产详情*/
-// import HistoryRecord from './pages/my/assetStatistics/directInvest/historyRecord/index' /*历史记录资产详情*/
-// import About from './pages/my/setting/about/index' //关于我们
-// import VersionInfo from './pages/my/setting/versionInfo/index'//版本介绍
-// import pastAccrule from './pages/my/interestRate/overdue/index' /*过期加息券*/
-// import CoinsRecord from './pages/my/coin/records/index' /*点币获得记录*/
-// import ExchangeList from './pages/my/coin/exchangeList/index' /*点币兑换记录*/
-// import CoinsRule from './pages/my/coin/rules/index' /*点币规则*/
-// import trueExchangeConfirm from './pages/my/coin/trueExchangeConfirm/index' /*确认兑换*/
-// import activeConfirm from './pages/my/coin/activeConfirm'
-// import ExchangeSuccess from './pages/my/coin/exchangeSuccess/index' /*兑换成功*/
-// import ExchangeFail from './pages/my/coin/exchangeFail/index' /*兑换失败*/
-// import Vouchers from './pages/my/voucher/myVouchers/index' /*抵用券*/
-// import VouchersPast from './pages/my/voucher/overdue/index' /*过期抵用券*/
-// import financiaIndex from './pages/my/assetStatistics/financialManagement/index/index' /*我的理财金*/
-// import financiaRecords from './pages/my/assetStatistics/financialManagement/records/index' /*理财记录*/
-// import redPacket from './pages/my/bonus/myBonuses/index' /*红包*/
-// import redPacketRule from './pages/my/bonus/myBonuses/rule' /*红包*/
-// import securityCard from './pages/my/setting/securityCard/index' /*安全卡*/
-// import securityCardChangeApply from './pages/my/setting/securityCard/changeApply' /*更换安全卡申请页面*/
-// import siteList from './pages/my/setting/site/list/index'//收货地址列表
-// import siteAdd from './pages/my/setting/site/add/index'//收货地址新增
-// import siteEdit from './pages/my/setting/site/edit/index'//收货地址编辑
-// import autoBuy from './pages/my/assetStatistics/directInvest/autoBid/index'//自动投标
-// import autoBuyRule from './pages/my/assetStatistics/directInvest/autoBid/rule'//自动投标规则
-/*******************************************************************************************************/
-
-
-
 import ProductList from './pages/active/productList'//无用
 // 主页
 import homeIndex from './pages/home/index'//首页
@@ -83,7 +23,6 @@ import findIndex from './pages/find'
 // 我的模块
 import choicePoint from './pages/my/setting/choicePoint'
 import choiceBank from './pages/my/setting/choiceBank'
-
 import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecords,GuaList,GoodsDetail,ShopCenter,SecurityPlan,ZqSecurityPlan,
 ProductInfo, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,FridayActivity,
 AddAccrualIndex,CoinShop,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
@@ -104,8 +43,8 @@ import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,Use
     CashSuccess, Privacy, Service ,ShopCenterRule,SecurityCardChangeApply,SiteList,SiteAdd,SiteEdit,
     Detail,Verify,Creditors,CreditorsRecords,MyDemandIndex,MyDemandRecords,DemandReddem,ReddemSuccese,CreditorRights,HistoryRecord,About,
     VersionInfo,PastAccrule,CoinsRecord,ExchangeList,CoinsRule,TrueExchangeConfirm,ActiveConfirm,ExchangeSuccess,ExchangeFail,
-    Vouchers,VouchersPast,FinanciaIndex,FinanciaRecords,RedPacket,RedPacketRule,SecurityCard,AutoBuy,AutoBuyRule
-
+    Vouchers,VouchersPast,FinanciaIndex,FinanciaRecords,RedPacket,RedPacketRule,SecurityCard,AutoBuy,AutoBuyRule,
+    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd
 }from "./loadTool/mine"
 /****find****/
 import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,
@@ -116,11 +55,12 @@ import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,
 /****product****/
 import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
     GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,DirectBuyOld,DepositDetails,
-    PlanDetails,ZqTransfer
+    PlanDetails,ZqTransfer,
+    DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
+    CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct
 } from './loadTool/product'
 import{IndexTab
 } from './loadTool/index'
-
 // 工厂方法创建saga中间件
 // const a=window.location.href.split('.')[1]+'.cn';
 // document.domain = a;
@@ -132,7 +72,6 @@ const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
 ))
 // 启动rootsaga
 sagaMiddleware.run(rootSaga)
-
 // 应用初始化时即请求全局数据
 store.dispatch({type: RATE})
 store.dispatch({type: USER_INFO,lx:'init'});
@@ -144,28 +83,26 @@ const history = syncHistoryWithStore(browserHistory, store)
 export default class App extends React.Component {
     render() {
         return (
-            <Provider store={store}>
-
-        <Router history={history}>
+         <Provider store={store}>
+         <Router history={history}>
           <Route path="/" component={PageTransition}>
               <Route path="successTemplate" getComponent={SuccessTemplate}></Route>
               <Route path="dangerContract" getComponent={DangerContract}></Route>
               <Route path="serviceContract/:id/:type" getComponent={ServiceContract}></Route>
               <Route path="borrowContract/:id/:type" getComponent={BorrowContract}></Route>
               <Route path="storeContract" getComponent={StoreContract}></Route>
-
               <IndexRedirect to="home" />
-              <Route path="home" getComponents={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
+              <Route path="home" getComponent={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>
                   <Route path='productIndex' component={ProductIndex}/>
                   <Route path='findIndex' component={FindHome}/>
                   <Route path='myIndex' component={MyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
               </Route>
               <Route path='/productList' component={ProductList}/>
-              <Route path="user" getComponents={User} >
-                  <Route path="preheat" getComponents={Preheat}></Route>
-                  <Route path="preheatConfirm/:id" getComponents={PreheatConfirm} ></Route>
-                  <Route path='active' getComponents={Active} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
+              <Route path="user" getComponent={User} >
+                  <Route path="preheat" getComponent={Preheat}></Route>
+                  <Route path="preheatConfirm/:id" getComponent={PreheatConfirm} ></Route>
+                  <Route path='active' getComponent={Active} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path='analysis' component={Analysis} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产分析*/
                   <Route path="calendar(/:year(/:month))" component={Calendar} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历*/
                   <Route path="calendarMonths/:year/:month" component={CalendarMonths} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*回款日历日期选择*/
@@ -197,78 +134,78 @@ export default class App extends React.Component {
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/
                   <Route path='projectRecorde' component={ProjectRecorde} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*直投记录*/
                   <Route path='zqTransferRule' component={ZqTransferRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='zqTransfer/:id' getComponents={ZqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='zqTransfer/:id' getComponent={ZqTransfer} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="detailDcb/:id" component={DetailsDc} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="detailsDcb/:id/:type" component={DetailsDcb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="propertyDetail/:id" component={PropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*资产详情*/
-                  <Route path='creditorRights/:id' getComponents={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
-                  <Route path='historyRecord/:id' getComponents={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
-                  <Route path="zq" getComponents={Creditors} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权*/
+                  <Route path='creditorRights/:id' getComponent={CreditorRights} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*债权资产详情*/
+                  <Route path='historyRecord/:id' getComponent={HistoryRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>
+                  <Route path="zq" getComponent={Creditors} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权*/
                   <Route path='zqPropertyDetail/:id' component={ZqPropertyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="ztRecords" getComponents={CreditorsRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权记录*/
-                  <Route path="MyDemandIndex" getComponents={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
-                  <Route path="redPacket" getComponents={RedPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
-                  <Route path="redPacketRule" getComponents={RedPacketRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
+                  <Route path="ztRecords" getComponent={CreditorsRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的债权记录*/
+                  <Route path="MyDemandIndex" getComponent={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
+                  <Route path="redPacket" getComponent={RedPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
+                  <Route path="redPacketRule" getComponent={RedPacketRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
                   <Route path="addRate" component={AddAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
-                  <Route path="addRateUsed" getComponents={PastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
+                  <Route path="addRateUsed" getComponent={PastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
                   <Route path="scratchesCard" component={ScratchesCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
                   <Route path="fridayActivity" component={FridayActivity} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
-                  <Route path="fridayActivityRule" getComponents={FridayActivityRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
+                  <Route path="fridayActivityRule" getComponent={FridayActivityRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/
                   <Route path='guaguaList' component={GuaList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="scratchesRule" getComponents={ScratchesRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*刮刮卡规则*/
-                  <Route path="vouchers" getComponents={Vouchers} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的抵用券*/
-                  <Route path="vouchersPast" getComponents={VouchersPast} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期抵用券*/
+                  <Route path="scratchesRule" getComponent={ScratchesRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*刮刮卡规则*/
+                  <Route path="vouchers" getComponent={Vouchers} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的抵用券*/
+                  <Route path="vouchersPast" getComponent={VouchersPast} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期抵用券*/
                   <Route path="coinShop" component={CoinShop} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币*/
-                  <Route path="coinsRecord" getComponents={CoinsRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币记录*/
-                  <Route path="coinsRule" getComponents={CoinsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币规则*/
+                  <Route path="coinsRecord" getComponent={CoinsRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币记录*/
+                  <Route path="coinsRule" getComponent={CoinsRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的点币规则*/
                   <Route path="goodsDetail/:id" component={GoodsDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币兑换商品详情页*/
                   <Route path="shopCenter" component={ShopCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城中心*/
-                  <Route path='shopCenterRule' getComponents={ShopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="activeConfirm" getComponents={ActiveConfirm}/>/*点币商城确认兑换*/
-                  <Route path="exchangeList" getComponents={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
-                  <Route path="trueExchangeConfirm/:id" getComponents={TrueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
-                  <Route path="exchangeSuccess" getComponents={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
-                  <Route path="exchangeFail" getComponents={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
-                  <Route path='ruleRate' getComponents={RuleRate} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*加息规则*/
-                  <Route path='ruleVoucher' getComponents={RuleVoucher} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*抵用券规则*/
-                  <Route path="cash" getComponents={Cash} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现页面*/
+                  <Route path='shopCenterRule' getComponent={ShopCenterRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="activeConfirm" getComponent={ActiveConfirm}/>/*点币商城确认兑换*/
+                  <Route path="exchangeList" getComponent={ExchangeList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换记录*/
+                  <Route path="trueExchangeConfirm/:id" getComponent={TrueExchangeConfirm} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城确认兑换*/
+                  <Route path="exchangeSuccess" getComponent={ExchangeSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换成功*/
+                  <Route path="exchangeFail" getComponent={ExchangeFail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>/*点币商城兑换失败*/
+                  <Route path='ruleRate' getComponent={RuleRate} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*加息规则*/
+                  <Route path='ruleVoucher' getComponent={RuleVoucher} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/> /*抵用券规则*/
+                  <Route path="cash" getComponent={Cash} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现页面*/
                   <Route path="choiceMyCard" getComponent={ChoiceMyCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*提现选择银行卡*/
                   <Route path="autoBuy" getComponent={AutoBuyIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
-                  <Route path="autoBuyRule" getComponents={AutoBuyRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
+                  <Route path="autoBuyRule" getComponent={AutoBuyRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*自动投标*/
                   /*设置界面*/
-                  <Route path="setting" getComponents={Setting} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="setting" getComponent={Setting} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   /*已完成*/
                   <Route path="MyDemandRecords" component={MyDemandRecords}></Route>  /* 零钱宝记录*/
-                  <Route path="demandReddem" getComponents={DemandReddem}></Route>/*零钱宝赎回*/
-                  <Route path='reddemSuccese' getComponents={ReddemSuccese}/> /*零钱宝赎回成功*/
-                  <Route path="setting/securityCenter" getComponents={SecurityCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 安全中心*/
-                  <Route path="setting/about" getComponents={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*关于*/
-                  <Route path="setting/versionInfo" getComponents={VersionInfo}></Route>/*版本介绍*/
-                  <Route path="setting/problems" getComponents={Problems} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*常见问题*/
-                  <Route path="setting/usernameModify" getComponents={UserNameModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 修改用户名*/
-                  <Route path="setting/securityCard" getComponents={SecurityCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /* 安全卡*/
-                  <Route path="setting/securityCardChangeApply" getComponents={SecurityCardChangeApply}></Route> /* 安全卡申请页面*/
-                  <Route path='setting/bankcardAdd' getComponents={BankcardAddIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*添加银行卡*/
-                  <Route path="setting/mobileBindModify" getComponents={MobileBindModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改绑定手机*/
-                  <Route path="setting/loginPasswordModify" getComponents={LoginPasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改密码*/
-                  <Route path="setting/tradePasswordSet" getComponents={TradePasswordSet} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置交易密码*/
-                  <Route path="setting/tradePasswordForget" getComponents={TradePasswordForget} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*忘记交易密码*/
-                  <Route path="setting/tradePasswordForget/verifyMobile" getComponents={TradePasswordForgetVerifyMobile} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机*/
-                  <Route path="setting/tradePasswordForget/new" getComponents={TradePasswordNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置新交易密码 */
-                  <Route path="setting/tradePasswordModify" getComponents={TradePasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改交易密码*/
-                  <Route path="setting/mobileBindModify/new" getComponents={MobileBindNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定新手机*/
-                  <Route path="setting/mobileBind" getComponents={MobileBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*手机号码*/
-                  <Route path="setting/identityAuth" getComponents={IdentityAuth} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份认证*/
-                  <Route path="setting/siteList" getComponents={SiteList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址列表*/
-                  <Route path="setting/siteAdd" getComponents={SiteAdd} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址新增*/
-                  <Route path="setting/siteEdit" getComponents={SiteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
-                  <Route path="setting/regStore" getComponents={NewRegStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
-                  <Route path="setting/authorization" getComponents={Authorization} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
-                  <Route path="setting/bankPage" getComponents={BankPage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
-                  <Route path="setting/regSToreSuccess" getComponents={RegStoreSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存管成功*/
-                  <Route path="setting/cardBind" getComponents={CardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
-                  <Route path="setting/bindSuccess" getComponents={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
-                  <Route path="setting/verifyPhone" getComponents={VerifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
+                  <Route path="demandReddem" getComponent={DemandReddem}></Route>/*零钱宝赎回*/
+                  <Route path='reddemSuccese' getComponent={ReddemSuccese}/> /*零钱宝赎回成功*/
+                  <Route path="setting/securityCenter" getComponent={SecurityCenter} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 安全中心*/
+                  <Route path="setting/about" getComponent={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*关于*/
+                  <Route path="setting/versionInfo" getComponent={VersionInfo}></Route>/*版本介绍*/
+                  <Route path="setting/problems" getComponent={Problems} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*常见问题*/
+                  <Route path="setting/usernameModify" getComponent={UserNameModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/* 修改用户名*/
+                  <Route path="setting/securityCard" getComponent={SecurityCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /* 安全卡*/
+                  <Route path="setting/securityCardChangeApply" getComponent={SecurityCardChangeApply}></Route> /* 安全卡申请页面*/
+                  <Route path='setting/bankcardAdd' getComponent={BankcardAddIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route> /*添加银行卡*/
+                  <Route path="setting/mobileBindModify" getComponent={MobileBindModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改绑定手机*/
+                  <Route path="setting/loginPasswordModify" getComponent={LoginPasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改密码*/
+                  <Route path="setting/tradePasswordSet" getComponent={TradePasswordSet} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置交易密码*/
+                  <Route path="setting/tradePasswordForget" getComponent={TradePasswordForget} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*忘记交易密码*/
+                  <Route path="setting/tradePasswordForget/verifyMobile" getComponent={TradePasswordForgetVerifyMobile} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机*/
+                  <Route path="setting/tradePasswordForget/new" getComponent={TradePasswordNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*设置新交易密码 */
+                  <Route path="setting/tradePasswordModify" getComponent={TradePasswordModify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*修改交易密码*/
+                  <Route path="setting/mobileBindModify/new" getComponent={MobileBindNew} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定新手机*/
+                  <Route path="setting/mobileBind" getComponent={MobileBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*手机号码*/
+                  <Route path="setting/identityAuth" getComponent={IdentityAuth} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份认证*/
+                  <Route path="setting/siteList" getComponent={SiteList} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址列表*/
+                  <Route path="setting/siteAdd" getComponent={SiteAdd} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址新增*/
+                  <Route path="setting/siteEdit" getComponent={SiteEdit} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*收货地址编辑*/
+                  <Route path="setting/regStore" getComponent={NewRegStore} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
+                  <Route path="setting/authorization" getComponent={Authorization} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
+                  <Route path="setting/bankPage" getComponent={BankPage} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存储*/
+                  <Route path="setting/regSToreSuccess" getComponent={RegStoreSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*注册存管成功*/
+                  <Route path="setting/cardBind" getComponent={CardBind} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/bindSuccess" getComponent={BindSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*绑定银行卡*/
+                  <Route path="setting/verifyPhone" getComponent={VerifyPhone} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*验证手机号*/
                   <Route path="setting/choiceBank" component={choiceBank} ></Route>/*选择开户行*/
                   <Route path="setting/choicePoint" component={choicePoint} ></Route>/*选择网点*/
                   <Route path="setting/myBankCard" getComponent={MyBankCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的银行卡*/
@@ -277,15 +214,15 @@ export default class App extends React.Component {
                   <Route path="setting/riskEvaluationQuestion" getComponent={RiskEvaluationQuestion}></Route>/*风险测评*/
                   /*已完成*/
 
-                  <Route path='cashsuccess' getComponents={CashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='withdrawals' getComponents={Withdrawals} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='withdrawalsOld' getComponents={CashOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='cashMain' getComponents={CashMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='cashLog/:type' getComponents={CashLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path='cashRule' getComponents={CashRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="setting/feedback" getComponents={FeedbackIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*意见反馈*/
+                  <Route path='cashsuccess' getComponent={CashSuccess} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='withdrawals' getComponent={Withdrawals} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='withdrawalsOld' getComponent={CashOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashMain' getComponent={CashMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashLog/:type' getComponent={CashLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path='cashRule' getComponent={CashRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="setting/feedback" getComponent={FeedbackIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*意见反馈*/
 
-                   <Route path="setting/Detail" getComponents={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                   <Route path="setting/Detail" getComponent={Detail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                    <Route path="setting/about" component={About} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                    <Route path='productInfo/:id' component={ProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}/>   /*直投产品信息*/
                   <Route path='zqProductInfo/:id' component={ZqProductInfo} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -294,33 +231,33 @@ export default class App extends React.Component {
               </Route>
               /*发现*/
               <Route path='find' component={findIndex}>
-                  <Route path="notify" getComponents={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="shoppingMall" getComponents={ShoppingMall}></Route>
-                  <Route path="shoppingMall/productList" getComponents={ShopProductList}></Route>
-                  <Route path="shoppingMall/shopHistoryRecord" getComponents={ShopHistoryRecord}></Route>
-                  <Route path="shoppingMall/shopMessage" getComponents={ShopMessage}></Route>
-                  <Route path="shoppingMall/shopMessageDetail/:id" getComponents={ShopMessageDetail}></Route>
-                  <Route path="shoppingMall/cashDetail/:id" getComponents={CashDetail}></Route>
-                  <Route path="memberCenter" getComponents={MemberCenter}></Route>
-                  <Route path="moreBasic" getComponents={MoreBasic}></Route>
-                  <Route path="help" getComponents={Help}></Route>
-                  <Route path="ticketRule" getComponents={TicketRule}></Route>
-                  <Route path="rateTicketRule/:id" getComponents={RateTicketRule}></Route>
-                  <Route path="ticketDetail" getComponents={TicketDetail}></Route>
-                  <Route path="hotActivity" getComponents={HotActivity}></Route>
-                  <Route path="address" getComponents={Address}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="editAddress" getComponents={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="addAddress" getComponents={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="basicPrivaligeDetail" getComponents={BasicPrivaligeDetail}></Route>
-                  <Route path="overallRule" getComponents={OverallRule}></Route>
-                  <Route path="productDetail/:id" getComponents={ProductDetail} ></Route>
-                  <Route path="productCash/:product_id/:num" getComponents={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteFriends" getComponents={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messages" getComponents={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteParticulars" getComponents={InviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="inviteRule" getComponents={InviteRule}></Route>
-                  <Route path="announcement" getComponents={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-                  <Route path="messagedetail" getComponents={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="notify" getComponent={FindNotify} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="shoppingMall" getComponent={ShoppingMall}></Route>
+                  <Route path="shoppingMall/productList" getComponent={ShopProductList}></Route>
+                  <Route path="shoppingMall/shopHistoryRecord" getComponent={ShopHistoryRecord}></Route>
+                  <Route path="shoppingMall/shopMessage" getComponent={ShopMessage}></Route>
+                  <Route path="shoppingMall/shopMessageDetail/:id" getComponent={ShopMessageDetail}></Route>
+                  <Route path="shoppingMall/cashDetail/:id" getComponent={CashDetail}></Route>
+                  <Route path="memberCenter" getComponent={MemberCenter}></Route>
+                  <Route path="moreBasic" getComponent={MoreBasic}></Route>
+                  <Route path="help" getComponent={Help}></Route>
+                  <Route path="ticketRule" getComponent={TicketRule}></Route>
+                  <Route path="rateTicketRule/:id" getComponent={RateTicketRule}></Route>
+                  <Route path="ticketDetail" getComponent={TicketDetail}></Route>
+                  <Route path="hotActivity" getComponent={HotActivity}></Route>
+                  <Route path="address" getComponent={Address}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="editAddress" getComponent={EditAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="addAddress" getComponent={AddAddress}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="basicPrivaligeDetail" getComponent={BasicPrivaligeDetail}></Route>
+                  <Route path="overallRule" getComponent={OverallRule}></Route>
+                  <Route path="productDetail/:id" getComponent={ProductDetail} ></Route>
+                  <Route path="productCash/:product_id/:num" getComponent={ProductCash}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteFriends" getComponent={InviteFriends} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messages" getComponent={Messages}  onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteParticulars" getComponent={InviteParticulars} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="inviteRule" getComponent={InviteRule}></Route>
+                  <Route path="announcement" getComponent={AnnounceMent} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+                  <Route path="messagedetail" getComponent={MessageDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
               </Route>
 
               /*已完成*/
@@ -328,8 +265,8 @@ export default class App extends React.Component {
               <Route path='weChat' component={WeChat}></Route>
               <Route path="register" component={Register}></Route>
               <Route path="registerVerifyMobile" component={RegisterVerifyMobile}></Route>
-              <Route path='privacy' getComponents={Privacy}></Route>
-              <Route path='service' getComponents={Service}></Route>
+              <Route path='privacy' getComponent={Privacy}></Route>
+              <Route path='service' getComponent={Service}></Route>
               <Route path="registerSuccess"  component={RegisterSuccess} />
               <Route path="registerSetPassword" component={RegisterSetPassword}></Route>
               <Route path="findpassword" component={Findpassword}></Route>
@@ -337,11 +274,11 @@ export default class App extends React.Component {
               /*已完成*/
 
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="demand-related-projects/:id/:type" component={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="demand-invest-fail" component={DemandInvestFail}></Route>
-            <Route path="demand-redeem" component={DemandRedeem}></Route>
-            <Route path="demand-buy" component={DemandBuy}></Route>
-            <Route path="demand-product" component={DemandProduct}></Route>
+            <Route path="demand-related-projects/:id/:type" getComponent={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="demand-invest-fail" getComponent={DemandInvestFail}></Route>
+            <Route path="demand-redeem" getComponent={DemandRedeem}></Route>
+            <Route path="demand-buy" getComponent={DemandBuy}></Route>
+            <Route path="demand-product" getComponent={DemandProduct}></Route>
             <Route path="deposit-product(/:id/:type/:productId)" component={DepositProduct} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherMain(/:productId/:type)" component={GatherMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherDetail(/:name/:month)" getComponent={GatherDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
@@ -353,39 +290,34 @@ export default class App extends React.Component {
             <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBuy(/:productId/:id)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path="depositInvestSuccess/:type" component={DepositInvestSuccess}></Route>
+            <Route path="depositInvestSuccess/:type" getComponent={DepositInvestSuccess}></Route>
             <Route path="depositInvestSuccessOld/:type" getComponent={DepositInvestSuccessOld}></Route>
             <Route path="directInvestDetails/:id" component={DirectInvestDetails}></Route>
             <Route path="directBuy(/:id(/:month))" component={DirectBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="directBuyOld(/:id(/:month))" getComponent={DirectBuyOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
-            <Route path="directInvestSuccess/:money" component={DirectInvestSuccess}></Route>
-            <Route path="directContract" component={DirectContract}></Route>
-            <Route path="creditorList" component={CreditorList}></Route>
-            <Route path="creditorDetail/:id" component={CreditorDetail}></Route>
-            <Route path="creditorBuy/:id" component={CreditorBuy}></Route>
+            <Route path="directInvestSuccess/:money" getComponent={DirectInvestSuccess}></Route>
+            <Route path="directContract" getComponent={DirectContract}></Route>
+            <Route path="creditorList" getComponent={CreditorList}></Route>
+            <Route path="creditorDetail/:id" getComponent={CreditorDetail}></Route>
+            <Route path="creditorBuy/:id" getComponent={CreditorBuy}></Route>
             <Route path="creditorBuyOld/:id" getComponent={CreditorBuyOld}></Route>
-            <Route path="creditorProtocol" component={CreditorProtocol}></Route>
-            <Route path="creditorInvestSuccess/:type" component={CreditorInvestSuccess}></Route>
-            <Route path="ChangePayPwd" component={ChangePayPwd}></Route>
-            <Route path="CheckPhone" component={CheckPhone}></Route>
-            <Route path="changeLoginPwd" component={ChangeLoginPwd}></Route>
-            <Route path="ChangeUserName" component={ChangeUserName}></Route>
-            <Route path="payWeb" component={PayWeb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
+            <Route path="creditorProtocol" getComponent={CreditorProtocol}></Route>
+            <Route path="creditorInvestSuccess/:type" getComponent={CreditorInvestSuccess}></Route>
+            <Route path="ChangePayPwd" getComponent={ChangePayPwd}></Route>
+            <Route path="CheckPhone" getComponent={CheckPhone}></Route>
+            <Route path="changeLoginPwd" getComponent={ChangeLoginPwd}></Route>
+            <Route path="ChangeUserName" getComponent={ChangeUserName}></Route>
+            <Route path="payWeb" getComponent={PayWeb} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositDetails" getComponent={DepositDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
-            <Route path="planDetails/:id/:type" getComponents={PlanDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
-            <Route path="Verify" getComponents={Verify}></Route>
-            <Route path="pastAccrule" getComponents={PastAccrule}></Route>
-
-            <Route path="financiaIndex" getComponents={FinanciaIndex}></Route>
-
-            <Route path="financiaRecords" getComponents={FinanciaRecords}></Route>
-            <Route path="invite" getComponents={InviteFriends}></Route>
-
-            <Route path='financialindex' getComponents={FinancialIndex}></Route>
-
+            <Route path="planDetails/:id/:type" getComponent={PlanDetails} onLeave={(next)=>{Auth.isOut(store,next)}}/>
+            <Route path="Verify" getComponent={Verify}></Route>
+            <Route path="pastAccrule" getComponent={PastAccrule}></Route>
+            <Route path="financiaIndex" getComponent={FinanciaIndex}></Route>
+            <Route path="financiaRecords" getComponent={FinanciaRecords}></Route>
+            <Route path="invite" getComponent={InviteFriends}></Route>
+            <Route path='financialindex' getComponent={FinancialIndex}></Route>
           </Route>
             <Redirect from='/*' to='/' />
         </Router>

@@ -386,4 +386,24 @@ export const Detail = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/my/assetStatistics/directInvest/autoBid/rule').default);
         }, 'AutoBuyRule');
-    }//自动投标规则
+    },//自动投标规则
+    CheckPhone = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/user/checkPhone').default);
+        }, 'CheckPhone');
+    },//验证原手机号
+    ChangeLoginPwd = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/user/changeLoginPwd').default);
+        }, 'ChangeLoginPwd');
+    },//修改登录密码
+    ChangeUserName = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/user/changeUserName').default);
+        }, 'ChangeUserName');
+    },//修改用户名
+    ChangePayPwd = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/user/changePayPwd/index').default);
+        }, 'ChangePayPwd');
+    }//TODO 修改交易密码

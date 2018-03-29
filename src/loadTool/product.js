@@ -65,6 +65,7 @@ export const  GatherDetail  = (location, cb) => {
             cb(null, require('../pages/my/assetStatistics/gather/gatherProjects').default);
         }, 'GatherProjects');
     }//我的聚点+项目详情
+
 /****直投****/
 export const  DirectBuyOld  = (location, cb) => {
     require.ensure([], require => {
@@ -80,10 +81,83 @@ export const  DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/finance/deposit/planDetails/index').default);
         }, 'PlanDetails');
-    }//更多详情
-/****债权转让****/
-export const ZqTransfer = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../pages/my/assetStatistics/directInvest/zqTransfer').default);
-    }, 'ZqTransfer');
-}//TODO 债权转让
+    },//更多详情
+    DirectInvestSuccess  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/directInvest/inviteSuccess').default);
+        }, 'DirectInvestSuccess');
+    },//TODO 投资成功
+    DirectContract = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/directInvest/directProductContract.js').default);
+        }, 'DirectContract');
+    },//直投合同
+    PayWeb  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/payWeb').default);
+        }, 'PayWeb');
+    },//TODO 支付
+    DepositInvestSuccess  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/investSuccess').default);
+        }, 'DepositInvestSuccess');
+    }//TODO 投资成功
+    /****债权转让****/
+    export const ZqTransfer = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/zqTransfer').default);
+        }, 'ZqTransfer');
+    },//TODO 债权转让
+    CreditorList = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/creditors/index').default);
+        }, 'CreditorList');
+    },//债权转让列表
+    CreditorDetail = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/creditors/product').default);
+        }, 'CreditorDetail');
+    },//债权转让详情
+    CreditorBuy = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/creditors/buy').default);
+        }, 'CreditorBuy');
+    },//债权转让购买
+    CreditorProtocol = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/creditors/investSuccess').default);
+        }, 'CreditorProtocol');
+    },//TODO 投资成功
+    CreditorInvestSuccess = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/zqTransfer').default);
+        }, 'CreditorInvestSuccess');
+    }
+//TODO
+/****老的零钱宝****/
+    export const RelatedProjects = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/demand/relatedProjects').default);
+        }, 'RelatedProjects');
+    },//涉及项目
+    DemandInvestFail = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/demand/investFail').default);
+        }, 'DemandInvestFail');
+    },// TODO 投资失败
+    DemandRedeem = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/directInvest/zqTransfer').default);
+        }, 'DemandRedeem');
+    },//转让
+    DemandBuy = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/demand/redeem').default);
+        }, 'DemandBuy');
+    },//活期宝赎回
+    DemandProduct = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/demand/product').default);
+        }, 'DemandProduct');
+    }//零钱宝详情
+

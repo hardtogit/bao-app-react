@@ -14,7 +14,6 @@ class Index extends Component{
         this.state={time:1,flag:0}
     }
     componentWillReceiveProps(nextProps){
-        console.log('s')
         const{url,closeFn}=nextProps;
         if(url){
             this.refs.iframe.contentWindow.location.replace(url)
