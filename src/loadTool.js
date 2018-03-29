@@ -205,49 +205,7 @@ export const GatherDetail  = (location, cb) => {
             cb(null, require('./pages/user/choiceMyCard').default);
         }, 'ChoiceMyCard');
     },//我的银行卡
-    HotActivity  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/hotActivity').default);
-        }, 'HotActivity');
-    },//热门活动
 
-    Address  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/address').default);
-        }, 'Address');
-    },//地址
-    EditAddress  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/editAddress').default);
-        }, 'EditAddress');
-    },//编辑地址
-    AddAddress  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/addAddress').default);
-        }, 'AddAddress');
-    },//新增地址
-    ProductDetail  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/productDetail').default);
-        }, 'ProductDetail');
-    },//产品详情
-    ProductCash  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/productCash').default);
-        }, 'ProductCash');
-    },//产品兑换
-    //会员基础特权
-    BasicPrivaligeDetail  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/basicPrivaligeDetail').default);
-        }, 'BasicPrivaligeDetail');
-    },
-    //会员整体规则
-    OverallRule  = (location, cb) => {
-        require.ensure([], require => {
-            cb(null, require('./pages/find/overallRule').default);
-        }, 'OverallRule');
-    },
     //风险评测
     RiskEvaluation  = (location, cb) => {
         require.ensure([], require => {

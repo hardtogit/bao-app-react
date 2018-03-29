@@ -18,7 +18,6 @@ class Index extends Component{
         const {
             pop
         }=this.props;
-        console.log(data);
         return(
 
                 <div className={styles.messageContent}>
