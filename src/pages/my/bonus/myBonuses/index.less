@@ -1,0 +1,31 @@
+
+.container{
+  padding-top: 44px;
+}
+
+.tabList {
+  width: 100%;
+  flex-wrap: wrap-reverse;
+  background-color: rgb(247, 99, 96);
+  position: relative;
+  z-index: 99;
+  height: 50px;
+  justify-items:center;
+  .tab{
+    width: 50%;
+    float: left;
+    height: 50px;
+    text-align: center;
+    .cavOne{
+      color: #fff;
+      display: inline-block;
+      padding: 8px 0;
+      margin-top: 6px;
+      color: #f6f6f6;
+    }
+    &.active .cavOne{
+      border-bottom: 2px solid #fff;
+      color:#fff
+    }
+}
+}
