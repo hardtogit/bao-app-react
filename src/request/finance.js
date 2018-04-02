@@ -122,6 +122,8 @@ const requests = (Fetch) => {
   Fetch.openPacket=(data)=>{return Fetch('api/activity/un_redpacket','get',data)}//拆开投资后的红包
   Fetch.goBankPage=(data)=>{return Fetch('api/supervise/browser/requestUrl','POST',data)}//去往存管页面
   Fetch.authorizationText=(data)=>{return Fetch('api/common/settings?key=supervise_free_auth','GET',data)}//获取免密授权规则
+  Fetch.activeBonusList=(page,data)=>{return Fetch(`bonuse/list?page=${page}`,'GET',data)}//激活红包
+
 }
 
 export default requests

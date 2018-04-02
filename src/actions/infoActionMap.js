@@ -613,5 +613,7 @@ export default {
     },
     [actionTypes.AUTHORIZATION_TEXT]:{
         apiFn:Fetch.authorizationText
-    }
+    },
+
+
 }

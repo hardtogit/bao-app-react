@@ -173,5 +173,7 @@ export default {
     [actionTypes.GET_NOTICE_LIST]:{   //商城通知
         apiFn:Fetch.getNoticeList
     },
-
+    [actionTypes.ACTIVE_BONUS_LIST]:{ //激活红包列表
+        apiFn:Fetch.activeBonusList
+    },
 }
