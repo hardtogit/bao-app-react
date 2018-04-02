@@ -60,3 +60,4 @@ export const GET_NOTICE_LIST='GET_NOTICE_LIST'//商城通知
 export const GET_NOTICE_DETAIL='GET_NOTICE_DETAIL'//商城通知
 export const GET_PRIV_PROFIT='GET_PRIV_PROFIT'//商城通知
 export const GET_VIP_STR='GET_VIP_STR'//商城通知
+export const WISDOM_LIST='WISDOM_LIST'//聚点债转列表

@@ -173,5 +173,10 @@ export default {
     [actionTypes.GET_NOTICE_LIST]:{   //商城通知
         apiFn:Fetch.getNoticeList
     },
+    [actionTypes.WISDOM_LIST]:{
+        apiFn:Fetch.wisdomList
+    },
+
+
 
 }

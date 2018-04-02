@@ -107,6 +107,8 @@ const requests = (Fetch) => {
   Fetch.newCardBuy=(data)=>{return Fetch('api/supervise/account/rechargeInvestBid','POST',data)}//使用银行卡充值投标
   Fetch.gatherContract=(id)=>{return Fetch(`api/depositSupervise/contract/${id}`,'GET')}//聚点+合同
   Fetch.gatherServerContract=(id)=>{return Fetch(`api/depositSupervise/serviceContract/${id}`,'GET')}//聚点+服务计划合同
+  //聚点+债转
+  Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   //存管
   Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表

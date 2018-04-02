@@ -332,6 +332,8 @@ export const GATHER_BUY='GATHER_BUY'//聚点购买
 export const GATHER_CONTRACT='GATHER_CONTRACT' //聚点合同
 export const GATHER_SERVER_CONTRACT='GATHER_SERVER_CONTRACT'//聚点服务协议
 export const FREE_ACCREDIT='FREE_ACCREDIT'//自动授权
+//聚点债转
+export const WISDOM_LIST='WISDOM_LIST'//聚点债转列表
 
 
 export const DEPOSITBS_DETAILS='DEPOSITBS_DETAILS'
