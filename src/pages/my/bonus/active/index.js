@@ -26,7 +26,6 @@ class PackItem extends Component{
         })
     }
     componentDidMount(){
-        console.log(this.props.data)
      }
     render(){
         const {
@@ -157,7 +156,6 @@ class Index extends Component{
         const nlistData=listData('ACTIVE_BONUS_LIST'+index),
               npending=pending('ACTIVE_BONUS_LIST'+index),
               nend=end('ACTIVE_BONUS_LIST'+index);
-        console.log(nlistData)
         return(
            <div className={styles.container}>
                <div className={styles.tabs}>
@@ -169,7 +167,7 @@ class Index extends Component{
                    {
                        nlistData&&nlistData.map((item,i)=>{
                              return(
-                                 <PackItem type={index} push={push} key={i} data={item}>sss </PackItem>
+                                 <PackItem type={index} push={push} key={i} data={item}></PackItem>
                              )
 
                        })

@@ -25,15 +25,11 @@ class PackItem extends Component{
         })
     }
     componentDidMount(){
-        console.log(this.props.data)
      }
     render(){
-        const {
-            flag
-        }=this.state;
         const{
             data
-        }=this.props
+        }=this.props;
         return(
             <div className={styles.box}>
                 <div className={styles.up}>
@@ -60,7 +56,6 @@ class PackItem extends Component{
 
 }
 
-
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -70,7 +65,7 @@ class Index extends Component{
         };
     }
     static defaultProps = {//设置初始props
-    }
+    };
 
     componentWillUnmount(){
         this.props.clearData();
@@ -87,15 +82,11 @@ class Index extends Component{
             end
         }=this.props
         const Height=document.body.clientHeight-100;
-        const nlistData=listData('ACTIVE_BONUS_LIST'),
-              npending=pending('ACTIVE_BONUS_LIST'),
-              nend=end('ACTIVE_BONUS_LIST');
-        console.log(nlistData)
         return(
            <div className={styles.container}>
-               <Scorll ref='scroll' height={Height} fetch={()=>{getList({type:1,tabType:index})}} isLoading={npending} distance={20} endType={nend} >
+               <Scorll ref='scroll' height={Height} fetch={()=>{getList({type:1,tabType:index})}} isLoading={pending} distance={20} endType={end} >
                    {
-                       nlistData&&nlistData.map((item,i)=>{
+                       listData&&listData.map((item,i)=>{
                              return(
                                  <PackItem key={i} data={item}>sss </PackItem>
                              )
@@ -109,15 +100,9 @@ class Index extends Component{
     }
 }
 const mapStateToProps=(state)=>({
-    listData(key){
-        return state.listdata.getIn([key,'data'])
-    },
-    pending(key){
-        return state.listdata.getIn([key,'pending'])
-    },
-    end(key){
-        return state.listdata.getIn([key,'pageEnd'])
-    },
+    listData:state.listdata.getIn(['ACTIVE_BONUS_LIST','data']),
+    pending:state.listdata.getIn(['ACTIVE_BONUS_LIST','pending']),
+    end:state.listdata.getIn(['ACTIVE_BONUS_LIST','pageEnd'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
