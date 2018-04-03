@@ -57,7 +57,7 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
     GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,DirectBuyOld,DepositDetails,
     PlanDetails,ZqTransfer,
     DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
-    CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct
+    CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy
 } from './loadTool/product'
 import{IndexTab
 } from './loadTool/index'
@@ -272,7 +272,9 @@ export default class App extends React.Component {
               <Route path="findpassword" component={Findpassword}></Route>
               <Route path="findpasswordSetPassword" component={FindpasswordSetPassword}></Route>
               /*已完成*/
-
+             /*聚点债转*/
+            <Route path="wisdomMain(/:productId)" getComponent={WisdomMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="wisdomBuy(/:productId)" getComponent={WisdomBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-related-projects/:id/:type" getComponent={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-invest-fail" getComponent={DemandInvestFail}></Route>

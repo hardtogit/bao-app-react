@@ -613,5 +613,9 @@ export default {
     },
     [actionTypes.AUTHORIZATION_TEXT]:{
         apiFn:Fetch.authorizationText
+    },
+    [actionTypes.WISDOM_DETAIL]:{ //智享详情
+        apiFn:Fetch.wisdomDetail
     }
+
 }

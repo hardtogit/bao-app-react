@@ -109,6 +109,8 @@ const requests = (Fetch) => {
   Fetch.gatherServerContract=(id)=>{return Fetch(`api/depositSupervise/serviceContract/${id}`,'GET')}//聚点+服务计划合同
   //聚点+债转
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
+  Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
+
   //存管
   Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息
   Fetch.getMyCardList=()=>{return Fetch(`api/supervise/banks/bindList`,'GET')}//我的银行卡列表
