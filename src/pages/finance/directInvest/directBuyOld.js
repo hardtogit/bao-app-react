@@ -134,6 +134,7 @@ class DirectBuy extends React.Component {
                 num: this.state.quantity,
                 couponId: coupon && coupon.id || '',
                 borrowPwd: this.borrowPwd,
+                type:3,
                 device:'WAP',
                 access_sys:'platform'
                 },
