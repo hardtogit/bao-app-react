@@ -481,10 +481,10 @@ class FinancialIndex extends Component{
                 <div className={style.indexCav}>
                     <ul className={style.indexCavul}>
                         <li className={style.indexCavli}>
-                            <a href="https://www.bao.cn/special/gzbj/index.html">
+                            <a >
                  <span className={style.cavContent}>
                  <img src={gz} style={{width:"14px"}}/>
-                 <span>国资控股</span>
+                 <span>银行存管</span>
                  </span>
                             </a>
                         </li>
