@@ -17,7 +17,7 @@ class Index extends Component{
         }
     }
     static defaultProps = {//设置初始props
-    }
+    };
     componentWillMount(){
         //组件将要渲染时调用
     }
@@ -30,7 +30,6 @@ class Index extends Component{
     componentWillUnmount(){
         //组件将要被移除时调用
     }
-
     render(){
         const{
             pop
@@ -48,6 +47,10 @@ class Index extends Component{
                     <div className={styles.line}><div className={styles.label}>转让价格（元）</div><div className={styles.value}>29.00</div></div>
                     <div className={styles.line}><div className={styles.label}>预付利息（元）</div><div className={styles.value}>29.00</div></div>
                     <div className={styles.line}><div className={styles.label}>手续费（元）</div><div className={styles.value}>29.00</div></div>
+                </div>
+                <div className={styles.bar}>
+                    <div className={styles.left}>实际支付（元）</div>
+                    <div className={styles.right}>9900.00</div>
                 </div>
                 <div>
 
