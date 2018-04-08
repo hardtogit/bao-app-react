@@ -35,6 +35,12 @@ class Index extends Component{
     componentWillUnmount(){
         //组件将要被移除时调用
     }
+    handleClick=()=>{
+
+
+
+
+    }
     render(){
         const{
             pop
@@ -66,7 +72,8 @@ class Index extends Component{
                 </div>
                 <div className={styles.links}>我已阅读并同意签署 <Link to="">《借款合同》</Link><Link>《风险提示》</Link></div>
                 <div className={styles.btn}>
-                    <BaseButton text="确认支付" disable={} onClick={}></BaseButton>
+                    <BaseButton text="确认支付" disable={this.state.disable} onClick={this.handleClick} ></BaseButton>
+                    <LoadingButton text="处理中"></LoadingButton>
                 </div>
 
             </div>
@@ -78,6 +85,12 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
         dispatch(goBack())
+    },
+    getBuyData(id){
+        dispatch({
+                type:"WISDOM_BUY_DATA",
+                params:[id]
+        })
     }
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

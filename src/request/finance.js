@@ -110,6 +110,7 @@ const requests = (Fetch) => {
   //聚点+债转
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
+  Fetch.wisdomBuyData=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
 
   //存管
   Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息

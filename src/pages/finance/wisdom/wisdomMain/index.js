@@ -46,40 +46,6 @@ class GatherMain extends React.Component {
     loading(){
         return(<Loading/>)
     }
-    Timer=(monthN)=>{
-        const {
-            datas,
-            datasB,
-            params:{
-                id,
-                type
-            }
-        }=this.props;
-        let data=datas;
-        if (type=='B'){
-            data=datasB
-        }
-        const {
-            currentTime
-        }=data.data;
-        let startTime,
-            endTime,
-            time=new Date(parseInt(currentTime)*1000),
-            year=time.getFullYear(),
-            month=time.getMonth()+1,
-            date=time.getDate();
-        startTime=year+'年'+month+'月'+date+'日';
-        month=month+parseInt(monthN);
-        if (month>12){
-            month=month-12;
-            year=year+1;
-        }
-        endTime=year+'年'+month+'月'+date+'日';
-        return{
-            startTime,
-            endTime
-        }
-    }
     moneyFn=(rate,month)=>{
         let money=parseFloat(10000*rate/100*(month/12)).toString();
         if (money.indexOf('.')!=-1){
@@ -92,6 +58,7 @@ class GatherMain extends React.Component {
             data,
             push
         } = this.props;
+        console.log(data)
         let {
             id,
             rate,
@@ -100,19 +67,20 @@ class GatherMain extends React.Component {
             value_start_date,
             value_end_date,
             type,
+            interest,
             has_money,
             money,
-            price,
+            fee,
+            repayment_type,
+            totalMoney,
+            returnInterest,
+            repaymentDay,
             title,
             month
         }=data.data
         rate=parseFloat(rate).toFixed(2);
-        //const {
-        //    startTime,
-        //    endTime
-        //}=this.Timer(month,depositN);
         const textTz='锁定时间';
-        const bData=[{name:'起投金额',val:price},{name:textTz,val:month+'个月'}];
+        const bData=[{name:'转让金额',val:money},{name:"投资期限",val:month+'个月'}];
         let text='';
         let flag=true;
         if(buy_status==0){
@@ -133,8 +101,38 @@ class GatherMain extends React.Component {
         return(
             <div>
                 <Header rate={rate}  data={bData}/>
-                <div className={styles.timeBox}>
-                    <SimpleDepTime repayment="到期还本息" startTime={value_start_date} endTime={value_end_date} type={type}/>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.item}>
+                    <div className={styles.left}>预期收益：</div>
+                    <div className={styles.right}>{interest}</div>
+                </div>
+                <div className={styles.item}>
+                    <div className={styles.left}>转让金额：</div>
+                    <div className={styles.right}>{money}</div>
+                </div>
+                <div className={styles.item}>
+                    <div className={styles.left}>预付利息：</div>
+                    <div className={styles.right}>{returnInterest}</div>
+                </div>
+                <div className={styles.item}>
+                    <div className={styles.left}>手续费：</div>
+                    <div className={styles.right}>{fee}</div>
+                </div>
+                <div className={styles.item}>
+                    <div className={styles.left}>实际支付：</div>
+                    <div className={styles.right}>{totalMoney}</div>
+                </div>
+                <div className={styles.back}>
+                    <div className={styles.box}>
+                    <div className={styles.left}>还款方式：</div>
+                    <div className={styles.right}>{repayment_type}</div>
+                        <div className={left}></div>
+                    </div>
+
+                </div>
+                <div className={styles.item}>
+                    <div className={styles.left}>信用等级：</div>
+                    <div className={styles.right}></div>
                 </div>
                 <div className={styles.depositBox}>
                     <div className={styles.profit}>

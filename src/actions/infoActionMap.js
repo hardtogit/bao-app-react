@@ -616,6 +616,9 @@ export default {
     },
     [actionTypes.WISDOM_DETAIL]:{ //智享详情
         apiFn:Fetch.wisdomDetail
+    },
+    [actionTypes.WISDOM_BUY_DATA]:{ //智享详情
+        apiFn:Fetch.wisdomBuyData
     }
 
 }
