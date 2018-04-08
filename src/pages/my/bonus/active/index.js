@@ -90,7 +90,7 @@ class PackItem extends Component{
                                                 _str = "存管直投";
                                                 break;
                                             case 4:
-                                                _str = "平台直投";
+                                                _str = "托管直投";
                                                 break;
                                         }
 

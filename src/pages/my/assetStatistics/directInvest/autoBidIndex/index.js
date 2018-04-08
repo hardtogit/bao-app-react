@@ -30,7 +30,7 @@ class Index extends Component{
                     title:'存管自动投标',
                 },
                 {
-                    title:'平台自动投标'
+                    title:'托管自动投标'
                 },
                ],
             Index:0,
