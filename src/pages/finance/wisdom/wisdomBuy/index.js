@@ -9,11 +9,16 @@ import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
+import {Link} from 'react-router'
+import LoadingButton from '../../../../components/LoadingButton'
+import BaseButton from '../../../../components/BaseButton'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
         this.state = {
-            isOpen: false
+            isOpen: false,
+            disable:true,
+
         }
     }
     static defaultProps = {//设置初始props
@@ -52,9 +57,18 @@ class Index extends Component{
                     <div className={styles.left}>实际支付（元）</div>
                     <div className={styles.right}>9900.00</div>
                 </div>
+                <div className={styles.warm}>注：智享计划只能全额购买，且不能转让</div>
                 <div>
-
+                    <div className={styles.item}>
+                        <div className={styles.left}>存管账户余额</div>
+                        <div className={styles.right}><span className={styles.num}>0.00元</span><span className={styles.tip}>(余额不足)</span></div>
+                    </div>
                 </div>
+                <div className={styles.links}>我已阅读并同意签署 <Link to="">《借款合同》</Link><Link>《风险提示》</Link></div>
+                <div className={styles.btn}>
+                    <BaseButton text="确认支付" disable={} onClick={}></BaseButton>
+                </div>
+
             </div>
         )
     }
