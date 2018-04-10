@@ -27,8 +27,8 @@ class Index extends React.Component {
         });
     };
     componentWillUnmount=()=>{
-        this.props.clearData('CREDITORS_RECORDS');
-        this.props.clearData('CREDITORS_RECORDS_HISTORY');
+        this.props.clearData('MY_WISDOM_LIST_NOW');
+        this.props.clearData('MY_WISDOM_LIST_HISTORY');
     }
     toggle = (index) => {
         if ((2 == index && this.state.flag) || (1 == index && !this.state.flag)) {
@@ -52,7 +52,7 @@ class Index extends React.Component {
                        nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listData&&listData.map((item,i)=>{
-                    const {borrow_name,end_time,invest_money,id}=item;
+                    const {borrow_name,end_time,invest_money,invest_id,rate,month}=item;
                     return(
                         <Record
                             key = {i}
@@ -62,7 +62,7 @@ class Index extends React.Component {
                             state="待回款"
                             moneyColor={"#aaa"}
                             statusColor={"#f70"}
-                            click={()=>{push(`/user/zqPropertyDetail/${id}`)}}
+                            click={()=>{push(`/user/wisdomMyDetail/${invest_id}?name=${borrow_name}&rate=${rate}&month=${month}`)}}
                         />
                     )
                 })
@@ -84,7 +84,7 @@ class Index extends React.Component {
                        nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listDataB&&listDataB.map((item,i)=>{
-                    const {borrow_name,end_time,invest_money}=item;
+                    const {borrow_name,end_time,invest_money,invest_id,rate,month}=item;
                     return(
                         <Record
                             key = {i}
@@ -94,6 +94,7 @@ class Index extends React.Component {
                             state="已回款"
                             moneyColor={"#aaa"}
                             statusColor={"#f70"}
+                            click={()=>{push(`/user/wisdomMyDetail/${invest_id}?name=${borrow_name}&rate=${rate}&month=${month}`)}}
                         />
                     )
                 })
@@ -139,9 +140,9 @@ class Index extends React.Component {
     }
 }
 const mapStateToProps=(state,own)=>({
-    listData:state.listdata.getIn(['MY_WISDOM_LIST','data']),
-    pending:state.listdata.getIn(['MY_WISDOM_LIST','pending']),
-    end:state.listdata.getIn(['MY_WISDOM_LIST','pageEnd']),
+    listData:state.listdata.getIn(['MY_WISDOM_LIST_NOW','data']),
+    pending:state.listdata.getIn(['MY_WISDOM_LIST_NOW','pending']),
+    end:state.listdata.getIn(['MY_WISDOM_LIST_NOW','pageEnd']),
     listDataB:state.listdata.getIn(['MY_WISDOM_LIST_HISTORY','data']),
     pendingB:state.listdata.getIn(['MY_WISDOM_LIST_HISTORY','pending']),
     endB:state.listdata.getIn(['MY_WISDOM_LIST_HISTORY','pageEnd'])
@@ -149,7 +150,7 @@ const mapStateToProps=(state,own)=>({
 const mapDispatchToProps=(dispatch,own)=>({
     getList(){
         dispatch({
-            type:'MY_WISDOM_LIST',
+            type:'MY_WISDOM_LIST_NOW',
             params:[1]
         })
     },

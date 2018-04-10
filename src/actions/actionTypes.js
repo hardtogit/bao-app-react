@@ -338,6 +338,7 @@ export const WISDOM_DETAIL='WISDOM_DETAIL'//聚点债权详情
 export const WISDOM_INVEST_LIST="WISDOM_INVEST_LIST"//聚点债转投资列表
 export const MY_WISDOM_INFO="MY_WISDOM_INFO"//我的智享计划详情
 export const MY_WISDOM_LIST='MY_WISDOM_LIST'//我的智享计划列表
+export const MY_WISDOM_LIST_NOW='MY_WISDOM_LIST_NOW'//现在的智享计划
 export const MY_WISDOM_LIST_HISTORY='MY_WISDOM_LIST_HISTORY'//历史智享计划
 export const MY_WISDOM_DETAIL='MY_WISDOM_DETAIL'//我的债权详情
 export const DEPOSITBS_DETAILS='DEPOSITBS_DETAILS'

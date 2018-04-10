@@ -185,4 +185,9 @@ export default {
     [actionTypes.MY_WISDOM_LIST_HISTORY]:{ //我的智享计划
         apiFn:Fetch.myWisdomList
     },
+    [actionTypes.MY_WISDOM_LIST_NOW]:{ //我的智享计划
+        apiFn:Fetch.myWisdomList
+    },
+
+
 }

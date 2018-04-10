@@ -39,16 +39,16 @@ class Index extends React.Component {
         const BodyHeight=document.body.clientHeight,
             ScrollHeight=BodyHeight-height-44-50-100;
         return(<div style={{height:ScrollHeight}} className={styles.listBox}>
-            <Scroll height={ScrollHeight} fetch={()=>{getList(1)}} isLoading={pending} distance={5} endType={end}
+            <Scroll height={ScrollHeight} fetch={getList} isLoading={pending} distance={5} endType={end}
                     nullDom={<div className={styles.nullBox}><img src={explan} /></div>}
                     endload={<div></div>}
             >
 
                 {
                     listData&&listData.map((item,i)=>{
-                        const {borrow_name,invest_money,interest,actual_account,id}=item;
+                        const {borrow_name,invest_money,interest,actual_account,invest_id}=item;
 
-                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id)}}>
+                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(invest_id,item)}}>
                             <li>
                                 <img style={{marginTop:'16px'}} src={type_zqzr}/>{borrow_name}{!item.access_sys&&
                             <span className={styles.store}>存</span>
@@ -64,11 +64,11 @@ class Index extends React.Component {
             </Scroll>
         </div>)
     };
-    goDetail=(id)=>{
+    goDetail=(id,item)=>{
         const {
             push
         }=this.props;
-         push('/user/wisdomMyDetail/'+id);
+         push('/user/wisdomMyDetail/'+id+"?name="+item.borrow_name+"&rate="+item.rate+"&month="+item.month);
     };
     go=()=>{
         const {
@@ -154,10 +154,10 @@ const mapDispatchToProps=(dispatch)=>({
             type:'MY_WISDOM_INFO'
         })
     },
-    getList(type){
+    getList(){
         dispatch({
             type:'MY_WISDOM_LIST',
-            params:[type]
+            params:[1]
         })
     },
     getDetail(){
@@ -166,7 +166,7 @@ const mapDispatchToProps=(dispatch)=>({
     clearData(){
         dispatch({
             type:'CLEAR_DATA',
-            key:'MY_CREDITOR_LIST'
+            key:'MY_WISDOM_LIST'
         })
     },
     goBuy(){
