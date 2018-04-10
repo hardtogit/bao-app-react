@@ -57,7 +57,8 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
     GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,DirectBuyOld,DepositDetails,
     PlanDetails,ZqTransfer,
     DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
-    CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy
+    CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy,
+    WisdomMy,WisdomRecord,WisdomMyDetail
 } from './loadTool/product'
 import{IndexTab
 } from './loadTool/index'
@@ -127,7 +128,9 @@ export default class App extends React.Component {
                   <Route path="gatherMy" getComponent={GatherMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加*/
                   <Route path="gatherMyDetail" getComponent={GatherMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
                   <Route path="gatherProjects/:id/:type" getComponent={GatherProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
-
+                  <Route path="wisdomMy" getComponent={WisdomMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的智享计划*/
+                  <Route path="wisdomRecord" getComponent={WisdomRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
+                  <Route path="wisdomMyDetail/:id" getComponent={WisdomMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

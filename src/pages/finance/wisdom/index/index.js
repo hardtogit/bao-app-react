@@ -12,6 +12,7 @@ import Alert from '../../../../components/Dialog/alert.js'
 import Scroll from "../../../../components/scroll"
 import type_diya from '../../../../assets/images/type_diya.png'
 import type_xinyong from '../../../../assets/images/type_xinyong.png'
+import {getAuthDetail} from '../../../../components/Permission'
 import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
 import styles from "./index.less"
 
@@ -23,7 +24,7 @@ class WisdomCell extends React.Component {
                 this.props.isAuth.Verification(`/creditorBuy/${id}`, this.props.isAuthPush, this.succsseFn);
                 break;
             case 2:
-                push('/user/setting/authorization');
+                this.props.push('/user/setting/authorization');
                 break;
             case 3:
                 this.refs.store.show();
@@ -36,7 +37,7 @@ class WisdomCell extends React.Component {
         const {push,alert,data:{status,id}}=this.props;
         switch (parseInt(status)){
             case 0:
-                push(`wisdomMain/${id}`)
+                push(`/wisdomMain/${id}`)
                 break;
             case 1:
                 alert.show({
@@ -59,7 +60,6 @@ class WisdomCell extends React.Component {
         }
     }
     render() {
-        console.log(this.props.data);
         const {
             title,//名称
             type,//标类型
@@ -133,9 +133,6 @@ class Index extends Component {
             pageEnd,
             push
         } = this.props;
-        console.log(this.props)
-
-
         return (<div>
             <Scroll fetch={getList} height={height}
                         isLoading={pending} distance={5} endType={pageEnd}

@@ -160,12 +160,107 @@
   }
   .right{
     flex 1
+    text-align right
+    color #ff7701
   }
 }
   .back{
-    background-color #fff
+    background-color #fff;
+    padding 0 15px;
+    padding-bottom 10px
+    border-bottom 1px solid #ddd
+    &:before,&:after{
+      display table
+      content:''
+    }
+    &:after{
+      clear both
+    }
     .box{
+      border-top:1px solid #ddd;
+      font-size 14px
+      color #666
+      .left{
+        width 50%
+        padding-top:10px
+        float left
 
+      }
+      .right{
+        width 50%
+        float left
+        text-align right
+        padding-top:10px
+      }
+    }
+  }
+    .tabContainer{
+      background-color #fff
+      margin-top 10px
+      display flex
+      .tab{
+        flex 1
+        text-align center
+        padding 10px
+        &.active{
+          border-bottom 3px solid #00a6e2
+          color:#00a6e2
+        }
+      }
+      .barrow{
+        background-color #fff
+        padding 15px;
+      }
+      .text{
+        font-size 14px;
+        color:666;
+        padding 15px
+        background-color #fff
+      }
+    }
+.text{
+  font-size 14px;
+  color:#666;
+  padding  0 15px 15px 15px
+  background-color #fff;
+  border-bottom 1px solid #ddd
+
+}
+.danger{
+  display: flex;
+  flex-wrap: wrap;
+  .item{
+    font-size: 12px;
+    width: 33.333%;
+    line-height: 24px;
+    img{
+      width: 15px;
+      height: 12px;
+      position: relative;
+      left: 4px;
+      top:5px
+    }
+  }
+}
+  .listBox{
+    background-color #fff
+  }
+.nullDom{
+  text-align: center;
+  font-size: 12px;
+  color: #888888;
+  padding: 10px;
+}
+.nullImg{
+  text-align: center;
+  img{
+    width: 161px;
+    margin-top: 40px;
+  }
+}
+  .type{
+    .right{
+      color:#666
     }
   }
 

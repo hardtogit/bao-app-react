@@ -142,7 +142,22 @@ export const  DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/finance/wisdom/wisdomBuy').default);
         }, 'WisdomBuy');
-    }//聚点债转购买
+    },//聚点债转购买
+    WisdomMy= (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/wisdom/wisdomMy').default);
+        }, 'WisdomMy');
+    },//我的聚点债转
+    WisdomRecord= (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/wisdom/wisdomRecord').default);
+        }, 'WisdomRecord');
+    },//聚点债转购买
+    WisdomMyDetail= (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/wisdom/wisdomMyDetail').default);
+        }, 'WisdomMyDetail');
+    }//我的聚点债权详情
 
 //TODO
 /****老的零钱宝****/

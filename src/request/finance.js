@@ -111,6 +111,10 @@ const requests = (Fetch) => {
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
   Fetch.wisdomBuyData=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
+  Fetch.wisdomInvestList=(page,id)=>{return Fetch(`api/depositSupervise/zhixProjectBuyLists/${id}?page=${page}`,'GET')};
+  Fetch.myWisdomList=(page,type)=>{return Fetch(`api/depositSupervise/zhixProductInvest?type=${type}&page=${page}`,'GET')};
+  Fetch.myWisdomInfo=()=>{return Fetch(`api/depositSupervise/myDetail`,'GET')};
+  Fetch.myWisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixInvestRecord/${id}`,'GET')};
 
   //存管
   Fetch.getStoreUserInfo=()=>{return Fetch('api/supervise/users/userInfo','GET')}//存管用户相关信息

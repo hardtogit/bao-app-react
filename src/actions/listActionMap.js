@@ -176,7 +176,13 @@ export default {
     [actionTypes.WISDOM_LIST]:{
         apiFn:Fetch.wisdomList
     },
-
-
-
+    [actionTypes.WISDOM_INVEST_LIST]:{ //智享投资列表
+        apiFn:Fetch.wisdomInvestList
+    },
+    [actionTypes.MY_WISDOM_LIST]:{ //我的智享计划
+        apiFn:Fetch.myWisdomList
+    },
+    [actionTypes.MY_WISDOM_LIST_HISTORY]:{ //我的智享计划
+        apiFn:Fetch.myWisdomList
+    },
 }

@@ -16,6 +16,7 @@ import looseChange from '../../../assets/images/my-index/6.png' // 零钱宝
 import safeplan from '../../../assets/images/my-index/7.png' // 直投项目
 import directMail from '../../../assets/images/my-index/8.png' // 自动投标
 import redPacket from '../../../assets/images/my-index/10.png' // 红包
+import wisdom from '../../../assets/images/gather/wisdom.png'//智享计划
 import scratchCard from '../../../assets/images/my-index/11.png' // 刮刮卡
 import rt from '../../../assets/images/my-index/rt.png' //即将下线
 import someCoins from '../../../assets/images/my-index/12.png' // 点币
@@ -266,6 +267,18 @@ class Index extends React.Component {
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>聚点+</p>
                                     <p className={styles.listColor} style={{"color": "#F19149"}}>{'智能投标'}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={styles.myProduct}>
+                        <div className={styles.myList}>
+                            <Link to="/user/wisdomMy">
+                                <img style={{width:'26px'}} src={wisdom}/>
+                                <div className={styles.myListText}>
+                                    <p className={styles.listTitle}>智享计划</p>
+                                    <p className={styles.listColor}
+                                       style={{"color": "#F19149"}}>投资更灵活</p>
                                 </div>
                             </Link>
                         </div>

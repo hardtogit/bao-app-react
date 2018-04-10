@@ -14,37 +14,62 @@ import React from 'react'
 import NavBar from '../../../../components/NavBar'
 import Calculator from '../../../../components/Calculator'
 import styles from './index.styl'
-import classNames from 'classnames'
 import wrap from '../../../../utils/pageWrapper'
 import {push, goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Store from '../../../../components/Dialog/store'
-import {DEPOSIT_DETAIL, RATE, USER_INFO} from '../../../../actions/actionTypes'
-import security from '../../../../assets/images/gather/icon-01.png'
-import introduce from '../../../../assets/images/gather/icon-02.png'
-import details from '../../../../assets/images/gather/icon-03.png'
-import project from '../../../../assets/images/gather/icon-04.png'
 import Loading from '../../../../components/pageLoading'
 import Header from '../../../../components/depositBanner'
-import SimpleDepTime from '../../../../components/simpleDepTime'
+import classNames from 'classnames'
 import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import ok from '../../../../assets/images/ok.png'
+import LoadList from '../../../../components/scroll/config'
+import nullImg from '../../../../assets/images/record.png'
 import {getAuthDetail} from '../../../../components/Permission'
-import {Link} from 'react-router'
+import utils from '../../../../utils/utils'
 class GatherMain extends React.Component {
     state = {
-        descActive: false,
-        type:2
+        init: false,
+        type:2,
+        tabIndex:0
     }
     componentWillMount(){
 
     }
     componentDidMount() {
-        const {params:{productId},get}=this.props;
+        const {params:{productId},get,getInvestRecord}=this.props;
         get(productId)//获取聚点+详情
+        getInvestRecord(productId)//获取聚点+计划详情
     }
     loading(){
         return(<Loading/>)
+    }
+    changeTab=(index)=>{
+        this.setState({
+            tabIndex:index
+        })
+    };
+    btDom=()=>{
+        const {
+            pending,
+            end,
+            listData
+        }=this.props;
+        let Dom;
+        if (pending&&!end){
+            Dom=LoadList.loadingDom();
+        }else if (end){
+            Dom=<div className={styles.nullDom}>没有更多</div>
+        }
+        if (listData&&end){
+            if (listData.size==0){
+                    Dom=<div  className={styles.nullImg}>
+                        <img src={nullImg}/>
+                    </div>
+            }
+        }
+        return Dom;
     }
     moneyFn=(rate,month)=>{
         let money=parseFloat(10000*rate/100*(month/12)).toString();
@@ -52,63 +77,72 @@ class GatherMain extends React.Component {
             money=money.substring(0,money.indexOf('.')+3)
         }
         return money
+    };
+    componentWillReceiveProps({data}){
+         if(data&&data.data&&!this.state.init){
+             this.props.getBorrowInfo(data.data.borrow_id);
+             this.setState({
+                 init:true
+             })
+         }
     }
     loadEnd=()=>{
         const {
             data,
-            push
+            push,
+            borrowData,
+            listData
         } = this.props;
-        console.log(data)
+        const {
+            tabIndex
+        }=this.state;
         let {
             id,
             rate,
-            buy_total,
-            buy_status,
-            value_start_date,
-            value_end_date,
-            type,
             interest,
-            has_money,
             money,
             fee,
+            type,
             repayment_type,
             totalMoney,
             returnInterest,
             repaymentDay,
             title,
+            status,
+            xinyu,
             month
-        }=data.data
+        }=data.data;
         rate=parseFloat(rate).toFixed(2);
-        const textTz='锁定时间';
         const bData=[{name:'转让金额',val:money},{name:"投资期限",val:month+'个月'}];
+        const loadList=this.btDom();
         let text='';
         let flag=true;
-        if(buy_status==0){
-            if(parseInt(has_money)>=parseInt(money)){
-                text='已售罄'
-                flag=true
-            }else{
-                text='马上买入'
-                flag=false
-            }
-        }else if (buy_status==1){
-            text='未开始'
-            flag=true
-        }else if(buy_status==2){
-            text='已结束'
-            flag=true
+        switch (parseInt(status)) {
+            case 0:
+                text = '马上买入';
+                flag = false;
+                break;
+            case 1:
+                text = '已完成';
+                flag = true;
+                break;
+            case 2:
+                text = '已过期';
+                flag = true;
+                break
         }
+
         return(
             <div>
                 <Header rate={rate}  data={bData}/>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.item}>
                     <div className={styles.left}>预期收益：</div>
-                    <div className={styles.right}>{interest}</div>
+                    <div className={styles.right}>{interest}元</div>
                 </div>
                 <div className={styles.item}>
                     <div className={styles.left}>转让金额：</div>
-                    <div className={styles.right}>{money}</div>
+                    <div className={styles.right}>{money}元</div>
                 </div>
                 <div className={styles.item}>
                     <div className={styles.left}>预付利息：</div>
@@ -116,77 +150,104 @@ class GatherMain extends React.Component {
                 </div>
                 <div className={styles.item}>
                     <div className={styles.left}>手续费：</div>
-                    <div className={styles.right}>{fee}</div>
+                    <div className={styles.right}>{fee}元</div>
                 </div>
                 <div className={styles.item}>
                     <div className={styles.left}>实际支付：</div>
-                    <div className={styles.right}>{totalMoney}</div>
+                    <div className={styles.right}>{totalMoney}元</div>
                 </div>
                 <div className={styles.back}>
                     <div className={styles.box}>
                     <div className={styles.left}>还款方式：</div>
-                    <div className={styles.right}>{repayment_type}</div>
-                        <div className={left}></div>
-                    </div>
+                    <div className={styles.right}>{
+                        (()=>{
+                            switch (parseInt(repayment_type)){
+                                case 1:
+                                    return "按天到期";
+                                    break;
+                                case 2:
+                                    return "等额本息";
+                                    break;
+                                case 3:
+                                    return "按季分期";
+                                    break;
+                                case 4:
+                                    return "每月还息到期还本";
+                                    break;
+                                case 5:
+                                    return "到期还本付息"
+                                break
 
-                </div>
-                <div className={styles.item}>
-                    <div className={styles.left}>信用等级：</div>
-                    <div className={styles.right}></div>
-                </div>
-                <div className={styles.depositBox}>
-                    <div className={styles.profit}>
-                        <p>
-                            收益估算
-                        </p>
-                    </div>
-                    <div className={styles.profitContent}>
-                        <p className={styles.profitText}>投资10000元，{month}个月后到期预期可赚</p>
-                        <p className={styles.profitText1}>具体收益以实际到账为准</p>
-                        <p className={styles.profitNum}>
-                            {this.moneyFn(rate,month)}
-                            <span>元</span>
-                        </p>
+                            }
+                        })()
+                    }</div>
+                        <div className={styles.left}>下一还款日：</div>
+                        <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(repaymentDay*1000))}</div>
                     </div>
                 </div>
-                <div className={classNames(styles.depositBox,styles.pdAll)}>
-                    <ul className={styles.iconUl}>
-                        <li onClick={()=>{push('/gatherDetail/'+title+'/'+month)}}>
-                  <span>
-                      <img src={security}/>
-                  </span>
-                            <span>
-                         产品详情
-                     </span>
-                        </li>
-                        <li onClick={()=>{push('/gatherDeposits/'+id)}}>
-                     <span>
-                      <img src={introduce}/>
-                  </span>
-                            <span>
-                         标的详情
-                     </span>
-                        </li>
-                        <li onClick={()=>{push('/gatherJoin/'+id)}}>
-                      <span>
-                      <img src={details}/>
-                  </span>
-                            <span>
-                        加入记录
-                   </span>
-                        </li>
-                        <li onClick={()=>{push('/gatherProblems')}}>
-                   <span>
-                      <img src={project}/>
-                  </span>
-                            <span>
-                         常见问题
-                     </span>
-                        </li>
-                    </ul>
+                <div className={classNames(styles.item,styles.type)}>
+                    <div className={styles.left}>信用等级 {xinyu}</div>
+                    <div className={styles.right}>类型：{
+                        (()=>{
+                            switch (parseInt(type)){
+                                case 1:
+                                    return "信用";
+                                    break;
+                                case 5:
+                                    return "抵押"
+                                    break
+
+                            }
+                        })()
+                    }</div>
                 </div>
-                <div className={classNames(styles.depositBox,styles.pdAll1)}>
-                    累计加入{buy_total}人
+                <div className={styles.listBox}>
+                    <div className={styles.tabContainer}>
+                        <div onClick={()=>{this.changeTab(0)}} className={classNames(styles.tab,tabIndex==0&&styles.active||"")}>借款人</div>
+                        <div onClick={()=>{this.changeTab(1)}} className={classNames(styles.tab,tabIndex==1&&styles.active||"")}>投资记录</div>
+                    </div>
+                    {tabIndex==0&&
+                        <div className={styles.barrow}>
+                           <div className={styles.title}>借款用途</div>
+                            <div className={styles.text}>{borrowData&&borrowData.data.borrow_use}</div>
+                            <div className={styles.title}>还款来源</div>
+                            <div className={styles.text}>{borrowData&&borrowData.data.repaymentSource}</div>
+                            <div className={styles.title}>平台认证</div>
+                            <div className={styles.danger}>{(()=> {
+                                let arr=[];
+                                borrowData&&borrowData.data&&borrowData.data.certification.map((value,i)=>{
+                                    arr.push(<div key={i} className={styles.item}>{value} <img src={ok} alt=""/></div>)
+                                })
+                                return arr
+                            })()}
+                            </div>
+
+                        </div>
+                    || <div className={styles.listBox}>
+                        {
+                            (()=>{
+                                let Dom=[];
+                                listData&&listData.map((item,i)=>{
+                                    Dom.push(
+                                        <div className={styles.tabListBox} key={i}>
+                                            <div className={styles.tabListLeft}>
+                                                <p>{item.username}</p>
+                                                <p>{item.add_time}</p>
+                                            </div>
+                                            <div className={styles.tabListRight}>
+                                                {item.invest_money}元
+                                            </div>
+                                        </div>)
+                                })
+                                return Dom;
+                            })()
+
+                        }
+                        {loadList}</div> }
+                    <div>
+
+
+                    </div>
                 </div>
                 <div className={styles.bottom}>
                     <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
@@ -197,7 +258,7 @@ class GatherMain extends React.Component {
                     unit="m"
                     rate={rate}
                     term={month}
-                    amount={10000}
+                    amount={money}
                     // rateMap={deposit.map(({rate, month}) => ({term: month, rate}))}
                     modalStyle={styles.modalStyle}
                     modalBody={styles.modalBody}
@@ -207,10 +268,9 @@ class GatherMain extends React.Component {
             </div>)
     }
     purchase=(id,push)=>{
-        let type=this.props.params.type;
         switch (getAuthDetail()){
             case 1:
-                this.refs.isAuth.Verification(`/gatherBuy/${id}/${type}`,push,this.succsseFn,this.props.location.pathname)
+                this.refs.isAuth.Verification(`/wisdomBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
                 break;
             case 2:
                 push('/user/setting/authorization');
@@ -256,6 +316,10 @@ class GatherMain extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data:state.infodata.getIn(['WISDOM_DETAIL','data']),
+        borrowData:state.infodata.getIn(['GATHER_BID_DETAIL','data']),
+        pending:state.listdata.getIn(['WISDOM_INVEST_LIST','pending']),
+        end:state.listdata.getIn(['WISDOM_INVEST_LIST','pageEnd']),
+        listData:state.listdata.getIn(['WISDOM_INVEST_LIST','data'])
     }
 }
 
@@ -271,10 +335,20 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch({
             type:'WISDOM_DETAIL',
             params:[id]
-
+        })
+    },
+    getBorrowInfo(id){
+        dispatch({
+          type:"GATHER_BID_DETAIL",
+          params:[id]
+        })
+    },
+    getInvestRecord(id){
+        dispatch({
+            type:"WISDOM_INVEST_LIST",
+            params:[id]
         })
     }
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(wrap(GatherMain))
