@@ -23,7 +23,7 @@ class Index extends Component{
         this.props.getMyCard();
     }
     addCard=()=>{
-       this.props.push('/user/setting/authorization?from=cardList')
+       this.props.push('/user/setting/cardBind?from=cardList')
     }
 
     goDetail=(data,i)=>{
@@ -64,9 +64,9 @@ class Index extends Component{
                          <img className={styles.bg} src={value.bankImg} alt=""/>
                  </div>
                  })}
-                    {/*<div className={styles.btn} onClick={this.addCard}>*/}
-                        {/*<span className={styles.add}>+</span> <span className={styles.text}>添加银行卡</span>*/}
-                    {/*</div>*/}
+                    <div className={styles.btn} onClick={this.addCard}>
+                        <span className={styles.add}>+</span> <span className={styles.text}>添加银行卡</span>
+                    </div>
                 </div>
             </div>
         }else{

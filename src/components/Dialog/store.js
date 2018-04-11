@@ -53,7 +53,11 @@ export default class Success extends React.Component {
     }
     render() {
         let display;
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'))
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        let url='/user/setting/regStore';
+        if(storeData.isRegister){
+            url='/user/setting/cardBind'
+        }
         if(this.state.show){
             display={display:'block'}
         }else{
@@ -73,7 +77,7 @@ export default class Success extends React.Component {
                     <div style={{fontSize:'12px',marginTop:'16px',color:'#777',height:'13px',lineHeight:'13px'}}>资金有保障&nbsp;&nbsp;&nbsp;&nbsp;投资更放心</div>
                     <div style={{height:'40px',borderTop:'1px solid #ddd',marginTop:'30px'}}>
                         <div onClick={this.hide} style={{float:'left',width:'50%',height:'40px',color:'#777',lineHeight:'40px',borderRight:'1px solid #ddd'}}>取消</div><div style={{float:'left',width:'50%',lineHeight:'40px',color:'#00a6e2'}}>
-                        <Link to="/user/setting/regStore">立即开通</Link></div>
+                        <Link to={url}>立即开通</Link></div>
                     </div>
                 </div>
             </div>

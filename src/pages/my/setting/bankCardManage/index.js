@@ -166,12 +166,12 @@ class Index extends Component{
                     </div>
 
                 </div>
-                {/*<div className={styles.submit}>*/}
-                    {/*<Button ref="bottom" onClick={this.submit}*/}
-                            {/*className={styles.bottom}*/}
-                            {/*text={this.state.submitting ? <LoadingButton text='解绑中...' /> : '同意解绑'}*/}
-                    {/*/>*/}
-                {/*</div>*/}
+                <div className={styles.submit}>
+                    <Button ref="bottom" onClick={this.submit}
+                            className={styles.bottom}
+                            text={this.state.submitting ? <LoadingButton text='解绑中...' /> : '同意解绑'}
+                    />
+                </div>
             </div>
         }
         return(
