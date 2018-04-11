@@ -97,7 +97,7 @@ class GatherMain extends React.Component {
             tabIndex
         }=this.state;
         let {
-            id,
+            productId,
             rate,
             interest,
             money,
@@ -251,7 +251,7 @@ class GatherMain extends React.Component {
                 </div>
                 <div className={styles.bottom}>
                     <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-                    <button onClick={()=>{this.purchase(id,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
+                    <button onClick={()=>{this.purchase(productId,push)}} disabled={flag} style={flag&&{backgroundColor:'#aaa'}||{}}>{text}</button>
                 </div>
                 <Calculator
                     ref="calculator"
@@ -270,7 +270,7 @@ class GatherMain extends React.Component {
     purchase=(id,push)=>{
         switch (getAuthDetail()){
             case 1:
-                this.refs.isAuth.Verification(`/wisdomBuy/${id}`,push,this.succsseFn,this.props.location.pathname)
+                push(`/wisdomBuy/${id}`);
                 break;
             case 2:
                 push('/user/setting/authorization');
@@ -282,7 +282,7 @@ class GatherMain extends React.Component {
                 break
         }
 
-    }
+    };
     succsseFn=(url)=>{
         setUrl.setUrl(url)
     }

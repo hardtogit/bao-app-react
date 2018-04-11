@@ -157,6 +157,11 @@ export const  DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/finance/wisdom/wisdomMyDetail').default);
         }, 'WisdomMyDetail');
+    },//我的聚点债权详情
+    WisdomMyMain= (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/wisdom/wisdomMyMain').default);
+        }, 'WisdomMyMain');
     }//我的聚点债权详情
 
 //TODO

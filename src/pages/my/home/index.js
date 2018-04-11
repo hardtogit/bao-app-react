@@ -274,7 +274,7 @@ class Index extends React.Component {
                     <div className={styles.myProduct}>
                         <div className={styles.myList}>
                             <Link to="/user/wisdomMy">
-                                <img style={{width:'26px'}} src={wisdom}/>
+                                <img style={{width:'24px',position:'relative',left:'3px',marginRight:'3px'}} src={wisdom}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>智享计划</p>
                                     <p className={styles.listColor}

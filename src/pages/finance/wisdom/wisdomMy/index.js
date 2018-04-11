@@ -25,7 +25,13 @@ class Index extends React.Component {
             height:0
         }
     }
-
+    componentWillReceiveProps({infoData}){
+        if(infoData){
+            this.setState({
+                height:4
+            })
+        }
+    }
     scrollDom=()=>{
         const {
             listData,
@@ -56,7 +62,7 @@ class Index extends React.Component {
                             </li>
                             <li>持有金额<p>{Util.padMoney(invest_money)}</p></li>
                             <li>到期收益<p>{Util.padMoney(interest)}</p></li>
-                            <li>已到账收益({Util.padMoney(actual_account)})</li>
+                            <li>已到账收益<p>{Util.padMoney(actual_account)}</p></li>
                         </ul>)
                     })
                 }
@@ -127,12 +133,12 @@ class Index extends React.Component {
         }else {
             Dom=this.loadDom();
         }
-        // if (height!=0){
-            listDom=this.scrollDom()
-        // }
+        if (height!=0){
+             listDom=this.scrollDom()
+        }
         return (
             <div>
-                <NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/wisdomRecord')}}>我的智享</NavBar>
+                <NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/wisdomRecord')}}>我的智享计划</NavBar>
                 <div className={styles.bg}>
                     {Dom}{listDom}{buyDom}
                 </div>

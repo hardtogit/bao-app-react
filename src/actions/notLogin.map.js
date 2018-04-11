@@ -62,3 +62,4 @@ export const GET_PRIV_PROFIT='GET_PRIV_PROFIT'//商城通知
 export const GET_VIP_STR='GET_VIP_STR'//商城通知
 export const WISDOM_LIST='WISDOM_LIST'//聚点债转列表
 export const WISDOM_DETAIL='WISDOM_DETAIL'//聚点债权详情
+export const WISDOM_INVEST_LIST='WISDOM_INVEST_LIST'//投资人详情

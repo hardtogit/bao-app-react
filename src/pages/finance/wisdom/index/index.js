@@ -17,11 +17,11 @@ import nozhaiquan from '../../../../assets/images/nozhaiquan.png'
 import styles from "./index.less"
 
 class WisdomCell extends React.Component {
-    toBuy = (event) => {
+    toBuy = (event,id) => {
         event.stopPropagation()
         switch (getAuthDetail()) {
             case 1:
-                this.props.isAuth.Verification(`/creditorBuy/${id}`, this.props.isAuthPush, this.succsseFn);
+                this.props.push(`/wisdomBuy/${id}`);
                 break;
             case 2:
                 this.props.push('/user/setting/authorization');
@@ -62,6 +62,7 @@ class WisdomCell extends React.Component {
     render() {
         const {
             title,//名称
+            id,//id
             type,//标类型
             rate,//利率
             money,//金额
@@ -109,7 +110,7 @@ class WisdomCell extends React.Component {
                         </div>
                     </div>
                     <div className={styles.buyBtn}>
-                        <div className={styles.canbuy} onClick={(event) => this.toBuy(event)}>
+                        <div className={styles.canbuy} onClick={(event) => this.toBuy(event,id)}>
                             <p>抢购</p>
                         </div>
                     </div>

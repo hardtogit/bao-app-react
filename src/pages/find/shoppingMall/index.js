@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import NavBar from '../../../components/NavBar'
-import Swiper from '../../../components/mySwiper/index';
+import Swiper from 'react-mobile-swiper';
 import Product from '../../../components/Product'
 import Loading from '../../../components/pageLoading'
 import st1 from '../../../assets/images/find/st1.png'
@@ -205,7 +205,7 @@ class shoppingMall extends Component{
                     />
                 </div>
                 <div className={styles.findContent} >
-                    { bannerData&&<Swiper loop={true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
+                    { bannerData&&<Swiper loop={bannerData.data.length==1?false:true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
                         {
                             bannerList
                         }

@@ -8,7 +8,7 @@ import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import arrowRight from '../../../../assets/images/arrow2.png' //图标
 import PageLoading from '../../../../components/pageLoading'
 import utils from '../../../../utils/utils'
@@ -30,20 +30,15 @@ class Index extends Component{
       }=this.props;
         getDetail(id);
     }
-    componentDidMount(){
-     //组件渲染完成时调用
-    }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
+    goProductDetail(id){
+        const {push}=this.props;
+        push(`/user/wisdomMyMain/${id}`)
     }
     loadEnd=()=>{
         const{
             fee,
             returnInterest,
-            interest,
+            borrow_id,
             money,
             record
         }=this.props.data.data;
@@ -55,7 +50,7 @@ class Index extends Component{
 
         return(
         <div>
-            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id)}}>
+            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(borrow_id)}}>
                 <h2>{name}</h2>
                 <p><span>{month}个月</span><span>约定年化收益率{rate}</span></p>
                 <img src={arrowRight}/>
@@ -138,6 +133,9 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'MY_WISDOM_DETAIL',
             params:[id]
         })
+    },
+    push(url){
+        dispatch(push(url))
     }
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

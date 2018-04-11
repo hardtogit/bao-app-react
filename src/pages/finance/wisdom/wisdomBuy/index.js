@@ -45,7 +45,7 @@ class Index extends Component{
             })
         }
         if(data&&userData){
-            if(userData.data.balance>=data.data.totalMoney){
+            if(parseFloat(userData.data.balance)>=parseFloat(data.data.totalMoney)){
                 this.setState({
                     disable:false
                 })
@@ -96,7 +96,7 @@ class Index extends Component{
                     <div className={styles.right}><span className={styles.num}>{balance}元</span><span className={styles.tip}>{this.state.disable&&"(余额不足)"}</span></div>
                 </div>
             </div>
-            <div className={styles.links}>我已阅读并同意签署 <Link to="">《借款合同》</Link><Link>《风险提示》</Link></div>
+            <div className={styles.links}>我已阅读并同意签署 <Link to="">《借款合同》</Link><Link to="">《风险提示》</Link></div>
             <div className={styles.btn}>
                 <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={this.state.disable} onClick={this.handleClick} ></BaseButton>
 

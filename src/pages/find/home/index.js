@@ -137,7 +137,7 @@ class findHome extends Component{
         });
         return(
             <div>
-                { bannerData&&<Swiper loop={true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
+                { bannerData&&<Swiper loop={bannerData.data.length==1?false:true} type="card" width={0.8} pagination={false} className={styles.swiperBg} autoPlay={false}>
                         {
                             bannerList
                         }

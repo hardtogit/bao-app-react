@@ -58,7 +58,7 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
     PlanDetails,ZqTransfer,
     DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
     CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy,
-    WisdomMy,WisdomRecord,WisdomMyDetail
+    WisdomMy,WisdomRecord,WisdomMyDetail,WisdomMyMain
 } from './loadTool/product'
 import{IndexTab
 } from './loadTool/index'
@@ -131,6 +131,7 @@ export default class App extends React.Component {
                   <Route path="wisdomMy" getComponent={WisdomMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的智享计划*/
                   <Route path="wisdomRecord" getComponent={WisdomRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
                   <Route path="wisdomMyDetail/:id" getComponent={WisdomMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
+                  <Route path="wisdomMyMain/:id" getComponent={WisdomMyMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
 
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
@@ -277,7 +278,7 @@ export default class App extends React.Component {
               /*已完成*/
              /*聚点债转*/
             <Route path="wisdomMain(/:productId)" getComponent={WisdomMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="wisdomBuy(/:productId)" getComponent={WisdomBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="wisdomBuy(/:productId)" getComponent={WisdomBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="safeplan" component={SafePlan} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-related-projects/:id/:type" getComponent={RelatedProjects} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="demand-invest-fail" getComponent={DemandInvestFail}></Route>
