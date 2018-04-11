@@ -20,17 +20,7 @@ class Index extends Component{
     static defaultProps = {//设置初始props
     }
     componentWillMount(){
-     //组件将要渲染时调用
         this.props.getMyCard();
-    }
-    componentDidMount(){
-     //组件渲染完成时调用
-    }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
     }
     addCard=()=>{
        this.props.push('/user/setting/authorization?from=cardList')
@@ -74,9 +64,9 @@ class Index extends Component{
                          <img className={styles.bg} src={value.bankImg} alt=""/>
                  </div>
                  })}
-                    <div className={styles.btn} onClick={this.addCard}>
-                        <span className={styles.add}>+</span> <span className={styles.text}>添加银行卡</span>
-                    </div>
+                    {/*<div className={styles.btn} onClick={this.addCard}>*/}
+                        {/*<span className={styles.add}>+</span> <span className={styles.text}>添加银行卡</span>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         }else{
