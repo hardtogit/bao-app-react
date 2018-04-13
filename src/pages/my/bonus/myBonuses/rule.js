@@ -4,7 +4,7 @@ import NavBar from '../../../../components/NavBar/';
 import {connect} from 'react-redux';
 import {goBack} from 'react-router-redux'
 import Box from '../../../../components/ContentBox/index';
-import style from './index.css'
+import style from './index.less'
 class Index extends React.Component{
 	constructor(props){
 		super(props);

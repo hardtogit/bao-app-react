@@ -99,7 +99,7 @@ class SecurityCenter extends React.Component {
                             switch (getAuthDetail()){
                                 case 1:
                                     if(!storeData.isUploadIdcard){
-                                        push('/user/setting/securityCard')
+                                        push('/user/idCardUpload')
                                     }
                                     break;
                                 case 2:

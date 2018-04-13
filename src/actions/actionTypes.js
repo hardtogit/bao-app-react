@@ -368,3 +368,4 @@ export const GET_RECHARGE_LOG='GET_RECHARGE_LOG' //获取充值明细
 export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//获取充值按钮状态
 export const GO_BANK_PAGE='GO_BANK_PAGE'//去往存管授权页面
 export const AUTHORIZATION_TEXT='AUTHORIZATION_TEXT'//免密授权规则说明
+export const ACTIVE_BONUS_LIST='ACTIVE_BONUS_LIST'//激活红包列表

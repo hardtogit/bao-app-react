@@ -20,20 +20,10 @@ class Index extends Component{
     static defaultProps = {//设置初始props
     }
     componentWillMount(){
-     //组件将要渲染时调用
         this.props.getMyCard();
     }
-    componentDidMount(){
-     //组件渲染完成时调用
-    }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
-    }
     addCard=()=>{
-       this.props.push('/user/setting/authorization?from=cardList')
+       this.props.push('/user/setting/cardBind?from=cardList')
     }
 
     goDetail=(data,i)=>{

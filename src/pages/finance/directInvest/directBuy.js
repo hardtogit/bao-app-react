@@ -752,10 +752,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         //    type:'CLEAR_INFO_DATA',
         //    key:'GET_MY_CARD_LIST'
         //})
-        //dispatch({
-        //    type:'CLEAR_INFO_DATA',
-        //    key:'DIRECTINVEST_DETAIL'
-        //})
+        dispatch({
+           type:'CLEAR_INFO_DATA',
+           key:'DIRECTINVEST_DETAIL'
+        })
     },
     getMyBankCards(){
         dispatch({

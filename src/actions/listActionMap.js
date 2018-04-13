@@ -188,6 +188,7 @@ export default {
     [actionTypes.MY_WISDOM_LIST_NOW]:{ //我的智享计划
         apiFn:Fetch.myWisdomList
     },
-
-
+    [actionTypes.ACTIVE_BONUS_LIST]:{ //激活红包列表
+        apiFn:Fetch.activeBonusList
+    },
 }
