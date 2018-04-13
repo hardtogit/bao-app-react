@@ -9,7 +9,6 @@ import styles from './index.less'
 import NavBar from '../../../components/NavBar'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
-import LoadingPage from '../../../components/pageLoading'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -20,16 +19,17 @@ class Index extends Component{
     static defaultProps = {//设置初始props
     }
     componentWillMount(){
-        const{
-           getContractData,
-           params:{
-               type
-           }
-        }=this.props;
-        getContractData(type)
+     //组件将要渲染时调用
     }
     componentDidMount(){
-     //组件渲染完成时调用
+        const{
+            getFillContractsList,
+            params:{
+                type,
+                id
+            }
+        }=this.props;
+        getFillContractsList(id,type)
     }
     componentWillReceiveProps(nextProps){
      //组件接收到新的props调用
@@ -41,31 +41,41 @@ class Index extends Component{
     render(){
         const{
             pop,
-            context
+            contractsList
             }=this.props;
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
-                  熊猫管家计划
+                  协议列表
               </NavBar>
-               {context&&<div className={styles.myStyle} dangerouslySetInnerHTML={{
-                   __html: context.data.htmls
-               }}/> || <LoadingPage></LoadingPage>}
+               {contractsList&&contractsList.data.map((item,i)=>{
+                   return(
+                       <div >
+
+
+                       </div>
+                   )
+
+               })
+
+               }
+
+
            </div>
         )
     }
 }
 const mapStateToProps=(state)=>({
-    context:state.infodata.getIn(['GET_CONTRACT_DETAIL','data'])
+    contractsList:state.infodata.getIn('GET_FILL_CONTRACTS_LIST','data')
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
-    getContractData(type){
+    getFillContractsList(id,type){
         dispatch({
-            type:'GET_CONTRACT_DETAIL',
-            params:[{hetong_type:type}]
+            type:'GET_FILL_CONTRACTS_LIST',
+            params:[{product_id:id,product_type:type}]
         })
     }
 });

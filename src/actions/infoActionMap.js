@@ -629,6 +629,10 @@ export default {
     [actionTypes.GET_CONTRACT_DETAIL]:{ //空白合同详情
         apiFn:Fetch.getContractDetail
     },
+    [actionTypes.GET_FILL_CONTRACTS_LIST]:{ //购买合同页列表
+        apiFn:Fetch.getFillContractsList
+    }
+
 
 
 

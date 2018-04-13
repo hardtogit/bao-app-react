@@ -196,4 +196,9 @@ export const  DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/contracts/emptyTemplate').default);
         }, 'EmptyTemplate');
-    }//空白合同列表
+    },//空白合同详情
+    FillList = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/contracts/fillList').default);
+        }, 'FillList');
+    }//购买页合同列表

@@ -74,6 +74,7 @@ class DepositBuy extends React.Component {
       }
       this.props.userInfo();
       this.props.getEducationInfo();
+      this.props.getEmptyContractsList()
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.rates && nextProps.rates.data && !this.getAvailableCouponsFlag&&nextProps.quantityDataB) {
@@ -512,6 +513,7 @@ class DepositBuy extends React.Component {
       params: { id ,type:lx,productId},
       deposit,
       new_deposit,
+      contractData,
       quantityData,
       quantityDataB,
       depositbsBuy,
@@ -623,7 +625,9 @@ class DepositBuy extends React.Component {
 
 
 
-        <p><Link to={`/agreement`} className={styles.protocol}>《投资咨询及管理服务协议》及相关融资文件</Link></p>
+        <p><div className={styles.protocol}>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+            return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} >《{item.hetong_name}》</Link>
+        })}</div> </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'
@@ -674,11 +678,18 @@ const mapStateToProps = (state, ownProps) => {
     depositbsBuyPending:state.infodata.getIn(['DEPOSITBS_BUY','pending']),
     depositbsBuyResultData:state.infodata.getIn(['DEPOSITBS_BUYRESULT','data']),
     goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
-      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
+    EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
+    contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'C'}]
+        })
+    },
   push(path) {
     dispatch(push(path))
   },

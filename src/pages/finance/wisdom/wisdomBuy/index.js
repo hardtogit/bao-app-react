@@ -65,14 +65,15 @@ class Index extends Component{
                     money,
                     returnInterest,
                     fee,
-                    totalMoney
+                    totalMoney,
                 }
             },
             userData:{
                 data:{
                     balance
                 }
-            }
+            },
+            contractData
         }=this.props;
 
         return <div>
@@ -96,7 +97,9 @@ class Index extends Component{
                     <div className={styles.right}><span className={styles.num}>{balance}元</span><span className={styles.tip}>{this.state.disable&&"(余额不足)"}</span></div>
                 </div>
             </div>
-            <div className={styles.links}>我已阅读并同意签署 <Link to="">《借款合同》</Link><Link to="">《风险提示》</Link></div>
+            <div className={styles.links}>我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
+                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+            })}</div>
             <div className={styles.btn}>
                 <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={this.state.disable} onClick={this.handleClick} ></BaseButton>
 
@@ -150,9 +153,16 @@ class Index extends Component{
 const mapStateToProps=(state)=>({
     data:state.infodata.getIn(['WISDOM_DETAIL','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
-    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
+    goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+    contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
 });
 const mapDispatchToProps=(dispatch,own)=>({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'H'}]
+        })
+    },
     pop(){
         dispatch(goBack())
     },

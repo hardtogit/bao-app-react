@@ -13,6 +13,7 @@ import NavBar from '../../../../components/NavBar'
 import Button from '../../../../components/BaseButton'
 import styles from './index.less'
 import wrap from '../../../../utils/pageWrapper'
+import {Link} from 'react-router'
 import BuyInput from '../../../../components/customInput'
 import Tipbar from '../../../../components/Tipbar'
 import PayProcess from '../../payProcessOld'
@@ -41,6 +42,7 @@ class CreditorBuy extends React.Component{
         this.props.getCreditorDetail(this.creditorsId)
         this.props.getUser();
         this.props.getEducationInfo();
+        this.props.getEmptyContractsList()
     }
     componentWillReceiveProps(nextProps) {
         const {goBankData}=nextProps;
@@ -162,7 +164,8 @@ class CreditorBuy extends React.Component{
     render(){
         const detail = this.props.detail;
         const {
-            EducationData
+            EducationData,
+            contractData
         } = this.props;
         let primeContent;
         if(EducationData&&EducationData.code == 100){
@@ -222,7 +225,11 @@ class CreditorBuy extends React.Component{
                             changePending={this.changePending}
                             clear={this.props.clear}/>
                         <div className={styles.payBtn}>
-                            <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
+                            <p onClick={()=>this.props.push('/creditorProtocol')}>
+                                我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+                                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                            })}
+                            </p>
                         </div>
                         <Button
                             containerStyle={{margin: '40px 15px 20px'}}
@@ -252,9 +259,16 @@ const mapStateToProps = (state, ownProps) => {
         creditorsBuyData: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'data']),
         EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
         goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+        contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'B'}]
+        })
+    },
     balancePay(creditorId, copies, payPass) {
         dispatch({
             type: actionTypes.CREDITORS_BUY,

@@ -9,6 +9,7 @@ import NavBar from '../../../components/NavBar'
 import styles from './directBuy.less'
 import * as actionTypes from '../../../actions/actionTypes'
 import {connect} from 'react-redux'
+import {Link} from 'react-router'
 import wrap from '../../../utils/pageWrapper'
 import {goBack, push} from 'react-router-redux'
 import utils from '../../../utils/utils.js'
@@ -52,6 +53,7 @@ class DirectBuy extends React.Component {
         this.props.getUse(this.props.params.id);
         this.props.getUser();
         this.props.getEducationInfo();
+        this.props.getEmptyContractsList()
     }
     componentWillReceiveProps(nextProps) {
         const{goBankData}=nextProps
@@ -408,7 +410,8 @@ class DirectBuy extends React.Component {
     render(){
         const detail = this.props.detail;
         const {
-            EducationData
+            EducationData,
+            contractData
         } = this.props;
         let primeContent;
         if(EducationData&&EducationData.code == 100){
@@ -468,7 +471,9 @@ class DirectBuy extends React.Component {
                             changePending={this.changePending}
                             clear={this.props.clear}/>
                         <div className={styles.payBtn}>
-                            <p onClick={()=>this.props.push('/directContract')}>《借贷及担保服务协议》</p>
+                            <p >我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+                                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                            })}</p>
                         </div>
                         <Button
                             containerStyle={{margin: '40px 15px 20px'}}
@@ -508,10 +513,17 @@ const mapStateToProps = (state,ownProps)=>{
         useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
         use:state.infodata.getIn(['DIRECT_INVEST_COUPON','data']),
         EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
-        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
+        goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+        contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"])
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'A'}]
+        })
+    },
     getDirectInvestDetail(id) {
         dispatch({
             type: actionTypes.DIRECTINVEST_DETAIL,

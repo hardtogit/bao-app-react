@@ -52,6 +52,7 @@ class DirectBuy extends React.Component {
     this.props.getUse(this.props.params.id);
     this.props.getMyBankCards()
     this.props.getUser();
+    this.props.getEmptyContractsList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -582,7 +583,9 @@ class DirectBuy extends React.Component {
             clear={this.props.clear}/>
 
               <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-                  <Link to={`/directContract`} className={styles.protocol}>《借贷及担保服务协议》</Link>
+                  {this.props.contractData&&this.props.contractData.data.map((item,i)=>{
+                      return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                  })}
               </p>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}
@@ -625,10 +628,17 @@ const mapStateToProps = (state,ownProps)=>{
       banks:state.infodata.getIn(['GET_MY_CARD_LIST','data']),
       verifyData:state.infodata.getIn(['PAY_VERIFY','data']),
       cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data']),
-      goBankData:state.infodata.getIn(['GO_BANK_PAGE','data'])
+      goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+      contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'D'}]
+        })
+    },
   getDirectInvestDetail(id) {
     dispatch({
       type: actionTypes.DIRECTINVEST_DETAIL,

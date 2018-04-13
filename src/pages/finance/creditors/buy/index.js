@@ -14,6 +14,7 @@ import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import IsAuth from '../../../../components/isAuth'
 import Pay from '../../../../pages/finance/pay/index'
+import {Link} from 'react-router'
 import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
 const hostName=window.location.origin;
@@ -39,6 +40,7 @@ class CreditorBuy extends React.Component{
       this.props.getUser();
       this.props.getMyBankCards()
       this.props.getEducationInfo()
+      this.props.getEmptyContractsList()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -236,7 +238,8 @@ class CreditorBuy extends React.Component{
     }
   render(){
       const {
-          EducationData
+          EducationData,
+          contractData
       } = this.props;
       let primeContent;
       if(EducationData&&EducationData.code == 100){
@@ -309,7 +312,11 @@ class CreditorBuy extends React.Component{
             time={this.state.time}/>
 
           <div className={styles.payBtn}>
-            <p onClick={()=>this.props.push('/creditorProtocol')}>《债权转让及受让协议》</p>
+            <p onClick={()=>this.props.push('/creditorProtocol')}>
+                我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
+                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+            })}
+            </p>
           </div>
           <Button 
             containerStyle={{margin: '40px 15px 20px'}}
@@ -344,10 +351,17 @@ const mapStateToProps = (state, ownProps) => {
     creditorsBuyPending: state.infodata.getIn([actionTypes.CREDITORS_BUY, 'pending']),
       goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
       EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
+      contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'E'}]
+        })
+    },
     //余额支付
     balancePay(productId, num, password, passwordFactor, couponId,device,mapKey) {
         dispatch({

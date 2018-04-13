@@ -135,6 +135,8 @@ const requests = (Fetch) => {
   //合同
   Fetch.getEmptyContractsList=(data)=>{return Fetch(`api/contract/Nulllists`,'GET',data)}//空白合同列表
   Fetch.getContractDetail=(data)=>{return Fetch(`api/contract/Nulldetail`,'GET',data)}//空白合同列表
+  Fetch.getFillContractsList=(data)=>{return Fetch(`api/contract/lists`,'GET',data)}//购买合同页列表
+
 
 }
 

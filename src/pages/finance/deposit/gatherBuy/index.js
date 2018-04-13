@@ -544,7 +544,7 @@ class Index extends React.Component {
                 time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
             {contractData&&contractData.data.map((item,i)=>{
-                return <Link to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}
 
             {/*<Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和*/}
@@ -597,7 +597,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
-      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
+    EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
     goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"]),
     contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
   }
@@ -607,7 +607,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   getEmptyContractsList(){
     dispatch({
         type:'GET_EMPTY_CONTRACTS_LIST',
-        params:['F']
+        params:[{product_type:'F'}]
       })
   },
   push(path) {

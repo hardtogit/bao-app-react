@@ -7,6 +7,7 @@ import {goBack,push} from 'react-router-redux'
 import arrowRight from '../../assets/images/arrow2.png' //没有记录
 import Loading from '../pageLoading'
 import PropTypes from 'prop-types'
+import BaseText from '../../components/BaseText'
 class Index extends React.Component {
     static PropTypes={
         type:PropTypes.number,
@@ -239,6 +240,7 @@ class Index extends React.Component {
                         <li>当前期数<p>期数：{currentPeriod}</p></li>
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>
+                        <BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={push(`/fillList/${id}/C`)}></BaseText>
                     </ul>||''}
                 </ul>
             </div>
