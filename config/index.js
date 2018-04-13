@@ -10,7 +10,7 @@ const config = {
 	//requestUrl: 'http://demo-wap.devbao.cn/',//外网测试
 	// requestUrl:'http://bug-api.devbao.cn/' //bug测试
     // requestUrl:'http://huguandong-api.devbao.cn/'//胡冠东
-    requestUrl:'http://yanxin-api.devbao.cn/'//闫鑫
+    // requestUrl:'http://yanxin-api.devbao.cn/'//闫鑫
 	// requestUrl:'http://api.10.devbao.cn/'
     //requestUrl:"xiangshiyin-api.devbao.cn/"
     // requestUrl:"http://yanxin-api.devbao.cn/"
@@ -24,6 +24,6 @@ const config = {
     // requestUrl: 'http://zhouyangzhi.api.10.devbao.cn/',//外网测试
     //  requestUrl:'https://zhaosigui.pc.10.devbao.cn/'
     //  requestUrl:'https://zhaosigui.pc.10.devbao.cn/'
-    // requestUrl: 'http://jiangzhijie.api.10.devbao.cn/'
+    requestUrl: 'http://jiangzhijie.api.10.devbao.cn/'
 };
 module.exports = config;

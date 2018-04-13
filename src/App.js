@@ -58,7 +58,7 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
     PlanDetails,ZqTransfer,
     DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
     CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy,
-    WisdomMy,WisdomRecord,WisdomMyDetail,WisdomMyMain
+    WisdomMy,WisdomRecord,WisdomMyDetail,WisdomMyMain,EmptyTemplate
 } from './loadTool/product'
 import{IndexTab
 } from './loadTool/index'
@@ -92,6 +92,8 @@ export default class App extends React.Component {
               <Route path="serviceContract/:id/:type" getComponent={ServiceContract}></Route>
               <Route path="borrowContract/:id/:type" getComponent={BorrowContract}></Route>
               <Route path="storeContract" getComponent={StoreContract}></Route>
+
+              <Route path="emptyTemplate/:type" getComponent={EmptyTemplate}></Route>
               <IndexRedirect to="home" />
               <Route path="home" getComponent={IndexTab} onLeave={(next)=>{Auth.isOut(store,next)}}>
                   <IndexRoute component={homeIndex}/>

@@ -369,3 +369,5 @@ export const GET_CHARGE_STATUS='GET_CHARGE_STATUS'//获取充值按钮状态
 export const GO_BANK_PAGE='GO_BANK_PAGE'//去往存管授权页面
 export const AUTHORIZATION_TEXT='AUTHORIZATION_TEXT'//免密授权规则说明
 export const ACTIVE_BONUS_LIST='ACTIVE_BONUS_LIST'//激活红包列表
+export const GET_EMPTY_CONTRACTS_LIST='GET_EMPTY_CONTRACTS_LIST'//获取空白合同列表
+export const GET_CONTRACT_DETAIL='GET_CONTRACT_DETAIL'//获取合同详情

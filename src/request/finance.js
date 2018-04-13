@@ -132,6 +132,9 @@ const requests = (Fetch) => {
   Fetch.goBankPage=(data)=>{return Fetch('api/supervise/browser/requestUrl','POST',data)}//去往存管页面
   Fetch.authorizationText=(data)=>{return Fetch('api/common/settings?key=supervise_free_auth','GET',data)}//获取免密授权规则
   Fetch.activeBonusList=(page,data)=>{return Fetch(`bonuse/list?page=${page}`,'GET',data)}//激活红包
+  //合同
+  Fetch.getEmptyContractsList=(data)=>{return Fetch(`api/contract/Nulllists`,'GET',data)}//空白合同列表
+  Fetch.getContractDetail=(data)=>{return Fetch(`api/contract/Nulldetail`,'GET',data)}//空白合同列表
 
 }
 

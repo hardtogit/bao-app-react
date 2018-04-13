@@ -622,7 +622,14 @@ export default {
     },
     [actionTypes.MY_WISDOM_DETAIL]:{ //智享详情
         apiFn:Fetch.myWisdomDetail
-    }
+    },
+    [actionTypes.GET_EMPTY_CONTRACTS_LIST]:{ //空白合同列表
+        apiFn:Fetch.getEmptyContractsList
+    },
+    [actionTypes.GET_CONTRACT_DETAIL]:{ //空白合同详情
+        apiFn:Fetch.getContractDetail
+    },
+
 
 
 }

@@ -191,4 +191,9 @@ export const  DirectBuyOld  = (location, cb) => {
             cb(null, require('../pages/finance/demand/product').default);
         }, 'DemandProduct');
     }//零钱宝详情
-
+/****合同****/
+    export const EmptyTemplate = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/contracts/emptyTemplate').default);
+        }, 'EmptyTemplate');
+    }//空白合同列表

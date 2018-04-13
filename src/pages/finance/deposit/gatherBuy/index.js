@@ -69,6 +69,7 @@ class Index extends React.Component {
       this.props.getMyBankCards()
       this.props.userInfo();
       this.props.getEducationInfo();
+      this.props.getEmptyContractsList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -463,6 +464,7 @@ class Index extends React.Component {
       deposit,
       new_deposit,
       quantityDataB,
+        contractData,
         EducationData
     } = this.props;
     let primeContent;
@@ -541,8 +543,12 @@ class Index extends React.Component {
                 money={utils.padMoney(this.getPayTotal())}
                 time={this.state.time}/>
         <p className={styles.textContent}><input ref="choice"   onChange={this.ifScan} style={{marginRight:'6px'}} type="checkbox"/>我已阅读并同意宝点网
-            <Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和
-            <Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>
+            {contractData&&contractData.data.map((item,i)=>{
+                return <Link to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+            })}
+
+            {/*<Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和*/}
+            {/*<Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>*/}
         </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
@@ -592,11 +598,18 @@ const mapStateToProps = (state, ownProps) => {
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
       EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
-    goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"])
+    goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"]),
+    contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  getEmptyContractsList(){
+    dispatch({
+        type:'GET_EMPTY_CONTRACTS_LIST',
+        params:['F']
+      })
+  },
   push(path) {
     dispatch(push(path))
   },
