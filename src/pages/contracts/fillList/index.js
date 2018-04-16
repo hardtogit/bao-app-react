@@ -8,18 +8,14 @@ import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../components/NavBar'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
+import BaseText from '../../../components/BaseText'
 class Index extends Component{
     constructor(props) {//构造器
-        super(props)
+        super(props);
         this.state = {
             isOpen: false
         }
-    }
-    static defaultProps = {//设置初始props
-    }
-    componentWillMount(){
-     //组件将要渲染时调用
     }
     componentDidMount(){
         const{
@@ -31,42 +27,32 @@ class Index extends Component{
         }=this.props;
         getFillContractsList(id,type)
     }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
-    }
-
+    handleClick=(id)=>{
+        const {push}=this.props;
+        push(`/fillDetail/${id}`);
+    };
     render(){
         const{
             pop,
-            contractsList
+            contractsFillList
             }=this.props;
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
                   协议列表
               </NavBar>
-               {contractsList&&contractsList.data.map((item,i)=>{
+               {contractsFillList&&contractsFillList.data.map((item,i)=>{
                    return(
-                       <div >
-
-
-                       </div>
+                       <BaseText label={item.hetong_name} borderType='four' onClick={()=>{this.handleClick(item.id)}}> </BaseText>
                    )
-
                })
-
                }
-
-
            </div>
         )
     }
 }
 const mapStateToProps=(state)=>({
-    contractsList:state.infodata.getIn('GET_FILL_CONTRACTS_LIST','data')
+    contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
@@ -77,6 +63,10 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'GET_FILL_CONTRACTS_LIST',
             params:[{product_id:id,product_type:type}]
         })
+    },
+    push(url){
+        dispatch(push(url))
     }
+
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

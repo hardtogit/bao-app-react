@@ -12,9 +12,11 @@ class Index extends Component{
        const id=this.props.params.id;
        const access_sys=this.props.location.query.access_sys;
        if(access_sys){
-           this.props.getInfo(id,access_sys)
+           this.props.getInfo(id,access_sys);
+           this.props.getDetailByProductId({borrow_id:id,product_type:'A'})
        }else{
-           this.props.getInfo(id)
+           this.props.getInfo(id);
+           this.props.getDetailByProductId({borrow_id:id,product_type:'D'})
        }
     }
     componentWillUnmount(){
@@ -35,8 +37,23 @@ class Index extends Component{
                 query:{
                     access_sys
                 }
-            }
+            },
+            contractData
         }=this.props;
+        let url;
+        if(access_sys){
+           if(contractData&&contractData.data.length!=0){
+               url='/fillDetail/'+id+'?type=A'
+           }else{
+               url="/user/securityPlan/"+id+"?access_sys=platform"
+           }
+        }else{
+            if(contractData&&contractData.data.length!=0){
+                url='/fillDetail/'+id+'?type=D'
+            }else{
+                url="/user/securityPlan/"+id
+            }
+        }
         const {name,total,rate,term,type,interest_start_time,interest_end_time,repayment}=data;
         return(<div className={styles.content}>
             <div className={styles.messageBox}>
@@ -122,7 +139,7 @@ class Index extends Component{
                     {repayment}
                     </span>
             </div>
-            <Link to={access_sys&&"/user/securityPlan/"+id+"?access_sys=platform"||"/user/securityPlan/"+id+""}>
+            <Link to={url}>
                 <div className={styles.modeBox}>
                  <span>
                    产品合同
@@ -154,7 +171,8 @@ class Index extends Component{
     }
 }
 const datas=(state)=>({
-      infoData:state.infodata.getIn(['DIRECT_INVEST_PRODUCT_INFO','data'])
+      infoData:state.infodata.getIn(['DIRECT_INVEST_PRODUCT_INFO','data']),
+      contractData:state.infodata.getIn(['GET_DETAIL_BY_PRODUCT_ID','data'])
 })
 const dispatchFn=(dispatch)=>({
        getInfo(id,access_sys){
@@ -165,6 +183,12 @@ const dispatchFn=(dispatch)=>({
        },
     pop(){
         dispatch(goBack())
+    },
+    getDetailByProductId(data){
+        dispatch({
+            type:'GET_DETAIL_BY_PRODUCT_ID',
+            params:[data]
+        })
     },
     clearData(){
         dispatch({

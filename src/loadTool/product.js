@@ -201,4 +201,9 @@ export const  DirectBuyOld  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/contracts/fillList').default);
         }, 'FillList');
-    }//购买页合同列表
+    },//购买页合同列表
+    FillDetail = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/contracts/fillDetail').default);
+        }, 'FillDetail');
+    }//购买页合同详情页

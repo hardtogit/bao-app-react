@@ -11,6 +11,7 @@ import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
 import arrowRight from '../../../../assets/images/arrow2.png' //图标
 import PageLoading from '../../../../components/pageLoading'
+import BaseText from '../../../../components/BaseText'
 import utils from '../../../../utils/utils'
 class Index extends Component{
     constructor(props) {//构造器
@@ -26,9 +27,11 @@ class Index extends Component{
          params:{
              id
          },
-         getDetail
+         getDetail,
+         getFillContractsList
       }=this.props;
         getDetail(id);
+        getFillContractsList(id,'H')
     }
     goProductDetail(id){
         const {push}=this.props;
@@ -46,8 +49,8 @@ class Index extends Component{
             name,
             rate,
             month
-        }=this.props.location.query
-
+        }=this.props.location.query;
+        let{contractsFillList}=this.props;
         return(
         <div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(borrow_id)}}>
@@ -68,6 +71,7 @@ class Index extends Component{
                     <div className={styles.left}>手续费</div>
                     <div className={styles.right}>{fee}</div>
                 </div>
+                {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{push(`/fillList/${borrow_id}/H`)}}></BaseText>}
             </div>
             <div className={styles.title}>
                 回款记录
@@ -90,10 +94,6 @@ class Index extends Component{
                         </div>
                         )
                     )}
-
-
-
-
                 </div>
             </div>
         </div>
@@ -122,7 +122,8 @@ class Index extends Component{
     }
 }
 const mapStateToProps=(state)=>({
-    data:state.infodata.getIn(['MY_WISDOM_DETAIL','data'])
+    data:state.infodata.getIn(['MY_WISDOM_DETAIL','data']),
+    contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data'])
 });
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
@@ -136,6 +137,12 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     push(url){
         dispatch(push(url))
-    }
+    },
+    getFillContractsList(id,type){
+        dispatch({
+            type:'GET_FILL_CONTRACTS_LIST',
+            params:[{product_id:id,product_type:type}]
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

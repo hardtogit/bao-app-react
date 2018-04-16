@@ -119,7 +119,7 @@ class Index extends Component{
                 </div>
                 <div className={classNames(styles.item,styles.backWay)}>
                     <div className={styles.left}>产品合同</div>
-                    <div className={styles.right}> <span className={styles.arrow}></span></div>
+                    <div className={styles.right}> <span onClick={()=>{this.props.push(`/fillDetail/${this.props.params.id}?type=G`)}}  className={styles.arrow}></span></div>
                 </div>
             </div>
         )

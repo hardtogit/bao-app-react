@@ -139,6 +139,7 @@ class Index extends React.Component {
             infoData:{
                 data
             },
+            contractsFillList
         }=this.props;
         const {
             account_arrival,
@@ -163,6 +164,15 @@ class Index extends React.Component {
                         <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
                         <li>已逾期<p className={styles.yellowColor}>{account_overdue}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{refund_date}</p></li>
+                        {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={()=>{
+                            let id=this.props.params.id
+                            if(this.props.location.query.access_sys=='platform'){
+                                this.props.push('/fillList/'+id+'/A')
+                            }else{
+                                this.props.push('/fillList/'+id+'/D')
+                            }
+                        }}></BaseText>}
+
                     </ul>
                 </ul>
             </div>
@@ -206,7 +216,8 @@ class Index extends React.Component {
         const {
             id,
             push,
-            type
+            type,
+            contractsFillList
         }=this.props;
         const {
             arrivalAccount,
@@ -240,13 +251,14 @@ class Index extends React.Component {
                         <li>当前期数<p>期数：{currentPeriod}</p></li>
                         <li>已到账<p className={styles.yellowColor}>{arrivalAccount}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{nextStrTime}</p></li>
-                        <BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={push(`/fillList/${id}/C`)}></BaseText>
+                        {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{push(`/fillList/${id}/C`)}}></BaseText>}
                     </ul>||''}
                 </ul>
             </div>
         )
     }
     loadEndDomD=()=>{
+        const{contractsFillList}=this.props;
         const {
             amount,
             interest,
@@ -272,6 +284,14 @@ class Index extends React.Component {
                     <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
                     <li>已逾期<p className={styles.yellowColor}>{account_overdue}</p></li>
                     <li>下期还款日<p className={styles.yellowColor}>{next_periods}</p></li>
+                    {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={()=>{
+                        let id=this.props.params.id
+                        if(this.props.location.query.access_sys=='platform'){
+                            this.props.push('/fillList/'+id+'/B')
+                        }else{
+                            this.props.push('/fillList/'+id+'/E')
+                        }
+                    }}></BaseText>}
                 </ul>
             </ul>
         </div>)
@@ -280,15 +300,26 @@ class Index extends React.Component {
     componentDidMount(){
         const Id=this.props.id;
 
-        const{type,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
-        if (type==4){
+        const{type,getFillContractsList,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
+        if (type==4){//债权转让
             getZqProductDetail(Id,this.props.location.query.access_sys)
-        }else if (type==5){
-            getDepositbs(Id,index)
+            if(this.props.location.query.access_sys){
+                getFillContractsList(Id,'B')
+            }else{
+                getFillContractsList(Id,'E')
+            }
+        }else if (type==5){//定存b
+            getDepositbs(Id,index);
+            getFillContractsList(Id,'C')//获取合同列表
         }else if (type==6){
             getDepositasInvest(Id)
-        }else {
+        }else {//直投详情
             getInvestProductDetail(Id,this.props.location.query.access_sys)
+            if(this.props.location.query.access_sys){
+                getFillContractsList(Id,'A')
+            }else{
+                getFillContractsList(Id,'D')
+            }
         }
     }
     dataN=()=>{
@@ -371,7 +402,8 @@ const datas=(state)=>({
     infoData:state.infodata.getIn(['DIRECT_INVEST_PROPERTY_DETAIL','data']),
     infoData2:state.infodata.getIn(['CREDITORS_PROPERTY_DETAIL','data']),
     infoDate3:state.infodata.getIn(['DEPOSITBS_INVEST','data']),
-    infoData4:state.infodata.getIn(['DEPOSITA_SINVEST','data'])
+    infoData4:state.infodata.getIn(['DEPOSITA_SINVEST','data']),
+    contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data'])
 });
 const dispatchFn=(dispatch,own)=>({
     getInvestProductDetail(Id,access_sys){
@@ -379,6 +411,12 @@ const dispatchFn=(dispatch,own)=>({
             type:'DIRECT_INVEST_PROPERTY_DETAIL',
             params:[Id,access_sys]
         })
+    },
+    getFillContractsList(id,type){
+       dispatch({
+                 type:'GET_FILL_CONTRACTS_LIST',
+                 params:[{product_id:id,product_type:type}]
+               })
     },
     pop(){
         dispatch(goBack())
@@ -402,6 +440,12 @@ const dispatchFn=(dispatch,own)=>({
         dispatch({
             type:'DEPOSITA_SINVEST',
             params:[Id]
+        })
+    },
+    clearData(){
+        dispatch({
+            type: 'CLEAR_INFO_DATA',
+            key: 'GET_FILL_CONTRACTS_LIST'
         })
     }
 });

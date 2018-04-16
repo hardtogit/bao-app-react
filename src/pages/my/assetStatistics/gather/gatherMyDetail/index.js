@@ -10,6 +10,7 @@ import NavBar from '../../../../../components/NavBar'
 import Alert from '../../../../../components/Dialog/alert'
 import {connect} from 'react-redux'
 import {goBack,push,replace} from 'react-router-redux'
+import utils from '../../../../../utils/utils'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -28,6 +29,8 @@ class Index extends Component{
                 okText: '确定',
                 okCallback: () => {this.props.pop()},
             })
+        }else{
+            this.props.getFillContractsList(this.props.data.invest_id,'F')
         }
         this.setState({
             data:this.props.data,
@@ -39,37 +42,18 @@ class Index extends Component{
      //组件接收到新的props调用
     }
     componentWillUnmount(){
-     //组件将要被移除时调用
+      this.props.clearData()
     }
     render(){
-        Date.prototype.format = function(fmt) {
-            var o = {
-                "M+" : this.getMonth()+1,                 //月份
-                "d+" : this.getDate(),                    //日
-                "h+" : this.getHours(),                   //小时
-                "m+" : this.getMinutes(),                 //分
-                "s+" : this.getSeconds(),                 //秒
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度
-                "S"  : this.getMilliseconds()             //毫秒
-            };
-            if(/(y+)/.test(fmt)) {
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-            }
-            for(var k in o) {
-                if(new RegExp("("+ k +")").test(fmt)){
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-                }
-            }
-            return fmt;
-        };
         const{
             pop,
-            push
-            }=this.props
+            push,
+            contractsFillList
+            }=this.props;
         const{
             data,
             type
-            }=this.state
+            }=this.state;
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
@@ -99,11 +83,11 @@ class Index extends Component{
                        </div>
                        <div className={styles.item}>
                            <div className={styles.left}>产品起息日</div>
-                           <div className={styles.right}>{new Date(data.start_time*1000).format('yyyy-MM-dd')}</div>
+                           <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(data.start_time*1000))}</div>
                        </div>
                        <div className={styles.item}>
                            <div className={styles.left}>锁定结束时间</div>
-                           <div className={styles.right}>{new Date(data.end_time*1000).format('yyyy-MM-dd')}</div>
+                           <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(data.end_time*1000))}</div>
                        </div>
                    </div>
                    <div className={styles.linkItem}>
@@ -112,7 +96,8 @@ class Index extends Component{
                            <span className={styles.arrow}></span>
                        </div>
                        <div className={styles.item}>
-                           <div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1')}}>查看协议</div>
+                           {contractsFillList&&contractsFillList.data.length!=0&&<div className={styles.left} onClick={()=>{this.props.push('/fillList/'+data.invest_id+'/F')}}>服务协议</div>
+                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1')}}>服务协议</div>}
                            <span className={styles.arrow}></span>
                        </div>
                    </div>
@@ -125,7 +110,8 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>{
     return{
-       data:state.regStore.getIn(["SAVE_GATHER_DATA",'data'])
+       data:state.regStore.getIn(["SAVE_GATHER_DATA",'data']),
+       contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data'])
     }
 };
 const mapDispatchToProps=(dispatch,own)=>({
@@ -137,7 +123,18 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     replace(url){
         dispatch(replace(url))
+    },
+    getFillContractsList(id,type){
+        dispatch({
+            type:'GET_FILL_CONTRACTS_LIST',
+            params:[{product_id:id,product_type:type}]
+        })
+    },
+    clearData(){
+        dispatch({
+            type: 'CLEAR_INFO_DATA',
+            key: 'GET_FILL_CONTRACTS_LIST'
+        })
     }
-
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

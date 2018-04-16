@@ -631,7 +631,15 @@ export default {
     },
     [actionTypes.GET_FILL_CONTRACTS_LIST]:{ //购买合同页列表
         apiFn:Fetch.getFillContractsList
+    },
+    [actionTypes.GET_DETAIL_BY_PRODUCT_ID]:{ //根据产品获取合同详情
+        apiFn:Fetch.getDetailByProductId
+    },
+    [actionTypes.GET_DETAIL_BY_CONTRACT_ID]:{ //根据合同ID获取合同详情
+        apiFn:Fetch.getDetailByContractId
     }
+
+
 
 
 

@@ -11,40 +11,30 @@ import NavBar from '../../../../../components/NavBar'
 import Scroll from '../../../../../components/scroll'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
+import Fetch from '../../../../../request/fetch'
 class Index extends Component{
     componentDidMount(){
     }
     componentWillUnmount(){
         this.props.clean()
-        console.log('ds')
+    }
+    goContract(id){
+       Fetch(`api/contract/supervisedetail`,'GET',{borrow_id:id,product_type:'G'}).then(
+           (response) => {
+               if(response.data.length!=0){
+                   this.props.push("/fillDetail/"+id+"?type=G")
+               }else{
+                   this.props.push(`/borrowContract/${id}/1`)
+               }
+           }
+       )
     }
     render(){
-        Date.prototype.format = function(fmt) {
-            var o = {
-                "M+" : this.getMonth()+1,                 //月份
-                "d+" : this.getDate(),                    //日
-                "h+" : this.getHours(),                   //小时
-                "m+" : this.getMinutes(),                 //分
-                "s+" : this.getSeconds(),                 //秒
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度
-                "S"  : this.getMilliseconds()             //毫秒
-            };
-            if(/(y+)/.test(fmt)) {
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-            }
-            for(var k in o) {
-                if(new RegExp("("+ k +")").test(fmt)){
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-                }
-            }
-            return fmt;
-        };
         const Height=document.body.clientHeight-44;
         const{
             listData,
             pending,
             end,
-            push,
             pop
             }=this.props
         return(
@@ -59,7 +49,7 @@ class Index extends Component{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
                                <div className={styles.left}>{item.borrow_name}</div>
-                               <div className={styles.right} onClick={()=>{push(`/borrowContract/${item.borrow_id}/1`)}}>查看协议</div>
+                               <div className={styles.right} onClick={this.goContract(data.borrow_id)}>查看协议</div>
                            </div>
                            <div className={styles.item}>
                                <div className={styles.left}>投资金额(元)</div>
@@ -73,14 +63,14 @@ class Index extends Component{
         )
     }
 }
-const Datas=(state)=>{
+const mapStateToProps=(state)=>{
     return{
         listData:state.listdata.getIn(['GATHER_PROJECTS','data']),
         pending:state.listdata.getIn(['GATHER_PROJECTS','pending']),
-        end:state.listdata.getIn(['GATHER_PROJECTS','pageEnd'])
+        end:state.listdata.getIn(['GATHER_PROJECTS','pageEnd']),
     }
 }
-const DispatchFn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
@@ -100,4 +90,4 @@ const DispatchFn=(dispatch,own)=>({
         })
     }
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)
