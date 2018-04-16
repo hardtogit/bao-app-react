@@ -16,8 +16,6 @@ import Scroll from '../../../components/scroll/index.js'
 import Store from '../../../components/Dialog/store'
 import Loading from '../../../components/pageLoading'
 import PassWord from '../../../components/Dialog/reddemOld.js'
-import type_hongwu from '../../../assets/images/type_hongwu.png'
-import type_danbao from '../../../assets/images/type_danbao.png'
 import type_xinyong from '../../../assets/images/type_xinyong.png'
 import type_diya from '../../../assets/images/type_diya.png'
 import setUrl from '../../../components/setUrl'
@@ -222,15 +220,6 @@ class DirectInvestCell extends React.Component{
                             </p>
                         </div>
                         <div className={activity.length>0 ? styles.activitys : styles.actSinggle}>
-                            {
-                                (() => {
-                                    if (activity.length>0) {
-                                        return(
-                                            <img src={type_hongwu} alt="type_hongwu"/>
-                                        )
-                                    }
-                                })()
-                            }
                             <div>
                                 {
                                     (() => {

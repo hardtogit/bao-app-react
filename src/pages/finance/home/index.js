@@ -87,7 +87,7 @@ class financeIndex extends Component{
 	 	if (utils.getCookie('storeGuide')){
 		}else{
 	 		if(statusData&&!statusData.data.hide_platform_recharge_withdraw){
-                this.refs.guide.show()
+                // this.refs.guide.show()
                 utils.setCookie('storeGuide','flag',360*100)
 			}
 		}
