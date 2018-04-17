@@ -53,7 +53,7 @@ export default class Success extends React.Component {
     }
     render() {
         let display;
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
+        let storeData=JSON.parse(sessionStorage.getItem('bao-store'))||{};
         let url='/user/setting/regStore';
         if(storeData.isRegister){
             url='/user/setting/cardBind'
