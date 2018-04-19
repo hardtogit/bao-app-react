@@ -39,6 +39,7 @@ class Index extends React.Component {
       getAvailableCouponsFlag:false,
       top:'100%',
       checkBox:true,
+      checkBoxTwo:true,
       choose:'',
         money:'',
         useCoupon:true,
@@ -63,6 +64,7 @@ class Index extends React.Component {
     }
   componentDidMount() {
       this.refs.choice.checked =true
+      this.refs.choiceTwo.checked =true
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)
@@ -236,6 +238,18 @@ class Index extends React.Component {
           })
       }
   }
+    //是否阅读合同
+    ifScanTwo=(e)=>{
+        if(this.state.checkBoxTwo){
+            this.setState({
+                checkBoxTwo:false
+            })
+        }else{
+            this.setState({
+                checkBoxTwo:true
+            })
+        }
+    }
   // 能否支付
   canPay() {
         const {params:{type,id}}=this.props;
@@ -251,6 +265,9 @@ class Index extends React.Component {
        if(!this.state.checkBox){
            return false
        }
+      if(!this.state.checkBoxTwo){
+          return false
+      }
        if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance){
            return false;
        }
@@ -550,6 +567,7 @@ class Index extends React.Component {
             {/*<Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和*/}
             {/*<Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>*/}
         </p>
+            <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意聚点+到期3天后授权系统自动进行转让</p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

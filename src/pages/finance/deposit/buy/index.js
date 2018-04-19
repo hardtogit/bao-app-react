@@ -32,6 +32,8 @@ class DepositBuy extends React.Component {
       pending:false,
       couponsFetching:true,
       top:'100%',
+      checkBox:true,
+      checkBoxTwo:true,
       choose:'',
         money:'',
         useCoupon:true,
@@ -67,6 +69,8 @@ class DepositBuy extends React.Component {
   componentDidMount() {
       window['closeFn']=this.closeFn;
       const {type}=this.props.params;
+      this.refs.choice.checked =true
+      this.refs.choiceTwo.checked =true
       if (type=='A'){
           this.props.getDepositDetail(this.state.productId)
       }else {
@@ -246,6 +250,12 @@ class DepositBuy extends React.Component {
     const {
         quantity,
     }=this.state;
+      if(!this.state.checkBox){
+          return false
+      }
+      if(!this.state.checkBoxTwo){
+          return false
+      }
     const {quantityData,quantityDataB}=this.props;
     if (type=='A'){
         if (quantityData){
@@ -507,6 +517,29 @@ class DepositBuy extends React.Component {
                 this.props.depositbsBuyResult(data.data.msgId);
             }
        },500)
+    };
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
+    ifScanTwo=(e)=>{
+        if(this.state.checkBoxTwo){
+            this.setState({
+                checkBoxTwo:false
+            })
+        }else{
+            this.setState({
+                checkBoxTwo:true
+            })
+        }
     }
   render() {
     const {
@@ -625,9 +658,13 @@ class DepositBuy extends React.Component {
 
 
 
-        <p><div className={styles.protocol}>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+        <p><div className={styles.protocol}><input ref="choice"   onChange={this.ifScan} type="checkbox"/> 我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
             return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} >《{item.hetong_name}》</Link>
-        })}</div> </p>
+        })}</div>
+          <div className={styles.protocol}>
+              <input ref="choiceTwo"   onChange={this.ifScanTwo} type="checkbox"/>我已同意定存宝B到期后授权系统自动进行转让
+          </div>
+        </p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

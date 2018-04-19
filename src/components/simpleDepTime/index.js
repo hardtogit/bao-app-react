@@ -19,7 +19,7 @@ class Index extends Component{
     }
     static defaultProps={
         startTime:'20170214',
-        endTime:'20170214',
+        endTime:'',
         type:'A',
         lx:2,
         Grade:'A',
@@ -36,7 +36,9 @@ class Index extends Component{
             startTime,
             endTime,
             type,
-            repayment
+            centerTime,
+            repayment,
+            endLabel
         }=this.props;
         return(<div className={styles.depositBox}>
             <ul className={styles.depositUl}>
@@ -79,14 +81,15 @@ class Index extends Component{
                                 <p className={styles.timeText}>{startTime}</p>
                             </li>
                             <li>
-                                <p>
+                                <p className={styles.tbName}>
                                     {
                                         type=='A'&&'锁定期'||repayment
                                     }
                                 </p>
+                                <p className={styles.timeText}>{centerTime}</p>
                             </li>
                             <li>
-                                <p className={styles.tbName}>本息到账</p>
+                                <p className={styles.tbName}>{endLabel||"本息到账"}</p>
                                 <p className={styles.timeText}>{endTime}</p>
                             </li>
                         </ul>
