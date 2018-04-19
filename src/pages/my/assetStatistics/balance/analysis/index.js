@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../../../../../components/NavBar/index'
 import styles from './index.css';
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from '../../../../../components/reactEcharts';
 import {goBack,push} from 'react-router-redux'
 import Util from "../../../../../utils/utils";
 import Loading from '../../../../../components/pageLoading/index'
@@ -30,7 +30,7 @@ class Index extends React.Component {
                     <span></span>
                 </div>
                 <div className={styles.analysis}>
-                    <ReactEcharts option={data.getOtion()} style={{height:200}}/>
+                    <ReactEcharts options={data.getOtion()} style={{height:200}}/>
                     <p className={styles.name}>资产分析</p>
                     <p className={styles.total}>资产总值</p>
                     <p className={styles.total_num}>{data.total_money}</p>
