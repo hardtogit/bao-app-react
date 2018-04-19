@@ -86,7 +86,7 @@ class Index extends Component{
                     </div>
                     <div className={styles.item}>
                         <div className={styles.left}>借款总额</div>
-                        <div className={styles.right}>{has_borrow}</div>
+                        <div className={styles.right}>{total}</div>
                     </div>
                     <div className={styles.item}>
                         <div className={styles.left}>预期年化收益率</div>
@@ -110,7 +110,7 @@ class Index extends Component{
                     </div>
                     <div className={styles.item}>
                         <div className={styles.left}>转让价值</div>
-                        <div className={styles.right}>{total}</div>
+                        <div className={styles.right}>{this.props.location.query.money}</div>
                     </div>
                 </div>
                 <div className={classNames(styles.item,styles.backWay)}>

@@ -33,9 +33,9 @@ class Index extends Component{
         getDetail(id);
         getFillContractsList(id,'H')
     }
-    goProductDetail(id){
+    goProductDetail(id,money){
         const {push}=this.props;
-        push(`/user/wisdomMyMain/${id}`)
+        push(`/user/wisdomMyMain/${id}?money=${money}`)
     }
     loadEnd=()=>{
         const{
@@ -53,7 +53,7 @@ class Index extends Component{
         let{contractsFillList}=this.props;
         return(
         <div>
-            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(borrow_id)}}>
+            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(borrow_id,money)}}>
                 <h2>{name}</h2>
                 <p><span>{month}个月</span><span>约定年化收益率{rate}</span></p>
                 <img src={arrowRight}/>

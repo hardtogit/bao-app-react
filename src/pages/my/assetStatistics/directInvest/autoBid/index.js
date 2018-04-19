@@ -40,12 +40,15 @@ class Index extends React.Component {
             start: 1,//开始期限
             end: 24,//结束期限
             time: 0,
-            buttonClickStatus: true//确认开启是否能点击
+            checkBox:true,
+            buttonClickStatus: true,//确认开启是否能点击
+            init:false
         }
     }
 
     componentDidMount() {
         this.props.getInfo();
+        this.props.getEmptyContractsList()
     }
 
     componentWillUnmount() {
@@ -177,6 +180,18 @@ class Index extends React.Component {
             }
         });
     };
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
     checkButtonClickStatus = (count, balance, rate) => {
         const rates = parseFloat(rate);
         if (!/^[1-9]\d{0,1}$/.test(count) || !/^[0-9]*[1-9][0-9]*$/.test(balance) || !(/^\d+(\.\d{1})?$/.test(rates) && rates <= this.state.maxRate && rates >= this.state.minRate)) {
@@ -328,7 +343,7 @@ class Index extends React.Component {
     };
 
     render() {
-        const {pop, info} = this.props;
+        const {pop, info ,contractData} = this.props;
         let typeText='不限'
         switch (this.state.bidType) {
             case 0:
@@ -349,6 +364,12 @@ class Index extends React.Component {
         const repaymentTypes = ['不限', '每月还息到期还本', '每月等额还本息'];
         if (!info) {
             return <Loading/>
+        }
+        let flag=true;
+        if(this.state.buttonClickStatus){
+            if(this.state.checkBox){
+                flag=false
+            }
         }
         return (
             <div>
@@ -442,11 +463,14 @@ class Index extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    <div className={style.protocol}><input ref="choice" checked={this.state.checkBox}  onChange={this.ifScan} type="checkbox"/> 我已阅读并同意{contractData&&contractData.data&&contractData.data.map((item,i)=>{
+                        return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} >《{item.hetong_name}》</Link>
+                    })}</div>
                 </Box>
                 <button onClick={() => {
                     let id=this.state.open?1:0;
                     this.sure(id)
-                }} disabled={!this.state.buttonClickStatus}
+                }} disabled={flag}
                         className={classnames(style.sure)}>保存设置
                 </button>
                 <Confirm ref="confirm"/>
@@ -514,11 +538,18 @@ const mapStateToProps = (state) => {
         info: infoModel(state.infodata.getIn(['AUTO_BUY_INFO', 'data'])),
         setInfo: state.infodata.getIn(['AUTO_BUY', 'data']),
         freeAccreditData: state.infodata.getIn(['FREE_ACCREDIT', 'data']),
-        accreditVerifyData: state.infodata.getIn(['ACCREDIT_VERIFY', 'data'])
+        accreditVerifyData: state.infodata.getIn(['ACCREDIT_VERIFY', 'data']),
+        contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'D'}]
+        })
+    },
     getInfo() {
         dispatch({
             type: "AUTO_BUY_INFO"
