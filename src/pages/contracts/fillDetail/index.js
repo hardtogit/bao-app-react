@@ -10,6 +10,7 @@ import {goBack,push}from 'react-router-redux'
 import NavBar from '../../../components/NavBar'
 import LoadingPage from '../../../components/pageLoading'
 import styles from './index.less'
+import noData from '../../../assets/images/noData.png'
 class Index extends Component{
     constructor(props){
         super(props)
@@ -28,7 +29,7 @@ class Index extends Component{
             getDetailByContractId
         } = this.props;
         if(type){
-            getDetailByProductId({borrow_id:id,product_type:getDetailByContractId})
+            getDetailByProductId({borrow_id:id,product_type:type})
         }else{
             getDetailByContractId({id:id})
         }
@@ -36,10 +37,15 @@ class Index extends Component{
     renderDomOne=()=>{
         const {
             contextOne
-        }=this.props
-        return contextOne&&<div className={styles.myStyle} dangerouslySetInnerHTML={{
-            __html: contextOne.data.htmls
-        }}/> || <LoadingPage></LoadingPage>
+        }=this.props;
+        if(contextOne&&contextOne.code==300){
+            return <div className={styles.empty}><img src={noData} alt=""/><p>{contextOne.msg}</p></div>
+        }else{
+            return contextOne&&<div className={styles.myStyle} dangerouslySetInnerHTML={{
+                __html: contextOne.data.htmls
+            }}/> || <LoadingPage></LoadingPage>
+        }
+
     };
     renderDomTwo=()=>{
         const {

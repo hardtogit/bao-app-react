@@ -42,13 +42,13 @@ class Index extends Component{
         }=this.props;
         let url;
         if(access_sys){
-           if(contractData&&contractData.data.length!=0){
+           if((contractData&&contractData.data.length!=0)||(contractData&&contractData.code==300)){
                url='/fillDetail/'+id+'?type=A'
            }else{
                url="/user/securityPlan/"+id+"?access_sys=platform"
            }
         }else{
-            if(contractData&&contractData.data.length!=0){
+            if((contractData&&contractData.data.length!=0)||(contractData&&contractData.code==300)){
                 url='/fillDetail/'+id+'?type=D'
             }else{
                 url="/user/securityPlan/"+id
