@@ -30,7 +30,8 @@ class Index extends React.Component {
             type,
             location:{
                 query:{
-                    access_sys
+                    access_sys,
+                    borrow_id
                 }
             }
         }=this.props;
@@ -44,9 +45,9 @@ class Index extends React.Component {
             }
         }else {
             if(access_sys){
-                push('/user/zqProductInfo/'+id+'?access_sys='+access_sys);
+                push('/user/zqProductInfo/'+id+'?access_sys='+access_sys+"&borrow_id="+borrow_id);
             }else{
-                push('/user/zqProductInfo/'+id);
+                push('/user/zqProductInfo/'+id+"?borrow_id="+borrow_id);
             }
         }
     };

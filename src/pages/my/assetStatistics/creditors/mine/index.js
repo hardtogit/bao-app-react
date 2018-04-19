@@ -45,14 +45,14 @@ import {connect} from 'react-redux'
                 {
                     listData&&listData.map((item,i)=>{
                         const {name,status,profit_expire,profit_arrival,
-                            profit_accumulate,surplus_days,periods,id,hold_money}=item;
+                            profit_accumulate,surplus_days,periods,id,hold_money,borrow_id}=item;
                         let Dom;
                         if (status=='竞标中'){
                             Dom=<p className={styles.competitive}>{status}</p>
                         }else{
                             Dom=<p className={styles.surplus}>剩余{surplus_days}天</p>
                         }
-                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id,item.access_sys)}}>
+                        return(<ul key={i} className={styles.listBoxOne} onClick={()=>{this.goDetail(id,borrow_id,item.access_sys)}}>
 							<li>
 								<img style={{marginTop:'16px'}} src={type_zqzr}/>{name}{!item.access_sys&&
 							<span className={styles.store}>存</span>
@@ -70,15 +70,15 @@ import {connect} from 'react-redux'
 			</Scroll>
 		</div>)
 	}
-     goDetail=(id,access_sys)=>{
+     goDetail=(id,borrow_id,access_sys)=>{
          const {
              push
          }=this.props;
          //跳转
 		 if(access_sys){
-             push('/user/zqPropertyDetail/'+id+'?access_sys=platform');
+             push('/user/zqPropertyDetail/'+id+'?access_sys=platform&borrow_id='+borrow_id);
 		 }else{
-             push('/user/zqPropertyDetail/'+id);
+             push('/user/zqPropertyDetail/'+id+'?borrow_id='+borrow_id);
 		 }
 
      }

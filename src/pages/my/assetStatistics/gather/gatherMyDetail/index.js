@@ -39,11 +39,41 @@ class Index extends Component{
      //组件渲染完成时调用
     }
     componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
+      const{quitData}=nextProps;
+        if(quitData&&quitData.code==100){
+            setTimeout( ()=>{ //除去动画时间
+            this.refs.alert.show({
+                content: '退出成功',
+                okText: '确定',
+                okCallback: () => {this.props.pop()},
+            })
+            },1000)
+        }else if(quitData&&quitData.code!=100){
+           setTimeout( ()=>{ //除去动画时间
+               this.refs.alert.show({
+                   content: '退出失败',
+                   okText: '确定',
+               })
+           },1000)
+
+        }
     }
     componentWillUnmount(){
       this.props.clearData()
     }
+    quit=(id)=>{
+        this.refs.alert.show({
+            title:'是否申请退出？',
+            content: '若不主动申请退出，聚点+到期3天后系统将自发申请退出;\n' +
+            '根据平台运营情况，平均转让时间3天～多持有的天数将按预期利息正常计算',
+            okText: '确定',
+            cancel:"取消",
+            okCallback: () => {
+                this.props.quit(id)
+            },
+        })
+
+    };
     render(){
         const{
             pop,
@@ -101,6 +131,10 @@ class Index extends Component{
                            <span className={styles.arrow}></span>
                        </div>
                    </div>
+                   <div className={styles.btnContainer}>
+                       {this.props.location.query.status==1&&<div className={styles.btn} onClick={()=>{this.quit(data.invest_id)}}>申请退出</div>}
+
+                   </div>
                </div>
                }
                <Alert ref="alert"> </Alert>
@@ -111,7 +145,8 @@ class Index extends Component{
 const mapStateToProps=(state)=>{
     return{
        data:state.regStore.getIn(["SAVE_GATHER_DATA",'data']),
-       contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data'])
+       contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data']),
+       quitData:state.infodata.getIn(['GATHER_QUIT','data'])
     }
 };
 const mapDispatchToProps=(dispatch,own)=>({
@@ -130,10 +165,16 @@ const mapDispatchToProps=(dispatch,own)=>({
             params:[{product_id:id,product_type:type}]
         })
     },
+    quit(id){
+        dispatch({
+          type:"GATHER_QUIT",
+          params:[id]
+        })
+    },
     clearData(){
         dispatch({
             type: 'CLEAR_INFO_DATA',
-            key: 'GET_FILL_CONTRACTS_LIST'
+            key: 'GATHER_QUIT'
         })
     }
 });

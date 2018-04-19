@@ -32,7 +32,7 @@ class Index extends Component {
              <div className={styles.tabs_waper}>
                <div className={styles.tabs}>
                    <div className={classNames(styles.tab,index==0&&styles.active||"")} onClick={()=>{this.handleClick(0)}}>智享计划</div>
-                   <div className={classNames(styles.tab,index==1&&styles.active||"")} onClick={()=>{this.handleClick(1)}}>债权转让</div>
+                   <div className={classNames(styles.tab,index==1&&styles.active||"")} onClick={()=>{this.handleClick(1)}}>直投债转</div>
                </div>
              </div>
              {index==1&&<Creditor></Creditor>||<Wisdom></Wisdom>  }

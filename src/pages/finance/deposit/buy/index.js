@@ -658,7 +658,7 @@ class DepositBuy extends React.Component {
 
 
 
-        <p><div className={styles.protocol}><input ref="choice"   onChange={this.ifScan} type="checkbox"/> 我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+        <p><div className={styles.protocol}><input ref="choice"   onChange={this.ifScan} type="checkbox"/> 我已阅读并同意{contractData&&contractData.data&&contractData.data.map((item,i)=>{
             return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} >《{item.hetong_name}》</Link>
         })}</div>
           <div className={styles.protocol}>

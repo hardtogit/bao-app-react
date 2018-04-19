@@ -33,12 +33,14 @@ class CreditorBuy extends React.Component{
             payTop:'100%',
             url:'',
             select:1,
-            pending:false
+            pending:false,
+            checkBox:true,
         }
         this.creditorsId = this.props.params.id
     }
     componentDidMount() {
         window['closeFn']=this.closeFn;
+        this.refs.choice.checked =true;
         this.props.getCreditorDetail(this.creditorsId)
         this.props.getUser();
         this.props.getEducationInfo();
@@ -109,7 +111,22 @@ class CreditorBuy extends React.Component{
             })
         }
     }
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
     canPay = () => {
+        if(!this.state.checkBox){
+            return false
+        }
         // if (utils.isPlainObject(this.props.detail)) return false
         return this.state.copies <= (this.props.detail.left_quantity || 0)&&this.state.copies>0 ? true : false
     }
@@ -225,8 +242,7 @@ class CreditorBuy extends React.Component{
                             changePending={this.changePending}
                             clear={this.props.clear}/>
                         <div className={styles.payBtn}>
-                            <p onClick={()=>this.props.push('/creditorProtocol')}>
-                                我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+                            <p><input ref="choice"   onChange={this.ifScan} type="checkbox"/>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
                                 return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
                             })}
                             </p>

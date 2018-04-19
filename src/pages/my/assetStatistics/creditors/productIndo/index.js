@@ -16,9 +16,9 @@ class Index extends Component{
         const access_sys=this.props.location.query.access_sys
         this.props.getInfo(id,access_sys)
         if(access_sys){
-            this.props.getDetailByProductId({borrow_id:id,product_type:'A'})
+            this.props.getDetailByProductId({borrow_id:this.props.location.query.borrow_id,product_type:'A'})
         }else{
-            this.props.getDetailByProductId({borrow_id:id,product_type:'D'})
+            this.props.getDetailByProductId({borrow_id:this.props.location.query.borrow_id,product_type:'D'})
         }
     }
     componentWillUnmount(){

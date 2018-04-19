@@ -43,7 +43,7 @@ class Index extends Component{
               </NavBar>
                {contractsFillList&&contractsFillList.data.map((item,i)=>{
                    return(
-                       <BaseText label={item.hetong_name} borderType='four' onClick={()=>{this.handleClick(item.id)}}> </BaseText>
+                       <BaseText key={i} label={item.hetong_name} borderType='four' onClick={()=>{this.handleClick(item.id)}}> </BaseText>
                    )
                })
                }

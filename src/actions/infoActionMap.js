@@ -456,6 +456,9 @@ export default {
     [actionTypes.GATHER_BUY]:{//购买聚点+
         apiFn:Fetch.gatherBuy
     },
+    [actionTypes.GATHER_QUIT]:{//退出聚點+
+        apiFn:Fetch.gatherQuit
+    },
     [actionTypes.NEW_DIRECTINVEST_BUY]:{//余额方式购买直投
         apiFn:Fetch.gatherBuy
     },

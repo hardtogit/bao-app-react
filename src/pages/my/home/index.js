@@ -255,7 +255,7 @@ class Index extends React.Component {
                             <Link to="/user/zq">
                                 <img src={makeOver}/>
                                 <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>债权转让</p>
+                                    <p className={styles.listTitle}>直投债转</p>
                                     <p className={styles.listColor}
                                        style={{"color": "#F19149"}}>{creditors == 0 && '流动性高' || '+' + creditors}</p>
                                 </div>

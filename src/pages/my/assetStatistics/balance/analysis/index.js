@@ -106,7 +106,7 @@ const moneyModel =(data)=>{
         money.info[3].value = data.data.borrow;
         money.info[4].value = data.data.transfer;
         money.info[5].value = data.data.dingcunB;
-        money.info[6].value = data.data.depositSuperviseZhixHistory;
+        money.info[6].value = data.data.depositSuperviseZhixAccount;
         money.total_money = Util.padMoney(data.data.userSum);
         money.balance_total =  Util.padMoney(data.data.money);
         money.profit_total = Util.padMoney(data.data.history);
