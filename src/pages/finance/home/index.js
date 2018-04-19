@@ -83,14 +83,6 @@ class financeIndex extends Component{
 	 }
 	 componentDidMount(){
          this.props.getDefault();
-         const {statusData}=this.props;
-	 	if (utils.getCookie('storeGuide')){
-		}else{
-	 		if(statusData&&!statusData.data.hide_platform_recharge_withdraw){
-                // this.refs.guide.show()
-                utils.setCookie('storeGuide','flag',360*100)
-			}
-		}
 	 }
 	 handleSelect(index,last){
 		 this.setState({
