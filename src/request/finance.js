@@ -96,7 +96,7 @@ const requests = (Fetch) => {
   Fetch.gatherProblems=()=>{return Fetch(`api/depositSupervise/faq`,'GET')}//聚点+常见问题
   Fetch.gatherBidList=(page,data)=>{return Fetch(`api/depositSupervise/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
   Fetch.gatherJoin=(page,data)=>{return Fetch(`api/depositSupervise/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
-  Fetch.gatherQuit=(id)=>{return Fetch(`api/depositSupervise/projectBuyLists/${id}`,'GET')}//退出
+  Fetch.gatherQuit=(id)=>{return Fetch(`api/depositSupervise/zhixProjectExit/${id}`,'GET')}//退出
 
   Fetch.gatherBidDetail=(id)=>{return Fetch(`api/depositSupervise/borrowInfo/${id}`,'GET')}//聚点+详情
   //我的聚点+

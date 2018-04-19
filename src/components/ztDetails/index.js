@@ -24,8 +24,8 @@ class Index extends React.Component {
         }
     }
     //点击直投项目列表事件
-    goProductDetail=(id)=>{
-        const {
+    goProductDetail=(id,bId)=>{
+        let {
             push,
             type,
             location:{
@@ -35,7 +35,9 @@ class Index extends React.Component {
                 }
             }
         }=this.props;
-
+          if(!borrow_id){
+              borrow_id=bId
+          }
         //跳转
         if (type<=3){
             if(access_sys){
@@ -116,11 +118,12 @@ class Index extends React.Component {
             term,
             rate,
             hold_money,
+            borrow_id,
             profit_yesterday,
             profit_accumulate
         }=this.props.infoData2.data;
         return(<div>
-            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id)}}>
+            <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id,borrow_id)}}>
                 <h2>{name}</h2>
                 <p><span>{term}个月</span><span>约定年化收益率{rate}</span></p>
                 <img src={arrowRight}/>
