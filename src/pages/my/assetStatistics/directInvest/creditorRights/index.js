@@ -8,7 +8,7 @@ class Index extends Component{
                 id
             }
         }=this.props;
-        return(<div><Details id={id} type={2}/></div>)
+        return(<div><Details {...this.props} id={id} type={2} /></div>)
     }
 }
 export default wrap(Index)

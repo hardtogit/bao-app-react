@@ -104,7 +104,7 @@ class Index extends Component{
                            >
                                {dataOne&&dataOne.map((item,i)=>{
                                    return(
-                                       <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"持有中"})); push('/user/gatherMyDetail?status='+item.manualStatus)}}>
+                                       <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{zh_type:"持有中"})); push('/user/gatherMyDetail?status='+item.manualStatus)}}>
                                        <div  className={styles.data_list_item}>
                                        <div className={styles.item_header}>
                                            <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
@@ -151,7 +151,7 @@ class Index extends Component{
                        >
                            {dataThree&&dataThree.map((item,i)=>{
                                return(
-                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"退出中"})); push('/user/gatherMyDetail')}}>
+                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{zh_type:"退出中"})); push('/user/gatherMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                            <div className={styles.item_header}>
                                                <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>
@@ -198,7 +198,7 @@ class Index extends Component{
                        >
                            {dataTwo&&dataTwo.map((item,i)=>{
                                return(
-                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{type:"已退出"})); push('/user/gatherMyDetail')}}>
+                                   <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{zh_type:"已退出"})); push('/user/gatherMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                            <div className={styles.item_header}>
                                                <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>

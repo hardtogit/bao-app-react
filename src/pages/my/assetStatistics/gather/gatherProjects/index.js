@@ -19,15 +19,13 @@ class Index extends Component{
         this.props.clean()
     }
     goContract(id){
-       Fetch(`api/contract/supervisedetail`,'GET',{borrow_id:id,product_type:'G'}).then(
-           (response) => {
-               if(response.data.length!=0){
-                   this.props.push("/fillDetail/"+id+"?type=G")
-               }else{
-                   this.props.push(`/borrowContract/${id}/1`)
-               }
-           }
-       )
+        Fetch(`api/contract/supervisedetail`,'GET',{borrow_id:id,product_type:'G'}).then((result)=>{
+                    if(result.response.data.length!=0||result.response.code==300){
+                        this.props.push("/fillDetail/"+id+"?type=G")
+                    }else{
+                        this.props.push(`/borrowContract/${id}/1`)
+                    }
+        })
     }
     render(){
         const Height=document.body.clientHeight-44;
@@ -49,7 +47,7 @@ class Index extends Component{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
                                <div className={styles.left}>{item.borrow_name}</div>
-                               <div className={styles.right} onClick={this.goContract(data.borrow_id)}>查看协议</div>
+                               <div className={styles.right} onClick={()=>{this.goContract(item.borrow_id)}}>查看协议</div>
                            </div>
                            <div className={styles.item}>
                                <div className={styles.left}>投资金额(元)</div>

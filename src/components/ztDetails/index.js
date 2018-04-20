@@ -168,7 +168,7 @@ class Index extends React.Component {
                         <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
                         <li>已逾期<p className={styles.yellowColor}>{account_overdue}</p></li>
                         <li>下期还款日<p className={styles.yellowColor}>{refund_date}</p></li>
-                        {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={()=>{
+                        {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{
                             let id=this.props.params.id
                             if(this.props.location.query.access_sys=='platform'){
                                 this.props.push('/fillList/'+id+'/A')
@@ -288,7 +288,7 @@ class Index extends React.Component {
                     <li>已到账<p className={styles.yellowColor}>{account_arrival}</p></li>
                     <li>已逾期<p className={styles.yellowColor}>{account_overdue}</p></li>
                     <li>下期还款日<p className={styles.yellowColor}>{next_periods}</p></li>
-                    {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='合同' borderType="four" onClick={()=>{
+                    {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{
                         let id=this.props.params.id
                         if(this.props.location.query.access_sys=='platform'){
                             this.props.push('/fillList/'+id+'/B')
@@ -302,6 +302,8 @@ class Index extends React.Component {
     }
     //加载完资产详情页面后，发起请求
     componentDidMount(){
+        let $this=this;
+        console.log($this.props)
         const Id=this.props.id;
 
         const{type,getFillContractsList,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
@@ -318,7 +320,7 @@ class Index extends React.Component {
         }else if (type==6){
             getDepositasInvest(Id)
         }else {//直投详情
-            getInvestProductDetail(Id,this.props.location.query.access_sys)
+            getInvestProductDetail(Id,$this.props.location.query.access_sys)
             if(this.props.location.query.access_sys){
                 getFillContractsList(Id,'A')
             }else{

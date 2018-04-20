@@ -34,7 +34,7 @@ class Index extends Component{
         }
         this.setState({
             data:this.props.data,
-            type:this.props.data&&this.props.data.type||''
+            type:this.props.data&&this.props.data.zh_type||''
         })
      //组件渲染完成时调用
     }
