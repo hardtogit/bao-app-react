@@ -172,12 +172,6 @@ const mapDispatchToProps=(dispatch,own)=>({
     push(url){
         dispatch(push(url))
     },
-    unBind(data){
-        dispatch({
-            type:'UNBIND_CARD',
-            params:[data]
-        })
-    },
     replace(url){
       dispatch(replace(url))
     },
@@ -185,12 +179,6 @@ const mapDispatchToProps=(dispatch,own)=>({
         dispatch({
             type:'CLEAR_INFO_DATA',
             key:key
-        })
-    },
-    verify(id){
-        dispatch({
-            type:'UNBIND_VERIFY',
-            params:[{id:id}]
         })
     },
 });
