@@ -41,7 +41,8 @@ class DirectBuy extends React.Component {
             select:1,
             rate:false,
             init:true,
-            pending:false
+            pending:false,
+            checkBox:true,
         }
         this.directInvestId = this.props.params.id
         this.borrowPwd = utils.getParams().borrowPwd
@@ -95,6 +96,18 @@ class DirectBuy extends React.Component {
             pending:false
         })
     }
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
     directInvestBuy = (password, money) => {
         let coupon = this.props.useCoupon ? this.getCoupon() : null
         const {useCoupon}=this.state;
@@ -105,6 +118,9 @@ class DirectBuy extends React.Component {
     }
     // 能否支付
     canPay() {
+        if(!this.state.checkBox){
+            return false;
+        }
         const detail = this.props.detail
         if (utils.isPlainObject(detail)) return false
         return this.state.quantity && detail.left_quantity && this.state.quantity <= detail.left_quantity ? true : false
@@ -471,7 +487,7 @@ class DirectBuy extends React.Component {
                             changePending={this.changePending}
                             clear={this.props.clear}/>
                         <div className={styles.payBtn}>
-                            <p >我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+                            <p ><input type="checkbox" onClick={this.ifScan} checked={this.state.checkBox}/>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
                                 return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
                             })}</p>
                         </div>

@@ -381,7 +381,13 @@ class Index extends React.Component {
         }
         if (infoData){
             if (type==1&&infoData.data.isTransfer==1){
-                button=<div className={styles.detailsButton} onClick={()=>{push(`/user/zqTransfer/${id}`)}}>债权转让</div>
+                button=<div className={styles.detailsButton} onClick={
+                    ()=>{
+                    if(this.props.location.query.access_sys){
+                    push(`/user/zqTransfer/${id}?access_sys=platform`)
+                    }else{
+                        push(`/user/zqTransfer/${id}`)
+                      }}}>债权转让</div>
             }
         }
         return (

@@ -22,7 +22,7 @@ class Index extends Component{
             },
             location: {
                 query: {
-                    type
+                    type,
                 }
             },
             getDetailByProductId,
@@ -59,13 +59,14 @@ class Index extends Component{
         const {
             location:{
                query:{
-                   type
+                   type,
+                   name
                }
             },
             pop
         }=this.props;
         return(<div className={styles.container}>
-            <NavBar onLeft={pop}>安全保障计划</NavBar>
+            <NavBar onLeft={pop}>{name!=undefined?decodeURIComponent(name):"借款协议"}</NavBar>
             {type&&this.renderDomOne()||this.renderDomTwo()}
         </div>)
 

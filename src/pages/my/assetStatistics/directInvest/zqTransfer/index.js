@@ -8,6 +8,7 @@ import Icon from '../../../../../assets/images/zricon.png'
 import classnames from 'classnames'
 import Load from '../../../../../components/pageLoading'
 import {connect} from 'react-redux'
+import {Link} from 'react-router'
 import Tipbar from '../../../../../components/Tipbar/index'
 import Alert from '../../../../../components/Dialog/alert'
 import Success from '../../../../../components/Dialog/success'
@@ -18,7 +19,8 @@ class Index extends Component{
         this.state={
             disabled:true,
             val:'',
-            money:0.00
+            money:0.00,
+            checkBox:true
         }
     }
     componentDidMount(){
@@ -26,9 +28,21 @@ class Index extends Component{
             get,
             params:{
                 id
+            },
+            location:{
+                query:{
+                    access_sys
+                }
             }
         }=this.props;
-        get(id);
+        get(id,access_sys);
+        let type;
+        if(access_sys){
+            type='B'
+        }else{
+            type='E'
+        }
+        this.props.getEmptyContractsList(type)
     }
     alert=()=>{
         this.refs.alert.show({
@@ -97,6 +111,18 @@ class Index extends Component{
             }
         }
     }
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
+    }
     componentWillUnmount(){
         this.props.clear();
     }
@@ -107,10 +133,20 @@ class Index extends Component{
         const {
             infoData:{
                 data
-            }
+            },
+            contractData
         }=this.props,
             {amount,months_left,transfer_collection_interest,name}=data,
-            {val,disabled,money}=this.state;
+            {val,disabled,money,checkBox}=this.state;
+        let flag=true;
+        if(disabled){
+        }else{
+            if(checkBox){
+                flag=false
+            }else{
+                flag=true
+            }
+        }
         return(<div>
             <div className={styles.content}>
                 <div className={styles.information}>
@@ -172,8 +208,11 @@ class Index extends Component{
                         <span className={styles.textR}>{money}</span>
                     </div>
                 </div>
+                <p className={styles.hetong}><input type="checkbox" onClick={this.ifScan} checked={this.state.checkBox}/>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
+                    return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                })}</p>
             </div>
-            <button className={styles.buttom} disabled={disabled} onClick={this.send}>
+            <button className={styles.buttom} disabled={flag} onClick={this.send}>
                 确认转让
             </button>
         </div>)
@@ -202,13 +241,20 @@ class Index extends Component{
 }
 const datas=(state)=>({
      infoData:state.infodata.getIn(['DIRECT_INVEST_PROPERTY_DETAIL','data']),
-     resDate:state.infodata.getIn(['DIRECT_INVEST_TRANSFER','data'])
+     resDate:state.infodata.getIn(['DIRECT_INVEST_TRANSFER','data']),
+     contractData:state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
 })
 const dispatchFn=(dispatch)=>({
-      get(id){
+    getEmptyContractsList(type){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:type}]
+        })
+    },
+      get(id,access_sys){
           dispatch({
               type:'DIRECT_INVEST_PROPERTY_DETAIL',
-              params:[id]
+              params:[id,access_sys]
           })
       },
     send(id,amount){

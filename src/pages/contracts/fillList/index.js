@@ -27,9 +27,9 @@ class Index extends Component{
         }=this.props;
         getFillContractsList(id,type)
     }
-    handleClick=(id)=>{
+    handleClick=(id,name)=>{
         const {push}=this.props;
-        push(`/fillDetail/${id}`);
+        push(`/fillDetail/${id}?name=${encodeURIComponent(name)}`);
     };
     render(){
         const{
@@ -43,10 +43,11 @@ class Index extends Component{
               </NavBar>
                {contractsFillList&&contractsFillList.data.map((item,i)=>{
                    return(
-                       <BaseText key={i} label={item.hetong_name} borderType='four' onClick={()=>{this.handleClick(item.id)}}> </BaseText>
+                       <BaseText key={i} label={item.hetong_name} borderType='four' onClick={()=>{this.handleClick(item.id,item.hetong_name)}}> </BaseText>
                    )
                })
                }
+               <div className={styles.tip}>如需下载合同请至电脑端，浏览器打开www.bao.cn进行下载</div>
            </div>
         )
     }

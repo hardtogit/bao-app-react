@@ -20,7 +20,8 @@ class Index extends Component{
         this.state = {
             isOpen: false,
             disable:true,
-            submitting:false
+            submitting:false,
+            checkBox:true,
         }
     }
     static defaultProps = {//设置初始props
@@ -30,6 +31,19 @@ class Index extends Component{
     }
     componentDidMount(){
         //组件渲染完成时调用
+        this.props.getEmptyContractsList()
+    }
+    //是否阅读合同
+    ifScan=(e)=>{
+        if(this.state.checkBox){
+            this.setState({
+                checkBox:false
+            })
+        }else{
+            this.setState({
+                checkBox:true
+            })
+        }
     }
     componentWillReceiveProps(nextProps){
         const{data,userData,goBankData}=nextProps;
@@ -75,6 +89,16 @@ class Index extends Component{
             },
             contractData
         }=this.props;
+        let flag=true;
+        if(this.state.disable){
+        }else{
+            if(this.state.checkBox){
+                flag=false
+            }else{
+                flag=true
+            }
+        }
+
 
         return <div>
             <div className={styles.title}>
@@ -97,11 +121,11 @@ class Index extends Component{
                     <div className={styles.right}><span className={styles.num}>{balance}元</span><span className={styles.tip}>{this.state.disable&&"(余额不足)"}</span></div>
                 </div>
             </div>
-            <div className={styles.links}>我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
+            <div className={styles.links}><input onClick={this.ifScan} type="checkbox" checked={this.state.checkbox}/>  我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
                 return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}</div>
             <div className={styles.btn}>
-                <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={this.state.disable} onClick={this.handleClick} ></BaseButton>
+                <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={flag} onClick={this.handleClick} ></BaseButton>
 
             </div>
         </div>
