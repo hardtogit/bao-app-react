@@ -45,7 +45,15 @@ import {push,goBack} from 'react-router-redux'
             {
                 listDataA&&listDataA.map((item,i)=>{
                 	const {name,id,rate,amount,status,date}=item;
-                   return(<div key={i} className={styles.listBoxOne} onClick={()=>{push(`/user/propertyDetail/${id}`)}}>
+                   return(<div key={i} className={styles.listBoxOne} onClick={
+                   	()=>{
+                   		if(item.access_sys){
+                            push(`/user/propertyDetail/${id}?access_sys=platform`)
+						}else{
+                            push(`/user/propertyDetail/${id}`)
+						}
+                   	}
+                   }>
                         <div>
 							<span className={styles.listTitle}>
 								{name.substring(0,6)}<span>({rate}%)</span>
@@ -82,7 +90,13 @@ import {push,goBack} from 'react-router-redux'
              {
                  listDataB&&listDataB.map((item,i)=>{
                      const {name,id,rate,amount,status,date}=item;
-                     return(<div key={i} className={styles.listBoxOne} onClick={()=>{push(`/user/creditorRights/${id}`)}}>
+                     return(<div key={i} className={styles.listBoxOne} onClick={()=>{
+                         if(item.access_sys){
+                             push(`/user/propertyDetail/${id}?access_sys=platform`)
+                         }else{
+                             push(`/user/propertyDetail/${id}`)
+                         }
+                     }}>
 						 <div>
 							<span className={styles.listTitle}>
 								{name.substring(0,6)}<span>({rate}%)</span>
@@ -119,7 +133,13 @@ import {push,goBack} from 'react-router-redux'
              {
                  listDataC&&listDataC.map((item,i)=>{
                      const {name,id,rate,amount,status,date}=item;
-                     return(<div key={i} className={styles.listBoxOne} onClick={()=>{push(`/user/historyRecord/${id}`)}}>
+                     return(<div key={i} className={styles.listBoxOne} onClick={()=>{
+                         if(item.access_sys){
+                             push(`/user/propertyDetail/${id}?access_sys=platform`)
+                         }else{
+                             push(`/user/propertyDetail/${id}`)
+                         }
+                     }}>
 						 <div>
 							<span className={styles.listTitle}>
 								{name.substring(0,6)}<span>({rate}%)</span>

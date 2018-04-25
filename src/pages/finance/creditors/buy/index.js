@@ -330,7 +330,7 @@ class CreditorBuy extends React.Component{
 
           <div className={styles.payBtn}>
             <p > <input ref="choice"   onChange={this.ifScan} type="checkbox"/>我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
-                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}
             </p>
           </div>

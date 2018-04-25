@@ -659,7 +659,7 @@ class DepositBuy extends React.Component {
 
 
         <p><div className={styles.protocol}><input ref="choice"   onChange={this.ifScan} type="checkbox"/> 我已阅读并同意{contractData&&contractData.data&&contractData.data.map((item,i)=>{
-            return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} >《{item.hetong_name}》</Link>
+            return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} >《{item.hetong_name}》</Link>
         })}</div>
           <div className={styles.protocol}>
               <input ref="choiceTwo"   onChange={this.ifScanTwo} type="checkbox"/>我已同意定存宝B到期后授权系统自动进行转让

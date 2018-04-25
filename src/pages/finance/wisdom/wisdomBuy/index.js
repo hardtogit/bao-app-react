@@ -121,8 +121,8 @@ class Index extends Component{
                     <div className={styles.right}><span className={styles.num}>{balance}元</span><span className={styles.tip}>{this.state.disable&&"(余额不足)"}</span></div>
                 </div>
             </div>
-            <div className={styles.links}><input onClick={this.ifScan} type="checkbox" checked={this.state.checkbox}/>  我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
-                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+            <div className={styles.links}><input onClick={this.ifScan} type="checkbox" checked={this.state.checkBox}/>  我已阅读并同意签署{contractData&&contractData.data.map((item,i)=>{
+                return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}</div>
             <div className={styles.btn}>
                 <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={flag} onClick={this.handleClick} ></BaseButton>
@@ -131,7 +131,7 @@ class Index extends Component{
         </div>
     };
     handleClick=()=>{
-        if(this.state.disable){
+        if(this.state.disable||!this.state.checkBox){
             return;
         }
         this.setState({

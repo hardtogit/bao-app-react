@@ -8,7 +8,7 @@ import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
 import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import {goBack,push} from 'react-router-redux'
 import classNames from 'classnames'
 import PageLoading from '../../../../components/pageLoading'
 class Index extends Component{
@@ -152,6 +152,9 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
+    },
+    push(url){
+         dispatch(push(url))
     },
     getBorrowInfo(id){
         dispatch({
