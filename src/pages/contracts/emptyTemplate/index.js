@@ -24,7 +24,12 @@ class Index extends Component{
            getContractData,
            params:{
                type
-           }
+           },
+            location:{
+               query:{
+                   name
+               }
+            }
         }=this.props;
         getContractData(type)
     }
@@ -41,12 +46,17 @@ class Index extends Component{
     render(){
         const{
             pop,
-            context
+            context,
+            location:{
+              query:{
+                  name
+              }
+            },
             }=this.props;
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
-                  熊猫管家计划
+                  {name?decodeURIComponent(name):"熊猫管家计划"}
               </NavBar>
                {context&&<div className={styles.myStyle} dangerouslySetInnerHTML={{
                    __html: context.data.htmls
