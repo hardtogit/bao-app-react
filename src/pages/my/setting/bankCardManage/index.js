@@ -15,13 +15,13 @@ import Alert from '../../../../components/Dialog/alert'
 import LoadingButton from '../../../../components/LoadingButton/index'
 import {connect} from 'react-redux'
 import {goBack,push,replace} from 'react-router-redux'
+import * as actionTypes from "../../../../actions/actionTypes";
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
         this.state = {
             isOpen: false,
             submitting:false,
-            time:0
         }
     }
     static defaultProps = {//设置初始props
@@ -38,46 +38,20 @@ class Index extends Component{
       //console.log(this.props.params.color);
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.unbindData){
-            if (nextProps.unbindData.status==1){
-                if(this.state.time<=3){
-                    this.setState({
-                        time:this.state.time+1
-                    });
-                    if(nextProps.flagData&&nextProps.flagData.code=="0001"){
-                        this.props.replace('/successTemplate?title=解绑成功&text=解绑成功')
-                    }else{
-                        if(this.state.time>=3){
-                            this.setState({
-                                submitting:false
-                            });
-                            if(nextProps.flagData&&nextProps.flagData.code!="0001"){
-                                this.refs.alert.show({
-                                    content: nextProps.flagData.msg,
-                                    okText: '确定',
-                                })
-                            }else{
-                                this.refs.alert.show({
-                                    content: "解绑失败",
-                                    okText: '确定',
-                                })
-                            }
-                        }else{
-                            setTimeout(()=>{
-                                this.props.verify(nextProps.unbindData.msgId)
-                            },3000)
-                        }
-                    }
-                }
-            }else if(nextProps.unbindData.code==301){
-                this.refs.alert.show({
-                    content: '交易密码错误',
-                    okText: '确定',
-                })
-                this.setState({
-                    submitting:false
-                });
-            }
+        const{goBankData}=nextProps;
+        //订单生成成功后跳转
+        if(goBankData&&goBankData.code==100){
+            this.setState({
+                submitting:false
+            });
+            this.props.cleans("GO_BANK_PAGE")
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else if(goBankData&&goBankData.code!=100){
+            this.setState({
+                submitting:false
+            });
+            this.refs.tip.open('订单生成失败!');
+            this.props.cleans("GO_BANK_PAGE")
         }
     }
     componentWillUnmount(){
@@ -93,32 +67,24 @@ class Index extends Component{
     }
     checkAccredit=()=>{
         let $this=this;
-        this.refs.red.show({
-            title:'请输入交易密码',
-            okCallback:function(a,b){
-                let data;
-                data={
-                    bankCard:$this.props.data.bankCard,
-                    passwordFactor:sessionStorage.getItem('passwordFactor'),
-                    mapKey:sessionStorage.getItem('mapKey'),
-                    device:'WAP',
-                    password:b
-                };
-                $this.setState({
-                    submitting:true,
-                    time:0
-                });
-                $this.props.unBind(data);
-                a()
-            }
+        $this.setState({
+            submitting:true,
+            time:0
         });
+        this.props.goBankPage({
+            type:471,
+            way:1,
+            data:{
+                bankCard:$this.props.data.bankCard,
+                device:'WAP',
+            },
+            returnUrl:''
+        })
     }
     submit=()=>{
         if(!this.state.submitting){
-            this.props.clean();
             this.checkAccredit()
         }
-
     }
     render(){
         let Dom;
@@ -191,39 +157,28 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>({
     data:state.regStore.getIn(['STORE_CARD_INFO','data']),
-    unbindData:state.infodata.getIn(['UNBIND_CARD','data']),
-    flagData:state.infodata.getIn(['UNBIND_VERIFY','data'])
+    goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"])
 });
 const mapDispatchToProps=(dispatch,own)=>({
+    goBankPage(data){
+        dispatch({
+            type:actionTypes.GO_BANK_PAGE,
+            params:[data]
+        })
+    },
     pop(){
          dispatch(goBack())
     },
     push(url){
         dispatch(push(url))
     },
-    unBind(data){
-        dispatch({
-            type:'UNBIND_CARD',
-            params:[data]
-        })
-    },
     replace(url){
       dispatch(replace(url))
     },
-    clean(){
+    cleans(key){
         dispatch({
             type:'CLEAR_INFO_DATA',
-            key:'UNBIND_CARD'
-        }),
-            dispatch({
-                type:'CLEAR_INFO_DATA',
-                key:'UNBIND_VERIFY'
-            })
-    },
-    verify(id){
-        dispatch({
-            type:'UNBIND_VERIFY',
-            params:[{id:id}]
+            key:key
         })
     },
 });

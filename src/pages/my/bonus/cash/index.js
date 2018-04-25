@@ -40,6 +40,7 @@ class PackItem extends Component{
                         <ul>
                             <li>{data.name}</li>
                             <li>{data.status}</li>
+                            <li>{data.remarks}</li>
                         </ul>
                     </div>
                     <div className={styles.right}>

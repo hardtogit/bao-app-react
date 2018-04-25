@@ -209,7 +209,7 @@ class Index extends Component{
                     </div>
                 </div>
                 <p className={styles.hetong}><input type="checkbox" onClick={this.ifScan} checked={this.state.checkBox}/>我已阅读并同意{contractData&&contractData.data.map((item,i)=>{
-                    return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}`} className={styles.protocol}>《{item.hetong_name}》</Link>
+                    return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} className={styles.protocol}>《{item.hetong_name}》</Link>
                 })}</p>
             </div>
             <button className={styles.buttom} disabled={flag} onClick={this.send}>

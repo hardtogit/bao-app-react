@@ -52,7 +52,7 @@ class Index extends React.Component {
                        nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listData&&listData.map((item,i)=>{
-                    const {borrow_name,end_time,invest_money,invest_id,rate,month}=item;
+                    const {borrow_name,end_time,invest_money,invest_id,rate,month,id}=item;
                     return(
                         <Record
                             key = {i}
@@ -62,7 +62,7 @@ class Index extends React.Component {
                             state="待回款"
                             moneyColor={"#aaa"}
                             statusColor={"#f70"}
-                            click={()=>{push(`/user/wisdomMyDetail/${invest_id}?name=${borrow_name}&rate=${rate}&month=${month}`)}}
+                            click={()=>{push(`/user/wisdomMyDetail/${invest_id}?name=${borrow_name}&rate=${rate}&month=${month}&id=${id}`)}}
                         />
                     )
                 })

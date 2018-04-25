@@ -47,33 +47,9 @@ class Index extends Component{
     }
     goCash=(balance)=>{
         let $this=this;
-        let storeData=JSON.parse(sessionStorage.getItem('bao-store'));
         switch (getAuthDetail()){
             case 1:
-                if(storeData.isUploadIdcard){
-                    $this.money(balance)
-                }else{
-                    if($this.props.uploadData){
-                        if($this.props.uploadData.code==100){
-                            switch ($this.props.uploadData.data.status){
-                                case '-1': $this.refs.alert.show({content:'审核失败',okText:'重新上传',okCallback:()=>{$this.props.push('/user/IdCardUpload');}})
-                                    break;
-                                case '0':$this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
-                                    $this.props.queryUpload()
-                                    break;
-                                case '1':$this.money(balance)
-                                    break;
-                                case '9':$this.props.push('/user/IdCardUpload');
-                                    break;
-                                default:
-                                    $this.props.push('/user/IdCardUpload');
-                            }
-                        }else{
-                            $this.refs.alert.show({content:'身份证审核中，请稍后再试',okText:'确定'})
-                            $this.props.queryUpload()
-                        }
-                    }
-                }
+                $this.money(balance)
                 break;
             case 2:
                 push('/user/setting/authorization');

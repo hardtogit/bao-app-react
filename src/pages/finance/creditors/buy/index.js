@@ -149,6 +149,7 @@ class CreditorBuy extends React.Component{
                 returnUrl:"",
                 data:{
                     productId:this.creditorsId,
+                    productType:'TRANSFER',
                     num:copies,
                     couponId:coupon && coupon.id || '',
                     device:"WAP",

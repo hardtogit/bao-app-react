@@ -31,7 +31,7 @@ class Index extends Component{
          getFillContractsList
       }=this.props;
         getDetail(id);
-        getFillContractsList(id,'H')
+        getFillContractsList(this.props.location.query.id,'H')
     }
     goProductDetail(id,money){
         const {push}=this.props;
