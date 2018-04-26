@@ -89,12 +89,12 @@ import {push,goBack} from 'react-router-redux'
 
              {
                  listDataB&&listDataB.map((item,i)=>{
-                     const {name,id,rate,amount,status,date}=item;
+                     const {name,id,rate,amount,status,date,tid}=item;
                      return(<div key={i} className={styles.listBoxOne} onClick={()=>{
                          if(item.access_sys){
-                             push(`/user/propertyDetail/${id}?access_sys=platform`)
+                             push(`/user/propertyDetail/${id}?access_sys=platform&type=zq&zqid=${tid}`)
                          }else{
-                             push(`/user/propertyDetail/${id}`)
+                             push(`/user/propertyDetail/${id}?type=zq&zqid=${tid}`)
                          }
                      }}>
 						 <div>

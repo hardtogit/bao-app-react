@@ -171,9 +171,9 @@ class Index extends React.Component {
                         {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{
                             let id=this.props.params.id
                             if(this.props.location.query.access_sys=='platform'){
-                                this.props.push('/fillList/'+id+'/A')
+                                this.props.push('/fillList/'+this.props.location.query.zqid+'/B')
                             }else{
-                                this.props.push('/fillList/'+id+'/D')
+                                this.props.push('/fillList/'+this.props.location.query.zqid+'/E')
                             }
                         }}></BaseText>}
 
@@ -303,9 +303,13 @@ class Index extends React.Component {
     //加载完资产详情页面后，发起请求
     componentDidMount(){
         let $this=this;
-        console.log($this.props)
         const Id=this.props.id;
-
+        const{location:{
+            query:{
+                zqid
+            }
+        }
+        }=this.props
         const{type,getFillContractsList,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
         if (type==4){//债权转让
             getZqProductDetail(Id,this.props.location.query.access_sys)
@@ -320,11 +324,19 @@ class Index extends React.Component {
         }else if (type==6){
             getDepositasInvest(Id)
         }else {//直投详情
-            getInvestProductDetail(Id,$this.props.location.query.access_sys)
-            if(this.props.location.query.access_sys){
-                getFillContractsList(Id,'A')
+            getInvestProductDetail(Id,$this.props.location.query.access_sys);
+            if(this.props.location.query.type){
+                if(this.props.location.query.access_sys){
+                    getFillContractsList(zqid,'B')
+                }else{
+                    getFillContractsList(zqid,'E')
+                }
             }else{
-                getFillContractsList(Id,'D')
+                if(this.props.location.query.access_sys){
+                    getFillContractsList(Id,'A')
+                }else{
+                    getFillContractsList(Id,'D')
+                }
             }
         }
     }
