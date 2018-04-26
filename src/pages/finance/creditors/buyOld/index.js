@@ -101,6 +101,7 @@ class CreditorBuy extends React.Component{
                     copies:this.state.copies,
                     type: 3,
                     payPass:"",
+                    device:'WAP',
                     access_sys:'platform'
                 }
             })
