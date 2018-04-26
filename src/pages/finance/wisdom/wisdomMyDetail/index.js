@@ -71,7 +71,7 @@ class Index extends Component{
                     <div className={styles.left}>手续费</div>
                     <div className={styles.right}>{fee}</div>
                 </div>
-                {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{push(`/fillList/${borrow_id}/H`)}}></BaseText>}
+                {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{this.props.push(`/fillList/${this.props.location.query.id}/H`)}}></BaseText>}
             </div>
             <div className={styles.title}>
                 回款记录
