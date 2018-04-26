@@ -97,7 +97,7 @@ class CreditorBuy extends React.Component{
                 type:413,
                 returnUrl:"",
                 data:{
-                    productId: this.creditorId,
+                    productId: this.props.params.id,
                     copies:this.state.copies,
                     type: 3,
                     payPass:"",

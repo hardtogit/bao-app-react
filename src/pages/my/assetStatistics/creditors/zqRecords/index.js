@@ -50,7 +50,7 @@ class Index extends React.Component {
                        nullDom={<div className={styles.nullBox}><img src={explan} /></div>} endload={<div></div>}>
             {
                 listData&&listData.map((item,i)=>{
-                    const {name,date,amount,status,id}=item;
+                    const {name,date,amount,status,id,access_sys,borrow_id}=item;
                     return(
                         <Record
                             key = {i}
@@ -60,7 +60,13 @@ class Index extends React.Component {
                             state={status}
                             moneyColor={"#aaa"}
                             statusColor={"#f70"}
-                            click={()=>{push(`/user/zqPropertyDetail/${id}`)}}
+                            click={()=>{
+                                if(access_sys){
+                                    push(`/user/zqPropertyDetail/${id}?access_sys=platform&borrow_id=${borrow_id}`)
+                                }else{
+                                    push(`/user/zqPropertyDetail/${id}?borrow_id=${borrow_id}`)
+                                }
+                            }}
                         />
                     )
                 })

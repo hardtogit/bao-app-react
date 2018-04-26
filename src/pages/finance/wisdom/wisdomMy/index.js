@@ -74,7 +74,7 @@ class Index extends React.Component {
         const {
             push
         }=this.props;
-         push('/user/wisdomMyDetail/'+id+"?name="+item.borrow_name+"&rate="+item.rate+"&month="+item.month);
+         push('/user/wisdomMyDetail/'+id+"?name="+item.borrow_name+"&rate="+item.rate+"&month="+item.month+"&id="+item.id);
     };
     go=()=>{
         const {

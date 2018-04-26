@@ -37,7 +37,8 @@ class Index extends Component{
             },
             location:{
                 query:{
-                access_sys
+                access_sys,
+                 borrow_id
              }
             },
             push,
@@ -46,15 +47,15 @@ class Index extends Component{
         let url;
         if(access_sys){
             if((contractData&&contractData.data.length!=0)||(contractData&&contractData.code==300)){
-                url='/fillDetail/'+id+'?type=A'
+                url='/fillDetail/'+borrow_id+'?type=A'
             }else{
-                url="/user/zqSecurityPlan/"+id+"?access_sys=platform"
+                url="/user/zqSecurityPlan/"+borrow_id+"?access_sys=platform"
             }
         }else{
             if((contractData&&contractData.data.length!=0)||(contractData&&contractData.code==300)){
-                url='/fillDetail/'+id+'?type=D'
+                url='/fillDetail/'+borrow_id+'?type=D'
             }else{
-                url="/user/zqSecurityPlan/"+id+""
+                url="/user/zqSecurityPlan/"+borrow_id+""
             }
         }
         const {name,total,rate,term,type,interest_start_time,interest_end_time,repayment}=data;
