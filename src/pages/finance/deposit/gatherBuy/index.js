@@ -567,7 +567,7 @@ class Index extends React.Component {
             {/*<Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和*/}
             {/*<Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>*/}
         </p>
-            <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意聚点+到期3天后授权系统自动进行转让</p>
+            <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意聚点+到期1天后授权系统自动进行转让</p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

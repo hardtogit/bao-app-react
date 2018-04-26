@@ -43,7 +43,7 @@ class Index extends Component{
         if(quitData&&quitData.code==100){
             setTimeout( ()=>{ //除去动画时间
             this.refs.alert.show({
-                content: '退出成功',
+                content: '你已成功申请退出，退出成功后本息自动回款到余额',
                 okText: '确定',
                 okCallback: () => {this.props.pop()},
             })
@@ -51,7 +51,7 @@ class Index extends Component{
         }else if(quitData&&quitData.code!=100){
            setTimeout( ()=>{ //除去动画时间
                this.refs.alert.show({
-                   content: '退出失败',
+                   content: '申请退出失败，请重新尝试',
                    okText: '确定',
                })
            },1000)
@@ -62,16 +62,24 @@ class Index extends Component{
       this.props.clearData()
     }
     quit=(id)=>{
-        this.refs.alert.show({
-            title:'是否申请退出？',
-            content: '若不主动申请退出，聚点+到期3天后系统将自发申请退出;\n' +
-            '根据平台运营情况，平均转让时间3天～多持有的天数将按预期利息正常计算',
-            okText: '确定',
-            cancel:"取消",
-            okCallback: () => {
-                this.props.quit(id)
-            },
-        })
+        if(this.props.location.query.status==1){
+            this.refs.alert.show({
+                title:'是否申请退出？',
+                content: '若不主动申请退出，聚点+到期1天后系统将自发申请退出;\n' +
+                '根据平台运营情况，平均转让时间3天～多持有的天数将按预期利息正常计算',
+                okText: '确定',
+                cancel:"取消",
+                okCallback: () => {
+                    this.props.quit(id)
+                },
+            })
+        }else{
+            this.refs.alert.show({
+                content: '只有到达锁定期才可申请退出哦～',
+                okText: '确定'
+            })
+        }
+
 
     };
     render(){
@@ -132,7 +140,7 @@ class Index extends Component{
                        </div>
                    </div>
                    <div className={styles.btnContainer}>
-                       {this.props.location.query.status==1&&<div className={styles.btn} onClick={()=>{this.quit(data.invest_id)}}>申请退出</div>}
+                       <div className={styles.btn} onClick={()=>{this.quit(data.invest_id)}}>申请退出</div>
 
                    </div>
                </div>
