@@ -83,7 +83,7 @@ class Index extends Component{
                         <div className={styles.backTitle}>期数：{item.nper}</div>
                         <div className={styles.left}>
                         <div className={styles.circle}></div>
-                        <p className={styles.label}>待回款</p>
+                        <p className={styles.label}>{item.status==1?"已回款":"待回款"}</p>
                         <p>{utils.formatDate('yyyy-MM-dd',new Date(item.time*1000))}</p>
                         </div>
                         <div className={styles.right}>
