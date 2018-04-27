@@ -312,12 +312,10 @@ class Index extends React.Component {
     componentDidMount(){
         let $this=this;
         const Id=this.props.id;
-        const{location:{
-            query:{
-                zqid
-            }
+        let zqid;
+        if(this.props.location){
+            zqid=this.props.location.query.zqid
         }
-        }=this.props
         const{type,getFillContractsList,getInvestProductDetail,getZqProductDetail,getDepositbs,getDepositasInvest,index}=this.props;
         if (type==4){//债权转让
             getZqProductDetail(Id,this.props.location.query.access_sys)
