@@ -170,10 +170,18 @@ class Index extends React.Component {
                         <li>下期还款日<p className={styles.yellowColor}>{refund_date}</p></li>
                         {contractsFillList&&contractsFillList.data.length!=0&&<BaseText containerStyle={{paddingLeft:0}} label='服务协议' borderType="four" onClick={()=>{
                             let id=this.props.params.id
-                            if(this.props.location.query.access_sys=='platform'){
-                                this.props.push('/fillList/'+this.props.location.query.zqid+'/B')
+                            if(this.props.location.query.type){
+                                if(this.props.location.query.access_sys=='platform'){
+                                    this.props.push('/fillList/'+this.props.location.query.zqid+'/B')
+                                }else{
+                                    this.props.push('/fillList/'+this.props.location.query.zqid+'/E')
+                                }
                             }else{
-                                this.props.push('/fillList/'+this.props.location.query.zqid+'/E')
+                                if(this.props.location.query.access_sys=='platform'){
+                                    this.props.push('/fillList/'+id+'/A')
+                                }else{
+                                    this.props.push('/fillList/'+id+'/D')
+                                }
                             }
                         }}></BaseText>}
 
