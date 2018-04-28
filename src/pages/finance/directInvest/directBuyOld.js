@@ -148,13 +148,13 @@ class DirectBuy extends React.Component {
         if(select==1){
             this.props.goBankPage({
                 data:{
-                productId: this.directInvestId,
-                num: this.state.quantity,
-                couponId: coupon && coupon.id || '',
-                borrowPwd: this.borrowPwd,
-                type:3,
-                device:'WAP',
-                access_sys:'platform'
+                    productId: this.directInvestId,
+                    num: this.state.quantity,
+                    couponId: coupon && coupon.id || '',
+                    borrowPwd: this.props.location.state,
+                    type:3,
+                    device:'WAP',
+                    access_sys:'platform'
                 },
                 way:1,
                 type:411,
@@ -599,10 +599,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         })
     },
     clearState(){
-      dispatch({
-          type:'CLEAR_INFO_DATA',
-          key:'GO_BANK_PAGE'
-      })
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:'GO_BANK_PAGE'
+        })
     },
     clearData(){
         dispatch({
