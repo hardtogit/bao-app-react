@@ -105,7 +105,7 @@ class WisdomCell extends React.Component {
                         </div>
                         <div className={styles.cellFoot}>
                             <p>预期年化利率</p>
-                            <p>月</p>
+                            <p>期限</p>
                             <p>转让金额</p>
                         </div>
                     </div>

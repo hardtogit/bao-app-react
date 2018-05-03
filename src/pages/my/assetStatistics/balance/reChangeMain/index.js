@@ -37,27 +37,7 @@ class Index extends Component{
                 </NavBar>
                 <div className={styles.content}>
                       <h4 className={styles.text}>账户余额 (元)</h4>
-                      <div className={styles.num}>{(()=>{
-                          if(userInfo) {
-                              let value = JSON.stringify((userInfo.data.balance * 100 + userInfo.data.balance_platform * 100) / 100);
-                              if(value.split('.')[1]){
-                                  switch (value.split('.')[1].length) {
-                                      case 1:
-                                          return value + '0';
-                                          break
-                                      case 2:
-                                          return value;
-                                          break
-                                      default:
-                                          return value + ".00"
-                                          break
-
-                                  }
-                              }else{
-                                  return value + ".00"
-                              }
-                          }
-                      })()}</div>
+                      <div className={styles.num}>{userInfo&&userInfo.data.amount}</div>
                     <div className={styles.card}>
                         <div className={styles.header}>
                             <div className={styles.store}>

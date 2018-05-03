@@ -5,13 +5,13 @@ const config = {
     //activityUrl:"https://bao.cn/special、",//活动正式地址
 /****************************************************************************************************************************/
 	//requestUrl: 'http://api.bao.cn/', //正式
-	// requestUrl: 'http://api.bao.cn/', //正式
+	requestUrl: 'http://api.bao.cn/', //正式
 	//requestUrl: 'http://staging-api.dev.vdai.cn/',//内网测试
 	//requestUrl: 'http://demo-wap.devbao.cn/',//外网测试
 	// requestUrl:'http://bug-api.devbao.cn/' //bug测试
     // requestUrl:'http://huguandong-api.devbao.cn/'//胡冠东
     // requestUrl:'http://xiaoshiyin-api.devbao.cn/'//肖世银
-    requestUrl:'http://yanxin-api.devbao.cn/'//闫鑫
+    // requestUrl:'http://yanxin-api.devbao.cn/'//闫鑫
     //    requestUrl:'http://simayao-api.devbao.cn/'//司马瑶
 	// requestUrl:'http://api.10.devbao.cn/'
     //requestUrl:"xiangshiyin-api.devbao.cn/"
