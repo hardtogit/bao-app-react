@@ -63,8 +63,8 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
 import{IndexTab
 } from './loadTool/index'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
