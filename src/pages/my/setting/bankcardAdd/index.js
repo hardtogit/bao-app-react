@@ -180,7 +180,8 @@ class Index extends Component{
                 bankCard:this.refs.bankCard.value,
                 bankCode:this.state.bankCode,
                 bankName:this.state.bankName,
-                device:'WAP'
+                device:'WAP',
+                access_sys:'platform'
             },
             returnUrl:''
         })
