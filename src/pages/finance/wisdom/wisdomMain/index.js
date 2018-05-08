@@ -119,7 +119,7 @@ class GatherMain extends React.Component {
         let flag=true;
         switch (parseInt(status)) {
             case 0:
-                text = '马上买入';
+                text = '马上出借';
                 flag = false;
                 break;
             case 1:

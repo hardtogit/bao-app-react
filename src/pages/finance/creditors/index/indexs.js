@@ -177,7 +177,7 @@ class CreditorCell extends React.Component{
               </div>
               <div className={styles.buyBtn}>
                 <div className={styles.canbuy} onClick={(event)=>this.toBuy(event,access_sys)}>
-                              <p>抢购</p>
+                              <p>出借</p>
                 </div>
               </div>
             </div>

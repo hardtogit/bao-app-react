@@ -32,8 +32,8 @@ class DepositBuy extends React.Component {
       pending:false,
       couponsFetching:true,
       top:'100%',
-      checkBox:true,
-      checkBoxTwo:true,
+      checkBox:false,
+      checkBoxTwo:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -69,8 +69,8 @@ class DepositBuy extends React.Component {
   componentDidMount() {
       window['closeFn']=this.closeFn;
       const {type}=this.props.params;
-      this.refs.choice.checked =true
-      this.refs.choiceTwo.checked =true
+      // this.refs.choice.checked =true
+      // this.refs.choiceTwo.checked =true
       if (type=='A'){
           this.props.getDepositDetail(this.state.productId)
       }else {

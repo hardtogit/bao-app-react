@@ -38,8 +38,8 @@ class Index extends React.Component {
       couponsFetching:true,
       getAvailableCouponsFlag:false,
       top:'100%',
-      checkBox:true,
-      checkBoxTwo:true,
+      checkBox:false,
+      checkBoxTwo:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -63,8 +63,8 @@ class Index extends React.Component {
         this.props.clean('GO_BANK_PAGE')
     }
   componentDidMount() {
-      this.refs.choice.checked =true
-      this.refs.choiceTwo.checked =true
+      // this.refs.choice.checked =true
+      // this.refs.choiceTwo.checked =true
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)

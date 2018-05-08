@@ -29,7 +29,7 @@ class DirectBuy extends React.Component {
         top:'100%',
         choose:'',
         money:'',
-        checkBox:true,
+        checkBox:false,
        useCoupon:true,
         payTop:'100%',
         url:'',
@@ -45,7 +45,7 @@ class DirectBuy extends React.Component {
   }
 
   componentDidMount(){
-      this.refs.choice.checked =true
+      // this.refs.choice.checked =true
       window['closeFn']=this.closeFn;
     this.props.getDirectInvestDetail(this.directInvestId)
     this.props.getAvailableCoupons(this.props.params.month)

@@ -116,7 +116,7 @@ class GatherMain extends React.Component {
               text='已售罄'
               flag=true
           }else{
-              text='马上买入'
+              text='马上出借'
               flag=false
           }
       }else if (buy_status==1){

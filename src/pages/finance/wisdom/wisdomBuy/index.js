@@ -21,7 +21,7 @@ class Index extends Component{
             isOpen: false,
             disable:true,
             submitting:false,
-            checkBox:true,
+            checkBox:false,
         }
     }
     static defaultProps = {//设置初始props

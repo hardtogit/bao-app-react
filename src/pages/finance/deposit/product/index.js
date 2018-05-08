@@ -114,7 +114,7 @@ class ProductDetail extends React.Component {
       const money=this.moneyFn(rate,month);
       const textTz=lx=='A'?'锁定时间':'投资时间';
       const bData=[{name:'起投金额',val:qt},{name:textTz,val:month+'个月'}];
-      let text='马上买入';
+      let text='马上出借';
       let flag=false
       if (isbuy&&num==0){
           text='已售罄'

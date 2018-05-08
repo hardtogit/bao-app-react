@@ -42,7 +42,7 @@ class DirectBuy extends React.Component {
             rate:false,
             init:true,
             pending:false,
-            checkBox:true,
+            checkBox:false,
         }
         this.directInvestId = this.props.params.id
         this.borrowPwd = utils.getParams().borrowPwd

@@ -74,7 +74,7 @@ class ProductDetail extends React.Component {
         <p className={styles.moreDetail}>更多详情<img src={arrowDetail} alt="更多详情"/></p>
         <div className={styles.bottom}>
           <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-          <button>马上买入</button>
+          <button>马上出借</button>
         </div>
         <Calculator
           ref="calculator"

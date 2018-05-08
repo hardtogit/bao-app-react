@@ -292,7 +292,7 @@ class CreditorDetails extends React.Component{
               <div className={styles.takePlace}></div>
               <div className={styles.bottom}>
                   <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-                  <button onClick={()=>this.toBuy()}>马上买入</button>
+                  <button onClick={()=>this.toBuy()}>马上出借</button>
               </div>
               <Calculator
                   ref="calculator"

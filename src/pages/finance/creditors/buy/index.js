@@ -30,14 +30,14 @@ class CreditorBuy extends React.Component{
         select:1,
         time:0,
         pending:false,
-        checkBox:true,
+        checkBox:false,
     }
     this.creditorsId = this.props.params.id
   }
 
   componentDidMount() {
     window['closeFn']=this.closeFn;
-    this.refs.choice.checked =true;
+    // this.refs.choice.checked =true;
     this.props.getCreditorDetail(this.creditorsId);
       this.props.getUser();
       this.props.getMyBankCards()

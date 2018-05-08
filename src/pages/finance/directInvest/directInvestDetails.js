@@ -324,7 +324,7 @@ class Index extends Component{
 
             <div className={styles.bottom}>
                 <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-                <button onClick={()=>{this.purchase(id,push)}}>马上买入</button>
+                <button onClick={()=>{this.purchase(id,push)}}>马上出借</button>
             </div>
             <Store ref="store"></Store>
             <IsAuth ref="isAuth"/>

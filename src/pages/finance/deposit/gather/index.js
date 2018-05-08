@@ -181,7 +181,7 @@ class DirectInvestCell extends React.Component{
                                     )
                                 }else{
                                     return  ((<div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
-                                        <p>抢购</p>
+                                        <p>出借</p>
                                     </div>))
                                 }
                             })()}

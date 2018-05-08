@@ -24,7 +24,7 @@ import UserIndex from '../../pages/my/home/index'
         },
          {
           Img:styles.tabIcon4,
-          Text:'产品'
+          Text:'项目'
         },
          {
           Img:styles.tabIcon2,

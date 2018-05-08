@@ -50,7 +50,7 @@ class DemandIndex extends React.Component {
               <p>新用户注册送<span>800元</span>抵用券</p>
               <p>去注册</p>
             </div>)}
-            <button onClick={this.buyHandle} className={styles.buyButton}>马上买入</button>
+            <button onClick={this.buyHandle} className={styles.buyButton}>马上出借</button>
             <p className={styles.desc}>按日复息，随存随取</p>
           </div>
         </div>
