@@ -22,22 +22,22 @@ class InvestSuccess extends React.Component {
     const data = this.props.creditorsData && this.props.creditorsData.data || {}
     return (
       <div className={styles.root}>
-        <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
+        <NavBar onLeft={this.props.goBack}>出借成功</NavBar>
         <div className={styles.content}>
           <div className={styles.amount}>
-            <span>投资金额</span>
+            <span>出借金额</span>
             <span>¥{ this.props.location.query.money}</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
               data={[
                 {
-                  title: '你已投资成功',
+                  title: '你已出借成功',
                   date: '等待竞标'
                 },
                 {
                   title: '竞标中',
-                  date: '若竞标失败，投资金额退回到账户余额'
+                  date: '若竞标失败，出借金额退回到账户余额'
                 },
                 {
                   title: '竞标成功',

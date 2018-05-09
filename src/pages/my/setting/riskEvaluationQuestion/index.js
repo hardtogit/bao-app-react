@@ -95,7 +95,7 @@ class Index extends React.Component {
                             <p>根据您的实际情况，宝点网预测您的风险承受能力等级为：{name}</p>
                             <p>适投于：{content}</p>
                         </div>
-                        <div className={styles.goInvestBtn} onClick={()=>{this.props.push("/home/productIndex")}}>立即投资</div>
+                        <div className={styles.goInvestBtn} onClick={()=>{this.props.push("/home/productIndex")}}>立即出借</div>
                         <p className={has_num==3&&styles.none||styles.restartTxt}>今年您还可进行{3-has_num}次测评，<span className={styles.restart} onClick={()=>{this.props.push("/user/setting/riskEvaluation")}}>重新评测</span></p>
                     </div>
                     <div className={styles.closeBtn}>

@@ -5,27 +5,27 @@
 	|_creditors
 	|		|_buy                        //债权购买页
 	|		|_index   					 //债权主页
-	|		|_investSuccess				 //债权投资成功页
+	|		|_investSuccess				 //债权出借成功页
 	|		|_product					 //债权详情页
 	|		|_protocol                   //债权协议页   			
 	|_demand   
 	|		|_buy                        //零钱宝购买页
 	|		|_index   					 //零钱宝主页
-	|		|_investFail                 //零钱宝投资失败页
-	|		|_investSuccess				 //零钱宝投资成功页
+	|		|_investFail                 //零钱宝出借失败页
+	|		|_investSuccess				 //零钱宝出借成功页
 	|		|_product					 //零钱宝详情页
 	|		|_relatedProjects            //零钱宝涉及项目       
 	|_deposit
 	|		|_buy                        //定存宝购买页
 	|		|_index   					 //定存宝主页
-	|		|_investSuccess				 //定存宝投资成功页
+	|		|_investSuccess				 //定存宝出借成功页
 	|		|_product					 //定存宝详情页
 	|		|_relatedProjects            //定存宝涉及项目 
 	|		|_useCards                   //使用优惠券
     |_directInvest
 	|		|_buy                        //直投购买页
 	|		|_index   					 //直投主页
-	|		|_investSuccess				 //直投投资成功页
+	|		|_investSuccess				 //直投出借成功页
 	|		|_product					 //直投详情页
     |_home                               //主页
 
@@ -70,7 +70,7 @@
 	|		|		|_autoBid			//自动投标
 	|		|		|_productInfo		//直投产品信息
 	|		|		|_records           //直投纪录
-	|		|		|_propertyDetail    //直投资产详情
+	|		|		|_propertyDetail    //直出借产详情
 	|		|		|_transfer          //直投转让
 	|		|
 	|		|_financialManagement

@@ -38,8 +38,8 @@ class Index extends React.Component {
       couponsFetching:true,
       getAvailableCouponsFlag:false,
       top:'100%',
-      checkBox:true,
-      checkBoxTwo:true,
+      checkBox:false,
+      checkBoxTwo:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -63,8 +63,8 @@ class Index extends React.Component {
         this.props.clean('GO_BANK_PAGE')
     }
   componentDidMount() {
-      this.refs.choice.checked =true
-      this.refs.choiceTwo.checked =true
+      // this.refs.choice.checked =true
+      // this.refs.choiceTwo.checked =true
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)
@@ -149,12 +149,12 @@ class Index extends React.Component {
     }=this.props;
     const data=quantityDataB
     if (value<=0){
-        this.refs.tipbar.open('购买份数必须为正整数!');
+        this.refs.tipbar.open('出借份数必须为正整数!');
     }else if (value>parseFloat(data.data.quantity)){
         this.refs.tipbar.open('剩余份数不足!');
     }
     if (value>200&&id==5){
-        this.refs.tipbar.open('新手标购买金额不能超过一万！');
+        this.refs.tipbar.open('新手标出借金额不能超过一万！');
         this.setState({quantity: Number(200)})
     }else {
         this.setState({quantity: Number(value)})
@@ -487,7 +487,7 @@ class Index extends React.Component {
     let primeContent;
     if(EducationData&&EducationData.code == 100){
         if(EducationData.data.has_num != 0){
-            primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+            primeContent = "您的风险承受类型："+EducationData.data.name+"，建议出借"+EducationData.data.max_month+"月以内项目";
         }
     }
     const {type}=this.state;
@@ -504,8 +504,8 @@ class Index extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：聚点+ {quantityDataB&&quantityDataB.data.month}个月 年化利率（{quantityDataB&&quantityDataB.data.rate || ''}%）</p>
+        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>确认支付</NavBar>
+        <p className={styles.title}>出借项目：聚点+ {quantityDataB&&quantityDataB.data.month}个月 年化利率（{quantityDataB&&quantityDataB.data.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
             <p>单价<span>（元 / 份）</span></p>

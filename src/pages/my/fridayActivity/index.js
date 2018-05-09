@@ -60,7 +60,7 @@ class Index extends React.Component{
 							<ul>
 								<li className={styles.invest}>
 									<p className={styles.num}>{item.investment_amount}</p>
-									<p className={styles.txt}>投资金额(元)</p>
+									<p className={styles.txt}>出借金额(元)</p>
 								</li>
 								<li className={styles.withdraw}>
 									<p className={styles.num}>{item.withdrawal_amount}</p>

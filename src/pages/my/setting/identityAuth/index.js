@@ -77,7 +77,7 @@ class IdentityAuth extends React.Component {
     }
     if (code === 303) {
       alert.show({
-        content: '根据相关规定，投资者年龄必须在18~65之间',
+        content: '根据相关规定，出借者年龄必须在18~65之间',
         okText: '确定',
       })
     }

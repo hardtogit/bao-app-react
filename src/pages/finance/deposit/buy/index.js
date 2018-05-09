@@ -32,8 +32,8 @@ class DepositBuy extends React.Component {
       pending:false,
       couponsFetching:true,
       top:'100%',
-      checkBox:true,
-      checkBoxTwo:true,
+      checkBox:false,
+      checkBoxTwo:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -69,8 +69,8 @@ class DepositBuy extends React.Component {
   componentDidMount() {
       window['closeFn']=this.closeFn;
       const {type}=this.props.params;
-      this.refs.choice.checked =true
-      this.refs.choiceTwo.checked =true
+      // this.refs.choice.checked =true
+      // this.refs.choiceTwo.checked =true
       if (type=='A'){
           this.props.getDepositDetail(this.state.productId)
       }else {
@@ -166,12 +166,12 @@ class DepositBuy extends React.Component {
     }=this.props;
     const data=type=='A'&&quantityData||quantityDataB
     if (value<=0){
-        this.refs.tipbar.open('购买份数必须为正整数!');
+        this.refs.tipbar.open('出借份数必须为正整数!');
     }else if (value>parseFloat(data.data.quantity)){
         this.refs.tipbar.open('剩余份数不足!');
     }
     if (value>200&&id==5){
-        this.refs.tipbar.open('新手标购买金额不能超过一万！');
+        this.refs.tipbar.open('新手标出借金额不能超过一万！');
         this.setState({quantity: Number(200)})
     }else {
         this.setState({quantity: Number(value)})
@@ -557,7 +557,7 @@ class DepositBuy extends React.Component {
       let primeContent;
       if(EducationData&&EducationData.code == 100){
           if(EducationData.data.has_num != 0){
-              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议出借"+EducationData.data.max_month+"月以内项目";
           }
       }
     const {type}=this.state;
@@ -602,8 +602,8 @@ class DepositBuy extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：定存宝{type=='A'&&'A'||'B'}计划-{String} 年化利率（{depositData.rate || ''}%）</p>
+        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>确认支付</NavBar>
+        <p className={styles.title}>出借项目：定存宝{type=='A'&&'A'||'B'}计划-{String} 年化利率（{depositData.rate || ''}%）</p>
         <div className={styles.status}>
           <div>
             <p>单价<span>（元 / 份）</span></p>

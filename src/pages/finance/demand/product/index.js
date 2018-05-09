@@ -69,12 +69,12 @@ class ProductDetail extends React.Component {
           </div>
           <p className={
             this.state.descActive ? styles.detail : styles.detailHide
-          }>零钱宝是宝点网为您提供的本息自动循环出借及赎回自动转让的理财工具。零钱宝所对应的借款均100%加入宝点网安全保障计划，安全性高。同时为您实现分散投资，流动性的多样化需求。</p>
+          }>零钱宝是宝点网为您提供的本息自动循环出借及赎回自动转让的理财工具。零钱宝所对应的借款均100%加入宝点网安全保障计划，安全性高。同时为您实现分散出借，流动性的多样化需求。</p>
         </div>
         <p className={styles.moreDetail}>更多详情<img src={arrowDetail} alt="更多详情"/></p>
         <div className={styles.bottom}>
           <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-          <button>马上买入</button>
+          <button>马上出借</button>
         </div>
         <Calculator
           ref="calculator"

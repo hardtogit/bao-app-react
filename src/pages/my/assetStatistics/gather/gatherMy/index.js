@@ -18,7 +18,7 @@ class Index extends Component{
         super(props)
         this.state = {
             index: 0,
-            text:"立即购买"
+            text:"立即出借"
         }
     }
     clientWidth=document.body.clientWidth;
@@ -242,7 +242,7 @@ class Index extends Component{
                    </div>
                </div>
                    </div>
-               <div className={styles.button} onClick={()=>{this.change(0,0);this.props.push('/home/productIndex')}}>立即购买</div>
+               <div className={styles.button} onClick={()=>{this.change(0,0);this.props.push('/home/productIndex')}}>立即出借</div>
            </div>
         )
     }

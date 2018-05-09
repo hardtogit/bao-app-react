@@ -278,7 +278,7 @@ class Index extends React.Component {
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>智享计划</p>
                                     <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>投资更灵活</p>
+                                       style={{"color": "#F19149"}}>出借更灵活</p>
                                 </div>
                             </Link>
                         </div>

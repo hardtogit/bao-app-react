@@ -13,7 +13,7 @@ import Mydcb from '../../../../../components/mydcb'
 	buyDom=()=>{
 		const {listData}=this.props
 		return(<div onClick={()=>{this.props.goBuy();   this.props.push('/home/productIndex')}}>
-			<div className={styles.gobuy}>{listData.size==0?'立即购买':'再次购买'}</div>
+			<div className={styles.gobuy}>{listData.size==0?'立即出借':'再次出借'}</div>
 		</div>)
 	}
 	loadEndDom=(datas)=>{

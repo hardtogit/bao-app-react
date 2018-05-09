@@ -106,7 +106,7 @@ class DirectInvestCell extends React.Component{
                         hasMoney:false,
                         cancelText:'取消',
                         hasDetailText:true,
-                        detailText:'由于本标为定向标，因此需要输入约标密码之后才可购买',
+                        detailText:'由于本标为定向标，因此需要输入约标密码之后才可出借',
                         cancelCallback:()=>this.props.passwordRef.hide(),
                         okCallback:this.appoint
                     })
@@ -181,7 +181,7 @@ class DirectInvestCell extends React.Component{
                                     )
                                 }else{
                                     return  ((<div className={styles.canbuy} onClick={(event)=>this.toBuy(event)}>
-                                        <p>抢购</p>
+                                        <p>出借</p>
                                     </div>))
                                 }
                             })()}

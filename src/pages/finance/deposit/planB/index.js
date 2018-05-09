@@ -66,7 +66,7 @@ class DepositIndex extends React.Component {
     go=(index,id,soldOut,isBuy)=>{
         let text;
         if (!isBuy){
-            text='产品购买未开始！'
+            text='产品出借未开始！'
         }
         else if (!soldOut){
             text='产品已售罄！'
@@ -80,7 +80,7 @@ class DepositIndex extends React.Component {
     goBuy=(index,id,soldOut,isBuy)=>{
         let text;
         if (!isBuy){
-            text='产品购买未开始！'
+            text='产品出借未开始！'
         }
         else if (!soldOut){
             text='产品已售罄！'

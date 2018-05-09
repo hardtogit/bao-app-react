@@ -21,7 +21,7 @@ class Index extends Component{
             isOpen: false,
             disable:true,
             submitting:false,
-            checkBox:true,
+            checkBox:false,
         }
     }
     static defaultProps = {//设置初始props
@@ -102,7 +102,7 @@ class Index extends Component{
 
         return <div>
             <div className={styles.title}>
-                购买产品：{title} 年化利率（{rate}%）
+                出借项目：{title} 年化利率（{rate}%）
             </div>
             <div className={styles.block}>
                 <div className={styles.line}><div className={styles.label}>预期收益（元）</div><div className={styles.value}>{interest}</div></div>
@@ -114,7 +114,7 @@ class Index extends Component{
                 <div className={styles.left}>实际支付（元）</div>
                 <div className={styles.right}>{totalMoney}</div>
             </div>
-            <div className={styles.warm}>注：智享计划只能全额购买，且不能转让</div>
+            <div className={styles.warm}>注：智享计划只能全额出借，且不能转让</div>
             <div>
                 <div className={styles.item}>
                     <div className={styles.left}>存管账户余额</div>
@@ -166,7 +166,7 @@ class Index extends Component{
         return(
             <div className={styles.container}>
                 <NavBar onLeft={pop}>
-                    购买支付
+                    确认支付
                 </NavBar>
                 {Dom}
                 <Alert ref="alert"></Alert>

@@ -260,7 +260,7 @@ class PayProcess extends React.Component {
       const money = this.props.inputValue
 
       this.reddem = this.refs.reddem.show({
-        title: '购买',
+        title: '出借',
         money: money,
         okCallback: (close, value,money) => {
           if(this.state.chosen==1){
@@ -291,7 +291,7 @@ class PayProcess extends React.Component {
       // 如果没有设置交易密码
       return this.refs.confirm.show({
         title: '安全提示',
-        content: '　投资需要设置交易密码,立即去设置？',
+        content: '　出借需要设置交易密码,立即去设置？',
         okCallback: (close) => {
           go('/user/setting/TradePasswordSet', {redirectTo: 'Buy'})
           close()

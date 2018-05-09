@@ -55,7 +55,7 @@ class Index extends Component{
                             {month}个月
                         </p>
                         {(soldOut&&isBuy)? <button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id)}}>
-                            买入
+                            出借
                         </button>:<span className={style.overSold}>{!isBuy?'未开始':'已售罄'}</span>}
                     </div>
                 </div>
@@ -74,7 +74,7 @@ class Index extends Component{
     }
     oneDomB=(i,item,isFriday)=>{
        const {title,rate,month,id,soldOut,isBuy,reveal_rate,active_rate}=item;
-       let text='买入';
+       let text='出借';
        if (isBuy&&soldOut==0){
            text='已售罄'
        }else if (!isBuy){
@@ -94,7 +94,7 @@ class Index extends Component{
                         <p>
                             {month}个月
                         </p>
-                        {text=='买入'&&<button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id,soldOut,isBuy)}}>
+                        {text=='出借'&&<button className={style.buyBtn} ref='btn' onClick={(e)=>{this.stop(e);this.goBuy(parseInt(i),id,soldOut,isBuy)}}>
                             {text}
                         </button>||<span className={style.buyText}>{text}</span>}
                     </div>

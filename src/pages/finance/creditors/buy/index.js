@@ -30,14 +30,14 @@ class CreditorBuy extends React.Component{
         select:1,
         time:0,
         pending:false,
-        checkBox:true,
+        checkBox:false,
     }
     this.creditorsId = this.props.params.id
   }
 
   componentDidMount() {
     window['closeFn']=this.closeFn;
-    this.refs.choice.checked =true;
+    // this.refs.choice.checked =true;
     this.props.getCreditorDetail(this.creditorsId);
       this.props.getUser();
       this.props.getMyBankCards()
@@ -122,7 +122,7 @@ class CreditorBuy extends React.Component{
     }
   changeCopies = (value) => {
       if (value<=0){
-          this.refs.tipbar.open('购买份数必须为正整数!');
+          this.refs.tipbar.open('出借份数必须为正整数!');
       }else if (value>parseFloat(this.props.detail.left_quantity)){
           this.refs.tipbar.open('剩余份数不足!');
       }
@@ -262,7 +262,7 @@ class CreditorBuy extends React.Component{
       let primeContent;
       if(EducationData&&EducationData.code == 100){
           if(EducationData.data.has_num != 0){
-              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+              primeContent = "您的风险承受类型："+EducationData.data.name+"，建议出借"+EducationData.data.max_month+"月以内项目";
           }
       }
     const detail = this.props.detail;
@@ -273,7 +273,7 @@ class CreditorBuy extends React.Component{
     return(
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar title='购买支付' onLeft={this.pop}></NavBar>
+        <NavBar title='确认支付' onLeft={this.pop}></NavBar>
         <div style={{height:44}}></div>
         <div className={styles.scroll}>
           <div className={styles.infomation}>

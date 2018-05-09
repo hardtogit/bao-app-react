@@ -17,7 +17,7 @@ class Index extends React.Component {
                     <img className={styles.img} src={img1} alt=""/>
                     <p className={styles.title}>2.账户中心全新升级,资产明细一目了然</p>
                     <img className={styles.img} src={img2} alt=""/>
-                    <p className={styles.title}>3.投资产品新增第三方购买，更快捷</p>
+                    <p className={styles.title}>3.出借项目新增第三方出借，更快捷</p>
                     <img className={styles.img} src={img3} alt=""/>
                 </Box>
             </div>

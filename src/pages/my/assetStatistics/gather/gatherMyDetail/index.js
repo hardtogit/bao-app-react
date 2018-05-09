@@ -130,7 +130,7 @@ class Index extends Component{
                    </div>
                    <div className={styles.linkItem}>
                        <div className={styles.item} onClick={()=>{push('/user/gatherProjects/'+data.invest_id+'/'+data.type)}}>
-                           <div className={styles.left}>投资项目</div>
+                           <div className={styles.left}>出借项目</div>
                            <span className={styles.arrow}></span>
                        </div>
                        <div className={styles.item}>

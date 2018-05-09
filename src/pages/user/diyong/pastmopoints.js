@@ -22,7 +22,7 @@ export default class Index extends React.Component {
 				<div className={styles.content}>
 					<Quan
 						title="200抵用券"
-						desc1="投资即可使用"
+						desc1="出借即可使用"
 						desc2="适用于定存宝/直投所有项目"
 						from="2016-09-09"
 						to="2016-12-09"

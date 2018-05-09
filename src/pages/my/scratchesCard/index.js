@@ -205,7 +205,7 @@ class Index extends React.Component {
                                 <div className={cs(cardInfo.newCards.length<=0?styles.show:"",styles.nullCard)}>
                                     <img src={cry}/>
                                     <h2 className={styles.noChoose}>没有刮奖机会</h2>
-                                    <p>每周五投资即可参与刮奖!</p>
+                                    <p>每周五出借即可参与刮奖!</p>
                                 </div>
                                 <button onClick={this.useNext} className={cs(cardInfo.newCards.length>0?styles.show:"",styles.next)}
                                 disabled={guaBtn}>刮下一张</button>

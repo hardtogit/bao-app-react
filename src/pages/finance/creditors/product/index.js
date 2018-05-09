@@ -82,7 +82,7 @@ class CommonQusetion extends React.Component{
       <div className={styles.commonQusetion}>
         <div>
           <p>债权转让项目是怎么回事？</p>
-          <p>本质上是直投项目，就是以前有客户投资长期的直投项目（持有3个月以上即可转让），比如12月期限的，持有6月后资金有急需，就把还没有到期的资金进行转让，让其他投资人购买，从而提前收回资金。</p>
+          <p>本质上是直投项目，就是以前有客户出借长期的直投项目（持有3个月以上即可转让），比如12月期限的，持有6月后资金有急需，就把还没有到期的资金进行转让，让其他出借人购买，从而提前收回资金。</p>
         </div>
         <div>
           <p>那每份价格里面有个应付利息是怎么回事？</p>
@@ -93,8 +93,8 @@ class CommonQusetion extends React.Component{
           <p>这是债权转让项目的优惠了，因为客户是有资金急需才转让的 ，为了让人快点购买，通常会折价转让，原先50元一份，通常会48、43元一份进行转让，就像我们急需要把一个东西卖掉变成现金，通常会卖便宜一点，一样的道理。</p>
         </div>
         <div>
-          <p>那投资债权转让项目划算吗？</p>
-          <p>投资债权转让项目挺划算的，主要有两个原因：1、最近因市场行情，投资利率较以前有所下调，同样期限，以前投资项目年化利率要高些，现在投资债权转让还是享受以前项目的利率；2、客户急需转让资金，通常会折价转让，比如以前是50元一份，现在可能49就能买到。</p>
+          <p>那出借债权转让项目划算吗？</p>
+          <p>出借债权转让项目挺划算的，主要有两个原因：1、最近因市场行情，出借利率较以前有所下调，同样期限，以前出借项目年化利率要高些，现在出借债权转让还是享受以前项目的利率；2、客户急需转让资金，通常会折价转让，比如以前是50元一份，现在可能49就能买到。</p>
         </div>
       </div>
     )
@@ -208,7 +208,7 @@ class CreditorDetails extends React.Component{
     }
     showInfo=()=>{
         this.refs.modal.show({
-            content:'这部分资金是原转让人截止转让期的应得利息，由于未到还款日先由购买人先垫付，后借借款人下一还款日一并返还。',
+            content:'这部分资金是原转让人截止转让期的应得利息，由于未到还款日先由出借人先垫付，后借借款人下一还款日一并返还。',
             okText:'确定'
         })
     }
@@ -292,7 +292,7 @@ class CreditorDetails extends React.Component{
               <div className={styles.takePlace}></div>
               <div className={styles.bottom}>
                   <div onClick={() => this.refs.calculator.show()} className={styles.calculator}></div>
-                  <button onClick={()=>this.toBuy()}>马上买入</button>
+                  <button onClick={()=>this.toBuy()}>马上出借</button>
               </div>
               <Calculator
                   ref="calculator"

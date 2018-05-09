@@ -16,7 +16,7 @@ class Index extends React.Component {
     buyDom=()=>{
         const {listData}=this.props;
         return(<div onClick={()=>{this.goPlanB()}}>
-            <div className={styles.gobuy}>{listData.size==0?'立即购买':'再次购买'}</div>
+            <div className={styles.gobuy}>{listData.size==0?'立即出借':'再次出借'}</div>
         </div>)
     }
     goPlanB=()=>{

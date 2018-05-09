@@ -311,7 +311,7 @@ class memberCenter extends Component{
                             </span>
                         </div>
                         <Link to="/home/productIndex">
-                            <div className={styles.promote}>投资升级</div>
+                            <div className={styles.promote}>出借升级</div>
                         </Link>
                         <p className={styles.annualMap}>距下一等级尚差待收年化 <span style={{color:"#333333"}}>{annual_gap}</span> 元</p>
                     </div>
@@ -371,7 +371,7 @@ class memberCenter extends Component{
                                  <p className={styles.cardrightbelow}>秒速登录，体验更多功能</p>
                              </span>
                         </div>
-                        <div className={styles.promote}>投资升级</div>
+                        <div className={styles.promote}>出借升级</div>
                     </div>
                 </div>
                 <div className={styles.findItem1} style={{marginTop:"0"}}>

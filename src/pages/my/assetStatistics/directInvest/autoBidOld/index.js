@@ -38,7 +38,7 @@ class Index extends React.Component {
             start:1,//开始期限
             end:24,//结束期限
             time:0,
-            checkBox:true,
+            checkBox:false,
             buttonClickStatus:true//确认开启是否能点击
         }
     }

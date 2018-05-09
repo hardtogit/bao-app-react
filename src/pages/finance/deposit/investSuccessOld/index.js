@@ -29,7 +29,7 @@ class InvestSuccess extends React.Component {
             maturityDate
         }=data;
         return [{
-            title: '你已投资成功',
+            title: '你已出借成功',
             date: buy_time
         },
             {
@@ -70,7 +70,7 @@ class InvestSuccess extends React.Component {
             startLx=this.time(currentTime,2),
             endStr= this.time(maturityTime,2);
         return [{
-            title: '你已投资成功',
+            title: '你已出借成功',
             date: startStr
         },
             {
@@ -98,11 +98,11 @@ class InvestSuccess extends React.Component {
         const { packetData }=this.props;
         return (
             <div className={styles.root}>
-                <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
+                <NavBar onLeft={this.props.goBack}>出借成功</NavBar>
                 <RedPacket  productId={this.props.location.query.productId} num={this.props.location.query.num} productType={1}></RedPacket>
                 <div className={styles.content}>
                     <div className={styles.amount}>
-                        <span>投资金额</span>
+                        <span>出借金额</span>
                         <span>¥{ data && data.amount || ''}</span>
                     </div>
                     <div className={styles.timeLine}>

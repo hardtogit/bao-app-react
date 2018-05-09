@@ -13,13 +13,13 @@ class InvestFail extends React.Component {
         <NavBar
           noBack
         >
-          投资失败
+          出借失败
         </NavBar>
         <div className={styles.center}>
           <span className={styles.x}>×</span>
-          <p className={styles.p1}>投资失败</p>
+          <p className={styles.p1}>出借失败</p>
           <p className={styles.p2}>当前剩余份数不足，购买金额已退回到账户余额</p>
-          <button>重新投资</button>
+          <button>重新出借</button>
         </div>
       </div>
     )
