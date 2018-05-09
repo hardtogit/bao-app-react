@@ -107,7 +107,7 @@ class DemandBuy extends React.Component {
           <p className={styles.protocol}>《零钱宝投资咨询及管理服务协议》</p>
           <Button containerStyle={{margin: '40px 15px 0'}}
             type='submit'
-            text='确认购买' />
+            text='确认出借' />
         </ValidateForm>  
         <PayProcess 
           ref='payProcess' 

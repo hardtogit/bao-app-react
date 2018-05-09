@@ -49,7 +49,7 @@ class Index extends React.Component {
 		return(<Loading/>)
 	}
 	buyDom=()=>{
-		return( <div className={styles.gobuy}><p><Link to="/user/autoBuy">自动投标</Link></p><p  onClick={this.goBuy}>去购买</p></div>)
+		return( <div className={styles.gobuy}><p><Link to="/user/autoBuy">自动投标</Link></p><p  onClick={this.goBuy}>去出借</p></div>)
 	}
 	goBuy=()=>{
 		const {

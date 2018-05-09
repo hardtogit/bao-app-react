@@ -260,7 +260,7 @@ class PayProcess extends React.Component {
       const money = this.props.inputValue
 
       this.reddem = this.refs.reddem.show({
-        title: '购买',
+        title: '出借',
         money: money,
         okCallback: (close, value,money) => {
           if(this.state.chosen==1){

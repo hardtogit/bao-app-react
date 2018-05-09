@@ -85,7 +85,7 @@ class Index extends React.Component {
         push('/home/productIndex')
     }
     buyDom=()=>{
-        return(<div className={styles.gobuy} onClick={this.go}>再次购买</div>)
+        return(<div className={styles.gobuy} onClick={this.go}>再次出借</div>)
     }
     loadDom=()=>{
         return(<Loading/>)

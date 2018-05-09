@@ -208,7 +208,7 @@ class CreditorDetails extends React.Component{
     }
     showInfo=()=>{
         this.refs.modal.show({
-            content:'这部分资金是原转让人截止转让期的应得利息，由于未到还款日先由购买人先垫付，后借借款人下一还款日一并返还。',
+            content:'这部分资金是原转让人截止转让期的应得利息，由于未到还款日先由出借人先垫付，后借借款人下一还款日一并返还。',
             okText:'确定'
         })
     }

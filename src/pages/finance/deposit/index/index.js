@@ -56,7 +56,7 @@ class DepositIndex extends React.Component {
         if (!isBuy){
             this.refs.alert.show({
                 title: '',
-                content:'产品购买未开始',
+                content:'产品出借未开始',
                 okText:'知道了',
             })
         }else if (!soldOut){

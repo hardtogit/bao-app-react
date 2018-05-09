@@ -172,7 +172,7 @@ class DirectBuy extends React.Component {
     }
     changeQuantity = (value) => {
         if (value<=0){
-            this.refs.tipbar.open('购买份数必须为正整数!');
+            this.refs.tipbar.open('出借份数必须为正整数!');
         }else if (value>parseFloat(this.props.detail.left_quantity)){
             this.refs.tipbar.open('剩余份数不足!');
         }
@@ -438,7 +438,7 @@ class DirectBuy extends React.Component {
         return(
             <div className={styles.root}>
                 <div className={styles.bg}>
-                    <NavBar title='购买支付' onLeft={this.pop}></NavBar>
+                    <NavBar title='确认支付' onLeft={this.pop}></NavBar>
                     <div style={{height:44}}></div>
                     <div className={styles.scroll}>
                         <div className={styles.infomation}>

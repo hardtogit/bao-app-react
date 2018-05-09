@@ -214,7 +214,7 @@ class PayProcess extends React.Component {
         util.getPassErrorNums(this.props.user.username || '', () => {
             const money = this.props.inputValue
             this.reddem = this.refs.reddem.show({
-                title: '购买',
+                title: '出借',
                 money: money,
                 okCallback: (close, value) => {
                     if (!util.checkPassword(value)) {

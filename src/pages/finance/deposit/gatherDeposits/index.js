@@ -31,7 +31,7 @@ class Index extends Component{
                   标的详情
               </NavBar>
                <div className={styles.header}>
-                   为保护借款人信息，仅展示部分商品匹配标的信息。投资聚点+后可在个人中心中查看已购买项目的匹配记录。
+                   为保护借款人信息，仅展示部分商品匹配标的信息。出借聚点+后可在个人中心中查看已出借项目的匹配记录。
                </div>
                <Scroll  height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
