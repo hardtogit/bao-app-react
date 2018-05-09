@@ -11,7 +11,7 @@ import utils from '../../../utils/utils'
 import Guide from '../../../components/Dialog/guide'
 //定存宝
 //import DepositIndex from '../deposit/index'
-import DepositPlanB from '../deposit/planB'
+import DepositYou from '../deposit/you'
 import DepositGather from '../deposit/gather'
 //直投项目
 import DirectInvestIndex from '../directInvest/index'
@@ -35,7 +35,7 @@ class financeIndex extends Component{
 				 title:'债权转让'
 			 }],
 			 Index:0,
-             tabs:[DepositGather,DepositPlanB,DirectInvestIndex,CreditorsIndex]
+             tabs:[DepositGather,DepositYou,DirectInvestIndex,CreditorsIndex]
 		 }
 	 }
 	 componentWillReceiveProps(nextProps){

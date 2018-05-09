@@ -64,8 +64,73 @@ export const  GatherDetail  = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/my/assetStatistics/gather/gatherProjects').default);
         }, 'GatherProjects');
+    },//我的聚点+项目详情
+/****优享+****/
+    YouDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youDetail').default);
+        }, 'YouDetail');
+    },//详情
+    YouDeposits  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youDeposits').default);
+        }, 'YouDeposits');
+    }, //标的列表
+    YouMain  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youMain').default);
+        }, 'YouMain');
+    }, //标的列表
+    YouProblems  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youProblems').default);
+        }, 'YouProblems');
+    }, //常见问题
+    YouJoin  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youJoin').default);
+        }, 'YouJoin');
+    },//加入记录
+    YouBuy  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youBuy').default);
+        }, 'YouBuy');
+    },//购买
+    YouBidDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youBidDetail').default);
+        }, 'YouBidDetail');
+    },//聚点标的详情
+    YouBorrowDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youBorrowDetail').default);
+        }, 'YouBorrowDetail');
+    }, //借款详情
+    YouBackDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youBackDetail').default);
+        }, 'YouBackDetail');
+    }, //还款详情
+    YouInvestRecord  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/finance/deposit/youInvestRecord').default);
+        }, 'YouInvestRecord');
+    },//投资记录
+    YouMy  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/you/youMy').default);
+        }, 'YouMy');
+    },//我的聚点+
+    YouMyDetail  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/you/youMyDetail').default);
+        }, 'YouMyDetail');
+    },//聚点+详情
+    YouProjects  = (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/you/youProjects').default);
+        }, 'YouProjects');
     }//我的聚点+项目详情
-
 /****直投****/
 export const  DirectBuyOld  = (location, cb) => {
     require.ensure([], require => {

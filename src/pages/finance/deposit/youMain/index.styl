@@ -1,0 +1,147 @@
+.root {
+  position absolute
+  width 100%
+  height 100%
+  left 0px
+  top 0px
+  overflow auto
+  padding-top 44px
+  bg $bg
+  padding-bottom 50px
+}
+.backBefore,.backAfter{
+  border: 10px solid transparent;
+  border-right: 10px solid #00a6e2;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  content: ' ';
+}
+.backBefore {
+  border-right-color: #fff;
+  left: 2px;
+}
+.timeBox{
+  margin-top 10px
+}
+.endTime{
+  position absolute
+  right  0px
+  top 0px
+  img{
+    width 13px
+  }
+}
+.depositBox{
+  background-color #ffffff
+  margin-top 10px
+}
+.pds{
+  padding 0px 15px
+}
+.profit{
+  padding 15px 0px
+  border-bottom 1px #E5E5E5 solid
+  p{
+    padding 0px 15px
+    font-size 16px
+  }
+}
+.profitContent{
+  padding 15px 15px 23px 15px
+  .profitText{
+    font-size 14px
+    color #666666
+    margin-bottom 6px
+  }
+  .profitText1{
+    font-size 12px
+    color #d2d2d2
+    margin-bottom 20px
+  }
+  .profitNum{
+    font-size 22px
+    color #ff7700
+    vertical-align bottom
+    span{
+      display inline-block
+      font-size 14px
+      padding-bottom 4px
+      vertical-align bottom
+    }
+  }
+}
+.pdAll{
+  padding 20px 17px
+}
+.iconUl{
+  display block
+  width 100%
+  li{
+    display inline-block
+    width 25%
+    span{
+      display block
+      width 100%
+      text-align center
+      font-size 12px
+      color #666666
+    }
+    img{
+      width 30px
+      margin-bottom 10px
+    }
+  }
+}
+.pdAll1{
+  padding 15px
+}
+.hx{
+  display inline-block
+  width 50%
+  height 3px
+  background-color #E5E5E5
+  vertical-align middle
+  margin-top -5px
+}
+.modalStyle{
+  position fixed
+  z-index 999
+}
+.modalBody{
+  position absolute
+  bottom 0px
+  padding-bottom 30px
+  height auto
+}
+.bottom {
+  position: fixed;
+  left 0
+  right 0
+  bottom 0
+  h 50
+  display: flex;
+  .calculator {
+    w 50
+    bg $minor
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::before {
+      h 70%
+      w 50%
+      content: ''
+      bgimg url(../../../../assets/images/calculator.png) contain
+    }
+  }
+  button {
+    flex: 1
+    font-size: 18px
+    color #fff
+    bg $main
+    border 0
+  }
+}
+

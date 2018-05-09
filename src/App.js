@@ -54,7 +54,8 @@ import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,
 } from './loadTool/find';
 /****product****/
 import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBidDetail,GatherBorrowDetail,
-    GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,DirectBuyOld,DepositDetails,
+    GatherBackDetail,GatherInvestRecord,GatherMy,GatherMyDetail,GatherProjects,YouDetail,YouMain,YouDeposits,YouProblems,YouJoin,YouBuy,YouBidDetail,YouBorrowDetail,
+    YouBackDetail,YouInvestRecord,YouMy,YouMyDetail,YouProjects,DirectBuyOld,DepositDetails,
     PlanDetails,ZqTransfer,
     DirectInvestSuccess ,DirectContract, PayWeb, DepositInvestSuccess, CreditorList, CreditorDetail ,CreditorBuy ,CreditorProtocol,
     CreditorInvestSuccess, RelatedProjects, DemandInvestFail,DemandRedeem, DemandBuy, DemandProduct,WisdomMain,WisdomBuy,
@@ -63,8 +64,8 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
 import{IndexTab
 } from './loadTool/index'
 // 工厂方法创建saga中间件
-const a=window.location.href.split('.')[1]+'.cn';
-document.domain = a;
+// const a=window.location.href.split('.')[1]+'.cn';
+// document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -132,6 +133,9 @@ export default class App extends React.Component {
                   <Route path="gatherMy" getComponent={GatherMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加*/
                   <Route path="gatherMyDetail" getComponent={GatherMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
                   <Route path="gatherProjects/:id/:type" getComponent={GatherProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
+                  <Route path="youMy" getComponent={YouMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加*/
+                  <Route path="youMyDetail" getComponent={YouMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
+                  <Route path="youProjects/:id/:type" getComponent={YouProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的聚点加详情*/
                   <Route path="wisdomMy" getComponent={WisdomMy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的智享计划*/
                   <Route path="wisdomRecord" getComponent={WisdomRecord} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
                   <Route path="wisdomMyDetail/:id" getComponent={WisdomMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
@@ -300,6 +304,17 @@ export default class App extends React.Component {
             <Route path="gatherJoin(/:id)" getComponent={GatherJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherProblems" getComponent={GatherProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="gatherBuy(/:productId/:id)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+
+            <Route path="youMain(/:productId/:type)" getComponent={YouMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youDetail(/:name/:month)" getComponent={YouDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youDeposits(/:id)" getComponent={YouDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youBidDetail(/:id)" getComponent={YouBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youBorrowDetail(/:id)" getComponent={YouBorrowDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youBackDetail(/:id)" getComponent={YouBackDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youInvestRecord(/:id)" getComponent={YouInvestRecord} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youJoin(/:id)" getComponent={YouJoin} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youProblems" getComponent={YouProblems} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youBuy(/:productId/:id)" getComponent={YouBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="deposit-buy(/:id/:type/:productId)" component={DepositBuy} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path='agreement' component={Agreement} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
             <Route path="depositInvestSuccess/:type" getComponent={DepositInvestSuccess}></Route>

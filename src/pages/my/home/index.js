@@ -217,7 +217,7 @@ class Index extends React.Component {
                             </Link>
                         </div>
                         <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/dcbB">
+                            <Link to="/user/youMy">
                                 <img src={DepositTreasureB}/>
                                 <div className={styles.myListText}>
                                     <p className={styles.listTitle}>定存宝B</p>
