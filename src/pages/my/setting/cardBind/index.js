@@ -286,7 +286,7 @@ class Index extends Component{
                 <NavBar onLeft={this.props.pop}>绑定银行卡</NavBar>
                 <div>
                 <div className={styles.tip}>
-                {this.props.location.query.from&&'浙江民泰银行为宝点网提供资金存管服务，为保障资金安全，请绑定本人持有的银行卡'||'请绑定本人持有的银行卡，此卡将用于充值、提现、投资等，已绑定过银行卡的用户需重新绑定'}
+                {this.props.location.query.from&&'浙江民泰银行为宝点网提供资金存管服务，为保障资金安全，请绑定本人持有的银行卡'||'请绑定本人持有的银行卡，此卡将用于充值、提现、出借等，已绑定过银行卡的用户需重新绑定'}
                 </div>
                 <div className={styles.form}>
                     {(()=>{if(this.props.location.query.from=='cardList'&&realName){

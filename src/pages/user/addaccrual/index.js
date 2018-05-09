@@ -22,7 +22,7 @@ export default class Index extends React.Component {
 				<NavBar>我的加息券</NavBar>
 				<Quan
 					title="0.03%加息券"
-					desc1="投资即可使用"
+					desc1="出借即可使用"
 					desc2="适用于定存宝/直投项目"
 					from="2016-09-14"
 					to="2016-12-14"

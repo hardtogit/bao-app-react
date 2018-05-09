@@ -219,7 +219,7 @@ class Index extends Component{
 
                             </div>
                         </div>
-                        <p className={styles.tip}>开通存管后此密码将用于提现、投资等交易操作、原宝点网交易密码将停用</p>
+                        <p className={styles.tip}>开通存管后此密码将用于提现、出借等交易操作、原宝点网交易密码将停用</p>
                         </ValidateForm>
                     <div style={{padding:'15px'}}>
                     <Button ref="bottom" style={{marginTop:'15px'}} onClick={this.reg} disable={disable}

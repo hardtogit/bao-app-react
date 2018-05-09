@@ -200,7 +200,7 @@ class Index extends Component{
         const {
             tabPage
         }=this.state;
-        const Bdatas=[{name:'借款总额',val:total},{name:'剩余金额',val:total-fundraising},{name:'投资期限',val:term+'个月'}],
+        const Bdatas=[{name:'借款总额',val:total},{name:'剩余金额',val:total-fundraising},{name:'出借期限',val:term+'个月'}],
               loadList=this.btDom();
         let backSty=backgroundColor?{borderRightColor:backgroundColor}:{borderRightColor:"#00a6e2"}
         return(<div ref="content">
@@ -238,7 +238,7 @@ class Index extends Component{
                       借款人
                   </span>
                     <span className={tabPage==1&&styles.tabCheck||null} onClick={()=>{this.setPage(1)}}>
-                      投资记录
+                      出借记录
                   </span>
                 </div>
             </div>

@@ -160,10 +160,10 @@ import investInfo from '../../../assets/images/investFriend.jpg'
 							<h1><span onClick={this.close}>×</span></h1>
 							<h1><p>佣金计算器</p></h1>
 							<div className={styles.calList}>
-								<div className={styles.listMoney}>投资金额
+								<div className={styles.listMoney}>出借金额
 									<span><input type="text" value={this.state.value} onChange={this.moneyChange} ref="moneyNum"/></span><label>元</label>
 								</div>
-								<div className={styles.listData}>投资期限
+								<div className={styles.listData}>出借期限
 									<span><select ref="dataNum" onChange={this.dataChange}>
 										{this.state.data.map((num, i) => (<option key={i} value={num}>{num}</option>))}
 									</select></span>

@@ -112,7 +112,7 @@ class ProductDetail extends React.Component {
           endTime
       }=this.Timer(month,depositN);
       const money=this.moneyFn(rate,month);
-      const textTz=lx=='A'?'锁定时间':'投资时间';
+      const textTz=lx=='A'?'锁定时间':'出借时间';
       const bData=[{name:'起投金额',val:qt},{name:textTz,val:month+'个月'}];
       let text='马上出借';
       let flag=false
@@ -136,7 +136,7 @@ class ProductDetail extends React.Component {
                   </p>
               </div>
               <div className={styles.profitContent}>
-                  <p className={styles.profitText}>投资10000元，{month}个月后到期预计预期可赚</p>
+                  <p className={styles.profitText}>出借10000元，{month}个月后到期预计预期可赚</p>
                   <p className={styles.profitText1}>具体收益以实际到账为准</p>
                   <p className={styles.profitNum}>
                       {money}

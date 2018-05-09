@@ -125,7 +125,7 @@ class Index extends React.Component {
                         <div className={cs(this.props.cardInfo.newCards.length<=0?styles.show:"",styles.no_card)}>
                             <img src={scratchecard_cry} alt=""/>
                             <h2>没有刮奖机会</h2>
-                            <p>每周五投资即可参与刮奖</p>
+                            <p>每周五出借即可参与刮奖</p>
                         </div>
                         {this.props.cardInfo.newCards.length>0 && this.state.showCanvas && <div id="have_card" className={styles.have_card}>
                             <canvas id="guaCanvas" style={{width:283,height:142}}></canvas>

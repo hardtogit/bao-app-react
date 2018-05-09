@@ -84,7 +84,7 @@ class Index extends React.Component {
                 {Dom}
                 <div className={cs(styles.filter,this.state.filterShow?styles.active:"hide")}>
                     <ul>
-                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag==1?styles.current:"")}>投资</li>
+                        <li onClick={()=>{this.choose(1)}} className={cs(this.state.flag==1?styles.current:"")}>出借</li>
                         <li onClick={()=>{this.choose(2)}} className={cs(this.state.flag==2?styles.current:"")}>回款</li>
                         <li onClick={()=>{this.choose(6)}} className={cs(this.state.flag==6?styles.current:"")}>提现</li>
                         <li onClick={()=>{this.choose(3)}} className={cs(this.state.flag==3?styles.current:"")}>红包</li>

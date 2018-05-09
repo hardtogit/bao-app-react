@@ -8,17 +8,17 @@ export default class InvestSuccess extends React.Component {
   render() {
     return (
       <div className={styles.root}>
-        <NavBar>投资成功</NavBar>
+        <NavBar>出借成功</NavBar>
         <div className={styles.content}>
           <div className={styles.amount}>
-            <span>投资金额</span>
+            <span>出借金额</span>
             <span>¥200.00</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
               data={[
                 {
-                  title: '你已投资成功',
+                  title: '你已出借成功',
                   date: '2015-10-11 12:10'
                 },
                 {

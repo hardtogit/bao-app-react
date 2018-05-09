@@ -113,7 +113,7 @@ class GatherMain extends React.Component {
             month
         }=data.data;
         rate=parseFloat(rate).toFixed(2);
-        const bData=[{name:'转让金额',val:money},{name:"投资期限",val:month+'个月'}];
+        const bData=[{name:'转让金额',val:money},{name:"出借期限",val:month+'个月'}];
         const loadList=this.btDom();
         let text='';
         let flag=true;
@@ -204,7 +204,7 @@ class GatherMain extends React.Component {
                 <div className={styles.listBox}>
                     <div className={styles.tabContainer}>
                         <div onClick={()=>{this.changeTab(0)}} className={classNames(styles.tab,tabIndex==0&&styles.active||"")}>借款人</div>
-                        <div onClick={()=>{this.changeTab(1)}} className={classNames(styles.tab,tabIndex==1&&styles.active||"")}>投资记录</div>
+                        <div onClick={()=>{this.changeTab(1)}} className={classNames(styles.tab,tabIndex==1&&styles.active||"")}>出借记录</div>
                     </div>
                     {tabIndex==0&&
                         <div className={styles.barrow}>

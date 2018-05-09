@@ -273,7 +273,7 @@ class Index extends React.Component {
                        下一步
                    </button>
                    <div className={styles.remarks}>
-                       注：提现金额中若包含未投资金额,提现申请将延后24小时处理
+                       注：提现金额中若包含未出借金额,提现申请将延后24小时处理
                    </div>
                    <ReddemDialog ref='reddem'/>
                </div>

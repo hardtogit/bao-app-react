@@ -20,7 +20,7 @@ class Index extends Component{
             },
         }=this.props;
         let Text='1000',
-             Text1='投资金额无上限';
+             Text1='出借金额无上限';
         if (id==5){
             Text='50';
             Text1='每人限购1万元';
@@ -65,7 +65,7 @@ class Index extends Component{
                    </div>
                    <div className={styles.content}>
                        <p>1.宝点网引入京东支付资金存管，身份认证与银行卡绑定，安全卡取现，只能本人名下的银行卡买入和转出。</p>
-                       <p>2.定存宝对应投资项目均加入宝点网“安全保障计划”，若发生风险并且合作金融机构丧失赔付能力，风险备用金优先偿付。</p>
+                       <p>2.定存宝对应出借项目均加入宝点网“安全保障计划”，若发生风险并且合作金融机构丧失赔付能力，风险备用金优先偿付。</p>
                    </div>
                </div>
                <div className={styles.listBox}>

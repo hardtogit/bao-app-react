@@ -30,7 +30,7 @@ export default class Index extends React.Component {
 					<div className={classs.coinlist}>
 						<div className={classs.listleft}>
 							<h1>投标送币</h1>
-							<p className={classs.potop}>8416号标满标通过复审获得投资点币奖励</p>
+							<p className={classs.potop}>8416号标满标通过复审获得出借点币奖励</p>
 							<p>2016-08-30 12:25:46</p>
 						</div>
 						<div className={classs.listright}>

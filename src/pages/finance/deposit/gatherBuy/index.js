@@ -487,7 +487,7 @@ class Index extends React.Component {
     let primeContent;
     if(EducationData&&EducationData.code == 100){
         if(EducationData.data.has_num != 0){
-            primeContent = "您的风险承受类型："+EducationData.data.name+"，建议投资"+EducationData.data.max_month+"月以内项目";
+            primeContent = "您的风险承受类型："+EducationData.data.name+"，建议出借"+EducationData.data.max_month+"月以内项目";
         }
     }
     const {type}=this.state;

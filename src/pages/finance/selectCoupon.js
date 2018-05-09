@@ -31,7 +31,7 @@ class RatesCell extends React.Component {
               {Dom}
           </div>
           <div>
-            <p>投资{invest_money}即可使用</p>
+            <p>出借{invest_money}即可使用</p>
             <p>{apply}</p>
           </div>
         </div>
@@ -60,7 +60,7 @@ class RatesCell extends React.Component {
               {Dom}
           </div>
           <div>
-            <p>投资{invest_money}即可使用</p>
+            <p>出借{invest_money}即可使用</p>
             <p>{apply}</p>
           </div>
         </div>

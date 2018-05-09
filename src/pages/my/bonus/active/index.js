@@ -53,7 +53,7 @@ class PackItem extends Component{
                         {(()=>{
                             switch (type){
                                 case 0:
-                                    return <div className={styles.btn} onClick={()=>{push("/home/productIndex")}}>去投资</div>
+                                    return <div className={styles.btn} onClick={()=>{push("/home/productIndex")}}>去出借</div>
                                      break;
                                 case 1:
                                     return <img src={hasSave} alt=""/>
@@ -71,7 +71,7 @@ class PackItem extends Component{
                 </div>
                 <div className={classNames(styles.rule,flag&&styles.hidden||"")}>
                     <ul className={styles.rule_ul}>
-                        <li><span className={styles.point}></span>金额限制：投资金额≥{data.rules.amountlimitation}</li>
+                        <li><span className={styles.point}></span>金额限制：出借金额≥{data.rules.amountlimitation}</li>
                         <li><span className={styles.point}></span>使用产品：{
                             (()=>{
                                 if(data.rules.product.length!=0){

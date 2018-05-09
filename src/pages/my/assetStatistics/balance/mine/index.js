@@ -34,7 +34,7 @@ export default class Index extends React.Component {
 				<div className={this.state.modules?styles.maskLayer:styles.maskLayerShade}>
 					<div className={styles.listNav}>
 						<ul>
-							<li>投资</li><li>回款</li><li>提现</li><li>红包</li><li>理财金收益</li><li>充值</li><li>全部</li>
+							<li>出借</li><li>回款</li><li>提现</li><li>红包</li><li>理财金收益</li><li>充值</li><li>全部</li>
 						</ul>
 					</div>
 					<div className={styles.navOpcity}></div>

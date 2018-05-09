@@ -50,7 +50,7 @@ import wrap from '../../../../utils/pageWrapper'
                                return(<div key={i}>
 								   <Quan
 									   title={rate+'%加息券'}
-									   desc1="投资即可使用"
+									   desc1="出借即可使用"
 									   desc2={apply}
 									   from={start_date}
 									   to={end_date}

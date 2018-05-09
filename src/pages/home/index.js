@@ -360,7 +360,7 @@ class FinancialIndex extends Component{
                           新手标
                        </span>
                 <span className={style.xsText}>
-                           每人限额一万，首次投资有效
+                           每人限额一万，首次出借有效
                        </span>
             </div>
             <div className={style.xsContent}>
@@ -376,12 +376,12 @@ class FinancialIndex extends Component{
                               元起投
                           </span>
                     <span className={style.mgls}>
-                              投资期限1个月
+                              出借期限1个月
                           </span>
                 </p>
                 <p className={Classnames(style.mgl)}>
                     <Link className={style.tzButtom} to={`/gatherMain/${xsId}/5`}>
-                        立即投资
+                        立即出借
                     </Link>
                 </p>
             </div>

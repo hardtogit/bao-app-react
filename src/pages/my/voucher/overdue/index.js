@@ -46,7 +46,7 @@ class Index extends React.Component {
                                 }else {
                                     sys={color:'#888'}
                                 };
-                                const String='投资'+invest_money+'即可使用'
+                                const String='出借'+invest_money+'即可使用'
                                 return(<div key={i}>
 									<Quan
 										title={amount+'元'+type}

@@ -38,7 +38,7 @@ class Index extends Component{
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
-                  投资项目
+                  出借项目
               </NavBar>
                <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id,this.props.params.type)}}
                        isLoading={pending}  distance={20} endType={end}
@@ -50,7 +50,7 @@ class Index extends Component{
                                <div className={styles.right} onClick={()=>{this.goContract(item.borrow_id)}}>查看协议</div>
                            </div>
                            <div className={styles.item}>
-                               <div className={styles.left}>投资金额(元)</div>
+                               <div className={styles.left}>出借金额(元)</div>
                                <div className={classNames(styles.right,styles.money)}>{item.money}</div>
                            </div>
                        </div>)

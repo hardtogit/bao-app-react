@@ -22,23 +22,23 @@ class InvestSuccess extends React.Component {
     const data = this.props.directInvestData && this.props.directInvestData.data || {}
     return (
       <div className={styles.root}>
-        <NavBar onLeft={this.props.goBack}>投资成功</NavBar>
+        <NavBar onLeft={this.props.goBack}>出借成功</NavBar>
         <RedPacket  productId={this.props.location.query.productId} num={this.props.location.query.num} productType={this.props.location.query.access_sys&&4||3}></RedPacket>
         <div className={styles.content}>
           <div className={styles.amount}>
-            <span>投资金额</span>
+            <span>出借金额</span>
             <span>¥{ this.props.params.money}</span>
           </div>
           <div className={styles.timeLine}>
             <TimeLine
               data={[
                 {
-                  title: '你已投资成功',
+                  title: '你已出借成功',
                   date: data.date || ''
                 },
                 {
                   title: '竞标中',
-                  date: '若竞标失败，投资金额退回到账户余额'
+                  date: '若竞标失败，出借金额退回到账户余额'
                 },
                 {
                   title: '竞标成功',
@@ -47,7 +47,7 @@ class InvestSuccess extends React.Component {
                 },
                 {
                   title: '复审中',
-                  date: '若复审失败，投资金额退回到账户余额',
+                  date: '若复审失败，出借金额退回到账户余额',
                   curStep: true
                 },
                 {
