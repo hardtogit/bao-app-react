@@ -406,4 +406,9 @@ export const Detail = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/user/changePayPwd/index').default);
         }, 'ChangePayPwd');
-    }//TODO 修改交易密码
+    },//TODO 修改交易密码
+    MoneyLogMain =(location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/balance/recordsMain').default);
+        }, 'MoneyLogMain');
+    }//交易流水

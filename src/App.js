@@ -44,7 +44,7 @@ import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,Use
     Detail,Verify,Creditors,CreditorsRecords,MyDemandIndex,MyDemandRecords,DemandReddem,ReddemSuccese,CreditorRights,HistoryRecord,About,
     VersionInfo,PastAccrule,CoinsRecord,ExchangeList,CoinsRule,TrueExchangeConfirm,ActiveConfirm,ExchangeSuccess,ExchangeFail,
     Vouchers,VouchersPast,FinanciaIndex,FinanciaRecords,RedPacket,RedPacketRule,SecurityCard,AutoBuy,AutoBuyRule,
-    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd
+    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd,MoneyLogMain
 }from "./loadTool/mine"
 /****find****/
 import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,
@@ -126,6 +126,7 @@ export default class App extends React.Component {
                   <Route path="idCardUploadExplain" getComponent={IdCardUploadExplain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*身份证上传说明*/
                   <Route path="moneyLog" component={MoneyLog} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="moneyLogOld" getComponent={MoneyLogOld} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细老*/
+                  <Route path="moneyLogMain" getComponent={MoneyLogMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*余额明细*/
                   <Route path="dcb" component={MyDCB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path="dcbB" component={MyDCBB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的定存宝*/
                   <Route path='zqRecords' component={ZqRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>

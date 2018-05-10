@@ -31,7 +31,7 @@ class Index extends Component{
                   标的详情
               </NavBar>
                <div className={styles.header}>
-                   为保护借款人信息，仅展示部分商品匹配标的信息。投资聚点+后可在个人中心中查看已购买项目的匹配记录。
+                   为保护借款人信息，仅展示部分商品匹配标的信息。出借优享+后可在个人中心中查看已购买项目的匹配记录。
                </div>
                <Scroll  height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
@@ -56,9 +56,9 @@ class Index extends Component{
 }
 const Datas=(state)=>{
     return({
-        data:state.listdata.getIn(['GATHER_BID_LIST','data']),
-        pending:state.listdata.getIn(['GATHER_BID_LIST','pending']),
-        end:state.listdata.getIn(['GATHER_BID_LIST','pageEnd'])
+        data:state.listdata.getIn(['YOU_BID_LIST','data']),
+        pending:state.listdata.getIn(['YOU_BID_LIST','pending']),
+        end:state.listdata.getIn(['YOU_BID_LIST','pageEnd'])
     })
 }
 const DispatchFn=(dispatch,own)=>({
@@ -67,7 +67,7 @@ const DispatchFn=(dispatch,own)=>({
     },
     gitData(id){
         dispatch({
-           type:'GATHER_BID_LIST',
+           type:'YOU_BID_LIST',
            params:[{id:id}]
         })
     },
@@ -77,7 +77,7 @@ const DispatchFn=(dispatch,own)=>({
     clearData(){
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_BID_LIST'
+            key:'YOU_BID_LIST'
         })
     }
 })

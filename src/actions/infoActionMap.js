@@ -339,6 +339,18 @@ export default {
     [actionTypes.GATHER_MY_HEADER]:{
         apiFn:Fetch.gatherMyHeader
     },
+    [actionTypes.YOU_DETAIL]:{
+        apiFn:Fetch.youDetail
+    },
+    [actionTypes.YOU_PROBLEMS]:{
+        apiFn:Fetch.youProblems
+    },
+    [actionTypes.YOU_BID_DETAIL]:{
+        apiFn:Fetch.youBidDetail
+    },
+    [actionTypes.YOU_MY_HEADER]:{
+        apiFn:Fetch.youMyHeader
+    },
     [actionTypes.GATHER_CONTRACT]:{//聚点合同
         apiFn:Fetch.gatherContract
     },

@@ -149,6 +149,46 @@ export default {
     [actionTypes.GATHER_INVEST_RECORD]:{
         apiFn:Fetch.gatherInvestRecord
     },
+    //优享
+    [actionTypes.DEPOSITS_YOU]:{
+        apiFn:Fetch.depositsYou
+    },
+    //聚点首页
+    [actionTypes.DEPOSITS_YOU_INDEX]:{
+        apiFn:Fetch.depositsYou
+    },
+    //聚点+标
+    [actionTypes.YOU_BID_LIST]:{
+        apiFn:Fetch.youBidList
+    },
+    //加入记录
+    [actionTypes.YOU_JOIN]:{
+        apiFn:Fetch.youJoin
+    },
+    //我的聚点+列表(持有中)
+    [actionTypes.YOU_MY_LIST_ONE]:{
+        apiFn:Fetch.youMyList
+    },
+    //我的聚点+列表（推出中）
+    [actionTypes.YOU_MY_LIST_TWO]:{
+        apiFn:Fetch.youMyList
+    },
+    //我的聚点+列表（已退出）
+    [actionTypes.YOU_MY_LIST_THREE]:{
+        apiFn:Fetch.youMyList
+    },
+    //标的还款详情
+    [actionTypes.YOU_BID_BACK_DETAIL]:{
+        apiFn:Fetch.youBidBackDetail
+    },
+    //聚点+项目列表
+    [actionTypes.YOU_PROJECTS]:{
+        apiFn:Fetch.youProjects
+    },
+    //聚点+
+    [actionTypes.YOU_INVEST_RECORD]:{
+        apiFn:Fetch.youInvestRecord
+    },
     [actionTypes.FRIDAY_COINLIST]:{    //周五活动币列表
         apiFn:Fetch.fridayCoinList
     },

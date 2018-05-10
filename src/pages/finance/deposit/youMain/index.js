@@ -13,7 +13,7 @@ import wrap from '../../../../utils/pageWrapper'
 import {push, goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Store from '../../../../components/Dialog/store'
-import {DEPOSIT_DETAIL, RATE, USER_INFO} from '../../../../actions/actionTypes'
+import BaseText from '../../../../components/BaseText'
 import security from '../../../../assets/images/gather/icon-01.png'
 import introduce from '../../../../assets/images/gather/icon-02.png'
 import details from '../../../../assets/images/gather/icon-03.png'
@@ -101,14 +101,9 @@ class GatherMain extends React.Component {
           price,
           title,
           month
-            }=data.data
+            }=data.data;
       rate=parseFloat(rate).toFixed(2);
-      //const {
-      //    startTime,
-      //    endTime
-      //}=this.Timer(month,depositN);
-      const textTz='锁定时间';
-      const bData=[{name:'起投金额',val:price},{name:textTz,val:month+'个月'}];
+      const bData=[{name:'出借方式',val:"1000元起投1元递增"},{name:'服务时间',val:month+'个月'}];
       let text='';
       let flag=true;
       if(buy_status==0){
@@ -116,7 +111,7 @@ class GatherMain extends React.Component {
               text='已售罄'
               flag=true
           }else{
-              text='马上买入'
+              text='马上出借'
               flag=false
           }
       }else if (buy_status==1){
@@ -130,8 +125,9 @@ class GatherMain extends React.Component {
       <div>
           <Header rate={rate}  data={bData}/>
           <div className={styles.timeBox}>
-          <SimpleDepTime repayment="锁定结束" centerTime={value_end_date} startTime={value_start_date} endLabel="转让成功" type={type}/>
+          <SimpleDepTime startLabel="服务开始" repayment="每月还息到期还本" endTime={value_end_date} startTime={value_start_date} endLabel="服务结束" type={type}/>
           </div>
+          <BaseText className={styles.barText} label="多重风控保障体系"></BaseText>
           <div className={styles.depositBox}>
               <div className={styles.profit}>
                   <p>
@@ -242,7 +238,7 @@ class GatherMain extends React.Component {
       <div className={styles.root}>
           <NavBar leftNode={<Link className={styles.leftNode} to="/home/productIndex">
               <span ><span className={styles.backBefore} >  </span> <span className={styles.backAfter}  style={backSty}></span></span>
-            </Link>}>{type==5?'新手标计划详情':"聚点+详情"}
+            </Link>}>{type==5?'新手标计划详情':"优享+详情"}
           </NavBar>
           {
               Dom
@@ -254,7 +250,7 @@ class GatherMain extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      data:state.infodata.getIn(['GATHER_DETAIL','data']),
+      data:state.infodata.getIn(['YOU_DETAIL','data']),
   }
 }
 
@@ -268,7 +264,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   get(id){
     dispatch({
-        type:'GATHER_DETAIL',
+        type:'YOU_DETAIL',
         params:[id]
 
     })

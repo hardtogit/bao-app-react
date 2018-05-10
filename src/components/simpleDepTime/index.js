@@ -37,6 +37,7 @@ class Index extends Component{
             endTime,
             type,
             centerTime,
+            startLabel,
             repayment,
             endLabel
         }=this.props;
@@ -77,7 +78,7 @@ class Index extends Component{
                     <div className={styles.tbText}>
                         <ul>
                             <li>
-                                <p className={styles.tbName}>起息日</p>
+                                <p className={styles.tbName}>{startLabel&&startLabel||'起息日'}</p>
                                 <p className={styles.timeText}>{startTime}</p>
                             </li>
                             <li>

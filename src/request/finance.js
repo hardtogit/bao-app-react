@@ -109,6 +109,14 @@ const requests = (Fetch) => {
   Fetch.newCardBuy=(data)=>{return Fetch('api/supervise/account/rechargeInvestBid','POST',data)}//使用银行卡充值投标
   Fetch.gatherContract=(id)=>{return Fetch(`api/depositSupervise/contract/${id}`,'GET')}//聚点+合同
   Fetch.gatherServerContract=(id)=>{return Fetch(`api/depositSupervise/serviceContract/${id}`,'GET')}//聚点+服务计划合同
+  //优享+
+  Fetch.depositsYou=(page)=>{return Fetch(`api/deposite/projectLists?page=${page}&pageSize=${BIG_PAGE_SIZE}`,'GET')};
+  Fetch.youDetail=(id)=>{return Fetch(`api/deposite/projectDetail/${id}`,'GET')}//聚点+标的列表
+  Fetch.youProblems=()=>{return Fetch(`api/deposite/faq`,'GET')}//聚点+常见问题
+  Fetch.youBidList=(page,data)=>{return Fetch(`api/deposite/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
+  Fetch.youJoin=(page,data)=>{return Fetch(`api/deposite/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
+  Fetch.youQuit=(id)=>{return Fetch(`api/deposite/zhixProjectExit/${id}`,'GET')}//退出
+
   //聚点+债转
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};

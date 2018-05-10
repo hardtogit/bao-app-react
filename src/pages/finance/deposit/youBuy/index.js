@@ -10,18 +10,16 @@ import { push, goBack } from 'react-router-redux'
 import styles from './index.styl'
 import NavBar from '../../../../components/NavBar'
 import Button from '../../../../components/BaseButton'
-import wrap from '../../../../utils/pageWrapper'
 import BuyInput from '../../../../components/customInput'
 import Tipbar from '../../../../components/Tipbar'
 import {RATE} from '../../../../actions/actionTypes'
-import PayProcess from '../../payProcess'
+import PayProcess from '../../payProcessOld'
 import * as actionTypes from '../../../../actions/actionTypes'
 import utils from '../../../../utils/utils'
 import {Link} from 'react-router'
 import SelectCoupon from '../../selectCoupon'
 import IsAuth from '../../../../components/isAuth/index'
 import Pay from '../../../../pages/finance/pay/index'
-import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
 const hostName=window.location.origin;
 class Index extends React.Component {
@@ -124,17 +122,13 @@ class Index extends React.Component {
           coupon.id = '';
       }
       this.props.clearData()
-      // this.setState({
-      //     pending:true,
-      //     time:0
-      // })
       this.props.goBankPage({
           type:452,
           way:1,
           data:{
             device:"WAP",
             productId:productId,
-            productType:'POINT',
+            type:2,
             num:quantity,
             couponId:coupon&&coupon.id||''
           },
@@ -336,6 +330,9 @@ class Index extends React.Component {
        if (this.props.params.id==5&&coupon){
            coupon.id=''
        }
+
+
+
        // 调用支付流程
        // this.refs.payProcess.open({
        //     productId: this.state.depositId,
@@ -563,9 +560,6 @@ class Index extends React.Component {
             {contractData&&contractData.data.map((item,i)=>{
                 return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}
-
-            {/*<Link to={`/serviceContract/123/0`} className={styles.protocol}>《服务计划协议》</Link>和*/}
-            {/*<Link to={`/dangerContract`} className={styles.protocol}>《风险提示》</Link>*/}
         </p>
             <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意聚点+到期1天后授权系统自动进行转让</p>
         <Button
@@ -595,7 +589,7 @@ const mapStateToProps = (state, ownProps) => {
   const userData = state.infodata.getIn([actionTypes.USER_INFO, 'data'])
   const user = userData && userData.data ? userData.data : {}  
   const quantityLeftFetching = state.infodata.getIn([actionTypes.DEPOSIT_DETAIL, 'pending'])
-  const quantityDataB= state.infodata.getIn([actionTypes.GATHER_DETAIL, 'data'])
+  const quantityDataB= state.infodata.getIn([actionTypes.YOU_DETAIL, 'data'])
   const quantityDataBLeftFetching = state.infodata.getIn([actionTypes.GATHER_DETAIL, 'pending'])
   return {
     deposit: state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.deposit || [],
@@ -608,10 +602,6 @@ const mapStateToProps = (state, ownProps) => {
     couponsFetching: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'pending']),
     couponsData: state.infodata.getIn([actionTypes.AVAILABLE_COUPONS, 'data']),
     rates: state.infodata.getIn([RATE, 'data']),
-    balanceBuyData:state.infodata.getIn([actionTypes.GATHER_BALANCE_BUY,'data']),
-    cardBuyData:state.infodata.getIn([actionTypes.GATHER_CARD_BUY,'data']),
-    verifyData:state.infodata.getIn([actionTypes.GATHER_PAY_VERIFY,'data']),
-    cardVerifyData:state.infodata.getIn([actionTypes.GATHER_CARD_VERIFY,'data']),
     selectedCoupon: state.useCoupons.getIn(['coupons', 'selectedCoupon']),
     useCoupon: state.useCoupons.getIn(['coupons', 'useCoupon']),
     new_deposit:state.infodata.getIn([RATE, 'data']) && state.infodata.getIn([RATE, 'data']).data.new_deposit||{},
@@ -655,23 +645,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   getAvailableCoupons(month) {
     dispatch({
       type: actionTypes.AVAILABLE_COUPONS,
-      params: ['聚点+', month]
+      params: ['优享+', month]
     })
   },
-   //余额购买验证
-    payVerify(id){
-        dispatch({
-            type:'GATHER_PAY_VERIFY',
-            params:[id]
-        })
-    },
-    //银行卡购买验证
-    cardPayVerify(id){
-        dispatch({
-            type:'GATHER_CARD_VERIFY',
-            params:[id]
-        })
-    },
     //选择优惠卷
   setUseCoupons(selectedCoupon) {
     dispatch({
@@ -705,7 +681,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   gatherData(id){
     dispatch({
-        type:'GATHER_DETAIL',
+        type:'YOU_DETAIL',
         params:[id]
     })
   },

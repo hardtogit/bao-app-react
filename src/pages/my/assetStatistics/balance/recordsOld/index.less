@@ -5,9 +5,80 @@
   width: 100%;
   height: 100%;
   overflow: auto;
+  padding-top: 44px;
+  .tabs{
+    position: relative;
+    height: 44px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    .btn{
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      right: 0;
+      top:0;
+      background-color: #fff;
+      border-left: 1px solid #ddd;
+      box-shadow: -2px 0 5px #ddd;
+      &.default{
+        box-shadow:none;
+        border-left: none;
+      }
+      .arrowUp{
+        position: relative;
+        &:before,&:after{
+          border: 10px solid transparent;
+          border-bottom: 10px solid #fff;
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 8px;
+          left:12px;
+          content: ' ';
+        }
+        &:before{
+          border-bottom: 10px solid #666;
+          top: 7px;
+        }
+      }
+      .arrowDown{
+        position: relative;
+        &:before,&:after{
+          border: 10px solid transparent;
+          border-top: 10px solid #fff;
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 16px;
+          left:12px;
+          content: ' ';
+        }
+        &:before{
+          border-top: 10px solid #666;
+          top: 17px;
+        }
+      }
+    }
+    .tabUl{
+      padding: 0 15px;
+      white-space: nowrap;
+      overflow-x: scroll;
+      .tabLi{
+        display: inline-block;
+        height: 44px;
+        white-space: nowrap;
+        line-height: 44px;
+        margin-right: 60px;
+        color: #666;
+        &.active{
+          border-bottom:2px solid #00a6e2;
+          color:#00a6e2
+        }
+      }
+    }
+  }
 }
 .contentList{
-  margin-top: 44px;
   background-color: #ffffff;
   padding-left: 15px;
   .errorImg{
@@ -45,7 +116,7 @@
 }
 .filter{
   position: fixed;
-  top:44px;
+  top:88px;
   left: 0;
   height: 100%;
   width: 100%;
@@ -62,26 +133,21 @@
     transform:translate3d(0,100%,0);
     transition: all cubic-bezier(.1,.7,.1,1) 600ms;
     width: 100%;
-    padding: 20px 15px;
+    padding: 15px;
     background: #fff;
     height: 120px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     li{
-      min-width: 33%;
       list-style: none;
       text-align: center;
       color: #626262;
       font-size: 14px;
-      &:not(:nth-of-type(3n)){
-        border-right: 1px solid #e4e4e4;
-      };
-      &:last-child{
-        border-right: none;
-      };
+      padding: 6px 8px;
+      display: inline-block;
+      border: 1px solid #ddd;
+      margin: 0 20px 15px 0;
       &.current{
         color:#00a6e2;
+        border-color: #00a6e2;
       }
     }
   }

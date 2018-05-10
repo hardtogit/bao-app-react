@@ -4,25 +4,7 @@ import {push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
 import Sign from '../../../components/Sign/index'
-
 import styles from './index.less'
-
-import xing from '../../../assets/images/my-index/2.png' // 会员标记
-import moneySolar from '../../../assets/images/my-index/9.png'  //回款日历
-import recharge from '../../../assets/images/my-index/3.png' // 充值
-import DepositTreasure from '../../../assets/images/my-index/4.png' // 定存宝
-import makeOver from '../../../assets/images/my-index/5.png' // 债权转让
-import looseChange from '../../../assets/images/my-index/6.png' // 零钱宝
-import safeplan from '../../../assets/images/my-index/7.png' // 直投项目
-import directMail from '../../../assets/images/my-index/8.png' // 自动投标
-import redPacket from '../../../assets/images/my-index/10.png' // 红包
-import wisdom from '../../../assets/images/gather/wisdom.png'//智享计划
-import scratchCard from '../../../assets/images/my-index/11.png' // 刮刮卡
-import rt from '../../../assets/images/my-index/rt.png' //即将下线
-import someCoins from '../../../assets/images/my-index/12.png' // 点币
-import interest from '../../../assets/images/my-index/13.png' // 加息券
-import toUse from '../../../assets/images/my-index/14.png' // 抵用券
-import manageMoney from '../../../assets/images/my-index/15.png' // 理财金
 import {getAuthDetail} from '../../../components/Permission'
 import DepositTreasureB from '../../../assets/images/my-index/16.png'
 import poppic1 from '../../../assets/images/my-index/pop1.png'
@@ -34,7 +16,6 @@ import setting from '../../../assets/images/my-index/setting.png'
 import news from '../../../assets/images/my-index/news.png'
 import Store from '../../../components/Dialog/store'
 import headIcon from '../../../assets/images/my-index/avatar.png'
-import newpic from '../../../assets/images/my-index/new.png'
 
 class Index extends React.Component {
     constructor(props) {

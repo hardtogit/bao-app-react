@@ -42,19 +42,19 @@ class Index extends Component{
         )
     }
 }
-const Datas=(state)=>({
-    data:state.infodata.getIn(['GATHER_PROBLEMS','data']),
-    pending:state.infodata.getIn(['GATHER_PROBLEMS','pending']),
+const mapStateToProps=(state)=>({
+    data:state.infodata.getIn(['YOU_PROBLEMS','data']),
+    pending:state.infodata.getIn(['YOU_PROBLEMS','pending']),
 })
-const DispatchFn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch)=>({
     pop(){
          dispatch(goBack())
     },
     gitProblems(){
         dispatch({
-            type:'GATHER_PROBLEMS'
+            type:'YOU_PROBLEMS'
         })
     }
 
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

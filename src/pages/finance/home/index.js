@@ -27,7 +27,7 @@ class financeIndex extends Component{
 				 title:'聚点+',
 			 },
              {
-                 title:'定存宝B'
+                 title:'优享+'
              },
 			 {
 				 title:'直投项目'
