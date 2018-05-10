@@ -28,7 +28,9 @@ import fridayPrizeImg from '../../../assets/images/my-index/friday_prize.png'
 class Index extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            ifShow: true
+        }
     }
 
     componentWillMount() {
@@ -36,29 +38,41 @@ class Index extends Component {
         this.props.getVip();//load vipInfo
         this.props.fridayPop()//load fridayInfo
     }
+    fridayPopDom(data) {
+        const {
+            coin,
+            username
+        } = data;
+        return (
+            <div ref="fridayPop" className={styles.fridayPopWraper}>
+                <div className={styles.shadow}></div>
+                <div className={styles.popWraper}>
+                    <div className={styles.popContent}>
+                        <img className={styles.pop1} src={poppic1}/>
+                        <div className={styles.pop2}>
+                            <div className={styles.txt1}>
+                                <p className={styles.txt11}>尊敬的{username}</p>
+                                <p className={styles.txt12}>你在上一个活动周期里</p>
+                            </div>
+                            <div className={styles.txt2}>
+                                <p className={styles.txt21}>恭喜获得点币数</p>
+                                <p className={styles.txt22}>{coin}</p>
+                            </div>
+                        </div>
+                        <div className={styles.pop3}>
+                            <p>向更多点币发起冲击吧！</p>
+                        </div>
+                        <img src={close} className={styles.close} onClick={this.handleClick}/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     renderDom = (userInfo, fridayPopData, VipData) => {
         const {
-            avatar,
             username,
-            grade,
-            isSign,
-            signNumbers,
             amount,
-            balance,
-            balance_platform,
-            demand,
-            directInvest,
-            creditors,
-            privilege,
-            bonuse,
-            interestRateSecurities,
-            scratcheCard,
-            voucher,
-            coins,
-            deposit,
-            isBuyDemand,
-            depositb
         } = userInfo.data;
         return (
             <div className={styles.container}>
@@ -100,7 +114,7 @@ class Index extends Component {
                         <div className={styles.tab} onClick={()=>{this.props.push('/user/moneyLogMain')}}><img src={flowImg}/><span>交易流水</span></div>
                     </div>
                 </div>
-                <Link to={`/user/main`}>
+                <div onClick={()=>{this.props.push('/user/main')}}>
                     <div className={styles.myProduct} style={{height: "65px"}}>
                         <div className={styles.mpLeft}>
                             <p className={styles.one}>可用余额 (元)</p>
@@ -126,14 +140,15 @@ class Index extends Component {
                             })()}</p>
                         </div>
                         <div className={styles.mpright} >
-                            <Link to="/user/rechargeMain" className={styles.a}>
+                            <span onClick={(e)=>{this.props.push("/user/rechargeMain");e.stopPropagation();}} className={styles.a}>
                                 <div className={styles.rechange}>充值</div>
-                            </Link><Link to="/user/cashMain" className={styles.a}>
+                            </span>
+                            <span  onClick={(e)=>{this.props.push("/user/cashMain");e.stopPropagation();}} className={styles.a}>
                             <div className={styles.withdrawals}>提现</div>
-                        </Link>
+                            </span>
                         </div>
                     </div>
-                </Link>
+                </div>
                 <div className={styles.functionBox}>
                     <div className={styles.title}>我的产品</div>
                     <div className={styles.box}>
@@ -213,15 +228,19 @@ class Index extends Component {
             fridayPopData,
             VipData
         } = this.props;
-        let Dom;
+        let Dom,PopDom;
         if (userInfo && fridayPopData && VipData) {
             Dom = this.renderDom(userInfo, fridayPopData, VipData);
         } else {
             Dom = <Loading></Loading>
         }
+        if (fridayPopData && fridayPopData.data && fridayPopData.data.coin != 0) {
+            PopDom = this.fridayPopDom(fridayPopData.data);
+        }
         return (
             <div>
                 {Dom}
+                {this.state.ifShow && PopDom}
             </div>
         )
     }

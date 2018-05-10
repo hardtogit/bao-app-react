@@ -13,7 +13,6 @@ class Index extends Component{
     };
     componentDidMount(){
         let myChart = echarts.init(document.getElementById("main"));
-        console.log(document.getElementById("main"));
         myChart.setOption(this.props.options)
     }
     render(){

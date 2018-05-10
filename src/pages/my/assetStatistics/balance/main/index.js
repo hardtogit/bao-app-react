@@ -56,12 +56,31 @@ class Index extends Component{
                 <div>
                     <div className={styles.analysis}>
                         <ReactEcharts options={option}  style={{height:200}}/>
-                        <p className={styles.name}>资产分析</p>
-                        <p className={styles.total}>资产总值</p>
-                        <p className={styles.total_num}>{userInfo.total_money}</p>
+                        <p className={styles.total}>账户余额(元)</p>
+                        <p className={styles.total_num}>{(()=>{
+                            if(userInfo) {
+                                let value = JSON.stringify((userInfo.data.balance * 100 + userInfo.data.balance_platform * 100) / 100);
+                                if(value.split('.')[1]){
+                                    switch (value.split('.')[1].length) {
+                                        case 1:
+                                            return value + '0';
+                                            break
+                                        case 2:
+                                            return value;
+                                            break
+                                        default:
+                                            return value + ".00"
+                                            break
+
+                                    }
+                                }else{
+                                    return value + ".00"
+                                }
+                            }
+                        })()}</p>
                         <ul className={styles.money_detail}>
-                            <li><span className={styles.zh}></span><span className={styles.m_m}>账户余额</span><span className={styles.m_i}>{userInfo.balance_total}</span></li>
-                            <li><span className={styles.jd}></span><span className={styles.m_m}>聚点+计划待收本息</span><span className={styles.m_i}>{userInfo.value}</span></li>
+                            <li><span className={styles.cg}></span><span className={styles.m_m}>存管账户余额(元)</span><p className={styles.m_i}>{userInfo.data.balance}</p></li>
+                            <li><span className={styles.pt}></span><span className={styles.m_m}>托管账户余额(元)</span><p className={styles.m_i}>{userInfo.data.balance_platform}</p></li>
                         </ul>
                     </div>
                 <div onClick={()=>{push('/user/reChargeMain')}} className={cs([styles.btn,styles.charge])}>
