@@ -36,7 +36,7 @@ class ProductDetail extends React.Component {
       <div className={styles.root}>
         <NavBar onLeft={pop}>零钱宝详情</NavBar>
         <div className={styles.header}>
-          <p>预计年化收益率</p>
+          <p>参考年回报率</p>
           <Motion defaultStyle={{x: 0}} style={{x: spring(+demandRate || 0, presets.stiff)}}>
             {value => <p>{value.x.toFixed(2)}<span>%</span></p>}
           </Motion>

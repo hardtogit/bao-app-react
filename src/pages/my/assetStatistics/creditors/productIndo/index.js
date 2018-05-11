@@ -83,7 +83,7 @@ class Index extends Component{
                     </li>
                     <li>
                      <span className={styles.messageName}>
-                         约定年化收益率
+                         参考年回报率
                      </span>
                         <span className={styles.productName}>
                             {rate}%

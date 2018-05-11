@@ -342,7 +342,7 @@ class FinancialIndex extends Component{
                 <div className={style.productInterest}>
                     <div className={style.productIm}>
                         <p className={style.productIt}>{rate}<span className={style.productIp}>%</span></p>
-                        <p className={style.productItext}>预计年化收益率</p>
+                        <p className={style.productItext}>参考年回报率</p>
                     </div>
                 </div>
                 <div className={style.productTz}>
