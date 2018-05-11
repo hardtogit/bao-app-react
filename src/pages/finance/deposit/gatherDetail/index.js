@@ -56,7 +56,7 @@ class Index extends Component{
                    </div>
                    <div className={styles.items}>
                        <Item name="产品名称" value={name}></Item>
-                       <Item name="计息方式" value="预期利息=预期年化收益*借款期限*持有金额/12+预期年化收益*借款期限外多持有天数*金额/（12*退出月自然日）"></Item>
+                       <Item name="计息方式" value="预期利息=参考年化回报*借款期限*持有金额/12+参考年化回报*借款期限外多持有天数*金额/（12*退出月自然日）"></Item>
                        <Item name="出借期限" value={month+"个月"}></Item>
                        <Item name="起投金额" value="1000元起投，并以1000元的整倍数递增"></Item>
                        <Item name="资金去向" value="匹配优质个人或企业小额借款，安全有保障。风控采用四大行都在用的美国FICO技术，与合作机构双重验证"></Item>

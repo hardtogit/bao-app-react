@@ -112,7 +112,7 @@ export default class Calculator extends React.Component {
                 lineClass={styles.crossLine}
                 onClick={this.hide}
               />
-              <p className={styles.p1}>预期收益</p>
+              <p className={styles.p1}>参考回报</p>
               <p className={styles.p2}>¥{this.calculateProfit()}</p>
               <div className={styles.form}>
                 <div className={styles.row}>
@@ -140,7 +140,7 @@ export default class Calculator extends React.Component {
                   <span>{/d/.test(unit) ? '天' : '个月'}</span>
                 </div>
               </div>
-              <p className={styles.p3}>预期年化收益：{rate}%</p>
+              <p className={styles.p3}>参考年化回报：{rate}%</p>
             </div>
             <OverlaySelect
               ref="select"

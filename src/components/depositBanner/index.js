@@ -27,7 +27,7 @@ class Index extends Component{
         }=this.props;
         return(
             <div className={styles.header}>
-                <p className={styles.lxYear}>预期年化利率(%)</p>
+                <p className={styles.lxYear}>参考年回报率(%)</p>
                 <p className={styles.lxNum}>
                     {(()=>{
                         let arr = activityName.split("|");

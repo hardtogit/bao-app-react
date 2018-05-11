@@ -93,7 +93,7 @@ class DemandBuy extends React.Component {
           />
           <div className={styles.status}>
             <div>
-              <span>预期收益（元）</span>
+              <span>参考回报（元）</span>
               <span className={styles.colored}>{this.incomeOneDay(this.state.inputValue)}</span>
             </div>
             <div>

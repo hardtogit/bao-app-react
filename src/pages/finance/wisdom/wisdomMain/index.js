@@ -137,7 +137,7 @@ class GatherMain extends React.Component {
                 <Header rate={rate}  data={bData}/>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.item}>
-                    <div className={styles.left}>预期收益：</div>
+                    <div className={styles.left}>参考回报：</div>
                     <div className={styles.right}>{interest}元</div>
                 </div>
                 <div className={styles.item}>

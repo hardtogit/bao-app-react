@@ -204,7 +204,7 @@ class CreditorBuy extends React.Component{
     return Number(utils.toFixed(this.state.copies * this.getPrice(), 2))
   }
 
-  //预期收益
+  //参考回报
   expectIncome = (nub) => {
     const detail = this.props.detail
     if (utils.isPlainObject(detail)) return ''
@@ -299,7 +299,7 @@ class CreditorBuy extends React.Component{
           </div>
           <div className={styles.expectIncome}>
             <div className={styles.wrap}>
-              <p className={styles.name}>预期收益（元）</p>
+              <p className={styles.name}>参考回报（元）</p>
               <p className={styles.profit}>{this.expectIncome(this.state.quantity)}</p>
             </div>
           </div>

@@ -170,7 +170,7 @@ class CreditorCell extends React.Component{
                   
                 </div>
                 <div className={styles.cellFoot}>
-                  <p>预期年化利率</p>
+                  <p>参考年回报率</p>
                   <p>期限</p>
                   <p>剩余</p>
                 </div>

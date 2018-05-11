@@ -49,7 +49,7 @@ export default class Index extends React.Component {
 							<li className={styles.listright} style={{"fontSize":"18px","color":"#000"}}>1,200.00</li>
 						</ul>
 						<ul className={styles.listtxt}>
-							<li className={styles.listleft} style={{"fontSize":"14px","color":"#898989"}}>预期收益</li>
+							<li className={styles.listleft} style={{"fontSize":"14px","color":"#898989"}}>参考回报</li>
 							<li className={styles.listright} style={{"fontSize":"18px","color":"#000"}}>100.00</li>
 						</ul>
 					</div>
@@ -64,7 +64,7 @@ export default class Index extends React.Component {
 							<li className={styles.listright} style={{"fontSize":"18px","color":"#000"}}>1,200.00</li>
 						</ul>
 						<ul className={styles.listtxt}>
-							<li className={styles.listleft} style={{"fontSize":"14px","color":"#898989"}}>预期收益</li>
+							<li className={styles.listleft} style={{"fontSize":"14px","color":"#898989"}}>参考回报</li>
 							<li className={styles.listright} style={{"fontSize":"18px","color":"#000"}}>100.00</li>
 						</ul>
 					</div>

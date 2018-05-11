@@ -112,7 +112,7 @@ const OldContract=(data)=>{
                     受让本金:￥{transferee_principal}
                 </p>
                 <p className={styles.text1}>
-                    预期收益/月:￥{repay_amount_month}
+                    参考回报/月:￥{repay_amount_month}
                 </p>
                 <p className={styles.text1}>
                     转让管理费: ￥{transfer_fee}
@@ -264,7 +264,7 @@ const NewContract=(data)=>{
                     起始日为乙方实际支付债权转让价款之日。
                 </p>
                 <p className={styles.text1}>
-                    第三条 甲方所转让债权的预期年化利率为{purpose}％。乙方向甲方支付转让价款人民币{transferee_principal}（大写人民币  {transferee_principal_cny}），乙方受让的债权比
+                    第三条 甲方所转让债权的参考年回报率为{purpose}％。乙方向甲方支付转让价款人民币{transferee_principal}（大写人民币  {transferee_principal_cny}），乙方受让的债权比
                     例为总债权的{has_rate}%，其受让的债权所对应的借款本息金额 = 乙方债权受让比例x截止起始日按照借款合同约定甲方享有的债权总额。
                 </p>
                 <p className={styles.text1}>
