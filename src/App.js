@@ -18,6 +18,9 @@ import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO} from 
 import ProductList from './pages/active/productList'//无用
 // 主页
 import homeIndex from './pages/home/index'//首页
+import FindHome from './pages/find/home'//发现
+import ProductIndex from './pages/finance/home'//项目
+import MyIndex from './pages/my/home'//我的
 //发现模块
 import findIndex from './pages/find'
 // 我的模块
@@ -27,7 +30,6 @@ import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecord
 ProductInfo, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,FridayActivity,
 AddAccrualIndex,CoinShop,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
-import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {NewCharge,ReChargeOld,CashOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
     SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,
@@ -44,7 +46,7 @@ import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,Use
     Detail,Verify,Creditors,CreditorsRecords,MyDemandIndex,MyDemandRecords,DemandReddem,ReddemSuccese,CreditorRights,HistoryRecord,About,
     VersionInfo,PastAccrule,CoinsRecord,ExchangeList,CoinsRule,TrueExchangeConfirm,ActiveConfirm,ExchangeSuccess,ExchangeFail,
     Vouchers,VouchersPast,FinanciaIndex,FinanciaRecords,RedPacket,RedPacketRule,SecurityCard,AutoBuy,AutoBuyRule,
-    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd,MoneyLogMain
+    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd,MoneyLogMain,MyTransferMain
 }from "./loadTool/mine"
 /****find****/
 import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,
@@ -142,6 +144,7 @@ export default class App extends React.Component {
                   <Route path="wisdomMyDetail/:id" getComponent={WisdomMyDetail} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
                   <Route path="wisdomMyMain/:id" getComponent={WisdomMyMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
 
+                  <Route path="myTransferMain" getComponent={MyTransferMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*智享计划列表*/
                   <Route path="dcbRecords" component={DepositRecords} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="dcbRecordsB" component={DepositRecordsB} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>
                   <Route path="zt" component={MyDirectProjects} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的直投*/

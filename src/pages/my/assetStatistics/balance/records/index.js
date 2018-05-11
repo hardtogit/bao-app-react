@@ -22,7 +22,7 @@ class Index extends React.Component {
         this.props.getList(this.state.flag);
         this.setState({
             init:true
-        })
+        });
     };
     filters=()=>{
         this.setState({
@@ -32,7 +32,7 @@ class Index extends React.Component {
     choose=(flag)=>{
         this.refs.scroll.setState({
             init:true
-        })
+        });
         this.setState({
             flag:flag,
             filterShow:false
@@ -67,22 +67,21 @@ class Index extends React.Component {
     };
     render() {
         const {
-            pop
-        }=this.props;
-        const {
-            init
+            init,
+            flag
         }=this.state;
         let Dom;
         if (init){
             Dom=this.ScrollDom();
         }
+        if(document.getElementById("scrollUl")){
+            document.getElementById("scrollUl").scrollLeft =92*flag;
+        }
         return (
             <div className={styles.bg}>
                 <div className={styles.tabs}>
-                    {this.state.filterShow&&<ul className={styles.tabUl}><li className={styles.tabLi}>请选择查看类型</li></ul>
-
-                    }
-                    <ul className={styles.tabUl}>
+                    {this.state.filterShow&&<ul className={styles.tabUl}><li className={styles.tabLi}>请选择查看类型</li></ul>||
+                    <ul id="scrollUl" className={styles.tabUl}>
                         <li onClick={()=>{this.choose(0)}}  className={classNames([styles.tabLi,this.state.flag==0?styles.active:""])}>全部</li>
                         <li onClick={()=>{this.choose(1)}}  className={classNames([styles.tabLi,this.state.flag==1?styles.active:""])}>出借</li>
                         <li onClick={()=>{this.choose(2)}}  className={classNames([styles.tabLi,this.state.flag==2?styles.active:""])}>回款</li>
@@ -91,16 +90,15 @@ class Index extends React.Component {
                         <li onClick={()=>{this.choose(5)}}  className={classNames([styles.tabLi,this.state.flag==5?styles.active:""])}>充值</li>
                         <li onClick={()=>{this.choose(6)}}  className={classNames([styles.tabLi,this.state.flag==6?styles.active:""])}>提现</li>
                     </ul>
-
-
+                    }
                     <div className={classNames([styles.btn, this.state.filterShow?styles.default:"" ])} onClick={this.filters}>
                         <span className={classNames([this.state.filterShow?styles.arrowUp:styles.arrowDown ]) }></span>
                     </div>
                 </div>
                 {Dom}
-                <div className={classNames(styles.filter,this.state.filterShow?styles.active:"hide")}>
-                    <ul>
-                        <li onClick={()=>{this.choose(0)}} className={classNames(this.state.flag==0?styles.current:"")}>全部</li>
+                <div  className={classNames(styles.filter,this.state.filterShow?styles.active:"hide")}>
+                    <ul >
+                        <li ref="scrollUl" onClick={()=>{this.choose(0)}} className={classNames(this.state.flag==0?styles.current:"")}>全部</li>
                         <li onClick={()=>{this.choose(1)}} className={classNames(this.state.flag==1?styles.current:"")}>出借</li>
                         <li onClick={()=>{this.choose(2)}} className={classNames(this.state.flag==2?styles.current:"")}>回款</li>
                         <li onClick={()=>{this.choose(3)}} className={classNames(this.state.flag==3?styles.current:"")}>红包</li>

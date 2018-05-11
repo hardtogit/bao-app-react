@@ -144,7 +144,6 @@ import {connect} from 'react-redux'
 		}
 		return (
 			<div>
-				<NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/zqRecords')}}>我的债权</NavBar>
 				<div className={styles.bg}>
 				{Dom}{listDom}{buyDom}
 				</div>

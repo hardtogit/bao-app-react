@@ -1,340 +1,46 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router'
 import {push} from 'react-router-redux'
 import {connect} from 'react-redux'
 import Loading from '../../../components/pageLoading'
-import Sign from '../../../components/Sign/index'
+import Store from '../../../components/Dialog/store'
 import styles from './index.less'
 import {getAuthDetail} from '../../../components/Permission'
-import DepositTreasureB from '../../../assets/images/my-index/16.png'
-import poppic1 from '../../../assets/images/my-index/pop1.png'
-import close from '../../../assets/images/my-index/close.png'
-import gift from '../../../assets/images/my-index/gift.png'
-import user_bg from '../../../assets/images/my-index/user_bg.png'
-import vip from '../../../assets/images/my-index/vip.png'
-import setting from '../../../assets/images/my-index/setting.png'
-import news from '../../../assets/images/my-index/news.png'
-import Store from '../../../components/Dialog/store'
-import headIcon from '../../../assets/images/my-index/avatar.png'
-
-class Index extends React.Component {
+import classNames from 'classnames'
+import avatarImg from '../../../assets/images/my-index/avatar.png'
+import settingImg from '../../../assets/images/my-index/setting_button.png'
+import umbrellaImg from '../../../assets/images/my-index/product.png'
+import autoBidImg from '../../../assets/images/my-index/auto_bid.png'
+import calendarImg from '../../../assets/images/my-index/loan_calendar.png'
+import flowImg from '../../../assets/images/my-index/deal_flow.png'
+import optimalEnjoyImg from '../../../assets/images/my-index/optimal_enjoy.png'
+import accumulationPointImg from '../../../assets/images/my-index/accumulation_point.png'
+import directInvestmentImg from '../../../assets/images/my-index/direct_investment.png'
+import bondTransferImg from '../../../assets/images/my-index/bond_transfer.png'
+import depositBImg from '../../../assets/images/my-index/depositB.png'
+import depositAImg from '../../../assets/images/my-index/depositA.png'
+import couponsImg from '../../../assets/images/my-index/coupons.png'
+import redEnvelopeImg from '../../../assets/images/my-index/red_envelope.png'
+import fridayPrizeImg from '../../../assets/images/my-index/friday_prize.png'
+import normal from '../../../assets/images/my-index/normal.png'
+import vip1 from '../../../assets/images/my-index/vip1.png'
+import vip2 from '../../../assets/images/my-index/vip2.png'
+import vip3 from '../../../assets/images/my-index/vip3.png'
+import vip4 from '../../../assets/images/my-index/vip4.png'
+import vip5 from '../../../assets/images/my-index/vip5.png'
+import vip6 from '../../../assets/images/my-index/vip6.png'
+class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ifSet: true,
-            ifShow: false
+            ifShow: true
         }
     }
-    loadingDom() {
-        return (<Loading/>)
+    componentWillMount() {
+        this.props.load();//load userInfo
+        this.props.getVip();//load vipInfo
+        this.props.fridayPop()//load fridayInfo
     }
-
-    componentWillReceiveProps({fridayPopData}) {
-        if (fridayPopData && fridayPopData.code == 100 && this.state.ifSet && fridayPopData.data) {
-            if (fridayPopData.data.isFriday) {
-                let userInfo = sessionStorage.getItem('bao-user');
-                userInfo = JSON.parse(userInfo);
-                let userId = userInfo.id;
-                if (document.cookie.length > 0) {
-                    let c_start;
-                    c_start = document.cookie.indexOf(userId + "=");
-                    if (c_start != -1) {
-                        this.setState({
-                            ifShow: false
-                        })
-                    } else {
-                        this.setState({
-                            ifShow: true
-                        });
-                        let exdate = new Date();
-                        exdate.setDate(exdate.getDate() + 2);
-                        document.cookie = userId + "=true" + ";expires=" + exdate.toGMTString() + ";path=/";
-                    }
-
-                }
-            }
-            this.setState({
-                ifSet: false
-            })
-        }
-
-    }
-
-    loadingEndDom(data) {
-        const {
-            avatar,
-            username,
-            grade,
-            isSign,
-            signNumbers,
-            amount,
-            balance,
-            balance_platform,
-            demand,
-            directInvest,
-            creditors,
-            privilege,
-            bonuse,
-            interestRateSecurities,
-            scratcheCard,
-            voucher,
-            coins,
-            deposit,
-            isBuyDemand,
-            depositb
-        } = data;
-        const{
-            userInfo,
-            VipData
-        }=this.props;
-        let vipLevel;
-        if(VipData){
-            vipLevel=VipData.data.vip_level;
-        }
-        return (
-            <div>
-                <Sign ref="SignModel" coin={+coins} days={+signNumbers} sign={isSign} callBackFun={this.props.load}/>
-                <div className={styles.userAccount}>
-                    <img  className={styles.userBg} src={user_bg} alt=""/>
-                    <img onClick={()=>{this.props.push('/user/setting') }} className={styles.setting} src={setting} alt=""/>
-                    <img onClick={()=>{this.props.push('/find/messages') }} className={styles.news} src={news} alt=""/>
-                    <div className={styles.userInfo}>
-                        <div className={styles.img_c}>
-                            <img src={headIcon} alt=""/>
-                        </div>
-                        <div className={styles.name}>{username}</div>
-                    </div>
-
-                    <div className={styles.settingBg}>
-                    </div>
-                    <div className={styles.settings} onClick={()=>{this.props.push("/find/memberCenter")}}>
-                        <img src={vip} alt=""/>
-                        <span>{vipLevel==0&&"普通会员"||(vipLevel==1&&"VIP1"||(vipLevel==2&&"VIP2"||(vipLevel==3&&"VIP3"||(vipLevel==4&&"VIP4"||(vipLevel==5&&"VIP5"||(vipLevel==6&&"VIP6"))))))}</span>
-                    </div>
-                </div>
-                <Link to="/user/analysis">
-                    <div className={styles.myProduct}>
-                        <div className={styles.mpLeft}>
-                            <p className={styles.one}>总资产 (元)</p>
-                            <p className={styles.two}>{amount}</p>
-                        </div>
-                        <div className={styles.mpright}>
-                            <p>账户安全保障中</p>
-                            <div className={styles.rightArrows}>
-                                <span className={styles.arrows}></span>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-
-                <div className={styles.contents}>
-                    <Link to={`/user/main`}>
-                        <div className={styles.myProduct} style={{height:"65px"}}>
-                            <div className={styles.mpLeft}>
-                                <p className={styles.one}>账户余额 (元)</p>
-                                <p className={styles.two}>{(()=>{
-                                    if(userInfo) {
-                                        let value = JSON.stringify(parseInt(userInfo.data.balance * 100 + userInfo.data.balance_platform * 100) / 100);
-                                        if(value.split('.')[1]){
-                                            switch (value.split('.')[1].length) {
-                                                case 1:
-                                                    return value + '0';
-                                                    break
-                                                case 2:
-                                                    return value;
-                                                    break
-                                                default:
-                                                    return value + ".00"
-                                                    break
-                                            }
-                                        }else{
-                                            return value + ".00"
-                                        }
-                                    }
-                                })()}</p>
-                            </div>
-                            <div className={styles.mpright}>
-                               <Link to="/user/rechargeMain" className={styles.a}><div className={styles.rechange}>充值</div> </Link><Link to="/user/cashMain" className={styles.a}><div className={styles.withdrawals}>提现</div> </Link>
-                            </div>
-                        </div>
-                    </Link>
-                    <Link to={`/user/calendar`}>
-                        <div className={styles.myProduct}>
-                            <div className={styles.mpLeft}>
-                                <img src={moneySolar}/>
-                                <p className={styles.mpFont1}>回款日历</p>
-                            </div>
-                            <div className={styles.mpright}>
-                                <div className={styles.rightArrows}>
-                                    <span className={styles.arrows}></span>
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                    <Store ref="store"></Store>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link  onClick={()=>{
-                                switch (getAuthDetail()){
-                                    case 1:
-                                        this.props.push("/user/autoBuy");
-                                        break;
-                                    case 2:
-                                        this.props.push('/user/setting/authorization');
-                                        break;
-                                    case 3:
-                                        this.refs.store.show();
-                                        break;
-                                    default:
-                                        break
-                                }
-
-                            }}>
-                                <img src={directMail}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>自动投标</p>
-                                    <p className={styles.listColor} style={{"color": "#F19149"}}>省时省心</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/youMy">
-                                <img src={DepositTreasureB}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>定存宝B</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>{depositb == 0 && '每月还息  到期还本' || '+' + depositb}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to='/user/dcb'>
-                                <img src={DepositTreasure}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>定存宝A</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>{deposit == 0 && '到期还本付息' || '+' + deposit}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/zt">
-                                <img src={safeplan}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>直投项目</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>{directInvest == 0 && '期限灵活门槛低' || '+' + directInvest}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to="/user/zq">
-                                <img src={makeOver}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>直投债转</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>{creditors == 0 && '流动性高' || '+' + creditors}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/gatherMy">
-                                <img src={makeOver}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>聚点+</p>
-                                    <p className={styles.listColor} style={{"color": "#F19149"}}>{'智能投标'}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to="/user/wisdomMy">
-                                <img style={{width:'24px',position:'relative',left:'3px',marginRight:'3px'}} src={wisdom}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>智享计划</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#F19149"}}>出借更灵活</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.contents} style={{"marginBottom": "40px"}}>
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to='/user/redPacket'>
-                                <img src={redPacket}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>红包</p>
-                                    <p className={styles.listColor} style={{"color": "#888"}}>{bonuse}</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/addRate">
-                                <img src={interest}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>加息券</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{0 == interestRateSecurities ? '更多活动' : interestRateSecurities + '张'}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className={styles.myProduct}>
-                        <div className={styles.myList}>
-                            <Link to="/user/fridayActivity">
-                                <img src={gift} style={{"width": "26px", "height": "25px", "marginLeft": "2px"}}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>周五狂享礼</p>
-                                    <p className={styles.listColor} style={{"color": "#888"}}>点币大派送</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.myList} style={{"borderLeft": "1px solid #E4E4E4"}}>
-                            <Link to="/user/vouchers">
-                                <img src={toUse}/>
-                                <div className={styles.myListText}>
-                                    <p className={styles.listTitle}>抵用券</p>
-                                    <p className={styles.listColor}
-                                       style={{"color": "#888"}}>{0 == voucher ? '更多活动' : voucher + '张'}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className={styles.myProduct}>
-                        {/*<div className={styles.myList} style={{"borderRight": "1px solid #E4E4E4"}}>*/}
-                            {/*<Link to={`/user/coinShop`}>*/}
-                                {/*<img src={someCoins}/>*/}
-                                {/*<div className={styles.myListText}>*/}
-                                    {/*<p className={styles.listTitle}>积分商城</p>*/}
-                                    {/*<p className={styles.listColor}*/}
-                                       {/*style={{"color": "#888"}}>{0 == coins && '更多活动' || coins}</p>*/}
-                                {/*</div>*/}
-                            {/*</Link>*/}
-                        {/*</div>*/}
-                        <div className={styles.myList} style={{"display": "none"}}>
-                            <img src={manageMoney}/>
-                            <div className={styles.myListText}>
-                                <p className={styles.listTitle}>理财金</p>
-                                <p className={styles.listColor} style={{"color": "#F19149"}}>{privilege}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
     fridayPopDom(data) {
         const {
             coin,
@@ -366,76 +72,235 @@ class Index extends React.Component {
         )
     }
 
-    componentDidMount() {
-        this.props.load();
-        this.props.fridayPop();
-        this.props.getVip();
-    }
+    renderDom = (userInfo, fridayPopData, VipData) => {
+        const {
+            username,
+            amount,
+        } = userInfo.data;
+        let vipImg;
+        switch (parseInt(VipData.data.vip_level)){
+            case 0:
+                vipImg=normal;
+                break;
+            case 1:
+                vipImg=vip1;
+                break;
+            case 2:
+                vipImg=vip2;
+                break;
+            case 3:
+                vipImg=vip3;
+                break;
+            case 4:
+                vipImg=vip4;
+                break;
+            case 5:
+                vipImg=vip5;
+                break;
+            case 6:
+                vipImg=vip6;
+                break
 
-    doSign = () => {
-        this.refs.SignModel.show();
+        }
+        return (
+            <div className={styles.container}>
+                <Store ref="store"></Store>
+                <div className={styles.header}>
+                    <div className={styles.infoLine}>
+                        <div className={styles.left}>
+                            <img className={styles.avatarImg} src={avatarImg}/>
+                            <span className={styles.userName}>{username}</span>
+                            <img className={styles.vipImg} src={vipImg}/>
+                        </div>
+                        <div className={styles.right}>
+                            <Link to="/user/setting" >
+                            <img className={styles.settingImg} src={settingImg}/>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={styles.amount}>{amount}</div>
+                    <div className={styles.amountText}>总资产(元)</div>
+                    <div className={styles.textBox} onClick={()=>{this.props.push("/user/analysis")}}><img src={umbrellaImg}/>账户安全保障中</div>
+                    <div className={styles.tabs}>
+                        <div className={styles.tab} onClick={()=>{
+                            switch (getAuthDetail()){
+                                case 1:
+                                    this.props.push("/user/autoBuy");
+                                    break;
+                                case 2:
+                                    this.props.push('/user/setting/authorization');
+                                    break;
+                                case 3:
+                                    this.refs.store.show();
+                                    break;
+                                default:
+                                    break
+                            }
+
+                        }}><img src={autoBidImg}/><span>自动投标</span></div>
+                        <div className={classNames([styles.tab, styles.center])} onClick={()=>{this.props.push('/user/calendar')}}><img
+                            src={calendarImg}/><span>回款日历</span></div>
+                        <div className={styles.tab} onClick={()=>{this.props.push('/user/moneyLogMain')}}><img src={flowImg}/><span>交易流水</span></div>
+                    </div>
+                </div>
+                <div onClick={()=>{this.props.push('/user/main')}}>
+                    <div className={styles.myProduct} style={{height: "65px"}}>
+                        <div className={styles.mpLeft}>
+                            <p className={styles.one}>可用余额 (元)</p>
+                            <p className={styles.two}>{(() => {
+                                if (userInfo) {
+                                    let value = JSON.stringify(parseInt(userInfo.data.balance * 100 + userInfo.data.balance_platform * 100) / 100);
+                                    if (value.split('.')[1]) {
+                                        switch (value.split('.')[1].length) {
+                                            case 1:
+                                                return value + '0';
+                                                break
+                                            case 2:
+                                                return value;
+                                                break
+                                            default:
+                                                return value + ".00"
+                                                break
+                                        }
+                                    } else {
+                                        return value + ".00"
+                                    }
+                                }
+                            })()}</p>
+                        </div>
+                        <div className={styles.mpright} >
+                            <span onClick={(e)=>{this.props.push("/user/rechargeMain");e.stopPropagation();}} className={styles.a}>
+                                <div className={styles.rechange}>充值</div>
+                            </span>
+                            <span  onClick={(e)=>{this.props.push("/user/cashMain");e.stopPropagation();}} className={styles.a}>
+                            <div className={styles.withdrawals}>提现</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.functionBox}>
+                    <div className={styles.title}>我的产品</div>
+                    <div className={styles.box}>
+                        <div className={styles.item}>
+                            <Link to="/user/youMy">
+                            <img src={optimalEnjoyImg} alt=""/>
+                            <p>优享+</p>
+                            </Link>
+                        </div>
+
+                        <div className={styles.item}>
+                            <Link to="/user/gatherMy">
+                            <img src={accumulationPointImg} alt=""/>
+                            <p>聚点+</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item}>
+                            <Link to="/user/zt">
+                            <img src={directInvestmentImg} alt=""/>
+                            <p>直投项目</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item} >
+                            <Link to='/user/myTransferMain'>
+                            <img src={bondTransferImg} alt=""/>
+                            <p>债权转让</p>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={styles.box}>
+                        <div className={styles.item}>
+                            <Link to='/user/dcbB'>
+                            <img src={depositBImg} alt=""/>
+                            <p>定存宝B</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item}>
+                            <Link to='/user/dcb'>
+                            <img src={depositAImg} alt=""/>
+                            <p>定存宝A</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item}>
+                        </div>
+                        <div className={styles.item}>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.functionBox}>
+                    <div className={styles.title}>我的优惠</div>
+                    <div className={styles.box}>
+                        <div className={styles.item}>
+                            <img src={couponsImg} alt=""/>
+                            <p>优惠券</p>
+                        </div>
+                        <div className={styles.item}>
+                            <Link to='/user/redPacket'>
+                            <img src={redEnvelopeImg} alt=""/>
+                            <p>红包</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item}>
+                            <Link to='/user/fridayActivity'>
+                            <img src={fridayPrizeImg} alt=""/>
+                            <p>周五狂想礼</p>
+                            </Link>
+                        </div>
+                        <div className={styles.item}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     };
-    handleClick = () => {
-        this.refs.fridayPop.style.display = 'none';
-    }
 
     render() {
         const {
-            nobjs,
-            fridayPopData
+            userInfo,
+            fridayPopData,
+            VipData
         } = this.props;
-        let Dom;
-
-        let PopDom;
+        let Dom,PopDom;
+        if (userInfo && fridayPopData && VipData) {
+            Dom = this.renderDom(userInfo, fridayPopData, VipData);
+        } else {
+            Dom = <Loading></Loading>
+        }
         if (fridayPopData && fridayPopData.data && fridayPopData.data.coin != 0) {
             PopDom = this.fridayPopDom(fridayPopData.data);
         }
-
-        if (nobjs) {
-            Dom = this.loadingEndDom(nobjs.data);
-        } else {
-            Dom = this.loadingDom();
-        }
-
         return (
             <div>
-                <div className={styles.myContent}>
-                    {
-                        Dom
-                    }
-                </div>
-                <div>
-                    {this.state.ifShow && PopDom}
-                </div>
+                {Dom}
+                {this.state.ifShow && PopDom}
             </div>
         )
     }
 }
 
-const myIndexInit = (state, own) => ({
-    nobjs: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
+
+const mapStateToProps = (state) => ({
+    userInfo: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
     fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data']),
-    userInfo:state.infodata.getIn(['USER_INFO','data']),
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
-})
-const myIndexInitfn = (dispath, own) => ({
-    getVip(){
-        dispath({
-            type:'GET_VIP'
+});
+const mapDispatchToProps = (dispatch, own) => ({
+    getVip() {
+        dispatch({
+            type: 'GET_VIP'
         })
     },
     load() {
-        dispath({
+        dispatch({
             type: "USER_INFO_WITH_LOGIN"
         })
     },
     fridayPop() {
-        dispath({
+        dispatch({
             type: "FRIDAY_POP"
         })
     },
-    push(url){
-        dispath(push(url))
+    push(url) {
+        dispatch(push(url))
     }
 })
-export default connect(myIndexInit, myIndexInitfn)(Index)
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

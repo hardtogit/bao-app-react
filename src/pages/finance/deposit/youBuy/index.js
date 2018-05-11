@@ -21,14 +21,15 @@ import SelectCoupon from '../../selectCoupon'
 import IsAuth from '../../../../components/isAuth/index'
 import Pay from '../../../../pages/finance/pay/index'
 import setUrl from '../../../../components/setUrl'
+import util from '../../../../utils/utils'
 const hostName=window.location.origin;
 class Index extends React.Component {
     constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       productId:this.props.params.productId,
       inputValue: 10000,
-      quantity: 200,  // 购买数量
+      quantity: 0,  // 购买数量
       unitPrice: 1000, // 单价
       vouchers: [],
       interestRates: [],
@@ -36,8 +37,8 @@ class Index extends React.Component {
       couponsFetching:true,
       getAvailableCouponsFlag:false,
       top:'100%',
-      checkBox:true,
-      checkBoxTwo:true,
+      checkBox:false,
+      checkBoxTwo:false,
       choose:'',
         money:'',
         useCoupon:true,
@@ -50,7 +51,7 @@ class Index extends React.Component {
     }
   }
   componentWillMount(){
-      this.props.clean('GATHER_DETAIL')
+      this.props.clean('YOU_DETAIL')
     const {
         params: {
             productId
@@ -61,8 +62,6 @@ class Index extends React.Component {
         this.props.clean('GO_BANK_PAGE')
     }
   componentDidMount() {
-      this.refs.choice.checked =true
-      this.refs.choiceTwo.checked =true
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)
@@ -121,32 +120,64 @@ class Index extends React.Component {
       if (!useCoupon&&coupon) {
           coupon.id = '';
       }
-      this.props.clearData()
-      this.props.goBankPage({
-          type:452,
-          way:1,
-          data:{
-            device:"WAP",
-            productId:productId,
-            type:2,
-            num:quantity,
-            couponId:coupon&&coupon.id||''
-          },
-          returnUrl:''
-      })
-  }
+      this.props.clearData();
+      if(this.refs.payProcess.state.chosen==1){
+          this.props.goBankPage({
+              type:452,
+              way:1,
+              data:{
+                  device:"WAP",
+                  productId:productId,
+                  type:2,
+                  num:quantity,
+                  couponId:coupon&&coupon.id||''
+              },
+              returnUrl:''
+          })
+      } else{
+          // 调用支付流程
+          this.refs.payProcess.open({
+              productId: this.state.depositId,
+              quantity: this.state.quantity,
+              couponId: coupon && coupon.id || '',
+          })
+      }
+  };
   // 修改购买份数
-  changeQuantity = (value) => {
+  changeQuantity = (e) => {
+      let value=e.target.value.replace(/\D/g,'');;
+      if(value){
+          var del0=function (value) {
+              if(value.substring(0,1)=="0"){
+                  value=value.slice(1);
+                  return parseInt(value)
+              }else{
+                  return parseInt(value)
+              }
+          };
+          value=del0(value)||'';
+      }
+      e.target.value=value;
     const {
       params:{id,type},
       quantityDataB
     }=this.props;
-    const data=quantityDataB
-    if (value<=0){
-        this.refs.tipbar.open('购买份数必须为正整数!');
-    }else if (value>parseFloat(data.data.quantity)){
-        this.refs.tipbar.open('剩余份数不足!');
+    const data=quantityDataB;
+    if(data.data.quantity>=1000){
+        if (value<1000){
+            this.refs.tipbar.open('1000元起投!');
+        }else if (value>parseFloat(data.data.quantity)){
+            this.refs.tipbar.open('剩余额度不足!');
+        }
+    }else{
+        if (value<=0){
+            this.refs.tipbar.open('出借金额必须为正数!');
+        }else if (value>parseFloat(data.data.quantity)){
+            this.refs.tipbar.open('剩余额度不足!');
+        }
     }
+
+
     if (value>200&&id==5){
         this.refs.tipbar.open('新手标购买金额不能超过一万！');
         this.setState({quantity: Number(200)})
@@ -243,7 +274,7 @@ class Index extends React.Component {
                 checkBoxTwo:true
             })
         }
-    }
+    };
   // 能否支付
   canPay() {
         const {params:{type,id}}=this.props;
@@ -252,6 +283,19 @@ class Index extends React.Component {
     }=this.state;
     const {quantityDataB}=this.props;
         if (quantityDataB){
+            if(quantityDataB.data.quantity>=1000){
+                if (quantity<1000){
+                    return false
+                }else if (quantity>parseFloat(quantityDataB.data.quantity)){
+                    return false
+                }
+            }else{
+                if (quantity<=0){
+                    return false
+                }else if (quantity>parseFloat(quantityDataB.data.quantity)){
+                    return false
+                }
+            }
             if (quantityDataB.data.buy_status!=0){
                 return false
             }
@@ -463,6 +507,20 @@ class Index extends React.Component {
         }else {
             this.props.goBack();
         }
+    };
+    overPay=(val,data)=>{
+        const{
+                quantity,
+                couponId
+            }=data,
+            password='',
+            type=2,
+            {type:lx,productId}=this.props.params;
+        let url=util.combineUrl(`${hostName}/mobile_api/api/deposite/buy`,{productId,quantity,password,type,couponId,access_sys:'platform'})
+        this.setState({
+            url,
+            payTop:'0px'
+        })
     }
     closeFn=()=>{
         if (this.props.params.id==5){
@@ -501,22 +559,26 @@ class Index extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.bg}>
-        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>购买支付</NavBar>
-        <p className={styles.title}>购买产品：聚点+ {quantityDataB&&quantityDataB.data.month}个月 年化利率（{quantityDataB&&quantityDataB.data.rate || ''}%）</p>
-        <div className={styles.status}>
-          <div>
-            <p>单价<span>（元 / 份）</span></p>
-            <p>{this.state.unitPrice}.00</p>
-          </div>
-          <div>
-            <p>份数<span>（剩余{quantity}份）</span></p>
-            
-            <div className={styles.form}>
-              <div className={styles.inputWrapper}>
-                <BuyInput value={this.state.quantity} onChange={this.changeQuantity} id={this.props.params.id}/>
-              </div>
-            </div>
-          </div>
+        <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>确认支付</NavBar>
+        <p className={styles.title}>出借产品：优享+ {quantityDataB&&quantityDataB.data.month}个月 年化利率（{quantityDataB&&quantityDataB.data.rate || ''}%）</p>
+        {/*<div className={styles.status}>*/}
+          {/*<div>*/}
+            {/*<p>单价<span>（元 / 份）</span></p>*/}
+            {/*<p>{this.state.unitPrice}.00</p>*/}
+          {/*</div>*/}
+          {/*<div>*/}
+            {/*<p>份数<span>（剩余{quantity}份）</span></p>*/}
+            {/*<div className={styles.form}>*/}
+              {/*<div className={styles.inputWrapper}>*/}
+                {/*<BuyInput value={this.state.quantity} onChange={this.changeQuantity} id={this.props.params.id}/>*/}
+              {/*</div>*/}
+            {/*</div>*/}
+          {/*</div>*/}
+        {/*</div>*/}
+        <div className={styles.header}>
+            <p className={styles.textOne}>我要出借 <small>(元)</small></p>
+            <p className={styles.textTwo}>本期剩余可投{quantity}元</p>
+            <input className={styles.input} onChange={this.changeQuantity} type="text" placeholder="1000元起投 1元递增"/>
         </div>
 
         <div className={styles.expectIncome}>
@@ -542,6 +604,7 @@ class Index extends React.Component {
                 go={this.props.push}
                 getChoose={this.getChoose}
                 user={this.props.user}
+                overPay={this.overPay}
                 banks={this.props.banks&&this.props.banks.data}
                 balance={+this.props.user.balance}
                 onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
@@ -615,7 +678,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   getEmptyContractsList(){
     dispatch({
         type:'GET_EMPTY_CONTRACTS_LIST',
-        params:[{product_type:'F'}]
+        params:[{product_type:'I'}]
       })
   },
   push(path) {

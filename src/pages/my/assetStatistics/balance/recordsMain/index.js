@@ -19,20 +19,6 @@ class Index extends Component{
             index: 0
         }
     }
-    static defaultProps = {//设置初始props
-    }
-    componentWillMount(){
-     //组件将要渲染时调用
-    }
-    componentDidMount(){
-     //组件渲染完成时调用
-    }
-    componentWillReceiveProps(nextProps){
-     //组件接收到新的props调用
-    }
-    componentWillUnmount(){
-     //组件将要被移除时调用
-    }
     render(){
         const{
             pop
@@ -53,9 +39,9 @@ class Index extends Component{
         )
     }
 }
-const mapStateToProps=(state)=>({
+const mapStateToProps=()=>({
 });
-const mapDispatchToProps=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch)=>({
     pop(){
          dispatch(goBack())
     }

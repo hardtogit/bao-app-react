@@ -138,7 +138,6 @@ class Index extends React.Component {
         }
         return (
             <div>
-                <NavBar onLeft={pop} rightNode={<span>记录</span>} onRight={()=>{push('/user/wisdomRecord')}}>我的智享计划</NavBar>
                 <div className={styles.bg}>
                     {Dom}{listDom}{buyDom}
                 </div>

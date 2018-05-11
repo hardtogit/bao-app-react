@@ -411,4 +411,9 @@ export const Detail = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/my/assetStatistics/balance/recordsMain').default);
         }, 'MoneyLogMain');
-    }//交易流水
+    },//交易流水
+    MyTransferMain =(location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/assetStatistics/myTransferMain').default);
+        }, 'MyTransferMain');
+    }//债权转让

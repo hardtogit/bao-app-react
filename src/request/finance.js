@@ -116,7 +116,12 @@ const requests = (Fetch) => {
   Fetch.youBidList=(page,data)=>{return Fetch(`api/deposite/projectBorrowList/${data.id}?page=${page}`,'GET')}//聚点+标
   Fetch.youJoin=(page,data)=>{return Fetch(`api/deposite/projectBuyLists/${data.id}?page=${page}`,'GET')}//加入记录
   Fetch.youQuit=(id)=>{return Fetch(`api/deposite/zhixProjectExit/${id}`,'GET')}//退出
-
+  Fetch.youBidDetail=(id)=>{return Fetch(`api/deposite/borrowInfo/${id}`,'GET')}//聚点+详情
+  Fetch.youMyList=(page,data)=>{return Fetch(`api/deposite/myInvestList?page=${page}&type=${data.type}`,'GET')}//我的聚点+列表
+  Fetch.youMyHeader=()=>{return Fetch(`api/deposite/myProfile`,'GET')}//我的聚点+头部
+  Fetch.youBidBackDetail=(page,data)=>{return Fetch(`api/deposite/borrowRepaymentList/${data.id}?page=${page}`,'GET')}//我的聚点+标的还款详情
+  Fetch.youProjects=(page,data)=>{return Fetch(`api/deposite/myInvestBorrowList?investId=${data.id}&type=${data.type}&page=${page}`,'GET')}//我的聚点+标的还款详情
+  Fetch.youInvestRecord=(page,data)=>{return Fetch(`api/deposite/borrowInvest/${data.id}?page=${page}`,'GET')}//聚点+标
   //聚点+债转
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};

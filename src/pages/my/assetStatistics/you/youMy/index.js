@@ -248,16 +248,16 @@ class Index extends Component{
     }
 }
 const mapStateToProps=(state)=>({
-    pendingOne:state.listdata.getIn(['GATHER_MY_LIST_ONE','pending']),
-    dataOne:state.listdata.getIn(['GATHER_MY_LIST_ONE','data']),
-    endOne:state.listdata.getIn(['GATHER_MY_LIST_ONE','pageEnd']),
-    pendingTwo:state.listdata.getIn(['GATHER_MY_LIST_TWO','pending']),
-    dataTwo:state.listdata.getIn(['GATHER_MY_LIST_TWO','data']),
-    endTwo:state.listdata.getIn(['GATHER_MY_LIST_TWO','pageEnd']),
-    pendingThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','pending']),
-    dataThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','data']),
-    endThree:state.listdata.getIn(['GATHER_MY_LIST_THREE','pageEnd']),
-    headerData:state.infodata.getIn(['GATHER_MY_HEADER','data']),
+    pendingOne:state.listdata.getIn(['YOU_MY_LIST_ONE','pending']),
+    dataOne:state.listdata.getIn(['YOU_MY_LIST_ONE','data']),
+    endOne:state.listdata.getIn(['YOU_MY_LIST_ONE','pageEnd']),
+    pendingTwo:state.listdata.getIn(['YOU_MY_LIST_TWO','pending']),
+    dataTwo:state.listdata.getIn(['YOU_MY_LIST_TWO','data']),
+    endTwo:state.listdata.getIn(['YOU_MY_LIST_TWO','pageEnd']),
+    pendingThree:state.listdata.getIn(['YOU_MY_LIST_THREE','pending']),
+    dataThree:state.listdata.getIn(['YOU_MY_LIST_THREE','data']),
+    endThree:state.listdata.getIn(['YOU_MY_LIST_THREE','pageEnd']),
+    headerData:state.infodata.getIn(['YOU_MY_HEADER','data']),
     Height:document.body.clientHeight-279
 });
 const mapDispatchToProps=(dispatch,own)=>({
@@ -269,25 +269,25 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     gitGatherListOne(type){
         dispatch({
-            type:'GATHER_MY_LIST_ONE',
+            type:'YOU_MY_LIST_ONE',
             params:[type]
         })
     },
     gitGatherListTwo(type){
         dispatch({
-            type:'GATHER_MY_LIST_TWO',
+            type:'YOU_MY_LIST_TWO',
             params:[type]
         })
     },
     gitGatherListThree(type){
         dispatch({
-            type:'GATHER_MY_LIST_THREE',
+            type:'YOU_MY_LIST_THREE',
             params:[type]
         })
     },
     gitHeaderData(){
         dispatch({
-            type:'GATHER_MY_HEADER'
+            type:'YOU_MY_HEADER'
         })
     },
     change(num){
@@ -305,20 +305,20 @@ const mapDispatchToProps=(dispatch,own)=>({
     clean(){
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_MY_LIST_ONE'
+            key:'YOU_MY_LIST_ONE'
         });
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_MY_LIST_TWO'
+            key:'YOU_MY_LIST_TWO'
         });
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_MY_LIST_THREE'
+            key:'YOU_MY_LIST_THREE'
         })
     },
     saveGather(data){
         dispatch({
-            type:"SAVE_GATHER_DATA",
+            type:"SAVE_YOU_DATA",
             data:data
         })
     }

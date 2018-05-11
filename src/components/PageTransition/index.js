@@ -9,7 +9,8 @@ class PageTransition extends React.Component {
           pathnamePath:'',
           actionType:'',
           transitionGroup:''
-      }
+      };
+      this.rootArr=['/home','/home/productIndex','/home/findIndex','/home/myIndex']
   }
   componentWillMount(){
       const {
@@ -24,12 +25,16 @@ class PageTransition extends React.Component {
      })
   }
   componentWillReceiveProps(next){
+     const nowPathName=this.props.location.pathname;
       const {
           location: {
               pathname,
               action
           },
       } = next;
+     if(nowPathName==pathname){//如果路由没有变化则不产生动画
+         return false;
+     }
       const {
           pathnamePath,
       }=this.state;
@@ -39,9 +44,24 @@ class PageTransition extends React.Component {
                 transitionGroup:'swap-left'
             })
         }else {
-            this.setState({
-                transitionGroup:''
-            })
+            if(nowPathName.indexOf('/home')!=0){
+                this.setState({
+                    transitionGroup:'swap-right'
+                })
+            }else{
+                // if(this.rootArr.indexOf(nowPathName)>this.rootArr.indexOf(pathname)){
+                //     this.setState({
+                //         transitionGroup:'swap-right'
+                //     })
+                // }else{
+                //     this.setState({
+                //         transitionGroup:'swap-left'
+                //     })
+                // }
+                    this.setState({
+                        transitionGroup:''
+                    })
+            }
         }
         this.setState({
             pathnamePath:pathname,

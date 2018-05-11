@@ -32,7 +32,7 @@ class Index extends React.Component {
     choose=(flag)=>{
         this.refs.scroll.setState({
             init:true
-        })
+        });
         this.setState({
             flag:flag,
             filterShow:false
@@ -79,9 +79,7 @@ class Index extends React.Component {
         return (
             <div className={styles.bg}>
                 <div className={styles.tabs}>
-                    {this.state.filterShow&&<ul className={styles.tabUl}><li className={styles.tabLi}>请选择查看类型</li></ul>
-
-                    }
+                    {this.state.filterShow&&<ul className={styles.tabUl}><li className={styles.tabLi}>请选择查看类型</li></ul>||
                     <ul className={styles.tabUl}>
                         <li onClick={()=>{this.choose(0)}}  className={classNames([styles.tabLi,this.state.flag==0?styles.active:""])}>全部</li>
                         <li onClick={()=>{this.choose(1)}}  className={classNames([styles.tabLi,this.state.flag==1?styles.active:""])}>出借</li>
@@ -91,8 +89,7 @@ class Index extends React.Component {
                         <li onClick={()=>{this.choose(5)}}  className={classNames([styles.tabLi,this.state.flag==5?styles.active:""])}>充值</li>
                         <li onClick={()=>{this.choose(6)}}  className={classNames([styles.tabLi,this.state.flag==6?styles.active:""])}>提现</li>
                     </ul>
-
-
+                    }
                     <div className={classNames([styles.btn, this.state.filterShow?styles.default:"" ])} onClick={this.filters}>
                         <span className={classNames([this.state.filterShow?styles.arrowUp:styles.arrowDown ]) }></span>
                     </div>
