@@ -186,7 +186,8 @@ class Index extends Component{
             loan_source,
             authenticated,
             loan_info,
-            name
+            name,
+            collect_day
         }=this.props.infoData.data;
         const {
             listData,
@@ -217,7 +218,7 @@ class Index extends Component{
             </div>
             <div className={styles.timeBox}>
                 <DepTime type={'B'} startTime={interest_start_time} endTime={interest_end_time} Grade={credit_rating}
-                         repayment={repayment} lx={type}/>
+                         repayment={repayment} lx={type} dur={collect_day}/>
             </div>
                 {(()=>{
                     let arr = activityName.split("|");
