@@ -8,16 +8,18 @@ import Loading from '../../../../components/pageLoading'
 import Alert from '../../../../components/Dialog/alert'
 import  IdCardBg from '../../../../assets/images/changeCard1.png'
 import InlineLoading from '../../../../components/Loading/InlineLoading'
+import * as actionTypes from "../../../../actions/actionTypes";
 
 class Index extends Component{
     constructor(props) {
         super(props);
         this.state = {
-              bankName:'',
+              bankName:'请输入卡号识别',
               Top:{top:'100%'},
               TopInput:{top:'100%'},
               code:0,
               icon:'',
+              bankCode:'',
               Val:'',
               reg:false,
               init:true,
@@ -39,21 +41,11 @@ class Index extends Component{
             Val,
             icon
         }=this.state;
-        let name,number,iconN;
-        if (data.code==101||data.code==301){
-           name=bankName;
-           number=Val;
-           iconN=<img src={icon}/>
-        }else {
-            name='请选择银行';
-            iconN=<span className={styles.inputTitleC}>卡类型</span>;
-        }
-        if (bankName!=''){
-            name=bankName;
-            iconN=<img src={icon}/>
-        }else {
-            name='请选择银行';
-            iconN=<span className={styles.inputTitleC}>卡类型</span>;
+        let imgDom;
+        if(icon){
+            imgDom= <img src={icon} alt=""/>
+        }else{
+            imgDom=<span>开户行</span>
         }
         let style,bankfn;
         if (Top){
@@ -88,18 +80,15 @@ class Index extends Component{
                 <div className={cn(styles.inputOne,styles.mg)}>
                     <div className={styles.inputCh}>
                         <span className={styles.inputTitleC}>卡号</span>
-                        <input className={styles.inputSr} placeholder='请输入银行卡号' value={number} onChange={(e)=>{this.inputS(e,code)}} />
+                        <input ref="bankCard" className={styles.inputSr} placeholder='请输入银行卡号'  onChange={(e)=>{this.inputS(e,code)}} />
                     </div>
                     <div className={styles.inputCh} onClick={this.showBank}>
-                        {
-                            iconN
-                        }
-                        <span className={styles.inputContent}>{name}</span>
-                        <span className={styles.inputJt}></span>
+                        {imgDom}
+                        <span className={styles.inputContent}>{bankName}</span>
                     </div>
                 </div>
                 <div className={styles.btBox}>
-                    <button className={styles.bt}  disabled={!reg} ref="send" onClick={()=>{this.props.send(this.state)}}>
+                    <button className={styles.bt}  disabled={!this.state.bankCode} ref="send" onClick={this.bindCard}>
                         {this.props.sendpending&&<InlineLoading color="rgba(255,255,255,.8)"/>}下一步</button>
                 </div>
             </div>
@@ -175,7 +164,28 @@ class Index extends Component{
         }
         return Dom
 
-    }
+    };
+    bindCard=()=>{
+        if(!this.state.bankCode){
+            this.refs.alert.show({
+                content: '请先填写你的卡号',
+                okText: '确定',
+            });
+            return
+        }
+        this.props.goBankPage({
+            type:431,
+            way:1,
+            data:{
+                bankCard:this.refs.bankCard.value,
+                bankCode:this.state.bankCode,
+                bankName:this.state.bankName,
+                device:'WAP',
+                access_sys:'platform'
+            },
+            returnUrl:''
+        })
+    };
     bankListDom(data){
       return(
         <div className={styles.bankContent}>
@@ -202,99 +212,56 @@ class Index extends Component{
             okCallback: () => {this.props.push('/user/setting/identityAuth')},
         })
     }
-    setS=(data)=>{
-        if (data.code==101||data.code==301){
-            this.setState({
-                code:data.data.code,
-                bankName:data.data.name,
-                icon:data.data.icon,
-                Val:data.data.number
-            })
-        }
-    }
-    showBank=()=>{
-      this.setState({
-          Top:{top:'0px'}
-      })
-    }
-    hiddenBank=()=>{
-        this.setState({
-            Top:{top:'100%'}
-        })
-    }
-    chooseBank=(code,url,name)=>{
-        const Val=this.state.Val;
-        this.setState({
-            code,
-            Top:{top:'100%'},
-            icon:url,
-            bankName:name
-        });
-        this.reg(Val,code);
-    }
     inputS=(e,code)=>{
-        const  Val=e.target.value;
-        const reg=/^\d/;
-        this.setState({
-            Val
-        });
-        if (reg.test(Val)&&Val.length>=6){
-            const nVal=Val.substring(0,6);
-          this.verification(nVal)
-        }else if (!reg.test(Val)||Val.length<6){
-          this.setState({
-              bankName:''
-          })
-        }
-        if (!this.props.user.data.isbindSecurityCard){
-            this.regNull(Val)
-        }else {
-            this.reg(Val,code)
-        }
-    }
-    regNull=(val)=>{
-        const  reg=/^(\d{16}|\d{19})$/;
-        if (reg.test(val)){
-            this.setState({
-                reg:true
-            })
-        }else {
-            this.setState({
-                reg:false
-            })
-        }
-    }
-    verification=(val)=>{
-        const {bankList:{data}}=this.props;
-        for (let i=0;i<data.length;i++){
-            if (data[i].bin.indexOf(val)!=-1){
-               this.setState({
-                   bankName:data[i].name,
-                   icon:data[i].icon,
-                   code:data[i].code
-               });
-                break
-            }
-        }
-    }
-    reg=(val,code)=>{
-        const  reg=/^(\d{16}|\d{19})$/;
-        if (reg.test(val)&&code!=0){
-            if (this.props.data.code==101){
-                if (val!=this.props.data.data.number){
+        // const  Val=e.target.value;
+        // const reg=/^\d/;
+        // this.setState({
+        //     Val
+        // });
+        // if (reg.test(Val)&&Val.length>=6){
+        //     const nVal=Val.substring(0,6);
+        //   this.verification(nVal)
+        // }else if (!reg.test(Val)||Val.length<6){
+        //   this.setState({
+        //       bankName:''
+        //   })
+        // }
+        // if (!this.props.user.data.isbindSecurityCard){
+        //     this.regNull(Val)
+        // }else {
+        //     this.reg(Val,code)
+        // }
+        let carNo=e.target.value;
+        if(carNo.length>=3){
+            let flag=true;
+            if(this.props.bankList){
+                this.props.bankList.data.map((value,i)=>{
+                    if(carNo.indexOf(value.cardBin)==0){
+                        flag=false;
+                        this.setState({
+                            bankName:value.bankName,
+                            bankCode:value.bankCode,
+                            icon:value.bankIcon
+                        });
+                        // this.props.bankToState(value)
+                    }
+                });
+                if(flag&&carNo.length>7){
                     this.setState({
-                        reg:true
+                        bankName:"存管暂不支持该银行的储蓄卡",
+                        bankCode:"",
+                        icon:""
                     })
+                    // this.props.bankToState({bankName:"存管暂不支持该银行的储蓄卡",bankCode:""})
                 }
-            }else {
-                this.setState({
-                    reg:true
-                })
             }
-        }else {
+        }else{
             this.setState({
-                reg:false
+                bankName:"请输入卡号识别",
+                bankCode:"",
+                icon:""
             })
+
         }
     }
     componentDidMount(){
@@ -302,7 +269,6 @@ class Index extends Component{
          user,
          load,
          loadCard,
-         bankList
       }=this.props;
       if(!user){
           load('USER_INFO_WITH_LOGIN');
@@ -312,82 +278,29 @@ class Index extends Component{
           }
       }
         loadCard();
-      if (!bankList){
-          load('GET_BANK_LIST')
-      }
     }
     componentWillReceiveProps(nextProps){
         const {
             user,
-            data,
-            senddata,
-            sendpending
+            goBankData
         }=nextProps;
-        const alert=this.refs.alert;
        if (user){
            if (user.data.isAuth!=2){
                this.Alert();
            }
        }
-       if (data&&this.state.init){
-           this.setS(data);
-           this.setState({
-               init:false
-           })
-       }
-      if (senddata){
-          if (senddata.code==101&&this.state.sendInit&&!sendpending){
-              this.props.sendBank(this.state);
-              let user = JSON.parse(sessionStorage.getItem('bao-user'));
-              alert.show({
-                  content: '申请安全卡成功',
-                  okText: '确定',
-                  okCallback: () => {this.props.push('/user/setting')},
-              })
-              this.setState({
-                  sendInit:false
-              })
-              user.isbindSecurityCard=true;
-              sessionStorage.setItem('bao-user',JSON.stringify(user))
-          }
-          if (senddata.code==102&&!sendpending){
-              alert.show({
-                  content: '更改安全卡申请成功',
-                  okText: '确定',
-                  okCallback: () => {this.props.push('/user/setting')},
-              })
-          }
-          if (senddata.code==302&&!sendpending){
-              alert.show({
-                  content: '此卡已经为安全卡',
-                  okText: '确定',
-              })
-          }
-          if (senddata.code==303&&!sendpending){
-              alert.show({
-                  content: '申请安全卡失败',
-                  okText: '确定',
-              })
-          }
-          if (senddata.code==305&&!sendpending){
-              alert.show({
-                  content: '更改安全卡申请失败',
-                  okText: '确定',
-              })
-          }
-          if (senddata.code==304&&!sendpending){
-              alert.show({
-                  content: '该卡正在申请中 ',
-                  okText: '确定',
-              })
-          }
-          if (senddata.code==301&&!sendpending){
-              alert.show({
-                  content: '考拉第三方认证失败',
-                  okText: '确定',
-              })
-          }
-      }
+        //订单生成成功后跳转
+        if(goBankData&&goBankData.code==100){
+            this.props.clean("GO_BANK_PAGE")
+            this.props.push('/user/setting/bankPage?url='+goBankData.data.url)
+        }else if(goBankData&&goBankData.code!=100){
+            this.refs.alert.show({
+                content: '订单生成失败！',
+                okText: '确定',
+            });
+            this.props.clean("GO_BANK_PAGE")
+        }
+
     }
     componentWillUnmount(){
         this.props.clearData();
@@ -396,73 +309,52 @@ class Index extends Component{
        const{
          user,
          data,
-         bankList
        }=this.props;
-       const {
-           Top
-       }=this.state;
-       const BanckStyle={
-           position:'absolute',
-           top:'0px',
-           left:'0px'
-       };
-       const Bankload={
-           position:'absolute',
-           left: '50%',
-           top: '50%',
-       };
-       let Dom,bankDom;
-       if(user&&data){
+       let Dom;
+       if(user){
            Dom=this.loadEndDom(user,data);
        }else{
            Dom=this.loadDom() 
-       }
-       if (bankList){
-           bankDom=this.bankListDom(bankList)
-       }else {
-           bankDom=this.loadDom(Bankload)
        }
        return(
        <div>
            {
                Dom
            }
-        <div className={styles.bankBox} style={Top}>
-            <NavBar leftNode={<span className={styles.leftCav} onClick={this.hiddenBank}>取消</span>} style={BanckStyle}>
-                选择银行卡
-            </NavBar>
-            {
-                bankDom
-            }
-        </div>
         <Alert ref="alert"></Alert>
        </div>
        )
     }
 }
-const  bankcardAddInit=(state,own)=>({
-       user:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
-       data:state.infodata.getIn(['SECURITY_CARD','data']),
-       bankList:state.infodata.getIn(['GET_BANK_LIST','data']),
-       senddata:state.infodata.getIn(['SEND_SEC_CARD','data']),
-       sendpending:state.infodata.getIn(['SEND_SEC_CARD','pending'])
-})
-const bankcardAddInitfn=(dispath,own)=>({
+const  bankcardAddInit=(state,own)=>{
+    return{
+        user:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
+        bankList:state.infodata.getIn(['GET_BANK_BIND_LIST','data']),
+        senddata:state.infodata.getIn(['SEND_SEC_CARD','data']),
+        sendpending:state.infodata.getIn(['SEND_SEC_CARD','pending']),
+        goBankData: state.infodata.getIn(['GO_BANK_PAGE',"data"])
+    }
+
+}
+const bankcardAddInitfn=(dispatch,own)=>({
       loadCard(){
-          dispath({
-              type:'SECURITY_CARD',
-              params:[{
-                  type:2
-              }]
+          dispatch({
+              type:'GET_BANK_BIND_LIST',
           })
       },
       load(type){
-             dispath({
+          dispatch({
                type:type,
            })
       },
+    goBankPage(data){
+        dispatch({
+            type:actionTypes.GO_BANK_PAGE,
+            params:[data]
+        })
+    },
     send(data){
-         dispath({
+        dispatch({
              type:'SEND_SEC_CARD',
              params:[{
                  bankCard:data.Val,
@@ -478,7 +370,7 @@ const bankcardAddInitfn=(dispath,own)=>({
            bankName,
            icon
        }=data;
-       dispath({
+        dispatch({
             type:'IDENTITY_AUTH_SUCCESS',
             key:'SECURITY_CARD',
             data:{
@@ -492,14 +384,20 @@ const bankcardAddInitfn=(dispath,own)=>({
             }
        })
     },
+    clean(key){
+        dispatch({
+            type:'CLEAR_INFO_DATA',
+            key:key
+        })
+    },
     push(path){
-        dispath(push(path))
+        dispatch(push(path))
     },
     pop(){
-        dispath(goBack())
+        dispatch(goBack())
     },
     clearData(){
-        dispath({
+        dispatch({
             type:'CLEAR_INFO_DATA',
             key:'SEND_SEC_CARD'
         })
