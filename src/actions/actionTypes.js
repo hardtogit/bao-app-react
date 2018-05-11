@@ -379,6 +379,7 @@ export const IF_SYNC='IF_SYNC'//是否同步
 export const QUERY_UPLOAD='QUERY_UPLOAD'//查询是否上传身份证
 export const GET_DEFAULT_TAB='GET_DEFAULT_TAB' //获取产品页默认tab
 export const SAVE_GATHER_DATA='SAVE_GATHER_DATA'//存储聚点+数据
+export const SAVE_YOU_DATA='SAVE_YOU_DATA'//存储优享+数据
 export const GET_CASH_LOG='GET_CASH_LOG'//获取提现列表
 export const CANCEL_CASH='CANCEL_CASH'//取消提现
 export const GET_PACKET='GET_PACKET'//获取投资后的红包

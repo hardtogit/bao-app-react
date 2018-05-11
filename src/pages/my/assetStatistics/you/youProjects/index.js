@@ -63,9 +63,9 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>{
     return{
-        listData:state.listdata.getIn(['GATHER_PROJECTS','data']),
-        pending:state.listdata.getIn(['GATHER_PROJECTS','pending']),
-        end:state.listdata.getIn(['GATHER_PROJECTS','pageEnd']),
+        listData:state.listdata.getIn(['YOU_PROJECTS','data']),
+        pending:state.listdata.getIn(['YOU_PROJECTS','pending']),
+        end:state.listdata.getIn(['YOU_PROJECTS','pageEnd']),
     }
 }
 const mapDispatchToProps=(dispatch,own)=>({
@@ -77,14 +77,14 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     gitData(id,type){
         dispatch({
-           type:'GATHER_PROJECTS',
+           type:'YOU_PROJECTS',
            params:[{id:id,type:type}]
         })
     },
     clean(){
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_PROJECTS'
+            key:'YOU_PROJECTS'
         })
     }
 })

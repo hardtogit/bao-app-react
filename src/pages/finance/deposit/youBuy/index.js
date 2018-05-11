@@ -123,13 +123,14 @@ class Index extends React.Component {
       this.props.clearData();
       if(this.refs.payProcess.state.chosen==1){
           this.props.goBankPage({
-              type:452,
+              type:433,
               way:1,
               data:{
                   device:"WAP",
                   productId:productId,
                   type:2,
                   num:quantity,
+                  access_sys:"platform",
                   couponId:coupon&&coupon.id||''
               },
               returnUrl:''
@@ -624,7 +625,7 @@ class Index extends React.Component {
                 return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} className={styles.protocol}>《{item.hetong_name}》</Link>
             })}
         </p>
-            <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意聚点+到期1天后授权系统自动进行转让</p>
+            <p className={styles.textContent}><input ref="choiceTwo"   onChange={this.ifScanTwo} style={{marginRight:'6px'}} type="checkbox"/> 我已同意优享+到期1天后授权系统自动进行转让</p>
         <Button
           containerStyle={{margin: '40px 15px 0'}}
           text='确认支付'

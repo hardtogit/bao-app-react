@@ -25,6 +25,9 @@ export default (state = defaultState, action) => {
         case actionTypes.SAVE_GATHER_DATA:
             return state.setIn([action.type, 'data'], action.data);
             break;
+        case actionTypes.SAVE_YOU_DATA:
+            return state.setIn([action.type, 'data'], action.data);
+            break;
         case actionTypes.STORE_CARD_INFO:
             return state.setIn([action.type, 'data'], action.data)
             break;

@@ -25,7 +25,7 @@ class Index extends Component{
     componentDidMount(){
         if(!this.props.data){
             this.refs.alert.show({
-                content: '请先选择你需要查看的聚点+',
+                content: '请先选择你需要查看的优享+',
                 okText: '确定',
                 okCallback: () => {this.props.pop()},
             })
@@ -65,7 +65,7 @@ class Index extends Component{
         if(this.props.location.query.status==1){
             this.refs.alert.show({
                 title:'是否申请退出？',
-                content: '若不主动申请退出，聚点+到期1天后系统将自发申请退出;\n' +
+                content: '若不主动申请退出，优享+到期1天后系统将自发申请退出;\n' +
                 '根据平台运营情况，平均转让时间3天～多持有的天数将按预期利息正常计算',
                 okText: '确定',
                 cancel:"取消",
@@ -95,7 +95,7 @@ class Index extends Component{
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
-                  聚点+详情
+                  优享+详情
               </NavBar>
                {data&&<div>
                    <div className={styles.header}>
@@ -129,7 +129,7 @@ class Index extends Component{
                        </div>
                    </div>
                    <div className={styles.linkItem}>
-                       <div className={styles.item} onClick={()=>{push('/user/gatherProjects/'+data.invest_id+'/'+data.type)}}>
+                       <div className={styles.item} onClick={()=>{push('/user/youProjects/'+data.invest_id+'/'+data.type)}}>
                            <div className={styles.left}>投资项目</div>
                            <span className={styles.arrow}></span>
                        </div>
@@ -152,9 +152,9 @@ class Index extends Component{
 }
 const mapStateToProps=(state)=>{
     return{
-       data:state.regStore.getIn(["SAVE_GATHER_DATA",'data']),
+       data:state.regStore.getIn(["SAVE_YOU_DATA",'data']),
        contractsFillList:state.infodata.getIn(['GET_FILL_CONTRACTS_LIST','data']),
-       quitData:state.infodata.getIn(['GATHER_QUIT','data'])
+       quitData:state.infodata.getIn(['YOU_QUIT','data'])
     }
 };
 const mapDispatchToProps=(dispatch,own)=>({
@@ -175,14 +175,14 @@ const mapDispatchToProps=(dispatch,own)=>({
     },
     quit(id){
         dispatch({
-          type:"GATHER_QUIT",
+          type:"YOU_QUIT",
           params:[id]
         })
     },
     clearData(){
         dispatch({
             type: 'CLEAR_INFO_DATA',
-            key: 'GATHER_QUIT'
+            key: 'YOU_QUIT'
         })
     }
 });

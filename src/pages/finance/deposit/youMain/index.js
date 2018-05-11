@@ -127,7 +127,7 @@ class GatherMain extends React.Component {
           <div className={styles.timeBox}>
           <SimpleDepTime startLabel="服务开始" repayment="每月还息到期还本" endTime={value_end_date} startTime={value_start_date} endLabel="服务结束" type={type}/>
           </div>
-          <BaseText className={styles.barText} label="多重风控保障体系"></BaseText>
+          <BaseText className={styles.barText} onClick={()=>{this.props.push('/safeplan')}} label="多重风控保障体系"></BaseText>
           <div className={styles.depositBox}>
               <div className={styles.profit}>
                   <p>
