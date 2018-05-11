@@ -6,25 +6,20 @@
  */
 import React from 'react'
 import NavBar from '../../../../components/NavBar'
-import Calculator from '../../../../components/Calculator'
 import styles from './index.styl'
 import classNames from 'classnames'
 import wrap from '../../../../utils/pageWrapper'
 import {push, goBack} from 'react-router-redux'
 import {connect} from 'react-redux'
-import {DEPOSIT_DETAIL, RATE, USER_INFO} from '../../../../actions/actionTypes'
 import arrow2 from '../../../../assets/images/arrow2.png'
 import security from '../../../../assets/images/gather/icon-05.png'
 import introduce from '../../../../assets/images/gather/icon-06.png'
 import details from '../../../../assets/images/gather/icon-07.png'
 import Loading from '../../../../components/pageLoading'
 import Header from '../../../../components/depositBanner'
-import SimpleDepTime from '../../../../components/simpleDepTime'
-import Utils from '../../../../utils/utils'
-import IsAuth from '../../../../components/isAuth'
 import setUrl from '../../../../components/setUrl'
+import utils from '../../../../utils/utils'
 class GatherMain extends React.Component {
-
   state = {
     descActive: false,
     type:'A'
@@ -50,26 +45,6 @@ class GatherMain extends React.Component {
       return money
   }
   loadEnd=()=>{
-      Date.prototype.format = function(fmt) {
-          var o = {
-              "M+" : this.getMonth()+1,                 //月份
-              "d+" : this.getDate(),                    //日
-              "h+" : this.getHours(),                   //小时
-              "m+" : this.getMinutes(),                 //分
-              "s+" : this.getSeconds(),                 //秒
-              "q+" : Math.floor((this.getMonth()+3)/3), //季度
-              "S"  : this.getMilliseconds()             //毫秒
-          };
-          if(/(y+)/.test(fmt)) {
-              fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-          }
-          for(var k in o) {
-              if(new RegExp("("+ k +")").test(fmt)){
-                  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-              }
-          }
-          return fmt;
-      };
       const {
         data,
         params:{id},
@@ -133,17 +108,17 @@ class GatherMain extends React.Component {
               </div>
               <div className={styles.item}>
                   <div className={styles.left}>起息日期</div>
-                  <div className={styles.right}>{new Date(start_time*1000).format("yyyy-MM-dd")}</div>
+                  <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(start_time*1000))}</div>
               </div>
               <div className={styles.item}>
                   <div className={styles.left}>结束日期</div>
-                  <div className={styles.right}>{new Date(end_time*1000).format("yyyy-MM-dd")}</div>
+                  <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(end_time*1000))}</div>
               </div>
 
           </div>
           <div className={classNames(styles.depositBox,styles.pdAll)}>
               <ul className={styles.iconUl}>
-                  <li onClick={()=>{push('/gatherBorrowDetail/'+id)}} >
+                  <li onClick={()=>{push('/youBorrowDetail/'+id)}} >
                   <span>
                       <img src={security}/>
                   </span>
@@ -151,7 +126,7 @@ class GatherMain extends React.Component {
                          借款详情
                      </span>
                   </li>
-                  <li onClick={()=>{push('/gatherBackDetail/'+id)}}>
+                  <li onClick={()=>{push('/youBackDetail/'+id)}}>
                      <span>
                       <img src={introduce}/>
                   </span>
@@ -159,7 +134,7 @@ class GatherMain extends React.Component {
                          还款详情
                      </span>
                   </li>
-                  <li onClick={()=>{push('/gatherInvestRecord/'+id)}}>
+                  <li onClick={()=>{push('/youInvestRecord/'+id)}}>
                       <span>
                       <img src={details}/>
                   </span>
@@ -203,7 +178,7 @@ class GatherMain extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      data:state.infodata.getIn(['GATHER_BID_DETAIL','data']),
+      data:state.infodata.getIn(['YOU_BID_DETAIL','data']),
   }
 }
 
@@ -217,7 +192,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   get(id){
     dispatch({
-        type:'GATHER_BID_DETAIL',
+        type:'YOU_BID_DETAIL',
         params:[id]
 
     })

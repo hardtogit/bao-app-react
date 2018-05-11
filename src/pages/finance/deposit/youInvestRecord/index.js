@@ -10,33 +10,23 @@ import NavBar from '../../../../components/NavBar'
 import Scroll from '../../../../components/scroll'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
+import utils from "../../../../utils/utils";
 class Index extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            init:false
+        }
+    }
     componentDidMount(){
+        this.setState({
+            init:true
+        })
     }
     componentWillUnmount(){
         this.props.clean()
     }
     render(){
-        Date.prototype.format = function(fmt) {
-            var o = {
-                "M+" : this.getMonth()+1,                 //月份
-                "d+" : this.getDate(),                    //日
-                "h+" : this.getHours(),                   //小时
-                "m+" : this.getMinutes(),                 //分
-                "s+" : this.getSeconds(),                 //秒
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度
-                "S"  : this.getMilliseconds()             //毫秒
-            };
-            if(/(y+)/.test(fmt)) {
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-            }
-            for(var k in o) {
-                if(new RegExp("("+ k +")").test(fmt)){
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-                }
-            }
-            return fmt;
-        };
         const Height=document.body.clientHeight-44;
         const{
             listData,
@@ -49,47 +39,47 @@ class Index extends Component{
               <NavBar onLeft={pop}>
                   投资记录
               </NavBar>
-               <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
+               {this.state.init&&<Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
                >
                    {listData&&listData.map((item,i)=>{
                        return( 	<div key={i} className={styles.data_list_item}>
                            <div className={styles.item}>
-                               <div className={styles.left}><p className={styles.name}>{item.userphone}</p><p className={styles.time}>{ new Date(item.add_time*1000).format("yyyy-MM-dd hh:mm:ss")}</p></div>
+                               <div className={styles.left}><p className={styles.name}>{item.userphone}</p><p className={styles.time}>{utils.formatDate('yyyy-MM-dd',new Date(item.add_time*1000))}</p></div>
                                <div className={styles.right}>￥{item.money}</div>
                            </div>
 
                        </div>)
                    })}
 
-               </Scroll>
+               </Scroll>}
            </div>
         )
     }
 }
-const Datas=(state)=>{
+const mapStateToProps=(state)=>{
     return{
-        listData:state.listdata.getIn(['GATHER_INVEST_RECORD','data']),
-        pending:state.listdata.getIn(['GATHER_INVEST_RECORD','pending']),
-        end:state.listdata.getIn(['GATHER_INVEST_RECORD','pageEnd'])
+        listData:state.listdata.getIn(['YOU_INVEST_RECORD','data']),
+        pending:state.listdata.getIn(['YOU_INVEST_RECORD','pending']),
+        end:state.listdata.getIn(['YOU_INVEST_RECORD','pageEnd'])
     }
-}
-const DispatchFn=(dispatch,own)=>({
+};
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
     gitData(id){
         dispatch({
-           type:'GATHER_INVEST_RECORD',
+           type:'YOU_INVEST_RECORD',
            params:[{id:id}]
         })
     },
     clean(){
         dispatch({
             type:'CLEAR_DATA',
-            key:'GATHER_INVEST_RECORD'
+            key:'YOU_INVEST_RECORD'
 
         })
     }
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

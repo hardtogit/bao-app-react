@@ -108,17 +108,17 @@ class Index extends Component{
         )
     }
 }
-const Datas=(state)=>({
-    data:state.infodata.getIn(['GATHER_BID_DETAIL','data']),
-    pending:state.infodata.getIn(['GATHER_BID_DETAIL','pending']),
+const mapStateToProps=(state)=>({
+    data:state.infodata.getIn(['YOU_BID_DETAIL','data']),
+    pending:state.infodata.getIn(['YOU_BID_DETAIL','pending']),
 })
-const DispatchFn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
     getBorrowData(id){
         dispatch({
-            type:'GATHER_BID_DETAIL',
+            type:'YOU_BID_DETAIL',
             params:[id]
         })
     },
@@ -127,4 +127,4 @@ const DispatchFn=(dispatch,own)=>({
     }
 
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

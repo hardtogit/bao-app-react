@@ -12,7 +12,16 @@ import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 import utils from '../../../../utils/utils'
 class Index extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            init:false
+        }
+    }
     componentDidMount(){
+        this.setState({
+            init:true
+        })
     }
     componentWillUnmount(){
         this.props.clearData();
@@ -24,12 +33,13 @@ class Index extends Component{
             pending,
             end,
             pop
-            }=this.props
+            }=this.props;
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
                   加入记录
               </NavBar>
+               {this.state.init&&
                <Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}
                >
@@ -42,8 +52,8 @@ class Index extends Component{
 
                        </div>)
                    })}
-
                </Scroll>
+               }
            </div>
         )
     }

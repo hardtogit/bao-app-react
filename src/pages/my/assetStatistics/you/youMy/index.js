@@ -79,15 +79,15 @@ class Index extends Component{
         return(
            <div className={styles.container}>
               <NavBar onLeft={pop}>
-                  我的聚点+
+                  我的优享+
               </NavBar>
                <div className={styles.header}>
                  <div className={styles.left}>
-                     <p className={styles.itemTitle}>待收本息（利息{headerData&&headerData.data.interest}）</p>
+                     <p className={styles.itemTitle}>预计待收本息（元）</p>
                      <p className={styles.itemContent}>{headerData&&headerData.data.leftRevenue} <span className={styles.icon}>￥</span></p>
                  </div>
                  <div className={styles.right}>
-                     <p className={styles.itemTitle}>历史累积收益</p>
+                     <p className={styles.itemTitle}>累积已到账收益（元）</p>
                      <p className={styles.itemContent}>{headerData&&headerData.data.historyRightRevenue} <span className={styles.icon}>￥</span></p>
                  </div>
                </div>

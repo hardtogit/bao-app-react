@@ -11,7 +11,16 @@ import Scroll from '../../../../components/scroll'
 import {connect} from 'react-redux'
 import {goBack, push} from 'react-router-redux'
 class Index extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            init:false
+        }
+    }
     componentDidMount(){
+        this.setState({
+            init:true
+        })
     }
     componentWillUnmount(){
         this.props.clearData();
@@ -33,35 +42,37 @@ class Index extends Component{
                <div className={styles.header}>
                    为保护借款人信息，仅展示部分商品匹配标的信息。出借优享+后可在个人中心中查看已购买项目的匹配记录。
                </div>
+               {this.state.init&&
                <Scroll  height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
-                       isLoading={pending}  distance={20} endType={end}
+                        isLoading={pending}  distance={20} endType={end}
                >
                    {data&&data.map((item,i)=>{
-                       return( 	<div key={i} className={styles.data_list_item} onClick={()=>{push('/gatherBidDetail/'+item.edid)}}>
-                                <div className={styles.item} style={{paddingTop:'12px'}}>
-                                    <div className={styles.left}>{item.borrow_name}</div>
-                                    <div className={styles.right}>{item.borrow_duration}个月</div>
-                                </div>
-                                <div className={styles.item} style={{paddingTop:'6px'}}>
-                                  <div className={styles.left}>{item.borrow_use}</div>
-                                  <div className={styles.right}>借款金额: <span className={styles.money}>{item.borrow_money}</span>元</div>
-                                </div>
+                       return( 	<div key={i} className={styles.data_list_item} onClick={()=>{push('/youBidDetail/'+item.edid)}}>
+                           <div className={styles.item} style={{paddingTop:'12px'}}>
+                               <div className={styles.left}>{item.borrow_name}</div>
+                               <div className={styles.right}>{item.borrow_duration}个月</div>
+                           </div>
+                           <div className={styles.item} style={{paddingTop:'6px'}}>
+                               <div className={styles.left}>{item.borrow_use}</div>
+                               <div className={styles.right}>借款金额: <span className={styles.money}>{item.borrow_money}</span>元</div>
+                           </div>
                        </div>)
                    })}
 
                </Scroll>
+               }
            </div>
         )
     }
 }
-const Datas=(state)=>{
+const mapStateToProps=(state)=>{
     return({
         data:state.listdata.getIn(['YOU_BID_LIST','data']),
         pending:state.listdata.getIn(['YOU_BID_LIST','pending']),
         end:state.listdata.getIn(['YOU_BID_LIST','pageEnd'])
     })
 }
-const DispatchFn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
@@ -81,4 +92,4 @@ const DispatchFn=(dispatch,own)=>({
         })
     }
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)
