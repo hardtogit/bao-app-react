@@ -55,7 +55,7 @@ class Index extends Component{
         <div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(borrow_id,money)}}>
                 <h2>{name}</h2>
-                <p><span>{month}个月</span><span>约定年化收益率{rate}</span></p>
+                <p><span>{month}个月</span><span>参考年回报率{rate}</span></p>
                 <img src={arrowRight}/>
             </div>
             <div className={styles.box}>

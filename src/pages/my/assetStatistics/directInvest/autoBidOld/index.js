@@ -340,7 +340,7 @@ class Index extends React.Component {
                         <div className={style.rate}>
                             <p className={style.duration} onClick={()=>{this.openDurationSelect()}}>借款期限 <span>{this.state.start}个月~{this.state.end}个月</span><img src={Arrow} alt=""/></p>
                             <p className={style.rate_label}>
-                                约定年化收益率
+                                参考年回报率
                             </p>
                             <div className={style.rate_box}>
                                 <div className={style.minus}
@@ -362,7 +362,7 @@ class Index extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <p className={style.rest_money}>约定年化收益率过高将有可能无法成交，系统默认最高预定年华收益为15%</p>
+                        <p className={style.rest_money}>参考年回报率过高将有可能无法成交，系统默认最高预定年华收益为15%</p>
                         <ul className={style.types}>
                             <li  onClick={()=>{this.repaymentType()}}>
                                 还款方式

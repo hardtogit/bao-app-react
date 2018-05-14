@@ -75,7 +75,7 @@ class Index extends React.Component {
         return(<div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(id)}}>
                 <h2>{name}<span>({id})</span></h2>
-                <p><span>{total_periods}个月</span><span>约定年化收益率{rate}%</span></p>
+                <p><span>{total_periods}个月</span><span>参考年回报率{rate}%</span></p>
                 <img src={arrowRight}/>
             </div>
             <div className={styles.listBoxTwo}>
@@ -102,7 +102,7 @@ class Index extends React.Component {
         return(<div>
             <div className={styles.listBoxOne}>
                 <h2>{name}</h2>
-                <p><span>{month}个月</span><span>约定年化收益率{rate}%</span><span style={{float:'right'}}>{type==6?'到期还本付息':'每月还息  到期还本'}</span></p>
+                <p><span>{month}个月</span><span>参考年回报率{rate}%</span><span style={{float:'right'}}>{type==6?'到期还本付息':'每月还息  到期还本'}</span></p>
             </div>
             <div className={styles.listBoxTwo}>
                 <p>{accumulateProfit}</p>
@@ -125,7 +125,7 @@ class Index extends React.Component {
         return(<div>
             <div className={styles.listBoxOne} onClick={()=>{this.goProductDetail(this.props.id,borrow_id)}}>
                 <h2>{name}</h2>
-                <p><span>{term}个月</span><span>约定年化收益率{rate}</span></p>
+                <p><span>{term}个月</span><span>参考年回报率{rate}</span></p>
                 <img src={arrowRight}/>
             </div>
             <div className={styles.listBoxTwo}>

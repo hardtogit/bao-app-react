@@ -85,6 +85,7 @@ class GatherMain extends React.Component {
           total,
           price,
           title,
+          collect_day,
           month
             }=data.data
       rate=parseFloat(rate).toFixed(2);
@@ -138,6 +139,10 @@ class GatherMain extends React.Component {
               <div className={styles.item}>
                   <div className={styles.left}>结束日期</div>
                   <div className={styles.right}>{new Date(end_time*1000).format("yyyy-MM-dd")}</div>
+              </div>
+              <div className={styles.item}>
+                  <div className={styles.left}>募集期限</div>
+                  <div className={styles.right}>{collect_day}天</div>
               </div>
 
           </div>

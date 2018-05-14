@@ -296,7 +296,7 @@ class Index extends React.Component {
     }
   }  
 
-  // 计算预期收益
+  // 计算参考回报
   expectIncome = () => {
     let detail = this.props.quantityDataB.data
     const {useCoupon}=this.state;
@@ -524,7 +524,7 @@ class Index extends React.Component {
 
         <div className={styles.expectIncome}>
           <div className={styles.wrap}>
-            <p className={styles.name}>预期收益（元）</p>
+            <p className={styles.name}>参考回报（元）</p>
             <p className={styles.profit}>{sy}</p>
           </div>
         </div>

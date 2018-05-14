@@ -38,6 +38,7 @@ class Index extends Component{
             type,
             lx,
             Grade,
+            dur,
             repayment
         }=this.props;
         return(<div className={styles.depositBox}>
@@ -122,6 +123,14 @@ class Index extends Component{
                                 {Grade}级
                             </span>
                         </p>
+                        {dur&&<p>
+                          <span>
+                              募集期限
+                          </span>
+                            <span className={styles.dbType}>
+                                {dur}天
+                            </span>
+                        </p>}
                     </div>
                 </li>
             </ul>

@@ -52,7 +52,7 @@ const requests = (Fetch) => {
   // 零钱宝和定存宝利率
   Fetch.getRates = () => { return Fetch('common/rates', 'GET')}
   // 获取安全卡
-  Fetch.securityCard = () => { return Fetch('user/security-card-info', 'GET')}
+  Fetch.securityCard = () => { return Fetch('user/security-card-info?access_sys=platform', 'GET')}
   //获取是否注册存管
   Fetch.storeStatusInfo = () => { return Fetch('api/supervise/account/accountInfo', 'GET')}
   //获取银行卡列表

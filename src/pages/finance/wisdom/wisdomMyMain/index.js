@@ -89,7 +89,7 @@ class Index extends Component{
                         <div className={styles.right}>{total}</div>
                     </div>
                     <div className={styles.item}>
-                        <div className={styles.left}>预期年化收益率</div>
+                        <div className={styles.left}>参考年化回报率</div>
                         <div className={styles.right}>{rate}</div>
                     </div>
                     <div className={styles.item}>

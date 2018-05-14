@@ -104,7 +104,7 @@ class Index extends Component{
                    </div>
                    <div className={styles.center}>
                        <div className={styles.num}>{data.plan_income}</div>
-                       <div className={styles.title}>预期收益(元)</div>
+                       <div className={styles.title}>参考回报(元)</div>
                    </div>
                    <div className={styles.detailItem}>
                        <div className={styles.item}>
@@ -112,7 +112,7 @@ class Index extends Component{
                            <div className={styles.right}>{data.invest_money}</div>
                        </div>
                        <div className={styles.item}>
-                           <div className={styles.left}>预计年化利率</div>
+                           <div className={styles.left}>参考年回报率</div>
                            <div className={styles.right}>{data.rate}%</div>
                        </div>
                        <div className={styles.item}>

@@ -107,7 +107,7 @@ class NewContract extends Component{
                                 出借期限
                             </th>
                             <th>
-                                预期年化利率
+                                参考年回报率
                             </th>
                         </tr>
                         </thead>
@@ -412,7 +412,7 @@ class NewContract extends Component{
                                 出借期限
                             </th>
                             <th>
-                                预期年化利率
+                                参考年回报率
                             </th>
                         </tr>
                         </thead>

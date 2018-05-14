@@ -35,8 +35,8 @@ class Index extends Component{
                     收益规则
                 </div>
                 <div className={styles.content}>
-                  <p>预期年化收益率{type=='A'?'12.10%~13.80%':'11.50%~13.50%'}。</p>
-                  <p>预期收益会根据债权的实际收益上下浮动。</p>
+                  <p>参考年化回报率{type=='A'?'12.10%~13.80%':'11.50%~13.50%'}。</p>
+                  <p>参考回报会根据债权的实际收益上下浮动。</p>
                 </div>
                </div>
                <div className={styles.listBox}>

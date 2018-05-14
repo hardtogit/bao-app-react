@@ -105,7 +105,7 @@ class Index extends Component{
                 出借项目：{title} 年化利率（{rate}%）
             </div>
             <div className={styles.block}>
-                <div className={styles.line}><div className={styles.label}>预期收益（元）</div><div className={styles.value}>{interest}</div></div>
+                <div className={styles.line}><div className={styles.label}>参考回报（元）</div><div className={styles.value}>{interest}</div></div>
                 <div className={styles.line}><div className={styles.label}>转让价格（元）</div><div className={styles.value}>{money}</div></div>
                 <div className={styles.line}><div className={styles.label}>预付利息（元）</div><div className={styles.value}>{returnInterest}</div></div>
                 <div className={styles.line}><div className={styles.label}>手续费（元）</div><div className={styles.value}>{fee}</div></div>

@@ -322,7 +322,10 @@ class FinancialIndex extends Component{
             <Swiper className={style.swiperBg}>
                 {
                     datas.data.map(({img,url},i)=>(
-                        <div key={i} className='banner-box'><span onClick={()=>{setAuthUrl(url)}}><img src={img} className='banner-img'/></span></div>
+                        <div key={i} className={style.bannerBox}><span onClick={()=>{setAuthUrl(url)}}><img src={img} className='banner-img'/></span>
+                            <div className={style.tip}></div>
+                            <div className={style.tipText}>【广告】借贷有风险 出借需谨慎</div>
+                        </div>
                     ))
                 }
             </Swiper>
@@ -342,7 +345,7 @@ class FinancialIndex extends Component{
                 <div className={style.productInterest}>
                     <div className={style.productIm}>
                         <p className={style.productIt}>{rate}<span className={style.productIp}>%</span></p>
-                        <p className={style.productItext}>预计年化收益率</p>
+                        <p className={style.productItext}>参考年回报率</p>
                     </div>
                 </div>
                 <div className={style.productTz}>
