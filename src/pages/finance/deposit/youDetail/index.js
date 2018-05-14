@@ -59,7 +59,7 @@ class Index extends Component{
                        <Item name="投资期限" value={month+"个月"}></Item>
                        <Item name="起投金额" value="1000元起投，并以1000元的整倍数递增"></Item>
                        <Item name="资金去向" value="匹配优质个人或企业小额借款，安全有保障。风控采用四大行都在用的美国FICO技术，与合作机构双重验证"></Item>
-                       <Item name="退出规则" value="优享+对应期限到期后用户自发申请债权转让，若到期3内未自己申请，将由系统申请进行债权转让"></Item>
+                       <Item name="退出规则" value="优享+对应期限到期后用户自发申请债权转让，若到期24小时内未自己申请，将由系统申请进行债权转让"></Item>
                        <Item name="费用规则" value="免手续费。宝点网目前为用户支付买入与取现产生的手续费。"></Item>
                        <Item name="服务协议" value="点击查看" style={{color:'#00a6e2'}} onClick={()=>{push('/serviceContract/123/0?product=1')}}></Item>
                    </div>

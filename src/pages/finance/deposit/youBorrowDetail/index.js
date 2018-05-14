@@ -7,7 +7,7 @@
 import React,{Component} from 'react'
 import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
-import SwitchPanel from '../../../../components/switchPanel'
+import {Link} from 'react-router'
 import Loading from '../../../../components/pageLoading'
 import ok from '../../../../assets/images/ok.png'
 import {connect} from 'react-redux'
@@ -115,7 +115,7 @@ const mapStateToProps=(state)=>({
     data:state.infodata.getIn(['YOU_BID_DETAIL','data']),
     pending:state.infodata.getIn(['YOU_BID_DETAIL','pending']),
     contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
-})
+});
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
