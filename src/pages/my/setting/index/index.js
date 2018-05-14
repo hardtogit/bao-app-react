@@ -118,7 +118,9 @@ class Setting extends React.Component {
 							<BaseText
 								onClick={()=>{}}
 								label='风险测评'
-								borderType='four' />
+								borderType='four'
+								content={this.props.educationData&&this.props.educationData.data.name&&this.props.educationData.data.name||"未测评"}
+							/>
 						</Link>
 						<Link to={address}>
 							<BaseText
@@ -164,6 +166,7 @@ class Setting extends React.Component {
         if(!user){
 			load();
 		}
+		this.props.getEducationInfo()
         if(!address.status)
             getAddress();
 	}
@@ -222,7 +225,8 @@ const mapStateToProps = (state) => {
 	return {
 		user:state.infodata.getIn(['USER_INFO_WITH_LOGIN','data']),
 		code:state.infodata.getIn(['LOGIN_OUT','data'])&&state.infodata.getIn(['LOGIN_OUT','data']).code||false,
-        address:siteModel(state.infodata.getIn(['SITE_LIST','data']))
+        address:siteModel(state.infodata.getIn(['SITE_LIST','data'])),
+        educationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
 	}
 };
 
@@ -232,6 +236,11 @@ const mapDispatchToProps = (dispatch) => ({
 			type:"USER_INFO_WITH_LOGIN"
 		})
 	},
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 	push(url){
 		dispatch(push(url))
 	},

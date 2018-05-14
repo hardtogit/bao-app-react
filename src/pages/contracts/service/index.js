@@ -27,7 +27,7 @@ class Index extends Component{
                 id,
                 type
                 }
-            }=this.props
+            }=this.props;
         if(type==1){
             this.props.getData(id)
         }
@@ -46,6 +46,11 @@ class Index extends Component{
             pop,
             push,
             data,
+            location:{
+                query:{
+                    product
+                }
+            },
             params:{
                 type
                 }
@@ -54,7 +59,7 @@ class Index extends Component{
         if(type==0){
             Dom=  <div className={styles.content}>
                 <div className={styles.title}>
-                    聚点+服务计划协议
+                    {product&&'优享+服务计划协议'||'聚点+服务计划协议'}
                 </div>
                 <div className={styles.text}>
                     <p>甲方（出借人）：</p>
@@ -162,7 +167,7 @@ class Index extends Component{
               let date= Unit.formatDate("yyyy年MM月dd日",new Date(data.data.deposit.addTime*1000));
               Dom=<div className={styles.content}>
                   <div className={styles.title}>
-                      聚点+服务计划协议
+                      {product&&'优享+服务计划协议'||'聚点+服务计划协议'}
                   </div>
                   <div className={styles.text}>
                       <p>甲方（出借人）：{data.data.invest.userName}</p>

@@ -33,10 +33,6 @@ import wrap from '../../../../utils/pageWrapper'
               ScrollHeight=Height-44-50;
 		return (
 			<div>
-				<NavBar onLeft={pop}
-						rightNode={<Link to="/user/ruleRate" className={styles.rightBox}>加息券规则</Link>}>
-					我的加息券
-				</NavBar>
 				<div className={styles.bg}>
 				<div className={styles.content}>
 					<Scroll height={ScrollHeight} fetch={getList} isLoading={pending} distance={5} endType={end}

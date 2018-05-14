@@ -175,6 +175,11 @@ export const Setting = (location, cb) => {
             cb(null, require('../pages/my/index').default);
         }, 'User');
     },//TODO
+    CouponMain= (location, cb) => {
+        require.ensure([], require => {
+            cb(null, require('../pages/my/couponMain/index').default);
+        }, 'CouponMain');
+    },
     RuleRate = (location, cb) => {
         require.ensure([], require => {
             cb(null, require('../pages/my/interestRate/rule').default);

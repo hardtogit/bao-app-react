@@ -9,6 +9,7 @@ import styles from './index.less'
 import NavBar from '../../../../../components/NavBar'
 import Alert from '../../../../../components/Dialog/alert'
 import {connect} from 'react-redux'
+import classNames from 'classnames'
 import {goBack,push,replace} from 'react-router-redux'
 import utils from '../../../../../utils/utils'
 class Index extends Component{
@@ -30,7 +31,7 @@ class Index extends Component{
                 okCallback: () => {this.props.pop()},
             })
         }else{
-            this.props.getFillContractsList(this.props.data.invest_id,'F')
+            this.props.getFillContractsList(this.props.data.invest_id,'I')
         }
         this.setState({
             data:this.props.data,
@@ -61,27 +62,6 @@ class Index extends Component{
     componentWillUnmount(){
       this.props.clearData()
     }
-    quit=(id)=>{
-        if(this.props.location.query.status==1){
-            this.refs.alert.show({
-                title:'是否申请退出？',
-                content: '若不主动申请退出，优享+到期1天后系统将自发申请退出;\n' +
-                '根据平台运营情况，平均转让时间3天～多持有的天数将按预期利息正常计算',
-                okText: '确定',
-                cancel:"取消",
-                okCallback: () => {
-                    this.props.quit(id)
-                },
-            })
-        }else{
-            this.refs.alert.show({
-                content: '只有到达锁定期才可申请退出哦～',
-                okText: '确定'
-            })
-        }
-
-
-    };
     render(){
         const{
             pop,
@@ -103,8 +83,14 @@ class Index extends Component{
                        <div className={styles.right}>{type}</div>
                    </div>
                    <div className={styles.center}>
-                       <div className={styles.num}>{data.plan_income}</div>
-                       <div className={styles.title}>预期收益(元)</div>
+                        <div className={styles.item}>
+                            <div className={styles.num}>{data.plan_income}</div>
+                            <div className={styles.title}>预期收益(元)</div>
+                        </div>
+                       <div className={styles.item}>
+                           <div className={classNames([styles.num,styles.default]) }>{data.nper}</div>
+                           <div className={styles.title}>已到账期数</div>
+                       </div>
                    </div>
                    <div className={styles.detailItem}>
                        <div className={styles.item}>
@@ -128,6 +114,19 @@ class Index extends Component{
                            <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(data.end_time*1000))}</div>
                        </div>
                    </div>
+                   {type=="退出中"&&
+                   <div className={styles.detailItem}>
+                       <div className={styles.item}>
+                           <div className={styles.left}>已转让债权金额（元）</div>
+                           <div className={styles.right}>{data.successMoney}</div>
+                       </div>
+                       <div className={styles.item}>
+                           <div className={styles.left}>待转让债权金额（元）</div>
+                           <div className={styles.right}>{data.waitMoney}</div>
+                       </div>
+                   </div>
+                   }
+
                    <div className={styles.linkItem}>
                        <div className={styles.item} onClick={()=>{push('/user/youProjects/'+data.invest_id+'/'+data.type)}}>
                            <div className={styles.left}>投资项目</div>
@@ -135,13 +134,9 @@ class Index extends Component{
                        </div>
                        <div className={styles.item}>
                            {contractsFillList&&contractsFillList.data.length!=0&&<div className={styles.left} onClick={()=>{this.props.push('/fillList/'+data.invest_id+'/F')}}>服务协议</div>
-                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1')}}>服务协议</div>}
+                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1?product=1')}}>服务协议</div>}
                            <span className={styles.arrow}></span>
                        </div>
-                   </div>
-                   <div className={styles.btnContainer}>
-                       <div className={styles.btn} onClick={()=>{this.quit(data.invest_id)}}>申请退出</div>
-
                    </div>
                </div>
                }

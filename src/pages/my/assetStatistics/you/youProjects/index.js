@@ -19,9 +19,9 @@ class Index extends Component{
         this.props.clean()
     }
     goContract(id){
-        Fetch(`api/contract/supervisedetail`,'GET',{borrow_id:id,product_type:'G'}).then((result)=>{
+        Fetch(`api/contract/supervisedetail`,'GET',{borrow_id:id,product_type:'J'}).then((result)=>{
                     if(result.response.data.length!=0||result.response.code==300){
-                        this.props.push("/fillDetail/"+id+"?type=G")
+                        this.props.push("/fillDetail/"+id+"?type=J")
                     }else{
                         this.props.push(`/borrowContract/${id}/1`)
                     }

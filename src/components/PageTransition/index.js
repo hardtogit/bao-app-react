@@ -35,7 +35,7 @@ class PageTransition extends React.Component {
      if(nowPathName==pathname){//如果路由没有变化则不产生动画
          return false;
      }
-      console.log(action)
+      // console.log(action)
       const {
           pathnamePath,
       }=this.state;

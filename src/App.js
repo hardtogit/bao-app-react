@@ -46,7 +46,7 @@ import {Setting,NewRegStore,CardBind,BindSuccess,VerifyPhone,RegStoreSuccess,Use
     Detail,Verify,Creditors,CreditorsRecords,MyDemandIndex,MyDemandRecords,DemandReddem,ReddemSuccese,CreditorRights,HistoryRecord,About,
     VersionInfo,PastAccrule,CoinsRecord,ExchangeList,CoinsRule,TrueExchangeConfirm,ActiveConfirm,ExchangeSuccess,ExchangeFail,
     Vouchers,VouchersPast,FinanciaIndex,FinanciaRecords,RedPacket,RedPacketRule,SecurityCard,AutoBuy,AutoBuyRule,
-    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd,MoneyLogMain,MyTransferMain
+    CheckPhone,ChangeLoginPwd,ChangeUserName,ChangePayPwd,MoneyLogMain,MyTransferMain,CouponMain
 }from "./loadTool/mine"
 /****find****/
 import { FindNotify,ShoppingMall,MemberCenter,ShopProductList,ShopHistoryRecord,ShopMessage,ShopMessageDetail,CashDetail,
@@ -66,8 +66,8 @@ import{GatherDetail,GatherDeposits,GatherProblems,GatherJoin,GatherBuy,GatherBid
 import{IndexTab
 } from './loadTool/index'
 // 工厂方法创建saga中间件
-// const a=window.location.href.split('.')[1]+'.cn';
-// document.domain = a;
+const a=window.location.href.split('.')[1]+'.cn';
+document.domain = a;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,composeWithDevTools(), applyMiddleware(
     thunk,
@@ -162,6 +162,7 @@ export default class App extends React.Component {
                   <Route path="MyDemandIndex" getComponent={MyDemandIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的零钱宝*/
                   <Route path="redPacket" getComponent={RedPacket} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
                   <Route path="redPacketRule" getComponent={RedPacketRule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的红包*/
+                  <Route path="couponMain" getComponent={CouponMain} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的优惠券*/
                   <Route path="addRate" component={AddAccrualIndex} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的加息券*/
                   <Route path="addRateUsed" getComponent={PastAccrule} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的过期加息券*/
                   <Route path="scratchesCard" component={ScratchesCard} onEnter={(nextState,replace)=>{Auth.isLogined(store,nextState,replace)}}></Route>/*我的刮刮卡*/

@@ -104,7 +104,7 @@ class Index extends Component{
                            >
                                {dataOne&&dataOne.map((item,i)=>{
                                    return(
-                                       <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{zh_type:"持有中"})); push('/user/youMyDetail?status='+item.manualStatus)}}>
+                                       <div key={i} className={styles.box} onClick={()=>{this.props.saveGather(Object.assign(item,{zh_type:"持有中"})); push('/user/youMyDetail')}}>
                                        <div  className={styles.data_list_item}>
                                        <div className={styles.item_header}>
                                            <div className={classNames(styles.name,styles.sub_item)} ><img src={icon} alt=""/> {item.name}</div>

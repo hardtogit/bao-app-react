@@ -38,6 +38,7 @@ class Index extends React.Component {
                         <li><span className={styles.zh}></span><span className={styles.m_m}>账户余额</span><span className={styles.m_i}>{data.balance_total}</span></li>
                         <li><span className={styles.jd}></span><span className={styles.m_m}>聚点+计划待收本息</span><span className={styles.m_i}>{data.info[1].value}</span></li>
                         <li><span className={styles.zx}></span><span className={styles.m_m}>智享计划待收本息</span><span className={styles.m_i}>{data.info[6].value}</span></li>
+                        <li><span className={styles.yx}></span><span className={styles.m_m}>优享+计划待收本息</span><span className={styles.m_i}>{data.info[7].value}</span></li>
                         <li><span className={styles.dc}></span><span className={styles.m_m}>定存宝A计划待收本息</span><span className={styles.m_i}>{data.info[2].value}</span></li>
                         <li><span className={styles.dc1}></span><span className={styles.m_m}>定存宝B计划待收本息</span><span className={styles.m_i}>{data.info[5].value}</span></li>
                         <li><span className={styles.zt}></span><span className={styles.m_m}>直投项目待收本息</span><span className={styles.m_i}>{data.info[3].value}</span></li>
@@ -95,7 +96,11 @@ const moneyModel =(data)=>{
             },{
                 name: "智享计划待收本息",
                 value:0
+            },{
+                name: "优享+计划待收本息",
+                value:0
             }
+
         ],
         total_money:0
     }
@@ -107,6 +112,7 @@ const moneyModel =(data)=>{
         money.info[4].value = data.data.transfer;
         money.info[5].value = data.data.dingcunB;
         money.info[6].value = data.data.depositSuperviseZhixAccount;
+        money.info[7].value = data.data.depositeLeftRevenue;
         money.total_money = Util.padMoney(data.data.userSum);
         money.balance_total =  Util.padMoney(data.data.money);
         money.profit_total = Util.padMoney(data.data.history);
@@ -124,7 +130,8 @@ const moneyModel =(data)=>{
                     "#ffaf32",
                     "#2ce4a6",
                     "#ff660a",
-                    "#9d16fb"
+                    "#9d16fb",
+                    "#dd4c97"
                 ],
                 series: [{
                     name: '资产分析',

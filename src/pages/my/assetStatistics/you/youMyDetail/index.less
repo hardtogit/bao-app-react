@@ -26,14 +26,22 @@
   background-color: #fff;
   padding: 30px 15px;
   text-align: center;
+  display: flex;
+  .item{
+    flex: 1;
+  }
   .num{
     font-size: 32px;
     color:#ff7700;
+    &.default{
+      color: #666;
+    }
   }
+
   .title{
     font-size: 12px;
     padding-top: 6px;
-    color:#999
+    color:#999;
   }
 }
 .detailItem{

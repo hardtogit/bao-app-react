@@ -76,6 +76,8 @@ class Index extends Component {
         const {
             username,
             amount,
+            deposit,
+            depositb
         } = userInfo.data;
         let vipImg;
         switch (parseInt(VipData.data.vip_level)){
@@ -208,18 +210,21 @@ class Index extends Component {
                         </div>
                     </div>
                     <div className={styles.box}>
+                        {depositb == 0?"":
                         <div className={styles.item}>
                             <Link to='/user/dcbB'>
                             <img src={depositBImg} alt=""/>
                             <p>定存宝B</p>
                             </Link>
                         </div>
+                            }
+                        {deposit == 0?"":
                         <div className={styles.item}>
                             <Link to='/user/dcb'>
                             <img src={depositAImg} alt=""/>
                             <p>定存宝A</p>
                             </Link>
-                        </div>
+                        </div>}
                         <div className={styles.item}>
                         </div>
                         <div className={styles.item}>
@@ -229,9 +234,12 @@ class Index extends Component {
                 <div className={styles.functionBox}>
                     <div className={styles.title}>我的优惠</div>
                     <div className={styles.box}>
+
                         <div className={styles.item}>
+                            <Link to="/user/couponMain">
                             <img src={couponsImg} alt=""/>
                             <p>优惠券</p>
+                            </Link>
                         </div>
                         <div className={styles.item}>
                             <Link to='/user/redPacket'>

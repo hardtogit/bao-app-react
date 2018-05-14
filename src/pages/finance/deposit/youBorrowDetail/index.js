@@ -26,7 +26,7 @@ class Panel extends Component{
 class Index extends Component{
     componentDidMount(){
        this.props.getBorrowData(this.props.params.id)
-
+       this.props.getEmptyContractsList()
     }
     render(){
         const{
@@ -34,7 +34,8 @@ class Index extends Component{
             data,
             params,
             push,
-            pending
+            pending,
+            contractData
             }=this.props
         let Dom=<Loading></Loading>
         if(!pending&&data){
@@ -89,7 +90,9 @@ class Index extends Component{
                 </div>
                 <div className={styles.container}>
                <Panel ownStyle={{marginBottom:'10px'}} title="协议范本">
-                   点击查看 <span onClick={()=>{push('/borrowContract/'+params.id+'/0')}} className={styles.book}>《借款合同》</span>和 <span onClick={()=>{push('/dangerContract')}} className={styles.book}>《风险提示》</span>
+                   点击查看 {contractData&&contractData.data&&contractData.data.map((item,i)=>{
+                   return <Link key={i} to={`/emptyTemplate/${item.hetong_type?item.hetong_type:0}?name=${encodeURIComponent(item.hetong_name)}`} >《{item.hetong_name}》</Link>
+               })}
                </Panel>
                 </div>
            </div>
@@ -111,10 +114,17 @@ class Index extends Component{
 const mapStateToProps=(state)=>({
     data:state.infodata.getIn(['YOU_BID_DETAIL','data']),
     pending:state.infodata.getIn(['YOU_BID_DETAIL','pending']),
+    contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
 })
 const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
+    },
+    getEmptyContractsList(){
+        dispatch({
+            type:'GET_EMPTY_CONTRACTS_LIST',
+            params:[{product_type:'J'}]
+        })
     },
     getBorrowData(id){
         dispatch({
