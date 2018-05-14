@@ -307,7 +307,7 @@ class Index extends React.Component {
       if(!this.state.checkBoxTwo){
           return false
       }
-       if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance){
+       if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance_platform){
            return false;
        }
         return quantity &&
@@ -607,7 +607,7 @@ class Index extends React.Component {
                 user={this.props.user}
                 overPay={this.overPay}
                 banks={this.props.banks&&this.props.banks.data}
-                balance={+this.props.user.balance}
+                balance={+this.props.user.balance_platform}
                 onRequestBalancePay={this.gatherBalanceBuy}//传递余额支付方法
                 onRequestCardPay={this.gatherCardBuy}//传递银行卡支付
                 balancePayData={this.props.balanceBuyData}//余额支付数据
