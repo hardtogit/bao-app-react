@@ -17,12 +17,12 @@ import setAuthUrl from '../../components/setAuthUrl/index'
 import first from '../../assets/images/firstTz.png'
 class FinancialIndex extends Component{
     constructor(props) {
-        super(props)
+        super(props);
         this.state={
             isInvest:true,
             depositbs:true,
-            title:'',
-            rate:'',
+            youTitle:'',
+            youRate:'',
             flage:false,
             isAuth:0,
             show:{display:'block'},
@@ -65,17 +65,18 @@ class FinancialIndex extends Component{
                 equipment:2
             })
         }
-    }
+    };
     componentDidMount(){
         this.getuserAgent();
         this.props.getActivity();
         this.props.getGatherData();
+        this.props.getYouData();
         const Height=this.getHeight();
         const depositbs=JSON.parse(sessionStorage.getItem("bao-depositbs"));
         this.equipment();
         this.setState({
             height:{height:Height+'px'}
-        })
+        });
         if (depositbs==null){
             this.props.getListB()
         }else {
@@ -113,7 +114,7 @@ class FinancialIndex extends Component{
             query:{
                 auth
             }
-        },activity,getActivity,gatherData,depositbs}=next;
+        },activity,getActivity,gatherData,youData}=next;
         if (auth&&activity){
             if (activity.code=='0000'){
                 getActivity();
@@ -130,15 +131,14 @@ class FinancialIndex extends Component{
                     xsRate
                 })
         }
-        if(depositbs&&depositbs.code==100){
-            let {title,rate}=this.getMessage(depositbs.data.list);
+        if(youData&&youData._tail&&youData._tail.array.length!=0){
+            const {youTitle,youRate}=this.getYouMessage(youData._tail.array);
             this.setState({
-                depositbs:true,
-                title,
-                rate
+                sessionGatherData:true,
+                youTitle,
+                youRate
             })
         }
-
     }
     getuserAgent=()=>{
         const userAgent = navigator.userAgent;
@@ -154,11 +154,19 @@ class FinancialIndex extends Component{
                 return{title:depositbs[i].month+'月期'+depositbs[i].title,rate:depositbs[i].rate}
             }
         }
-    }
+    };
     getGatherMessage=(gatherData)=>{
         for (let i=0;i<gatherData.length;i++){
             if (gatherData[i].month=='3'){
                 return{gatherTitle:gatherData[i].month+'月期'+gatherData[i].title, gatherRate:gatherData[i].rate}
+            }
+        }
+        return {};
+    };
+    getYouMessage=(youData)=>{
+        for (let i=0;i<youData.length;i++){
+            if (youData[i].month=='6'){
+                return{youTitle:youData[i].month+'月期'+youData[i].title, youRate:youData[i].rate}
             }
         }
         return {};
@@ -169,7 +177,7 @@ class FinancialIndex extends Component{
                 return{xsId:gatherData[i].id, xsRate:gatherData[i].rate}
             }
         }
-    }
+    };
     getLogin=(auth)=>{
         this.props.login(auth)
     };
@@ -179,12 +187,12 @@ class FinancialIndex extends Component{
             <Loading color="#00a6e2" size='20px' />
             <span className={style.loadingText}>加载中...</span>
         </div>)
-    }
+    };
     oldList=()=>{
         const {gatherTitle,gatherRate}=this.state;
-        const {rate,title}=this.state;
+        const {youRate,youTitle}=this.state;
         const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
-        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
+        const Depot1=this.depot(youTitle,youRate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Depot2=this.depot('3月标直投','11.80',()=>{this.change(2,2);this.props.push('/home/productIndex')},50,2);
         return(<ul className={style.productUl}>
             {
@@ -197,12 +205,12 @@ class FinancialIndex extends Component{
                 Depot2
             }
         </ul>)
-    }
+    };
     newList=(auth)=>{
         const {gatherTitle,gatherRate}=this.state;
-        const {rate,title}=this.state;
+        const {youRate,youTitle}=this.state;
         const {activity}=this.props;
-        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
+        const Depot1=this.depot(youTitle,youRate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
         const newDep=this.newDep();
         const isAuth=auth;
@@ -226,11 +234,11 @@ class FinancialIndex extends Component{
             }
 
         </ul>)
-    }
+    };
     noLogin=()=>{
         const {gatherTitle,gatherRate}=this.state;
-        const {rate,title}=this.state;
-        const Depot1=this.depot(title,rate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
+        const {youRate,youTitle}=this.state;
+        const Depot1=this.depot(youTitle,youRate,()=>{this.change(1,1);this.props.push('/home/productIndex')},1000,2)
         const Gather=gatherRate&&this.depot(gatherTitle,gatherRate,()=>{this.change(0,0);this.props.push('/home/productIndex')})||''
         const newDep=this.newDep();
         const noImg=this.newImg();
@@ -249,7 +257,7 @@ class FinancialIndex extends Component{
             }
 
         </ul>)
-    }
+    };
     showList=()=>{
         const {
             isInvest,
@@ -266,21 +274,21 @@ class FinancialIndex extends Component{
             Dom=this.noLogin();
         }
         return Dom
-    }
+    };
     noisAuth=()=>{
         return(<li className={style.headerLi}>
             <Link to="/user/setting/regStore">
                 <img src={noisAuth} className={style.headerImg}/>
             </Link>
         </li>)
-    }
+    };
     fistTz=()=>{
         return(<li className={style.headerLi}>
             <Link to="/user/active">
                 <img src={first} className={style.headerImg}/>
             </Link>
         </li>)
-    }
+    };
     userInfo=()=>{
         const {
             userData
@@ -297,16 +305,16 @@ class FinancialIndex extends Component{
             Dom=this.noLogin();
         }
         return Dom
-    }
+    };
     hide=()=>{
         this.setState({
             show:{display:'none'}
         })
-    }
+    };
     change=(num,num1)=>{
         this.props.changeDc(num1);
         this.props.change(num);
-    }
+    };
     getHeight(){
         const Width=document.body.clientWidth,
             Height=Width*0.533;
@@ -334,8 +342,9 @@ class FinancialIndex extends Component{
                 <img src={newHead} className={style.headerImg}/>
             </Link>
         </li>)
-    }
+    };
     depot=(text,rate,fn,start=1000,type=1)=>{
+        console.log(text);console.log(rate)
         return(<li className={style.productLi}  onClick={()=>{fn()}} >
             <p className={style.productTitle}>{text}</p>
             <div className={style.productContent}>
@@ -351,7 +360,7 @@ class FinancialIndex extends Component{
                 </div>
             </div>
         </li>)
-    }
+    };
     newDep=()=>{
         const {xsRate,xsId}=this.state;
         return(<li className={style.xsBox} >
@@ -521,6 +530,7 @@ const  financialIndexInit=(state,own)=>({
     pending:state.infodata.getIn(['BANNER_LIST','pending']),
     banner:state.infodata.getIn(['BANNER_LIST','data']),
     depositbs:state.infodata.getIn(['DEPOSITBS_PLANB','data']),
+    youData:state.listdata.getIn(['DEPOSITS_YOU','data']),
     gatherData:state.listdata.getIn(['DEPOSITS_GATHER_INDEX','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
     activity:state.infodata.getIn(['NEW_USER_ACTIVITY','data'])
@@ -566,6 +576,11 @@ const financialIndexInitfn=(dispath,own)=>({
             type:'DEPOSITBS_PLANB'
         })
     },
+    getYouData(){
+      dispath({
+          type:'DEPOSITS_YOU'
+      })
+    },
     getDeposit(){
         dispath({
             type:'RATE'
@@ -576,6 +591,6 @@ const financialIndexInitfn=(dispath,own)=>({
             type:'NEW_USER_ACTIVITY'
         })
     }
-})
+});
 
 export default connect(financialIndexInit,financialIndexInitfn)(FinancialIndex)
