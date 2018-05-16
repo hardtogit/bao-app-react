@@ -37,7 +37,7 @@ class Index extends Component{
         return(
            <div className={styles.body}>
               <NavBar onLeft={pop}>
-                  投资记录
+                  出借记录
               </NavBar>
                {this.state.init&&<Scroll height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}
                        isLoading={pending}  distance={20} endType={end}

@@ -133,12 +133,12 @@ class Index extends Component{
 
                    <div className={styles.linkItem}>
                        <div className={styles.item} onClick={()=>{push('/user/youProjects/'+data.invest_id+'/'+data.type)}}>
-                           <div className={styles.left}>投资项目</div>
+                           <div className={styles.left}>出借项目</div>
                            <span className={styles.arrow}></span>
                        </div>
                        <div className={styles.item}>
                            {contractsFillList&&contractsFillList.data.length!=0&&<div className={styles.left} onClick={()=>{this.props.push('/fillList/'+data.invest_id+'/I')}}>服务协议</div>
-                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1?product=1')}}>项目协议</div>}
+                           ||<div className={styles.left} onClick={()=>{this.refs.alert.show({content:'合同暂未生成',okText:'确定'})}}>项目协议</div>}
                            <span className={styles.arrow}></span>
                        </div>
                    </div>

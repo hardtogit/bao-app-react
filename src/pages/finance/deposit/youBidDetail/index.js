@@ -139,13 +139,13 @@ class GatherMain extends React.Component {
                       <img src={details}/>
                   </span>
                       <span>
-                        投资记录
+                        出借记录
                    </span>
                   </li>
               </ul>
           </div>
           <div className={styles.tip}>
-              温馨提示：理财有风险 投资需谨慎
+              温馨提示：借贷有风险 出借需谨慎
           </div>
       </div>)
   }
