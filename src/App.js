@@ -14,7 +14,7 @@ import reducer from './reducers';
 import PageTransition from './components/PageTransition'
 import * as Auth from  './model/auth';
 import rootSaga from './sagas/';
-import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO} from './actions/actionTypes'
+import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO,GET_EDUCATION_INFO} from './actions/actionTypes'
 import ProductList from './pages/active/productList'//无用
 // 主页
 import homeIndex from './pages/home/index'//首页
@@ -82,6 +82,7 @@ store.dispatch({type: USER_INFO,lx:'init'});
 store.dispatch({type:SAFE_CARD_INFO});
 store.dispatch({type:STORE_STATUS_INFO});
 store.dispatch({type:DEPOSITBS_PLANB});
+store.dispatch({type:GET_EDUCATION_INFO});
 // 同步react-router状态到redux store
 const history = syncHistoryWithStore(browserHistory, store)
 export default class App extends React.Component {
@@ -311,7 +312,7 @@ export default class App extends React.Component {
             <Route path="gatherBuy(/:productId/:id)" getComponent={GatherBuy} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
 
             <Route path="youMain(/:productId/:type)" getComponent={YouMain} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
-            <Route path="youDetail(/:name/:month)" getComponent={YouDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
+            <Route path="youDetail(/:id)" getComponent={YouDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="youDeposits(/:id)" getComponent={YouDeposits} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="youBidDetail(/:id)" getComponent={YouBidDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>
             <Route path="youBorrowDetail(/:id)" getComponent={YouBorrowDetail} onLeave={(next)=>{Auth.isOut(store,next)}}></Route>

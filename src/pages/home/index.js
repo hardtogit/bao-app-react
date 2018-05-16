@@ -331,7 +331,7 @@ class FinancialIndex extends Component{
                 {
                     datas.data.map(({img,url},i)=>(
                         <div key={i} className={style.bannerBox}><span onClick={()=>{setAuthUrl(url)}}><img src={img} className='banner-img'/></span>
-                            <div className={style.tip}></div>
+                            <div className={style.tip}>【广告】借贷有风险 出借需谨慎</div>
                             <div className={style.tipText}>【广告】借贷有风险 出借需谨慎</div>
                         </div>
                     ))
@@ -347,7 +347,6 @@ class FinancialIndex extends Component{
         </li>)
     };
     depot=(text,rate,fn,start=1000,type=1)=>{
-        console.log(text);console.log(rate)
         return(<li className={style.productLi}  onClick={()=>{fn()}} >
             <p className={style.productTitle}>{text}</p>
             <div className={style.productContent}>

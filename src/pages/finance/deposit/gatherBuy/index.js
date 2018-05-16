@@ -21,6 +21,8 @@ import {Link} from 'react-router'
 import SelectCoupon from '../../selectCoupon'
 import IsAuth from '../../../../components/isAuth/index'
 import Pay from '../../../../pages/finance/pay/index'
+import Alert from '../../../../components/Dialog/alert'
+import Education from '../../../../components/Dialog/education'
 import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
 const hostName=window.location.origin;
@@ -65,6 +67,7 @@ class Index extends React.Component {
   componentDidMount() {
       // this.refs.choice.checked =true
       // this.refs.choiceTwo.checked =true
+      // this.refs.education.getWrappedInstance().show();
       window['closeFn']=this.closeFn;
       const {productId}=this.props.params;
       this.props.gatherData(productId)
@@ -75,7 +78,7 @@ class Index extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      let $this=this
+      let $this=this;
     if (nextProps.quantityDataB&& nextProps.quantityDataB.code=='100' && !this.state.getAvailableCouponsFlag) {
         this.setState({
             getAvailableCouponsFlag:true,
@@ -322,13 +325,26 @@ class Index extends React.Component {
 
   // 确认支付
   onValid = () => {
-        const {select}=this.state;
-        if (select==1){
-            this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
-        }else {
-            this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+        console.log(this.getPayTotal());
+        if(this.props.EducationData.data.has_num!=0){
+            if( this.getPayTotal()>this.props.EducationData.data.single_buy_max_limit){
+                this.refs.alert.show({
+                    title:'风险提示',
+                    content:'根据您的风险评测结果为'+this.props.EducationData.data.name+",您已超过单笔出借最大金额限制"+this.props.EducationData.data.single_buy_max_limit+'元',
+                    okText:'确定'
+                })
+                return;
+            }
+            const {select}=this.state;
+            if (select==1){
+                this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+            }else {
+                this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+            }
+        }else{
+            console.log(this.refs.education)
+            this.refs.education.getWrappedInstance().show();
         }
-
   }
    successsFn=()=>{
        let coupon = this.state.useCoupon&&this.getCoupon()||null
@@ -576,7 +592,9 @@ class Index extends React.Component {
           status={this.canPay() > 0 ? '' : 'disable'}/>
             <p className={styles.primeTxt}>{primeContent}</p>
         <Tipbar ref='tipbar' />
+         <Alert ref='alert'></Alert>
          <IsAuth ref="isAuth"/>
+          <Education ref="education" />
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
            <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}
@@ -719,7 +737,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch({
       type:'CLEAR_INFO_DATA',
       key:'AVAILABLE_COUPONS'
-    })
+    });
       dispatch({
           type:'CLEAR_CONPONS',
       })
@@ -734,6 +752,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             type:'GET_EDUCATION_INFO'
         })
     },
-})
-
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Index)

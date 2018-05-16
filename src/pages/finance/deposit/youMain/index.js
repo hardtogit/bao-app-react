@@ -145,7 +145,7 @@ class GatherMain extends React.Component {
           </div>
           <div className={classNames(styles.depositBox,styles.pdAll)}>
               <ul className={styles.iconUl}>
-                  <li onClick={()=>{push('/youDetail/'+title+'/'+month)}}>
+                  <li onClick={()=>{push('/youDetail/'+id)}}>
                   <span>
                       <img src={security}/>
                   </span>

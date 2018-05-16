@@ -40,6 +40,7 @@ class Index extends Component {
         this.props.load();//load userInfo
         this.props.getVip();//load vipInfo
         this.props.fridayPop()//load fridayInfo
+        this.props.getProductDisplay()//load display
     }
     fridayPopDom(data) {
         const {
@@ -72,12 +73,10 @@ class Index extends Component {
         )
     }
 
-    renderDom = (userInfo, fridayPopData, VipData) => {
+    renderDom = (userInfo, fridayPopData, VipData,displayData) => {
         const {
             username,
             amount,
-            deposit,
-            depositb
         } = userInfo.data;
         let vipImg;
         switch (parseInt(VipData.data.vip_level)){
@@ -210,21 +209,20 @@ class Index extends Component {
                         </div>
                     </div>
                     <div className={styles.box}>
-                        {depositb == 0?"":
-                        <div className={styles.item}>
+                        {displayData.data[0].statusB == 1?<div className={styles.item}>
                             <Link to='/user/dcbB'>
-                            <img src={depositBImg} alt=""/>
-                            <p>定存宝B</p>
+                                <img src={depositBImg} alt=""/>
+                                <p>定存宝B</p>
                             </Link>
-                        </div>
+                        </div>:""
                             }
-                        {deposit == 0?"":
-                        <div className={styles.item}>
+                        {displayData.data[0].statusA == 1?<div className={styles.item}>
                             <Link to='/user/dcb'>
-                            <img src={depositAImg} alt=""/>
-                            <p>定存宝A</p>
+                                <img src={depositAImg} alt=""/>
+                                <p>定存宝A</p>
                             </Link>
-                        </div>}
+                        </div>:""
+                        }
                         <div className={styles.item}>
                         </div>
                         <div className={styles.item}>
@@ -265,11 +263,12 @@ class Index extends Component {
         const {
             userInfo,
             fridayPopData,
-            VipData
+            VipData,
+            displayData
         } = this.props;
         let Dom,PopDom;
-        if (userInfo && fridayPopData && VipData) {
-            Dom = this.renderDom(userInfo, fridayPopData, VipData);
+        if (userInfo && fridayPopData && VipData&&displayData) {
+            Dom = this.renderDom(userInfo, fridayPopData, VipData,displayData);
         } else {
             Dom = <Loading></Loading>
         }
@@ -290,11 +289,17 @@ const mapStateToProps = (state) => ({
     userInfo: state.infodata.getIn(['USER_INFO_WITH_LOGIN', 'data']),
     fridayPopData: state.infodata.getIn(['FRIDAY_POP', 'data']),
     VipData: state.infodata.getIn(['GET_VIP', 'data']),
+    displayData:state.infodata.getIn(['GET_PRODUCT_DISPLAY','data'])
 });
 const mapDispatchToProps = (dispatch, own) => ({
     getVip() {
         dispatch({
             type: 'GET_VIP'
+        })
+    },
+    getProductDisplay(){
+        dispatch({
+            type:'GET_PRODUCT_DISPLAY'
         })
     },
     load() {

@@ -16,6 +16,8 @@ import IsAuth from '../../../components/isAuth'
 import Pay from '../../../pages/finance/pay/index'
 import util from '../../../utils/utils'
 import setUrl from '../../../components/setUrl'
+import Alert from '../../../components/Dialog/alert'
+import Education from '../../../components/Dialog/education'
 const hostName=window.location.origin;
 class DirectBuy extends React.Component {
   constructor(props) {
@@ -53,6 +55,7 @@ class DirectBuy extends React.Component {
     this.props.getMyBankCards()
     this.props.getUser();
     this.props.getEmptyContractsList();
+    this.props.getEducationInfo();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -208,12 +211,25 @@ class DirectBuy extends React.Component {
 
   // 确认支付
   onValid = () => {
-      const {select}=this.state;
-      if (select==1){
-          this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
-      }else {
-          this.successsFn()
+      if(this.props.EducationData.data.has_num!=0){
+          if( this.getPayTotal()>this.props.EducationData.data.single_buy_max_limit){
+              this.refs.alert.show({
+                  title:'风险提示',
+                  content:'根据您的风险评测结果为'+this.props.EducationData.data.name+",您已超过单笔出借最大金额限制"+this.props.EducationData.data.single_buy_max_limit+'元',
+                  okText:'确定'
+              })
+              return;
+          }
+          const {select}=this.state;
+          if (select==1){
+              this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+          }else {
+              this.successsFn()
+          }
+      }else{
+          this.refs.education.getWrappedInstance().show();
       }
+
   }
     successsFn=()=>{
         let coupon = this.state.useCoupon&&this.getCoupon()||null;
@@ -597,6 +613,8 @@ class DirectBuy extends React.Component {
         </div>
         <Tipbar ref="tipbar"/>
           <IsAuth ref="isAuth"/>
+            <Education ref='education'/>
+            <Alert ref="alert"></Alert>
         </div>
         <div className={styles.zg} style={{top:this.state.top}}>
           <SelectCoupon click={this.clickFn} useFn={this.useDy} money={this.state.money}
@@ -630,6 +648,7 @@ const mapStateToProps = (state,ownProps)=>{
       cardVerifyData:state.infodata.getIn(['CARD_PAY_VERIFY','data']),
       goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
       contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
+      EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
     }
 }
 const mapDispatchToProps = (dispatch,ownProps)=>({
@@ -771,7 +790,12 @@ const mapDispatchToProps = (dispatch,ownProps)=>({
         dispatch({
             type:'GET_MY_CARD_LIST'
         })
-    }
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 })
 
 export default (connect(mapStateToProps, mapDispatchToProps)(wrap(DirectBuy)))

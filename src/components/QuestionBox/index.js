@@ -51,10 +51,10 @@ export default class Index extends React.Component {
         return (
             <div className={styles.questionItem} onChange={()=>{this.change()}}>
                 <p>{num}.{question}</p>
-                <p><span onClick={()=>{this.choose(1)}} className={styles.chooseBox}><span className={index== 1&&styles.chooseBoxInner||styles.none}></span></span><span className={index==1&&styles.answerTxt||styles.floatSty}>{answer1}</span> </p>
-                <p><span onClick={()=>{this.choose(2)}} className={styles.chooseBox}><span className={index== 2&&styles.chooseBoxInner||styles.none}></span></span><span className={index==2&&styles.answerTxt||styles.floatSty}>{answer2}</span> </p>
-                <p><span onClick={()=>{this.choose(3)}} className={styles.chooseBox}><span className={index== 3&&styles.chooseBoxInner||styles.none}></span></span><span className={index==3&&styles.answerTxt||styles.floatSty}>{answer3}</span> </p>
-                <p><span onClick={()=>{this.choose(4)}} className={answer4&&styles.chooseBox||styles.none}><span className={(index==4)&&styles.chooseBoxInner||styles.none}></span></span><span className={index==4&&styles.answerTxt||styles.floatSty}>{answer4}</span> </p>
+                <p onClick={()=>{this.choose(1)}}><span  className={styles.chooseBox}><span className={index== 1&&styles.chooseBoxInner||styles.none}></span></span><span className={index==1&&styles.answerTxt||styles.floatSty}>{answer1}</span> </p>
+                <p onClick={()=>{this.choose(2)}}><span  className={styles.chooseBox}><span className={index== 2&&styles.chooseBoxInner||styles.none}></span></span><span className={index==2&&styles.answerTxt||styles.floatSty}>{answer2}</span> </p>
+                <p onClick={()=>{this.choose(3)}}><span  className={styles.chooseBox}><span className={index== 3&&styles.chooseBoxInner||styles.none}></span></span><span className={index==3&&styles.answerTxt||styles.floatSty}>{answer3}</span> </p>
+                <p onClick={()=>{this.choose(4)}}><span  className={answer4&&styles.chooseBox||styles.none}><span className={(index==4)&&styles.chooseBoxInner||styles.none}></span></span><span className={index==4&&styles.answerTxt||styles.floatSty}>{answer4}</span> </p>
             </div>
         )
     }

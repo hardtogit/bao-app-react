@@ -14,6 +14,7 @@ import Alert from '../../../../components/Dialog/alert'
 import LoadingButton from '../../../../components/LoadingButton'
 import BaseButton from '../../../../components/BaseButton'
 import PageLoading from '../../../../components/pageLoading'
+import Education from '../../../../components/Dialog/education'
 class Index extends Component{
     constructor(props) {//构造器
         super(props)
@@ -27,11 +28,12 @@ class Index extends Component{
     static defaultProps = {//设置初始props
     };
     componentWillMount(){
-        this.props.get(this.props.params.productId)
+        this.props.get(this.props.params.productId);
     }
     componentDidMount(){
         //组件渲染完成时调用
-        this.props.getEmptyContractsList()
+        this.props.getEmptyContractsList();
+        this.props.getEducationInfo()
     }
     //是否阅读合同
     ifScan=(e)=>{
@@ -126,7 +128,6 @@ class Index extends Component{
             })}</div>
             <div className={styles.btn}>
                 <BaseButton text={this.state.submitting&&<LoadingButton></LoadingButton>||"确认支付"} disable={flag} onClick={this.handleClick} ></BaseButton>
-
             </div>
         </div>
     };
@@ -134,22 +135,34 @@ class Index extends Component{
         if(this.state.disable||!this.state.checkBox){
             return;
         }
-        this.setState({
-            submitting:true
-        });
-        this.props.goBankPage(
-        {way:1,type:454,
-            returnUrl:'',
-            data:{
-                productId:this.props.params.productId,
-                couponId:"",
-                quantity:1,
-                type:"ENJOY",
-                device:'WAP',
-                unitPrice:this.props.data.data.totalMoney,
-                prepaid_interest:this.props.data.data.returnInterest
-        }}
-        )
+        if(this.props.EducationData.data.has_num!=0){
+            if(this.props.data.data.totalMoney>this.props.EducationData.data.single_buy_max_limit){
+                this.refs.alert.show({
+                    title:'风险提示',
+                    content:'根据您的风险评测结果为'+this.props.EducationData.data.name+",您已超过单笔出借最大金额限制"+this.props.EducationData.data.single_buy_max_limit+'元',
+                    okText:'确定'
+                });
+                return;
+            }
+            this.setState({
+                submitting:true
+            });
+            this.props.goBankPage(
+                {way:1,type:454,
+                    returnUrl:'',
+                    data:{
+                        productId:this.props.params.productId,
+                        couponId:"",
+                        quantity:1,
+                        type:"ENJOY",
+                        device:'WAP',
+                        unitPrice:this.props.data.data.totalMoney,
+                        prepaid_interest:this.props.data.data.returnInterest
+                    }}
+            )
+        }else{
+            this.refs.education.getWrappedInstance().show();
+        }
     };
     render(){
         const{
@@ -170,6 +183,7 @@ class Index extends Component{
                 </NavBar>
                 {Dom}
                 <Alert ref="alert"></Alert>
+                <Education ref='education'/>
             </div>
         )
     }
@@ -178,6 +192,7 @@ const mapStateToProps=(state)=>({
     data:state.infodata.getIn(['WISDOM_DETAIL','data']),
     userData:state.infodata.getIn(['USER_INFO','data']),
     goBankData:state.infodata.getIn(['GO_BANK_PAGE','data']),
+    EducationData:state.infodata.getIn(['GET_EDUCATION_INFO', 'data']),
     contractData:  state.infodata.getIn(['GET_EMPTY_CONTRACTS_LIST',"data"]),
 });
 const mapDispatchToProps=(dispatch,own)=>({
@@ -215,6 +230,11 @@ const mapDispatchToProps=(dispatch,own)=>({
             type:'CLEAR_INFO_DATA',
             key:key
         })
-    }
+    },
+    getEducationInfo(){
+        dispatch({
+            type:'GET_EDUCATION_INFO'
+        })
+    },
 });
 export default connect(mapStateToProps,mapDispatchToProps)(Index)

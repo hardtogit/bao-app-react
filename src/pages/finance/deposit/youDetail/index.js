@@ -9,7 +9,7 @@ import styles from './index.less'
 import NavBar from '../../../../components/NavBar'
 import {connect} from 'react-redux'
 import {goBack,push} from 'react-router-redux'
-
+import PageLoading from '../../../../components/pageLoading'
 class Item extends Component{
 
     render(){
@@ -25,59 +25,78 @@ class Item extends Component{
 }
 class Index extends Component{
     componentDidMount(){
+        this.props.getYouDetail(this.props.params.id)
+    }
+    loadEndDom=(detailData,push)=>{
+        return(
+                <div className={styles.container}>
+                    <div className={styles.headPanel}>
+                        <div className={styles.tip}>
+                            温馨提示：借贷有风险 出借需谨慎
+                        </div>
+                        <div className={styles.introduce}>
+                            <h3 className={styles.title}>{detailData.data[0].title_name}</h3>
+                            <p className={styles.content}>
+                                {detailData.data[0].detail_info}
+                            </p>
+                        </div>
+                    </div>
+                    <div className={styles.items}>
+                        {detailData.data.map((item,i)=>{
+                            if(i!=0){
+                                return <Item name={item.title_name} value={item.detail_info}></Item>
+                            }
+
+                        })}
+
+                        <Item name="服务协议" value="点击查看" style={{color:'#00a6e2'}} onClick={()=>{push('/serviceContract/123/0?product=1')}}></Item>
+                    </div>
+
+                </div>
+            )
 
     }
     render(){
         const{
             pop,
-            push
-            }=this.props
+            push,
+            detailData
+            }=this.props;
         const{
             name,
             month
-            }=this.props.params
+            }=this.props.params;
+        let Dom;
+        if(detailData){
+            Dom=this.loadEndDom(detailData,push)
+        }else{
+            Dom=<PageLoading></PageLoading>
+        }
         return(
-           <div className={styles.root}>
-              <NavBar onLeft={pop}>
-                  更多详情
-              </NavBar>
-               <div className={styles.container}>
-                   <div className={styles.headPanel}>
-                   <div className={styles.tip}>
-                       温馨提示：理财有风险 投资需谨慎
-                   </div>
-                   <div className={styles.introduce}>
-                       <h3 className={styles.title}>简介</h3>
-                       <p className={styles.content}>
-                           “优享+”是宝点网推出的新型智能投资服务工具。加入优享+的资金将由系统在投资者认可的标的范围内分散匹配符合要求的标的，持续服务期间内系统在投资者授权下将所投标的回款自动再次匹配符合要求的标的，并在计划到期后自动转让退出。参考回报不代表对实际利息回报的承诺。
-                       </p>
-                   </div>
-                   </div>
-                   <div className={styles.items}>
-                       <Item name="产品名称" value={name}></Item>
-                       <Item name="计息方式" value="预期利息=预期年化收益*借款期限*持有金额/12+预期年化收益*借款期限外多持有天数*金额/（12*退出月自然日）"></Item>
-                       <Item name="投资期限" value={month+"个月"}></Item>
-                       <Item name="起投金额" value="1000元起投，并以1000元的整倍数递增"></Item>
-                       <Item name="资金去向" value="匹配优质个人或企业小额借款，安全有保障。风控采用四大行都在用的美国FICO技术，与合作机构双重验证"></Item>
-                       <Item name="退出规则" value="优享+对应期限到期后用户自发申请债权转让，若到期24小时内未自己申请，将由系统申请进行债权转让"></Item>
-                       <Item name="费用规则" value="免手续费。宝点网目前为用户支付买入与取现产生的手续费。"></Item>
-                       <Item name="服务协议" value="点击查看" style={{color:'#00a6e2'}} onClick={()=>{push('/serviceContract/123/0?product=1')}}></Item>
-                   </div>
-
-               </div>
-
-           </div>
+            <div className={styles.root}>
+                <NavBar onLeft={pop}>
+                    产品详情
+                </NavBar>
+                {Dom}
+            </div>
         )
     }
 }
-const Datas=(state)=>({
+const mapStateToProps=(state)=>({
+    detailData:state.infodata.getIn(['GET_YOU_DETAIL','data'])
 })
-const DispatchFn=(dispatch,own)=>({
+const mapDispatchToProps=(dispatch,own)=>({
     pop(){
          dispatch(goBack())
     },
     push(url){
         dispatch(push(url))
+    },
+    getYouDetail(id){
+        dispatch({
+            type:'GET_YOU_DETAIL',
+            params:[id]
+        })
     }
 })
-export default connect(Datas,DispatchFn)(Index)
+export default connect(mapStateToProps,mapDispatchToProps)(Index)

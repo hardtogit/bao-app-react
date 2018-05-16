@@ -84,8 +84,8 @@ class Index extends Component{
                    </div>
                    <div className={styles.center}>
                         <div className={styles.item}>
-                            <div className={styles.num}>{data.plan_income}</div>
-                            <div className={styles.title}>预期收益(元)</div>
+                            <div className={styles.num}>{data.actual_account}</div>
+                            <div className={styles.title}>已到帐收益(元)</div>
                         </div>
                        <div className={styles.item}>
                            <div className={classNames([styles.num,styles.default]) }>{data.nper}</div>
@@ -98,19 +98,23 @@ class Index extends Component{
                            <div className={styles.right}>{data.invest_money}</div>
                        </div>
                        <div className={styles.item}>
-                           <div className={styles.left}>预计年化利率</div>
+                           <div className={styles.left}>参考年回报率</div>
                            <div className={styles.right}>{data.rate}%</div>
                        </div>
                        <div className={styles.item}>
-                           <div className={styles.left}>锁定期限(月)</div>
+                           <div className={styles.left}>服务期限(月)</div>
                            <div className={styles.right}>{data.month}</div>
+                       </div>
+                       <div className={styles.item}>
+                           <div className={styles.left}>参考回报(月)</div>
+                           <div className={styles.right}>{data.plan_income}</div>
                        </div>
                        <div className={styles.item}>
                            <div className={styles.left}>产品起息日</div>
                            <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(data.start_time*1000))}</div>
                        </div>
                        <div className={styles.item}>
-                           <div className={styles.left}>锁定结束时间</div>
+                           <div className={styles.left}>产品到期日</div>
                            <div className={styles.right}>{utils.formatDate('yyyy-MM-dd',new Date(data.end_time*1000))}</div>
                        </div>
                    </div>
@@ -133,8 +137,8 @@ class Index extends Component{
                            <span className={styles.arrow}></span>
                        </div>
                        <div className={styles.item}>
-                           {contractsFillList&&contractsFillList.data.length!=0&&<div className={styles.left} onClick={()=>{this.props.push('/fillList/'+data.invest_id+'/F')}}>服务协议</div>
-                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1?product=1')}}>服务协议</div>}
+                           {contractsFillList&&contractsFillList.data.length!=0&&<div className={styles.left} onClick={()=>{this.props.push('/fillList/'+data.invest_id+'/I')}}>服务协议</div>
+                           ||<div className={styles.left} onClick={()=>{this.props.push('/serviceContract/'+data.invest_id+'/1?product=1')}}>项目协议</div>}
                            <span className={styles.arrow}></span>
                        </div>
                    </div>

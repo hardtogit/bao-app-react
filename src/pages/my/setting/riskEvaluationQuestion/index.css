@@ -125,3 +125,25 @@
   width:50px;
   margin-top: 115px;
 }
+.btns{
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  left:0;
+  display: flex;
+  height:48px;
+  border-top: 2px solid #00a6e2;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+}
+.left{
+  flex: 1;
+  background-color: #fff;
+  color: #00a6e2;
+}
+.right{
+  background-color:#00a6e2;
+  color: #fff;
+  flex: 1;
+}

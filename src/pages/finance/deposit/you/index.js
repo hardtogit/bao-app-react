@@ -355,17 +355,7 @@ const mapStateToProps = (state,ownProps) => {
     const user=sessionStorage.getItem("bao-auth");
     const userInfo=JSON.parse(sessionStorage.getItem("bao-user"));
     let ListHeight= user? document.body.clientHeight-88 : document.body.clientHeight-88-78;
-    //去除一个月的新手标
     let data=state.listdata.getIn([key, 'data']);
-    let copyData=[];
-    if(data&&data._tail){
-        for(let i=0; i<data._tail.array.length;i++){
-            if(data._tail.array[i].month!=1){
-                copyData.push(data._tail.array[i])
-            }
-        }
-    }
-    data=copyData;
     if (user) {
         if (userInfo) {
             if ((userInfo.voucher && userInfo.voucher>0) || userInfo.interestRateSecurities && userInfo.interestRateSecurities>0) {

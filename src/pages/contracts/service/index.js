@@ -277,7 +277,7 @@ class Index extends Component{
         return(
            <div className={styles.container}>
               <NavBar onLeft={()=>{pop('gatherBuy/3/2')}}>
-                  理财
+                  {this.props.location.query.product&&'优享+服务计划协议'||'聚点+服务计划协议'}
               </NavBar>
                {Dom}
            </div>

@@ -40,7 +40,7 @@ class Index extends Component{
                   标的详情
               </NavBar>
                <div className={styles.header}>
-                   为保护借款人信息，仅展示部分商品匹配标的信息。出借优享+后可在个人中心中查看已购买项目的匹配记录。
+                   为保护发行人信息，仅展示部分产品匹配标的。具体匹配以实际匹配为准。出借优享+后可在个人中心中查看已购买项目的全部匹配记录。
                </div>
                {this.state.init&&
                <Scroll  height={Height} fetch={()=>{this.props.gitData(this.props.params.id)}}

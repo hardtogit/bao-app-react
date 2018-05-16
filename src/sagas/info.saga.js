@@ -5,6 +5,7 @@ import * as actionTypes from '../actions/actionTypes'
 import {push,replace} from 'react-router-redux'
 import * as notLoginMap from '../actions/notLogin.map'
 import {auths} from '../actions/authMap'
+import {GET_EDUCATION_INFO} from "../actions/actionTypes";
 function* takeRequest (action) {
     yield put({
         type: actionTypes.FETCH_INFO_DATA_REQUEST,
@@ -34,6 +35,9 @@ function* takeRequest (action) {
                sessionStorage.setItem("bao-auth", true);
            }
        }
+        if(action.type==actionTypes.GET_EDUCATION_INFO&&response.code!='0000'){
+               sessionStorage.setItem("user-education",JSON.stringify(response.data));
+        }
         if(action.type==actionTypes.USER_INFO_WITH_LOGIN&&response.code!='0000'){
             sessionStorage.setItem("bao-user",JSON.stringify(response.data));
         }else if(action.type==actionTypes.USER_INFO_WITH_LOGIN&&response.code=='0000'){

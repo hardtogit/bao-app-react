@@ -652,11 +652,13 @@ export default {
     },
     [actionTypes.GET_DETAIL_BY_CONTRACT_ID]:{ //根据合同ID获取合同详情
         apiFn:Fetch.getDetailByContractId
+    },
+    [actionTypes.GET_PRODUCT_DISPLAY]:{
+        apiFn:Fetch.getProductDisplay
+    },
+    [actionTypes.GET_YOU_DETAIL]:{
+        apiFn:Fetch.getYouDetail
     }
-
-
-
-
 
 
 }

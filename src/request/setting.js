@@ -106,5 +106,7 @@ const requests = (Fetch) => {
     Fetch.subAnswer=(answers)=>{ return Fetch(`api/education/subAnswer?answers=${answers}`,'GET')}
     //投资者教育问题列表
     Fetch.questionTop=()=>{ return Fetch(`api/education/questionTop`,'GET')}
+    //获取产品显示影藏
+    Fetch.getProductDisplay=()=>{return Fetch(`api/users/display`,'GET')}
 };
 export default requests

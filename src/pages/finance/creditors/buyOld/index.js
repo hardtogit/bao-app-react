@@ -23,6 +23,8 @@ import IsAuth from '../../../../components/isAuth'
 import Pay from '../../../../pages/finance/pay/index'
 import util from '../../../../utils/utils'
 import setUrl from '../../../../components/setUrl'
+import Education from '../../../../components/Dialog/education'
+import Alert from '../../../../components/Dialog/alert'
 const hostName=window.location.origin;
 class CreditorBuy extends React.Component{
     constructor(props) {
@@ -82,11 +84,23 @@ class CreditorBuy extends React.Component{
         this.setState({copies: Number(value)})
     }
     onValid = () => {
-        const {select}=this.state;
-        if (select==1){
-            this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
-        }else {
-            this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+        if(this.props.EducationData.data.has_num!=0){
+            if( this.getPayTotal()>this.props.EducationData.data.single_buy_max_limit){
+                this.refs.alert.show({
+                    title:'风险提示',
+                    content:'根据您的风险评测结果为'+this.props.EducationData.data.name+",您已超过单笔出借最大金额限制"+this.props.EducationData.data.single_buy_max_limit+'元',
+                    okText:'确定'
+                })
+                return;
+            }
+            const {select}=this.state;
+            if (select==1){
+                this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
+            }else {
+                this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
+            }
+        }else{
+            this.refs.education.getWrappedInstance().show();
         }
     }
     successsFn=()=>{
@@ -257,6 +271,8 @@ class CreditorBuy extends React.Component{
                         <p className={styles.primeTxt}>{primeContent}</p>
                         <Tipbar ref="tipbar"/>
                         <IsAuth ref="isAuth"/>
+                        <Education ref='education'/>
+                        <Alert ref='alert'></Alert>
                     </div>
                 </div>
                 <div className={styles.zg} style={{top:this.state.payTop}}>

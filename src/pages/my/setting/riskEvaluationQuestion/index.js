@@ -63,6 +63,12 @@ class Index extends React.Component {
         }
 
     };
+    jumpTest=()=>{
+        this.props.subAnswer("1-A_2-A_3-A_4-A_5-A_6-A_7-A_8-A_9-A_10-A_11-A_12-A_13-A_14-A_15-A_16-A")
+        this.setState({
+            popIndex: 1
+        })
+    };
     handleClose=()=>{
         this.setState({
             popIndex: 0
@@ -157,7 +163,8 @@ class Index extends React.Component {
                 {
                     popDom
                 }
-                <div className={styles.startBtn} onClick={()=>{this.handleConfirm(countHas)}}>确认提交</div>
+                {EducationData&&EducationData.data.has_num==0&&<div className={styles.btns}><div onClick={()=>{this.jumpTest()}} className={styles.left}>跳过测评</div><div onClick={()=>{this.handleConfirm(countHas)}} className={styles.right}>提交答案</div></div>||<div className={styles.startBtn} onClick={()=>{this.handleConfirm(countHas)}}>确认提交</div>}
+
             </div>
         )
     }

@@ -122,6 +122,7 @@ const requests = (Fetch) => {
   Fetch.youBidBackDetail=(page,data)=>{return Fetch(`api/deposite/borrowRepaymentList/${data.id}?page=${page}`,'GET')}//我的聚点+标的还款详情
   Fetch.youProjects=(page,data)=>{return Fetch(`api/deposite/myInvestBorrowList?investId=${data.id}&type=${data.type}&page=${page}`,'GET')}//我的聚点+标的还款详情
   Fetch.youInvestRecord=(page,data)=>{return Fetch(`api/deposite/borrowInvest/${data.id}?page=${page}`,'GET')}//聚点+标
+  Fetch.getYouDetail=(id)=>{return Fetch(`api/deposite/detaiInfo/${id}?access_sys=platform`,'GET')}//聚点+详情
   //聚点+债转
   Fetch.wisdomList=(page)=>{return Fetch(`api/depositSupervise/zhixProjectLists?page=${page}`,'GET')};
   Fetch.wisdomDetail=(id)=>{return Fetch(`api/depositSupervise/zhixProductInfo/${id}`,'GET')};
