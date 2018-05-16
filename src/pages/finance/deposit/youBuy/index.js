@@ -309,13 +309,16 @@ class Index extends React.Component {
       if(!this.state.checkBoxTwo){
           return false
       }
-       if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance_platform){
-           return false;
-       }
+      const {select}=this.state;
+      if (select==1){
+      }else {
+          if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance_platform){
+              return false;
+          }
+      }
         return quantity &&
         quantity <= (quantityDataB && quantityDataB.data.quantity|| 0) ? true : false
   }
-
   // 获取支付费用
   getPayTotal = (type) => {
     const coupon = this.getCoupon();
