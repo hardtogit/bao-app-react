@@ -309,8 +309,7 @@ class Index extends React.Component {
       if(!this.state.checkBoxTwo){
           return false
       }
-      const {select}=this.state;
-      if (select==1){
+      if (this.refs.payProcess.state.chosen==2){
       }else {
           if(Number(utils.padMoney(this.getPayTotal()))>this.props.user.balance_platform){
               return false;
@@ -376,7 +375,7 @@ class Index extends React.Component {
               return;
           }
           const {select}=this.state;
-          if (select==1){
+          if (this.refs.payProcess.state.chosen==1){
               this.refs.isAuth.isSecurityCard(this.successsFn,this.props.push,'/user/setting/tradePasswordSet')
           }else {
               this.refs.isAuth.isbindSecurityCard(this.successsFn,this.props.push,'/user/setting/securityCard')
@@ -578,20 +577,6 @@ class Index extends React.Component {
         <div className={styles.bg}>
         <NavBar onLeft={()=>{this.pop()}} style={{position:'absolute',left:'0px',top:'0px'}}>确认支付</NavBar>
         <p className={styles.title}>出借产品：优享+ {quantityDataB&&quantityDataB.data.month}个月 年化利率（{quantityDataB&&quantityDataB.data.rate || ''}%）</p>
-        {/*<div className={styles.status}>*/}
-          {/*<div>*/}
-            {/*<p>单价<span>（元 / 份）</span></p>*/}
-            {/*<p>{this.state.unitPrice}.00</p>*/}
-          {/*</div>*/}
-          {/*<div>*/}
-            {/*<p>份数<span>（剩余{quantity}份）</span></p>*/}
-            {/*<div className={styles.form}>*/}
-              {/*<div className={styles.inputWrapper}>*/}
-                {/*<BuyInput value={this.state.quantity} onChange={this.changeQuantity} id={this.props.params.id}/>*/}
-              {/*</div>*/}
-            {/*</div>*/}
-          {/*</div>*/}
-        {/*</div>*/}
         <div className={styles.header}>
             <p className={styles.textOne}>我要出借 <small>(元)</small></p>
             <p className={styles.textTwo}>本期剩余可投{quantity}元</p>
