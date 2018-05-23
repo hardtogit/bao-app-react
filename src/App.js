@@ -18,9 +18,6 @@ import { RATE, USER_INFO,SAFE_CARD_INFO,DEPOSITBS_PLANB,STORE_STATUS_INFO,GET_ED
 import ProductList from './pages/active/productList'//无用
 // 主页
 import homeIndex from './pages/home/index'//首页
-import FindHome from './pages/find/home'//发现
-import ProductIndex from './pages/finance/home'//项目
-import MyIndex from './pages/my/home'//我的
 //发现模块
 import findIndex from './pages/find'
 // 我的模块
@@ -30,6 +27,7 @@ import {Analysis,Calendar,CalendarMonths,Recharge,MoneyLog,MyDCB,MyDCBB,ZqRecord
 ProductInfo, ZqProductInfo,DepositRecords,DepositRecordsB,MyDirectProjects,ProjectRecorde,ZqTransferRule,ScratchesCard,FridayActivity,
 AddAccrualIndex,CoinShop,DetailsDcb,DetailsDc,PropertyDetail,ZqPropertyDetail} from './pages/routeComponent/userComponent'
 import {DepositBuy,DirectBuy,DirectInvestDetails,DepositProduct,GatherMain} from './pages/routeComponent/depositComponent'
+import {ProductIndex,FindHome,MyIndex} from './pages/routeComponent/homeComponent'
 import {Login,WeChat,Register,RegisterVerifyMobile,RegisterSuccess,RegisterSetPassword,Findpassword,FindpasswordSetPassword,SafePlan,Agreement}from './pages/routeComponent/accountComponent'
 import {NewCharge,ReChargeOld,CashOld,CreditorBuyOld,ReChargeSuccess,ReChargeFail,IdCardUpload,IdCardUploadExplain,
     SuccessTemplate,DangerContract,ServiceContract,BorrowContract,StoreContract,MyBankCard,RiskEvaluation,RiskEvaluationQuestion,
