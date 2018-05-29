@@ -99,7 +99,7 @@ class PageTransition extends React.Component {
         transitionName={transitionGroup}
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
-        style={{position:'absolute',left:'0px',top:'0px',height:'100%',width:'100%'}}
+        style={{position:'absolute',left:'0px',top:'0px',height:'100%',width:'100%',WebkitOverflowScrolling:'touch'}}
       >
         {React.cloneElement(children || <div />, { key: pathname })}
       </ReactCSSTransitionGroup>
